@@ -95,6 +95,13 @@ def main():
     with open(a.out, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(tasks, f, ensure_ascii=False, indent=1)
 
+    # справочник кодов тем для фильтра на странице банка
+    import csv
+    with open(os.path.join(ROOT, 'topics.csv'), encoding='utf-8-sig', newline='') as f:
+        topics = {r['topic']: r['title'] for r in csv.DictReader(f)}
+    with open(os.path.join(os.path.dirname(a.out), 'topics.json'), 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(topics, f, ensure_ascii=False, indent=1)
+
     print(f"ЗАДАЧ В БАНКЕ: {len(tasks)}  →  {os.path.relpath(a.out, ROOT)}")
     print(f"с topic: {sum(1 for t in tasks if t.get('topic') not in (None, '', 'TODO'))}, "
           f"с решением: {sum(1 for t in tasks if t['solution'])}, "
