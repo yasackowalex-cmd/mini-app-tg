@@ -1,0 +1,14 @@
+% Преамбула для компиляции чертежей банка в SVG (scripts/tikz_to_svg.py).
+% Если чертёж использует макрос из egephys-style.sty, добавить его сюда.
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathmorphing,decorations.markings,
+  angles,quotes,positioning,intersections,shapes.geometric,backgrounds,through}
+% Цвета бренда (PROJECT.md, раздел 5). Чертежи ссылаются на brandPrimary; точные оттенки сверить с egephys-style.sty.
+\definecolor{brandPrimary}{HTML}{0066FF}
+\definecolor{brandDark}{HTML}{1B1F3B}
+\definecolor{brandAccent}{HTML}{FF6B35}

@@ -1,0 +1,918 @@
+[
+ {
+  "id": "energy_v1_n6",
+  "exam": "ЕГЭ",
+  "kim": 6,
+  "section": "Механика",
+  "theme": "КИНЕТИЧЕСКАЯ И ПОТЕНЦИАЛЬНАЯ ЭНЕРГИЯ. ЗСЭ",
+  "topic": "1.3.3",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 1,
+  "answer": "41",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "energy.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.0*sin(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\n\\begin{center}\n\\begin{stylebasic}\n\\begin{tabular}{cc}\n\n\\begin{tabular}{l}\nУстановите соответствие между графиками и физическими\\\\\nвеличинами, зависимость которых от времени эти графики\\\\\nмогут представлять.\\\\\n\\end{tabular}\n\\end{tabular}\n\\end{stylebasic}\n\\end{center}\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": null,
+  "file": "01_mechanics/energy_v1_n6.md",
+  "images": [
+   "assets/energy_v1_n6_1.svg"
+  ]
+ },
+ {
+  "id": "energy_v2_n6",
+  "exam": "ЕГЭ",
+  "kim": 6,
+  "section": "Механика",
+  "theme": "КИНЕТИЧЕСКАЯ И ПОТЕНЦИАЛЬНАЯ ЭНЕРГИЯ. ЗСЭ",
+  "topic": "1.3.3",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 2,
+  "answer": "42",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "energy.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {-1.0*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\n\\begin{center}\n\\begin{stylebasic}\n\\begin{tabular}{cc}\n\n\\begin{tabular}{l}\nУстановите соответствие между графиками и физическими\\\\\nвеличинами, зависимость которых от времени эти графики\\\\\nмогут представлять.\\\\\n\\end{tabular}\n\\end{tabular}\n\\end{stylebasic}\n\\end{center}\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": null,
+  "file": "01_mechanics/energy_v2_n6.md",
+  "images": [
+   "assets/energy_v2_n6_1.svg"
+  ]
+ },
+ {
+  "id": "energy_v7_n3",
+  "exam": "ЕГЭ",
+  "kim": 3,
+  "section": "Механика",
+  "theme": "КИНЕТИЧЕСКАЯ И ПОТЕНЦИАЛЬНАЯ ЭНЕРГИЯ. ЗСЭ",
+  "topic": "1.3.3",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 7,
+  "answer": "0{,",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "energy.tex",
+  "tikz": [],
+  "condition": "У основания гладкой наклонной плоскости шайба обладает скоростью, модуль которой равен $4$~м/с. Определите массу шайбы, если максимальная потенциальная энергия, которую она приобретает при подъёме по плоскости относительно её основания, составляет $0{,}4$~Дж. Сопротивлением воздуха пренебречь.",
+  "solution": null,
+  "file": "01_mechanics/energy_v7_n3.md",
+  "images": []
+ },
+ {
+  "id": "energy_v8_n3",
+  "exam": "ЕГЭ",
+  "kim": 3,
+  "section": "Механика",
+  "theme": "КИНЕТИЧЕСКАЯ И ПОТЕНЦИАЛЬНАЯ ЭНЕРГИЯ. ЗСЭ",
+  "topic": "1.3.3",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 8,
+  "answer": "1{,",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "energy.tex",
+  "tikz": [],
+  "condition": "У основания гладкой наклонной плоскости шайба массой $120$~г обладает скоростью, модуль которой равен $5$~м/с. Определите максимальную потенциальную энергию, которую приобретёт шайба при подъёме по плоскости относительно её основания. Сопротивлением воздуха пренебречь.",
+  "solution": null,
+  "file": "01_mechanics/energy_v8_n3.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v10_n24",
+  "exam": "ЕГЭ",
+  "kim": 24,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 10,
+  "answer": "300000",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "Сосуд объёмом $12$~л содержит смесь водорода и гелия общей массой $2$~г при температуре $-17^{\\circ}\\text{C}$. Каково давление смеси, если отношение массы водорода к массе гелия в ней равно $2{,}5$?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v10_n24.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v13_n24",
+  "exam": "ЕГЭ",
+  "kim": 24,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 13,
+  "answer": "1",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "В вертикальном цилиндре с гладкими стенками, закрытом сверху лёгким поршнем, находится этиловый спирт при температуре кипения $t = 78^{\\circ}\\text{C}$. При сообщении спирту количества теплоты $Q > 0$ часть его превращается в пар, который при изобарном расширении совершает работу $A$. Удельная теплота парообразования спирта $L = 846\\cdot10^3\\text{ Дж/кг}$, а его молярная масса $46\\cdot10^{-3}\\text{ кг/моль}$. Во сколько раз увеличение внутренней энергии этилового спирта превышает работу, совершённую паром? Изменением объёма жидкого этилового спирта пренебречь; считать, что атмосферное давление постоянно, а пары спирта — идеальный газ.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v13_n24.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v15_n23",
+  "exam": "ЕГЭ",
+  "kim": 23,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 15,
+  "answer": "557000",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "Каково давление $p$ аргона, если при плотности $1{,}8\\text{ кг/м}^3$ среднеквадратичная скорость хаотического теплового движения его молекул составляет $963\\text{ м/с}$?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v15_n23.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v1_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "качественная",
+  "variant": 1,
+  "answer": "Сравнение работы",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (7,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (7.5,0) node[right] {$T$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (6,1);\n    \\coordinate (3) at (6,3);\n    \\coordinate (4) at (3,3);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[dashed, thin, gray] (0,0) -- (4);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (4);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (4) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[below right] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \\fill[black] (4) circle (1.5pt) node[above left] {4};\n    \n    \\node[left] at (0,1) {$V_0$};\n    \\node[left] at (0,3) {$3V_0$};\n    \\node[below] at (1,0) {$T_0$};\n    \\node[below] at (3,0) {$3T_0$};\n    \\node[below] at (6,0) {$6T_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Один моль одноатомного идеального газа участвует в циклическом процессе 1–2–3–4–1, график которого изображён на рисунке в координатах $V-T$, где $V$ — объём газа, $T$ — абсолютная температура. Опираясь на законы молекулярной физики и термодинамики, сравните работу газа в процессе 2–3 и работу внешних сил в процессе 4–1. Постройте график цикла в координатах $p-V$, где $p$ — давление газа, $V$ — объём газа.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v1_n21.md",
+  "images": [
+   "assets/mkt_gas_v1_n21_1.svg"
+  ]
+ },
+ {
+  "id": "mkt_gas_v1_n7",
+  "exam": "ЕГЭ",
+  "kim": 7,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 1,
+  "answer": "60",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "С идеальным газом провели изотермический процесс, в котором в результате уменьшения объёма газа на $30\\text{ дм}^3$ его давление увеличилось в $2$ раза. Масса газа постоянна. Каким был первоначальный объём газа?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v1_n7.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v20_n24",
+  "exam": "ЕГЭ",
+  "kim": 24,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 20,
+  "answer": "193",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "Сосуд объёмом $8\\text{ л}$ содержит смесь водорода и гелия общей массой $2\\text{ г}$ при давлении $250\\text{ кПа}$. Какова температура смеси $T$, если отношение массы водорода к массе гелия в ней равно $2$?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v20_n24.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v29_n24",
+  "exam": "ЕГЭ",
+  "kim": 24,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 29,
+  "answer": "250000",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "Сосуд объёмом $8$~л содержит смесь водорода и гелия общей массой $2$~г при температуре $193$~К. Каково давление смеси, если отношение массы водорода к массе гелия в ней равно $2$?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v29_n24.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v2_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "качественная",
+  "variant": 2,
+  "answer": "Сравнение работы",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (7,6);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (7.5,0) node[right] {$T$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,6.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (6,5);\n    \\coordinate (3) at (6,3);\n    \\coordinate (4) at (2,1);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[dashed, thin, gray] (0,0) -- (3);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (4);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (4) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[right=2pt] {3};\n    \\fill[black] (4) circle (1.5pt) node[below right] {4};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[left] at (0,5) {$5p_0$};\n    \\node[below] at (1,0) {$T_0$};\n    \\node[below] at (2,0) {$2T_0$};\n    \\node[below] at (6,0) {$6T_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Один моль одноатомного идеального газа участвует в циклическом процессе 1–2–3–4–1, график которого изображён на рисунке в координатах $p-T$, где $p$ — давление газа, $T$ — абсолютная температура. Опираясь на законы молекулярной физики и термодинамики, сравните модуль работы газа в процессе 2–3 и модуль работы внешних сил в процессе 4–1. Постройте график цикла в координатах $p-V$, где $p$ — давление газа, $V$ — объём газа.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v2_n21.md",
+  "images": [
+   "assets/mkt_gas_v2_n21_1.svg"
+  ]
+ },
+ {
+  "id": "mkt_gas_v2_n7",
+  "exam": "ЕГЭ",
+  "kim": 7,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 2,
+  "answer": "30",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "С идеальным газом провели изотермический процесс, в котором в результате уменьшения объёма газа на $30\\text{ дм}^3$ его давление увеличилось в $2$ раза. Масса газа постоянна. Определите конечный объём газа.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v2_n7.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v3_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 3,
+  "answer": "32",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "В сосуде постоянного объёма абсолютную температуру гелия увеличили в $4$ раза, выпустив при этом $1/4$ газа из сосуда. Как изменились в результате этого плотность газа в сосуде и его внутренняя энергия?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v3_n10.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v4_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 4,
+  "answer": "32",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "Постоянная масса одноатомного идеального газа в изохорном процессе отдаёт количество теплоты $Q > 0$. Как меняются в этом процессе плотность и внутренняя энергия газа?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v4_n10.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v5_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 5,
+  "answer": "23",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,3);\n    \\coordinate (3) at (2,1);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[below] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 2–3 и концентрация газа в процессе 1–2?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v5_n10.md",
+  "images": [
+   "assets/mkt_gas_v5_n10_1.svg"
+  ]
+ },
+ {
+  "id": "mkt_gas_v6_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 6,
+  "answer": "12",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,3);\n    \\coordinate (3) at (2,1);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[below] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below, font=\\footnotesize] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 3–1 и концентрация газа в процессе 2–3?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v6_n10.md",
+  "images": [
+   "assets/mkt_gas_v6_n10_1.svg"
+  ]
+ },
+ {
+  "id": "mkt_gas_v7_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 7,
+  "answer": "33",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "В цилиндре под поршнем находятся жидкость и её насыщенный пар. Как изменятся давление и плотность пара при медленном перемещении поршня вниз, если температура останется неизменной? В процессе движения поршень не касается поверхности жидкости.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v7_n10.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v8_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 8,
+  "answer": "33",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [],
+  "condition": "В цилиндре под поршнем находятся жидкость и её насыщенный пар. Как изменятся давление и концентрация молекул пара при медленном перемещении поршня вверх, если температура останется неизменной? В процессе движения поршня в сосуде остаётся жидкость.",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v8_n10.md",
+  "images": []
+ },
+ {
+  "id": "mkt_gas_v9_n10",
+  "exam": "ЕГЭ",
+  "kim": 10,
+  "section": "МКТ и термодинамика",
+  "theme": "УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ",
+  "topic": "2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 9,
+  "answer": "32",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ"
+  ],
+  "source": "ig.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$T$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};\n    \n    \\coordinate (1) at (2,1);\n    \\coordinate (2) at (2,3);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?",
+  "solution": null,
+  "file": "02_mkt/mkt_gas_v9_n10.md",
+  "images": [
+   "assets/mkt_gas_v9_n10_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v11_n14",
+  "exam": "ЕГЭ",
+  "kim": 14,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 11,
+  "answer": "14",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,0) grid (3,1);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (-3.5,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,1.5) node[above] {$y$};\n    \n    \\coordinate (Q1) at (-2,0);\n    \\coordinate (Q2) at (2,0);\n    \n    \\fill[black] (Q1) circle (2pt) node[above] {$+q$};\n    \\fill[black] (Q2) circle (2pt) node[above] {$-q$};\n    \n    \\node[below] at (-2,0) {$-a$};\n    \\node[below] at (2,0) {$a$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "На оси $Ox$ расположены два неподвижных точечных заряда: $q_1 = +q$ в точке $x = -a$ и $q_2 = -q$ в точке $x = +a$. Из приведённого ниже списка выберите все верные утверждения относительно электростатического поля, создаваемого этими зарядами.\n\n1) В точке $x = 0$ вектор напряжённости суммарного электрического поля направлен вправо (вдоль оси $Ox$).\\\\\n2) Напряжённость суммарного электрического поля в точке $x = 2a$ равна нулю.\\\\\n3) Потенциал суммарного электрического поля в точке $x = -2a$ равен нулю.\\\\\n4) Проекция вектора напряжённости электрического поля на ось $Ox$ в точке $x = 0$ положительна.\\\\\n5) Модуль напряжённости электрического поля в точке $x = -2a$ больше, чем в точке $x = 0$.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v11_n14.md",
+  "images": [
+   "assets/elem_coulomb_v11_n14_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v12_n14",
+  "exam": "ЕГЭ",
+  "kim": 14,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 12,
+  "answer": "23",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,0) grid (3,1);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (-3.5,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,1.5) node[above] {$y$};\n    \n    \\coordinate (Q1) at (-2,0);\n    \\coordinate (Q2) at (2,0);\n    \n    \\fill[black] (Q1) circle (2pt) node[above] {$+q$};\n    \\fill[black] (Q2) circle (2pt) node[above] {$+q$};\n    \n    \\node[below] at (-2,0) {$-a$};\n    \\node[below] at (2,0) {$a$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "На оси $Ox$ расположены два одинаковых неподвижных точечных заряда: $q_1 = +q$ в точке $x = -a$ и $q_2 = +q$ в точке $x = +a$. Из приведённого ниже списка выберите все верные утверждения относительно электростатического поля, создаваемого этими зарядами.\n\n1) В точке $x = 0$ модуль напряжённости суммарного электрического поля максимален.\\\\\n2) В точке $x = 0$ вектор напряжённости суммарного электрического поля равен нулю.\\\\\n3) Потенциал суммарного электрического поля в точке $x = 0$ положителен.\\\\\n4) В точке $x = 2a$ вектор напряжённости суммарного электрического поля направлен влево.\\\\\n5) Модуль напряжённости электрического поля в точке $x = 2a$ равен нулю.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v12_n14.md",
+  "images": [
+   "assets/elem_coulomb_v12_n14_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v15_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 15,
+  "answer": "9",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними увеличить в $3$ раза?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v15_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v16_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 16,
+  "answer": "3",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз нужно уменьшить расстояние от точечного заряда до некоторой точки пространства, чтобы модуль напряжённости электрического поля в этой точке увеличился в $9$ раз?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v16_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v1_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 1,
+  "answer": "9",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если модуль заряда каждого из тел уменьшить в $3$ раза?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v1_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v21_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "качественная",
+  "variant": 21,
+  "answer": "Уменьшится в 2 раза",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Небольшое заряженное тело массой $m$ и зарядом $q > 0$ влетает в плоский горизонтальный конденсатор с горизонтально направленной скоростью $v_0$ параллельно пластинам. Длина пластин $L$, расстояние между ними $d$. Напряжённость электрического поля внутри конденсатора равна $E$. Как изменится вертикальное смещение тела при вылете из конденсатора, если напряжённость поля $E$ увеличить в $2$ раза, а начальную скорость $v_0$ увеличить в $2$ раза? Тяготением пренебречь. Ответ обоснуйте, указав используемые физические закономерности.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v21_n21.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v22_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "качественная",
+  "variant": 22,
+  "answer": "L/3",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,1);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (4.5,0) node[right] {$x$};\n    \n    \\coordinate (Q1) at (0,0);\n    \\coordinate (Q2) at (3,0);\n    \n    \\fill[black] (Q1) circle (2pt) node[above] {$+q$};\n    \\fill[black] (Q2) circle (2pt) node[above] {$+4q$};\n    \n    \\node[below] at (0,0) {$0$};\n    \\node[below] at (3,0) {$L$};\n\\end{tikzpicture}"
+  ],
+  "condition": "Два положительных точечных заряда $q$ и $4q$ закреплены на расстоянии $L$ друг от друга. Где на отрезке, соединяющем эти заряды, следует поместить третий точечный заряд $-q_0$, чтобы он находился в равновесии? Укажите расстояние от заряда $q$ до заряда $-q_0$. Ответ обоснуйте, указав используемые физические закономерности.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v22_n21.md",
+  "images": [
+   "assets/elem_coulomb_v22_n21_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v23_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 23,
+  "answer": "25",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз увеличится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними уменьшить в $5$ раз?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v23_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v24_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 24,
+  "answer": "5",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз увеличится модуль напряжённости электрического поля точечного заряда в некоторой точке пространства, если модуль этого заряда увеличить в $5$ раз?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v24_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v25_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "качественная",
+  "variant": 25,
+  "answer": "0",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,3.5) node[above] {$y$};\n    \n    \\coordinate (1) at (0.5,0.5);\n    \\coordinate (2) at (2.5,0.5);\n    \\coordinate (3) at (2.5,2.5);\n    \\coordinate (4) at (0.5,2.5);\n    \\coordinate (O) at (1.5,1.5);\n    \n    \\draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;\n    \\draw[dashed, gray] (1) -- (3);\n    \\draw[dashed, gray] (2) -- (4);\n    \n    \\fill[black] (1) circle (2pt) node[below left] {$+q$};\n    \\fill[black] (2) circle (2pt) node[below right] {$+q$};\n    \\fill[black] (3) circle (2pt) node[above right] {$-q$};\n    \\fill[black] (4) circle (2pt) node[above left] {$+q$};\n    \\fill[black] (O) circle (1.5pt) node[below] {$O$};\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "В вершинах квадрата со стороной $a$ закреплены четыре точечных заряда: трех из них равны $+q$, а один равен $-q$. Модуль напряжённости суммарного электрического поля этих зарядов в центре квадрата равен $E_0$. Чему станет равен модуль напряжённости поля в центре квадрата, если заряд $-q$ заменить на $+q$? Ответ обоснуйте, указав используемые физические закономерности.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v25_n21.md",
+  "images": [
+   "assets/elem_coulomb_v25_n21_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v26_n25",
+  "exam": "ЕГЭ",
+  "kim": 25,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная (часть 2)",
+  "variant": 26,
+  "answer": "9",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-1,0) grid (3,3);\n    \n    % Пластины\n    \\draw[ultra thick, black] (-0.5,0.5) -- (-0.5,2.5);\n    \\draw[ultra thick, black] (2.5,0.5) -- (2.5,2.5);\n    \\node[above] at (-0.5,2.5) {$+$};\n    \\node[above] at (2.5,2.5) {$-$};\n    \n    % Подвес и нить\n    \\draw[thick, black] (1,2.5) -- (1.8,1.1);\n    \\draw[dashed, gray] (1,2.5) -- (1,0.5);\n    \n    % Шарик\n    \\fill[brandPrimary] (1.8,1.1) circle (3pt) node[right=2pt] {$q$};\n    \n    % Вектор E\n    \\draw[-{Stealth[scale=0.8]}, thick, brandPrimary] (0,1.5) -- (0.8,1.5) node[above] {$\\vec{E}$};\n    \n    % Угол alpha\n    \\draw (1,2.0) arc (270:300:0.5);\n    \\node at (1.15,1.8) {$\\alpha$};\n    \n    \\node[below left] at (-1,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Маленький шарик массой $m = 0{,}9\\text{ г}$ с зарядом $q = 10\\text{ нКл}$ подвешен на невесомой шёлковой нити между двумя вертикальными параллельными противоположно заряженными пластинами. Вектор напряжённости электрического поля между пластинами направлен горизонтально, а модуль напряжённости равен $E = 3\\cdot 10^5\\text{ В/м}$. Определите угол $\\alpha$ отклонения нити от вертикали. Ответ выразите в градусах.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v26_n25.md",
+  "images": [
+   "assets/elem_coulomb_v26_n25_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v2_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 2,
+  "answer": "16",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз увеличится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними уменьшить в $4$ раза?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v2_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v3_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 3,
+  "answer": "4,5",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$y$};\n    \n    \\coordinate (A) at (1,1);\n    \\coordinate (B) at (3,1);\n    \\coordinate (C) at (1,3);\n    \n    \\draw[thick, gray] (A) -- (B) -- (C) -- cycle;\n    \n    \\fill[black] (A) circle (2pt) node[below left] {$A$ ($+q$)};\n    \\fill[black] (B) circle (2pt) node[below right] {$B$ ($-q$)};\n    \\fill[black] (C) circle (2pt) node[above left] {$C$};\n    \n    \\node[left] at (0,1) {$1$};\n    \\node[left] at (0,3) {$3$};\n    \\node[below] at (1,0) {$1$};\n    \\node[below] at (3,0) {$3$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "В вершинах равнобедренного прямоугольного треугольника $ABC$ с катетами $a = 10\\text{ см}$ расположены точечные заряды $q_A = +2\\text{ нКл}$ и $q_B = -2\\text{ нКл}$. Найдите модуль напряжённости электрического поля этих зарядов в точке $C$. Ответ выразите в кВ/м.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v3_n11.md",
+  "images": [
+   "assets/elem_coulomb_v3_n11_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v4_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 4,
+  "answer": "0,5",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,1);\n    \\coordinate (3) at (3,3);\n    \\coordinate (4) at (1,3);\n    \\coordinate (O) at (2,2);\n    \n    \\draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;\n    \\draw[dashed, gray] (1) -- (3);\n    \\draw[dashed, gray] (2) -- (4);\n    \n    \\fill[black] (1) circle (2pt) node[below left] {$q_1$};\n    \\fill[black] (2) circle (2pt) node[below right] {$q_2$};\n    \\fill[black] (O) circle (2pt) node[above] {$O$};\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "В двух вершинах квадрата со стороной $a = 30\\text{ см}$ находятся неподвижные точечные заряды $q_1 = +4\\text{ нКл}$ и $q_2 = -4\\text{ нКл}$. Чему равен модуль напряжённости электрического поля этих зарядов в центре квадрата? Ответ выразите в кВ/м.",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v4_n11.md",
+  "images": [
+   "assets/elem_coulomb_v4_n11_1.svg"
+  ]
+ },
+ {
+  "id": "elem_coulomb_v7_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 7,
+  "answer": "4",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними увеличить в $2$ раза?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v7_n11.md",
+  "images": []
+ },
+ {
+  "id": "elem_coulomb_v8_n11",
+  "exam": "ЕГЭ",
+  "kim": 11,
+  "section": "Электродинамика",
+  "theme": "ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ",
+  "topic": "3.1.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 8,
+  "answer": "2",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "КУЛОН",
+   "НАПРЯЖЕННОСТЬ"
+  ],
+  "source": "col.tex",
+  "tikz": [],
+  "condition": "Во сколько раз увеличится модуль напряжённости электрического поля точечного заряда в некоторой точке пространства, если модуль этого заряда увеличить в $2$ раза?",
+  "solution": null,
+  "file": "03_electrodynamics/elem_coulomb_v8_n11.md",
+  "images": []
+ }
+]
