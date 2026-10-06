@@ -1,0 +1,479 @@
+% ====================================================================
+% РАЗДЕЛ: МЕХАНИКА (СБОРНИК ЗАДАНИЙ №5 И №6)
+% ====================================================================
+
+% ====================================================================
+% ВАРИАНТ 5
+% ====================================================================
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_05 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:dem26_v5_n5}}]
+\textbf{Задача 5.} Два тела, каждое массой $2$~кг, движутся по одной прямой, вдоль которой направлена ось $Ox$. На рисунке приведены графики зависимости проекций $v_x$ их скоростей от времени $t$. 
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=0.25cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=2, gray!30, thin] (0,0) grid (18,8);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (20,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,9) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,8) {$8$};
+    \node[left] at (0,6) {$6$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,2) {$2$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10,12,14,16,18} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,7) -- (18,3.14) node[right, black] {1};
+    \draw[ultra thick, brandAccent] (0,0.5) -- (18,5) node[right, black] {2};
+\end{tikzpicture}
+\end{center}
+
+Из приведённого ниже списка выберите все верные утверждения о движении тел.
+1) Равнодействующая сил, действующих на тело 1, монотонно убывает в течение всего времени наблюдения.
+2) В промежутке времени от $0$ до $14$~с тела двигались навстречу друг другу.
+3) Кинетическая энергия тела 2 за промежуток времени от $6$ до $14$~с увеличилась в $4$ раза.
+4) Путь, пройденный телом 1 за промежуток времени от $0$ до $18$~с, больше пути, пройденного телом 2 за тот же промежуток времени.
+5) Модуль импульса тела 2 в момент времени $t=10$~с равен $10$~\text{кг}$\cdot$\text{м/с}.
+
+\kim{5}
+\end{taskbasic}
+\answer{34}
+
+
+% ====================================================================
+% ВАРИАНТ 7
+% ====================================================================
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_05 #ВАРИАНТ_07
+\begin{taskbasic}[code={\label{task:dem26_v7_n5}}]
+\textbf{Задача 5.} На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$. 
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0.5:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
+    \fill[black] (0.8, 0.45) circle (1.5pt) node[left] {$A$};
+    \fill[black] (1.15, 0.2) circle (1.5pt) node[below] {$B$};
+    \fill[black] (2.25, 1.95) circle (1.5pt) node[left] {$C$};
+    \fill[black] (3.1, 1.45) circle (1.5pt) node[right] {$D$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+Из приведённого ниже списка выберите все верные утверждения.
+1) В положении $A$ модуль скорости тела больше, чем в положении $D$.
+2) В точке $B$ проекция скорости тела на ось $Ox$ равна нулю.
+3) В положении $D$ векторы скорости и ускорения тела направлены в противоположные стороны.
+4) Проекция перемещения тела на ось $Ox$ при его переходе из точки $A$ в точку $B$ положительна.
+5) На участке $AB$ модуль скорости тела уменьшается.
+
+\kim{5}
+\end{taskbasic}
+\answer{125}
+
+
+% ====================================================================
+% ВАРИАНТ 13
+% ====================================================================
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_05 #ВАРИАНТ_13
+\begin{taskbasic}[code={\label{task:dem26_v13_n5}}]
+\textbf{Задача 5.} На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$. 
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0.5:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
+    \fill[black] (0.8, 0.45) circle (1.5pt) node[left] {$A$};
+    \fill[black] (1.9, 1.55) circle (1.5pt) node[left] {$B$};
+    \fill[black] (2.65, 2.2) circle (1.5pt) node[above] {$C$};
+    \fill[black] (3.3, 1.1) circle (1.5pt) node[right] {$D$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+Из приведённого ниже списка выберите все верные утверждения.
+1) В точке $A$ ускорение тела равно нулю.
+2) В точке $B$ проекция ускорения тела на ось $Ox$ положительна.
+3) Проекция перемещения тела на ось $Ox$ при переходе из точки $B$ в точку $C$ отрицательна.
+4) В точке $D$ проекция скорости тела на ось $Ox$ отрицательна.
+5) На участке $CD$ кинетическая энергия тела увеличивается.
+
+\kim{5}
+\end{taskbasic}
+\answer{13}
+
+
+% ====================================================================
+% ВАРИАНТ 15
+% ====================================================================
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_15
+\begin{taskbasic}[code={\label{task:dem26_v15_n6}}]
+\textbf{Задача 6.} На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$ (парабола). Графики А и Б представляют собой зависимости физических величин, характеризующих движение этого тела, от времени $t$.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0:2.5] plot (\x, {1.5 - 1.2*\x + 0.3*\x*\x});
+    \node[below] at (2,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,-1) -- (2,0) -- (3,0.5);
+    \node[below] at (2,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,0.8) -- (3,0.8);
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.
+1) проекция скорости тела на ось $Ox$
+2) проекция перемещения тела на ось $Ox$
+3) кинетическая энергия тела
+4) модуль  равнодействующей сил, действующих на тело
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{14}
+
+
+% ====================================================================
+% ВАРИАНТ 17
+% ====================================================================
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_17
+\begin{taskbasic}[code={\label{task:dem26_v17_n6}}]
+\textbf{Задача 6.} После удара в момент времени $t=0$ шайба начала скользить вверх по гладкой наклонной плоскости с начальной скоростью $\vec{v}_0$, как показано на рисунке. В момент времени $t_0$ шайба вернулась в исходное положение. Графики А и Б отображают изменение с течением времени физических величин, характеризующих движение шайбы.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \draw[thick] (0,0) -- (3,1.2) -- (3,0) -- cycle;
+    \draw[fill=gray!60] (0.8,0.32) rectangle (1.3,0.7) [rotate around={21.8:(1.05,0.51)}];
+    \draw[-{Stealth[scale=0.8]}, ultra thick, black] (1.05,0.51) -- (1.8,0.81) node[above] {$\vec{v}_0$};
+    \draw[->] (0,0) -- (3.5,0) node[right] {$x$};
+    \draw[->] (0,0) -- (0,2.0) node[above] {$y$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,1.5) -- (3,1.5);
+    \node[below] at (3,0) {$t_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,1.2) -- (3,-1.0);
+    \node[below] at (3,0) {$t_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, изменение которых со временем эти графики могут отображать.
+1) проекция скорости $v_y$
+2) проекция ускорения $a_x$
+3) кинетическая энергия $E_{\text{к}}$
+4) полная механическая энергия $E_{\text{мех}}$
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{41}
+
+% === ЗАДАЧА 22 ===
+% Тег: #МЕХАНИКА #КИМ_22 #ВАРИАНТ_17
+\begin{taskbasic}[code={\label{task:dem26_v17_n22}}]
+\textbf{Задача 22.} Прямолинейно движущийся поезд последние перед остановкой $1200$~м своего пути преодолел за $2$~минуты. Определите скорость поезда за $30$~с до остановки. Ускорение поезда считать постоянным.
+
+\kim{22}
+\end{taskbasic}
+\answer{10~м/с}
+
+
+% ====================================================================
+% ВАРИАНТ 19
+% ====================================================================
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_19
+\begin{taskbasic}[code={\label{task:dem26_v19_n6}}]
+\textbf{Задача 6.} Тело движется вдоль оси $Ox$, при этом его координата изменяется с течением времени в соответствии с уравнением $x(t)=8+3t-5t^{2}$ (все величины выражены в СИ). Графики А и Б представляют собой зависимости физических величин, характеризующих движение этого тела, от времени $t$.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0:2.5, samples=100] plot (\x, {1.5 - 1.5*\x + 0.5*\x*\x});
+    \node[below] at (1.5,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,0.8) -- (2.5,-1.0);
+    \node[below] at (1.0,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.
+1) проекция $a_x$ ускорения тела
+2) кинетическая энергия тела
+3) модуль импульса тела
+4) проекция $v_x$ скорости тела
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{24}
+
+
+% ====================================================================
+% ВАРИАНТ 20
+% ====================================================================
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_20
+\begin{taskbasic}[code={\label{task:dem26_v20_n6}}]
+\textbf{Задача 6.} Тело движется вдоль оси $Ox$, при этом его координата изменяется с течением времени в соответствии с уравнением $x(t)=10+2t-6t^{2}$ (все величины выражены в СИ). Графики А и Б представляют собой зависимости физических величин, характеризующих движение этого тела, от времени $t$.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.5) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,-1.0) -- (3,-1.0);
+    \node[below] at (1.0,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,1.0) -- (2.5,-1.2);
+    \node[below] at (1.0,0) {$t_1$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величины, зависимость которых от времени эти графики могут представлять.
+1) проекция $a_x$ ускорения тела
+2) кинетическая энергия тела
+3) модуль импульса тела
+4) проекция $v_x$ скорости тела
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{14}
+
+
+% ====================================================================
+% ВАРИАНТ 27
+% ====================================================================
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_05 #ВАРИАНТ_27
+\begin{taskbasic}[code={\label{task:dem26_v27_n5}}]
+\textbf{Задача 5.} На рисунке приведены графики зависимости проекции $v_x$ скорости от времени $t$ для двух тел А и В, движущихся вдоль оси $Ox$. 
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=0.45cm, y=0.1cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=10, gray!30, thin] (0,-20) grid (10,30);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-20) -- (0,34) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,30) {$30$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,-10) {$-10$};
+    \node[left] at (0,-20) {$-20$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-20) -- (10,30) node[right, black] {$A$};
+    \draw[ultra thick, brandAccent, domain=0:8, samples=100] plot (\x, {30 - 1.25*(\x-2)*(\x-2)}) node[right, black] {$B$};
+\end{tikzpicture}
+\end{center}
+
+Выберите все верные утверждения о характере движения тел.
+1) Тело А движется равномерно со скоростью $5$~м/с.
+2) Тело В за первые $4$~секунды движения переместилось в положительном направлении оси $Ox$ на расстояние более $120$~м.
+3) В промежутке времени от $0$ до $8$~с путь, пройденный телом А, равен $0$.
+4) В интервале времени от $6$ до $8$~с тело В изменило направление своего движения.
+5) В момент времени $6$~с тела А и В двигались с одинаковой скоростью в одном направлении.
+
+\kim{5}
+\end{taskbasic}
+\answer{5}
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_27
+\begin{taskbasic}[code={\label{task:dem26_v27_n6}}]
+\textbf{Задача 6.} После удара в момент $t=0$ шайба начала скользить вверх по гладкой наклонной плоскости с начальной скоростью, как показано на рисунке, и в момент времени $t=t_0$ вернулась в исходное положение. Графики А и Б отображают изменение с течением времени физических величин, характеризующих движение шайбы.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
+    \draw[thick] (0,0) -- (3,1.2) -- (3,0) -- cycle;
+    \draw[fill=gray!60] (0.8,0.32) rectangle (1.3,0.7) [rotate around={21.8:(1.05,0.51)}];
+    \draw[-{Stealth[scale=0.8]}, ultra thick, black] (1.05,0.51) -- (1.8,0.81) node[above] {$\vec{v}_0$};
+    \draw[->] (0,0) -- (3.5,0) node[right] {$x$};
+    \draw[->] (0,0) -- (0,2.0) node[above] {$y$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0:3, samples=100] plot (\x, {1.5 - 1.5*(\x-1.5)*(\x-1.5)});
+    \node[below] at (3,0) {$t_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,1.2) -- (3,-1.2);
+    \node[below] at (3,0) {$t_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, изменение которых со временем эти графики могут отображать.
+1) кинетическая энергия $E_{\text{к}}$
+2) проекция скорости $v_y$
+3) координата $x$
+4) проекция силы тяжести на ось $Ox$
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{32}
+
+
+% ====================================================================
+% ВАРИАНТ 29
+% ====================================================================
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_29
+\begin{taskbasic}[code={\label{task:dem26_v29_n6}}]
+\textbf{Задача 6.} На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$ (парабола). Графики А и Б представляют собой зависимости физических величин, характеризующих движение тела, от времени $t$.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.5) -- (0,1.5) node[above] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary, domain=0:2.5] plot (\x, {-0.5 - 0.8*\x + 0.4*\x*\x});
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {А)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,-1.0) -- (1.2,0) -- (3,1.5);
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}[b]{0.3\linewidth}
+\centering
+\begin{tikzpicture}[scale=0.6, every node/.style={font=\footnotesize}]
+    \node[above] at (1.2,2.0) {Б)};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};
+    \draw[ultra thick, brandPrimary] (0,1.2) -- (3,1.2);
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.
+1) модуль скорости тела
+2) модуль ускорения тела
+3) кинетическая энергия тела
+4) проекция на ось $Ox$ перемещения тела из начального положения
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\kim{6}
+\end{taskbasic}
+\answer{12}

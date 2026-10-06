@@ -1,0 +1,384 @@
+% ============================================================
+%  egephys-style.sty — единый стилевой пакет для курса ЕГЭ-физика
+%  Автор курса: Александр («Саня дай сотку»)
+%  Движок: pdfLaTeX
+%  База: ogephys-style.sty (перенос стиля ОГЭ)
+%  Использование:
+%    \usepackage{egephys-style}              для article/report
+%    \usepackage[beamer]{egephys-style}      для beamer-презентаций
+%  Отличия от ОГЭ:
+%    - метка КИМ: \kim{11} / \kimavt{11} вместо источников;
+%    - уровни Б/П/В: белый фон + цветной корешок + чип (без «светофора»);
+%    - критерии Части 2: окружение critbox.
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{egephys-style}[2026/07/02 EGE Physics course style]
+
+% --- режим: article (по умолчанию) или beamer ---
+\newif\ifegephysbeamer
+\egephysbeamerfalse
+\DeclareOption{beamer}{\egephysbeamertrue}
+\ProcessOptions\relax
+
+% --- базовые пакеты (pdfLaTeX) ---
+\RequirePackage[T2A]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english,russian]{babel}
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage{mathtools}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{calc,arrows.meta,decorations.pathmorphing,patterns,positioning}
+\RequirePackage{enumitem}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% --- ПАЛИТРА БРЕНДА ---
+\definecolor{brandPrimary}{HTML}{0066FF}      % синий
+\definecolor{brandSecondary}{HTML}{1B1F3B}    % тёмный
+\definecolor{brandLight}{HTML}{E8F1FF}        % светлая заливка
+\definecolor{brandAccent}{HTML}{FF6B35}       % оранжевый
+\definecolor{brandNeutral}{HTML}{F4F4F4}      % нейтральный фон
+
+% --- УРОВНИ Б/П/В: единая палитра (без светофора, без красного) ---
+% используются и для корешка, и для чипа, и для заголовков уровней ДЗ
+\definecolor{levelBasicLine}{HTML}{0066FF}     % Б — синий бренда
+\definecolor{levelMediumLine}{HTML}{B5730F}    % П — амбер
+\definecolor{levelAdvancedLine}{HTML}{1B1F3B}  % В — тёмный бренда
+
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=brandPrimary,
+  linkcolor=brandPrimary,
+  citecolor=brandPrimary,
+  pdfborder={0 0 0}
+}
+
+% --- ссылка на ТГ-канал и метки бренда ---
+\newcommand{\brandTG}{\href{https://t.me/physics_is_phun}{САНЯ ДАЙ СОТКУ}}
+\newcommand{\courseLabel}{ЕГЭ физика}
+
+% ============================================================
+%  ОБЩИЕ МАКРОСЫ (доступны в обоих режимах)
+% ============================================================
+
+% --- метка КИМ (заменяет источники) ---
+% \kim{11}     -> «задание 11»  (по умолчанию: реальная задача типажа ФИПИ)
+% \kimavt{11}  -> «задание 11 · авторская»  (редкий случай, помечаем явно)
+\newcommand{\kim}[1]{\par\nopagebreak\smallskip\hfill\textit{\footnotesize\textcolor{brandSecondary!70}{задание #1}}}
+\newcommand{\kimavt}[1]{\par\nopagebreak\smallskip\hfill\textit{\footnotesize\textcolor{brandSecondary!70}{задание #1 $\cdot$ авторская}}}
+% deprecated-совместимость с перенесёнными ОГЭ-файлами (не использовать в новых):
+\newcommand{\source}[1]{\par\nopagebreak\smallskip\hfill\textit{\footnotesize\textcolor{brandSecondary!70}{#1}}}
+\let\slidesource\source
+
+% --- чип уровня (Б/П/В) ---
+\newcommand{\lvlchip}[2]{{\small\colorbox{#2}{\color{white}\bfseries\,#1\,}}\hspace{0.4em}}
+
+% ============================================================
+%  БЛОКИ ДЛЯ МЕТОДИЧКИ И ДЗ (article-режим)
+% ============================================================
+\ifegephysbeamer\else
+
+% поля
+\RequirePackage[a4paper,top=2.2cm,bottom=2cm,left=2cm,right=2cm,
+                headheight=12pt,headsep=20pt]{geometry}
+\RequirePackage{parskip}
+\setlength{\parindent}{0pt}
+
+% --- колонтитулы: вверху — бренд/курс, внизу — номер страницы ---
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\textcolor{brandSecondary!80}{\courseLabel}}
+\fancyhead[R]{\footnotesize\brandTG}
+\fancyfoot[C]{\scriptsize\textcolor{brandSecondary!80}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% заголовки — чёрные, без нумерации
+\RequirePackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{black}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{black}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{black}}{\thesubsubsection}{0.6em}{}
+\setcounter{secnumdepth}{0}
+
+% --- блок «Определение» ---
+\newtcolorbox{defbox}[1][]{
+  colback=brandLight,
+  colframe=brandPrimary,
+  boxrule=0.8pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt,
+  title=\textbf{Определение},
+  coltitle=white,
+  colbacktitle=brandPrimary,
+  fonttitle=\bfseries,
+  breakable,
+  #1
+}
+
+% --- ключевая формула ---
+\newcommand{\keyformula}[1]{%
+  \begin{center}
+  \setlength{\fboxsep}{10pt}%
+  \setlength{\fboxrule}{1.2pt}%
+  \fcolorbox{brandPrimary}{white}{#1}%
+  \end{center}
+}
+
+% --- блок «Запомни» ---
+\newtcolorbox{notebox}[1][]{
+  colback=brandLight,
+  colframe=brandSecondary,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=4pt,bottom=4pt,
+  breakable,
+  #1
+}
+
+% --- блок «Внимание» ---
+\newtcolorbox{warningbox}[1][]{
+  colback=white,
+  colframe=brandAccent,
+  boxrule=1pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=4pt,bottom=4pt,
+  title=\textbf{Внимание},
+  coltitle=white,
+  colbacktitle=brandAccent,
+  fonttitle=\bfseries,
+  breakable,
+  #1
+}
+
+% --- эталонный разбор ---
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=brandNeutral,
+  colframe=brandSecondary,
+  boxrule=0.5pt,
+  arc=2pt,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,
+  title=\textbf{Эталонное решение},
+  coltitle=white,
+  colbacktitle=brandSecondary,
+  fonttitle=\bfseries,
+  breakable,
+  #1
+}
+
+% --- критерии ФИПИ для Части 2 (задания 21–26) ---
+\newtcolorbox{critbox}[1][]{
+  enhanced,
+  colback=white,
+  colframe=brandAccent,
+  boxrule=0.6pt,
+  arc=2pt,
+  left=10pt,right=10pt,top=6pt,bottom=6pt,
+  title=\textbf{Критерии оценивания (ФИПИ)},
+  coltitle=white,
+  colbacktitle=brandAccent,
+  fonttitle=\bfseries,
+  breakable,
+  #1
+}
+
+% --- задачи по уровням: белый фон + корешок + чип ---
+\newtcolorbox{taskbasic}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.6pt}{0pt}{levelBasicLine},
+  left=12pt,right=8pt,top=5pt,bottom=5pt, breakable,
+  before upper={\lvlchip{Б}{levelBasicLine}},
+  #1
+}
+\newtcolorbox{taskmedium}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.6pt}{0pt}{levelMediumLine},
+  left=12pt,right=8pt,top=5pt,bottom=5pt, breakable,
+  before upper={\lvlchip{П}{levelMediumLine}},
+  #1
+}
+\newtcolorbox{taskadvanced}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.6pt}{0pt}{levelAdvancedLine},
+  left=12pt,right=8pt,top=5pt,bottom=5pt, breakable,
+  before upper={\lvlchip{В}{levelAdvancedLine}},
+  #1
+}
+
+% --- выходной билет ---
+\newtcolorbox{exitticketbox}[1][]{
+  enhanced,
+  colback=white,
+  colframe=brandAccent,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=12pt,right=12pt,top=10pt,bottom=10pt,
+  breakable,
+  #1
+}
+
+% --- Дано/Решение/Ответ ---
+\newenvironment{danosol}
+  {\par\noindent\begin{minipage}{\linewidth}}
+  {\end{minipage}\par\medskip}
+\newcommand{\dano}{\textbf{Дано:}\par}
+\newcommand{\solution}{\par\medskip\textbf{Решение.}\par}
+% --- Перевернутый ответ в рамке (защита от подглядывания) ---
+\newcommand{\answer}[1]{%
+  \par\nopagebreak\smallskip\noindent
+  \hbox{%
+    \setlength{\fboxsep}{4pt}%
+    \setlength{\fboxrule}{0.5pt}%
+    \fcolorbox{brandSecondary!30}{brandNeutral}{%
+      %
+      \rotatebox[origin=c]{180}{\footnotesize\hspace{2pt}Ответ: #1\hspace{2pt}}%
+    }%
+  }\par\medskip
+}
+
+% --- заголовок уровня ДЗ ---
+\newcommand{\hwlevel}[2]{%
+  \medskip
+  \noindent\begin{NoHyper}{\bfseries\large\color{#2}#1}\end{NoHyper}\par\smallskip
+}
+
+\fi % --- конец article-режима ---
+
+% ============================================================
+%  BEAMER-РЕЖИМ
+% ============================================================
+\ifegephysbeamer
+
+\usetheme{metropolis}
+\usecolortheme{default}
+
+\setbeamercolor{normal text}{fg=brandSecondary, bg=white}
+\setbeamercolor{alerted text}{fg=brandAccent}
+\setbeamercolor{example text}{fg=brandPrimary}
+\setbeamercolor{frametitle}{bg=brandPrimary, fg=white}
+\setbeamercolor{title}{fg=brandSecondary}
+\setbeamercolor{subtitle}{fg=brandPrimary}
+\setbeamercolor{author}{fg=brandSecondary}
+\setbeamercolor{date}{fg=brandSecondary}
+\setbeamercolor{progress bar}{fg=brandPrimary, bg=brandLight}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+
+% headline убираем — колонтитулы переезжают вниз
+\setbeamertemplate{headline}{}
+
+% footline: слева "ЕГЭ физика", справа "САНЯ ДАЙ СОТКУ"
+\setbeamertemplate{footline}{%
+  \vspace{0.4ex}%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1ex,leftskip=1.5ex]{}%
+      \tiny\textcolor{brandSecondary}{\courseLabel}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1ex,rightskip=1.5ex]{}%
+      \hfill\tiny\brandTG%
+    \end{beamercolorbox}%
+  }%
+  \vspace{0.4ex}%
+}
+
+% --- логотип бренда на титульном слайде ---
+\IfFileExists{logo1.png}{%
+  \pgfdeclareimage[height=2cm]{brandlogo}{logo1.png}%
+  \newcommand{\insertbrandlogo}{\pgfuseimage{brandlogo}}%
+}{%
+  \newcommand{\insertbrandlogo}{}%
+}
+
+% переопределяем title page metropolis
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=north east, xshift=-1.5cm, yshift=-2.2cm]
+      at (current page.north east) {\insertbrandlogo};
+  \end{tikzpicture}%
+  \begin{minipage}[b][\paperheight]{\textwidth}
+    \vfill
+    \ifx\inserttitle\@empty\else
+      \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par
+      \vspace*{0.5em}
+    \fi
+    \ifx\insertsubtitle\@empty\else
+      \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par
+    \fi
+    \vspace*{1em}
+    {\color{brandPrimary}\rule{\textwidth}{0.4pt}}
+    \vspace*{1em}
+    \ifx\insertauthor\@empty\else
+      \usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par
+    \fi
+    \vfill\vfill
+  \end{minipage}%
+}
+
+% --- блоки для слайдов ---
+\newtcolorbox{slidedef}[1][]{
+  colback=brandLight,
+  colframe=brandPrimary,
+  boxrule=0.8pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,
+  #1
+}
+
+% узкая центрированная формула на слайде
+\newcommand{\slideformula}[1]{%
+  \begin{center}
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{1.2pt}%
+  \fcolorbox{brandPrimary}{white}{#1}%
+  \end{center}
+}
+
+% --- задачи по уровням на слайде: белый фон + корешок + чип ---
+\newtcolorbox{slidetask}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.4pt}{0pt}{levelBasicLine},
+  left=10pt,right=6pt,top=3pt,bottom=3pt,
+  before upper={\lvlchip{Б}{levelBasicLine}},
+  #1
+}
+\newtcolorbox{slidetaskmed}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.4pt}{0pt}{levelMediumLine},
+  left=10pt,right=6pt,top=3pt,bottom=3pt,
+  before upper={\lvlchip{П}{levelMediumLine}},
+  #1
+}
+\newtcolorbox{slidetaskadv}[1][]{
+  enhanced, colback=white, frame hidden, boxrule=0pt, arc=0pt,
+  borderline west={2.4pt}{0pt}{levelAdvancedLine},
+  left=10pt,right=6pt,top=3pt,bottom=3pt,
+  before upper={\lvlchip{В}{levelAdvancedLine}},
+  #1
+}
+\newtcolorbox{slidewarning}[1][]{
+  colback=white,
+  colframe=brandAccent,
+  boxrule=1pt,
+  arc=2pt,
+  left=6pt,right=6pt,top=3pt,bottom=3pt,
+  #1
+}
+
+% Выходной билет на слайде
+\newtcolorbox{slideexitticket}[1][]{
+  colback=white,
+  colframe=brandAccent,
+  boxrule=0.8pt,
+  arc=3pt,
+  left=10pt,right=10pt,top=6pt,bottom=6pt,
+  #1
+}
+
+\fi % --- конец beamer-режима ---
+
+\endinput

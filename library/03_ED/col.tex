@@ -1,0 +1,340 @@
+% ====================================================================
+% ФАЙЛ: tasks/03_electrodynamics/coulomb_law_and_field_part1.tex
+% ТЕМА: ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
+% ПАЧКА 1: ВАРИАНТЫ 1–5
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:elem_coulomb_v1_n11}}]
+\textbf{Задача 1.} Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если модуль заряда каждого из тел уменьшить в $3$ раза?
+
+\kim{11}
+\end{taskbasic}
+\answer{9}
+
+% === ЗАДАЧА 2 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:elem_coulomb_v2_n11}}]
+\textbf{Задача 2.} Во сколько раз увеличится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними уменьшить в $4$ раза?
+
+\kim{11}
+\end{taskbasic}
+\answer{16}
+
+% === ЗАДАЧА 3 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_03
+\begin{taskbasic}[code={\label{task:elem_coulomb_v3_n11}}]
+\textbf{Задача 3.} В вершинах равнобедренного прямоугольного треугольника $ABC$ с катетами $a = 10\text{ см}$ расположены точечные заряды $q_A = +2\text{ нКл}$ и $q_B = -2\text{ нКл}$. Найдите модуль напряжённости электрического поля этих зарядов в точке $C$. Ответ выразите в кВ/м.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.5,0) node[right] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$y$};
+    
+    \coordinate (A) at (1,1);
+    \coordinate (B) at (3,1);
+    \coordinate (C) at (1,3);
+    
+    \draw[thick, gray] (A) -- (B) -- (C) -- cycle;
+    
+    \fill[black] (A) circle (2pt) node[below left] {$A$ ($+q$)};
+    \fill[black] (B) circle (2pt) node[below right] {$B$ ($-q$)};
+    \fill[black] (C) circle (2pt) node[above left] {$C$};
+    
+    \node[left] at (0,1) {$1$};
+    \node[left] at (0,3) {$3$};
+    \node[below] at (1,0) {$1$};
+    \node[below] at (3,0) {$3$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{11}
+\end{taskbasic}
+\answer{4,5}
+
+% === ЗАДАЧА 4 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_04
+\begin{taskbasic}[code={\label{task:elem_coulomb_v4_n11}}]
+\textbf{Задача 4.} В двух вершинах квадрата со стороной $a = 30\text{ см}$ находятся неподвижные точечные заряды $q_1 = +4\text{ нКл}$ и $q_2 = -4\text{ нКл}$. Чему равен модуль напряжённости электрического поля этих зарядов в центре квадрата? Ответ выразите в кВ/м.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (3,1);
+    \coordinate (3) at (3,3);
+    \coordinate (4) at (1,3);
+    \coordinate (O) at (2,2);
+    
+    \draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;
+    \draw[dashed, gray] (1) -- (3);
+    \draw[dashed, gray] (2) -- (4);
+    
+    \fill[black] (1) circle (2pt) node[below left] {$q_1$};
+    \fill[black] (2) circle (2pt) node[below right] {$q_2$};
+    \fill[black] (O) circle (2pt) node[above] {$O$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{11}
+\end{taskbasic}
+\answer{0,5}
+
+% ====================================================================
+% ФАЙЛ: tasks/03_electrodynamics/coulomb_law_and_field_part2.tex
+% ТЕМА: ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
+% ПАЧКА 2: ВАРИАНТЫ 6–12
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_07
+\begin{taskbasic}[code={\label{task:elem_coulomb_v7_n11}}]
+\textbf{Задача 1.} Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними увеличить в $2$ раза?
+
+\kim{11}
+\end{taskbasic}
+\answer{4}
+
+% === ЗАДАЧА 2 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_08
+\begin{taskbasic}[code={\label{task:elem_coulomb_v8_n11}}]
+\textbf{Задача 2.} Во сколько раз увеличится модуль напряжённости электрического поля точечного заряда в некоторой точке пространства, если модуль этого заряда увеличить в $2$ раза?
+
+\kim{11}
+\end{taskbasic}
+\answer{2}
+
+% === ЗАДАЧА 3 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_14 #ВАРИАНТ_11
+\begin{taskbasic}[code={\label{task:elem_coulomb_v11_n14}}]
+\textbf{Задача 3.} На оси $Ox$ расположены два неподвижных точечных заряда: $q_1 = +q$ в точке $x = -a$ и $q_2 = -q$ в точке $x = +a$. Из приведённого ниже списка выберите все верные утверждения относительно электростатического поля, создаваемого этими зарядами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (-3,0) grid (3,1);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (-3.5,0) -- (3.5,0) node[right] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,1.5) node[above] {$y$};
+    
+    \coordinate (Q1) at (-2,0);
+    \coordinate (Q2) at (2,0);
+    
+    \fill[black] (Q1) circle (2pt) node[above] {$+q$};
+    \fill[black] (Q2) circle (2pt) node[above] {$-q$};
+    
+    \node[below] at (-2,0) {$-a$};
+    \node[below] at (2,0) {$a$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+1) В точке $x = 0$ вектор напряжённости суммарного электрического поля направлен вправо (вдоль оси $Ox$).\\
+2) Напряжённость суммарного электрического поля в точке $x = 2a$ равна нулю.\\
+3) Потенциал суммарного электрического поля в точке $x = -2a$ равен нулю.\\
+4) Проекция вектора напряжённости электрического поля на ось $Ox$ в точке $x = 0$ положительна.\\
+5) Модуль напряжённости электрического поля в точке $x = -2a$ больше, чем в точке $x = 0$.
+
+\kim{14}
+\end{taskbasic}
+\answer{14}
+
+% === ЗАДАЧА 4 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_14 #ВАРИАНТ_12
+\begin{taskbasic}[code={\label{task:elem_coulomb_v12_n14}}]
+\textbf{Задача 4.} На оси $Ox$ расположены два одинаковых неподвижных точечных заряда: $q_1 = +q$ в точке $x = -a$ и $q_2 = +q$ в точке $x = +a$. Из приведённого ниже списка выберите все верные утверждения относительно электростатического поля, создаваемого этими зарядами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (-3,0) grid (3,1);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (-3.5,0) -- (3.5,0) node[right] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,1.5) node[above] {$y$};
+    
+    \coordinate (Q1) at (-2,0);
+    \coordinate (Q2) at (2,0);
+    
+    \fill[black] (Q1) circle (2pt) node[above] {$+q$};
+    \fill[black] (Q2) circle (2pt) node[above] {$+q$};
+    
+    \node[below] at (-2,0) {$-a$};
+    \node[below] at (2,0) {$a$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+1) В точке $x = 0$ модуль напряжённости суммарного электрического поля максимален.\\
+2) В точке $x = 0$ вектор напряжённости суммарного электрического поля равен нулю.\\
+3) Потенциал суммарного электрического поля в точке $x = 0$ положителен.\\
+4) В точке $x = 2a$ вектор напряжённости суммарного электрического поля направлен влево.\\
+5) Модуль напряжённости электрического поля в точке $x = 2a$ равен нулю.
+
+\kim{14}
+\end{taskbasic}
+\answer{23}
+
+% ====================================================================
+% ФАЙЛ: tasks/03_electrodynamics/coulomb_law_and_field_part3.tex
+% ТЕМА: ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
+% ПАЧКА 3: ВАРИАНТЫ 13–22
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_15
+\begin{taskbasic}[code={\label{task:elem_coulomb_v15_n11}}]
+\textbf{Задача 1.} Во сколько раз уменьшится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними увеличить в $3$ раза?
+
+\kim{11}
+\end{taskbasic}
+\answer{9}
+
+% === ЗАДАЧА 2 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_16
+\begin{taskbasic}[code={\label{task:elem_coulomb_v16_n11}}]
+\textbf{Задача 2.} Во сколько раз нужно уменьшить расстояние от точечного заряда до некоторой точки пространства, чтобы модуль напряжённости электрического поля в этой точке увеличился в $9$ раз?
+
+\kim{11}
+\end{taskbasic}
+\answer{3}
+
+% === ЗАДАЧА 3 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_21 #ВАРИАНТ_21
+\begin{taskbasic}[code={\label{task:elem_coulomb_v21_n21}}]
+\textbf{Задача 3.} Небольшое заряженное тело массой $m$ и зарядом $q > 0$ влетает в плоский горизонтальный конденсатор с горизонтально направленной скоростью $v_0$ параллельно пластинам. Длина пластин $L$, расстояние между ними $d$. Напряжённость электрического поля внутри конденсатора равна $E$. Как изменится вертикальное смещение тела при вылете из конденсатора, если напряжённость поля $E$ увеличить в $2$ раза, а начальную скорость $v_0$ увеличить в $2$ раза? Тяготением пренебречь. Ответ обоснуйте, указав используемые физические закономерности.
+
+\kim{21}
+\end{taskbasic}
+\answer{Уменьшится в 2 раза}
+
+% === ЗАДАЧА 4 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_21 #ВАРИАНТ_22
+\begin{taskbasic}[code={\label{task:elem_coulomb_v22_n21}}]
+\textbf{Задача 4.} Два положительных точечных заряда $q$ и $4q$ закреплены на расстоянии $L$ друг от друга. Где на отрезке, соединяющем эти заряды, следует поместить третий точечный заряд $-q_0$, чтобы он находился в равновесии? Укажите расстояние от заряда $q$ до заряда $-q_0$. Ответ обоснуйте, указав используемые физические закономерности.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,1);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (4.5,0) node[right] {$x$};
+    
+    \coordinate (Q1) at (0,0);
+    \coordinate (Q2) at (3,0);
+    
+    \fill[black] (Q1) circle (2pt) node[above] {$+q$};
+    \fill[black] (Q2) circle (2pt) node[above] {$+4q$};
+    
+    \node[below] at (0,0) {$0$};
+    \node[below] at (3,0) {$L$};
+\end{tikzpicture}
+\end{center}
+
+\kim{21}
+\end{taskbasic}
+\answer{L/3}
+
+% ====================================================================
+% ФАЙЛ: tasks/03_electrodynamics/coulomb_law_and_field_part4.tex
+% ТЕМА: ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
+% ПАЧКА 4: ВАРИАНТЫ 23–30
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_23
+\begin{taskbasic}[code={\label{task:elem_coulomb_v23_n11}}]
+\textbf{Задача 1.} Во сколько раз увеличится модуль сил кулоновского взаимодействия двух точечных неподвижных заряженных тел, если расстояние между ними уменьшить в $5$ раз?
+
+\kim{11}
+\end{taskbasic}
+\answer{25}
+
+% === ЗАДАЧА 2 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_11 #ВАРИАНТ_24
+\begin{taskbasic}[code={\label{task:elem_coulomb_v24_n11}}]
+\textbf{Задача 2.} Во сколько раз увеличится модуль напряжённости электрического поля точечного заряда в некоторой точке пространства, если модуль этого заряда увеличить в $5$ раз?
+
+\kim{11}
+\end{taskbasic}
+\answer{5}
+
+% === ЗАДАЧА 3 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_21 #ВАРИАНТ_25
+\begin{taskbasic}[code={\label{task:elem_coulomb_v25_n21}}]
+\textbf{Задача 3.} В вершинах квадрата со стороной $a$ закреплены четыре точечных заряда: трех из них равны $+q$, а один равен $-q$. Модуль напряжённости суммарного электрического поля этих зарядов в центре квадрата равен $E_0$. Чему станет равен модуль напряжённости поля в центре квадрата, если заряд $-q$ заменить на $+q$? Ответ обоснуйте, указав используемые физические закономерности.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (3.5,0) node[right] {$x$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,3.5) node[above] {$y$};
+    
+    \coordinate (1) at (0.5,0.5);
+    \coordinate (2) at (2.5,0.5);
+    \coordinate (3) at (2.5,2.5);
+    \coordinate (4) at (0.5,2.5);
+    \coordinate (O) at (1.5,1.5);
+    
+    \draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;
+    \draw[dashed, gray] (1) -- (3);
+    \draw[dashed, gray] (2) -- (4);
+    
+    \fill[black] (1) circle (2pt) node[below left] {$+q$};
+    \fill[black] (2) circle (2pt) node[below right] {$+q$};
+    \fill[black] (3) circle (2pt) node[above right] {$-q$};
+    \fill[black] (4) circle (2pt) node[above left] {$+q$};
+    \fill[black] (O) circle (1.5pt) node[below] {$O$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{21}
+\end{taskbasic}
+\answer{0}
+
+% === ЗАДАЧА 4 ===
+% Тег: #ЭЛЕКТРОДИНАМИКА #КУЛОН #НАПРЯЖЕННОСТЬ #КИМ_25 #ВАРИАНТ_26
+\begin{taskbasic}[code={\label{task:elem_coulomb_v26_n25}}]
+\textbf{Задача 4.} Маленький шарик массой $m = 0{,}9\text{ г}$ с зарядом $q = 10\text{ нКл}$ подвешен на невесомой шёлковой нити между двумя вертикальными параллельными противоположно заряженными пластинами. Вектор напряжённости электрического поля между пластинами направлен горизонтально, а модуль напряжённости равен $E = 3\cdot 10^5\text{ В/м}$. Определите угол $\alpha$ отклонения нити от вертикали. Ответ выразите в градусах.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (-1,0) grid (3,3);
+    
+    % Пластины
+    \draw[ultra thick, black] (-0.5,0.5) -- (-0.5,2.5);
+    \draw[ultra thick, black] (2.5,0.5) -- (2.5,2.5);
+    \node[above] at (-0.5,2.5) {$+$};
+    \node[above] at (2.5,2.5) {$-$};
+    
+    % Подвес и нить
+    \draw[thick, black] (1,2.5) -- (1.8,1.1);
+    \draw[dashed, gray] (1,2.5) -- (1,0.5);
+    
+    % Шарик
+    \fill[brandPrimary] (1.8,1.1) circle (3pt) node[right=2pt] {$q$};
+    
+    % Вектор E
+    \draw[-{Stealth[scale=0.8]}, thick, brandPrimary] (0,1.5) -- (0.8,1.5) node[above] {$\vec{E}$};
+    
+    % Угол alpha
+    \draw (1,2.0) arc (270:300:0.5);
+    \node at (1.15,1.8) {$\alpha$};
+    
+    \node[below left] at (-1,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{25}
+\end{taskbasic}
+\answer{9}

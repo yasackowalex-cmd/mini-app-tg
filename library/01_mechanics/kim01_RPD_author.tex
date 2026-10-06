@@ -1,0 +1,679 @@
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/kim01_uniform.tex
+% Тема: Задание №1 (Только равномерное прямолинейное движение)
+% Блок 1: Варианты 1–10
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:uniform_v1_n1}}]
+\textbf{Задача 1.} На рисунке приведён график зависимости координаты $x$ тела, движущегося прямолинейно вдоль оси $Ox$, от времени $t$. Определите проекцию $v_x$ скорости этого тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \text{ м}$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,5) -- (10,20);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{1{,}5~м/с}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:uniform_v2_n1}}]
+\textbf{Задача 2.} На рисунке приведён график зависимости координаты $x$ тела, движущегося прямолинейно вдоль оси $Ox$, от времени $t$. Определите путь, пройденный телом за интервал времени от $2$ до $8$~с.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \text{ м}$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,2) -- (10,17);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{9~м}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_03
+\begin{taskbasic}[code={\label{task:uniform_v3_n1}}]
+\textbf{Задача 3.} На рисунке представлен график зависимости проекции $v_x$ скорости тела от времени $t$. Определите проекцию $s_x$ перемещения этого тела в интервале времени от $0$ до $8$~с.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.3cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=2, gray!30, thin] (0,-4) grid (10,6);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-4) -- (0,7) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,-2) {$-2$};
+    \node[left] at (0,-4) {$-4$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-3) -- (10,-3);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{-24~м}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_04
+\begin{taskbasic}[code={\label{task:uniform_v4_n1}}]
+\textbf{Задача 4.} Тело движется равномерно и прямолинейно вдоль оси $Ox$. На рисунке представлен график зависимости проекции $v_x$ скорости этого тела от времени $t$. Какой путь пройдёт тело за первые $7$~с движения?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (10,5);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,1) {$1$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,3) -- (10,3);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{21~м}
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:uniform_v5_n1}}]
+\textbf{Задача 5.} Две материальные точки движутся вдоль оси $Ox$. На рисунке приведены графики зависимости их координат $x$ от времени $t$. Определите модуль относительной скорости точек.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,5) -- (10,25); % v = 2 м/с
+    \draw[ultra thick, brandAccent] (0,20) -- (10,10); % v = -1 м/с
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{3~м/с}
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_06
+\begin{taskbasic}[code={\label{task:uniform_v6_n1}}]
+\textbf{Задача 6.} На рисунке представлены графики зависимости координат $x$ двух тел, движущихся вдоль оси $Ox$, от времени $t$. Через сколько секунд после момента времени $t = 0$ тела встретятся?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,0) -- (10,20);
+    \draw[ultra thick, brandAccent] (0,24) -- (10,4);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{6~с}
+
+% === ЗАДАЧА 7 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_07
+\begin{taskbasic}[code={\label{task:uniform_v7_n1}}]
+\textbf{Задача 7.} Тело движется прямолинейно вдоль оси $Ox$. На рисунке приведён график зависимости координаты $x$ этого тела от времени $t$. Определите проекцию $v_x$ скорости тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \text{ м}$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,20) -- (10,0);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{-2~м/с}
+
+% === ЗАДАЧА 8 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_08
+\begin{taskbasic}[code={\label{task:uniform_v8_n1}}]
+\textbf{Задача 8.} Велосипедист едет по прямой дороге. На рисунке представлен график зависимости координаты $x$ велосипедиста от времени $t$. Какой путь он проехал за промежуток времени от $1$ до $5$~с?
+\begin{center}
+\begin{tikzpicture}[x=0.8cm, y=0.08cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=10, gray!30, thin] (0,0) grid (6,50);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,55) node[above] {$x, \text{ м}$};
+    \node[left] at (0,50) {$50$};
+    \node[left] at (0,40) {$40$};
+    \node[left] at (0,30) {$30$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {1,2,3,4,5,6} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,10) -- (6,46);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{24~м}
+
+% === ЗАДАЧА 9 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_09
+\begin{taskbasic}[code={\label{task:uniform_v9_n1}}]
+\textbf{Задача 9.} На рисунке представлен график зависимости координаты $x$ тела от времени $t$. Чему равен модуль скорости этого тела?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.2cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=2, gray!30, thin] (0,-6) grid (10,6);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-6) -- (0,7) node[above] {$x, \text{ м}$};
+    \node[left] at (0,6) {$6$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,-2) {$-2$};
+    \node[left] at (0,-4) {$-4$};
+    \node[left] at (0,-6) {$-6$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,4) -- (10,-6);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{1~м/с}
+
+% === ЗАДАЧА 10 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_10
+\begin{taskbasic}[code={\label{task:uniform_v10_n1}}]
+\textbf{Задача 10.} На рисунке представлены графики зависимости проекций скоростей $v_x$ двух тел от времени $t$. На сколько метров увеличится расстояние между ними за первые $5$~с совместного равномерного движения, если они движутся в одном направлении?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (10,5);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,1) {$1$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,4) -- (10,4);
+    \draw[ultra thick, brandAccent] (0,1.5) -- (10,1.5);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{12{,}5~м}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/kim01_uniform.tex
+% Тема: Задание №1 (Только равномерное прямолинейное движение)
+% Блок 2: Варианты 11–20
+% ====================================================================
+
+% === ЗАДАЧА 11 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_11
+\begin{taskbasic}[code={\label{task:uniform_v11_n1}}]
+\textbf{Задача 11.} На рисунке приведён график зависимости координаты $x$ тела, движущегося прямолинейно вдоль оси $Ox$, от времени $t$. Определите проекцию $v_x$ скорости этого тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \text{ м}$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,15) -- (10,5);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{-1~м/с}
+
+% === ЗАДАЧА 12 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_12
+\begin{taskbasic}[code={\label{task:uniform_v12_n1}}]
+\textbf{Задача 12.} Тело движется равномерно и прямолинейно вдоль оси $Ox$. На рисунке представлен график зависимости координаты $x$ этого тела от времени $t$. Определите путь, пройденный телом за первые $6$~с движения.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-10) grid (10,10);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,12) node[above] {$x, \text{ м}$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-10) {$-10$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-5) -- (10,15);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{12~м}
+
+% === ЗАДАЧА 13 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_13
+\begin{taskbasic}[code={\label{task:uniform_v13_n1}}]
+\textbf{Задача 13.} На рисунке представлен график зависимости проекции $v_x$ скорости тела от времени $t$. Определите модуль перемещения этого тела за интервал времени от $1$ до $9$~с.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (10,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,1) {$1$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,2.5) -- (10,2.5);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{20~м}
+
+% === ЗАДАЧА 14 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_14
+\begin{taskbasic}[code={\label{task:uniform_v14_n1}}]
+\textbf{Задача 14.} По прямой дороге в одном направлении движутся два автомобиля со скоростями $v_1 = 15$~м/с и $v_2 = 25$~м/с. На рисунке приведены графики зависимости проекций скоростей $v_x$ этих автомобилей от времени $t$. Чему равен модуль их относительной скорости?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.1cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=10, gray!30, thin] (0,0) grid (10,30);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,33) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,30) {$30$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,25) -- (10,25) node[right, black] {2};
+    \draw[ultra thick, brandAccent] (0,15) -- (10,15) node[right, black] {1};
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{10~м/с}
+
+% === ЗАДАЧА 15 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_15
+\begin{taskbasic}[code={\label{task:uniform_v15_n1}}]
+\textbf{Задача 15.} Два тела движутся вдоль оси $Ox$. На рисунке приведены графики зависимости их координат $x$ от времени $t$. На сколько метров уменьшится расстояние между ними за первые $4$~с движения?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,5) -- (10,25);
+    \draw[ultra thick, brandAccent] (0,25) -- (10,15);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{12~м}
+
+% === ЗАДАЧА 16 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_16
+\begin{taskbasic}[code={\label{task:uniform_v16_n1}}]
+\textbf{Задача 16.} На рисунке представлены графики зависимости координат $x$ двух тел от времени $t$. Определите координату точки их встречи (в метрах).
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,0) -- (10,20);
+    \draw[ultra thick, brandAccent] (0,24) -- (10,4);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{12~м}
+
+% === ЗАДАЧА 17 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_17
+\begin{taskbasic}[code={\label{task:uniform_v17_n1}}]
+\textbf{Задача 17.} Тело движется вдоль оси $Ox$. На рисунке приведён график зависимости координаты $x$ этого тела от времени $t$. Определите проекцию $v_x$ скорости тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-10) grid (10,10);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,12) node[above] {$x, \text{ м}$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-10) {$-10$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,10) -- (10,-10);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{-2~м/с}
+
+% === ЗАДАЧА 18 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_18
+\begin{taskbasic}[code={\label{task:uniform_v18_n1}}]
+\textbf{Задача 18.} По горизонтальной дорожке бежит мальчик. На рисунке представлен график зависимости координаты $x$ мальчика от времени $t$. Какой путь он пробежал за интервал времени от $0$ до $4$~с?
+\begin{center}
+\begin{tikzpicture}[x=0.8cm, y=0.08cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=10, gray!30, thin] (0,0) grid (6,50);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,55) node[above] {$x, \text{ м}$};
+    \node[left] at (0,50) {$50$};
+    \node[left] at (0,40) {$40$};
+    \node[left] at (0,30) {$30$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {1,2,3,4,5,6} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,5) -- (6,35);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{20~м}
+
+% === ЗАДАЧА 19 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_19
+\begin{taskbasic}[code={\label{task:uniform_v19_n1}}]
+\textbf{Задача 19.} Тело движется равномерно вдоль оси $Ox$. На рисунке представлен график зависимости его координаты $x$ от времени $t$. Чему равен модуль скорости тела?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-15) grid (10,10);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-15) -- (0,12) node[above] {$x, \text{ м}$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-10) {$-10$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-15) -- (10,10);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{2{,}5~м/с}
+
+% === ЗАДАЧА 20 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_20
+\begin{taskbasic}[code={\label{task:uniform_v20_n1}}]
+\textbf{Задача 20.} На рисунке представлены графики зависимости проекций скоростей $v_x$ двух тел от времени $t$. Какова величина их относительной скорости при движении в противоположных направлениях, если проекции скоростей равны соответственно $3$~м/с и $-2$~м/с?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,-3) grid (10,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-3) -- (0,4.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,1) {$1$};
+    \node[left] at (0,-1) {$-1$};
+    \node[left] at (0,-3) {$-3$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,3) -- (10,3);
+    \draw[ultra thick, brandAccent] (0,-2) -- (10,-2);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{5~м/с}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/kim01_uniform.tex
+% Тема: Задание №1 (Только равномерное прямолинейное движение)
+% Блок 3: Варианты 21–30
+% ====================================================================
+
+% === ЗАДАЧА 21 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_21
+\begin{taskbasic}[code={\label{task:uniform_v21_n1}}]
+\textbf{Задача 21.} На рисунке приведён график зависимости координаты $x$ тела, движущегося прямолинейно вдоль оси $Ox$, от времени $t$. Определите проекцию $v_x$ скорости этого тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \text{ м}$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,10) -- (10,20);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{1~м/с}
+
+% === ЗАДАЧА 22 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_22
+\begin{taskbasic}[code={\label{task:uniform_v22_n1}}]
+\textbf{Задача 22.} Тело движется равномерно и прямолинейно вдоль оси $Ox$. На рисунке представлен график зависимости координаты $x$ этого тела от времени $t$. Определите путь, пройденный телом за промежуток времени от $0$ до $8$~с.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-10) grid (10,10);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,12) node[above] {$x, \text{ м}$};
+    \node[left] at (0,10) {$10$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-10) {$-10$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,10) -- (10,-10);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{16~м}
+
+% === ЗАДАЧА 23 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_23
+\begin{taskbasic}[code={\label{task:uniform_v23_n1}}]
+\textbf{Задача 23.} На рисунке представлен график зависимости проекции $v_x$ скорости тела от времени $t$. Определите проекцию $s_x$ перемещения этого тела за первые $6$~с движения.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,-2) grid (10,3);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-2) -- (0,3.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,1) {$1$};
+    \node[left] at (0,-1) {$-1$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,2) -- (10,2);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{12~м}
+
+% === ЗАДАЧА 24 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_24
+\begin{taskbasic}[code={\label{task:uniform_v24_n1}}]
+\textbf{Задача 24.} На рисунке представлен график зависимости проекции $v_x$ скорости тела от времени $t$. Определите путь, пройденный телом за промежуток времени от $2$ до $9$~с.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,-3) grid (10,2);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-3) -- (0,2.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,1) {$1$};
+    \node[left] at (0,-1) {$-1$};
+    \node[left] at (0,-2) {$-2$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-2) -- (10,-2);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{14~м}
+
+% === ЗАДАЧА 25 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_25
+\begin{taskbasic}[code={\label{task:uniform_v25_n1}}]
+\textbf{Задача 25.} Два тела движутся вдоль оси $Ox$. На рисунке приведены графики зависимости их координат $x$ от времени $t$. Чему равно расстояние между телами в момент времени $t = 4$~с?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,0) -- (10,25);
+    \draw[ultra thick, brandAccent] (0,20) -- (10,10);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{6~м}
+
+% === ЗАДАЧА 26 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_26
+\begin{taskbasic}[code={\label{task:uniform_v26_n1}}]
+\textbf{Задача 26.} На рисунке представлены графики зависимости координат $x$ двух тел, движущихся вдоль оси $Ox$, от времени $t$. Каково отношение модулей скоростей этих тел $\frac{v_1}{v_2}$?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,25);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$x, \text{ м}$};
+    \node[left] at (0,25) {$25$};
+    \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,0) -- (10,20) node[right, black] {1};
+    \draw[ultra thick, brandAccent] (0,5) -- (10,10) node[right, black] {2};
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{4}
+
+% === ЗАДАЧА 27 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_27
+\begin{taskbasic}[code={\label{task:uniform_v27_n1}}]
+\textbf{Задача 27.} Тело движется вдоль оси $Ox$. На рисунке приведён график зависимости координаты $x$ этого тела от времени $t$. Определите проекцию $v_x$ скорости тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-5) grid (10,15);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-5) -- (0,17) node[above] {$x, \text{ м}$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-5) {$-5$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-5) -- (10,15);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{2~м/с}
+
+% === ЗАДАЧА 28 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_28
+\begin{taskbasic}[code={\label{task:uniform_v28_n1}}]
+\textbf{Задача 28.} Тело движется равномерно вдоль оси $Ox$. На рисунке представлен график зависимости координаты $x$ этого тела от времени $t$. Определите проекцию $v_x$ скорости тела.
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-5) grid (10,15);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-5) -- (0,17) node[above] {$x, \text{ м}$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-5) {$-5$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,15) -- (10,-5);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{-2~м/с}
+
+% === ЗАДАЧА 29 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_29
+\begin{taskbasic}[code={\label{task:uniform_v29_n1}}]
+\textbf{Задача 29.} На рисунке представлен график зависимости координаты $x$ тела от времени $t$. Чему равен модуль скорости этого тела?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=5, gray!30, thin] (0,-5) grid (10,15);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-5) -- (0,17) node[above] {$x, \text{ м}$};
+    \node[left] at (0,15) {$15$};
+    \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
+    \node[below left] at (0,0) {$0$};
+    \node[left] at (0,-5) {$-5$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,-5) -- (10,10);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{1{,}5~м/с}
+
+% === ЗАДАЧА 30 ===
+% Тег: #МЕХАНИКА #КИМ_01 #ВАРИАНТ_30
+\begin{taskbasic}[code={\label{task:uniform_v30_n1}}]
+\textbf{Задача 30.} На рисунке приведены графики зависимости проекций скоростей $v_x$ двух тел от времени $t$. На сколько метров увеличится расстояние между ними за интервал времени от $0$ до $8$~с совместного равномерного движения, если они движутся в одном направлении?
+\begin{center}
+\begin{tikzpicture}[x=0.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (10,5);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$v_x, \text{ м/с}$};
+    \node[left] at (0,4) {$4$};
+    \node[left] at (0,3) {$3$};
+    \node[left] at (0,2) {$2$};
+    \node[left] at (0,1) {$1$};
+    \node[below left] at (0,0) {$0$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \draw[ultra thick, brandPrimary] (0,4.5) -- (10,4.5);
+    \draw[ultra thick, brandAccent] (0,2) -- (10,2);
+\end{tikzpicture}
+\end{center}
+\kim{1}
+\end{taskbasic}
+\answer{20~м}

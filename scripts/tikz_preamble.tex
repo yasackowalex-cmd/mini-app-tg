@@ -1,0 +1,33 @@
+% Преамбула для компиляции чертежей банка в SVG (scripts/tikz_to_svg.py).
+% Повторяет нужное для чертежей из library/egephys-style.sty и локальные макросы файлов библиотеки.
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[european]{circuitikz}
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathmorphing,decorations.markings,
+  angles,quotes,positioning,intersections,shapes.geometric,backgrounds,through}
+
+% Цвета бренда: как в egephys-style.sty
+\definecolor{brandPrimary}{HTML}{0066FF}
+\definecolor{brandSecondary}{HTML}{1B1F3B}
+\definecolor{brandLight}{HTML}{E8F1FF}
+\definecolor{brandAccent}{HTML}{FF6B35}
+\definecolor{brandNeutral}{HTML}{F4F4F4}
+
+% 03_ED/ind2.tex
+\ctikzset{resistors/scale=0.8, bipoles/length=1.1cm}
+\tikzset{
+  Fvec/.style={-{Stealth[scale=0.9]},brandSecondary,very thick},
+  vvec/.style={-{Stealth[scale=0.9]},brandAccent,very thick},
+}
+
+% 04_OPT/len.tex: точечный источник света
+\newcommand{\sun}{\tikz[baseline=-0.5ex]{
+  \draw[thick, black, fill=white] (0,0) circle (2pt);
+  \foreach \angle in {0,45,90,135,180,225,270,315} {
+    \draw[black, thin] (\angle:3.2pt) -- (\angle:5.2pt);
+  }
+}}

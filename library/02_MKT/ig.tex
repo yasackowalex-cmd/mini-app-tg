@@ -1,0 +1,312 @@
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_gas_laws_bank_part1.tex
+% ТЕМА: УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ
+% ПАЧКА 1: ВАРИАНТЫ 1–5
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КИМ_07 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:mkt_gas_v1_n7}}]
+\textbf{Задача 1.} С идеальным газом провели изотермический процесс, в котором в результате уменьшения объёма газа на $30\text{ дм}^3$ его давление увеличилось в $2$ раза. Масса газа постоянна. Каким был первоначальный объём газа?
+
+\kim{7}
+\end{taskbasic}
+\answer{60}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КИМ_21 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:mkt_gas_v1_n21}}]
+\textbf{Задача 2.} Один моль одноатомного идеального газа участвует в циклическом процессе 1–2–3–4–1, график которого изображён на рисунке в координатах $V-T$, где $V$ — объём газа, $T$ — абсолютная температура. Опираясь на законы молекулярной физики и термодинамики, сравните работу газа в процессе 2–3 и работу внешних сил в процессе 4–1. Постройте график цикла в координатах $p-V$, где $p$ — давление газа, $V$ — объём газа.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (7,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (7.5,0) node[right] {$T$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};
+    
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (6,1);
+    \coordinate (3) at (6,3);
+    \coordinate (4) at (3,3);
+    
+    \draw[dashed, thin, gray] (0,0) -- (1);
+    \draw[dashed, thin, gray] (0,0) -- (4);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (4);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (4) -- (1);
+    
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[below right] {2};
+    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    \fill[black] (4) circle (1.5pt) node[above left] {4};
+    
+    \node[left] at (0,1) {$V_0$};
+    \node[left] at (0,3) {$3V_0$};
+    \node[below] at (1,0) {$T_0$};
+    \node[below] at (3,0) {$3T_0$};
+    \node[below] at (6,0) {$6T_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{21}
+\end{taskbasic}
+\answer{Сравнение работы}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МКТ #КИМ_07 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:mkt_gas_v2_n7}}]
+\textbf{Задача 3.} С идеальным газом провели изотермический процесс, в котором в результате уменьшения объёма газа на $30\text{ дм}^3$ его давление увеличилось в $2$ раза. Масса газа постоянна. Определите конечный объём газа.
+
+\kim{7}
+\end{taskbasic}
+\answer{30}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МКТ #КИМ_21 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:mkt_gas_v2_n21}}]
+\textbf{Задача 4.} Один моль одноатомного идеального газа участвует в циклическом процессе 1–2–3–4–1, график которого изображён на рисунке в координатах $p-T$, где $p$ — давление газа, $T$ — абсолютная температура. Опираясь на законы молекулярной физики и термодинамики, сравните модуль работы газа в процессе 2–3 и модуль работы внешних сил в процессе 4–1. Постройте график цикла в координатах $p-V$, где $p$ — давление газа, $V$ — объём газа.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (7,6);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (7.5,0) node[right] {$T$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,6.5) node[above] {$p$};
+    
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (6,5);
+    \coordinate (3) at (6,3);
+    \coordinate (4) at (2,1);
+    
+    \draw[dashed, thin, gray] (0,0) -- (1);
+    \draw[dashed, thin, gray] (0,0) -- (3);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (4);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (4) -- (1);
+    
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[right=2pt] {3};
+    \fill[black] (4) circle (1.5pt) node[below right] {4};
+    
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,3) {$3p_0$};
+    \node[left] at (0,5) {$5p_0$};
+    \node[below] at (1,0) {$T_0$};
+    \node[below] at (2,0) {$2T_0$};
+    \node[below] at (6,0) {$6T_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{21}
+\end{taskbasic}
+\answer{Сравнение работы}
+
+% === ЗАДАЧА 5 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_03
+\begin{taskbasic}[code={\label{task:mkt_gas_v3_n10}}]
+\textbf{Задача 5.} В сосуде постоянного объёма абсолютную температуру гелия увеличили в $4$ раза, выпустив при этом $1/4$ газа из сосуда. Как изменились в результате этого плотность газа в сосуде и его внутренняя энергия?
+
+\kim{10}
+\end{taskbasic}
+\answer{32}
+
+% === ЗАДАЧА 6 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_04
+\begin{taskbasic}[code={\label{task:mkt_gas_v4_n10}}]
+\textbf{Задача 6.} Постоянная масса одноатомного идеального газа в изохорном процессе отдаёт количество теплоты $Q > 0$. Как меняются в этом процессе плотность и внутренняя энергия газа?
+
+\kim{10}
+\end{taskbasic}
+\answer{32}
+
+% === ЗАДАЧА 7 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:mkt_gas_v5_n10}}]
+\textbf{Задача 7.} Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 2–3 и концентрация газа в процессе 1–2?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (3,3);
+    \coordinate (3) at (2,1);
+    
+    \draw[dashed, thin, gray] (0,0) -- (1);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);
+    
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below] {3};
+    
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,3) {$3p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (2,0) {$2V_0$};
+    \node[below] at (3,0) {$3V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{10}
+\end{taskbasic}
+\answer{23}
+
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_gas_laws_bank_part2.tex
+% ТЕМА: УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ
+% ПАЧКА 2: ВАРИАНТЫ 6–10
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_06
+\begin{taskbasic}[code={\label{task:mkt_gas_v6_n10}}]
+\textbf{Задача 1.} Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 3–1 и концентрация газа в процессе 2–3?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (3,3);
+    \coordinate (3) at (2,1);
+    
+    \draw[dashed, thin, gray] (0,0) -- (1);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);
+    
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below] {3};
+    
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,3) {$3p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (2,0) {$2V_0$};
+    \node[below] at (3,0) {$3V_0$};
+    \node[below, font=\footnotesize] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{10}
+\end{taskbasic}
+\answer{12}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_07
+\begin{taskbasic}[code={\label{task:mkt_gas_v7_n10}}]
+\textbf{Задача 2.} В цилиндре под поршнем находятся жидкость и её насыщенный пар. Как изменятся давление и плотность пара при медленном перемещении поршня вниз, если температура останется неизменной? В процессе движения поршень не касается поверхности жидкости.
+
+\kim{10}
+\end{taskbasic}
+\answer{33}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_08
+\begin{taskbasic}[code={\label{task:mkt_gas_v8_n10}}]
+\textbf{Задача 3.} В цилиндре под поршнем находятся жидкость и её насыщенный пар. Как изменятся давление и концентрация молекул пара при медленном перемещении поршня вверх, если температура останется неизменной? В процессе движения поршня в сосуде остаётся жидкость.
+
+\kim{10}
+\end{taskbasic}
+\answer{33}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МКТ #КИМ_10 #ВАРИАНТ_09
+\begin{taskbasic}[code={\label{task:mkt_gas_v9_n10}}]
+\textbf{Задача 4.} Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$T$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};
+    
+    \coordinate (1) at (2,1);
+    \coordinate (2) at (2,3);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
+    
+    \fill[black] (1) circle (1.5pt) node[below right] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{10}
+\end{taskbasic}
+\answer{32}
+
+% === ЗАДАЧА 5 ===
+% Тег: #МКТ #КИМ_24 #ВАРИАНТ_10
+\begin{taskbasic}[code={\label{task:mkt_gas_v10_n24}}]
+\textbf{Задача 5.} Сосуд объёмом $12$~л содержит смесь водорода и гелия общей массой $2$~г при температуре $-17^{\circ}\text{C}$. Каково давление смеси, если отношение массы водорода к массе гелия в ней равно $2{,}5$?
+
+\kim{24}
+\end{taskbasic}
+\answer{300000}
+
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_gas_laws_bank_part3.tex
+% ТЕМА: УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВНЫЕ ГАЗОВЫЕ ЗАКОНЫ
+% ПАЧКА 3: ВАРИАНТЫ 11–15
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КИМ_24 #ВАРИАНТ_13
+\begin{taskbasic}[code={\label{task:mkt_gas_v13_n24}}]
+\textbf{Задача 1.} В вертикальном цилиндре с гладкими стенками, закрытом сверху лёгким поршнем, находится этиловый спирт при температуре кипения $t = 78^{\circ}\text{C}$. При сообщении спирту количества теплоты $Q > 0$ часть его превращается в пар, который при изобарном расширении совершает работу $A$. Удельная теплота парообразования спирта $L = 846\cdot10^3\text{ Дж/кг}$, а его молярная масса $46\cdot10^{-3}\text{ кг/моль}$. Во сколько раз увеличение внутренней энергии этилового спирта превышает работу, совершённую паром? Изменением объёма жидкого этилового спирта пренебречь; считать, что атмосферное давление постоянно, а пары спирта — идеальный газ.
+
+\kim{24}
+\end{taskbasic}
+\answer{1}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КИМ_23 #ВАРИАНТ_15
+\begin{taskbasic}[code={\label{task:mkt_gas_v15_n23}}]
+\textbf{Задача 2.} Каково давление $p$ аргона, если при плотности $1{,}8\text{ кг/м}^3$ среднеквадратичная скорость хаотического теплового движения его молекул составляет $963\text{ м/с}$?
+
+\kim{23}
+\end{taskbasic}
+\answer{557000}
+
+
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КИМ_24 #ВАРИАНТ_20
+\begin{taskbasic}[code={\label{task:mkt_gas_v20_n24}}]
+\textbf{Задача 2.} Сосуд объёмом $8\text{ л}$ содержит смесь водорода и гелия общей массой $2\text{ г}$ при давлении $250\text{ кПа}$. Какова температура смеси $T$, если отношение массы водорода к массе гелия в ней равно $2$?
+
+\kim{24}
+\end{taskbasic}
+\answer{193}
+
+
+
+% === ЗАДАЧА 5 ===
+% Тег: #МКТ #КИМ_24 #ВАРИАНТ_29
+\begin{taskbasic}[code={\label{task:mkt_gas_v29_n24}}]
+\textbf{Задача 5.} Сосуд объёмом $8$~л содержит смесь водорода и гелия общей массой $2$~г при температуре $193$~К. Каково давление смеси, если отношение массы водорода к массе гелия в ней равно $2$?
+
+\kim{24}
+\end{taskbasic}
+\answer{250000}
