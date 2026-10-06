@@ -20,3 +20,14 @@ python -I scripts/build_bank.py                                # bank/ → out/b
 - Парсер не перезаписывает существующие .md (ручные правки сохраняются); перезаписать: `--force`.
 - Для чертежей нужны TeX Live или MiKTeX (`latex`, `dvisvgm`). Макросы из `egephys-style.sty`
   добавлять в `scripts/tikz_preamble.tex`.
+
+## Этап 1: страница банка
+
+`index.html` в корне репозитория: фильтры (раздел, тема, № КИМ, уровень, тип, экзамен), поиск по тексту,
+формулы через KaTeX (лежит в `web/katex/`, без внешних CDN), чертежи из `assets/`, ответ по кнопке.
+Страница читает `out/bank.json` и `out/topics.json`, поэтому после правок банка достаточно `build_bank.py`.
+Фильтры попадают в адрес страницы (`#topic=3.1.1&kim=11`), такую ссылку можно отправить ученику.
+
+Посмотреть локально: `python -m http.server` в корне и открыть http://localhost:8000.
+
+Выкладка: Settings → Pages → Deploy from a branch → `main`, папка `/ (root)`.
