@@ -11,7 +11,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INT_FIELDS = ('kim', 'variant')
 BOOL_FIELDS = ('has_image', 'author_task')
-REQUIRED = ('id', 'exam', 'kim', 'section', 'theme', 'topic', 'level', 'type', 'answer')
+REQUIRED = ('id', 'exam', 'kim', 'section', 'topic', 'level', 'type', 'answer')
 
 
 def parse_scalar(v):

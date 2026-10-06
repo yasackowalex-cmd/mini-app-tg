@@ -1,0 +1,522 @@
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_efficiency_bank_part1.tex
+% ТЕМА: КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА
+% ПАЧКА 1: ВАРИАНТЫ 1–10
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:mkt_eff_v5_n8}}]
+\textbf{Задача 1.} Тепловая машина за цикл получает от нагревателя количество теплоты, равное $80$~кДж, и совершает работу $20$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{25}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_06
+\begin{taskbasic}[code={\label{task:mkt_eff_v6_n8}}]
+\textbf{Задача 2.} Тепловая машина за цикл получает от нагревателя количество теплоты, равное $50$~кДж, и отдаёт в окружающую среду количество теплоты, равное $40$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{20}
+
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_efficiency_bank_part2.tex
+% ТЕМА: КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА
+% ПАЧКА 2: ВАРИАНТЫ 11–20
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_17
+\begin{taskbasic}[code={\label{task:mkt_eff_v17_n8}}]
+\textbf{Задача 1.} Тепловая машина за цикл получает от нагревателя количество теплоты, равное $60$~кДж, и отдаёт холодильнику количество теплоты, равное $45$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{25}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_18
+\begin{taskbasic}[code={\label{task:mkt_eff_v18_n8}}]
+\textbf{Задача 2.} Тепловая машина за цикл получает от нагревателя количество теплоты, равное $80$~кДж, и отдаёт холодильнику количество теплоты, равное $60$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{25}
+
+% ====================================================================
+% ФАЙЛ: tasks/02_mkt/mkt_efficiency_bank_part3.tex
+% ТЕМА: КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА
+% ПАЧКА 3: ВАРИАНТЫ 21–30
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_27
+\begin{taskbasic}[code={\label{task:mkt_eff_v27_n8}}]
+\textbf{Задача 1.} Тепловая machine за цикл получает от нагревателя количество теплоты, равное $120$~кДж, и отдаёт холодильнику количество теплоты, равное $90$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{25}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МКТ #КПД #КИМ_08 #ВАРИАНТ_28
+\begin{taskbasic}[code={\label{task:mkt_eff_v28_n8}}]
+\textbf{Задача 2.} Тепловая машина за цикл получает от нагревателя количество теплоты, равное $160$~кДж, и отдаёт холодильнику количество теплоты, равное $120$~кДж. Чему равен КПД тепловой машины?
+
+\kim{8}
+\end{taskbasic}
+\answer{25}
+
+\begin{taskbasic}
+    \textbf{12.} На рисунке в координатах $p$--$V$ представлен циклический процесс, проводимый с идеальным одноатомным газом. Давление газа изохорно увеличивают в $2$ раза, затем объём газа увеличивают в $5$ раз так, что давление линейно зависит от объёма и возрастает в $2{,}5$ раза. После этого газ возвращают в исходное состояние в процессе, в котором давление линейно зависит от объёма. Определите коэффициент полезного действия теплового двигателя, работающего по этому циклу. Количество вещества газа постоянно.
+\begin{center}
+\begin{tikzpicture}[>=Stealth,scale=0.95,font=\small]
+  \draw[-{Stealth[scale=0.8]},thick] (0,0)--(0,4.2) node[left]{$p$};
+  \draw[-{Stealth[scale=0.8]},thick] (0,0)--(4.8,0) node[below]{$V$};
+  \node[below left] at (0,0){0};
+  \draw[thin,dashed,gray] (1,0)--(1,2) (4,0)--(4,3.6) (0,0.8)--(1,0.8) (0,2)--(1,2) (0,3.6)--(4,3.6);
+  \node[below] at (1,0){$V_1$};\node[below] at (4,0){$V_3$};
+  \node[left] at (0,0.8){$p_1$};\node[left] at (0,2){$p_2$};\node[left] at (0,3.6){$p_3$};
+  \draw[ultra thick,brandPrimary] (1,0.8)--(1,2)--(4,3.6)--cycle;
+  \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (1,0.8)--(1,1.5);
+  \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (1,2)--(2.6,2.85);
+  \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (4,3.6)--(2.35,2.06);
+  \fill (1,0.8) circle (1.5pt) node[below right]{1};
+  \fill (1,2) circle (1.5pt) node[above left]{2};
+  \fill (4,3.6) circle (1.5pt) node[above right]{3};
+\end{tikzpicture}
+\end{center}
+\kim{24}
+\end{taskbasic}
+
+\answer{4$\%$}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_p1_3_1_5}}]
+\textbf{Задача.} На рисунке в координатах $p-V$ представлен циклический процесс, проводимый с идеальным одноатомным газом. Давление идеального одноатомного газа изохорно увеличивают в $3$ раза, затем объём газа увеличивают в $4$ раза так, что давление линейно зависит от объёма и возрастает в $1{,}5$ раза. После этого газ возвращают в исходное состояние в процессе, в котором давление линейно зависит от объёма. Определите отношение модуля количества теплоты, отданного газом за цикл холодильнику, к количеству теплоты, полученному за цикл от нагревателя $\frac{|Q_{\text{х}}|}{Q_{\text{н}}}$.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,1), 2=(1,3), 3=(4,4.5)
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (1,3);
+    \coordinate (3) at (4,4.5);
+    
+    % Линии процесса со стрелками по центру
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,2.1);
+    \draw[ultra thick, brandPrimary] (1,2.0) -- (2);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.6,3.8);
+    \draw[ultra thick, brandPrimary] (2.5,3.75) -- (3);
+    
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (2.4,2.68);
+    \draw[ultra thick, brandPrimary] (2.5,2.75) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,3) -- (1,3);
+    \draw[dashed, gray] (0,4.5) -- (3);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (4,0) -- (3);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[left=2pt] {1};
+    \fill[black] (2) circle (1.5pt) node[above left] {2};
+    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    
+    % Подписи осей
+    \node[left] at (0,1) {$p_1$};
+    \node[left] at (0,3) {$p_2$};
+    \node[left] at (0,4.5) {$p_3$};
+    \node[below] at (1,0) {$V_1$};
+    \node[below] at (4,0) {$V_3$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{0,92}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_adiabat_eta20}}]
+\textbf{Задача.} В качестве рабочего тела в тепловой машине используется идеальный одноатомный газ, который совершает циклический процесс, состоящий из изобарного нагревания (1–2), изохорного охлаждения (2–3) и адиабатного сжатия (3–1). КПД этой тепловой машины $\eta = 20\%$. Найдите отношение работы $A_{12}$, совершённой газом в изобарном процессе, к работе $A_{31}$, совершённой над газом при адиабатном сжатии.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    
+    
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1.5,3.5), 2=(3.5,3.5), 3=(3.5,1)
+    \coordinate (1) at (1.5,3.1);
+    \coordinate (2) at (3.5,3.1);
+    \coordinate (3) at (3.5,0.8);
+    
+    % Процесс 1->2 (изобара)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.6,3.1);
+    \draw[ultra thick, brandPrimary] (2.5,3.1) -- (2);
+    
+    % Процесс 2->3 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3.5,2.1);
+    \draw[ultra thick, brandPrimary] (3.5,2.2) -- (3);
+    
+    % Процесс 3->1 (адиабата y = C/x^(5/3))
+    \draw[ultra thick, brandPrimary, domain=1.5:3.5, samples=40] plot (\x, {6.14 / (\x^1.67)});
+    \draw[brandPrimary, -{Stealth[scale=0.8, length=5pt, width=4pt]}, domain=2.2:3.5] plot (\x, {6.14 / (\x^1.67)});
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below right] {3};
+    
+    % Ноль на оси
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{2}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_adiabat_a12_4a31}}]
+\textbf{Задача.} В качестве рабочего тела в тепловой машине используется идеальный одноатомный газ, который совершает циклический процесс, состоящий из изобарного нагревания (1–2), изохорного охлаждения (2–3) и адиабатного сжатия (3–1). Известно, что работа, совершённая газом в изобарном процессе, в $4$ раза больше работы, совершённой над газом при адиабатном сжатии. Определите КПД этой тепловой машины.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1.5,3.5), 2=(3.5,3.5), 3=(3.5,1)
+    \coordinate (1) at (1.5,3.1);
+    \coordinate (2) at (3.5,3.1);
+    \coordinate (3) at (3.5,0.8);
+    
+    % Процесс 1->2 (изобара)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.6,3.1);
+    \draw[ultra thick, brandPrimary] (2.5,3.1) -- (2);
+    
+    % Процесс 2->3 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3.5,2.1);
+    \draw[ultra thick, brandPrimary] (3.5,2.2) -- (3);
+    
+    % Процесс 3->1 (адиабата y = C/x^(5/3))
+    \draw[ultra thick, brandPrimary, domain=1.5:3.5, samples=40] plot (\x, {6.14 / (\x^1.67)});
+    \draw[brandPrimary, -{Stealth[scale=0.8, length=5pt, width=4pt]}, domain=2.2:3.5] plot (\x, {6.14 / (\x^1.67)});
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below right] {3};
+    
+    % Ноль на оси
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{30}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_q_hol_a12_8kj}}]
+\textbf{Задача.} Изменение состояния постоянной массы одноатомного идеального газа происходит по циклу, показанному на рисунке. При переходе из состояния 1 в состояние 2 газ совершает работу $A_{12} = 8$~кДж. Какое количество теплоты газ отдаёт за цикл холодильнику?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,2), 2=(3,2), 3=(1,1)
+    \coordinate (1) at (1,2);
+    \coordinate (2) at (3,2);
+    \coordinate (3) at (1,1);
+    
+    % Процесс 1->2 (изобара)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.1,2);
+    \draw[ultra thick, brandPrimary] (2.0,2) -- (2);
+    
+    % Процесс 2->3 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1.9,1.45);
+    \draw[ultra thick, brandPrimary] (2.0,1.5) -- (3);
+    
+    % Процесс 3->1 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,2) -- (1,2);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (3,0) -- (3,2);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below left] {3};
+    
+    % Подписи на осях
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,2) {$2p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (3,0) {$3V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{21}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_q_nagr_a12_5kj}}]
+\textbf{Задача.} Изменение состояния постоянной массы одноатомного идеального газа происходит по циклу, показанному на рисунке. При переходе из состояния 1 в состояние 2 газ совершает работу $A_{12} = 5$~кДж. Какое количество теплоты газ получает за цикл от нагревателя?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,2), 2=(3,2), 3=(1,1)
+    \coordinate (1) at (1,2);
+    \coordinate (2) at (3,2);
+    \coordinate (3) at (1,1);
+    
+    % Процесс 1->2 (изобара)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.1,2);
+    \draw[ultra thick, brandPrimary] (2.0,2) -- (2);
+    
+    % Процесс 2->3 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1.9,1.45);
+    \draw[ultra thick, brandPrimary] (2.0,1.5) -- (3);
+    
+    % Процесс 3->1 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,2) -- (1,2);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (3,0) -- (3,2);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below left] {3};
+    
+    % Подписи на осях
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,2) {$2p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (3,0) {$3V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{14,375}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_q_nagr_a12_5kj}}]
+\textbf{Задача.} Изменение состояния постоянной массы одноатомного идеального газа происходит по циклу, показанному на рисунке. При переходе из состояния 1 в состояние 2 газ совершает работу $A_{12} = 5$~кДж. Какое количество теплоты газ получает за цикл от нагревателя?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,2), 2=(3,2), 3=(1,1)
+    \coordinate (1) at (1,2);
+    \coordinate (2) at (3,2);
+    \coordinate (3) at (1,1);
+    
+    % Процесс 1->2 (изобара)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.1,2);
+    \draw[ultra thick, brandPrimary] (2.0,2) -- (2);
+    
+    % Процесс 2->3 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1.9,1.45);
+    \draw[ultra thick, brandPrimary] (2.0,1.5) -- (3);
+    
+    % Процесс 3->1 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,2) -- (1,2);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (3,0) -- (3,2);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \fill[black] (3) circle (1.5pt) node[below left] {3};
+    
+    % Подписи на осях
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,2) {$2p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (3,0) {$3V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{14,375}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_t2_q120kj}}]
+\textbf{Задача.} В цикле, показанном на $pV$-диаграмме, $\nu = 4$~моль разреженного гелия получает от нагревателя количество теплоты $Q_{\text{нагр}} = 120$~кДж. Найдите температуру $T_2$ гелия в состоянии 2.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,4);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,1), 2=(1,2), 3=(4,3)
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (1,2);
+    \coordinate (3) at (4,3);
+    
+    % Процесс 1->2 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (2);
+    
+    % Процесс 2->3 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.6,2.53);
+    \draw[ultra thick, brandPrimary] (2.5,2.5) -- (3);
+    
+    % Процесс 3->1 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (2.4,1.93);
+    \draw[ultra thick, brandPrimary] (2.5,2.0) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,3) -- (4,3);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (4,0) -- (4,3);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[below left] {1};
+    \fill[black] (2) circle (1.5pt) node[above left] {2};
+    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    
+    % Подписи на осях
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,3) {$3p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (4,0) {$4V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{301}
+
+% === ЗАДАЧА ===
+% Тег: #МКТ #КПД_ЦИКЛА #КИМ_24
+\begin{taskbasic}[code={\label{task:mkt_cyc_v24_q_nagr_t2_250k}}]
+\textbf{Задача.} В цикле, показанном на $pV$-диаграмме, участвует разреженный аргон в количестве $\nu = 2$~моль. Какое количество теплоты $Q_{\text{нагр}}$ газ получает от нагревателя, если в состоянии 2 температура аргона $T_2 = 250$~К?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    % Сетка gray!30
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,4);
+    
+    % Оси координат
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$V$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    
+    % Координаты точек: 1=(1,1), 2=(1,2), 3=(4,3)
+    \coordinate (1) at (1,1);
+    \coordinate (2) at (1,2);
+    \coordinate (3) at (4,3);
+    
+    % Процесс 1->2 (изохора)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (2);
+    
+    % Процесс 2->3 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.6,2.53);
+    \draw[ultra thick, brandPrimary] (2.5,2.5) -- (3);
+    
+    % Процесс 3->1 (линейный)
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (2.4,1.93);
+    \draw[ultra thick, brandPrimary] (2.5,2.0) -- (1);
+    
+    % Пунктирные линии к осям
+    \draw[dashed, gray] (0,1) -- (1,1);
+    \draw[dashed, gray] (0,3) -- (4,3);
+    \draw[dashed, gray] (1,0) -- (1,1);
+    \draw[dashed, gray] (4,0) -- (4,3);
+    
+    % Точки
+    \fill[black] (1) circle (1.5pt) node[below left] {1};
+    \fill[black] (2) circle (1.5pt) node[above left] {2};
+    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    
+    % Подписи на осях
+    \node[left] at (0,1) {$p_0$};
+    \node[left] at (0,3) {$3p_0$};
+    \node[below] at (1,0) {$V_0$};
+    \node[below] at (4,0) {$4V_0$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{24}
+\end{taskbasic}
+\answer{49,86}

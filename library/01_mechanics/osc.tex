@@ -1,0 +1,370 @@
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/oscillations_waves_bank_part1.tex
+% ТЕМА: МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ И ВОЛНЫ
+% ПАЧКА 1: ВАРИАНТЫ 1–10
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:oscillations_v1_n6}}]
+\textbf{Задача 1.} Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t = 0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    % Потолок
+    \draw[thick] (-0.8,2) -- (0.8,2);
+    \foreach \x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}
+        \draw (\x,2) -- (\x+0.1,2.15);
+    % Равновесие
+    \draw[dashed, gray] (0,2) -- (0,0);
+    \node[below] at (0,-0.4) {$0$};
+    % Нить и груз
+    \draw[thick] (0,2) -- (-0.8,0.4);
+    \draw[thick, fill=gray!40] (-0.95,0.1) rectangle (-0.65,0.6);
+    % Ось Ox
+    \draw[-{Stealth[scale=0.8]}, thick] (-1.3,-0.4) -- (1.5,-0.4) node[right] {$x$};
+\end{tikzpicture}
+\end{center}
+
+Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tabular}{cc}
+\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\
+\begin{tikzpicture}[scale=0.5, every node/.style={font=\tiny}]
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А)};
+    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.2*cos(\x*180/2)});
+    \node[below] at (4,0) {$T$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+&
+\begin{tabular}{l}
+1) проекция скорости $v_x$ \\
+2) координата $x$ \\
+3) проекция ускорения $a_x$ \\
+4) потенциальная энергия груза $E_{\text{п}}$
+\end{tabular} \\
+\begin{tikzpicture}[scale=0.5, every node/.style={font=\tiny}]
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б)};
+    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.2*sin(\x*180/2)});
+    \node[below] at (4,0) {$T$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture} & 
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+А & Б \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{6}
+\end{taskbasic}
+\answer{41}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_06 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:oscillations_v2_n6}}]
+\textbf{Задача 2.} Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t = 0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
+    \draw[thick] (-0.8,2) -- (0.8,2);
+    \foreach \x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}
+        \draw (\x,2) -- (\x+0.1,2.15);
+    \draw[dashed, gray] (0,2) -- (0,0);
+    \node[below] at (0,-0.4) {$0$};
+    \draw[thick] (0,2) -- (-0.8,0.4);
+    \draw[thick, fill=gray!40] (-0.95,0.1) rectangle (-0.65,0.6);
+    \draw[-{Stealth[scale=0.8]}, thick] (-1.3,-0.4) -- (1.5,-0.4) node[right] {$x$};
+\end{tikzpicture}
+\end{center}
+
+Установите соответствие между графиками и физическими величины, зависимость которых от времени эти графики могут представлять.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tabular}{cc}
+\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\
+\begin{tikzpicture}[scale=0.5, every node/.style={font=\tiny}]
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А)};
+    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.2*cos(\x*180/2)});
+    \node[below] at (4,0) {$T$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+&
+\begin{tabular}{l}
+1) проекция скорости $v_x$ \\
+2) координата $x$ \\
+3) проекция ускорения $a_x$ \\
+4) потенциальная энергия груза $E_{\text{п}}$
+\end{tabular} \\
+\begin{tikzpicture}[scale=0.5, every node/.style={font=\tiny}]
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б)};
+    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {-1.2*cos(\x*180/2)});
+    \node[below] at (4,0) {$T$};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture} & 
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+А & Б \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{6}
+\end{taskbasic}
+\answer{42}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_03
+\begin{taskbasic}[code={\label{task:oscillations_v3_n4}}]
+\textbf{Задача 3.} Период свободных малых колебаний математического маятника равен $0{,}8$~с. Каким станет период колебаний, если массу груза уменьшить в $4$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{0{,}8}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_04
+\begin{taskbasic}[code={\label{task:oscillations_v4_n4}}]
+\textbf{Задача 4.} Период свободных малых колебаний математического маятника равен $0{,}8$~с. Какой станет частота колебаний, если массу груза увеличить в $4$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{1{,}25}
+
+% === ЗАДАЧА 5 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:oscillations_v5_n4}}]
+\textbf{Задача 5.} На рисунке показан график зависимости координаты $x$ от времени $t$ для одной из точек колеблющейся струны. Определите частоту колебаний струны.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=0.6cm, y=8cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=0.1, gray!30, thin] (0,-0.2) grid (11,0.2);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (12,0) node[right] {$t, 10^{-3}\text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.22) -- (0,0.25) node[above] {$x, \text{ см}$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \foreach \y in {-0.2,-0.1,0.1,0.2} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] plot[domain=0:11, samples=200] (\x, {0.2*cos(\x*360/8)});
+    \fill[black] (0,0.2) circle (1.5pt);
+    \fill[black] (2,0) circle (1.5pt);
+    \fill[black] (4,-0.2) circle (1.5pt);
+    \fill[black] (6,0) circle (1.5pt);
+    \fill[black] (8,0.2) circle (1.5pt);
+    \fill[black] (10,0) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{4}
+\end{taskbasic}
+\answer{125}
+
+% === ЗАДАЧА 6 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_06
+\begin{taskbasic}[code={\label{task:oscillations_v6_n4}}]
+\textbf{Задача 6.} На рисунке показан график зависимости координаты $x$ от времени $t$ для одной из точек колеблющейся струны. Какой путь проходит точка струны за два периода колебаний?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=0.6cm, y=8cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=0.1, gray!30, thin] (0,-0.2) grid (11,0.2);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (12,0) node[right] {$t, 10^{-3}\text{ с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.22) -- (0,0.25) node[above] {$x, \text{ см}$};
+    \foreach \x in {2,4,6,8,10} \node[below] at (\x,0) {\x};
+    \foreach \y in {-0.2,-0.1,0.1,0.2} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] plot[domain=0:11, samples=200] (\x, {0.2*cos(\x*360/8)});
+    \fill[black] (0,0.2) circle (1.5pt);
+    \fill[black] (2,0) circle (1.5pt);
+    \fill[black] (4,-0.2) circle (1.5pt);
+    \fill[black] (6,0) circle (1.5pt);
+    \fill[black] (8,0.2) circle (1.5pt);
+    \fill[black] (10,0) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{4}
+\end{taskbasic}
+\answer{1{,}6}
+
+% === ЗАДАЧА 7 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_09
+\begin{taskbasic}[code={\label{task:waves_v9_n4}}]
+\textbf{Задача 7.} Скорость звука в алюминиевой трубе составляет $5$~км/с. Длина звуковой волны в трубе равна $2{,}5$~м. Какова частота колебаний источника звука?
+
+\kim{4}
+\end{taskbasic}
+\answer{2000}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/oscillations_waves_bank_part2.tex
+% ТЕМА: МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ И ВОЛНЫ
+% ПАЧКА 2: ВАРИАНТЫ 11–20
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_13
+\begin{taskbasic}[code={\label{task:oscillations_v13_n4}}]
+\textbf{Задача 1.} Массивный груз, подвешенный на лёгкой пружине, совершает свободные гармонические колебания вдоль вертикальной прямой. Во сколько раз уменьшится частота его колебаний, если массу груза увеличить в $4$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{2}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_14
+\begin{taskbasic}[code={\label{task:oscillations_v14_n4}}]
+\textbf{Задача 2.} Массивный груз, подвешенный на лёгкой пружине, совершает свободные гармонические колебания вдоль вертикальной прямой. Во сколько раз увеличится частота его колебаний, если массу груза уменьшить в $4$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{2}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_19
+\begin{taskbasic}[code={\label{task:oscillations_v19_n4}}]
+\textbf{Задача 3.} Математический маятник с длиной нити $1{,}6$~м совершает свободные малые колебания. Каковой должна быть длина нити другого математического маятника, чтобы период его колебаний был в $2$ раза меньше?
+
+\kim{4}
+\end{taskbasic}
+\answer{0{,}4}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_20
+\begin{taskbasic}[code={\label{task:oscillations_v20_n4}}]
+\textbf{Задача 4.} Математический маятник совершает свободные малые колебания. Во сколько раз нужно увеличить длину нити маятника, чтобы период его колебаний увеличился в $2$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{4}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/oscillations_waves_bank_part3.tex
+% ТЕМА: МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ И ВОЛНЫ
+% ПАЧКА 3: ВАРИАНТЫ 21–30
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_21
+\begin{taskbasic}[code={\label{task:oscillations_v21_n4}}]
+\textbf{Задача 1.} Массивный шарик, подвешенный на лёгкой пружине, совершает свободные гармонические колебания вдоль вертикальной прямой. Во сколько раз нужно уменьшить массу груза, чтобы период его колебаний уменьшился в $2$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{4}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_04 #ВАРИАНТ_22
+\begin{taskbasic}[code={\label{task:oscillations_v22_n4}}]
+\textbf{Задача 2.} Массивный шарик, подвешенный на лёгкой пружине, совершает свободные гармонические колебания вдоль вертикальной прямой. Во сколько раз нужно увеличить массу груза, чтобы период его колебаний увеличился в $2$ раза?
+
+\kim{4}
+\end{taskbasic}
+\answer{4}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МЕХАНИКА #ОПТИКА #КИМ_25 #ВАРИАНТ_25
+\begin{taskbasic}[code={\label{task:oscillations_optics_v25_n25}}]
+\textbf{Задача 3.} Математический маятник совершает колебания в плоскости рисунка с амплитудой $A = 1$~см. Равновесное положение нити маятника находится на расстоянии $l = \sqrt{5}$~см от переднего фокуса собирающей линзы. Крайние положения груза маятника лежат на главной оптической оси линзы. Найдите оптическую силу линзы, если расстояние между действительными изображениями двух крайних положений груза маятника равно $2$~см.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
+    % Оптическая ось
+    \draw[thick] (-3.5,0) -- (3.5,0);
+    
+    % Линза собирающая
+    \draw[thick, <->] (1.5,-1.2) -- (1.5,1.2);
+    
+    % Фокусы
+    \fill[black] (0,0) circle (1.2pt) node[below=2pt] {$F$};
+    \fill[black] (3.0,0) circle (1.2pt) node[below=2pt] {$F$};
+    
+    % Подвес маятника
+    \draw[thin] (-1.5,1.5) -- (-1.5,0);
+    \fill[black] (-1.5,1.5) circle (1pt);
+    \draw[gray, thin] (-1.5,1.5) -- (-1.8,0);
+    \draw[gray, thin] (-1.5,1.5) -- (-1.2,0);
+    
+    % Груз маятника в крайних положениях
+    \fill[brandPrimary] (-1.8,0) circle (2.5pt);
+    \fill[brandPrimary] (-1.2,0) circle (2.5pt);
+    
+    % Обозначение расстояний
+    \draw[dashed, gray] (-1.5,0) -- (-1.5,-0.6);
+    \draw[dashed, gray] (0,0) -- (0,-0.6);
+    \draw[<->, >=stealth, thin] (-1.5,-0.5) -- (0,-0.5) node[midway, above] {$l$};
+    
+    \draw[<->, >=stealth, thin] (-1.8,-0.2) -- (-1.2,-0.2) node[midway, below] {$2A$};
+    
+    % Потолок подвеса
+    \draw[thick] (-1.8,1.5) -- (-1.2,1.5);
+    \foreach \x in {-1.7,-1.5,-1.3} \draw (\x,1.5) -- (\x+0.1,1.65);
+\end{tikzpicture}
+\end{center}
+
+\kim{25}
+\end{taskbasic}
+\answer{50}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МЕХАНИКА #ОПТИКА #КИМ_25 #ВАРИАНТ_26
+\begin{taskbasic}[code={\label{task:oscillations_optics_v26_n25}}]
+\textbf{Задача 4.} Математический маятник совершает колебания в плоскости рисунка с амплитудой $A = 1$~см. Равновесное положение нити маятника находится на расстоянии $l = \sqrt{5}$~см от переднего фокуса собирающей линзы. Крайние положения груза маятника лежат на главной оптической оси линзы. Найдите расстояние между изображениями двух крайних положений груза маятника, если оптическая сила линзы равна $50$~дптр.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
+    % Оптическая ось
+    \draw[thick] (-3.5,0) -- (3.5,0);
+    
+    % Линза собирающая
+    \draw[thick, <->] (1.5,-1.2) -- (1.5,1.2);
+    
+    % Фокусы
+    \fill[black] (0,0) circle (1.2pt) node[below=2pt] {$F$};
+    \fill[black] (3.0,0) circle (1.2pt) node[below=2pt] {$F$};
+    
+    % Подвес маятника
+    \draw[thin] (-1.5,1.5) -- (-1.5,0);
+    \fill[black] (-1.5,1.5) circle (1pt);
+    \draw[gray, thin] (-1.5,1.5) -- (-1.8,0);
+    \draw[gray, thin] (-1.5,1.5) -- (-1.2,0);
+    
+    % Груз маятника в крайних положениях
+    \fill[brandPrimary] (-1.8,0) circle (2.5pt);
+    \fill[brandPrimary] (-1.2,0) circle (2.5pt);
+    
+    % Обозначение расстояний
+    \draw[dashed, gray] (-1.5,0) -- (-1.5,-0.6);
+    \draw[dashed, gray] (0,0) -- (0,-0.6);
+    \draw[<->, >=stealth, thin] (-1.5,-0.5) -- (0,-0.5) node[midway, above] {$l$};
+    
+    \draw[<->, >=stealth, thin] (-1.8,-0.2) -- (-1.2,-0.2) node[midway, below] {$2A$};
+    
+    % Потолок подвеса
+    \draw[thick] (-1.8,1.5) -- (-1.2,1.5);
+    \foreach \x in {-1.7,-1.5,-1.3} \draw (\x,1.5) -- (\x+0.1,1.65);
+\end{tikzpicture}
+\end{center}
+
+\kim{25}
+\end{taskbasic}
+\answer{2}

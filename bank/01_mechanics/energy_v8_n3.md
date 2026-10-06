@@ -8,7 +8,7 @@ topic: 1.3.3
 level: Б
 type: расчётная
 variant: 8
-answer: "1{,"
+answer: "1,5"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

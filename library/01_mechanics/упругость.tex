@@ -1,0 +1,146 @@
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/elastic_force_bank.tex
+% ТЕМА: СИЛА УПРУГОСТИ (ЗАКОН ГУКА)
+% ПАЧКА 1: ВАРИАНТЫ 1–10
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_22 #ВАРИАНТ_01
+\begin{taskbasic}[code={\label{task:elastic_v1_n22}}]
+\textbf{Задача 1.} Две пружины одинаковой длины соединены параллельно. Жёсткость первой пружины равна $300$~Н/м. Какова жёсткость второй пружины, если жёсткость системы из этих двух пружин равна $400$~Н/м?
+
+\kim{22}
+\end{taskbasic}
+\answer{100~Н/м}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_22 #ВАРИАНТ_02
+\begin{taskbasic}[code={\label{task:elastic_v2_n22}}]
+\textbf{Задача 2.} Две пружины одинаковой длины соединены параллельно. Жёсткость системы из этих двух пружин равна $400$~Н/м. Какова жёсткость второй пружины, если жёсткость первой пружины равна $250$~Н/м?
+
+\kim{22}
+\end{taskbasic}
+\answer{150~Н/м}
+
+% === ЗАДАЧА 3 ===
+% Тег: #МЕХАНИКА #КИМ_02 #ВАРИАНТ_05
+\begin{taskbasic}[code={\label{task:elastic_v5_n2}}]
+\textbf{Задача 3.} На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $x$. Чему равна жёсткость этой пружины?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (5,24);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \text{ см}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \text{ Н}$};
+    \foreach \x in {1,2,3,4,5} \node[below] at (\x,0) {\x};
+    \foreach \y in {4,8,12,16,20,24} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] (0,0) -- (5,20);
+    \fill[black] (5,20) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{2}
+\end{taskbasic}
+\answer{400~Н/м}
+
+% === ЗАДАЧА 4 ===
+% Тег: #МЕХАНИКА #КИМ_02 #ВАРИАНТ_06
+\begin{taskbasic}[code={\label{task:elastic_v6_n2}}]
+\textbf{Задача 4.} На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $x$. Чему равна жёсткость этой пружины?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (5,24);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \text{ см}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \text{ Н}$};
+    \foreach \x in {1,2,3,4,5} \node[below] at (\x,0) {\x};
+    \foreach \y in {4,8,12,16,20,24} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] (0,0) -- (5,20);
+    \fill[black] (5,20) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{2}
+\end{taskbasic}
+\answer{400~Н/м}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/elastic_force_bank_part2.tex
+% ТЕМА: СИЛА УПРУГОСТИ (ЗАКОН ГУКА)
+% ПАЧКА 2: ВАРИАНТЫ 11–20
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_02 #ВАРИАНТ_11
+\begin{taskbasic}[code={\label{task:elastic_v11_n2}}]
+\textbf{Задача 1.} На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $\Delta l$. Чему равна жёсткость этой пружины?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=1.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (4,8);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\Delta l, \text{ см}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,8.5) node[above] {$F, \text{ Н}$};
+    \foreach \x in {1,2,3,4} \node[below] at (\x,0) {\x};
+    \foreach \y in {2,4,6,8} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] (0,0) -- (4,6);
+    \fill[black] (4,6) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{2}
+\end{taskbasic}
+\answer{150~Н/м}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_02 #ВАРИАНТ_12
+\begin{taskbasic}[code={\label{task:elastic_v12_n2}}]
+\textbf{Задача 2.} На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $\Delta l$. Чему равна жёсткость этой пружины?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[x=1.5cm, y=0.4cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (4,8);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\Delta l, \text{ см}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,8.5) node[above] {$F, \text{ Н}$};
+    \foreach \x in {1,2,3,4} \node[below] at (\x,0) {\x};
+    \foreach \y in {2,4,6,8} \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+    \draw[ultra thick, brandPrimary] (0,0) -- (4,6);
+    \fill[black] (4,6) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\kim{2}
+\end{taskbasic}
+\answer{150~Н/м}
+
+% ====================================================================
+% ФАЙЛ: tasks/01_mechanics/elastic_force_bank_part3.tex
+% ТЕМА: СИЛА УПРУГОСТИ (ЗАКОН ГУКА В ДИНАМИКЕ)
+% ПАЧКА 3: ВАРИАНТЫ 21–30
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #МЕХАНИКА #КИМ_22 #ВАРИАНТ_27
+\begin{taskbasic}[code={\label{task:elastic_v27_n22}}]
+\textbf{Задача 1.} Груз массой $200$~г подвешен на пружине жёсткостью $100$~Н/м к потолку лифта. Лифт равноускоренно движется вниз, набирая скорость. Каково ускорение лифта, если удлинение пружины постоянно и равно $1{,}5$~см?
+
+\kim{22}
+\end{taskbasic}
+\answer{2{,}5~м/с$^{2}$}
+
+% === ЗАДАЧА 2 ===
+% Тег: #МЕХАНИКА #КИМ_22 #ВАРИАНТ_28
+\begin{taskbasic}[code={\label{task:elastic_v28_n22}}]
+\textbf{Задача 2.} Груз массой $200$~г подвешен на пружине к потолку лифта. Лифт равноускоренно движется вниз с ускорением $2$~м/с$^{2}$, набирая скорость. Какова жёсткость пружины, если удлинение её постоянно и равно $1$~см?
+
+\kim{22}
+\end{taskbasic}
+\answer{160~Н/м}
+

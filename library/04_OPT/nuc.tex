@@ -1,0 +1,894 @@
+% ====================================================================
+% ФАЙЛ: tasks/05_quantum_physics/nuclear_physics_part1.tex
+% ТЕМА: РАДИОАКТИВНЫЙ РАСПАД. КВАНТОВЫЕ ПЕРЕХОДЫ
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_actinium_30d}}]
+Период полураспада изотопа актиния $^{225}_{89}\text{Ac}$ равен $10\text{ дням}$. Какая масса этого изотопа распадётся за $30\text{ дней}$ в образце, содержавшем первоначально $28\text{ мг}$ $^{225}_{89}\text{Ac}$? Ответ выразите в миллиграммах (мг).
+
+\kim{16}
+\end{taskbasic}
+\answer{24,5}
+
+% === ЗАДАЧА 2 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_actinium_40d}}]
+Период полураспада изотопа актиния $^{225}_{89}\text{Ac}$ равен $10\text{ дням}$. Какая масса этого изотопа осталась через $40\text{ дней}$ в образце, содержавшем первоначально $28\text{ мг}$ $^{225}_{89}\text{Ac}$? Ответ выразите в миллиграммах (мг).
+
+\kim{16}
+\end{taskbasic}
+\answer{1,75}
+
+% === ЗАДАЧА 3 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_sodium_decayed}}]
+Период полураспада изотопа натрия $^{22}_{11}\text{Na}$ равен $2{,}6\text{ года}$. Изначально масса этого изотопа составляла $40\text{ мг}$. Какая масса этого изотопа распадётся за $7{,}8\text{ лет}$? Ответ выразите в миллиграммах (мг).
+
+\kim{16}
+\end{taskbasic}
+\answer{35}
+
+% === ЗАДАЧА 4 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_max_e_min_lambda}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Нумерованными стрелками отмечены некоторые возможные переходы атома между этими уровнями. Какой из этих четырёх переходов связан с поглощением кванта света наибольшей энергии, а какой --- с излучением кванта света наименьшей длины волны?
+
+Установите соответствие между процессами поглощения и излучения света и энергетическими переходами атома, указанными стрелками.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Уровни
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    % Стрелки
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[below] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,2.2) -- (1.6,0.5) node[below] {2};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[below] {3};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[below] {4};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.5\textwidth}p{0.45\textwidth}}
+\textbf{ПРОЦЕССЫ} & \textbf{ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ} \\
+А) поглощение кванта света наибольшей энергии & 1) 1 \\
+Б) излучение кванта света наименьшей длины волны & 2) 2 \\
+& 3) 3 \\
+& 4) 4
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{42}
+
+% === ЗАДАЧА 5 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_sodium_remained}}]
+Период полураспада изотопа натрия $^{22}_{11}\text{Na}$ равен $2{,}6\text{ года}$. Если изначально масса этого изотопа составляла $40\text{ мг}$, то примерно какова она будет через $7{,}8\text{ лет}$? Ответ выразите в миллиграммах (мг).
+
+\kim{16}
+\end{taskbasic}
+\answer{5}
+
+% === ЗАДАЧА 6 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_max_lambda_min_e}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Нумерованными стрелками отмечены некоторые возможные переходы атома между этими уровнями. Какой из этих четырёх переходов связан с поглощением кванта света наибольшей длины волны, а какой --- с излучением кванта света наименьшей энергии?
+
+Установите соответствие между процессами поглощения и излучения света и энергетическими переходами атома, указанными стрелками.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[below] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,1.8) -- (1.6,0.5) node[below] {2};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[below] {3};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[below] {4};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.5\textwidth}p{0.45\textwidth}}
+\textbf{ПРОЦЕССЫ} & \textbf{ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ} \\
+А) поглощение кванта света наибольшей длины волны & 1) 1 \\
+Б) излучение кванта света наименьшей энергии & 2) 2 \\
+& 3) 3 \\
+& 4) 4
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{31}
+
+% === ЗАДАЧА 7 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ГРАФИК_РАСПАДА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_graph_point1}}]
+Ядра изотопа тантала $^{185}_{73}\text{Ta}$ испытывают $\beta^-$-распад с периодом полураспада $50\text{ мин}$. В момент начала наблюдения в образце содержится $4\cdot 10^{20}$ ядер тантала (см. рисунок). Через какую из точек (1, 2, 3 или 4), кроме точки $A$, пройдёт график зависимости от времени числа ещё не распавшихся ядер тантала?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,5);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{20}$};
+    
+    \fill[black] (0,4) circle (2pt) node[above right] {$A$};
+    \fill[black] (1,2) circle (2pt) node[above right] {1};
+    \fill[black] (2,1.5) circle (2pt) node[above right] {2};
+    \fill[black] (3,1.5) circle (2pt) node[above right] {3};
+    \fill[black] (5,0.5) circle (2pt) node[above right] {4};
+    
+    \foreach \x/\val in {1/50, 2/100, 3/150, 4/200, 5/250, 6/300}
+        \node[below] at (\x,0) {\val};
+    \foreach \y in {1,2,3,4,5}
+        \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{16}
+\end{taskbasic}
+\answer{1}
+
+% === ЗАДАЧА 8 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ГРАФИК_РАСПАДА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_graph_point3}}]
+Ядра изотопа тантала $^{185}_{73}\text{Ta}$ испытывают $\beta^-$-распад с периодом полураспада $50\text{ мин}$. В момент начала наблюдения в образце содержится $4\cdot 10^{20}$ ядер тантала (см. рисунок). Через какую из точек (1, 2, 3 или 4), кроме точки $A$, пройдёт график зависимости от времени числа ещё не распавшихся ядер тантала?
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,5);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{20}$};
+    
+    \fill[black] (0,4) circle (2pt) node[above right] {$A$};
+    \fill[black] (1,2.5) circle (2pt) node[above right] {1};
+    \fill[black] (2,1.0) circle (2pt) node[above right] {2};
+    \fill[black] (3,0.5) circle (2pt) node[above right] {3};
+    \fill[black] (5,0.25) circle (2pt) node[above right] {4};
+    
+    \foreach \x/\val in {1/50, 2/100, 3/150, 4/200, 5/250, 6/300}
+        \node[below] at (\x,0) {\val};
+    \foreach \y in {1,2,3,4,5}
+        \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{16}
+\end{taskbasic}
+\answer{3}
+
+% ====================================================================
+% ФАЙЛ: tasks/05_quantum_physics/nuclear_composition_and_transitions.tex
+% ТЕМА: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. КВАНТОВЫЕ ПЕРЕХОДЫ
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_protons_rutherfordium}}]
+Сколько протонов содержится в ядре изотопа резерфордия $^{261}_{104}\text{Rf}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{104}
+
+% === ЗАДАЧА 2 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_min_lambda_max_freq}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.
+
+Установите соответствие между процессами излучения фотона наименьшей длины волны и поглощения фотона наибольшей частоты и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.55\textwidth}p{0.4\textwidth}}
+\textbf{ПРОЦЕСС} & \textbf{ЭНЕРГИЯ ФОТОНА} \\
+А) излучение фотона наименьшей длины волны & 1) $E_1 - E_0$ \\
+Б) поглощение фотона наибольшей частоты & 2) $E_2 - E_0$ \\
+& 3) $E_3 - E_0$ \\
+& 4) $E_4 - E_0$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{44}
+
+% === ЗАДАЧА 3 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_neutrons_rutherfordium}}]
+Сколько нейтронов содержится в ядре изотопа резерфордия $^{261}_{104}\text{Rf}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{157}
+
+% === ЗАДАЧА 4 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_max_lambda_min_freq}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.
+
+Установите соответствие между процессами излучения фотона наибольшей длины волны и поглощения фотона наименьшей частоты и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.55\textwidth}p{0.4\textwidth}}
+\textbf{ПРОЦЕСС} & \textbf{ЭНЕРГИЯ ФОТОНА} \\
+А) излучение фотона наибольшей длины волны & 1) $E_1 - E_0$ \\
+Б) поглощение фотона наименьшей частоты & 2) $E_2 - E_0$ \\
+& 3) $E_3 - E_0$ \\
+& 4) $E_4 - E_0$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{11}
+
+% === ЗАДАЧА 5 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_gold_mcmol}}]
+Период $T$ полураспада изотопа золота $^{200}_{79}\text{Au}$ равен $48\text{ мин}$. Чему будет равно количество вещества изотопа золота в контейнере через $144\text{ мин}$, если в начальный момент времени в нём содержится $160\text{ мкмоль}$ изотопа золота? Ответ выразите в микромолях (мкмоль).
+
+\kim{16}
+\end{taskbasic}
+\answer{20}
+
+% === ЗАДАЧА 6 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_max_freq_min_energy}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.
+
+Установите соответствие между процессами излучения света наибольшей частоты и излучения света с наименьшей энергией и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.55\textwidth}p{0.4\textwidth}}
+\textbf{ПРОЦЕСС} & \textbf{ЭНЕРГИЯ ФОТОНА} \\
+А) излучение света наибольшей частоты & 1) $E_4 - E_0$ \\
+Б) излучение света с наименьшей энергией & 2) $E_3 - E_0$ \\
+& 3) $E_2 - E_0$ \\
+& 4) $E_1 - E_0$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{14}
+
+% === ЗАДАЧА 7 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_decay_gold_mass}}]
+Период $T$ полураспада изотопа золота $^{200}_{79}\text{Au}$ равен $48\text{ мин}$. Чему будет равна масса изотопа золота в контейнере через $96\text{ мин}$, если в начальный момент времени в нём содержится $64\text{ мг}$ изотопа золота? Ответ выразите в миллиграммах (мг).
+
+\kim{16}
+\end{taskbasic}
+\answer{16}
+
+% === ЗАДАЧА 8 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #УРОВНИ_ЭНЕРГИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:atomic_levels_min_freq_max_energy}}]
+На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.
+
+Установите соответствие между процессами поглощения света наименьшей частоты и поглощения света с наибольшей энергией и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
+    \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
+    \draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);
+    \draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);
+    \draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);
+    \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\smallskip
+\begin{tabular}{p{0.55\textwidth}p{0.4\textwidth}}
+\textbf{ПРОЦЕСС} & \textbf{ЭНЕРГИЯ ФОТОНА} \\
+А) поглощение света наименьшей частоты & 1) $E_2 - E_0$ \\
+Б) поглощение света с наибольшей энергией & 2) $E_3 - E_0$ \\
+& 3) $E_1 - E_0$ \\
+& 4) $E_4 - E_0$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{34}
+
+% === ЗАДАЧА 9 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #БЕТА_РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_beta_decay_mass_number}}]
+Ядро изотопа тория $^{234}_{90}\text{Th}$ испытывает электронный $\beta$-распад, при этом образуется ядро элемента $^A_Z\text{X}$. Каково массовое число образовавшегося ядра $\text{X}$ (в атомных единицах массы)?
+
+\kim{16}
+\end{taskbasic}
+\answer{234}
+
+% === ЗАДАЧА 10 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #БЕТА_РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_beta_decay_charge}}]
+Ядро изотопа тория $^{234}_{90}\text{Th}$ испытывает электронный $\beta$-распад, при этом образуется ядро элемента $^A_Z\text{X}$. Каков заряд образовавшегося ядра $\text{X}$ (в единицах элементарного заряда)?
+
+\kim{16}
+\end{taskbasic}
+\answer{91}
+
+% === ЗАДАЧА 11 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ТАБЛИЦА_МЕНДЕЛЕЕВА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_mendeleev_table_zinc}}]
+На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость изотопа в природе.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c||c|c|c|}
+\hline
+\multirow{2}{*}{2} & \multirow{2}{*}{II} & \textbf{Li} \hfill 3 & \textbf{Be} \hfill 4 & \textbf{B} \hfill 5 \\
+ & & литий $7_{93} \quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \quad 10_{20}$ \\ \hline
+\multirow{2}{*}{3} & \multirow{2}{*}{III} & \textbf{Na} \hfill 11 & \textbf{Mg} \hfill 12 & \textbf{Al} \hfill 13 \\
+ & & натрий $23_{100}$ & магний $24_{79} \, 26_{11} \, 25_{10}$ & алюминий $27_{100}$ \\ \hline
+\multirow{4}{*}{4} & \multirow{2}{*}{IV} & \textbf{K} \hfill 19 & \textbf{Ca} \hfill 20 & \textbf{Sc} \hfill 21 \\
+ & & калий $39_{93} \quad 41_{6,7}$ & кальций $40_{97} \quad 44_{2,1}$ & скандий $45_{100}$ \\ \cline{2-5}
+ & \multirow{2}{*}{V} & \textbf{Cu} \hfill 29 & \textbf{Zn} \hfill 30 & \textbf{Ga} \hfill 31 \\
+ & & медь $63_{69} \quad 65_{31}$ & цинк $64_{49} \, 66_{28} \, 68_{19}$ & галлий $69_{60} \quad 71_{40}$ \\ \hline
+\end{tabular}
+\end{center}
+\smallskip
+
+Запишите число нейтронов в ядре наиболее распространённого стабильного изотопа цинка.
+
+\kim{16}
+\end{taskbasic}
+\answer{34}
+
+% === ЗАДАЧА 12 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ЯДЕРНЫЕ_РЕАКЦИИ #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_reaction_types}}]
+Установите соответствие между видами ядерных превращений и реакциями, описывающими эти процессы.
+
+К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\smallskip
+\begin{tabular}{p{0.45\textwidth}p{0.5\textwidth}}
+\textbf{ВИДЫ РАДИОАКТИВНОГО РАСПАДА} & \textbf{РЕАКЦИИ} \\
+А) реакция синтеза & 1) $^{11}_6\text{C} \to ^{11}_7\text{N} + \,^0_{-1}e + \bar{\nu}_e$ \\
+Б) цепная реакция деления & 2) $^{235}_{92}\text{U} + \,^1_0 n \to ^{139}_{56}\text{Ba} + \,^{95}_{36}\text{Kr} + 2\,^1_0 n$ \\
+& 3) $^{227}_{89}\text{Ac} \to ^{223}_{87}\text{Fr} + \,^4_2\text{He}$ \\
+& 4) $^9_4\text{Be} + \,^2_1\text{H} \to ^{10}_5\text{B} + \,^1_0 n$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{42}
+
+% ====================================================================
+% ФАЙЛ: tasks/05_quantum_physics/nuclear_structure_and_reactions.tex
+% ТЕМА: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ТАБЛИЦА_МЕНДЕЛЕЕВА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_mendeleev_table_copper}}]
+На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость изотопа в природе.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c||c|c|c|}
+\hline
+\multirow{2}{*}{2} & \multirow{2}{*}{II} & \textbf{Li} \hfill 3 & \textbf{Be} \hfill 4 & \textbf{B} \hfill 5 \\
+ & & литий $7_{93} \quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \quad 10_{20}$ \\ \hline
+\multirow{2}{*}{3} & \multirow{2}{*}{III} & \textbf{Na} \hfill 11 & \textbf{Mg} \hfill 12 & \textbf{Al} \hfill 13 \\
+ & & натрий $23_{100}$ & магний $24_{79} \, 26_{11} \, 25_{10}$ & алюминий $27_{100}$ \\ \hline
+\multirow{4}{*}{4} & \multirow{2}{*}{IV} & \textbf{K} \hfill 19 & \textbf{Ca} \hfill 20 & \textbf{Sc} \hfill 21 \\
+ & & калий $39_{93} \quad 41_{6,7}$ & кальций $40_{97} \quad 44_{2,1}$ & скандий $45_{100}$ \\ \cline{2-5}
+ & \multirow{2}{*}{V} & \textbf{Cu} \hfill 29 & \textbf{Zn} \hfill 30 & \textbf{Ga} \hfill 31 \\
+ & & медь $63_{69} \quad 65_{31}$ & цинк $64_{49} \, 66_{28} \, 68_{19}$ & галлий $69_{60} \quad 71_{40}$ \\ \hline
+\end{tabular}
+\end{center}
+\smallskip
+
+Запишите число нейтронов в ядре наиболее распространённого стабильного изотопа меди.
+
+\kim{16}
+\end{taskbasic}
+\answer{34}
+
+% === ЗАДАЧА 2 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #РАДИОАКТИВНЫЙ_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_decay_alpha_beta}}]
+Установите соответствие между видами радиоактивного распада и реакциями, описывающими этот распад.
+
+К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\smallskip
+\begin{tabular}{p{0.45\textwidth}p{0.5\textwidth}}
+\textbf{ВИДЫ РАДИОАКТИВНОГО РАСПАДА} & \textbf{РЕАКЦИИ} \\
+А) альфа-распад & 1) $^{11}_6\text{C} \to ^{11}_7\text{N} + \,^0_{-1}e + \bar{\nu}_e$ \\
+Б) электронный бета-распад & 2) $^6_3\text{Li} + \,^1_0 n \to \,^4_2\text{He} + \,^3_1\text{H}$ \\
+& 3) $^{227}_{89}\text{Ac} \to ^{223}_{87}\text{Fr} + \,^4_2\text{He}$ \\
+& 4) $^9_4\text{Be} + \,^2_1\text{H} \to ^{10}_5\text{B} + \,^1_0 n$
+\end{tabular}
+
+\kim{17}
+\end{taskbasic}
+\answer{31}
+
+% === ЗАДАЧА 3 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #ЭЛЕКТРОНЫ #КИМ_16
+\begin{taskbasic}[code={\label{task:atomic_electrons_magnesium}}]
+Сколько электронов содержится в электронной оболочке нейтрального атома изотопа магния $^{26}_{12}\text{Mg}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{12}
+
+% === ЗАДАЧА 4 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #БЕТА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_beta_protons_charge}}]
+Как изменятся при электронном $\beta$-распаде ядра изотопа тория $^{231}_{90}\text{Th}$ число протонов в ядре и зарядовое число ядра? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Число протонов в ядре & Зарядовое число ядра \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{11}
+
+% === ЗАДАЧА 5 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #ЭЛЕКТРОНЫ #КИМ_16
+\begin{taskbasic}[code={\label{task:atomic_electrons_nitrogen}}]
+Сколько электронов содержится в электронной оболочке нейтрального атома азота $^{14}_{7}\text{N}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{7}
+
+% === ЗАДАЧА 6 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #БЕТА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_beta_neutrons_mass}}]
+Как изменятся при электронном $\beta$-распаде ядра изотопа тория $^{231}_{90}\text{Th}$ число нейтронов в ядре и массовое число ядра? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Число нейтронов в ядре & Массовое число ядра \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{23}
+
+% === ЗАДАЧА 7 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ЯДЕРНЫЕ_РЕАКЦИИ #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_reaction_lithium_alpha_mass}}]
+Ядро лития захватывает альфа-частицу, в результате чего происходит ядерная реакция:
+\[
+^4_2\text{He} + \,^7_3\text{Li} \to \,^A_Z\text{X} + \,^1_0 n
+\]
+с образованием ядра химического элемента $^A_Z\text{X}$. Какова масса образовавшегося ядра (в атомных единицах массы)?
+
+\kim{16}
+\end{taskbasic}
+\answer{10}
+
+% === ЗАДАЧА 8 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ЯДЕРНЫЕ_РЕАКЦИИ #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_reaction_lithium_alpha_charge}}]
+Ядро лития захватывает альфа-частицу, в результате чего происходит ядерная реакция:
+\[
+^4_2\text{He} + \,^7_3\text{Li} \to \,^A_Z\text{X} + \,^1_0 n
+\]
+с образованием ядра химического элемента $^A_Z\text{X}$. Каков заряд образовавшегося ядра (в единицах элементарного заряда)?
+
+\kim{16}
+\end{taskbasic}
+\answer{5}
+% ====================================================================
+% ФАЙЛ: tasks/05_quantum_physics/nuclear_physics_part3.tex
+% ТЕМА: ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_neutrons_gallium}}]
+Сколько нейтронов содержится в ядре изотопа галлия $^{69}_{31}\text{Ga}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{38}
+
+% === ЗАДАЧА 2 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #АЛЬФА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_alpha_bismuth_charge_neutrons}}]
+Как изменятся при $\alpha$-распаде радиоактивного изотопа висмута $^{212}_{83}\text{Bi}$ зарядовое число ядра и число нейтронов в ядре? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Зарядовое число ядра & Число нейтронов в ядре \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{22}
+
+% === ЗАДАЧА 3 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_protons_gallium}}]
+Сколько протонов содержится в ядре изотопа галлия $^{69}_{31}\text{Ga}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{31}
+
+% === ЗАДАЧА 4 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #АЛЬФА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_alpha_bismuth_mass_protons}}]
+Как изменятся при $\alpha$-распаде радиоактивного изотопа висмута $^{212}_{83}\text{Bi}$ массовое число ядра и число протонов в ядре? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Массовое число ядра & Число протонов в ядре \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{22}
+
+% === ЗАДАЧА 5 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_protons_barium}}]
+Сколько протонов содержится в ядре изотопа бария $^{137}_{56}\text{Ba}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{56}
+
+% === ЗАДАЧА 6 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #СОСТАВ_ЯДРА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_neutrons_bismuth}}]
+Сколько нейтронов содержится в ядре изотопа висмута $^{208}_{83}\text{Bi}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{125}
+
+% === ЗАДАЧА 7 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #ЭЛЕКТРОНЫ #КИМ_16
+\begin{taskbasic}[code={\label{task:atomic_electrons_beryllium}}]
+Каково число электронов в электронной оболочке нейтрального атома бериллия $^7_4\text{Be}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{4}
+
+% === ЗАДАЧА 8 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #АЛЬФА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_alpha_mass_protons}}]
+Как изменятся при $\alpha$-распаде массовое число ядра и число протонов в ядре? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Массовое число ядра & Число протонов в ядре \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{22}
+
+% === ЗАДАЧА 9 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #АТОМНАЯ_ФИЗИКА #ЭЛЕКТРОНЫ #КИМ_16
+\begin{taskbasic}[code={\label{task:atomic_electrons_oxygen}}]
+Каково число электронов в электронной оболочке нейтрального атома кислорода $^{21}_8\text{O}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{8}
+
+% === ЗАДАЧА 10 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #БЕТА_РАСПАД #КИМ_17
+\begin{taskbasic}[code={\label{task:nuclear_beta_mass_protons}}]
+Как изменятся при электронном $\beta$-распаде массовое число ядра и число протонов в ядре? Для каждой величины определите соответствующий характер изменения:
+1) увеличится
+2) уменьшится
+3) не изменится
+
+Запишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c|}
+\hline
+Массовое число ядра & Число протонов в ядре \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
+
+\kim{17}
+\end{taskbasic}
+\answer{31}
+
+% === ЗАДАЧА 11 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ПЕРИОД_ПОЛУРАСПАДА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_half_life_mass_graph}}]
+На рисунке показан график изменения массы находящегося в пробирке радиоактивного изотопа с течением времени. Определите период полураспада этого изотопа. Ответ выразите в месяцах.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,6);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (5.5,0) node[right] {$t$, мес.};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,6.5) node[above] {$m$, мг};
+    
+    \draw[ultra thick, brandPrimary] plot[domain=0:4.8, samples=100] (\x, {6*exp(-0.462*\x)});
+    
+    \foreach \x in {1,2,3,4}
+        \node[below] at (\x,0) {\x};
+    \foreach \y in {2,4,6}
+        \node[left] at (0,\y) {\y};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{16}
+\end{taskbasic}
+\answer{1,5}
+
+% === ЗАДАЧА 12 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ПЕРИОД_ПОЛУРАСПАДА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_half_life_mercury_graph}}]
+Дан график зависимости числа нераспавшихся ядер ртути $^{190}_{80}\text{Hg}$ от времени. Чему равен период полураспада этого изотопа ртути? Ответ выразите в минутах.
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
+    \draw[xstep=0.5, ystep=1, gray!30, thin] (0,0) grid (6,5);
+    
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{18}$};
+    
+    \draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\x, {5*exp(-0.5545*\x)});
+    
+    \node[below] at (2,0) {50};
+    \node[below] at (4,0) {100};
+    \node[below] at (6,0) {150};
+    
+    \node[left] at (0,1) {10};
+    \node[left] at (0,2) {20};
+    \node[left] at (0,3) {30};
+    \node[left] at (0,4) {40};
+    \node[left] at (0,5) {50};
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{16}
+\end{taskbasic}
+\answer{25}
+
+% ====================================================================
+% ФАЙЛ: tasks/05_quantum_physics/nuclear_physics_part4.tex
+% ТЕМА: ФИЗИКА ЯДРА. СОСТАВ ЯДРА И ЯДЕРНЫЕ ПРЕВРАЩЕНИЯ
+% ====================================================================
+
+% === ЗАДАЧА 1 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ТАБЛИЦА_МЕНДЕЛЕЕВА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_mendeleev_zinc_protons}}]
+На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость соответствующего изотопа в природе.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c||c|c|c|}
+\hline
+\multirow{2}{*}{2} & \multirow{2}{*}{II} & \textbf{Li} \hfill 3 & \textbf{Be} \hfill 4 & \textbf{B} \hfill 5 \\
+ & & литий $7_{93} \quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \quad 10_{20}$ \\ \hline
+\multirow{2}{*}{3} & \multirow{2}{*}{III} & \textbf{Na} \hfill 11 & \textbf{Mg} \hfill 12 & \textbf{Al} \hfill 13 \\
+ & & натрий $23_{100}$ & магний $24_{79} \, 26_{11} \, 25_{10}$ & алюминий $27_{100}$ \\ \hline
+\multirow{4}{*}{4} & \multirow{2}{*}{IV} & \textbf{K} \hfill 19 & \textbf{Ca} \hfill 20 & \textbf{Sc} \hfill 21 \\
+ & & калий $39_{93} \quad 41_{6,7}$ & кальций $40_{97} \quad 44_{2,1}$ & скандий $45_{100}$ \\ \cline{2-5}
+ & \multirow{2}{*}{V} & \textbf{Cu} \hfill 29 & \textbf{Zn} \hfill 30 & \textbf{Ga} \hfill 31 \\
+ & & медь $63_{69} \quad 65_{31}$ & цинк $64_{49} \, 66_{28} \, 68_{19}$ & галлий $69_{60} \quad 71_{40}$ \\ \hline
+\end{tabular}
+\end{center}
+\smallskip
+
+Определите число протонов в ядре наиболее распространённого изотопа цинка.
+
+\kim{16}
+\end{taskbasic}
+\answer{30}
+
+% === ЗАДАЧА 2 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #ТАБЛИЦА_МЕНДЕЛЕЕВА #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_mendeleev_zinc_least_neutrons}}]
+На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость соответствующего изотопа в природе.
+
+\nopagebreak\smallskip
+\begin{center}
+\small
+\begin{tabular}{|c|c||c|c|c|}
+\hline
+\multirow{2}{*}{2} & \multirow{2}{*}{II} & \textbf{Li} \hfill 3 & \textbf{Be} \hfill 4 & \textbf{B} \hfill 5 \\
+ & & литий $7_{93} \quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \quad 10_{20}$ \\ \hline
+\multirow{2}{*}{3} & \multirow{2}{*}{III} & \textbf{Na} \hfill 11 & \textbf{Mg} \hfill 12 & \textbf{Al} \hfill 13 \\
+ & & натрий $23_{100}$ & магний $24_{79} \, 26_{11} \, 25_{10}$ & алюминий $27_{100}$ \\ \hline
+\multirow{4}{*}{4} & \multirow{2}{*}{IV} & \textbf{K} \hfill 19 & \textbf{Ca} \hfill 20 & \textbf{Sc} \hfill 21 \\
+ & & калий $39_{93} \quad 41_{6,7}$ & кальций $40_{97} \quad 44_{2,1}$ & скандий $45_{100}$ \\ \cline{2-5}
+ & \multirow{2}{*}{V} & \textbf{Cu} \hfill 29 & \textbf{Zn} \hfill 30 & \textbf{Ga} \hfill 31 \\
+ & & медь $63_{69} \quad 65_{31}$ & цинк $64_{49} \, 66_{28} \, 68_{19}$ & галлий $69_{60} \quad 71_{40}$ \\ \hline
+\end{tabular}
+\end{center}
+\smallskip
+
+Определите число нейтронов в ядре наименее распространённого изотопа цинка.
+
+\kim{16}
+\end{taskbasic}
+\answer{38}
+
+% === ЗАДАЧА 3 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #АЛЬФА_РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_alpha_platinum_charge}}]
+Ядро платины $^{174}_{78}\text{Pt}$ испытывает $\alpha$-распад, при этом образуются $\alpha$-частица и ядро химического элемента $^A_Z\text{X}$. Определите заряд $Z$ (в единицах элементарного заряда) ядра $\text{X}$.
+
+\kim{16}
+\end{taskbasic}
+\answer{76}
+
+% === ЗАДАЧА 4 ===
+% Тег: #КВАНТОВАЯ_ФИЗИКА #ЯДЕРНАЯ_ФИЗИКА #АЛЬФА_РАСПАД #КИМ_16
+\begin{taskbasic}[code={\label{task:nuclear_alpha_platinum_mass}}]
+Ядро платины $^{174}_{78}\text{Pt}$ испытывает $\alpha$-распад, при этом образуются $\alpha$-частица и ядро химического элемента $^A_Z\text{X}$. Чему равно массовое число $A$ (в атомных единицах массы) ядра $\text{X}$?
+
+\kim{16}
+\end{taskbasic}
+\answer{170}

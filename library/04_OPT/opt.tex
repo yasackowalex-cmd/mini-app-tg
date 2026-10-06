@@ -1,0 +1,331 @@
+% === ЗАДАЧА 1 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_angle_34}}]
+Луч света падает на плоское зеркало. Угол между падающим и отражённым лучами равен $34^\circ$. Чему равен угол между падающим лучом и зеркалом? Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{73}
+
+% === ЗАДАЧА 2 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_angle_54}}]
+Луч света падает на плоское зеркало. Угол между падающим и отражённым лучами равен $54^\circ$. Чему равен угол между отражённым лучом и зеркалом? Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{63}
+
+% === ЗАДАЧА 3 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_angle_15_between}}]
+Луч света падает на плоское зеркало. Угол падения равен $15^\circ$. Чему равен угол $\gamma$ между падающим и отражённым лучами? Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{30}
+
+% === ЗАДАЧА 4 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_angle_70_between}}]
+Луч света падает на плоское зеркало. Угол между отражённым лучом и зеркалом равен $70^\circ$. Чему равен угол $\gamma$ между падающим и отражённым лучами? Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{40}
+
+% === ЗАДАЧА 5 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_refl_15_surface}}]
+Луч света падает на плоское зеркало. Угол отражения равен $15^\circ$. Определите угол между падающим лучом и плоскостью зеркала. Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{75}
+
+% === ЗАДАЧА 6 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_refl_30_between}}]
+Луч света падает на плоское зеркало. Угол отражения равен $30^\circ$. Определите угол между падающим и отражённым лучами. Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{60}
+
+% === ЗАДАЧА 7 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_refl_25_surface}}]
+Луч света падает на плоское зеркало. Угол отражения равен $25^\circ$. Определите угол между падающим лучом и поверхностью зеркала. Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{65}
+
+% === ЗАДАЧА 8 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_inc_20_between}}]
+Луч света падает на плоское зеркало. Угол падения равен $20^\circ$. Определите угол между падающим и отражённым лучами. Ответ выразите в градусах ($^\circ$).
+
+\kim{13}
+\end{taskbasic}
+\answer{40}
+
+% === ЗАДАЧА 9 ===
+% Тег: #ОПТИКА #ПРЕЛОМЛЕНИЕ #ВОЛНЫ #КИМ_15
+\begin{taskbasic}[code={\label{task:geom_opt_wave_air_plexiglas}}]
+Световой пучок переходит из воздуха в плексиглас (см. рисунок). Что происходит при этом с длиной световой волны и скоростью её распространения?
+
+Для каждой величины определите соответствующий характер изменения:
+1) увеличивается
+2) уменьшается
+3) не изменяется
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Граница раздела (воздух / плексиглас)
+    \fill[gray!30] (0,0) rectangle (4,1.5);
+    \draw[thick, black] (0,1.5) -- (4,1.5);
+    
+    % Нормаль
+    \draw[dashed, black, thick] (2,0) -- (2,3);
+    
+    % Падающий луч
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,2.7) -- (1.4,2.1);
+    \draw[thick, black] (1.4,2.1) -- (2.0,1.5);
+    \draw (2.0,2.1) arc (90:124:0.6);
+    \node[above left] at (1.8,2.0) {$\alpha$};
+    
+    % Преломлённый луч
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.0,1.5) -- (2.35,0.75);
+    \draw[thick, black] (2.35,0.75) -- (2.7,0);
+    \draw (2.0,1.0) arc (-90:-63:0.5);
+    \node[below right] at (1.9,1.1) {$\beta$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{15}
+\end{taskbasic}
+\answer{22}
+
+% === ЗАДАЧА 10 ===
+% Тег: #ОПТИКА #ПРЕЛОМЛЕНИЕ #ВОЛНЫ #КИМ_15
+\begin{taskbasic}[code={\label{task:geom_opt_wave_air_glycerin}}]
+Плоская световая волна переходит из воздуха в глицерин (см. рисунок). Что происходит при этом переходе с частотой электромагнитных колебаний в световой волне и скоростью их распространения?
+
+Для каждой величины определите соответствующий характер изменения:
+1) увеличивается
+2) уменьшается
+3) не изменяется
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
+    
+    % Граница раздела
+    \fill[gray!30] (0,0) rectangle (4,1.5);
+    \draw[thick, black] (0,1.5) -- (4,1.5);
+    
+    % Нормаль
+    \draw[dashed, black, thick] (2,0) -- (2,3);
+    
+    % Падающий луч
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,2.7) -- (1.4,2.1);
+    \draw[thick, black] (1.4,2.1) -- (2.0,1.5);
+    \draw (2.0,2.1) arc (90:124:0.6);
+    \node[above left] at (1.8,2.0) {$\alpha$};
+    
+    % Преломлённый луч
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.0,1.5) -- (2.35,0.75);
+    \draw[thick, black] (2.35,0.75) -- (2.7,0);
+    \draw (2.0,1.0) arc (-90:-63:0.5);
+    \node[below right] at (1.9,1.1) {$\beta$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{15}
+\end{taskbasic}
+\answer{32}
+
+% === ЗАДАЧА 11 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #ЗЕРКАЛО_ПОВОРОТ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_rotation_gamma_between}}]
+Угол падения луча света на горизонтальное плоское зеркало равен $25^\circ$. Каким будет угол $\gamma$, образованный падающим и отражённым лучами, если повернуть зеркало на $10^\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\circ$).
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
+    
+    % Поверхность горизонтальная и под углом 10 град
+    \fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;
+    \draw[thick, black] (1.0,0.8) -- (4.0,0.8);
+    \draw[dashed, black, thick] (1.0,0.8) -- (4.0,0.2);
+    \draw (3.5,0.8) arc (0:-11:1.0);
+    \node[right] at (3.6,0.6) {$10^\circ$};
+    
+    % Нормаль и лучи
+    \draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.2,2.8);
+    
+    \draw (2.5,1.8) arc (90:126:1.0);
+    \node[left] at (2.4,2.0) {$25^\circ$};
+    
+    \draw (2.0,1.5) arc (126:48:0.8);
+    \node[above] at (2.8,1.4) {$\gamma$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{13}
+\end{taskbasic}
+\answer{70}
+
+% === ЗАДАЧА 12 ===
+% Тег: #ОПТИКА #ОТРАЖЕНИЕ #ЗЕРКАЛО_ПОВОРОТ #КИМ_13
+\begin{taskbasic}[code={\label{task:geom_opt_mirror_rotation_gamma_refl}}]
+Угол падения луча света на горизонтальное плоское зеркало равен $25^\circ$. Каким будет угол отражения $\gamma$, если повернуть зеркало на $15^\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\circ$).
+
+\nopagebreak\smallskip
+\begin{center}
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
+    
+    % Поверхность горизонтальная и под углом 15 град
+    \fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;
+    \draw[thick, black] (1.0,0.8) -- (4.0,0.8);
+    \draw[dashed, black, thick] (1.0,0.8) -- (4.0,0.1);
+    \draw (3.3,0.8) arc (0:-15:0.8);
+    \node[right] at (3.5,0.5) {$15^\circ$};
+    
+    % Нормаль и лучи
+    \draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.0,2.8);
+    
+    \draw (2.5,1.8) arc (90:126:1.0);
+    \node[left] at (2.4,2.0) {$25^\circ$};
+    
+    \draw (2.5,1.4) arc (90:53:0.6);
+    \node[right] at (2.5,1.6) {$\gamma$};
+    
+    \node[below left] at (0,0) {0};
+\end{tikzpicture}
+\end{center}
+
+\kim{13}
+\end{taskbasic}
+\answer{40}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, transform shape, >=Stealth]
+
+  % Параметры
+  \def\R{3.5}       % Радиус лимба (шкалы)
+  \def\Rg{2.0}      % Радиус стеклянного полуцилиндра
+
+  % --- Внешний круг шкалы ---
+  \draw[line width=1.0pt] (0,0) circle (\R);
+
+  % --- Деления шкалы (каждые 1°, 5° и 10°) ---
+  \foreach \a in {0,1,...,359} {
+    % Исключаем главные деления (0, 90, 180, 270), так как они отрисовываются отдельно
+    \ifnum\a=0\else\ifnum\a=90\else\ifnum\a=180\else\ifnum\a=270\else
+      \pgfmathparse{mod(\a,10)==0 ? 1 : (mod(\a,5)==0 ? 2 : 3)}
+      \ifnum\pgfmathresult=1
+        \draw[thick] (\a:\R) -- (\a:{\R-0.3});
+      \else
+        \ifnum\pgfmathresult=2
+          \draw[thin] (\a:\R) -- (\a:{\R-0.2});
+        \else
+          \draw[very thin, gray!80] (\a:\R) -- (\a:{\R-0.12});
+        \fi
+      \fi
+    \fi\fi\fi\fi
+  }
+
+  % --- Удлинённые ключевые метки для 0° и 90° (все четыре направления) ---
+  \foreach \a in {0, 90, 180, 270} {
+    \draw[line width=1.2pt] (\a:\R) -- (\a:{\R-0.5});
+  }
+
+  % Обозначения 90
+  \node[font=\large\bfseries] at (90:2.7) {90};
+  \node[font=\large\bfseries, rotate=180] at (270:2.7) {90};
+
+  % --- Стеклянный полуцилиндр ---
+  \draw[line width=1.0pt, fill=white] (-\Rg, 0) -- (\Rg, 0) arc (0:-180:\Rg) -- cycle;
+
+  % Метки 0 (повёрнуты на 90° и сдвинуты к внешним делениям)
+  \node[font=\large\bfseries, rotate=90] at (180:2.5) {0};
+  \node[font=\large\bfseries, rotate=90] at (0:2.5) {0};
+
+  % --- Лучи света ---
+  
+  % 1. Падающий луч
+  \draw[line width=1.1pt, ->] (160:\R) -- (0,0);
+
+  % Двойная стрелка-указатель у входа падающего луча
+  \begin{scope}[shift={(160:{\R+0.1})}, rotate=-20]
+    \draw[line width=0.9pt, fill=white] (-0.3, 0.15) -- (0, 0) -- (-0.3, -0.15) -- (-0.18, 0) -- cycle;
+  \end{scope}
+
+  % 2. Отраженный луч
+  \draw[line width=1.1pt, ->] (0,0) -- (20:\R);
+
+  % 3. Преломленный луч
+  \draw[line width=1.1pt, ->] (0,0) -- (310:\R);
+
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, transform shape, >=Stealth]
+
+  % Параметры прямоугольного треугольника ABC
+  \def\a{5.0}  % Длина катета AC (основание)
+  \def\b{2.8}  % Длина катета BC (высота)
+
+  % Координаты вершин
+  \coordinate (A) at (0, 0);
+  \coordinate (C) at (\a, 0);
+  \coordinate (B) at (\a, \b);
+
+  % --- Гипотенуза AB (жирная линия) ---
+  \draw[line width=2.2pt] (A) -- (B);
+
+  % --- Катеты AC и BC (обычные линии) ---
+  \draw[thick] (A) -- (C) -- (B);
+
+  % --- Прямой угол C ---
+  \draw[thick] (\a-0.3, 0) -- (\a-0.3, 0.3) -- (\a, 0.3);
+
+  % --- Дуга и обозначение угла alpha ---
+  \draw[thick] (0.8, 0) arc (0:29.25:0.8);
+  \node[font=\small\bfseries\itshape] at (0.55, 0.16) {$\alpha$};
+
+  % --- Подписи вершин ---
+  \node[left=2pt, font=\large\bfseries\itshape] at (A) {$A$};
+  \node[above right=1pt, font=\large\bfseries\itshape] at (B) {$B$};
+  \node[below right=1pt, font=\large\bfseries\itshape] at (C) {$C$};
+
+  % --- Вертикальный луч света (стрелка снизу вверх) ---
+  \def\xRay{3.5} % Координата x входящего луча
+
+  % Стрелка падающего луча
+  \draw[line width=1.3pt, ->] (\xRay, -1.0) -- (\xRay, 0);
+
+  % Прямой угол падения на грань AC
+  \draw[thick] (\xRay, -0.3) -- (\xRay+0.3, -0.3) -- (\xRay+0.3, 0);
+
+\end{tikzpicture}
+\end{center}
