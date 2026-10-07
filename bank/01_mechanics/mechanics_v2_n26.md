@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 2
 answer: "30,2"
+unit: "Н"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

@@ -8,7 +8,8 @@ topic: 1.1.2
 level: Б
 type: расчётная
 variant: 3
-answer: "-24 м"
+answer: "-24"
+unit: "м"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

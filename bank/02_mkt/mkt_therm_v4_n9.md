@@ -6,9 +6,10 @@ section: МКТ и термодинамика
 theme: ПЕРВОЕ НАЧАЛО ТЕРМОДИНАМИКИ. РАБОТА ГАЗА. ВНУТРЕННЯЯ ЭНЕРГИЯ
 topic: 2.5
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 4
 answer: "15"
+unit: ""
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]

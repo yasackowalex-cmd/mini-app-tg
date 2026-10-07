@@ -82,6 +82,24 @@
     });
   }
 
+  // число: «0,5», «0.50», «−3» и «-3» считаются одним ответом
+  const toNum = s => {
+    const v = String(s).replace(/\s+/g, '').replace(/[−–]/g, '-').replace(',', '.');
+    return /^[-+]?\d+(\.\d+)?$/.test(v) ? parseFloat(v) : NaN;
+  };
+  const digits = s => String(s).replace(/[\s,;.]+/g, '');
+
+  function isRight(t, input) {
+    if (t.check === 'number') {
+      const a = toNum(input), b = toNum(t.answer);
+      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(b));
+    }
+    const a = digits(input), b = digits(t.answer);
+    // «выберите верные утверждения» — порядок цифр не важен, в соответствии важен
+    if (t.check === 'set') return [...a].sort().join('') === [...b].sort().join('');
+    return a === b;
+  }
+
   function card(t) {
     const el = document.createElement('article');
     el.className = 'task lv-' + t.level;
@@ -92,15 +110,24 @@
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
     ].join('');
     const figs = (t.images || []).map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
+    const answerHtml = t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
+    const form = t.check && t.check !== 'none' ? `<form class="try">
+        <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : 'numeric'}"
+          placeholder="${t.check === 'number' ? 'число' : 'цифры'}" aria-label="Ваш ответ"></label>
+        ${t.unit ? `<span class="unit">${t.unit}</span>` : ''}
+        <button class="btn" type="submit">Проверить</button>
+        <span class="verdict" role="status"></span>
+      </form>` : '';
     el.innerHTML = `<div class="meta">${chips}</div>
       <div class="cond">${texToHtml(t.condition)}</div>
       ${figs ? `<div class="figs">${figs}</div>` : ''}
+      ${form}
       <div class="actions">
-        <button class="btn" type="button" data-show="answer" aria-expanded="false">Ответ</button>
-        ${t.solution ? '<button class="btn" type="button" data-show="solution" aria-expanded="false">Решение</button>' : ''}
+        ${t.solution ? '<button class="btn" type="button" data-show="solution" aria-expanded="false">Подсказка</button>' : ''}
+        <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
-      <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') : 'нет в банке'}</div>
-      ${t.solution ? `<div class="reveal cond" data-part="solution" hidden>${texToHtml(t.solution)}</div>` : ''}
+      ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${texToHtml(t.solution)}</div>` : ''}
+      <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml}</div>
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {
       const b = e.target.closest('[data-show]');
@@ -108,6 +135,17 @@
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
       part.hidden = !part.hidden;
       b.setAttribute('aria-expanded', String(!part.hidden));
+    });
+    const f = el.querySelector('form.try');
+    if (f) f.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = f.elements.a.value, out = f.querySelector('.verdict');
+      if (!v.trim()) { out.textContent = ''; out.className = 'verdict'; return; }
+      const ok = isRight(t, v);
+      out.textContent = ok ? 'Верно!' : 'Неверно, попробуйте ещё раз';
+      out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+      f.elements.a.classList.toggle('ok', ok);
+      f.elements.a.classList.toggle('bad', !ok);
     });
     return el;
   }

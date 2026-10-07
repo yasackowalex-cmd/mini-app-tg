@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 25
 answer: "50"
+unit: "дптр"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, ОПТИКА]

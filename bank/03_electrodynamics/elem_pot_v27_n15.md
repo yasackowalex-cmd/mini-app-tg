@@ -6,9 +6,10 @@ section: Электродинамика
 theme: ПОТЕНЦИАЛ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
 topic: 3.1.2
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 27
 answer: "23"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ПОТЕНЦИАЛ]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 27
 answer: "25"
+unit: "%"
 has_image: false
 author_task: false
 tags: [МКТ, КПД]

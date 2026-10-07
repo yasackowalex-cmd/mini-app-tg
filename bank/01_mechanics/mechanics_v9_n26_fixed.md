@@ -9,6 +9,7 @@ level: В
 type: расчётная (часть 2)
 variant: 9
 answer: "1,5"
+unit: ""
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

@@ -6,9 +6,10 @@ section: Электродинамика
 theme: СОЕДИНЕНИЕ ПРОВОДНИКОВ. ЗАКОН ОМА ДЛЯ ПОЛНОЙ ЦЕПИ
 topic: 3.1.5
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 25
 answer: "25"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА_ПОЛНАЯ_ЦЕПЬ]

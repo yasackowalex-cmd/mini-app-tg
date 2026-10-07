@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 16
 answer: "\tau g \sqrt{3}"
+unit: ""
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

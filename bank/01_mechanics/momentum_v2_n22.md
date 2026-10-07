@@ -8,7 +8,8 @@ topic: 1.3.1
 level: Б
 type: расчётная (часть 2)
 variant: 2
-answer: "4,47 м/с"
+answer: "4,47"
+unit: "м/с"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

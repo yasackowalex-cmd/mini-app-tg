@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 15
 answer: "0,9"
+unit: "г"
 has_image: false
 author_task: false
 tags: [МКТ, ВЛАЖНОСТЬ]

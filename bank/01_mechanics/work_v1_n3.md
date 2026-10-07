@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 1
 answer: "12"
+unit: "Н"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

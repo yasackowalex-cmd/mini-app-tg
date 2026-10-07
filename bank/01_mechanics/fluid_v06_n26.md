@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "0,22"
+unit: "м"
 has_image: false
 author_task: false
 tags: []

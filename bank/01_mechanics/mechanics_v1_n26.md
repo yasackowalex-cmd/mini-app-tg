@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 1
 answer: "3,13"
+unit: "кг"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

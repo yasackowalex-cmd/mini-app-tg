@@ -9,6 +9,7 @@ level: Б
 type: качественная
 variant: 21
 answer: "Уменьшится в 2 раза"
+unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КУЛОН, НАПРЯЖЕННОСТЬ]

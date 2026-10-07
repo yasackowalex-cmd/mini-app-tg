@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 20
-answer: "6 Н"
+answer: "6"
+unit: "Н"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

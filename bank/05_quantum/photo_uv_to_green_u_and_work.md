@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: ФОТОЭФФЕКТ. УРАВНЕНИЕ ЭЙНШТЕЙНА ДЛЯ ФОТОЭФФЕКТА
 topic: 4.5
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "23"
+unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ФОТОЭФФЕКТ, ЗАПИРАЮЩЕЕ_НАПРЯЖЕНИЕ]

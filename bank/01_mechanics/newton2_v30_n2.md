@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная
 variant: 30
-answer: "32 Н"
+answer: "32"
+unit: "Н"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

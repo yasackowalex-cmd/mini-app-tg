@@ -8,7 +8,8 @@ topic: 1.5.2
 level: Б
 type: расчётная
 variant: 4
-answer: "1,25 Гц"
+answer: "1,25"
+unit: "Гц"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

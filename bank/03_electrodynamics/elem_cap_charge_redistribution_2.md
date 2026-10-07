@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "50"
+unit: "В"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОНДЕНСАТОР, ПЕРЕРАСПРЕДЕЛЕНИЕ_ЗАРЯДОВ]

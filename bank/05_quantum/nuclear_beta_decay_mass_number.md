@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. КВАНТОВЫЕ ПЕРЕХОДЫ
 topic: 4.6
 level: Б
-type: соответствие/выбор
+type: расчётная
 variant: 
 answer: "234"
+unit: "а.е.м."
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, БЕТА_РАСПАД]

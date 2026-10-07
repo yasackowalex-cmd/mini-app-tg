@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 5
 answer: "125"
+unit: "Гц"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

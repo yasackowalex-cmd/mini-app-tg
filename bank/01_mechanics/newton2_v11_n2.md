@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 11
 answer: "40"
+unit: "кг"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

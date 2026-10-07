@@ -8,7 +8,8 @@ topic: 1.2.4
 level: Б
 type: расчётная
 variant: 5
-answer: "400 Н/м"
+answer: "400"
+unit: "Н/м"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

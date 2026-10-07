@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 23
 answer: "400"
+unit: "°C"
 has_image: false
 author_task: false
 tags: [МКТ]

@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 28
-answer: "160 Н/м"
+answer: "160"
+unit: "Н/м"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

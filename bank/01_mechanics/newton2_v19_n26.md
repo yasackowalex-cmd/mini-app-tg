@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 19
-answer: "1,2 кг"
+answer: "1,2"
+unit: "кг"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

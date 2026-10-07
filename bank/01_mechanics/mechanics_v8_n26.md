@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 8
 answer: "0,8"
+unit: "м"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

@@ -6,9 +6,10 @@ section: Электродинамика
 theme: МАГНИТНЫЙ ПОТОК. ЭЛЕКТРОМАГНИТНАЯ ИНДУКЦИЯ. САМОИНДУКЦИЯ
 topic: 3.2.2
 level: Б
-type: соответствие/выбор
+type: расчётная
 variant: 3
 answer: "3,6"
+unit: "мВб"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ИНДУКЦИЯ, САМОИНДУКЦИЯ]

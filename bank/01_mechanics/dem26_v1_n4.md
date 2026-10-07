@@ -8,7 +8,8 @@ topic: 1.4.1
 level: Б
 type: расчётная
 variant: 1
-answer: "0,2 м"
+answer: "0,2"
+unit: "м"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

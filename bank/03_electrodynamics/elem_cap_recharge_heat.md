@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "1"
+unit: "мкФ"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОНДЕНСАТОР]

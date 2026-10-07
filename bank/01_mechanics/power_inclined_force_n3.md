@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "2"
+unit: "Вт"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, РАБОТА_И_МОЩНОСТЬ]

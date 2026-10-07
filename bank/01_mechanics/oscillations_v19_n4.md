@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 19
 answer: "0,4"
+unit: "м"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

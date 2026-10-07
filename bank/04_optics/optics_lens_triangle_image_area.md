@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "11,25"
+unit: "см²"
 has_image: true
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, ГЕОМЕТРИЯ_ИЗОБРАЖЕНИЯ]

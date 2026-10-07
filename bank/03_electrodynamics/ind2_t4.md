@@ -8,7 +8,8 @@ topic: 3.2.2
 level: В
 type: расчётная (часть 2)
 variant: 
-answer: "1,54 Н"
+answer: "1,54"
+unit: "Н"
 has_image: false
 author_task: false
 tags: []

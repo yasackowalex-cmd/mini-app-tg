@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "25"
+unit: "Н"
 has_image: true
 author_task: false
 tags: []

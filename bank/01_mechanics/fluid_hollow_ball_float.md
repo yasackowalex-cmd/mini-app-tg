@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "100"
+unit: "Н"
 has_image: false
 author_task: false
 tags: []

@@ -9,6 +9,7 @@ level: Б
 type: соответствие/выбор
 variant: 9
 answer: "32"
+unit: ""
 has_image: true
 author_task: false
 tags: [МКТ]

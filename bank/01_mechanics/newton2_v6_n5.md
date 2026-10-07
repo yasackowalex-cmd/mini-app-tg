@@ -9,6 +9,7 @@ level: Б
 type: соответствие/выбор
 variant: 6
 answer: "14"
+unit: ""
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

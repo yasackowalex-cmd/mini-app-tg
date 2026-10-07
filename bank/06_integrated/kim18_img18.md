@@ -9,6 +9,7 @@ level: Б
 type: соответствие/выбор
 variant: 
 answer: "245"
+unit: ""
 has_image: false
 author_task: false
 tags: [МЕХАНИКА, МКТ, ЭЛЕКТРОДИНАМИКА, ОПТИКА, КВАНТОВАЯ_ФИЗИКА]

@@ -8,7 +8,8 @@ topic: 1.2.3
 level: Б
 type: расчётная
 variant: 24
-answer: "1 нН"
+answer: "1"
+unit: "нН"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

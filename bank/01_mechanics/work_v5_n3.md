@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 5
 answer: "19,2"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

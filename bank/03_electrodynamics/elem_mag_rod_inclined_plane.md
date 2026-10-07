@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "2,5"
+unit: "А"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_АМПЕРА, НАКЛОННАЯ_ПЛОСКОСТЬ]

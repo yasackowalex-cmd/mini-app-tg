@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "5"
+unit: ""
 has_image: true
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, ПОСТРОЕНИЕ_ИЗОБРАЖЕНИЙ]

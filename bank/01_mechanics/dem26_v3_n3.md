@@ -8,7 +8,8 @@ topic: 1.3.1
 level: Б
 type: расчётная
 variant: 3
-answer: "9 Н"
+answer: "9"
+unit: "Н"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

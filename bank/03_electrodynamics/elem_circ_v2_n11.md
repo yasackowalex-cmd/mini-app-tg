@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 2
 answer: "12"
+unit: "Ом"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, СОЕДИНЕНИЕ_ПРОВОДНИКОВ]

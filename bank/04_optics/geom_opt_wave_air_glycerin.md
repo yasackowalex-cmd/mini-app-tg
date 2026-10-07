@@ -6,9 +6,10 @@ section: Оптика
 theme: 
 topic: 4.1
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "32"
+unit: ""
 has_image: true
 author_task: false
 tags: [ОПТИКА, ПРЕЛОМЛЕНИЕ, ВОЛНЫ]

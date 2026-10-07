@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "45"
+unit: "см"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, РАСЧЕТНАЯ_ЗАДАЧА]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 12
 answer: "3"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОЛЕБАНИЯ, КОЛЕБАТЕЛЬНЫЙ_КОНТУР]

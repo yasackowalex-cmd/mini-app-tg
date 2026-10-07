@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "0,25"
+unit: "кг"
 has_image: false
 author_task: false
 tags: []

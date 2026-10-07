@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 17
 answer: "360"
+unit: "кВт"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

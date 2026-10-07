@@ -6,9 +6,10 @@ section: Электродинамика
 theme: ПРОВОДНИКИ И ДИЭЛЕКТРИКИ В ЭЛЕКТРИЧЕСКОМ ПОЛЕ. КОНДЕНСАТОР
 topic: 3.1.3
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 29
 answer: "15"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ПРОВОДНИКИ]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "2"
+unit: ""
 has_image: true
 author_task: false
 tags: [МКТ, КПД_ЦИКЛА]

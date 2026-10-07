@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 20
 answer: "193"
+unit: "К"
 has_image: false
 author_task: false
 tags: [МКТ]

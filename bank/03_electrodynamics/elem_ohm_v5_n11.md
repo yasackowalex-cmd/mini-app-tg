@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 5
 answer: "0,5"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА]

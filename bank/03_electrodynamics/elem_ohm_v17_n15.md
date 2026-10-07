@@ -6,9 +6,10 @@ section: Электродинамика
 theme: ЗАКОН ОМА ДЛЯ УЧАСТКА ЦЕПИ. УДЕЛЬНОЕ СОПРОТИВЛЕНИЕ
 topic: 3.1.4
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 17
 answer: "24"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА]

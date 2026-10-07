@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 16
 answer: "0,5"
+unit: "Ом"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА_ПОЛНАЯ_ЦЕПЬ]

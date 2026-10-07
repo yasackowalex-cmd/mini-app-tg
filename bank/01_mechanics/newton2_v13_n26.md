@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 13
-answer: "1 с"
+answer: "1"
+unit: "с"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

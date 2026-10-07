@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 12
 answer: "2"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОНДЕНСАТОР]

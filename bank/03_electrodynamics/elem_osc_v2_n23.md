@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 2
 answer: "0,02"
+unit: "Гн"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОЛЕБАНИЯ, КОЛЕБАТЕЛЬНЫЙ_КОНТУР]

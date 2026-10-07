@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 16
 answer: "0,5"
+unit: "Н"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_АМПЕРА]

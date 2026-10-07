@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 7
 answer: "\dfrac{m(5gL - v_{\text{н}}^2)}{BL\sqrt{v_{\text{н}}^2 - 4gL}}"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_ЛОРЕНЦА]

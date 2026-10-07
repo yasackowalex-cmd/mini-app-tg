@@ -6,9 +6,10 @@ section: Электродинамика
 theme: КОЛЕБАТЕЛЬНЫЙ КОНТУР
 topic: 3.2.3
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 3
 answer: "345"
+unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОЛЕБАНИЯ, КОЛЕБАТЕЛЬНЫЙ_КОНТУР]

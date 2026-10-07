@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: РАДИОАКТИВНЫЙ РАСПАД. КВАНТОВЫЕ ПЕРЕХОДЫ
 topic: 4.6
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "42"
+unit: ""
 has_image: true
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, АТОМНАЯ_ФИЗИКА, УРОВНИ_ЭНЕРГИИ]

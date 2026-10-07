@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: РАДИОАКТИВНЫЙ РАСПАД. КВАНТОВЫЕ ПЕРЕХОДЫ
 topic: 4.6
 level: Б
-type: соответствие/выбор
+type: расчётная
 variant: 
 answer: "35"
+unit: "мг"
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, РАСПАД]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 10
 answer: "2,5"
+unit: "мкм"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ВОЛНОВАЯ_ОПТИКА, ДИФРАКЦИОННАЯ_РЕШЕТКА]

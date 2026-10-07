@@ -8,7 +8,8 @@ topic: 1.3.3
 level: Б
 type: расчётная
 variant: 5
-answer: "24 Дж"
+answer: "24"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 6
 answer: "0,4"
+unit: "Вт"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]

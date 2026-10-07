@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 2
 answer: "4"
+unit: "м/с"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

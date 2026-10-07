@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 27
 answer: "60"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]

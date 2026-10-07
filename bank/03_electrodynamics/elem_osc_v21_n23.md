@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 21
 answer: "2\cdot 10^-6"
+unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОЛЕБАНИЯ, КОЛЕБАТЕЛЬНЫЙ_КОНТУР]

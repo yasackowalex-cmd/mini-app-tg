@@ -8,7 +8,8 @@ topic: 1.3.1
 level: Б
 type: расчётная
 variant: 4
-answer: "6 \text{кг}\cdot\text{м/с}"
+answer: "6"
+unit: "кг·м/с"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

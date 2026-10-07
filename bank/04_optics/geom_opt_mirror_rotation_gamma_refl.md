@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "40"
+unit: "°"
 has_image: true
 author_task: false
 tags: [ОПТИКА, ОТРАЖЕНИЕ, ЗЕРКАЛО_ПОВОРОТ]

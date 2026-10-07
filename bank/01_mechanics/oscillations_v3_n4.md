@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 3
 answer: "0,8"
+unit: "с"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

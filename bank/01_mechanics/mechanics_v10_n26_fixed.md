@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 10
 answer: "3"
+unit: "г"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

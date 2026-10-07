@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "800"
+unit: "кг/м³"
 has_image: false
 author_task: false
 tags: []

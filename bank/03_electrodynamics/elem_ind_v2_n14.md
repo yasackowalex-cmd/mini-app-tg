@@ -6,9 +6,10 @@ section: Электродинамика
 theme: МАГНИТНЫЙ ПОТОК. ЭЛЕКТРОМАГНИТНАЯ ИНДУКЦИЯ. САМОИНДУКЦИЯ
 topic: 3.2.2
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 2
 answer: "25"
+unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ИНДУКЦИЯ, САМОИНДУКЦИЯ]

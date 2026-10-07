@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: ФИЗИКА ЯДРА. СОСТАВ ЯДРА И ЯДЕРНЫЕ ПРЕВРАЩЕНИЯ
 topic: 4.6
 level: Б
-type: соответствие/выбор
+type: расчётная
 variant: 
 answer: "76"
+unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, АЛЬФА_РАСПАД]

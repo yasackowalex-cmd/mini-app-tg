@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 30
 answer: "36"
+unit: "мкДж"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КОНДЕНСАТОР]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 26
 answer: "12"
+unit: "В"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА]

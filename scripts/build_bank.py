@@ -55,7 +55,26 @@ def parse_md(path):
     meta['condition'] = sections.get('Условие', '')
     sol = sections.get('Решение', '')
     meta['solution'] = None if sol in ('', 'TODO') else sol
+    meta['unit'] = meta.get('unit', '')
+    meta['check'] = check_mode(meta)
     return meta
+
+
+CHOICE_RE = re.compile(r'соответстви|выбер|цифры в ответе могут повторяться|характер изменения|как измен|как меня', re.I)
+
+
+def check_mode(t):
+    """Как сайт проверяет ответ ученика: number — число, seq — цифры по порядку,
+    set — цифры в любом порядке («выберите верные утверждения»), none — только показать ответ."""
+    a = str(t.get('answer', '')).strip()
+    if t.get('type') == 'соответствие/выбор' and re.fullmatch(r'\d+', a):
+        cond = t.get('condition', '')
+        if re.search(r'выбер', cond, re.I) and not re.search(r'соответстви', cond, re.I):
+            return 'set'
+        return 'seq'
+    if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?', a):
+        return 'number'
+    return 'none'
 
 
 def main():

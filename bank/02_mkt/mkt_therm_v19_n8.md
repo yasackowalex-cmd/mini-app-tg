@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 19
 answer: "1500"
+unit: "Дж"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]

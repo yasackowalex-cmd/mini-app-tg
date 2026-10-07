@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА
 topic: 4.6
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "22"
+unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, АЛЬФА_РАСПАД]

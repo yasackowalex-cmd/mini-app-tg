@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА
 topic: 4.5
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "21"
+unit: ""
 has_image: true
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ФОТОЭФФЕКТ, ГРАФИКИ]

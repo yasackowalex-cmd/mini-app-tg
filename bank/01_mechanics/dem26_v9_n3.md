@@ -8,7 +8,8 @@ topic: 1.3.3
 level: Б
 type: расчётная
 variant: 9
-answer: "30 мДж"
+answer: "30"
+unit: "мДж"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

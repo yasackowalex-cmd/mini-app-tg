@@ -8,7 +8,8 @@ topic: 1.2.3
 level: Б
 type: расчётная
 variant: 26
-answer: "20 кг"
+answer: "20"
+unit: "кг"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

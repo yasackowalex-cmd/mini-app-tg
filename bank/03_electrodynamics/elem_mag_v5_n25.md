@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 5
 answer: "0,2"
+unit: "Тл"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_АМПЕРА]
