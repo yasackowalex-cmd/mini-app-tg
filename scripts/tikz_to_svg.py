@@ -7,7 +7,8 @@ SVG не зависит от шрифтов браузера).
 Пересобираются только изменённые чертежи (хэш в assets/tikz_manifest.json).
 
 Нужно: TeX Live или MiKTeX с пакетами tikz, pgfplots, babel-russian, и dvisvgm.
-Запуск: python -I scripts/tikz_to_svg.py [--force] [--only <id>]
+Запуск: python -I scripts/tikz_to_svg.py [--force] [--only <id>] [--pending]
+SVG задач, которых больше нет в банке, удаляются.
 Преамбула: scripts/tikz_preamble.tex — туда же добавлять макросы из egephys-style.sty,
 если чертёж их использует.
 """
@@ -50,38 +51,58 @@ def main():
     ap.add_argument('--preamble', default=os.path.join(ROOT, 'scripts', 'tikz_preamble.tex'))
     ap.add_argument('--force', action='store_true', help='пересобрать все чертежи')
     ap.add_argument('--only', help='только задача с этим id')
+    ap.add_argument('--pending', action='store_true',
+                    help='только напечатать, сколько чертежей надо собрать (для автосборки), LaTeX не нужен')
     a = ap.parse_args()
-
-    for tool in ('latex', 'dvisvgm'):
-        if not shutil.which(tool):
-            sys.exit(f'Не найден {tool}: нужен TeX Live или MiKTeX.')
 
     preamble = open(a.preamble, encoding='utf-8').read()
     os.makedirs(a.assets, exist_ok=True)
     man_path = os.path.join(a.assets, 'tikz_manifest.json')
     manifest = json.load(open(man_path, encoding='utf-8')) if os.path.exists(man_path) else {}
 
-    built, cached, failed = 0, 0, []
+    # все чертежи банка: имя SVG → (исходник, хэш)
+    pics = {}
+    for f in sorted(glob.glob(os.path.join(a.bank, '**', '*.md'), recursive=True)):
+        t = parse_md(f)
+        for i, src in enumerate(t['tikz'], 1):
+            pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
+
+    todo = [n for n, (src, h) in pics.items()
+            if (not a.only or n.startswith(a.only + '_'))
+            and (a.force or manifest.get(n) != h or not os.path.exists(os.path.join(a.assets, n)))]
+    # SVG задач, которых больше нет в банке (задачу удалили или убрали из неё рисунок)
+    orphans = [] if a.only else sorted(
+        set(manifest) | {n for n in os.listdir(a.assets) if n.endswith('.svg')})
+    orphans = [n for n in orphans if n not in pics]
+
+    if a.pending:
+        print(len(todo))
+        return 0
+
+    for n in orphans:
+        manifest.pop(n, None)
+        p = os.path.join(a.assets, n)
+        if os.path.exists(p): os.remove(p)
+
+    if todo:
+        for tool in ('latex', 'dvisvgm'):
+            if not shutil.which(tool):
+                sys.exit(f'Не найден {tool}: нужен TeX Live или MiKTeX.')
+
+    built, failed = 0, []
     with tempfile.TemporaryDirectory() as tmp:
-        for f in sorted(glob.glob(os.path.join(a.bank, '**', '*.md'), recursive=True)):
-            t = parse_md(f)
-            if a.only and t['id'] != a.only:
-                continue
-            for i, src in enumerate(t['tikz'], 1):
-                name = f"{t['id']}_{i}.svg"
-                dst = os.path.join(a.assets, name)
-                h = hashlib.sha1((preamble + src).encode('utf-8')).hexdigest()
-                if not a.force and manifest.get(name) == h and os.path.exists(dst):
-                    cached += 1; continue
-                err = compile_one(src, dst, preamble, tmp)
-                if err:
-                    failed.append((name, err)); manifest.pop(name, None)
-                else:
-                    manifest[name] = h; built += 1
+        for n in todo:
+            src, h = pics[n]
+            err = compile_one(src, os.path.join(a.assets, n), preamble, tmp)
+            if err:
+                failed.append((n, err)); manifest.pop(n, None)
+            else:
+                manifest[n] = h; built += 1
 
     with open(man_path, 'w', encoding='utf-8', newline='\n') as fo:
         json.dump(dict(sorted(manifest.items())), fo, ensure_ascii=False, indent=1)
-    print(f'SVG собрано: {built}, без изменений: {cached}, с ошибкой: {len(failed)}')
+    print(f'SVG собрано: {built}, без изменений: {len(pics) - len(todo)}, '
+          f'удалено лишних: {len(orphans)}, с ошибкой: {len(failed)}')
     for name, err in failed:
         print(f'   {name} | {err}')
     return 1 if failed else 0

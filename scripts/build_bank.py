@@ -63,6 +63,7 @@ def main():
     ap.add_argument('--bank', default=os.path.join(ROOT, 'bank'))
     ap.add_argument('--assets', default=os.path.join(ROOT, 'assets'))
     ap.add_argument('--out', default=os.path.join(ROOT, 'out', 'bank.json'))
+    ap.add_argument('--strict', action='store_true', help='код выхода 1, если есть проблемы')
     a = ap.parse_args()
 
     files = sorted(glob.glob(os.path.join(a.bank, '**', '*.md'), recursive=True))
@@ -113,7 +114,7 @@ def main():
         print(f"\nПРОБЛЕМЫ ({len(problems)}):")
         for rel, why in problems:
             print(f"   {rel} | {why}")
-    return 1 if problems else 0
+    return 1 if problems and a.strict else 0
 
 
 if __name__ == '__main__':

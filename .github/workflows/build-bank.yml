@@ -1,0 +1,74 @@
+# Автосборка банка: после каждого коммита в main с правками задач
+# пересобирает чертежи (assets/*.svg) и out/bank.json, коммитит результат
+# и просит GitHub Pages обновить сайт.
+name: Сборка банка
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bank/**'
+      - 'scripts/**'
+      - 'topics.csv'
+      - '.github/workflows/build-bank.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: build-bank
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Сколько чертежей надо собрать
+        id: pending
+        run: echo "count=$(python -I scripts/tikz_to_svg.py --pending)" >> "$GITHUB_OUTPUT"
+
+      # LaTeX ставится, только если какой-то чертёж новый или изменился: правка ответа или условия идёт без него
+      - name: Установить LaTeX
+        if: steps.pending.outputs.count != '0'
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends \
+            texlive-latex-base texlive-latex-extra texlive-pictures texlive-lang-cyrillic \
+            texlive-fonts-recommended dvisvgm
+
+      - name: Чертежи TikZ → SVG
+        run: python -I scripts/tikz_to_svg.py
+
+      - name: Собрать bank.json
+        run: python -I scripts/build_bank.py
+
+      - name: Закоммитить результат
+        id: commit
+        run: |
+          git add assets out
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Банк не изменился."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Автосборка банка: bank.json и чертежи"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # коммит от GITHUB_TOKEN сам не всегда запускает обновление Pages, поэтому просим явно
+      - name: Обновить сайт
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${{ github.repository }}/pages/builds" || echo "Pages не обновлён автоматически; он обновится при следующем коммите."
