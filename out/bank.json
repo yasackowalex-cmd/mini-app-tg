@@ -6493,33 +6493,6 @@
   ]
  },
  {
-  "id": "uniform_v1_n1",
-  "exam": "ЕГЭ",
-  "kim": 1,
-  "section": "Механика",
-  "theme": "Задание №1 (Только равномерное прямолинейное движение)",
-  "topic": "1.1.2",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 1,
-  "answer": "1,5 м/с",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "kim01_RPD_author.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[x=0.5cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=2, ystep=5, gray!30, thin] (0,0) grid (10,20);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,22) node[above] {$x, \\text{ м}$};\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\foreach \\x in {2,4,6,8,10} \\node[below] at (\\x,0) {\\x};\n    \\draw[ultra thick, brandPrimary] (0,5) -- (10,20);\n\\end{tikzpicture}"
-  ],
-  "condition": "На рисунке приведён график зависимости координаты $x$ тела, движущегося прямолинейно вдоль оси $Ox$, от времени $t$. Определите проекцию $v_x$ скорости этого тела.",
-  "solution": null,
-  "file": "01_mechanics/uniform_v1_n1.md",
-  "images": [
-   "assets/uniform_v1_n1_1.svg"
-  ]
- },
- {
   "id": "uniform_v20_n1",
   "exam": "ЕГЭ",
   "kim": 1,
