@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 25
 answer: "0,2"
+unit: "Тл"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_ЛОРЕНЦА]

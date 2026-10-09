@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. КВАНТОВЫЕ ПЕРЕХОДЫ
 topic: 4.6
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "42"
+unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, ЯДЕРНЫЕ_РЕАКЦИИ]

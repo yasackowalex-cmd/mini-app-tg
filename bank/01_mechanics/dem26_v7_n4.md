@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 7
 answer: "16"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

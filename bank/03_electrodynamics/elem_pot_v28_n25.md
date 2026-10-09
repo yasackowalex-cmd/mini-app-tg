@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 28
 answer: "600"
+unit: "В/м"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ПОТЕНЦИАЛ]

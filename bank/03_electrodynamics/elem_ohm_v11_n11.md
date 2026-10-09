@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 11
 answer: "3"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА]

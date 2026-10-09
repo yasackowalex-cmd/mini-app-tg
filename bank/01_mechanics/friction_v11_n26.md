@@ -8,7 +8,8 @@ topic: 1.2.4
 level: Б
 type: расчётная (часть 2)
 variant: 11
-answer: "0,85 кг"
+answer: "0,85"
+unit: "кг"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

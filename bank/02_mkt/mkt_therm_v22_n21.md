@@ -9,6 +9,7 @@ level: Б
 type: качественная
 variant: 22
 answer: "Сравнение работы"
+unit: ""
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]

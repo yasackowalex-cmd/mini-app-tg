@@ -9,6 +9,7 @@ level: В
 type: расчётная (часть 2)
 variant: 
 answer: "59 мкДж"
+unit: ""
 has_image: true
 author_task: false
 tags: []

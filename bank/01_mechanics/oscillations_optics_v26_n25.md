@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 26
 answer: "2"
+unit: "см"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, ОПТИКА]

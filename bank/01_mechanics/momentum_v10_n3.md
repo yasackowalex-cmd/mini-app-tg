@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 10
 answer: "15"
+unit: "м/с"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

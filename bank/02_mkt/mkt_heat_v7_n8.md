@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 7
 answer: "150"
+unit: "Дж/(кг·К)"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕПЛОТА]

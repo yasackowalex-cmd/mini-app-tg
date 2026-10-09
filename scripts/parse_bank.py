@@ -305,6 +305,7 @@ def main():
             f"type: {t['type']}",
             f"variant: {t['variant'] if t['variant'] else ''}",
             f"answer: \"{t['answer'] or ''}\"",
+            'unit: ""',
             f"has_image: {str(t['has_image']).lower()}",
             f"author_task: {str(t['author_task']).lower()}",
             f"tags: [{', '.join(t['tags'])}]",

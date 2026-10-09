@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 7
 answer: "54"
+unit: "пН"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

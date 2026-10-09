@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 8
 answer: "0,5"
+unit: "пН"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

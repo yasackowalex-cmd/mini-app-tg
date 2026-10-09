@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "0,27"
+unit: "Н"
 has_image: false
 author_task: false
 tags: []

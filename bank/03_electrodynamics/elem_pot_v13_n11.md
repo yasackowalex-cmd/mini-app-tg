@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 13
 answer: "30"
+unit: "мкДж"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ПОТЕНЦИАЛ]

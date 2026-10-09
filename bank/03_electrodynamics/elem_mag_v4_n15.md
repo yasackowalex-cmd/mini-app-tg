@@ -6,9 +6,10 @@ section: Электродинамика
 theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА
 topic: 3.2.1
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 4
 answer: "23"
+unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_ЛОРЕНЦА]

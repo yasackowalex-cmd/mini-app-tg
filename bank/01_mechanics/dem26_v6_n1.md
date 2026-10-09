@@ -8,7 +8,8 @@ topic: 1.1.3
 level: Б
 type: расчётная
 variant: 6
-answer: "11,25 м/с"
+answer: "11,25"
+unit: "м/с"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

@@ -52,3 +52,13 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .status { text-align: center; color: var(--muted); }
 .katex { font-size: 1.05em; }
 .katex-display { overflow-x: auto; overflow-y: hidden; }
+.try { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.try label { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.try input { font: inherit; width: 9em; padding: 7px 10px; border: 1px solid var(--line); border-bottom: 2px solid var(--muted); border-radius: 6px; }
+.try input:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+.try input.ok { border-color: #1E8E3E; background: #EEF8F0; }
+.try input.bad { border-color: #C5221F; background: #FDEDEC; }
+.unit { color: var(--text); }
+.verdict { font-weight: 700; }
+.verdict.ok { color: #1E8E3E; }
+.verdict.bad { color: #C5221F; }

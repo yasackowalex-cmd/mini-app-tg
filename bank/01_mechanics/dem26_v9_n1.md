@@ -8,7 +8,8 @@ topic: 1.1.3
 level: Б
 type: расчётная
 variant: 9
-answer: "35 м"
+answer: "35"
+unit: "м"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

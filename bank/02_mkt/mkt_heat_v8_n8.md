@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 8
 answer: "3"
+unit: "кг"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕПЛОТА]

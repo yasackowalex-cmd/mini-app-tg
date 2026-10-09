@@ -8,7 +8,8 @@ topic: 1.1.3
 level: Б
 type: расчётная
 variant: 7
-answer: "250 м"
+answer: "250"
+unit: "м"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

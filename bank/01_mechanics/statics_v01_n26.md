@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "5"
+unit: "кг"
 has_image: true
 author_task: false
 tags: []

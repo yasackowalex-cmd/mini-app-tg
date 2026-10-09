@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 2
 answer: "375"
+unit: "Дж"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]

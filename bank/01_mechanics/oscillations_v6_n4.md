@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 6
 answer: "1,6"
+unit: "см"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

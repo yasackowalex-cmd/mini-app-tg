@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 26
 answer: "9"
+unit: "°"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КУЛОН, НАПРЯЖЕННОСТЬ]

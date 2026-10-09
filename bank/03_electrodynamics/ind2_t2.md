@@ -8,7 +8,8 @@ topic: 3.2.2
 level: В
 type: расчётная (часть 2)
 variant: 
-answer: "5 мкФ"
+answer: "5"
+unit: "мкФ"
 has_image: true
 author_task: false
 tags: []

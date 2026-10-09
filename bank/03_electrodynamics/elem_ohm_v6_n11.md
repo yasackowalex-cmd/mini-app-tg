@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 6
 answer: "20"
+unit: "Ом"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА]

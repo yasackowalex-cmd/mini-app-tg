@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 3
 answer: "4,5"
+unit: "кВ/м"
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КУЛОН, НАПРЯЖЕННОСТЬ]

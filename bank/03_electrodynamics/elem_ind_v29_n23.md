@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 29
 answer: "2,4"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ИНДУКЦИЯ]

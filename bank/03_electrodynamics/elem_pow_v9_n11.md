@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 9
 answer: "10"
+unit: "Ом"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]

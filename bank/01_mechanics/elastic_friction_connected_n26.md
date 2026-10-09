@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 
-answer: "13 см"
+answer: "13"
+unit: "см"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, ДИНАМИКА_СВЯЗАННЫХ_ТЕЛ]

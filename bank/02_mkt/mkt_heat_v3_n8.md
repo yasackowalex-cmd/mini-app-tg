@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 3
 answer: "2000"
+unit: "кДж/кг"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕПЛОТА]

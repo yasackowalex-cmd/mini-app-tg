@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 9
 answer: "1"
+unit: "раз"
 has_image: true
 author_task: false
 tags: [МКТ]

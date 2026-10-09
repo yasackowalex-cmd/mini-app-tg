@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "30"
+unit: "°"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ОТРАЖЕНИЕ]

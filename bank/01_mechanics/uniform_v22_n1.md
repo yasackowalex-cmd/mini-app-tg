@@ -8,7 +8,8 @@ topic: 1.1.2
 level: Б
 type: расчётная
 variant: 22
-answer: "16 м"
+answer: "16"
+unit: "м"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

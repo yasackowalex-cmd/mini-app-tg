@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 10
 answer: "300000"
+unit: "Па"
 has_image: false
 author_task: false
 tags: [МКТ]

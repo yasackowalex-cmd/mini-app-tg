@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 2
 answer: "-1200"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

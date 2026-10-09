@@ -9,6 +9,7 @@ level: П
 type: расчётная
 variant: 
 answer: ""
+unit: ""
 has_image: true
 author_task: false
 tags: []

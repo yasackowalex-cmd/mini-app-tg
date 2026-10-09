@@ -9,6 +9,7 @@ level: Б
 type: соответствие/выбор
 variant: 
 answer: "145"
+unit: ""
 has_image: true
 author_task: false
 tags: []

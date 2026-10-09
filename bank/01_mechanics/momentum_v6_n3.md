@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 6
 answer: "12"
+unit: "кг·м/с"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

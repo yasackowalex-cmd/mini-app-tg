@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 23
 answer: "2,25"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]

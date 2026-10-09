@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 14
 answer: "120"
+unit: "Дж"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]

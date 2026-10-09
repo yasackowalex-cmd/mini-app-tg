@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 1
 answer: "2"
+unit: "А"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, ЗАКОН_ОМА_ПОЛНАЯ_ЦЕПЬ]

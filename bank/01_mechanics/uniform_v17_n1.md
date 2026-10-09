@@ -8,7 +8,8 @@ topic: 1.1.2
 level: Б
 type: расчётная
 variant: 17
-answer: "-2 м/с"
+answer: "-2"
+unit: "м/с"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

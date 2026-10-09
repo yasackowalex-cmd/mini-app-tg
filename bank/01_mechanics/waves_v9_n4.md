@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 9
 answer: "2000"
+unit: "Гц"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

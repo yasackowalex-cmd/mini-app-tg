@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 1
 answer: "60"
+unit: "дм³"
 has_image: false
 author_task: false
 tags: [МКТ]

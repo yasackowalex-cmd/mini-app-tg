@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 
 answer: "0,2"
+unit: "м"
 has_image: false
 author_task: false
 tags: []

@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 12
 answer: "80"
+unit: "%"
 has_image: false
 author_task: false
 tags: [МКТ, ВЛАЖНОСТЬ]

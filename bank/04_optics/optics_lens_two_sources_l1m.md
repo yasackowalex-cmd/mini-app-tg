@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "6,25"
+unit: "дптр"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, РАСЧЕТНАЯ_ЗАДАЧА]

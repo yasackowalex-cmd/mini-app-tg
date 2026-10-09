@@ -8,7 +8,8 @@ topic: 1.1.2
 level: Б
 type: расчётная
 variant: 20
-answer: "5 м/с"
+answer: "5"
+unit: "м/с"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]

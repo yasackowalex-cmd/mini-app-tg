@@ -6,9 +6,10 @@ section: МКТ и термодинамика
 theme: ОСНОВНОЕ УРАВНЕНИЕ МКТ. АБСОЛЮТНАЯ ТЕМПЕРАТУРА. КИНЕТИЧЕСКАЯ ЭНЕРГИЯ
 topic: 2.1
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 2
 answer: "134"
+unit: ""
 has_image: true
 author_task: false
 tags: [МКТ]

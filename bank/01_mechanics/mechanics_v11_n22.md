@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 11
 answer: "2000"
+unit: "Н"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

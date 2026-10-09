@@ -6,9 +6,10 @@ section: Квантовая физика
 theme: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД
 topic: 4.6
 level: Б
-type: расчётная
+type: соответствие/выбор
 variant: 
 answer: "11"
+unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, БЕТА_РАСПАД]

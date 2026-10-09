@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 10
 answer: "300"
+unit: "Дж"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]

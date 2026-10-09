@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "6"
+unit: ""
 has_image: false
 author_task: false
 tags: [ОПТИКА, ВОЛНОВАЯ_ОПТИКА, ДИФРАКЦИОННАЯ_РЕШЕТКА]

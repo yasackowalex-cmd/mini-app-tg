@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 4
 answer: "250"
+unit: "кДж/кг"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕПЛОТА]

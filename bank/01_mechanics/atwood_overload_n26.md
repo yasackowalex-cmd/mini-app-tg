@@ -8,7 +8,8 @@ topic: 1.2.2
 level: Б
 type: расчётная (часть 2)
 variant: 
-answer: "0,9 Н"
+answer: "0,9"
+unit: "Н"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, МАШИНА_АТВУДА]

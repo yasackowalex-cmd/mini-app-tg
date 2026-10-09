@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 3
 answer: "900"
+unit: "К"
 has_image: false
 author_task: false
 tags: [МКТ]

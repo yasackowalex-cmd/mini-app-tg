@@ -9,6 +9,7 @@ level: Б
 type: качественная
 variant: 22
 answer: "L/3"
+unit: ""
 has_image: true
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КУЛОН, НАПРЯЖЕННОСТЬ]

@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 16
 answer: "0,001"
+unit: "м³"
 has_image: false
 author_task: false
 tags: [МКТ, ВЛАЖНОСТЬ]

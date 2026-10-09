@@ -9,6 +9,7 @@ level: Б
 type: расчётная (часть 2)
 variant: 
 answer: "8"
+unit: "см"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, СВЕТОВОЕ_ПЯТНО]

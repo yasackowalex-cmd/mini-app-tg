@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 7
 answer: "0,05"
+unit: "кг"
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]

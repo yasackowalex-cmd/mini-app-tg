@@ -9,6 +9,7 @@ level: Б
 type: расчётная
 variant: 8
 answer: "2"
+unit: "раз"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, КУЛОН, НАПРЯЖЕННОСТЬ]

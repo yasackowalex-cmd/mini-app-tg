@@ -8,7 +8,8 @@ topic: 1.1.3
 level: Б
 type: расчётная
 variant: 3
-answer: "1 м/с^2"
+answer: "1"
+unit: "м/с²"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]
