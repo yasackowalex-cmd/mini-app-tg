@@ -101,7 +101,10 @@
         let span = '';
         c = replaceCmd(c, 'multicolumn', 3, a => { span = ` colspan="${parseInt(a[0], 10) || 1}"`; return a[2]; });
         c = replaceCmd(c, 'multirow', 3, a => a[2]);
-        return `<td${span}>${inline(c.trim()).replace(/\n+/g, '<br>')}</td>`;
+        const txt = c.trim();
+        // короткие числа вроде «0,1» не переносим по запятой
+        const num = /^[-−\d\s,.]{1,12}$/.test(txt) ? ' class="num"' : '';
+        return `<td${span}${num}>${inline(txt).replace(/\n+/g, '<br>')}</td>`;
       }).join('') + '</tr>').join('');
       s = s.slice(0, m.index) + put(`<div class="tblwrap"><table>${html}</table></div>`, true) + s.slice(m.index + m[0].length);
     }
