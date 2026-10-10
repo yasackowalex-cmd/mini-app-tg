@@ -38,7 +38,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .cond p { margin: 0 0 .6em; }
 .cond ol, .cond ul { margin: .3em 0 .6em; padding-left: 1.4em; }
 .cond table { border-collapse: collapse; margin: .5em 0; font-size: 15px; }
-.cond td, .cond th { border: 1px solid var(--line); padding: 4px 8px; text-align: center; vertical-align: middle; }
+.cond td, .cond th { white-space: nowrap; border: 1px solid var(--line); padding: 4px 8px; text-align: center; vertical-align: middle; }
 .tblwrap { overflow-x: auto; }
 .figs { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 4px; }
 .figs img { max-width: 100%; height: auto; background: #fff; }
