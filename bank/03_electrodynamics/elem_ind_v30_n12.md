@@ -22,4 +22,6 @@ source: ind.tex
 
 ## Решение
 
-TODO
+ЭДС самоиндукции пропорциональна скорости изменения тока: $|\mathcal{E}| = L\dfrac{\Delta I}{\Delta t}$.
+
+$$|\mathcal{E}| = 0{,}5 \cdot 10^{-3} \cdot 3 = 1{,}5 \cdot 10^{-3}~\text{В} = 1{,}5~\text{мВ}.$$
