@@ -22,4 +22,6 @@ source: 3law.tex
 
 ## Решение
 
-TODO
+Сила притяжения планеты к звезде $F = G\dfrac{mM}{R^2}$, где $M$ — масса звезды (одна и та же).
+
+$$\frac{F_1}{F_2} = \frac{m_1}{m_2} \cdot \left(\frac{R_2}{R_1}\right)^2 = \frac{1}{2} \cdot \frac{1}{4} = 0{,}125.$$

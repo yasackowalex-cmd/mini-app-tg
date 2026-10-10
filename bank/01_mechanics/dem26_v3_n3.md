@@ -22,4 +22,6 @@ source: kim03.tex
 
 ## Решение
 
-TODO
+Изменение импульса тела равно импульсу силы: $\Delta p = F\Delta t$.
+
+$$F = \frac{p_2 - p_1}{\Delta t} = \frac{48 - 12}{4} = 9~\text{Н}.$$
