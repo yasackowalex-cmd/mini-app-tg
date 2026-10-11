@@ -22,4 +22,6 @@ source: ind.tex
 
 ## Решение
 
-TODO
+По закону электромагнитной индукции $|\mathcal{E}| = \dfrac{\Delta\Phi}{\Delta t}$, изменение потока $\Delta\Phi = 8 - 2 = 6$~мВб.
+
+$$\Delta t = \frac{\Delta\Phi}{|\mathcal{E}|} = \frac{6 \cdot 10^{-3}}{1{,}2} = 5 \cdot 10^{-3}~\text{с} = 5~\text{мс}.$$

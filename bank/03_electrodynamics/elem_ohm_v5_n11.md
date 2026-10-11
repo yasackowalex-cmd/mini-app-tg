@@ -8,7 +8,7 @@ topic: 3.1.4
 level: Б
 type: расчётная
 variant: 5
-answer: "0,5"
+answer: "2"
 unit: ""
 has_image: true
 author_task: false
@@ -63,4 +63,8 @@ source: ohm1.tex
 
 ## Решение
 
-TODO
+Сопротивление находим по закону Ома $R = \dfrac{U}{I}$ по любой точке графика.
+
+Проводник 1: при $U = 4$~В ток $I = 2$~А, $R_1 = \dfrac{4}{2} = 2$~Ом. Проводник 2: при $U = 4$~В ток $I = 4$~А, $R_2 = \dfrac{4}{4} = 1$~Ом.
+
+$$\frac{R_1}{R_2} = \frac{2}{1} = 2.$$

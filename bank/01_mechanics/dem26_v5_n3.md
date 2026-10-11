@@ -8,7 +8,7 @@ topic: 1.3.3
 level: Б
 type: расчётная
 variant: 5
-answer: "24"
+answer: "19,2"
 unit: "Дж"
 has_image: false
 author_task: false
@@ -22,4 +22,6 @@ source: kim03.tex
 
 ## Решение
 
-TODO
+Переведём в СИ: $288$~км/ч $= \dfrac{288}{3{,}6} = 80$~м/с, $6$~г $= 0{,}006$~кг.
+
+$$E_\text{к} = \frac{mv^2}{2} = \frac{0{,}006 \cdot 80^2}{2} = 19{,}2~\text{Дж}.$$

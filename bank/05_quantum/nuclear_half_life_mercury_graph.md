@@ -29,7 +29,7 @@ source: nuc.tex
     \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};
     \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{18}$};
     
-    \draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\x, {5*exp(-0.5545*\x)});
+    \draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\x, {5*exp(-0.6931*\x)});
     
     \node[below] at (2,0) {50};
     \node[below] at (4,0) {100};
@@ -46,4 +46,8 @@ source: nuc.tex
 
 ## Решение
 
-TODO
+Период полураспада — время, за которое число нераспавшихся ядер уменьшается вдвое.
+
+По графику в начальный момент $N_0 = 50 \cdot 10^{18}$, а значение $25 \cdot 10^{18}$ достигается через одно деление шкалы времени, то есть через $25$~мин. Ещё через $25$~мин остаётся $12{,}5 \cdot 10^{18}$ ядер, что подтверждает результат:
+
+$$T_{1/2} = 25~\text{мин}.$$

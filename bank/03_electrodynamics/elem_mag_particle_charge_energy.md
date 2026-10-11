@@ -1,7 +1,7 @@
 ---
 id: elem_mag_particle_charge_energy
 exam: ЕГЭ
-kim: 23
+kim: 25
 section: Электродинамика
 theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА
 topic: 3.2.1

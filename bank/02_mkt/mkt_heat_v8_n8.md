@@ -8,7 +8,7 @@ topic: 2.4
 level: Б
 type: расчётная
 variant: 8
-answer: "3"
+answer: "5"
 unit: "кг"
 has_image: true
 author_task: false
@@ -29,14 +29,12 @@ source: cal.tex
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \,^{\circ}\text{C}$};
     
     \coordinate (A) at (0,1);
-    \coordinate (B) at (4,3.4);
+    \coordinate (B) at (3.75,3.5);
     
     \draw[ultra thick, brandPrimary] (A) -- (B);
     
-    \draw[dashed, gray] (1,0) -- (1,1.6);
-    \draw[dashed, gray] (2,0) -- (2,2.2);
-    \draw[dashed, gray] (3,0) -- (3,2.8);
-    \draw[dashed, gray] (4,0) -- (4,3.4);
+    \draw[dashed, gray] (3,0) -- (3,3);
+    \draw[dashed, gray] (0,3) -- (3,3);
     
     \node[left] at (0,1) {100};
     \node[left] at (0,2) {150};
@@ -50,4 +48,6 @@ source: cal.tex
 
 ## Решение
 
-TODO
+По графику при получении $Q = 360$~кДж температура тела выросла от $100$ до $200~^\circ$C, то есть $\Delta T = 100$~К.
+
+$$Q = cm\Delta T \;\Rightarrow\; m = \frac{Q}{c\,\Delta T} = \frac{360\,000}{720 \cdot 100} = 5~\text{кг}.$$

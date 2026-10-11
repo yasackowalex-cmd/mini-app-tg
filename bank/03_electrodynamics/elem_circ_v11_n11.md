@@ -8,7 +8,7 @@ topic: 3.1.5
 level: Б
 type: расчётная
 variant: 11
-answer: "3"
+answer: "4"
 unit: "раз"
 has_image: false
 author_task: false
@@ -22,4 +22,10 @@ source: ohm2.tex
 
 ## Решение
 
-TODO
+Пусть сопротивление одного резистора $R$.
+
+Последовательно: $R_\text{посл} = R + R = 2R$.
+
+Параллельно: $R_\text{пар} = \dfrac{R \cdot R}{R + R} = \dfrac{R}{2}$.
+
+$$\frac{R_\text{посл}}{R_\text{пар}} = \frac{2R}{R/2} = 4.$$

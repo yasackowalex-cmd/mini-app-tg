@@ -12,7 +12,7 @@ answer: "Сравнение работы"
 unit: ""
 has_image: true
 author_task: false
-tags: [МКТ]
+tags: [МКТ, ВНЕ_ЕГЭ_2027]
 source: ig.tex
 ---
 

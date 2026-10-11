@@ -63,6 +63,6 @@
 <use x='-52.178187' y='36.837187' xlink:href='#g2-52'/>
 <use x='-47.944005' y='36.837187' xlink:href='#g2-48'/>
 </g>
-<path d='M-52.179688 19.8281L-9.6602-31.1914L32.8594 2.8242L75.3788-48.1992L117.8948 36.835937' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
+<path d='M-52.179688 19.8281L-9.6602-31.1914L32.8594 2.8242L75.3788-31.1914L117.8948 36.835937' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 </g>
 </svg>

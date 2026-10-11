@@ -8,7 +8,7 @@ topic: 3.2.2
 level: Б
 type: расчётная
 variant: 6
-answer: "20"
+answer: "4"
 unit: "см²"
 has_image: false
 author_task: false
@@ -22,4 +22,6 @@ source: ind.tex
 
 ## Решение
 
-TODO
+Наибольший магнитный поток через рамку $\Phi_\text{max} = BS$ (плоскость рамки перпендикулярна линиям индукции). Из уравнения $\Phi_\text{max} = 8\cdot10^{-7}$~Вб.
+
+$$S = \frac{\Phi_\text{max}}{B} = \frac{8\cdot10^{-7}}{2\cdot10^{-3}} = 4\cdot10^{-4}~\text{м}^2 = 4~\text{см}^2.$$

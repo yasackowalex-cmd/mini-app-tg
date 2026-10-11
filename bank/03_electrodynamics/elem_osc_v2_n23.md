@@ -1,7 +1,7 @@
 ---
 id: elem_osc_v2_n23
 exam: ЕГЭ
-kim: 23
+kim: 25
 section: Электродинамика
 theme: КОЛЕБАТЕЛЬНЫЙ КОНТУР
 topic: 3.2.3
