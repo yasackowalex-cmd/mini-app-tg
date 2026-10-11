@@ -12,7 +12,7 @@ answer: "Сравнение работы"
 unit: ""
 has_image: true
 author_task: false
-tags: [МКТ, ТЕРМОДИНАМИКА]
+tags: [МКТ, ТЕРМОДИНАМИКА, ВНЕ_ЕГЭ_2027]
 source: 1td.tex
 ---
 

@@ -1,7 +1,7 @@
 ---
 id: wave_opt_v10_n23
 exam: ЕГЭ
-kim: 23
+kim: 25
 section: Оптика
 theme: 
 topic: 4.3

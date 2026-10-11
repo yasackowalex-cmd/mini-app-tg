@@ -1,7 +1,7 @@
 ---
 id: ind2_t2
 exam: ЕГЭ
-kim: 23
+kim: 25
 section: Электродинамика
 theme: 
 topic: 3.2.2

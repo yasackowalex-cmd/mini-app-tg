@@ -1,7 +1,7 @@
 ---
 id: elem_mag_angular_velocity
 exam: ЕГЭ
-kim: 23
+kim: 25
 section: Электродинамика
 theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА
 topic: 3.2.1
