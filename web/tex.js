@@ -59,7 +59,7 @@
       .replace(/\{,\}/g, ',')
       .replace(/~/g, '&nbsp;')
       .replace(/---/g, '—').replace(/--/g, '–')
-      .replace(/\\\\(?:\[[^\]]*\])?/g, '\n')
+      .replace(/\\\\(?:\[[^\]]*\])?/g, '\u0003')
       .replace(/\\([%&#_$])/g, '$1')
       .replace(/\\,/g, '&thinsp;');
   }
@@ -104,14 +104,14 @@
         const txt = c.trim();
         // короткие числа вроде «0,1» не переносим по запятой
         const num = /^[-−\d\s,.]{1,12}$/.test(txt) ? ' class="num"' : '';
-        return `<td${span}${num}>${inline(txt).replace(/\n+/g, '<br>')}</td>`;
+        return `<td${span}${num}>${inline(txt).replace(/[\n\u0003]+/g, '<br>')}</td>`;
       }).join('') + '</tr>').join('');
       s = s.slice(0, m.index) + put(`<div class="tblwrap"><table>${html}</table></div>`, true) + s.slice(m.index + m[0].length);
     }
 
     // 4. списки
     s = s.replace(/\\begin\{(enumerate|itemize)\}(?:\[[^\]]*\])?([\s\S]*?)\\end\{\1\}/g, (m, kind, body) => {
-      const items = body.split(/\\item(?![a-zA-Z])/).slice(1).map(x => `<li>${inline(x.trim()).replace(/\n+/g, ' ')}</li>`).join('');
+      const items = body.split(/\\item(?![a-zA-Z])/).slice(1).map(x => `<li>${inline(x.trim()).replace(/\n+/g, ' ').replace(/\s*\u0003\s*/g, '<br>')}</li>`).join('');
       return put(kind === 'enumerate' ? `<ol>${items}</ol>` : `<ul>${items}</ul>`, true);
     });
 
@@ -121,7 +121,11 @@
     // 6. абзацы: пустая строка — новый абзац, одиночный перенос — перенос строки
     const html = s.split(/\n[ \t]*\n+/).map(p => p.trim()).filter(Boolean).map(p => {
       if (/^(\u0001\d+\u0001\s*)+$/.test(p)) return p;
-      return '<p>' + p.replace(/\s*\n\s*/g, '<br>') + '</p>';
+      // как в LaTeX: перенос строки в исходнике — пробел, \\ — новая строка;
+      // строку, которая начинается с «1)» или «А)», всё же переносим
+      return '<p>' + p.replace(/\s*\u0003\s*/g, '<br>')
+        .replace(/\s*\n\s*(?=(?:\d+|[А-ЯA-Z])\)\s)/g, '<br>')
+        .replace(/\s*\n\s*/g, ' ') + '</p>';
     }).join('');
 
     // вставленные куски могут сами содержать метки (таблица в таблице), поэтому до упора

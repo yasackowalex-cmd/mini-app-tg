@@ -98,7 +98,9 @@ def main():
         for k in REQUIRED:
             if t.get(k) in (None, '', 'TODO'):
                 problems.append((rel, f'пусто поле {k}'))
-        imgs = []
+        # фото и сканы, которые не перерисованы в TikZ: assets/<id>_photo<N>.png или .jpg, идут перед чертежами
+        imgs = ['assets/' + os.path.basename(p) for p in sorted(
+            glob.glob(os.path.join(a.assets, f"{t['id']}_photo*.png")) + glob.glob(os.path.join(a.assets, f"{t['id']}_photo*.jpg")))]
         for i in range(1, len(t['tikz']) + 1):
             name = f"{t['id']}_{i}.svg"
             if os.path.exists(os.path.join(a.assets, name)):
