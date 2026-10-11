@@ -41,13 +41,13 @@ source: len.tex
     \draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};
     
     % Изображение AB
-    \draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.3,0) -- (1.3,0.65) node[pos=0, below] {$A$} node[pos=1, above] {$B$};
+    \draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.5) node[pos=0, above] {$A$} node[pos=1, below] {$B$};
     
     % Предметы 1-4
-    \draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1) node[right] {1};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};
     
     \node[below left] at (-4,-2) {0};
 \end{tikzpicture}
@@ -55,4 +55,12 @@ source: len.tex
 
 ## Решение
 
-TODO
+Изображение $AB$ действительное, перевёрнутое (стрелка вниз) и находится на расстоянии $f = 1{,}5F$ от линзы.
+
+По формуле тонкой линзы $\dfrac{1}{d} + \dfrac{1}{f} = \dfrac{1}{F}$:
+
+$$d = \frac{fF}{f - F} = \frac{1{,}5F \cdot F}{0{,}5F} = 3F.$$
+
+Увеличение $\Gamma = \dfrac{f}{d} = 0{,}5$: предмет вдвое выше изображения и направлен вверх. Это предмет 1.
+
+Предмет 2 стоит ближе фокуса и даёт мнимое изображение, предмет 3 даёт изображение, направленное вверх, предмет 4 (на расстоянии $1{,}5F$) даёт изображение на расстоянии $3F$.

@@ -8,7 +8,7 @@ topic: 4.2
 level: Б
 type: расчётная
 variant: 
-answer: "3"
+answer: "2"
 unit: ""
 has_image: true
 author_task: false
@@ -36,7 +36,7 @@ source: len.tex
     \node[right] at (0.5,0.7) {$S$};
     
     \fill[black] (0.5,-0.6) circle (1.5pt) node[below] {1};
-    \fill[black] (0.8,1.4) circle (1.5pt) node[above] {2};
+    \fill[black] (1,1.6) circle (1.5pt) node[above] {2};
     \fill[black] (-2.2,-0.8) circle (1.5pt) node[left] {3};
     \fill[black] (-1.2,-0.6) circle (1.5pt) node[below] {4};
     
@@ -46,4 +46,10 @@ source: len.tex
 
 ## Решение
 
-TODO
+Источник $S$ находится между линзой и фокусом: $d = \dfrac{F}{2}$. Такая линза даёт мнимое прямое увеличенное изображение с той же стороны, что и источник.
+
+По формуле тонкой линзы:
+
+$$\frac{1}{F} = \frac{1}{d} + \frac{1}{f} \;\Rightarrow\; \frac{1}{f} = \frac{1}{F} - \frac{2}{F} = -\frac{1}{F},\quad f = -F.$$
+
+Изображение мнимое, на расстоянии $F$ от линзы со стороны источника, увеличение $\Gamma = \dfrac{|f|}{d} = 2$: оно в $2$ раза дальше от главной оптической оси, чем $S$. Этому соответствует точка 2.

@@ -33,15 +33,25 @@ source: kinem.tex
 \begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};
-    \draw[ultra thick, brandPrimary, domain=0.5:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
-    \fill[black] (0.8, 0.45) circle (1.5pt) node[left] {$A$};
-    \fill[black] (1.15, 0.2) circle (1.5pt) node[below] {$B$};
-    \fill[black] (2.25, 1.95) circle (1.5pt) node[left] {$C$};
-    \fill[black] (3.1, 1.45) circle (1.5pt) node[right] {$D$};
+    \draw[ultra thick, brandPrimary, domain=0.1:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
+    \fill[black] (0.3, 0.61) circle (1.5pt) node[left] {$A$};
+    \fill[black] (0.75, 0.2) circle (1.5pt) node[below] {$B$};
+    \fill[black] (2.25, 2.2) circle (1.5pt) node[left] {$C$};
+    \fill[black] (2.5, 2.07) circle (1.5pt) node[right] {$D$};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 
 ## Решение
 
-TODO
+Проекция скорости равна наклону касательной к графику $x(t)$, а знак ускорения определяется выпуклостью графика: выпуклость вниз — $a_x > 0$, выпуклость вверх — $a_x < 0$.
+
+1) Верно: в точке $A$ график круче, чем в точке $D$, значит, модуль скорости в $A$ больше.
+
+2) Верно: $B$ — точка минимума координаты, касательная там горизонтальна, $v_x = 0$.
+
+3) Неверно: в точке $D$ координата уменьшается ($v_x < 0$), а график выпуклый вверх ($a_x < 0$), то есть скорость и ускорение направлены в одну сторону.
+
+4) Неверно: $x_B < x_A$, поэтому проекция перемещения из $A$ в $B$ отрицательна.
+
+5) Верно: от $A$ к $B$ наклон графика уменьшается до нуля, модуль скорости уменьшается.

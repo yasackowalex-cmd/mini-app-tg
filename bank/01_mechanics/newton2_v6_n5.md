@@ -26,23 +26,33 @@ source: din.tex
 2) В промежутке времени от $0$ до $14$~с тела двигались в одном направлении.
 3) Кинетическая энергия тела 2 за промежуток времени от $6$ до $14$~с увеличилась в $2$ раза.
 4) Путь, пройденный телом 1 за промежуток времени от $0$ до $18$~с, меньше пути, пройденного телом 2 за тот же промежуток времени.
-5) Модуль импульса тела 2 в момент времени $t=10$~с равен $6$~\text{кг}$\cdot$\text{м/с}.
+5) Модуль импульса тела 2 в момент времени $t=10$~с равен $6~\text{кг}\cdot\text{м/с}$.
 
 ## Рисунок (TikZ)
 
 ```latex
 \begin{tikzpicture}[x=0.4cm, y=0.35cm, every node/.style={font=\footnotesize}]
-    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (18,7);
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,-4) grid (18,7);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (19.5,0) node[right] {$t, \text{ с}$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,7.5) node[above] {$v_x, \text{ м/с}$};
-    \foreach \y in {2,4,6} \node[left] at (0,\y) {\y};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-4) -- (0,7.5) node[above] {$v_x, \text{ м/с}$};
+    \foreach \y in {-4,-2,2,4,6} \node[left] at (0,\y) {\y};
     \foreach \x in {4,8,12,16} \node[below] at (\x,0) {\x};
     \node[below left] at (0,0) {0};
-    \draw[ultra thick, brandPrimary] (0,7) -- (18,2.8) node[right, black] {1};
-    \draw[ultra thick, brandAccent] (0,0.5) -- (18,5.7) node[right, black] {2};
+    \draw[ultra thick, brandPrimary] (0,6) -- (18,-3) node[right, black] {1};
+    \draw[ultra thick, brandAccent] (0,1.5) -- (18,6) node[right, black] {2};
 \end{tikzpicture}
 ```
 
 ## Решение
 
-TODO
+По графикам: тело 1 — $v_{1x} = 6 - 0{,}5t$, тело 2 — $v_{2x} = 1{,}5 + 0{,}25t$ (м/с).
+
+1) Верно: график 1 — прямая, ускорение $a = -0{,}5$~м/с$^2$ постоянно, значит, постоянна и равнодействующая $F = m|a| = 2 \cdot 0{,}5 = 1$~Н.
+
+2) Неверно: при $t = 12$~с скорость тела 1 обращается в ноль, после этого тело 1 движется против оси, а тело 2 — по оси.
+
+3) Неверно: $v_2(6) = 3$~м/с, $v_2(14) = 5$~м/с. Кинетическая энергия пропорциональна $v^2$ и выросла в $\left(\dfrac{5}{3}\right)^2 \approx 2{,}8$ раза.
+
+4) Верно: путь тела 1 — сумма площадей двух треугольников: $\dfrac{6 \cdot 12}{2} + \dfrac{3 \cdot 6}{2} = 45$~м; путь тела 2 — площадь трапеции: $\dfrac{1{,}5 + 6}{2} \cdot 18 = 67{,}5$~м; $45 < 67{,}5$.
+
+5) Неверно: $v_2(10) = 4$~м/с, $p = mv = 2 \cdot 4 = 8~\text{кг}\cdot\text{м/с}$.

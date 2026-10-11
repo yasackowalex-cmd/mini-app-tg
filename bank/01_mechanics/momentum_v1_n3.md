@@ -8,7 +8,7 @@ topic: 1.3.1
 level: Б
 type: расчётная
 variant: 1
-answer: "6"
+answer: "12"
 unit: "кг·м/с"
 has_image: false
 author_task: false
@@ -22,4 +22,6 @@ source: imp.tex
 
 ## Решение
 
-TODO
+Из уравнения $v_x = 5 + 3t$: $v_{0x} = 5$~м/с, а при $t = 2$~с $v_x = 5 + 3\cdot 2 = 11$~м/с.
+
+$$\Delta p = m\,(v_x - v_{0x}) = 2\cdot(11 - 5) = 12~\text{кг}\cdot\text{м/с}.$$

@@ -8,7 +8,7 @@ topic: 3.2.2
 level: Б
 type: расчётная
 variant: 3
-answer: "3,6"
+answer: "1,8"
 unit: "мВб"
 has_image: true
 author_task: false
@@ -50,4 +50,6 @@ source: ind.tex
 
 ## Решение
 
-TODO
+Магнитный поток через катушку $\Phi = LI$. По графику за $2$~с сила тока выросла от $0$ до $3$~А.
+
+$$\Delta\Phi = L\,\Delta I = 0{,}6 \cdot 10^{-3} \cdot 3 = 1{,}8 \cdot 10^{-3}~\text{Вб} = 1{,}8~\text{мВб}.$$

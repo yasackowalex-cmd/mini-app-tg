@@ -36,8 +36,8 @@ source: mkt.tex
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
     
     \coordinate (1) at (1,1);
-    \coordinate (2) at (3,2);
-    \coordinate (3) at (3,4);
+    \coordinate (2) at (2,2);
+    \coordinate (3) at (2,4);
     
     \draw[dashed, thin, gray] (0,0) -- (1);
     \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
@@ -52,4 +52,14 @@ source: mkt.tex
 
 ## Решение
 
-TODO
+Давление идеального газа $p = \dfrac{2}{3}n\overline{E}_\text{к}$, а $\overline{E}_\text{к} = \dfrac{3}{2}kT$ пропорциональна температуре.
+
+1) Верно: 1–2 — прямая через начало координат, концентрация и объём постоянны, работа равна нулю. Температура растёт, значит, $Q = \Delta U > 0$.
+
+2) Неверно: в 2–3 $\overline{E}_\text{к}$, а значит, и $T$ постоянны, давление растёт — аргон изотермически сжимается.
+
+3) Верно: $n = \dfrac{3p}{2\overline{E}_\text{к}}$ постоянна на прямой, проходящей через начало координат.
+
+4) Верно: $\overline{E}_\text{к} = \text{const}$, значит, $T = \text{const}$.
+
+5) Неверно: внутренняя энергия идеального газа зависит только от температуры, а она не меняется.

@@ -31,7 +31,7 @@ source: nuc.tex
     
     \fill[black] (0,4) circle (2pt) node[above right] {$A$};
     \fill[black] (1,2.5) circle (2pt) node[above right] {1};
-    \fill[black] (2,1.0) circle (2pt) node[above right] {2};
+    \fill[black] (2,1.5) circle (2pt) node[above right] {2};
     \fill[black] (3,0.5) circle (2pt) node[above right] {3};
     \fill[black] (5,0.25) circle (2pt) node[above right] {4};
     
@@ -45,4 +45,12 @@ source: nuc.tex
 
 ## Решение
 
-TODO
+За каждый период полураспада ($50$~мин) число нераспавшихся ядер уменьшается вдвое: $N = N_0 \cdot 2^{-t/T}$.
+
+$t = 50$~мин: $N = 2 \cdot 10^{20}$ — точка 1 ($2{,}5 \cdot 10^{20}$) не подходит.
+
+$t = 100$~мин: $N = 1 \cdot 10^{20}$ — точка 2 ($1{,}5 \cdot 10^{20}$) не подходит.
+
+$t = 150$~мин: $N = 0{,}5 \cdot 10^{20}$ — точка 3 подходит.
+
+$t = 250$~мин: $N = 0{,}125 \cdot 10^{20}$ — точка 4 ($0{,}25 \cdot 10^{20}$) не подходит.

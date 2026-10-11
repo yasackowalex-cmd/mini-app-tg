@@ -306,7 +306,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 12,
-  "answer": "-187,5",
+  "answer": "-225",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -318,7 +318,7 @@
    "\\begin{tikzpicture}[x=0.25cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=5, ystep=5, gray!30, thin] (0,-15) grid (35,15);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (38,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-15) -- (0,18) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,15) {$15$};\n    \\node[left] at (0,10) {$10$};\n    \\node[left] at (0,5) {$5$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-5) {$-5$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[left] at (0,-15) {$-15$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (30,0) {$30$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,0) -- (10,-15) -- (20,-15) -- (35,15);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите проекцию $s_x$ перемещения этого тела в интервале времени от $0$ до $35$~с. Ответ запишите с учётом знака проекции.",
-  "solution": null,
+  "solution": "Проекция перемещения равна площади под графиком $v_x(t)$ с учётом знака.\n\nОт $0$ до $10$~с — треугольник под осью: $s_1 = -\\dfrac{15 \\cdot 10}{2} = -75$~м.\n\nОт $10$ до $20$~с — прямоугольник под осью: $s_2 = -15 \\cdot 10 = -150$~м.\n\nОт $20$ до $35$~с скорость равномерно растёт от $-15$ до $15$~м/с и обращается в ноль при $t = 27{,}5$~с. Треугольники под осью и над осью одинаковые, поэтому $s_3 = 0$.\n\n$$s_x = s_1 + s_2 + s_3 = -75 - 150 + 0 = -225~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v12_n1.md",
   "images": [
@@ -360,7 +360,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 12,
-  "answer": "26",
+  "answer": "26,4",
   "unit": "Дж",
   "has_image": false,
   "author_task": false,
@@ -370,7 +370,7 @@
   "source": "kim03.tex",
   "tikz": [],
   "condition": "Тело массой $200$~г брошено со скоростью $8$~м/с вертикально вниз с высоты $10$~м относительно поверхности Земли. Определите кинетическую энергию тела в момент падения на Землю. Сопротивлением воздуха пренебречь.",
-  "solution": "Сопротивления воздуха нет, поэтому механическая энергия сохраняется: кинетическая энергия у земли равна начальной кинетической плюс потенциальная на высоте $h$.\n\n$$E_\\text{к} = \\frac{mv_0^2}{2} + mgh = \\frac{0{,}2 \\cdot 8^2}{2} + 0{,}2 \\cdot 10 \\cdot 10 = 6{,}4 + 20 = 26{,}4~\\text{Дж}.$$\n\nС округлением до целых $E_\\text{к} \\approx 26$ Дж.",
+  "solution": "Сопротивления воздуха нет, поэтому механическая энергия сохраняется: кинетическая энергия у земли равна начальной кинетической плюс потенциальная на высоте $h$.\n\n$$E_\\text{к} = \\frac{mv_0^2}{2} + mgh = \\frac{0{,}2 \\cdot 8^2}{2} + 0{,}2 \\cdot 10 \\cdot 10 = 6{,}4 + 20 = 26{,}4~\\text{Дж}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v12_n3.md",
   "images": []
@@ -552,10 +552,10 @@
   ],
   "source": "kinem.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0.5:3.5, samples=100] plot (\\x, {1.2 + sin(120*(\\x-1.5))});\n    \\fill[black] (0.8, 0.45) circle (1.5pt) node[left] {$A$};\n    \\fill[black] (1.9, 1.55) circle (1.5pt) node[left] {$B$};\n    \\fill[black] (2.65, 2.2) circle (1.5pt) node[above] {$C$};\n    \\fill[black] (3.3, 1.1) circle (1.5pt) node[right] {$D$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0.4:3.25, samples=100] plot (\\x, {1.2 + sin(120*(\\x-0.75))});\n    \\fill[black] (0.75, 1.2) circle (1.5pt) node[left] {$A$};\n    \\fill[black] (1.5, 2.2) circle (1.5pt) node[above] {$B$};\n    \\fill[black] (2.25, 1.2) circle (1.5pt) node[right] {$C$};\n    \\fill[black] (3.0, 0.2) circle (1.5pt) node[right] {$D$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$. \n\nИз приведённого ниже списка выберите все верные утверждения.\n1) В точке $A$ ускорение тела равно нулю.\n2) В точке $B$ проекция ускорения тела на ось $Ox$ положительна.\n3) Проекция перемещения тела на ось $Ox$ при переходе из точки $B$ в точку $C$ отрицательна.\n4) В точке $D$ проекция скорости тела на ось $Ox$ отрицательна.\n5) На участке $CD$ кинетическая энергия тела увеличивается.",
-  "solution": null,
+  "solution": "Проекция скорости — наклон касательной к графику $x(t)$, проекция ускорения определяется выпуклостью графика: выпуклость вверх (горб) — $a_x < 0$, выпуклость вниз (впадина) — $a_x > 0$, в точке перегиба $a_x = 0$.\n\n1) Верно: точка $A$ — точка перегиба графика, ускорение равно нулю.\n\n2) Неверно: $B$ — вершина горба, там график выпуклый вверх, $a_x < 0$.\n\n3) Верно: координата в точке $C$ меньше, чем в точке $B$, значит, $\\Delta x = x_C - x_B < 0$.\n\n4) Неверно: $D$ — нижняя точка графика (минимум $x$), касательная горизонтальна, $v_x = 0$.\n\n5) Неверно: в точке $C$ (перегиб) модуль скорости наибольший, а к точке $D$ тело останавливается — кинетическая энергия уменьшается.",
   "check": "set",
   "file": "01_mechanics/dem26_v13_n5.md",
   "images": [
@@ -1071,7 +1071,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 18,
-  "answer": "16",
+  "answer": "22",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -1083,7 +1083,7 @@
    "\\begin{tikzpicture}[x=0.8cm, y=0.25cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=1, ystep=4, gray!30, thin] (0,-12) grid (6,12);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-12) -- (0,14) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,12) {$12$};\n    \\node[left] at (0,8) {$8$};\n    \\node[left] at (0,4) {$4$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-4) {$-4$};\n    \\node[left] at (0,-8) {$-8$};\n    \\node[left] at (0,-12) {$-12$};\n    \\node[below] at (2,0) {$2$};\n    \\node[below] at (4,0) {$4$};\n    \\node[below] at (6,0) {$6$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,12) -- (2,4) -- (3,-12) -- (4,-12) -- (5,0) -- (6,-8);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости проекции $v_x$ скорости тела от времени $t$. Определите путь, пройденный этим телом в интервале времени от $3$ до $6$~с.",
-  "solution": null,
+  "solution": "Путь равен площади фигуры между графиком $v_x(t)$ и осью времени (участки под осью тоже берутся со знаком «плюс»). По графику:\n\nот $3$ до $4$~с $v_x = -12$~м/с постоянна: $s_1 = 12 \\cdot 1 = 12$~м;\n\nот $4$ до $5$~с $v_x$ меняется от $-12$ до $0$: $s_2 = \\dfrac{12 \\cdot 1}{2} = 6$~м;\n\nот $5$ до $6$~с $v_x$ меняется от $0$ до $-8$~м/с: $s_3 = \\dfrac{8 \\cdot 1}{2} = 4$~м.\n\n$$s = s_1 + s_2 + s_3 = 12 + 6 + 4 = 22~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v18_n1.md",
   "images": [
@@ -1175,7 +1175,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 19,
-  "answer": "3",
+  "answer": "3,5",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -1187,7 +1187,7 @@
    "\\begin{tikzpicture}[x=1.6cm, y=0.25cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=0.5, ystep=2, gray!30, thin] (0,-6) grid (3,6);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.3,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-6) -- (0,7) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,6) {$6$};\n    \\node[left] at (0,4) {$4$};\n    \\node[left] at (0,2) {$2$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-2) {$-2$};\n    \\node[left] at (0,-4) {$-4$};\n    \\node[left] at (0,-6) {$-6$};\n    \\node[below] at (1,0) {$1$};\n    \\node[below] at (2,0) {$2$};\n    \\node[below] at (3,0) {$3$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,4) -- (0.5,0) -- (1,6) -- (1.5,2) -- (2.5,2) -- (3,-6);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости проекции $v_x$ скорости тела от времени $t$. Какова проекция $s_x$ перемещения этого тела за время от момента $t_1 = 0{,}5$~с до момента $t_2 = 1{,}5$~с? Ответ запишите с учётом знака проекции.",
-  "solution": null,
+  "solution": "Проекция перемещения равна площади под графиком $v_x(t)$ с учётом знака. От $0{,}5$ до $1$~с проекция скорости растёт от $0$ до $6$~м/с, от $1$ до $1{,}5$~с — убывает от $6$ до $2$~м/с:\n\n$$s_x = \\frac{0 + 6}{2}\\cdot 0{,}5 + \\frac{6 + 2}{2}\\cdot 0{,}5 = 1{,}5 + 2 = 3{,}5~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v19_n1.md",
   "images": [
@@ -1694,7 +1694,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 27,
-  "answer": "25",
+  "answer": "40",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -1703,10 +1703,10 @@
   ],
   "source": "kim01.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.35cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=5, ystep=5, gray!30, thin] (0,-10) grid (20,15);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (22,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,18) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,15) {$15$};\n    \\node[left] at (0,10) {$10$};\n    \\node[left] at (0,5) {$5$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-5) {$-5$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[below] at (5,0) {$5$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (15,0) {$15$};\n    \\node[below] at (20,0) {$20$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,5) -- (3,5) -- (5,15) -- (10,-10) -- (13,-10) -- (18,5) -- (20,5);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.35cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=1, ystep=5, gray!30, thin] (0,-10) grid (20,15);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (22,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,18) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,15) {$15$};\n    \\node[left] at (0,10) {$10$};\n    \\node[left] at (0,5) {$5$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-5) {$-5$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[below] at (5,0) {$5$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (15,0) {$15$};\n    \\node[below] at (20,0) {$20$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,5) -- (3,5) -- (5,15) -- (10,-10) -- (13,-10) -- (17,10) -- (20,10);\n\\end{tikzpicture}"
   ],
   "condition": "Тело движется вдоль оси $Ox$. На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите путь, пройденный телом в интервале времени от $12$ до $18$~с.",
-  "solution": null,
+  "solution": "Путь — площадь между графиком $v_x(t)$ и осью времени (все площади берём со знаком «плюс»).\n\nНа участке $12$–$13$~с $v_x = -10$~м/с: $s_1 = 10 \\cdot 1 = 10$~м.\n\nС $13$ до $17$~с скорость растёт линейно от $-10$ до $10$~м/с и обращается в ноль при $t = 15$~с. Треугольник под осью: $s_2 = \\dfrac{10 \\cdot 2}{2} = 10$~м; треугольник над осью: $s_3 = \\dfrac{10 \\cdot 2}{2} = 10$~м.\n\nНа участке $17$–$18$~с $v_x = 10$~м/с: $s_4 = 10 \\cdot 1 = 10$~м.\n\n$$s = 10 + 10 + 10 + 10 = 40~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v27_n1.md",
   "images": [
@@ -1723,7 +1723,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 27,
-  "answer": "5",
+  "answer": "45",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -1735,7 +1735,7 @@
    "\\begin{tikzpicture}[x=0.45cm, y=0.1cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=2, ystep=10, gray!30, thin] (0,-20) grid (10,30);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (11,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-20) -- (0,34) node[above] {$v_x, \\text{ м/с}$};\n    \\node[left] at (0,30) {$30$};\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[left] at (0,-20) {$-20$};\n    \\node[below left] at (0,0) {$0$};\n    \\foreach \\x in {2,4,6,8,10} \\node[below] at (\\x,0) {\\x};\n    \\draw[ultra thick, brandPrimary] (0,-20) -- (10,30) node[right, black] {$A$};\n    \\draw[ultra thick, brandAccent, domain=0:8, samples=100] plot (\\x, {30 - 1.25*(\\x-2)*(\\x-2)}) node[right, black] {$B$};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведены графики зависимости проекции $v_x$ скорости от времени $t$ для двух тел А и В, движущихся вдоль оси $Ox$. \n\nВыберите все верные утверждения о характере движения тел.\n1) Тело А движется равномерно со скоростью $5$~м/с.\n2) Тело В за первые $4$~секунды движения переместилось в положительном направлении оси $Ox$ на расстояние более $120$~м.\n3) В промежутке времени от $0$ до $8$~с путь, пройденный телом А, равен $0$.\n4) В интервале времени от $6$ до $8$~с тело В изменило направление своего движения.\n5) В момент времени $6$~с тела А и В двигались с одинаковой скоростью в одном направлении.",
-  "solution": null,
+  "solution": "По графикам проекция скорости тела А: $v_x = -20 + 5t$, тела В: $v_x = 30 - 1{,}25(t-2)^2$.\n\n1) Неверно: скорость тела А меняется линейно, тело движется равноускоренно с ускорением $5$~м/с$^2$.\n\n2) Неверно: перемещение равно площади под графиком В от $0$ до $4$~с. График лежит не выше $30$~м/с, поэтому площадь меньше $30 \\cdot 4 = 120$~м; точно $s = 120 - 1{,}25 \\cdot \\dfrac{16}{3} \\approx 113$~м.\n\n3) Неверно: до $t = 4$~с тело А двигалось против оси, потом по оси; путь $\\dfrac{20 \\cdot 4}{2} + \\dfrac{20 \\cdot 4}{2} = 80$~м.\n\n4) Верно: при $t = 6$~с у тела В $v_x = 10$~м/с, при $t = 8$~с $v_x = -15$~м/с — проекция скорости сменила знак.\n\n5) Верно: при $t = 6$~с у обоих тел $v_x = 10$~м/с.",
   "check": "set",
   "file": "01_mechanics/dem26_v27_n5.md",
   "images": [
@@ -1848,10 +1848,10 @@
   ],
   "source": "kinem.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.5) -- (0,1.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0:2.5] plot (\\x, {-0.5 - 0.8*\\x + 0.4*\\x*\\x});\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\node[above] at (1.2,2.0) {А)};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.2) -- (0,1.5) node[above] {};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary] (0,-1.0) -- (1.2,0) -- (3,1.5);\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\node[above] at (1.2,2.0) {Б)};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary] (0,1.2) -- (3,1.2);\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.5) -- (0,1.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0:2.5] plot (\\x, {-0.5 - 0.8*\\x + 0.4*\\x*\\x});\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\node[above] at (1.2,2.0) {А)};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary] (0,1.0) -- (1,0) -- (2.5,1.5);\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.6, every node/.style={font=\\footnotesize}]\n    \\node[above] at (1.2,2.0) {Б)};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.2) node[above] {};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary] (0,1.2) -- (3,1.2);\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$ (парабола). Графики А и Б представляют собой зависимости физических величин, характеризующих движение тела, от времени $t$.\n\n\\begin{center}\n\\begin{minipage}[b]{0.3\\linewidth}\n\\centering\n\n\\end{minipage}\n\\begin{minipage}[b]{0.3\\linewidth}\n\\centering\n\n\\end{minipage}\n\\begin{minipage}[b]{0.3\\linewidth}\n\\centering\n\n\\end{minipage}\n\\end{center}\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n1) модуль скорости тела\n2) модуль ускорения тела\n3) кинетическая энергия тела\n4) проекция на ось $Ox$ перемещения тела из начального положения\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.",
-  "solution": null,
+  "solution": "Координата меняется по параболе с ветвями вверх, значит, движение равноускоренное с постоянным ускорением $a_x > 0$. Проекция скорости $v_x = v_{0x} + a_x t$ меняется линейно: сначала она отрицательна, в момент, соответствующий вершине параболы, равна нулю, затем положительна.\n\nА) Модуль скорости линейно убывает до нуля, а затем линейно растёт — это график А (1).\n\nБ) Ускорение постоянно, его модуль не зависит от времени — горизонтальная прямая (2).\n\nКинетическая энергия $\\dfrac{mv^2}{2}$ зависит от времени квадратично, проекция перемещения тоже меняется по параболе, начинающейся в нуле, — таких графиков на рисунке нет.",
   "check": "seq",
   "file": "01_mechanics/dem26_v29_n6.md",
   "images": [
@@ -1868,7 +1868,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 2,
-  "answer": "-25",
+  "answer": "-75",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -1879,8 +1879,8 @@
   "tikz": [
    "\\begin{tikzpicture}[x=0.35cm, y=0.08cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=5, ystep=10, gray!30, thin] (0,-20) grid (15,20);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (17,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-20) -- (0,24) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[left] at (0,-20) {$-20$};\n    \\node[below] at (5,0) {$5$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (15,0) {$15$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,-20) -- (10,0) -- (15,10);\n\\end{tikzpicture}"
   ],
-  "condition": "На рисунке приведён график зависимости от времени $t$ проекции $v_x$ скорости тела, движущегося прямолинейно вдоль оси $Ox$. Определите проекцию $s_x$ перемещения этого тела в интервале времени от $5$ до $15$~с. Ответ запишите с учётом знака проекции.",
-  "solution": null,
+  "condition": "На рисунке приведён график зависимости от времени $t$ проекции $v_x$ скорости тела, движущегося прямолинейно вдоль оси $Ox$. Определите проекцию $s_x$ перемещения этого тела в интервале времени от $0$ до $15$~с. Ответ запишите с учётом знака проекции.",
+  "solution": "Проекция перемещения равна площади под графиком $v_x(t)$ с учётом знака.\n\nОт $0$ до $10$~с скорость растёт от $-20$~м/с до нуля — треугольник под осью: $s_1 = -\\dfrac{20 \\cdot 10}{2} = -100$~м.\n\nОт $10$ до $15$~с скорость растёт от нуля до $10$~м/с — треугольник над осью: $s_2 = \\dfrac{10 \\cdot 5}{2} = 25$~м.\n\n$$s_x = s_1 + s_2 = -100 + 25 = -75~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v2_n1.md",
   "images": [
@@ -2193,10 +2193,10 @@
   ],
   "source": "kim01.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.15cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (40,30);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,35) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,30) {$30$};\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (30,0) {$30$};\n    \\node[below] at (40,0) {$40$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,15) -- (10,5) -- (20,20) -- (30,0) -- (40,25);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.15cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (40,30);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,35) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,30) {$30$};\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (30,0) {$30$};\n    \\node[below] at (40,0) {$40$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,15) -- (10,5) -- (20,20) -- (30,0) -- (40,20);\n\\end{tikzpicture}"
   ],
   "condition": "Тело движется вдоль оси $Ox$. На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите среднюю скорость тела в интервале времени от $20$ до $40$~с.",
-  "solution": null,
+  "solution": "Средняя (путевая) скорость равна отношению всего пути ко всему времени движения. Путь — площадь под графиком $v_x(t)$.\n\nОт $20$ до $30$~с скорость уменьшается от $20$ до $0$~м/с: $s_1 = \\dfrac{20 \\cdot 10}{2} = 100$~м.\n\nОт $30$ до $40$~с скорость растёт от $0$ до $20$~м/с: $s_2 = \\dfrac{20 \\cdot 10}{2} = 100$~м.\n\n$$v_\\text{ср} = \\frac{s_1 + s_2}{t} = \\frac{100 + 100}{20} = 10~\\text{м/с}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v5_n1.md",
   "images": [
@@ -2238,7 +2238,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 5,
-  "answer": "24",
+  "answer": "19,2",
   "unit": "Дж",
   "has_image": false,
   "author_task": false,
@@ -2248,7 +2248,7 @@
   "source": "kim03.tex",
   "tikz": [],
   "condition": "Скорость волана при подаче в бадминтоне составила $288$~км/ч. Масса волана $6$~г. Какова кинетическая энергия волана при подаче?",
-  "solution": null,
+  "solution": "Переведём в СИ: $288$~км/ч $= \\dfrac{288}{3{,}6} = 80$~м/с, $6$~г $= 0{,}006$~кг.\n\n$$E_\\text{к} = \\frac{mv^2}{2} = \\frac{0{,}006 \\cdot 80^2}{2} = 19{,}2~\\text{Дж}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v5_n3.md",
   "images": []
@@ -2438,10 +2438,10 @@
   ],
   "source": "kim01.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.15cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка (шаг 10 по x, шаг 10 по y)\n    \\draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (40,25);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (30,0) {$30$};\n    \\node[below] at (40,0) {$40$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,5) -- (10,20) -- (20,10) -- (30,25) -- (40,0);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.15cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка (шаг 10 по x, шаг 10 по y)\n    \\draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (40,25);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (30,0) {$30$};\n    \\node[below] at (40,0) {$40$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,5) -- (10,20) -- (20,10) -- (30,20) -- (40,0);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите путь, пройденный телом, в интервале времени от $20$ до $40$~с.",
-  "solution": null,
+  "solution": "На интервале от $20$ до $40$~с проекция скорости не меняет знак, поэтому путь равен площади под графиком $v_x(t)$.\n\nОт $20$ до $30$~с скорость растёт от $10$ до $20$~м/с, от $30$ до $40$~с — убывает от $20$ до $0$:\n\n$$s = \\frac{10 + 20}{2}\\cdot 10 + \\frac{20 + 0}{2}\\cdot 10 = 150 + 100 = 250~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v7_n1.md",
   "images": [
@@ -2458,7 +2458,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 7,
-  "answer": "54",
+  "answer": "486",
   "unit": "пН",
   "has_image": false,
   "author_task": false,
@@ -2468,7 +2468,7 @@
   "source": "kim02.tex",
   "tikz": [],
   "condition": "Два маленьких однородных шарика массой $m$ каждый притягиваются друг к другу с гравитационными силами, равными по модулю $6$~пН. Расстояние между центрами шариков равно $r$. Каков модуль сил гравитационного притяжения друг к другу двух других маленьких однородных шариков, если масса каждого из них $3m$, а расстояние между их центрами $\\frac{r}{3}$?",
-  "solution": null,
+  "solution": "По закону всемирного тяготения $F = G\\dfrac{m_1 m_2}{r^2}$.\n\nМасса каждого шарика увеличилась в $3$ раза, значит, произведение масс выросло в $9$ раз. Расстояние уменьшилось в $3$ раза, значит, $r^2$ уменьшился в $9$ раз:\n\n$$F_2 = 6~\\text{пН}\\cdot 9 \\cdot 9 = 486~\\text{пН}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v7_n2.md",
   "images": []
@@ -2542,10 +2542,10 @@
   ],
   "source": "kinem.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0.5:3.5, samples=100] plot (\\x, {1.2 + sin(120*(\\x-1.5))});\n    \\fill[black] (0.8, 0.45) circle (1.5pt) node[left] {$A$};\n    \\fill[black] (1.15, 0.2) circle (1.5pt) node[below] {$B$};\n    \\fill[black] (2.25, 1.95) circle (1.5pt) node[left] {$C$};\n    \\fill[black] (3.1, 1.45) circle (1.5pt) node[right] {$D$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,2.5) node[above] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};\n    \\draw[ultra thick, brandPrimary, domain=0.1:3.5, samples=100] plot (\\x, {1.2 + sin(120*(\\x-1.5))});\n    \\fill[black] (0.3, 0.61) circle (1.5pt) node[left] {$A$};\n    \\fill[black] (0.75, 0.2) circle (1.5pt) node[below] {$B$};\n    \\fill[black] (2.25, 2.2) circle (1.5pt) node[left] {$C$};\n    \\fill[black] (2.5, 2.07) circle (1.5pt) node[right] {$D$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$. \n\nИз приведённого ниже списка выберите все верные утверждения.\n1) В положении $A$ модуль скорости тела больше, чем в положении $D$.\n2) В точке $B$ проекция скорости тела на ось $Ox$ равна нулю.\n3) В положении $D$ векторы скорости и ускорения тела направлены в противоположные стороны.\n4) Проекция перемещения тела на ось $Ox$ при его переходе из точки $A$ в точку $B$ положительна.\n5) На участке $AB$ модуль скорости тела уменьшается.",
-  "solution": null,
+  "solution": "Проекция скорости равна наклону касательной к графику $x(t)$, а знак ускорения определяется выпуклостью графика: выпуклость вниз — $a_x > 0$, выпуклость вверх — $a_x < 0$.\n\n1) Верно: в точке $A$ график круче, чем в точке $D$, значит, модуль скорости в $A$ больше.\n\n2) Верно: $B$ — точка минимума координаты, касательная там горизонтальна, $v_x = 0$.\n\n3) Неверно: в точке $D$ координата уменьшается ($v_x < 0$), а график выпуклый вверх ($a_x < 0$), то есть скорость и ускорение направлены в одну сторону.\n\n4) Неверно: $x_B < x_A$, поэтому проекция перемещения из $A$ в $B$ отрицательна.\n\n5) Верно: от $A$ к $B$ наклон графика уменьшается до нуля, модуль скорости уменьшается.",
   "check": "set",
   "file": "01_mechanics/dem26_v7_n5.md",
   "images": [
@@ -2666,7 +2666,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 9,
-  "answer": "35",
+  "answer": "25",
   "unit": "м",
   "has_image": true,
   "author_task": false,
@@ -2678,7 +2678,7 @@
    "\\begin{tikzpicture}[x=0.35cm, y=0.08cm, every node/.style={font=\\footnotesize}]\n    % Сетка (шаг 2 по x, шаг 10 по y)\n    \\draw[xstep=2, ystep=10, gray!30, thin] (0,-10) grid (11,20);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (12,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-10) -- (0,24) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[below] at (2,0) {$2$};\n    \\node[below] at (4,0) {$4$};\n    \\node[below] at (6,0) {$6$};\n    \\node[below] at (8,0) {$8$};\n    \\node[below] at (10,0) {$10$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,20) -- (3,-10) -- (7,0) -- (11,10);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите путь, пройденный телом в течение интервала времени от $0$ до $3$~с.",
-  "solution": null,
+  "solution": "Путь — площадь между графиком $v_x(t)$ и осью времени. На участке $0$–$3$~с скорость меняется линейно от $20$ до $-10$~м/с, то есть на $10$~м/с за каждую секунду, и обращается в ноль при $t = 2$~с.\n\nТреугольник над осью ($0$–$2$~с) и под осью ($2$–$3$~с):\n\n$$s = \\frac{20 \\cdot 2}{2} + \\frac{10 \\cdot 1}{2} = 20 + 5 = 25~\\text{м}.$$",
   "check": "number",
   "file": "01_mechanics/dem26_v9_n1.md",
   "images": [
@@ -2938,7 +2938,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 1,
-  "answer": "41",
+  "answer": "31",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -2949,8 +2949,8 @@
   "tikz": [
    "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.0*sin(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\n\\begin{center}\n\\begin{stylebasic}\n\\begin{tabular}{cc}\n\n\\begin{tabular}{l}\nУстановите соответствие между графиками и физическими\\\\\nвеличинами, зависимость которых от времени эти графики\\\\\nмогут представлять.\\\\\n\\end{tabular}\n\\end{tabular}\n\\end{stylebasic}\n\\end{center}\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "Груз отклонили против оси $Ox$ и отпустили без начальной скорости, поэтому $x(t) = -A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент $x = -A$.\n\nА) Проекция ускорения $a_x = -\\omega^2 x = \\omega^2 A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент максимальна и положительна, график — «плюс косинус» (3). Это не потенциальная энергия: $E_\\text{п} \\ge 0$, а график А уходит в отрицательные значения, к тому же $E_\\text{п}$ меняется с периодом $T/2$.\n\nБ) Проекция скорости $v_x = \\omega A\\sin\\dfrac{2\\pi t}{T}$: в начальный момент равна нулю, затем положительна — груз движется к положению равновесия по оси $Ox$ (1).",
   "check": "seq",
   "file": "01_mechanics/energy_v1_n6.md",
   "images": [
@@ -2967,7 +2967,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 2,
-  "answer": "42",
+  "answer": "32",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -2978,8 +2978,8 @@
   "tikz": [
    "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {-1.0*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\n\\begin{center}\n\\begin{stylebasic}\n\\begin{tabular}{cc}\n\n\\begin{tabular}{l}\nУстановите соответствие между графиками и физическими\\\\\nвеличинами, зависимость которых от времени эти графики\\\\\nмогут представлять.\\\\\n\\end{tabular}\n\\end{tabular}\n\\end{stylebasic}\n\\end{center}\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "Груз отклонён влево, против оси $Ox$, и отпущен без начальной скорости, поэтому $x = -A\\cos\\omega t$.\n\nА) График начинается с наибольшего положительного значения и меняется по закону $\\cos$. Это проекция ускорения: $a_x = -\\omega^2 x = \\omega^2 A\\cos\\omega t$, в начальный момент ускорение направлено к положению равновесия, то есть по оси (3).\n\nБ) График начинается с наименьшего отрицательного значения, закон $-\\cos$ — это координата $x$ (2).\n\nПроекция скорости при $t = 0$ равна нулю, а потенциальная энергия не бывает отрицательной и колеблется с периодом $T/2$, поэтому эти величины не подходят.",
   "check": "seq",
   "file": "01_mechanics/energy_v2_n6.md",
   "images": [
@@ -3622,8 +3622,8 @@
   ],
   "source": "3law.tex",
   "tikz": [],
-  "condition": "Используя таблицу, содержащую сведения о планетах Солнечной системы, выберите все верные утверждения, соответствующие характеристикам планет.\n\\begin{center}\n\\begin{tabular}{|l|c|c|c|}\n\\hline\n\\textbf{Планета} & \\textbf{Средний радиус, км} & \\textbf{Масса, $\\cdot 10^{24}$~кг} & \\textbf{Период вращения вокруг оси} \\\\ \\hline\nМеркурий & $2440$ & $0{,}33$ & $58{,}6$~сут. \\\\ \\hline\nВенера   & $6052$ & $4{,}87$ & $243$~сут. \\\\ \\hline\nЗемля    & $6371$ & $5{,}97$ & $23$~ч $56$~мин $4$~с \\\\ \\hline\nМарс     & $3390$ & $0{,}642$ & $24$~ч $37$~мин $23$~с \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\n1) Ускорение свободного падения на Венере составляет примерно $8{,}9$~м/с$^{2}$.\n2) Масса Марса примерно в $10$ раза больше массы Земли.\n3) Меркурий делает один оборот вокруг своей оси быстрее, чем Земля.\n4) Сила гравитационного притяжения Венеры к Солнцу больше, чем у Земли.\n5) Первая космическая скорость для Марса составляет примерно $3{,}6$~км/ч.",
-  "solution": null,
+  "condition": "Используя таблицу, содержащую сведения о планетах Солнечной системы, выберите все верные утверждения, соответствующие характеристикам планет.\n\\begin{center}\n\\begin{tabular}{|l|c|c|c|}\n\\hline\n\\textbf{Планета} & \\textbf{Средний радиус, км} & \\textbf{Масса, $\\cdot 10^{24}$~кг} & \\textbf{Период вращения вокруг оси} \\\\ \\hline\nМеркурий & $2440$ & $0{,}33$ & $58{,}6$~сут. \\\\ \\hline\nВенера   & $6052$ & $4{,}87$ & $243$~сут. \\\\ \\hline\nЗемля    & $6371$ & $5{,}97$ & $23$~ч $56$~мин $4$~с \\\\ \\hline\nМарс     & $3390$ & $0{,}642$ & $24$~ч $37$~мин $23$~с \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\n1) Ускорение свободного падения на Венере составляет примерно $8{,}9$~м/с$^{2}$.\n2) Масса Марса примерно в $10$ раза больше массы Земли.\n3) Меркурий делает один оборот вокруг своей оси быстрее, чем Земля.\n4) Ускорение свободного падения на поверхности Земли меньше, чем на поверхности Венеры.\n5) Первая космическая скорость для Марса составляет примерно $3{,}6$~км/с.",
+  "solution": "1) Верно: $g = G\\dfrac{M}{R^2} = 6{,}67\\cdot10^{-11}\\cdot\\dfrac{4{,}87\\cdot10^{24}}{(6{,}052\\cdot10^{6})^2} \\approx 8{,}9$~м/с$^2$.\n\n2) Неверно: $\\dfrac{5{,}97}{0{,}642} \\approx 9{,}3$, масса Марса примерно в $9$ раз меньше массы Земли.\n\n3) Неверно: Меркурий делает оборот вокруг оси за $58{,}6$~сут., а Земля — примерно за сутки, то есть Меркурий вращается медленнее.\n\n4) Неверно: на Земле $g = 6{,}67\\cdot10^{-11}\\cdot\\dfrac{5{,}97\\cdot10^{24}}{(6{,}371\\cdot10^{6})^2} \\approx 9{,}8$~м/с$^2$, это больше, чем на Венере ($8{,}9$~м/с$^2$).\n\n5) Верно: $v_1 = \\sqrt{G\\dfrac{M}{R}} = \\sqrt{\\dfrac{6{,}67\\cdot10^{-11}\\cdot 0{,}642\\cdot10^{24}}{3{,}39\\cdot10^{6}}} \\approx 3{,}6\\cdot10^{3}$~м/с $= 3{,}6$~км/с.",
   "check": "set",
   "file": "01_mechanics/gravity_v17_n5.md",
   "images": []
@@ -4662,8 +4662,8 @@
   ],
   "source": "imp.tex",
   "tikz": [],
-  "condition": "Тело массой $0.1$~кг влетает в зазор между двумя стенками со скоростью $15$~м/с, направленной под углом к нормали одной из стенок, и упруго отскакивает от неё. Чему равен модуль изменения импульса тела при ударе, если модуль его скорости после удара не изменился?",
-  "solution": null,
+  "condition": "Тело массой $0{,}1$~кг влетает в зазор между двумя стенками со скоростью $15$~м/с, направленной перпендикулярно одной из стенок, и упруго отскакивает от неё. Чему равен модуль изменения импульса тела при ударе, если модуль его скорости после удара не изменился?",
+  "solution": "Удар упругий и скорость направлена перпендикулярно стенке, поэтому тело отскакивает назад с той же по модулю скоростью: $\\vec p_2 = -\\vec p_1$.\n\n$$\\Delta p = mv - (-mv) = 2mv = 2 \\cdot 0{,}1 \\cdot 15 = 3~\\text{кг}\\cdot\\text{м/с}.$$",
   "check": "number",
   "file": "01_mechanics/momentum_v15_n3.md",
   "images": []
@@ -4728,7 +4728,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 19,
-  "answer": "12",
+  "answer": "33",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -4737,8 +4737,8 @@
   ],
   "source": "imp.tex",
   "tikz": [],
-  "condition": "Стальной шарик падает с некоторой высоты на горизонтальную плиту и упруго отскакивает от неё вверх. Как изменяются в результате удара модуль изменения импульса шарика за время удара и его кинетическая энергия сразу после отскока по сравнению с кинетической энергией перед ударом?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль изменения импульса & Кинетическая энергия после отскока \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "condition": "Стальной шарик падает с некоторой высоты на горизонтальную плиту и упруго отскакивает от неё вверх. Как изменяются в результате удара модуль импульса шарика и его кинетическая энергия (сравните значения сразу после отскока и непосредственно перед ударом)?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль импульса шарика & Кинетическая энергия шарика \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "При упругом ударе о неподвижную массивную плиту механическая энергия не теряется, поэтому шарик отскакивает с той же по модулю скоростью $v$, только направленной вверх.\n\nМодуль импульса $p = mv$ не изменяется (3): меняется лишь направление импульса.\n\nКинетическая энергия $E_\\text{к} = \\dfrac{mv^2}{2}$ тоже не изменяется (3).",
   "check": "seq",
   "file": "01_mechanics/momentum_v19_n6.md",
   "images": []
@@ -4778,7 +4778,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 1,
-  "answer": "6",
+  "answer": "12",
   "unit": "кг·м/с",
   "has_image": false,
   "author_task": false,
@@ -4788,7 +4788,7 @@
   "source": "imp.tex",
   "tikz": [],
   "condition": "Тело массой $2$~кг движется вдоль оси $Ox$. Зависимость проекции скорости $v_x$ этого тела от времени $t$ имеет вид: $v_x = 5 + 3t$ (все величины выражены в СИ). Чему равен модуль изменения импульса тела за первые $2$~с движения?",
-  "solution": null,
+  "solution": "Из уравнения $v_x = 5 + 3t$: $v_{0x} = 5$~м/с, а при $t = 2$~с $v_x = 5 + 3\\cdot 2 = 11$~м/с.\n\n$$\\Delta p = m\\,(v_x - v_{0x}) = 2\\cdot(11 - 5) = 12~\\text{кг}\\cdot\\text{м/с}.$$",
   "check": "number",
   "file": "01_mechanics/momentum_v1_n3.md",
   "images": []
@@ -4803,7 +4803,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 20,
-  "answer": "21",
+  "answer": "22",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -4812,8 +4812,8 @@
   ],
   "source": "imp.tex",
   "tikz": [],
-  "condition": "Пластилиновый шарик падает с некоторой высоты на горизонтальную плиту и прилипает к ней. Как изменяются в результате удара модуль изменения импульса шарика за время удара и его полная механическая энергия сразу после удара?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль изменения импульса & Полная механическая энергия \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "condition": "Пластилиновый шарик падает с некоторой высоты на горизонтальную плиту и прилипает к ней. Как изменяются в результате удара модуль импульса шарика и его полная механическая энергия?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль импульса шарика & Полная механическая энергия \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "До удара шарик движется, а после удара прилипает к плите и останавливается, поэтому модуль импульса $p = mv$ уменьшается до нуля (2).\n\nУдар неупругий: шарик деформируется и нагревается, часть механической энергии переходит во внутреннюю, поэтому полная механическая энергия уменьшается (2).",
   "check": "seq",
   "file": "01_mechanics/momentum_v20_n6.md",
   "images": []
@@ -5161,7 +5161,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 10,
-  "answer": "35",
+  "answer": "345",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -5171,7 +5171,7 @@
   "source": "din.tex",
   "tikz": [],
   "condition": "Мотоцикл с мотоциклистом проезжает нижнюю точку вогнутого моста, радиус кривизны которого равен $200$~м, двигаясь с постоянной по модулю скоростью, равной $72$~км/ч. Общая масса мотоцикла и мотоциклиста составляет $550$~кг. Из приведённого ниже списка выберите все верные утверждения, характеризующие движение мотоцикла с мотоциклистом.\n\n1) Модуль равнодействующей сил, действующих на мотоцикл с мотоциклистом, равен $11000$~Н.\n2) Равнодействующая сил, действующих на мотоцикл с мотоциклистом, направлена вертикально вниз.\n3) Модуль силы тяжести, действующей на мотоциклиста с мотоциклом, на $1{,}1$~кН меньше модуля силы, с которой они действуют на мост.\n4) Сила, с которой мотоцикл с мотоциклистом действует на мост, направлена вертикально вниз и равна по модулю $6600$~Н.\n5) Сила, с которой мост действует на мотоцикл с мотоциклистом, сонаправлена с его центростремительным ускорением.",
-  "solution": null,
+  "solution": "$v = 72$~км/ч $= 20$~м/с. Центростремительное ускорение направлено вверх, к центру кривизны моста:\n\n$$a = \\frac{v^2}{R} = \\frac{20^2}{200} = 2~\\text{м/с}^2.$$\n\nВторой закон Ньютона: $N - mg = ma$, откуда $N = m(g + a) = 550 \\cdot 12 = 6600$~Н; $mg = 5500$~Н.\n\n1) Неверно: равнодействующая $ma = 550 \\cdot 2 = 1100$~Н, а не $11000$~Н.\n\n2) Неверно: равнодействующая сонаправлена с ускорением, то есть направлена вертикально вверх.\n\n3) Верно: по третьему закону Ньютона мотоцикл давит на мост с силой $N = 6600$~Н, это на $6600 - 5500 = 1100$~Н $= 1{,}1$~кН больше силы тяжести.\n\n4) Верно: сила давления на мост направлена вертикально вниз и равна $N = 6600$~Н.\n\n5) Верно: сила реакции моста направлена вертикально вверх, как и центростремительное ускорение.",
   "check": "set",
   "file": "01_mechanics/newton2_v10_n5.md",
   "images": []
@@ -6005,10 +6005,10 @@
   ],
   "source": "din.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.4cm, y=0.35cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (18,7);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (19.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,7.5) node[above] {$v_x, \\text{ м/с}$};\n    \\foreach \\y in {2,4,6} \\node[left] at (0,\\y) {\\y};\n    \\foreach \\x in {4,8,12,16} \\node[below] at (\\x,0) {\\x};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,7) -- (18,2.8) node[right, black] {1};\n    \\draw[ultra thick, brandAccent] (0,0.5) -- (18,5.7) node[right, black] {2};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.4cm, y=0.35cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=2, ystep=1, gray!30, thin] (0,-4) grid (18,7);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (19.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-4) -- (0,7.5) node[above] {$v_x, \\text{ м/с}$};\n    \\foreach \\y in {-4,-2,2,4,6} \\node[left] at (0,\\y) {\\y};\n    \\foreach \\x in {4,8,12,16} \\node[below] at (\\x,0) {\\x};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,6) -- (18,-3) node[right, black] {1};\n    \\draw[ultra thick, brandAccent] (0,1.5) -- (18,6) node[right, black] {2};\n\\end{tikzpicture}"
   ],
-  "condition": "Два тела, каждое массой $2$~кг, движутся по одной прямой, вдоль которой направлена ось $Ox$. На рисунке приведены графики зависимости проекций $v_x$ их скоростей от времени $t$.\n\nИз приведённого ниже списка выберите все верные утверждения о движении тел.\n\n1) Равнодействующая сил, действующих на тело 1, остаётся в течение всего времени наблюдения постоянной.\n2) В промежутке времени от $0$ до $14$~с тела двигались в одном направлении.\n3) Кинетическая энергия тела 2 за промежуток времени от $6$ до $14$~с увеличилась в $2$ раза.\n4) Путь, пройденный телом 1 за промежуток времени от $0$ до $18$~с, меньше пути, пройденного телом 2 за тот же промежуток времени.\n5) Модуль импульса тела 2 в момент времени $t=10$~с равен $6$~\\text{кг}$\\cdot$\\text{м/с}.",
-  "solution": null,
+  "condition": "Два тела, каждое массой $2$~кг, движутся по одной прямой, вдоль которой направлена ось $Ox$. На рисунке приведены графики зависимости проекций $v_x$ их скоростей от времени $t$.\n\nИз приведённого ниже списка выберите все верные утверждения о движении тел.\n\n1) Равнодействующая сил, действующих на тело 1, остаётся в течение всего времени наблюдения постоянной.\n2) В промежутке времени от $0$ до $14$~с тела двигались в одном направлении.\n3) Кинетическая энергия тела 2 за промежуток времени от $6$ до $14$~с увеличилась в $2$ раза.\n4) Путь, пройденный телом 1 за промежуток времени от $0$ до $18$~с, меньше пути, пройденного телом 2 за тот же промежуток времени.\n5) Модуль импульса тела 2 в момент времени $t=10$~с равен $6~\\text{кг}\\cdot\\text{м/с}$.",
+  "solution": "По графикам: тело 1 — $v_{1x} = 6 - 0{,}5t$, тело 2 — $v_{2x} = 1{,}5 + 0{,}25t$ (м/с).\n\n1) Верно: график 1 — прямая, ускорение $a = -0{,}5$~м/с$^2$ постоянно, значит, постоянна и равнодействующая $F = m|a| = 2 \\cdot 0{,}5 = 1$~Н.\n\n2) Неверно: при $t = 12$~с скорость тела 1 обращается в ноль, после этого тело 1 движется против оси, а тело 2 — по оси.\n\n3) Неверно: $v_2(6) = 3$~м/с, $v_2(14) = 5$~м/с. Кинетическая энергия пропорциональна $v^2$ и выросла в $\\left(\\dfrac{5}{3}\\right)^2 \\approx 2{,}8$ раза.\n\n4) Верно: путь тела 1 — сумма площадей двух треугольников: $\\dfrac{6 \\cdot 12}{2} + \\dfrac{3 \\cdot 6}{2} = 45$~м; путь тела 2 — площадь трапеции: $\\dfrac{1{,}5 + 6}{2} \\cdot 18 = 67{,}5$~м; $45 < 67{,}5$.\n\n5) Неверно: $v_2(10) = 4$~м/с, $p = mv = 2 \\cdot 4 = 8~\\text{кг}\\cdot\\text{м/с}$.",
   "check": "set",
   "file": "01_mechanics/newton2_v6_n5.md",
   "images": [
@@ -6025,7 +6025,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 9,
-  "answer": "25",
+  "answer": "125",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -6035,7 +6035,7 @@
   "source": "din.tex",
   "tikz": [],
   "condition": "Мотоцикл с мотоциклистом проезжает верхнюю точку выпуклого моста, радиус кривизны которого равен $100$~м, двигаясь с постоянной по модулю скоростью, равной $54$~км/ч. Общая масса мотоцикла и мотоциклиста составляет $600$~кг. Из приведённого ниже списка выберите все верные утверждения, характеризующие движение мотоцикла с мотоциклистом.\n\n1) Модуль центростремительного ускорения мотоцикла с мотоциклистом равен $2{,}25$~$м/с^2$.\n2) Модуль силы тяжести, действующей на мотоцикл с мотоциклистом, равен $6$~кН.\n3) Равнодействующая сил, действующих на мотоцикл с мотоциклистом, направлена вертикально вверх и перпендикулярна скорости мотоцикла.\n4) Сила, с которой мотоцикл с мотоциклистом действует на мост, направлена вертикально вниз и равна по модулю $46{,}5$~кН.\n5) Сила, с которой мост действует на мотоцикл с мотоциклистом, направлена вертикально вверх.",
-  "solution": null,
+  "solution": "Скорость $v = 54$~км/ч $= 15$~м/с.\n\n1) Верно: $a = \\dfrac{v^2}{R} = \\dfrac{15^2}{100} = 2{,}25$~м/с$^2$.\n\n2) Верно: $mg = 600 \\cdot 10 = 6000$~Н $= 6$~кН.\n\n3) Неверно: равнодействующая сообщает центростремительное ускорение и направлена к центру кривизны, то есть вертикально вниз.\n\n4) Неверно: по второму закону Ньютона $mg - N = ma$, откуда $N = m(g - a) = 600 \\cdot (10 - 2{,}25) = 4650$~Н $= 4{,}65$~кН. Мотоцикл давит на мост вниз с такой же силой, а не $46{,}5$~кН.\n\n5) Верно: сила реакции опоры моста перпендикулярна его поверхности, в верхней точке — вертикально вверх.",
   "check": "set",
   "file": "01_mechanics/newton2_v9_n5.md",
   "images": []
@@ -6185,7 +6185,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 1,
-  "answer": "41",
+  "answer": "31",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -6197,7 +6197,7 @@
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    % Потолок\n    \\draw[thick] (-0.8,2) -- (0.8,2);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2) -- (\\x+0.1,2.15);\n    % Равновесие\n    \\draw[dashed, gray] (0,2) -- (0,0);\n    \\node[below] at (0,-0.4) {$0$};\n    % Нить и груз\n    \\draw[thick] (0,2) -- (-0.8,0.4);\n    \\draw[thick, fill=gray!40] (-0.95,0.1) rectangle (-0.65,0.6);\n    % Ось Ox\n    \\draw[-{Stealth[scale=0.8]}, thick] (-1.3,-0.4) -- (1.5,-0.4) node[right] {$x$};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.5, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А)};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.5, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б)};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*sin(\\x*180/2)});\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t = 0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "solution": "Груз отклонили против оси $Ox$ и отпустили без начальной скорости, поэтому $x(t) = -A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент $x = -A$.\n\nА) Проекция ускорения $a_x = -\\omega^2 x = \\omega^2 A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент максимальна и положительна, график — «плюс косинус» (3). Это не потенциальная энергия: $E_\\text{п} \\ge 0$, а график А уходит в отрицательные значения, к тому же $E_\\text{п}$ меняется с периодом $T/2$.\n\nБ) Проекция скорости $v_x = \\omega A\\sin\\dfrac{2\\pi t}{T}$: в начальный момент равна нулю, затем положительна — груз движется к положению равновесия по оси $Ox$ (1).",
   "check": "seq",
   "file": "01_mechanics/oscillations_v1_n6.md",
   "images": [
@@ -6289,7 +6289,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 2,
-  "answer": "42",
+  "answer": "32",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -6300,8 +6300,8 @@
   "tikz": [
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2) -- (0.8,2);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2) -- (\\x+0.1,2.15);\n    \\draw[dashed, gray] (0,2) -- (0,0);\n    \\node[below] at (0,-0.4) {$0$};\n    \\draw[thick] (0,2) -- (-0.8,0.4);\n    \\draw[thick, fill=gray!40] (-0.95,0.1) rectangle (-0.65,0.6);\n    \\draw[-{Stealth[scale=0.8]}, thick] (-1.3,-0.4) -- (1.5,-0.4) node[right] {$x$};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.5, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А)};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.5, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б)};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {-1.2*cos(\\x*180/2)});\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t = 0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величины, зависимость которых от времени эти графики могут представлять.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "solution": null,
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t = 0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "Груз отклонён влево, против оси $Ox$, и отпущен без начальной скорости, поэтому $x = -A\\cos\\omega t$.\n\nА) График начинается с наибольшего положительного значения и меняется по закону $\\cos$. Это проекция ускорения: $a_x = -\\omega^2 x = \\omega^2 A\\cos\\omega t$, в начальный момент ускорение направлено к положению равновесия, то есть по оси (3).\n\nБ) График начинается с наименьшего отрицательного значения, закон $-\\cos$ — это координата $x$ (2).\n\nПроекция скорости при $t = 0$ равна нулю, а потенциальная энергия не бывает отрицательной и колеблется с периодом $T/2$, поэтому эти величины не подходят.",
   "check": "seq",
   "file": "01_mechanics/oscillations_v2_n6.md",
   "images": [
@@ -8390,7 +8390,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 3,
-  "answer": "32",
+  "answer": "21",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -8400,7 +8400,7 @@
   "source": "ig.tex",
   "tikz": [],
   "condition": "В сосуде постоянного объёма абсолютную температуру гелия увеличили в $4$ раза, выпустив при этом $1/4$ газа из сосуда. Как изменились в результате этого плотность газа в сосуде и его внутренняя энергия?",
-  "solution": null,
+  "solution": "Плотность $\\rho = \\dfrac{m}{V}$. Объём сосуда не изменился, а масса газа уменьшилась (выпустили $1/4$ газа), значит, плотность уменьшилась (2).\n\nВнутренняя энергия одноатомного гелия $U = \\dfrac{3}{2}\\nu RT$. Количество вещества стало $\\dfrac{3}{4}\\nu$, температура выросла в $4$ раза:\n\n$$\\frac{U_2}{U_1} = \\frac{3}{4} \\cdot 4 = 3,$$\n\nто есть внутренняя энергия увеличилась (1).",
   "check": "seq",
   "file": "02_mkt/mkt_gas_v3_n10.md",
   "images": []
@@ -8440,7 +8440,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 5,
-  "answer": "23",
+  "answer": "22",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -8451,8 +8451,8 @@
   "tikz": [
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,3);\n    \\coordinate (3) at (2,1);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[below] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 2–3 и концентрация газа в процессе 1–2?",
-  "solution": null,
+  "condition": "Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 2–3 и концентрация газа в процессе 1–2?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nВнутренняя энергия газа в процессе 2–3 & Концентрация газа в процессе 1–2 \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "Внутренняя энергия одноатомного идеального газа $U = \\dfrac{3}{2}\\nu RT = \\dfrac{3}{2}pV$. В состоянии 2 $pV = 9p_0V_0$, в состоянии 3 $pV = 2p_0V_0$, значит, в процессе 2–3 внутренняя энергия уменьшается (2).\n\nКонцентрация $n = \\dfrac{N}{V}$. В процессе 1–2 объём растёт от $V_0$ до $3V_0$ при неизменном числе молекул, значит, концентрация уменьшается (2).",
   "check": "seq",
   "file": "02_mkt/mkt_gas_v5_n10.md",
   "images": [
@@ -8469,7 +8469,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 6,
-  "answer": "12",
+  "answer": "21",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -8481,7 +8481,7 @@
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,3);\n    \\coordinate (3) at (2,1);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[below] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below, font=\\footnotesize] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Неизменное количество одноатомного идеального газа участвует в циклическом процессе 1–2–3–1, изображённом на $pV$-диаграмме. Как изменяются внутренняя энергия газа в процессе 3–1 и концентрация газа в процессе 2–3?",
-  "solution": null,
+  "solution": "Процесс 3–1: давление постоянно ($p_0$), объём уменьшается от $2V_0$ до $V_0$. По уравнению $pV = \\nu RT$ температура уменьшается в $2$ раза, значит, внутренняя энергия $U = \\dfrac{3}{2}\\nu RT$ уменьшается (2).\n\nПроцесс 2–3: объём уменьшается от $3V_0$ до $2V_0$. Концентрация $n = \\dfrac{N}{V}$ при неизменном числе молекул увеличивается (1).",
   "check": "seq",
   "file": "02_mkt/mkt_gas_v6_n10.md",
   "images": [
@@ -8548,7 +8548,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 9,
-  "answer": "32",
+  "answer": "22",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -8559,8 +8559,8 @@
   "tikz": [
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$T$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};\n    \n    \\coordinate (1) at (2,1);\n    \\coordinate (2) at (2,3);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?",
-  "solution": null,
+  "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nКонцентрация молекул газа & Давление газа \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "solution": "На диаграмме $V(T)$ отрезок 1–2 вертикальный: температура не меняется, объём увеличивается в $3$ раза.\n\nКонцентрация $n = \\dfrac{N}{V}$: число молекул постоянно, объём растёт — концентрация уменьшается (2).\n\nДавление $p = nkT$: $T = \\text{const}$, $n$ уменьшается — давление уменьшается (2).",
   "check": "seq",
   "file": "02_mkt/mkt_gas_v9_n10.md",
   "images": [
@@ -8637,7 +8637,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 7,
-  "answer": "150",
+  "answer": "1200",
   "unit": "Дж/(кг·К)",
   "has_image": true,
   "author_task": false,
@@ -8647,10 +8647,10 @@
   ],
   "source": "cal.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \\text{ кДж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,1);\n    \\coordinate (B) at (4,3.4);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B);\n    \n    \\draw[dashed, gray] (1,0) -- (1,1.6);\n    \\draw[dashed, gray] (2,0) -- (2,2.2);\n    \\draw[dashed, gray] (3,0) -- (3,2.8);\n    \\draw[dashed, gray] (4,0) -- (4,3.4);\n    \n    \\node[left] at (0,1) {100};\n    \\node[left] at (0,2) {150};\n    \\node[left] at (0,3) {200};\n    \\node[below] at (1,0) {120};\n    \\node[below] at (2,0) {240};\n    \\node[below] at (3,0) {360};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \\text{ кДж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$T, \\text{ К}$};\n    \n    \\coordinate (A) at (0,1);\n    \\coordinate (B) at (4,3);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B);\n    \n    \\draw[dashed, gray] (1,0) -- (1,1.5);\n    \\draw[dashed, gray] (2,0) -- (2,2);\n    \\draw[dashed, gray] (3,0) -- (3,2.5);\n    \\draw[dashed, gray] (4,0) -- (4,3);\n    \n    \\node[left] at (0,1) {100};\n    \\node[left] at (0,2) {150};\n    \\node[left] at (0,3) {200};\n    \\node[below] at (1,0) {120};\n    \\node[below] at (2,0) {240};\n    \\node[below] at (3,0) {360};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Твёрдое тело массой $4$~кг нагревают. На рисунке представлен график зависимости абсолютной температуры тела от полученного им количества теплоты. Чему равна удельная теплоёмкость вещества, из которого состоит тело?",
-  "solution": null,
+  "solution": "При нагревании тело получает количество теплоты $Q = cm\\Delta T$.\n\nПо графику при получении $Q = 240$~кДж температура растёт от $100$ до $150$~К, то есть $\\Delta T = 50$~К:\n\n$$c = \\frac{Q}{m\\Delta T} = \\frac{240\\,000}{4\\cdot 50} = 1200~\\text{Дж/(кг}\\cdot\\text{К)}.$$",
   "check": "number",
   "file": "02_mkt/mkt_heat_v7_n8.md",
   "images": [
@@ -8667,7 +8667,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 8,
-  "answer": "3",
+  "answer": "5",
   "unit": "кг",
   "has_image": true,
   "author_task": false,
@@ -8677,10 +8677,10 @@
   ],
   "source": "cal.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \\text{ кДж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,1);\n    \\coordinate (B) at (4,3.4);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B);\n    \n    \\draw[dashed, gray] (1,0) -- (1,1.6);\n    \\draw[dashed, gray] (2,0) -- (2,2.2);\n    \\draw[dashed, gray] (3,0) -- (3,2.8);\n    \\draw[dashed, gray] (4,0) -- (4,3.4);\n    \n    \\node[left] at (0,1) {100};\n    \\node[left] at (0,2) {150};\n    \\node[left] at (0,3) {200};\n    \\node[below] at (1,0) {120};\n    \\node[below] at (2,0) {240};\n    \\node[below] at (3,0) {360};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \\text{ кДж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,1);\n    \\coordinate (B) at (3.75,3.5);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B);\n    \n    \\draw[dashed, gray] (3,0) -- (3,3);\n    \\draw[dashed, gray] (0,3) -- (3,3);\n    \n    \\node[left] at (0,1) {100};\n    \\node[left] at (0,2) {150};\n    \\node[left] at (0,3) {200};\n    \\node[below] at (1,0) {120};\n    \\node[below] at (2,0) {240};\n    \\node[below] at (3,0) {360};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Твёрдое тело нагревают. На рисунке представлен график зависимости абсолютной температуры тела от полученного им количества теплоты. Удельная теплоёмкость вещества, из которого состоит тело, равна $720$~Дж/(кг$\\cdot$К). Чему равна масса тела?",
-  "solution": null,
+  "solution": "По графику при получении $Q = 360$~кДж температура тела выросла от $100$ до $200~^\\circ$C, то есть $\\Delta T = 100$~К.\n\n$$Q = cm\\Delta T \\;\\Rightarrow\\; m = \\frac{Q}{c\\,\\Delta T} = \\frac{360\\,000}{720 \\cdot 100} = 5~\\text{кг}.$$",
   "check": "number",
   "file": "02_mkt/mkt_heat_v8_n8.md",
   "images": [
@@ -9043,10 +9043,10 @@
   ],
   "source": "1td.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (1,3);\n    \\coordinate (3) at (3,1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,2.2);\n    \\draw[ultra thick, brandPrimary] (1,2.0) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.2,1.8);\n    \\draw[ultra thick, brandPrimary] (2.1,1.9) -- (3);\n    \n    \\draw[dashed, gray] (0,1) -- (1,1);\n    \\draw[dashed, gray] (0,3) -- (1,3);\n    \\draw[dashed, gray] (1,0) -- (1,1);\n    \\draw[dashed, gray] (3,0) -- (3,1);\n    \\draw[dashed, gray] (2,0) -- (2,2);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (1,3);\n    \\coordinate (3) at (3,1);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,2.2);\n    \\draw[ultra thick, brandPrimary] (1,2.0) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.2,1.8);\n    \\draw[ultra thick, brandPrimary] (2.1,1.9) -- (3);\n    \n    \\draw[dashed, gray] (0,1) -- (1,1);\n    \\draw[dashed, gray] (0,3) -- (1,3);\n    \\draw[dashed, gray] (1,0) -- (1,1);\n    \\draw[dashed, gray] (3,0) -- (3,1);\n    \\draw[dashed, gray] (2,0) -- (2,2);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,3) {$3p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (2,0) {$2V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "На рисунке показано, как меняется давление идеального газа в зависимости от его объёма при переходе из состояния 1 в состояние 2, а затем в состояние 3. В ходе процесса 2–3 газ совершил работу $360$~Дж. Чему равна работа газа в этом процессе?",
-  "solution": null,
+  "condition": "На рисунке показано, как меняется давление идеального газа в зависимости от его объёма при переходе из состояния 1 в состояние 2, а затем в состояние 3. В ходе процесса 2–3 газ совершил работу $360$~Дж. Чему равна работа газа в процессе 1–2–3?",
+  "solution": "Работа газа равна площади под графиком процесса на $pV$-диаграмме.\n\nПроцесс 1–2 изохорный ($V = V_0 = \\text{const}$), в нём газ работу не совершает: $A_{12} = 0$.\n\n$$A_{123} = A_{12} + A_{23} = 0 + 360 = 360~\\text{Дж}.$$",
   "check": "number",
   "file": "02_mkt/mkt_therm_v13_n8.md",
   "images": [
@@ -9303,7 +9303,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 3,
-  "answer": "24",
+  "answer": "2345",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -9313,10 +9313,10 @@
   ],
   "source": "1td.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,2);\n    \\coordinate (3) at (3,1);\n    \\coordinate (4) at (1,2);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1);\n    \n    \\fill[black] (1) circle (1.5pt) node[below left] {4};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3) circle (1.5pt) node[below right] {3};\n    \\fill[black] (1) circle (1.5pt) ++(0,1) node[above left] {1};\n    \\draw[ultra thick, brandPrimary] (1,1) -- (1,2) -- (3,2);\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,2) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};\n    \n    \\draw[ultra thick, brandPrimary] (1,1) -- (1,2) -- (3,2) -- (3,1) -- cycle;\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1,1) -- (1,1.6);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1,2) -- (2.2,2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3,2) -- (3,1.4);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3,1) -- (1.8,1);\n    \n    \\fill[black] (1,2) circle (1.5pt) node[above left] {1};\n    \\fill[black] (3,2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3,1) circle (1.5pt) node[below right] {3};\n    \\fill[black] (1,1) circle (1.5pt) node[below left] {4};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,2) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Один моль разреженного аргона участвует в циклическом процессе 1–2–3–4–1, показанном на рисунке в переменных $p-V$. Из приведённого ниже списка выберите все верные утверждения, характеризующие работу двигателя.\n\n1) Аргон отдаёт холодильнику положительное количество теплоты только в процессе 3–4.\\\\\n2) В процессе 3–4 внутренняя энергия аргона уменьшается.\\\\\n3) Работа аргона за цикл равна $2p_0V_0$.\\\\\n4) Максимальная абсолютная температура аргона в цикле в $6$ раз больше минимальной.\\\\\n5) В процессе 4–1 аргон получает от нагревателя положительное количество теплоты.",
-  "solution": null,
+  "solution": "По рисунку: $1\\,(V_0;\\,2p_0)$, $2\\,(3V_0;\\,2p_0)$, $3\\,(3V_0;\\,p_0)$, $4\\,(V_0;\\,p_0)$. Для одного моля $T = \\dfrac{pV}{R}$, поэтому $T_1 = \\dfrac{2p_0V_0}{R}$, $T_2 = \\dfrac{6p_0V_0}{R}$, $T_3 = \\dfrac{3p_0V_0}{R}$, $T_4 = \\dfrac{p_0V_0}{R}$.\n\n1) Неверно: теплоту аргон отдаёт и в процессе 2–3 (изохорное охлаждение), и в процессе 3–4 (изобарное сжатие с охлаждением).\n\n2) Верно: в процессе 3–4 температура падает от $\\dfrac{3p_0V_0}{R}$ до $\\dfrac{p_0V_0}{R}$, значит, внутренняя энергия уменьшается.\n\n3) Верно: работа за цикл равна площади прямоугольника: $A = (2p_0 - p_0)(3V_0 - V_0) = 2p_0V_0$.\n\n4) Верно: $\\dfrac{T_\\text{max}}{T_\\text{min}} = \\dfrac{T_2}{T_4} = \\dfrac{6p_0V_0}{p_0V_0} = 6$.\n\n5) Верно: 4–1 — изохорное нагревание, $A = 0$, $\\Delta U > 0$, значит, $Q = \\Delta U > 0$.",
   "check": "set",
   "file": "02_mkt/mkt_therm_v3_n9.md",
   "images": [
@@ -9333,7 +9333,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 4,
-  "answer": "15",
+  "answer": "14",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -9346,7 +9346,7 @@
    "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};\n    \n    \\draw[ultra thick, brandPrimary] (1,1) -- (1,2) -- (3,2) -- (3,1) -- cycle;\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1,1) -- (1,1.6);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1,2) -- (2.2,2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3,2) -- (3,1.4);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (3,1) -- (1.8,1);\n    \n    \\fill[black] (1,2) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2,2) circle (0pt); \n    \\fill[black] (3,2) circle (1.5pt) node[above right] {2};\n    \\fill[black] (3,1) circle (1.5pt) node[below right] {3};\n    \\fill[black] (1,1) circle (1.5pt) node[below left] {4};\n    \n    \\node[left] at (0,1) {$p_0$};\n    \\node[left] at (0,2) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Один моль разреженного аргона является рабочим телом в тепловом двигателе, который работает по циклу, показанному на рисунке в переменных $p-V$. Из приведённого ниже списка выберите все верные утверждения, характеризующие работу двигателя.\n\n1) Аргон получает положительное количество теплоты от нагревателя только в процессах 1–2 и 4–1.\\\\\n2) В процессе 3–4 внутренняя энергия аргона не изменяется.\\\\\n3) Работа аргона за цикл равна $6p_0V_0$.\\\\\n4) Максимальная абсолютная температура аргона в цикле в $6$ раз больше минимальной.\\\\\n5) В процессе 4–1 аргон отдаёт холодильнику положительное количество теплоты.",
-  "solution": null,
+  "solution": "По уравнению $pV = \\nu RT$ температура пропорциональна произведению $pV$: в состояниях 1, 2, 3, 4 оно равно $2p_0V_0$, $6p_0V_0$, $3p_0V_0$ и $p_0V_0$.\n\n1) Верно: в 4–1 (изохорное нагревание) $Q = \\Delta U > 0$, в 1–2 (изобарное расширение) $Q = \\Delta U + A > 0$. В 2–3 газ охлаждается без совершения работы, в 3–4 охлаждается и сжимается — там теплота отдаётся.\n\n2) Неверно: в 3–4 температура уменьшается в $3$ раза, внутренняя энергия уменьшается.\n\n3) Неверно: работа за цикл равна площади прямоугольника $(2p_0 - p_0)(3V_0 - V_0) = 2p_0V_0$.\n\n4) Верно: $\\dfrac{T_\\text{max}}{T_\\text{min}} = \\dfrac{T_2}{T_4} = \\dfrac{6p_0V_0}{p_0V_0} = 6$.\n\n5) Неверно: в 4–1 аргон нагревается при постоянном объёме, то есть получает теплоту, а не отдаёт.",
   "check": "set",
   "file": "02_mkt/mkt_therm_v4_n9.md",
   "images": [
@@ -9442,7 +9442,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 19,
-  "answer": "1,33",
+  "answer": "2",
   "unit": "раз",
   "has_image": false,
   "author_task": false,
@@ -9451,8 +9451,8 @@
   ],
   "source": "mkt.tex",
   "tikz": [],
-  "condition": "В результате утечки газа из баллона концентрация его молекул уменьшилась в $3$ раза. Во сколько раз увеличилось давление газа в баллоне, если среднеквадратическая скорость теплового движения его молекул увеличилась в $2$ раза?",
-  "solution": "По основному уравнению МКТ давление газа $p = \\dfrac{1}{3} n m_0 \\overline{v^2}$, то есть $p \\sim n\\,v_\\text{кв}^2$.\n\nКонцентрация уменьшилась в $3$ раза, среднеквадратическая скорость выросла в $2$ раза:\n\n$$\\frac{p_2}{p_1} = \\frac{1}{3} \\cdot 2^2 = \\frac{4}{3} \\approx 1{,}33.$$",
+  "condition": "В результате утечки газа из баллона концентрация его молекул уменьшилась в $2$ раза. Во сколько раз увеличилось давление газа в баллоне, если среднеквадратическая скорость теплового движения его молекул увеличилась в $2$ раза?",
+  "solution": "По основному уравнению МКТ давление газа $p = \\dfrac{1}{3} n m_0 \\overline{v^2}$, то есть $p \\sim n\\,v_\\text{кв}^2$.\n\nКонцентрация уменьшилась в $2$ раза, среднеквадратическая скорость выросла в $2$ раза:\n\n$$\\frac{p_2}{p_1} = \\frac{1}{2} \\cdot 2^2 = 2.$$",
   "check": "number",
   "file": "02_mkt/mkt_v19_n7.md",
   "images": []
@@ -9476,10 +9476,10 @@
   ],
   "source": "mkt.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\overline{E}_{\\text{к}}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,2);\n    \\coordinate (3) at (3,4);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\overline{E}_{\\text{к}}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,3);\n    \\coordinate (3) at (3,4);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Один моль разреженного аргона участвует в процессе 1–2–3, представленном на графике зависимости давления $p$ от средней кинетической энергии $\\overline{E}_{\\text{к}}$ теплового движения молекул.\n\nИз приведённого ниже списка выберите все верные утверждения, характеризующие процессы на рисунке.\n1) В процессе 1–2 внутренняя энергия аргона уменьшается.\n2) В процессе 2–3 аргон изотермически сжимают.\n3) В процессе 1–2 концентрация аргона уменьшается.\n4) В процессе 2–3 температура аргона растёт.\n5) В процессе 2–3 аргон отдаёт окружающей среде положительное количество теплоты.",
-  "solution": null,
+  "solution": "По основному уравнению МКТ $p = \\dfrac{2}{3}n\\overline{E}_\\text{к}$, а $\\overline{E}_\\text{к} = \\dfrac{3}{2}kT$. Значит, прямая через начало координат на этом графике — процесс с постоянной концентрацией, а вертикальный отрезок — изотермический процесс.\n\n1) Неверно: в процессе 1–2 $\\overline{E}_\\text{к}$ растёт, значит, растут температура и внутренняя энергия.\n\n2) Верно: в процессе 2–3 $\\overline{E}_\\text{к} = \\text{const}$ (температура постоянна), давление растёт, значит, объём уменьшается — газ изотермически сжимают.\n\n3) Неверно: точки 1 и 2 лежат на одной прямой, проходящей через начало координат, $\\dfrac{p}{\\overline{E}_\\text{к}} = \\text{const}$, концентрация не меняется.\n\n4) Неверно: $\\overline{E}_\\text{к}$ не меняется, температура постоянна.\n\n5) Верно: при изотермическом сжатии $\\Delta U = 0$, работа газа отрицательна, $Q = A_\\text{г} < 0$ — газ отдаёт теплоту.",
   "check": "set",
   "file": "02_mkt/mkt_v1_n9.md",
   "images": [
@@ -9580,10 +9580,10 @@
   ],
   "source": "mkt.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\overline{E}_{\\text{к}}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,2);\n    \\coordinate (3) at (3,4);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\overline{E}_{\\text{к}}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (2,2);\n    \\coordinate (3) at (2,4);\n    \n    \\draw[dashed, thin, gray] (0,0) -- (1);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};\n    \\fill[black] (3) circle (1.5pt) node[above right] {3};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Один моль разреженного аргона участвует в процессе 1–2–3, представленном на графике зависимости давления $p$ от средней кинетической энергии $\\overline{E}_{\\text{к}}$ теплового движения молекул.\n\nИз приведённого ниже списка выберите все верные утверждения, характеризующие процессы на рисунке.\n1) В процессе 1–2 аргон получает положительное количество теплоты.\n2) В процессе 2–3 аргон изотермически расширяется.\n3) В процессе 1–2 концентрация аргона остаётся неизменной.\n4) В процессе 2–3 температура аргона остаётся неизменной.\n5) В процессе 2–3 внутренняя энергия аргона увеличивается.",
-  "solution": null,
+  "solution": "Давление идеального газа $p = \\dfrac{2}{3}n\\overline{E}_\\text{к}$, а $\\overline{E}_\\text{к} = \\dfrac{3}{2}kT$ пропорциональна температуре.\n\n1) Верно: 1–2 — прямая через начало координат, концентрация и объём постоянны, работа равна нулю. Температура растёт, значит, $Q = \\Delta U > 0$.\n\n2) Неверно: в 2–3 $\\overline{E}_\\text{к}$, а значит, и $T$ постоянны, давление растёт — аргон изотермически сжимается.\n\n3) Верно: $n = \\dfrac{3p}{2\\overline{E}_\\text{к}}$ постоянна на прямой, проходящей через начало координат.\n\n4) Верно: $\\overline{E}_\\text{к} = \\text{const}$, значит, $T = \\text{const}$.\n\n5) Неверно: внутренняя энергия идеального газа зависит только от температуры, а она не меняется.",
   "check": "set",
   "file": "02_mkt/mkt_v2_n9.md",
   "images": [
@@ -10913,10 +10913,10 @@
   ],
   "source": "col.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$y$};\n    \n    \\coordinate (A) at (1,1);\n    \\coordinate (B) at (3,1);\n    \\coordinate (C) at (1,3);\n    \n    \\draw[thick, gray] (A) -- (B) -- (C) -- cycle;\n    \n    \\fill[black] (A) circle (2pt) node[below left] {$A$ ($+q$)};\n    \\fill[black] (B) circle (2pt) node[below right] {$B$ ($-q$)};\n    \\fill[black] (C) circle (2pt) node[above left] {$C$};\n    \n    \\node[left] at (0,1) {$1$};\n    \\node[left] at (0,3) {$3$};\n    \\node[below] at (1,0) {$1$};\n    \\node[below] at (3,0) {$3$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$y$};\n    \n    \\coordinate (A) at (1,3);\n    \\coordinate (B) at (3,1);\n    \\coordinate (C) at (1,1);\n    \n    \\draw[thick, gray] (A) -- (B) -- (C) -- cycle;\n    \n    \\fill[black] (A) circle (2pt) node[above right] {$A$ ($q_A$)};\n    \\fill[black] (B) circle (2pt) node[below right] {$B$ ($q_B$)};\n    \\fill[black] (C) circle (2pt) node[below left] {$C$};\n    \n    \\node[left] at (0,1) {$1$};\n    \\node[left] at (0,3) {$3$};\n    \\node[below] at (1,0) {$1$};\n    \\node[below] at (3,0) {$3$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "В вершинах равнобедренного прямоугольного треугольника $ABC$ с катетами $a = 10\\text{ см}$ расположены точечные заряды $q_A = +2\\text{ нКл}$ и $q_B = -2\\text{ нКл}$. Найдите модуль напряжённости электрического поля этих зарядов в точке $C$. Ответ выразите в кВ/м.",
-  "solution": null,
+  "condition": "В вершинах $A$ и $B$ равнобедренного прямоугольного треугольника $ABC$ с прямым углом $C$ и катетами $a = 10\\text{ см}$ расположены точечные заряды $q_A = +3\\text{ нКл}$ и $q_B = -4\\text{ нКл}$. Найдите модуль напряжённости электрического поля этих зарядов в точке $C$. Ответ выразите в кВ/м.",
+  "solution": "Каждый заряд создаёт в точке $C$ поле $E = \\dfrac{k|q|}{a^2}$. Вектор $\\vec E_A$ направлен вдоль $AC$ от заряда $q_A$, вектор $\\vec E_B$ — вдоль $CB$ к заряду $q_B$. Угол $C$ прямой, поэтому векторы перпендикулярны.\n\n$$E_A = \\frac{9 \\cdot 10^9 \\cdot 3 \\cdot 10^{-9}}{0{,}1^2} = 2700~\\text{В/м}, \\qquad E_B = \\frac{9 \\cdot 10^9 \\cdot 4 \\cdot 10^{-9}}{0{,}1^2} = 3600~\\text{В/м}.$$\n\n$$E = \\sqrt{E_A^2 + E_B^2} = \\sqrt{2700^2 + 3600^2} = 4500~\\text{В/м} = 4{,}5~\\text{кВ/м}.$$",
   "check": "number",
   "file": "03_electrodynamics/elem_coulomb_v3_n11.md",
   "images": [
@@ -10933,7 +10933,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 4,
-  "answer": "0,5",
+  "answer": "1,6",
   "unit": "кВ/м",
   "has_image": true,
   "author_task": false,
@@ -10944,10 +10944,10 @@
   ],
   "source": "col.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,1);\n    \\coordinate (3) at (3,3);\n    \\coordinate (4) at (1,3);\n    \\coordinate (O) at (2,2);\n    \n    \\draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;\n    \\draw[dashed, gray] (1) -- (3);\n    \\draw[dashed, gray] (2) -- (4);\n    \n    \\fill[black] (1) circle (2pt) node[below left] {$q_1$};\n    \\fill[black] (2) circle (2pt) node[below right] {$q_2$};\n    \\fill[black] (O) circle (2pt) node[above] {$O$};\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$x$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$y$};\n    \n    \\coordinate (1) at (1,1);\n    \\coordinate (2) at (3,1);\n    \\coordinate (3) at (3,3);\n    \\coordinate (4) at (1,3);\n    \\coordinate (O) at (2,2);\n    \n    \\draw[thick, gray] (1) -- (2) -- (3) -- (4) -- cycle;\n    \\draw[dashed, gray] (1) -- (3);\n    \\draw[dashed, gray] (2) -- (4);\n    \n    \\fill[black] (1) circle (2pt) node[below left] {$q_1$};\n    \\fill[black] (3) circle (2pt) node[above right] {$q_2$};\n    \\fill[black] (O) circle (2pt) node[above] {$O$};\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "В двух вершинах квадрата со стороной $a = 30\\text{ см}$ находятся неподвижные точечные заряды $q_1 = +4\\text{ нКл}$ и $q_2 = -4\\text{ нКл}$. Чему равен модуль напряжённости электрического поля этих зарядов в центре квадрата? Ответ выразите в кВ/м.",
-  "solution": null,
+  "condition": "В двух противоположных вершинах квадрата со стороной $a = 30\\text{ см}$ находятся неподвижные точечные заряды $q_1 = +4\\text{ нКл}$ и $q_2 = -4\\text{ нКл}$. Чему равен модуль напряжённости электрического поля этих зарядов в центре квадрата? Ответ выразите в кВ/м.",
+  "solution": "Заряды находятся на концах диагонали, расстояние от каждого из них до центра $r = \\dfrac{a}{\\sqrt{2}}$, $r^2 = \\dfrac{a^2}{2} = \\dfrac{0{,}09}{2} = 0{,}045$~м$^2$.\n\nНапряжённость поля каждого заряда в центре:\n\n$$E_1 = E_2 = \\frac{k|q|}{r^2} = \\frac{9\\cdot10^{9}\\cdot 4\\cdot10^{-9}}{0{,}045} = 800~\\text{В/м}.$$\n\nПоле положительного заряда направлено от него, отрицательного — к нему, поэтому оба вектора направлены вдоль диагонали от $q_1$ к $q_2$ и складываются:\n\n$$E = E_1 + E_2 = 1600~\\text{В/м} = 1{,}6~\\text{кВ/м}.$$",
   "check": "number",
   "file": "03_electrodynamics/elem_coulomb_v4_n11.md",
   "images": [
@@ -11392,7 +11392,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 3,
-  "answer": "3,6",
+  "answer": "1,8",
   "unit": "мВб",
   "has_image": true,
   "author_task": false,
@@ -11406,7 +11406,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t$, с};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$I$, А};\n    \n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,3);\n    \n    \\fill[black] (0,0) circle (1.5pt);\n    \\fill[black] (2,1.5) circle (1.5pt);\n    \\fill[black] (4,3) circle (1.5pt);\n    \n    \\draw[dashed, gray] (2,0) -- (2,1.5) -- (0,1.5);\n    \\draw[dashed, gray] (4,0) -- (4,3) -- (0,3);\n    \n    \\node[left] at (0,1) {2};\n    \\node[left] at (0,2) {4};\n    \\node[left] at (0,3) {6};\n    \n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке представлен график зависимости силы тока от времени в катушке индуктивностью $0{,}6\\text{ мГн}$. На сколько увеличился магнитный поток, пронизывающий катушку, за первые $2\\text{ с}$? Ответ выразите в милливеберах (мВб).",
-  "solution": null,
+  "solution": "Магнитный поток через катушку $\\Phi = LI$. По графику за $2$~с сила тока выросла от $0$ до $3$~А.\n\n$$\\Delta\\Phi = L\\,\\Delta I = 0{,}6 \\cdot 10^{-3} \\cdot 3 = 1{,}8 \\cdot 10^{-3}~\\text{Вб} = 1{,}8~\\text{мВб}.$$",
   "check": "number",
   "file": "03_electrodynamics/elem_ind_v3_n12.md",
   "images": [
@@ -11476,7 +11476,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 6,
-  "answer": "20",
+  "answer": "4",
   "unit": "см²",
   "has_image": false,
   "author_task": false,
@@ -11487,7 +11487,7 @@
   "source": "ind.tex",
   "tikz": [],
   "condition": "Проволочная рамка вращается в постоянном однородном магнитном поле вокруг оси, перпендикулярной вектору магнитной индукции. Магнитный поток, пронизывающий рамку, изменяется по закону $\\Phi = 8\\cdot 10^{-7}\\cos(50\\pi t)$ (все величины выражены в СИ). Модуль вектора магнитной индукции равен $2\\text{ мТл}$. Определите площадь рамки. Ответ выразите в квадратных сантиметрах ($\\text{см}^2$).",
-  "solution": null,
+  "solution": "Наибольший магнитный поток через рамку $\\Phi_\\text{max} = BS$ (плоскость рамки перпендикулярна линиям индукции). Из уравнения $\\Phi_\\text{max} = 8\\cdot10^{-7}$~Вб.\n\n$$S = \\frac{\\Phi_\\text{max}}{B} = \\frac{8\\cdot10^{-7}}{2\\cdot10^{-3}} = 4\\cdot10^{-4}~\\text{м}^2 = 4~\\text{см}^2.$$",
   "check": "number",
   "file": "03_electrodynamics/elem_ind_v6_n12.md",
   "images": []
@@ -11580,7 +11580,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 9,
-  "answer": "24",
+  "answer": "12",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -11593,7 +11593,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (8,4);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,2) -- (8.5,2) node[right] {$t$, мс};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$B_n$, Тл};\n    \n    \\draw[ultra thick, brandPrimary] (0,4) -- (2,4) -- (5,1) -- (8,1);\n    \n    \\fill[black] (0,4) circle (1.5pt);\n    \\fill[black] (2,4) circle (1.5pt);\n    \\fill[black] (5,1) circle (1.5pt);\n    \\fill[black] (8,1) circle (1.5pt);\n    \n    \\node[left] at (0,4) {2};\n    \\node[left] at (0,3) {1};\n    \\node[left] at (0,2) {0};\n    \\node[left] at (0,1) {--1};\n    \\node[left] at (0,0) {--2};\n    \n    \\foreach \\x in {1,2,3,4,5,6,7,8}\n        \\node[below] at (\\x,2) {\\x};\n    \\node[below left] at (0,2) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Проволочная замкнутая рамка площадью $40\\text{ см}^2$ помещена в однородное магнитное поле перпендикулярно вектору магнитной индукции. Проекция $B_n$ индукции магнитного поля изменяется со временем согласно графику. Из приведённого ниже списка выберите все верные утверждения о процессах в рамке.\n\n1) Модуль ЭДС индукции, возникающей в рамке в промежутке времени от $4$ до $5\\text{ мс}$, равен $4\\text{ В}$.\\\\\n2) Модули магнитных потоков, пронизывающих рамку в моменты времени $0\\text{ мс}$ и $2\\text{ мс}$, одинаковы и равны $8\\text{ мВб}$.\\\\\n3) Модуль силы индукционного тока в рамке максимален в промежутке времени от $0\\text{ мс}$ до $2\\text{ мс}$.\\\\\n4) ЭДС индукции в рамке отлична от $0$ только в промежутках времени от $0$ до $2\\text{ мс}$ и от $5$ до $8\\text{ мс}$.\\\\\n5) В момент времени $t = 1\\text{ мс}$ индукционный ток в рамке изменяет направление на противоположное.",
-  "solution": null,
+  "solution": "Площадь рамки $S = 40~\\text{см}^2 = 4 \\cdot 10^{-3}~\\text{м}^2$. По графику $B_n = 2$~Тл от $0$ до $2$~мс, затем равномерно убывает до $-1$~Тл к $5$~мс и дальше не меняется. ЭДС индукции $|\\mathcal{E}| = S\\left|\\dfrac{\\Delta B}{\\Delta t}\\right|$.\n\n1) Верно: от $2$ до $5$~мс $\\left|\\dfrac{\\Delta B}{\\Delta t}\\right| = \\dfrac{3}{3 \\cdot 10^{-3}} = 1000$~Тл/с, $|\\mathcal{E}| = 4 \\cdot 10^{-3} \\cdot 1000 = 4$~В.\n\n2) Верно: $\\Phi = B_n S = 2 \\cdot 4 \\cdot 10^{-3} = 8 \\cdot 10^{-3}~\\text{Вб} = 8$~мВб в оба момента.\n\n3) Неверно: от $0$ до $2$~мс поле не меняется, ЭДС и ток равны нулю.\n\n4) Неверно: ЭДС отлична от нуля только от $2$ до $5$~мс, когда меняется $B_n$.\n\n5) Неверно: при $t = 1$~мс тока нет; ток течёт только от $2$ до $5$~мс и направление не меняет, так как скорость изменения $B_n$ постоянна.",
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v9_n14.md",
   "images": [
@@ -12584,7 +12584,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 25,
-  "answer": "25",
+  "answer": "23",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -12598,7 +12598,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$U$, В};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$I$, А};\n    \n    % График 1: R1 = 2 Ом (I = U/2)\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,2) node[right] {1};\n    \n    % График 2: R2 = 0.5 Ом (I = 2U)\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) node[above] {2};\n    \n    % Точки\n    \\fill[black] (4,2) circle (1.5pt);\n    \\fill[black] (2,1) circle (1.5pt);\n    \\fill[black] (2,4) circle (1.5pt);\n    \\fill[black] (1,2) circle (1.5pt);\n    \n    % Пунктиры\n    \\draw[dashed, gray] (2,0) -- (2,4);\n    \\draw[dashed, gray] (4,0) -- (4,2);\n    \\draw[dashed, gray] (0,2) -- (4,2);\n    \\draw[dashed, gray] (0,4) -- (2,4);\n    \n    \\node[left] at (0,2) {2};\n    \\node[left] at (0,4) {4};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке представлены графики зависимости силы тока $I$ от напряжения $U$ для двух металлических проводников 1 и 2, изготовленных из одинакового материала. Длина первого проводника в $2$ раза больше длины второго. Из приведённого ниже списка выберите все верные утверждения относительно этих проводников.\n\n1) Сопротивление первого проводника меньше сопротивления второго проводника.\\\\\n2) Электрическое сопротивление первого проводника в $4$ раза больше сопротивления второго проводника.\\\\\n3) Площадь поперечного сечения первого проводника меньше площади сечения второго в $2$ раза.\\\\\n4) Удельное сопротивление материала первого проводника больше удельного сопротивления второго.\\\\\n5) Площадь поперечного сечения первого проводника в $2$ раза больше площади сечения второго.",
-  "solution": null,
+  "solution": "По графикам: $R_1 = \\dfrac{4~\\text{В}}{2~\\text{А}} = 2$~Ом, $R_2 = \\dfrac{2~\\text{В}}{4~\\text{А}} = 0{,}5$~Ом, то есть $R_1 = 4R_2$.\n\n1) Неверно: $R_1 = 2$~Ом больше $R_2 = 0{,}5$~Ом.\n\n2) Верно: $\\dfrac{R_1}{R_2} = \\dfrac{2}{0{,}5} = 4$.\n\n3) Верно: $R = \\rho\\dfrac{L}{S}$, откуда $\\dfrac{S_1}{S_2} = \\dfrac{L_1}{L_2} \\cdot \\dfrac{R_2}{R_1} = 2 \\cdot \\dfrac{1}{4} = \\dfrac{1}{2}$.\n\n4) Неверно: проводники из одного материала, удельные сопротивления одинаковы.\n\n5) Неверно: сечение первого проводника в $2$ раза меньше, а не больше (см. п. 3).",
   "check": "set",
   "file": "03_electrodynamics/elem_ohm_v25_n15.md",
   "images": [
@@ -12669,7 +12669,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 5,
-  "answer": "0,5",
+  "answer": "2",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -12683,7 +12683,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    % Сетка gray!30\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \n    % Оси координат\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$U$, В};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$I$, А};\n    \n    % Графики VAH\n    % Проводник 1: R1=2 Ом -> I = U/2 (проходит через (0,0), (2,1), (4,2))\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,2) node[right] {1};\n    \n    % Проводник 2: R2=1 Ом -> I = U/1 (проходит через (0,0), (2,2), (4,4))\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,4) node[above right] {2};\n    \n    % Точки на узлах\n    \\fill[black] (2,1) circle (1.5pt);\n    \\fill[black] (4,2) circle (1.5pt);\n    \\fill[black] (2,2) circle (1.5pt);\n    \\fill[black] (4,4) circle (1.5pt);\n    \n    % Пунктиры\n    \\draw[dashed, gray] (2,0) -- (2,2);\n    \\draw[dashed, gray] (4,0) -- (4,4);\n    \\draw[dashed, gray] (0,1) -- (2,1);\n    \\draw[dashed, gray] (0,2) -- (4,2);\n    \\draw[dashed, gray] (0,4) -- (4,4);\n    \n    % Оцифровка\n    \\node[left] at (0,1) {1};\n    \\node[left] at (0,2) {2};\n    \\node[left] at (0,4) {4};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показаны графики зависимости силы тока $I$ от напряжения $U$ для двух резисторов. Чему равно отношение сопротивлений этих резисторов $\\frac{R_1}{R_2}$?",
-  "solution": null,
+  "solution": "Сопротивление находим по закону Ома $R = \\dfrac{U}{I}$ по любой точке графика.\n\nПроводник 1: при $U = 4$~В ток $I = 2$~А, $R_1 = \\dfrac{4}{2} = 2$~Ом. Проводник 2: при $U = 4$~В ток $I = 4$~А, $R_2 = \\dfrac{4}{4} = 1$~Ом.\n\n$$\\frac{R_1}{R_2} = \\frac{2}{1} = 2.$$",
   "check": "number",
   "file": "03_electrodynamics/elem_ohm_v5_n11.md",
   "images": [
@@ -13113,7 +13113,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 4,
-  "answer": "23",
+  "answer": "125",
   "unit": "",
   "has_image": false,
   "author_task": false,
@@ -13125,7 +13125,7 @@
   "source": "LC.tex",
   "tikz": [],
   "condition": "В идеальном колебательном контуре, состоящем из конденсатора и катушки индуктивности, происходят свободные электромагнитные колебания. В таблице показано, как изменяется заряд на одной из пластин конденсатора в колебательном контуре с течением времени.\n\n\\begin{center}\n\\small\n\\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}\n\\hline\n$t$, $10^{-6}\\text{ с}$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\\\ \\hline\n$q$, $10^{-9}\\text{ Кл}$ & 2 & 1,42 & 0 & --1,42 & --2 & --1,42 & 0 & 1,42 & 2 & 1,42 \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\\smallskip\n\nВыберите все верные утверждения о процессе, происходящем в контуре.\n\n1) В момент времени $t = 8\\cdot 10^{-6}\\text{ с}$ сила тока в контуре равна нулю.\\\\\n2) Период электромагнитных колебаний в контуре равен $8\\text{ мкс}$.\\\\\n3) В момент времени $t = 4\\cdot 10^{-6}\\text{ с}$ энергия электрического поля конденсатора минимальна.\\\\\n4) В момент времени $t = 2\\cdot 10^{-6}\\text{ с}$ модуль силы тока в контуре минимальный.\\\\\n5) Частота электромагнитных колебаний в контуре равна $125\\text{ кГц}$.",
-  "solution": null,
+  "solution": "По таблице заряд возвращается к значению $2 \\cdot 10^{-9}$~Кл через $8$~мкс, значит, $T = 8$~мкс.\n\n1) Верно: при $t = 8$~мкс заряд максимален, а сила тока $I = q'$ в этот момент равна нулю.\n\n2) Верно: $T = 8$~мкс.\n\n3) Неверно: при $t = 4$~мкс модуль заряда максимален ($|q| = 2 \\cdot 10^{-9}$~Кл), энергия поля конденсатора $W = \\dfrac{q^2}{2C}$ максимальна.\n\n4) Неверно: при $t = 2$~мкс заряд равен нулю, вся энергия в катушке — модуль силы тока максимален.\n\n5) Верно: $\\nu = \\dfrac{1}{T} = \\dfrac{1}{8 \\cdot 10^{-6}} = 125\\,000$~Гц $= 125$~кГц.",
   "check": "set",
   "file": "03_electrodynamics/elem_osc_v4_n14.md",
   "images": []
@@ -13412,7 +13412,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 27,
-  "answer": "23",
+  "answer": "234",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -13425,7 +13425,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$x$, см};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$\\varphi$, В};\n    \n    \\coordinate (A) at (0,4);\n    \\coordinate (B) at (2,2);\n    \\coordinate (C) at (4,2);\n    \\coordinate (D) at (6,0);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \\draw[dashed, gray] (0,4) -- (A);\n    \\draw[dashed, gray] (0,2) -- (B);\n    \\draw[dashed, gray] (2,0) -- (B);\n    \\draw[dashed, gray] (4,0) -- (C);\n    \\draw[dashed, gray] (6,0) -- (D);\n    \n    \\node[left] at (0,2) {20};\n    \\node[left] at (0,4) {40};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости потенциала $\\varphi$ электростатического поля от координаты $x$. Из приведённого ниже списка выберите все верные утверждения относительно характеристик этого поля.\n\n1) На участке от $x = 0$ до $x = 2\\text{ см}$ модуль напряжённости поля равен нулю.\\\\\n2) На участке от $x = 2\\text{ см}$ до $x = 4\\text{ см}$ напряжённость электрического поля равна нулю.\\\\\n3) Проекция напряжённости поля $E_x$ на участке от $x = 0$ до $x = 2\\text{ см}$ положительна и равна $10\\text{ В/см}$.\\\\\n4) Модуль напряжённости поля в точке $x = 5\\text{ см}$ равен $1000\\text{ В/м}$.\\\\\n5) Работа поля при перемещении положительного заряда из точки $x = 2\\text{ см}$ в точку $x = 4\\text{ см}$ положительна.",
-  "solution": null,
+  "solution": "Проекция напряжённости $E_x = -\\dfrac{\\Delta\\varphi}{\\Delta x}$.\n\n1) Неверно: от $0$ до $2$~см потенциал уменьшается от $40$ до $20$~В, $|E| = \\dfrac{20}{2} = 10$~В/см $\\ne 0$.\n\n2) Верно: от $2$ до $4$~см потенциал постоянен, значит, $E = 0$.\n\n3) Верно: $E_x = -\\dfrac{20 - 40}{2} = 10$~В/см $> 0$.\n\n4) Верно: от $4$ до $6$~см потенциал уменьшается от $20$ до $0$~В, $|E| = \\dfrac{20}{2} = 10$~В/см $= 1000$~В/м.\n\n5) Неверно: $A = q(\\varphi_1 - \\varphi_2) = q(20 - 20) = 0$.",
   "check": "set",
   "file": "03_electrodynamics/elem_pot_v27_n15.md",
   "images": [
@@ -13494,7 +13494,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 5,
-  "answer": "13",
+  "answer": "135",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -13507,7 +13507,7 @@
    "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$x$, см};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$\\varphi$, В};\n    \n    \\coordinate (A) at (0,3);\n    \\coordinate (B) at (2,3);\n    \\coordinate (C) at (4,1);\n    \\coordinate (D) at (6,1);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \\draw[dashed, gray] (0,3) -- (B);\n    \\draw[dashed, gray] (0,1) -- (C);\n    \\draw[dashed, gray] (2,0) -- (B);\n    \\draw[dashed, gray] (4,0) -- (C);\n    \\draw[dashed, gray] (6,0) -- (D);\n    \n    \\node[left] at (0,1) {10};\n    \\node[left] at (0,3) {30};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости потенциала $\\varphi$ электростатического поля, создаваемого некоторой системой зарядов, от координаты $x$. Из приведённого ниже списка выберите все верные утверждения относительно характеристик этого поля.\n\n1) На участке от $x = 0$ до $x = 2\\text{ см}$ проекция напряжённости поля $E_x = 0$.\\\\\n2) Проекция напряжённости поля $E_x$ на участке от $x = 2\\text{ см}$ до $x = 4\\text{ см}$ равна $-10\\text{ В/см}$.\\\\\n3) В точке $x = 3\\text{ см}$ вектор напряжённости поля направлен вдоль положительного направления оси $Ox$.\\\\\n4) Модуль напряжённости поля на участке от $x = 4\\text{ см}$ до $x = 6\\text{ см}$ максимален.\\\\\n5) На участке от $x = 2\\text{ см}$ до $x = 4\\text{ см}$ потенциальная энергия положительного заряда уменьшается.",
-  "solution": null,
+  "solution": "Проекция напряжённости $E_x = -\\dfrac{\\Delta\\varphi}{\\Delta x}$: на горизонтальных участках графика поле равно нулю.\n\n1) Верно: на участке $0$–$2$~см $\\varphi = 30$~В $= \\text{const}$, $E_x = 0$.\n\n2) Неверно: $E_x = -\\dfrac{10 - 30}{4 - 2} = +10$~В/см, а не $-10$~В/см.\n\n3) Верно: при $x = 3$~см $E_x = +10$~В/см $> 0$, вектор напряжённости направлен по оси $Ox$.\n\n4) Неверно: на участке $4$–$6$~см потенциал постоянен, $E = 0$ — модуль напряжённости там минимален.\n\n5) Верно: потенциал падает с $30$ до $10$~В, а энергия $W = q\\varphi$ положительного заряда уменьшается вместе с ним.",
   "check": "set",
   "file": "03_electrodynamics/elem_pot_v5_n15.md",
   "images": [
@@ -14217,7 +14217,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": null,
-  "answer": "3",
+  "answer": "2",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -14228,10 +14228,10 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,-2) grid (3,2);\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (0.5,0.8) {\\textbf{$\\sun$}};\n    \\node[right] at (0.5,0.7) {$S$};\n    \n    \\fill[black] (0.5,-0.6) circle (1.5pt) node[below] {1};\n    \\fill[black] (0.8,1.4) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[left] {3};\n    \\fill[black] (-1.2,-0.6) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-3,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,-2) grid (3,2);\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (0.5,0.8) {\\textbf{$\\sun$}};\n    \\node[right] at (0.5,0.7) {$S$};\n    \n    \\fill[black] (0.5,-0.6) circle (1.5pt) node[below] {1};\n    \\fill[black] (1,1.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[left] {3};\n    \\fill[black] (-1.2,-0.6) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-3,-2) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4) является изображением точечного источника $S$, создаваемым тонкой собирающей линзой с фокусным расстоянием $F$ (см. рисунок)?",
-  "solution": null,
+  "solution": "Источник $S$ находится между линзой и фокусом: $d = \\dfrac{F}{2}$. Такая линза даёт мнимое прямое увеличенное изображение с той же стороны, что и источник.\n\nПо формуле тонкой линзы:\n\n$$\\frac{1}{F} = \\frac{1}{d} + \\frac{1}{f} \\;\\Rightarrow\\; \\frac{1}{f} = \\frac{1}{F} - \\frac{2}{F} = -\\frac{1}{F},\\quad f = -F.$$\n\nИзображение мнимое, на расстоянии $F$ от линзы со стороны источника, увеличение $\\Gamma = \\dfrac{|f|}{d} = 2$: оно в $2$ раза дальше от главной оптической оси, чем $S$. Этому соответствует точка 2.",
   "check": "number",
   "file": "04_optics/optics_lens_inside_focus.md",
   "images": [
@@ -14290,10 +14290,10 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Побочные оси\n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.3,0) -- (1.3,0.65) node[pos=0, below] {$A$} node[pos=1, above] {$B$};\n    \n    % Предметы 1-4\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Побочные оси\n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.5) node[pos=0, above] {$A$} node[pos=1, below] {$B$};\n    \n    % Предметы 1-4\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Какому из предметов 1--4 соответствует изображение $AB$ в тонкой собирающей линзе с фокусным расстоянием $F$?",
-  "solution": null,
+  "solution": "Изображение $AB$ действительное, перевёрнутое (стрелка вниз) и находится на расстоянии $f = 1{,}5F$ от линзы.\n\nПо формуле тонкой линзы $\\dfrac{1}{d} + \\dfrac{1}{f} = \\dfrac{1}{F}$:\n\n$$d = \\frac{fF}{f - F} = \\frac{1{,}5F \\cdot F}{0{,}5F} = 3F.$$\n\nУвеличение $\\Gamma = \\dfrac{f}{d} = 0{,}5$: предмет вдвое выше изображения и направлен вверх. Это предмет 1.\n\nПредмет 2 стоит ближе фокуса и даёт мнимое изображение, предмет 3 даёт изображение, направленное вверх, предмет 4 (на расстоянии $1{,}5F$) даёт изображение на расстоянии $3F$.",
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v1.md",
   "images": [
@@ -14321,10 +14321,10 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (2.6,0) -- (2.6,1.3) node[pos=0, below left] {$A$} node[pos=1, above] {$B$};\n    \n    % Предметы\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,-0.65) node[left] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[right] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.625,0) -- (1.625,0.8125) node[pos=0, below left] {$A$} node[pos=1, above] {$B$};\n    \n    % Предметы\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,-0.65) node[left] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[right] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Какому из предметов 1--4 соответствует изображение $AB$ в тонкой собирающей линзе с фокусным расстоянием $F$?",
-  "solution": null,
+  "solution": "Изображение $AB$ действительное (справа от линзы), прямое на рисунке, значит, предмет находится слева от линзы и перевёрнут — это предмет 2 или 3. Оба лежат на луче, идущем через оптический центр в точку $B$, поэтому выбираем по формуле линзы.\n\nИзображение находится между $F$ и $2F$: $f = 1{,}625F$. Тогда\n\n$$\\frac{1}{d} = \\frac{1}{F} - \\frac{1}{f} = \\frac{1}{F} - \\frac{1}{1{,}625F} \\;\\Rightarrow\\; d = \\frac{1{,}625F}{0{,}625} = 2{,}6F.$$\n\nПредмет стоит за двойным фокусом на расстоянии $2{,}6F$ — это предмет 3. Для предмета 2 ($d = 1{,}3F$) изображение получилось бы за $2F$.",
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v2.md",
   "images": [
@@ -14379,10 +14379,10 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (2.2,1.3) {$\\sun$};\n    \\node[below] at (2.2,1.2) {$S$};\n    \n    \\fill[black] (0.8,0.5) circle (1.5pt) node[above] {1};\n    \\fill[black] (-1.0,0.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (2,1.2) {$\\sun$};\n    \\node[below] at (2,1.1) {$S$};\n    \n    \\fill[black] (0.8,0.5) circle (1.5pt) node[above] {1};\n    \\fill[black] (-1.0,0.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4), показанных на рисунке, служит изображением точки $S$ (см. рисунок), создаваемым тонкой собирающей линзой с фокусным расстоянием $F$?",
-  "solution": null,
+  "solution": "Точка $S$ находится на расстоянии $d = 2F$ от собирающей линзы. По формуле тонкой линзы\n\n$$\\frac{1}{d} + \\frac{1}{f} = \\frac{1}{F} \\;\\Rightarrow\\; f = \\frac{dF}{d - F} = \\frac{2F\\cdot F}{2F - F} = 2F.$$\n\nИзображение действительное, перевёрнутое, равное по размеру, лежит по другую сторону линзы на расстоянии $2F$. Кроме того, луч через оптический центр не преломляется, поэтому изображение лежит на прямой, проходящей через $S$ и центр линзы. Обоим условиям удовлетворяет точка 3.",
   "check": "number",
   "file": "04_optics/optics_lens_optical_axis_ray.md",
   "images": [
@@ -14975,7 +14975,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": null,
-  "answer": "11",
+  "answer": "12",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -14989,7 +14989,7 @@
    "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \n    \\draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);\n    \\draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);\n    \\draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);\n    \\draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);\n    \\draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);\n    \\draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.\n\nУстановите соответствие между процессами излучения фотона наибольшей длины волны и поглощения фотона наименьшей частоты и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\smallskip\n\\begin{tabular}{p{0.55\\textwidth}p{0.4\\textwidth}}\n\\textbf{ПРОЦЕСС} & \\textbf{ЭНЕРГИЯ ФОТОНА} \\\\\nА) излучение фотона наибольшей длины волны & 1) $E_1 - E_0$ \\\\\nБ) поглощение фотона наименьшей частоты & 2) $E_2 - E_0$ \\\\\n& 3) $E_3 - E_0$ \\\\\n& 4) $E_4 - E_0$\n\\end{tabular}",
-  "solution": null,
+  "solution": "Энергия фотона $h\\nu = \\dfrac{hc}{\\lambda}$ равна разности энергий уровней.\n\nА) Излучению соответствуют переходы вниз: по стрелкам это $E_1 \\to E_0$ и $E_4 \\to E_0$. Наибольшей длине волны соответствует наименьшая энергия фотона, то есть $E_1 - E_0$ (1).\n\nБ) Поглощению соответствуют переходы вверх: $E_0 \\to E_2$ и $E_0 \\to E_3$. Наименьшая частота — у фотона меньшей энергии, то есть $E_2 - E_0$ (2).",
   "check": "seq",
   "file": "05_quantum/atomic_levels_max_lambda_min_freq.md",
   "images": [
@@ -15006,7 +15006,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": null,
-  "answer": "34",
+  "answer": "12",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -15020,7 +15020,7 @@
    "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \n    \\draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);\n    \\draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);\n    \\draw[thick, black] (0,1.8) node[left] {$E_2$} -- (3.5,1.8);\n    \\draw[thick, black] (0,2.2) node[left] {$E_3$} -- (3.5,2.2);\n    \\draw[thick, black] (0,2.5) node[left] {$E_4$} -- (3.5,2.5);\n    \\draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,1.2) -- (1.0,0.5);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.8,2.5) -- (1.8,0.5);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.6,0.5) -- (2.6,1.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.2);\n    \n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке изображена упрощённая диаграмма нижних энергетических уровней атома. Стрелками отмечены некоторые возможные переходы атома между этими уровнями.\n\nУстановите соответствие между процессами поглощения света наименьшей частоты и поглощения света с наибольшей энергией и энергией соответствующего фотона. К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\smallskip\n\\begin{tabular}{p{0.55\\textwidth}p{0.4\\textwidth}}\n\\textbf{ПРОЦЕСС} & \\textbf{ЭНЕРГИЯ ФОТОНА} \\\\\nА) поглощение света наименьшей частоты & 1) $E_2 - E_0$ \\\\\nБ) поглощение света с наибольшей энергией & 2) $E_3 - E_0$ \\\\\n& 3) $E_1 - E_0$ \\\\\n& 4) $E_4 - E_0$\n\\end{tabular}",
-  "solution": null,
+  "solution": "При поглощении фотона атом переходит на более высокий уровень — на рисунке это стрелки вверх: $E_0 \\to E_2$ и $E_0 \\to E_3$. Стрелки $E_1 \\to E_0$ и $E_4 \\to E_0$ направлены вниз — это излучение.\n\nЭнергия фотона $h\\nu$ равна разности энергий уровней.\n\nА) Наименьшая частота — наименьшая энергия среди поглощений: $E_2 - E_0$ (1).\n\nБ) Наибольшая энергия поглощённого фотона: $E_3 - E_0$ (2).",
   "check": "seq",
   "file": "05_quantum/atomic_levels_min_freq_max_energy.md",
   "images": [
@@ -15515,10 +15515,10 @@
   ],
   "source": "nuc.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,5);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{20}$};\n    \n    \\fill[black] (0,4) circle (2pt) node[above right] {$A$};\n    \\fill[black] (1,2.5) circle (2pt) node[above right] {1};\n    \\fill[black] (2,1.0) circle (2pt) node[above right] {2};\n    \\fill[black] (3,0.5) circle (2pt) node[above right] {3};\n    \\fill[black] (5,0.25) circle (2pt) node[above right] {4};\n    \n    \\foreach \\x/\\val in {1/50, 2/100, 3/150, 4/200, 5/250, 6/300}\n        \\node[below] at (\\x,0) {\\val};\n    \\foreach \\y in {1,2,3,4,5}\n        \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,5);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{20}$};\n    \n    \\fill[black] (0,4) circle (2pt) node[above right] {$A$};\n    \\fill[black] (1,2.5) circle (2pt) node[above right] {1};\n    \\fill[black] (2,1.5) circle (2pt) node[above right] {2};\n    \\fill[black] (3,0.5) circle (2pt) node[above right] {3};\n    \\fill[black] (5,0.25) circle (2pt) node[above right] {4};\n    \n    \\foreach \\x/\\val in {1/50, 2/100, 3/150, 4/200, 5/250, 6/300}\n        \\node[below] at (\\x,0) {\\val};\n    \\foreach \\y in {1,2,3,4,5}\n        \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Ядра изотопа тантала $^{185}_{73}\\text{Ta}$ испытывают $\\beta^-$-распад с периодом полураспада $50\\text{ мин}$. В момент начала наблюдения в образце содержится $4\\cdot 10^{20}$ ядер тантала (см. рисунок). Через какую из точек (1, 2, 3 или 4), кроме точки $A$, пройдёт график зависимости от времени числа ещё не распавшихся ядер тантала?",
-  "solution": null,
+  "solution": "За каждый период полураспада ($50$~мин) число нераспавшихся ядер уменьшается вдвое: $N = N_0 \\cdot 2^{-t/T}$.\n\n$t = 50$~мин: $N = 2 \\cdot 10^{20}$ — точка 1 ($2{,}5 \\cdot 10^{20}$) не подходит.\n\n$t = 100$~мин: $N = 1 \\cdot 10^{20}$ — точка 2 ($1{,}5 \\cdot 10^{20}$) не подходит.\n\n$t = 150$~мин: $N = 0{,}5 \\cdot 10^{20}$ — точка 3 подходит.\n\n$t = 250$~мин: $N = 0{,}125 \\cdot 10^{20}$ — точка 4 ($0{,}25 \\cdot 10^{20}$) не подходит.",
   "check": "number",
   "file": "05_quantum/nuclear_decay_graph_point3.md",
   "images": [
@@ -15631,10 +15631,10 @@
   ],
   "source": "nuc.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.5, ystep=1, gray!30, thin] (0,0) grid (6,5);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{18}$};\n    \n    \\draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\\x, {5*exp(-0.5545*\\x)});\n    \n    \\node[below] at (2,0) {50};\n    \\node[below] at (4,0) {100};\n    \\node[below] at (6,0) {150};\n    \n    \\node[left] at (0,1) {10};\n    \\node[left] at (0,2) {20};\n    \\node[left] at (0,3) {30};\n    \\node[left] at (0,4) {40};\n    \\node[left] at (0,5) {50};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.5, ystep=1, gray!30, thin] (0,0) grid (6,5);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{18}$};\n    \n    \\draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\\x, {5*exp(-0.6931*\\x)});\n    \n    \\node[below] at (2,0) {50};\n    \\node[below] at (4,0) {100};\n    \\node[below] at (6,0) {150};\n    \n    \\node[left] at (0,1) {10};\n    \\node[left] at (0,2) {20};\n    \\node[left] at (0,3) {30};\n    \\node[left] at (0,4) {40};\n    \\node[left] at (0,5) {50};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Дан график зависимости числа нераспавшихся ядер ртути $^{190}_{80}\\text{Hg}$ от времени. Чему равен период полураспада этого изотопа ртути? Ответ выразите в минутах.",
-  "solution": null,
+  "solution": "Период полураспада — время, за которое число нераспавшихся ядер уменьшается вдвое.\n\nПо графику в начальный момент $N_0 = 50 \\cdot 10^{18}$, а значение $25 \\cdot 10^{18}$ достигается через одно деление шкалы времени, то есть через $25$~мин. Ещё через $25$~мин остаётся $12{,}5 \\cdot 10^{18}$ ядер, что подтверждает результат:\n\n$$T_{1/2} = 25~\\text{мин}.$$",
   "check": "number",
   "file": "05_quantum/nuclear_half_life_mercury_graph.md",
   "images": [
