@@ -1,7 +1,7 @@
 ---
 id: elem_pot_v17_n15
 exam: ЕГЭ
-kim: 15
+kim: 14
 section: Электродинамика
 theme: ПОТЕНЦИАЛ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
 topic: 3.1.2
