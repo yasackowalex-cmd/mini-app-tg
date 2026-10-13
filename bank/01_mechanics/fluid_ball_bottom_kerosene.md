@@ -26,6 +26,24 @@ source: pres.tex
 
 **Решение.** На шар действуют сила тяжести $m\vec g$, сила Архимеда $\vec F_\text{А}$ и сила реакции дна $\vec N$. Обозначим $V$ — объём шара, $\rho_\text{к} = 800\,\text{кг/м}^3$ — плотность керосина.
 
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % жидкость
+  \fill[brandPrimary!12] (-1.7,0) rectangle (1.7,0.8);
+  \draw[brandPrimary!70] (-1.7,0.8) -- (1.7,0.8);
+  % сосуд
+  \draw[very thick, brandSecondary] (-1.7,1.9) -- (-1.7,0) -- (1.7,0) -- (1.7,1.9);
+  % шар
+  \draw[thick, fill=brandAccent!15] (0,0.8) circle (0.8);
+  \fill (0,0.8) circle (1.2pt);
+  % силы
+  \draw[Fvec] (-0.13,0.8) -- (-0.13,-0.4) node[below] {$m\vec g$};
+  \draw[Fvec] (0.13,0.8) -- (0.13,1.8) node[above] {$\vec F_\text{А}$};
+  \draw[Fvec] (0.13,0) -- (0.13,0.3);
+  \node[right, inner sep=1pt] at (0.22,0.12) {$\vec N$};
+\end{tikzpicture}
+```
+
 Условие равновесия: $mg = N + F_\text{А}$.
 
 По закону Архимеда (погружена половина шара): $F_\text{А} = \rho_\text{к} g\dfrac{V}{2}$, где $V = \dfrac{m}{\rho}$.
