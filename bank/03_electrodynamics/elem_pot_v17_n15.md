@@ -30,8 +30,6 @@ source: pot.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Эквипотенциальные линии (вертикальные)
     \draw[dashed, gray!80, thick] (1,0) -- (1,3);
     \draw[dashed, gray!80, thick] (2,0) -- (2,3);
@@ -48,7 +46,6 @@ source: pot.tex
     \node[above] at (3,3) {$30\text{ В}$};
     \node[above] at (4,3) {$40\text{ В}$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

@@ -24,8 +24,6 @@ source: mag.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Ось/точка подвеса O
     \fill[black] (2.5,2.5) circle (1.5pt) node[above right] {$O$};
     
@@ -44,7 +42,6 @@ source: mag.tex
     \fill[black] (1.2,2.0) circle (1.5pt);
     \node[below=2pt] at (1.2,1.85) {$\vec{B}$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

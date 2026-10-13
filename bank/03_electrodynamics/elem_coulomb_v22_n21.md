@@ -24,7 +24,6 @@ source: col.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,1);
     \draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (4.5,0) node[right] {$x$};
     
     \coordinate (Q1) at (0,0);

@@ -30,8 +30,6 @@ source: cap.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Конденсатор
     \draw[ultra thick, black] (1.5,0.8) -- (1.5,2.2);
     \draw[ultra thick, black] (2.5,0.8) -- (2.5,2.2);
@@ -43,7 +41,6 @@ source: cap.tex
     % Заполнение диэлектриком
     \fill[gray!40, opacity=0.7] (1.55,0.8) rectangle (2.45,2.2);
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

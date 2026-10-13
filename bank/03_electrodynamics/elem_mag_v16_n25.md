@@ -24,8 +24,6 @@ source: mag.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Силовые линии поля (влево)
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.5,0.3) -- (0.5,0.3);
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.5,1.5) -- (0.5,1.5) node[above left] {$\vec{B}$};
@@ -53,7 +51,6 @@ source: mag.tex
     \node[above right] at (M) {$M$};
     \node[above left] at (N) {$N$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

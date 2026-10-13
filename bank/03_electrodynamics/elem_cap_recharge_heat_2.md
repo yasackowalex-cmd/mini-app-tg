@@ -24,8 +24,6 @@ source: cap2.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,2);
-    
     % Внешний контур
     \draw[thick, black] (0.5,1.0) -- (0.5,1.5) -- (1.5,1.5);
     \draw[thick, black] (2.5,1.5) -- (3.5,1.5) -- (3.5,1.0);
@@ -51,7 +49,6 @@ source: cap2.tex
     % Резистор R (снизу)
     \draw[thick, black, fill=white] (1.5,0.3) rectangle (2.5,0.7) node[pos=.5] {$R$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

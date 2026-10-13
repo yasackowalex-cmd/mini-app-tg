@@ -30,8 +30,6 @@ source: cap.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Силовые линии внешнего поля
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,0.6) -- (1.2,0.6);
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,1.5) -- (1.2,1.5) node[above left] {$\vec{E}_0$};
@@ -46,7 +44,6 @@ source: cap.tex
     \fill[black] (4.4,1.5) circle (1.5pt) node[right] {$C$};
     \fill[black] (3,0.5) circle (1.5pt) node[below] {$D$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

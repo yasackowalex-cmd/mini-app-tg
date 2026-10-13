@@ -30,8 +30,6 @@ source: ohm2.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Контур цепи
     \draw[thick, black] (0.5,0.5) rectangle (3.5,2.5);
     
@@ -53,7 +51,6 @@ source: ohm2.tex
     \fill[white] (1.0,1.5) circle (0.3);
     \draw[thick, black] (1.0,1.5) circle (0.3) node {V};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

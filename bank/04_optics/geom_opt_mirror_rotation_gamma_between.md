@@ -24,8 +24,6 @@ source: opt.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Поверхность горизонтальная и под углом 10 град
     \fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;
     \draw[thick, black] (1.0,0.8) -- (4.0,0.8);
@@ -44,7 +42,6 @@ source: opt.tex
     \draw (2.0,1.5) arc (126:48:0.8);
     \node[above] at (2.8,1.4) {$\gamma$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

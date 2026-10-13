@@ -24,8 +24,6 @@ source: LC.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,2);
-    
     \draw[thick, black] (0.5,0.5) -- (0.5,1.5) -- (2.5,1.5) -- (2.5,0.5) -- cycle;
     
     % Катушка L (слева)
@@ -43,7 +41,6 @@ source: LC.tex
     \draw[thick, black] (2.5,1.1) -- (2.5,1.5);
     \node[right=2pt] at (2.5,1.0) {$C$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

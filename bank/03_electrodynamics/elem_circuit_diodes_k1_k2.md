@@ -24,8 +24,6 @@ source: ohm2.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Внешний контур
     \draw[thick, black] (0.5,0.5) -- (0.5,2.5) -- (4.5,2.5) -- (4.5,0.5) -- cycle;
     
@@ -71,7 +69,6 @@ source: ohm2.tex
     % Резистор R1 (снизу)
     \draw[thick, black, fill=white] (2.5,0.3) rectangle (3.5,0.7) node[pos=.5] {$R_1$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

@@ -29,8 +29,6 @@ source: opt.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Граница раздела
     \fill[gray!30] (0,0) rectangle (4,1.5);
     \draw[thick, black] (0,1.5) -- (4,1.5);
@@ -50,7 +48,6 @@ source: opt.tex
     \draw (2.0,1.0) arc (-90:-63:0.5);
     \node[below right] at (1.9,1.1) {$\beta$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

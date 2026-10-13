@@ -24,8 +24,6 @@ source: mag.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,3);
-    
     % Полосовой магнит
     \draw[thick, black, fill=gray!80] (0.5,1.2) rectangle (1.5,2.0) node[pos=.5, white] {\textbf{N}};
     \draw[thick, black, fill=white] (1.5,1.2) rectangle (2.5,2.0) node[pos=.5] {\textbf{S}};
@@ -42,7 +40,6 @@ source: mag.tex
     \draw[thick, black] (4.8,1.3) -- (5.0,0.8) node[right] {$+$};
     \draw[thick, black] (4.4,1.3) -- (4.6,0.8) node[left] {$-$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 
