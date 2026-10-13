@@ -23,26 +23,27 @@ source: mag.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
-    % Наклонная плоскость
-    \draw[thick, black] (0.5,0.5) -- (4.5,2.5) -- (4.5,0.5) -- cycle;
-    \draw (1.2,0.5) arc (0:26.56:0.7) node[pos=0.6, right] {$\alpha$};
-    
-    % Вектор индукции B (вертикально вверх)
-    \draw[-{Stealth[scale=0.8]}, thick, black] (1.0,0.8) -- (1.0,2.6) node[above] {$\vec{B}$};
-    
-    % Стержень на плоскости
-    \draw[thick, black, fill=white, rotate around={26.56:(2.2,1.35)}] (1.7,1.2) rectangle (2.7,1.5);
-    
-    % Ток I (стрелка на стержне)
-    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,1.6) -- (1.8,1.3) node[above=2pt] {$I$};
-    
-    % Ускорение a (параллельно плоскости)
-    \draw[-{Stealth[scale=0.8]}, thick, black] (2.8,1.9) -- (3.6,2.3) node[above left] {$\vec{a}$};
-    
-    \node[below left] at (0,0) {0};
+\begin{tikzpicture}[scale=1.0, font=\small, line join=round]
+    % клин: передняя грань A-B-C, глубина d = (1.2,1.4)
+    \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (4,2.31);
+    \coordinate (d) at (1.2,1.4);
+    \coordinate (A2) at ($(A)+(d)$); \coordinate (B2) at ($(B)+(d)$); \coordinate (C2) at ($(C)+(d)$);
+    \fill[brandLight] (A)--(C)--(C2)--(A2)--cycle;
+    \fill[gray!15] (B)--(B2)--(C2)--(C)--cycle;
+    \draw[dashed, gray] (A2)--(B2);
+    \draw[thick] (A)--(B)--(C)--cycle;
+    \draw[thick] (C)--(C2)--(A2)--(A);
+    \draw[thick] (B)--(B2)--(C2);
+    \draw (0.8,0) arc (0:30:0.8); \node at (1.05,0.2) {$\alpha$};
+    % стержень поперёк плоскости (горизонтален)
+    \coordinate (P) at ($(A)!0.4!(C)$);
+    \draw[line width=3pt, brandSecondary] ($(P)+0.06*(d)$) -- ($(P)+0.94*(d)$);
+    \draw[-{Stealth[scale=0.8]}, thick, brandAccent] ($(A)!0.25!(C)+0.25*(d)$) -- ($(A)!0.25!(C)+0.75*(d)$) node[left] {$I$};
+    % ускорение вдоль плоскости вверх
+    \draw[-{Stealth[scale=0.9]}, thick] ($(A)!0.55!(C)+0.5*(d)$) -- ($(A)!0.85!(C)+0.5*(d)$) node[above left] {$\vec a$};
+    % вертикальное магнитное поле
+    \foreach \x in {-0.6,6.0} \draw[-{Stealth[scale=0.9]}, thick, brandPrimary] (\x,0.2) -- (\x,3.6);
+    \node[right, brandPrimary] at (6.0,3.4) {$\vec B$};
 \end{tikzpicture}
 ```
 
