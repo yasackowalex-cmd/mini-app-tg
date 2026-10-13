@@ -28,19 +28,20 @@ source: cal.tex
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \text{ кДж}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$T, \text{ К}$};
     
-    \coordinate (A) at (0,1);
-    \coordinate (B) at (4,3);
+    \coordinate (A) at (0,2);
+    \coordinate (B) at (4,4);
     
     \draw[ultra thick, brandPrimary] (A) -- (B);
     
-    \draw[dashed, gray] (1,0) -- (1,1.5);
-    \draw[dashed, gray] (2,0) -- (2,2);
-    \draw[dashed, gray] (3,0) -- (3,2.5);
-    \draw[dashed, gray] (4,0) -- (4,3);
+    \draw[dashed, gray] (1,0) -- (1,2.5);
+    \draw[dashed, gray] (2,0) -- (2,3);
+    \draw[dashed, gray] (3,0) -- (3,3.5);
+    \draw[dashed, gray] (4,0) -- (4,4);
     
-    \node[left] at (0,1) {100};
-    \node[left] at (0,2) {150};
-    \node[left] at (0,3) {200};
+    \node[left] at (0,1) {50};
+    \node[left] at (0,2) {100};
+    \node[left] at (0,3) {150};
+    \node[left] at (0,4) {200};
     \node[below] at (1,0) {120};
     \node[below] at (2,0) {240};
     \node[below] at (3,0) {360};

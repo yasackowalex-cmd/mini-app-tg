@@ -30,8 +30,6 @@ source: cap.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Внешние пластины
     \draw[ultra thick, black] (1,0.5) -- (1,2.5);
     \draw[ultra thick, black] (4,0.5) -- (4,2.5);
@@ -46,7 +44,6 @@ source: cap.tex
     \node[above] at (1,2.5) {$+$};
     \node[above] at (4,2.5) {$-$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

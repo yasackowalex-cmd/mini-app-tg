@@ -24,25 +24,19 @@ source: col.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (3,3);
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (3.5,0) node[right] {$x$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$y$};
-    
     \coordinate (A) at (1,3);
     \coordinate (B) at (3,1);
     \coordinate (C) at (1,1);
     
     \draw[thick, gray] (A) -- (B) -- (C) -- cycle;
+    \draw[gray] ($(C)+(0.22,0)$) -- ($(C)+(0.22,0.22)$) -- ($(C)+(0,0.22)$);
+    \node[left] at ($(A)!0.5!(C)$) {$a$};
+    \node[below] at ($(C)!0.5!(B)$) {$a$};
     
     \fill[black] (A) circle (2pt) node[above right] {$A$ ($q_A$)};
     \fill[black] (B) circle (2pt) node[below right] {$B$ ($q_B$)};
     \fill[black] (C) circle (2pt) node[below left] {$C$};
     
-    \node[left] at (0,1) {$1$};
-    \node[left] at (0,3) {$3$};
-    \node[below] at (1,0) {$1$};
-    \node[below] at (3,0) {$3$};
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

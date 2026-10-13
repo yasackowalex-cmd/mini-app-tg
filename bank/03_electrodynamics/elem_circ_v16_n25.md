@@ -8,7 +8,7 @@ topic: 3.1.5
 level: Б
 type: расчётная (часть 2)
 variant: 16
-answer: "0,5"
+answer: "1"
 unit: "Ом"
 has_image: false
 author_task: false
@@ -22,4 +22,10 @@ source: ohm2.tex
 
 ## Решение
 
-TODO
+Обозначим $R$ — сопротивление внешней цепи. Для параллельного соединения резисторов
+$R = \dfrac{R_1R_2}{R_1 + R_2} = \dfrac{4\cdot 12}{4 + 12}\,\text{Ом} = 3\,\text{Ом}$.
+
+По закону Ома для полной цепи $I = \dfrac{\mathcal{E}}{R + r}$, откуда
+$r = \dfrac{\mathcal{E}}{I} - R = \left(\dfrac{6}{1{,}5} - 3\right)\,\text{Ом} = 1\,\text{Ом}$.
+
+Ответ: $r = 1\,\text{Ом}$.

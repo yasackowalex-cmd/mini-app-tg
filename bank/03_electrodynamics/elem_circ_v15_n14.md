@@ -30,8 +30,6 @@ source: ohm2.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Схема цепи
     \draw[thick, black] (0.5,0.5) rectangle (3.5,2.5);
     
@@ -49,7 +47,6 @@ source: ohm2.tex
     \draw[thick, black, fill=white] (1.5,0.3) rectangle (2.5,0.7);
     \draw[-{Stealth[scale=0.8]}, thick, black] (2.0,1.1) -- (2.0,0.7);
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

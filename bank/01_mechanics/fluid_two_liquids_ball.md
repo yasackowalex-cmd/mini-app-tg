@@ -23,31 +23,27 @@ source: pres.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[>=Stealth, scale=1.2]
-    % --- Штриховка жидкости в сосуде ---
-    % Уровень жидкости на высоте 1.8 см, ширина сосуда 2.0 см (от -1 до 1)
-    \fill[pattern=dots, pattern color=brandSecondary!60] (-1.0,0) rectangle (1.0,1.8);
-
-    % --- Стенки сосуда и дно ---
-    \draw[thick, color=brandSecondary] (-1.0,3.5) -- (-1.0,0) -- (1.0,0) -- (1.0,3.5);
-
-    % --- Поршень сверху ---
-    \draw[very thick, color=brandSecondary] (-1.0,2.9) -- (1.0,2.9);
-
-    % --- Плавающий шар ---
-    % Центр шара в точке (0, 2.1), радиус R = 0.6 см
-    % Заливаем весь шар белым цветом, чтобы полностью перекрыть узор воды внутри него
-    \fill[color=white] (0, 2.1) circle (0.6);
-    
-    % Отрисовка контура шара поверх скрытого уровня воды
-    \draw[thick, color=brandSecondary] (0, 2.1) circle (0.6);
-
-    % --- Линии поверхности жидкости (только снаружи шара) ---
-    \draw[thick, color=brandSecondary] (-1.0,1.8) -- (-0.565,1.8); 
-    \draw[thick, color=brandSecondary] (0.565,1.8) -- (1.0,1.8);
+\begin{tikzpicture}[scale=1.2,font=\small]
+  \fill[pattern=crosshatch dots, pattern color=brandSecondary!70] (-1.2,0) rectangle (1.2,1.2);
+  \fill[pattern=dots, pattern color=brandSecondary!40] (-1.2,1.2) rectangle (1.2,2.4);
+  \fill[white] (0,1.408) circle (0.6);
+  \draw[thick,brandSecondary] (0,1.408) circle (0.6);
+  \draw[thick,brandSecondary] (-1.2,1.2)--(-0.563,1.2) (0.563,1.2)--(1.2,1.2);
+  \draw[thick,brandSecondary] (-1.2,2.4)--(1.2,2.4);
+  \draw[thick,brandSecondary] (-1.2,3)--(-1.2,0)--(1.2,0)--(1.2,3);
+  \node[right] at (1.25,1.80) {керосин};
+  \node[right] at (1.25,0.60) {вода};
 \end{tikzpicture}
 ```
 
 ## Решение
 
-TODO
+Обозначим $V$ — объём шара, $\rho$ — плотность его материала. Плотности (табличные): воды $\rho_1 = 1000\,\text{кг/м}^3$, керосина $\rho_2 = 800\,\text{кг/м}^3$. В воде находится объём $\dfrac{V}{4}$, в керосине — $\dfrac{3V}{4}$.
+
+На шар действуют сила тяжести $\rho Vg$ и выталкивающие силы со стороны воды и керосина (закон Архимеда). Условие плавания (равновесия): $\rho Vg = \rho_1 g\dfrac{V}{4} + \rho_2 g\dfrac{3V}{4}$.
+
+Отсюда $\rho = \dfrac{\rho_1 + 3\rho_2}{4}$.
+
+$\rho = \dfrac{1000 + 3\cdot 800}{4} = 850\,\text{кг/м}^3$.
+
+Ответ: $\rho = 850\,\text{кг/м}^3$.

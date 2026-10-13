@@ -41,24 +41,28 @@ source: LC.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % График А
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5);
+    \node[above left] at (0,3.5) {А)};
+    \draw[dashed, gray] (2,0) -- (2,3);
+    \draw[dashed, gray] (4,0) -- (4,3);
     \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.5 + 1.5*cos(\x*180)});
-    
     \node[below left] at (0,0) {0};
+    \node[below] at (2,0) {$\frac{T}{2}$};
     \node[below] at (4,0) {$T$};
-    \node[below] at (2,0) {$t$};
-\end{tikzpicture}
-\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
+\begin{scope}[shift={(6.2,1.5)}]
     % График Б
-    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.5 - 1.5*sin(\x*90)});
-    
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-1.7) -- (0,2);
+    \node[above left] at (0,2) {Б)};
+    \draw[dashed, gray] (2,-1.5) -- (2,1.5);
+    \draw[dashed, gray] (4,-1.5) -- (4,1.5);
+    \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {-1.5*sin(\x*90)});
     \node[below left] at (0,0) {0};
-    \node[below] at (4,0) {$T$};
-    \node[below] at (2,0) {$t$};
+    \node[below right] at (2,0) {$\frac{T}{2}$};
+    \node[below right] at (4,0) {$T$};
+\end{scope}
 \end{tikzpicture}
 ```
 

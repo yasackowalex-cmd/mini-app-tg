@@ -25,13 +25,16 @@ source: kim01.tex
 ```latex
 \begin{tikzpicture}[x=0.15cm, y=0.12cm, every node/.style={font=\footnotesize}]
     % Сетка
-    \draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (40,25);
+    \draw[xstep=10, ystep=5, gray!30, thin] (0,0) grid (40,25);
     % Оси
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \text{ с}$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,27) node[above] {$v_x, \text{ м/с}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,30) node[above] {$v_x, \text{ м/с}$};
     % Оцифровка
+    \node[left] at (0,25) {$25$};
     \node[left] at (0,20) {$20$};
+    \node[left] at (0,15) {$15$};
     \node[left] at (0,10) {$10$};
+    \node[left] at (0,5) {$5$};
     \node[below left] at (0,0) {$0$};
     \node[below] at (10,0) {$10$};
     \node[below] at (20,0) {$20$};

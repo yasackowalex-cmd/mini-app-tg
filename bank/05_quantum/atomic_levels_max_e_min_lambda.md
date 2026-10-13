@@ -35,8 +35,6 @@ source: nuc.tex
 
 ```latex
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
-    
     % Уровни
     \draw[thick, black] (0,0.5) node[left] {$E_0$} -- (3.5,0.5);
     \draw[thick, black] (0,1.2) node[left] {$E_1$} -- (3.5,1.2);
@@ -46,12 +44,11 @@ source: nuc.tex
     \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
     
     % Стрелки
-    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[below] {1};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,2.2) -- (1.6,0.5) node[below] {2};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[below] {3};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[below] {4};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[midway, right] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,2.2) -- (1.6,0.5) node[midway, right] {2};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[midway, right] {3};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[midway, right] {4};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

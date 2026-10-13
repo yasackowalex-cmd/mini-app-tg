@@ -25,7 +25,7 @@ source: wet.tex
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
     \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \text{C}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \,^{\circ}\text{C}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p_{\text{н}}$, гПа};
     
     \draw[ultra thick, brandPrimary] (0,0.4) plot[domain=0:4, samples=20] (\x, {0.4 + 0.15*\x^2 + 0.02*\x^3});
@@ -48,4 +48,12 @@ source: wet.tex
 
 ## Решение
 
-TODO
+1. Относительная влажность воздуха $\varphi = \dfrac{\rho}{\rho_\text{н}}\cdot 100\,\%$, где $\rho$ — плотность водяного пара, $\rho_\text{н}$ — плотность насыщенного пара при той же температуре.
+
+2. По графику при $t = 30^\circ\text{C}$ ($T = 303\,\text{К}$) давление насыщенного пара $p_\text{н} = 42\,\text{гПа} = 42\cdot 10^2\,\text{Па}$.
+
+3. Запишем уравнение состояния идеального газа (Менделеева–Клапейрона) для насыщенного пара: $p_\text{н} = \dfrac{\rho_\text{н}}{M}RT$, где $M = 18\cdot 10^{-3}\,\text{кг/моль}$ — молярная масса воды. Отсюда $\rho_\text{н} = \dfrac{p_\text{н}M}{RT} = \dfrac{42\cdot 10^2\cdot 18\cdot 10^{-3}}{8{,}31\cdot 303}\,\text{кг/м}^3 \approx 30\,\text{г/м}^3$.
+
+4. Тогда $\varphi = \dfrac{15}{30}\cdot 100\,\% \approx 50\,\%$.
+
+Ответ: $\varphi \approx 50\,\%$.

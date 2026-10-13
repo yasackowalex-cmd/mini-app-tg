@@ -25,7 +25,7 @@ source: ind.tex
 
 ```latex
 \begin{tikzpicture}[x=0.9cm, y=0.4cm, every node/.style={font=\footnotesize}]
-  \draw[step=1, gray!30, thin] (0,0) grid (4.5,7);
+  \draw[step=1, gray!30, thin] (0,0) grid (4,6);
   \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5,0) node[right] {$t,\ \text{с}$};
   \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,7.8) node[above] {$I,\ \text{А}$};
   \foreach \t in {2,4} \node[below] at (\t,0) {$\t$};

@@ -30,8 +30,6 @@ source: cap.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,3);
-    
     % Силовые линии внешнего поля
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,0.8) -- (1.2,0.8);
     \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,1.5) -- (1.2,1.5) node[above left] {$\vec{E}_0$};
@@ -40,7 +38,6 @@ source: cap.tex
     % Цилиндр (проекция)
     \draw[ultra thick, black, fill=gray!20] (2,0.8) rectangle (4,2.2);
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

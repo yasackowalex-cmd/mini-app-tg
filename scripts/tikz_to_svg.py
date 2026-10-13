@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg.
+Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg
+(чертежи из «## Решение» → assets/<id>_s<n>.svg).
 Каждый блок ```latex из раздела «## Рисунок (TikZ)» собирается отдельным
 standalone-документом: latex → .dvi → dvisvgm (шрифты превращаются в контуры,
 SVG не зависит от шрифтов браузера).
@@ -27,10 +28,27 @@ DOC = r"""\documentclass[tikz,border=2pt]{standalone}
 """
 
 
+# Несколько tikzpicture в одном блоке (графики А и Б): класс standalone с опцией tikz
+# сделал бы из каждого отдельную страницу, а dvisvgm берёт только первую,
+# поэтому такие блоки собираются в одну строку картинок.
+DOC_ROW = r"""\documentclass[border=2pt]{standalone}
+\def\pgfsysdriver{pgfsys-dvisvgm.def}
+%(preamble)s
+\begin{document}
+\mbox{%(body)s}
+\end{document}
+"""
+
+
 def compile_one(src, dst, preamble, tmp):
     tex = os.path.join(tmp, 'pic.tex')
     with open(tex, 'w', encoding='utf-8') as f:
-        f.write(DOC % {'preamble': preamble, 'body': src})
+        if src.count(r'\begin{tikzpicture}') > 1:
+            body = re.sub(r'\n\s*\n', '\n', src)
+            body = re.sub(r'\\end\{tikzpicture\}\s*(?=\\begin\{tikzpicture\})', r'\\end{tikzpicture}\\hspace{2em}', body)
+            f.write(DOC_ROW % {'preamble': preamble, 'body': body})
+        else:
+            f.write(DOC % {'preamble': preamble, 'body': src})
     r = subprocess.run(['latex', '-interaction=nonstopmode', '-halt-on-error', 'pic.tex'],
                        cwd=tmp, capture_output=True, text=True, encoding='utf-8', errors='replace')
     if r.returncode != 0:
@@ -66,6 +84,8 @@ def main():
         t = parse_md(f)
         for i, src in enumerate(t['tikz'], 1):
             pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
+        for i, src in enumerate(t['sol_tikz'], 1):  # чертежи в решении
+            pics[f"{t['id']}_s{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
 
     todo = [n for n, (src, h) in pics.items()
             if (not a.only or n.startswith(a.only + '_'))

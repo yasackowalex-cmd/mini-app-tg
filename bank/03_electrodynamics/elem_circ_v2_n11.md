@@ -24,8 +24,6 @@ source: ohm2.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,2);
-    
     % Вход и выход
     \draw[thick, black] (0,1) -- (1,1);
     \draw[thick, black] (3,1) -- (4,1);
@@ -44,7 +42,6 @@ source: ohm2.tex
     \fill[black] (0,1) circle (1.5pt);
     \fill[black] (4,1) circle (1.5pt);
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

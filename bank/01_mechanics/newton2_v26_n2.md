@@ -24,7 +24,7 @@ source: din.tex
 
 ```latex
 \begin{tikzpicture}[x=6cm, y=0.25cm, every node/.style={font=\footnotesize}]
-    \draw[xstep=0.1, ystep=2, gray!30, thin] (0,0) grid (0.6,12);
+    \draw[xstep=0.1, ystep=3, gray!30, thin] (0,0) grid (0.6,12);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0.68,0) node[right] {$a, \text{ м/с}^{2}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,13) node[above] {$F, \text{ Н}$};
     \foreach \y in {3,6,12} \node[left] at (0,\y) {\y};

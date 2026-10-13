@@ -42,6 +42,10 @@ source: cal.tex
     \draw[dashed, gray] (5,0) -- (5,1.5);
     \draw[dashed, gray] (6,0) -- (6,0.5);
     
+    \node[left] at (0,1) {20};
+    \node[left] at (0,2) {40};
+    \node[left] at (0,3) {60};
+    \node[left] at (0,4) {80};
     \node[below] at (1,0) {1};
     \node[below] at (2,0) {2};
     \node[below] at (3,0) {3};
