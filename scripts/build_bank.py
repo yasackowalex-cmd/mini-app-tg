@@ -69,8 +69,13 @@ CHOICE_RE = re.compile(r'соответстви|выбер|цифры в отв�
 
 def check_mode(t):
     """Как сайт проверяет ответ ученика: number — число, seq — цифры по порядку,
-    set — цифры в любом порядке («выберите верные утверждения»), none — только показать ответ."""
+    set — цифры в любом порядке («выберите верные утверждения», КИМ 20), pm — значение и погрешность
+    (КИМ 19, ответ «4,4 ± 0,2»), none — только показать ответ."""
     a = str(t.get('answer', '')).strip()
+    if re.fullmatch(r'\d+(?:[.,]\d+)?\s*±\s*\d+(?:[.,]\d+)?', a):
+        return 'pm'
+    if str(t.get('kim')) == '20' and re.fullmatch(r'\d+', a):
+        return 'set'
     if t.get('type') == 'соответствие/выбор' and re.fullmatch(r'\d+', a):
         cond = t.get('condition', '')
         if re.search(r'выбер', cond, re.I) and not re.search(r'соответстви', cond, re.I):

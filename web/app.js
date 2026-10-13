@@ -98,7 +98,14 @@
   };
   const digits = s => String(s).replace(/[\s,;.]+/g, '');
 
+  // «4,4 ± 0,2», «4,4 0,2», «4,4+-0,2»: два числа, оба должны совпасть
+  const pair = s => String(s).trim().split(/\s*(?:±|\+\/?-)\s*|\s+/).map(toNum);
+
   function isRight(t, input) {
+    if (t.check === 'pm') {
+      const a = pair(input), b = pair(t.answer);
+      return a.length === 2 && a.every((v, i) => Math.abs(v - b[i]) <= 1e-9 * Math.max(1, Math.abs(b[i])));
+    }
     if (t.check === 'number') {
       const a = toNum(input), b = toNum(t.answer);
       return !isNaN(a) && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(b));
@@ -121,8 +128,8 @@
     const figs = (t.images || []).map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
     const answerHtml = t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
     const form = t.check && t.check !== 'none' ? `<form class="try">
-        <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : 'numeric'}"
-          placeholder="${t.check === 'number' ? 'число' : 'цифры'}" aria-label="Ваш ответ"></label>
+        <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}"
+          placeholder="${{number: 'число', pm: 'x ± Δx'}[t.check] || 'цифры'}" aria-label="Ваш ответ"></label>
         ${t.unit ? `<span class="unit">${t.unit}</span>` : ''}
         <button class="btn" type="submit">Проверить</button>
         <span class="verdict" role="status"></span>
