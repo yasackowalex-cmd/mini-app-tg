@@ -29,4 +29,28 @@ source: mag.tex
 
 Большая кинетическая энергия означает большую скорость. Центростремительное ускорение создаёт сила Лоренца: $a = \dfrac{qvB}{m}$, оно растёт вместе со скоростью (1).
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % поле «от нас»
+  \foreach \x/\y in {-1.9/1.3,-1.9/-1.3,1.9/1.3,1.9/-1.3,-0.6/-0.75}{
+    \draw[brandPrimary,thin] (\x,\y) circle (0.1);
+    \draw[brandPrimary,thin] (\x-0.07,\y-0.07) -- (\x+0.07,\y+0.07);
+    \draw[brandPrimary,thin] (\x-0.07,\y+0.07) -- (\x+0.07,\y-0.07);}
+  \node[brandPrimary] at (2.25,1.3) {$\vec B$};
+  % траектория
+  \draw[thick, gray] (0,0) circle (1.3);
+  \draw[-{Stealth[scale=0.7]}, gray] (60:1.3) arc (60:85:1.3);
+  \fill (0,0) circle (1.2pt);
+  \draw[dashed] (0,0) -- (135:1.3) node[pos=0.55, above right, inner sep=1pt] {$R$};
+  % частица
+  \fill[brandAccent] (1.3,0) circle (2.5pt);
+  \node[right] at (1.33,-0.2) {$+q$};
+  \draw[vvec] (1.3,0) -- (1.3,1.0) node[right] {$\vec v$};
+  \draw[Fvec] (1.3,0) -- (0.45,0) node[above, xshift=4pt] {$\vec F_\text{Л}$};
+  \draw[vvec] (1.05,-0.25) -- (0.45,-0.25) node[below] {$\vec a$};
+\end{tikzpicture}
+```
+
 Частота обращения $\nu = \dfrac{qB}{2\pi m}$ от скорости не зависит, она не изменится (3).

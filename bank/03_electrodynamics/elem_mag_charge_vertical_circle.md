@@ -54,6 +54,31 @@ $\dfrac{mv_\text{н}^2}{2} = \dfrac{mv_\text{в}^2}{2} + mg\cdot 2L$, откуд
 
 По правилу левой руки для положительного заряда: в нижней точке ($\vec v$ вправо, $\vec B$ на нас) сила Лоренца направлена вниз, а в верхней точке, где скорость направлена влево, — вверх, т.е. от центра окружности. Её модуль $F_\text{Л} = qv_\text{в}B$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % поле «на нас»
+  \draw[brandPrimary] (-1.9,1.4) circle (0.12); \fill[brandPrimary] (-1.9,1.4) circle (1.3pt);
+  \node[brandPrimary, below=2pt] at (-1.9,1.28) {$\vec B$};
+  % окружность и нить
+  \draw[gray, dashed] (0,0) circle (1.4);
+  \fill (0,0) circle (1.3pt) node[left] {$O$};
+  \draw[thick] (0,0) -- (0,1.4);
+  % тело в верхней точке
+  \fill[brandAccent] (0,1.4) circle (2.5pt);
+  \draw[vvec] (0,1.4) -- (-0.9,1.4) node[above] {$\vec v_\text{в}$};
+  \draw[Fvec] (0,1.4) -- (0,2.25) node[above] {$\vec F_\text{Л}$};
+  \draw[Fvec] (-0.15,1.4) -- (-0.15,0.75) node[left] {$\vec T$};
+  \draw[Fvec] (0.15,1.4) -- (0.15,0.45) node[right] {$m\vec g$};
+  % ось
+  \draw[-{Stealth[scale=0.7]}] (1.6,1.6) -- (1.6,0.9) node[below] {$y$};
+  % тело в нижней точке
+  \fill[brandAccent] (0,-1.4) circle (2.5pt);
+  \draw[vvec] (0,-1.4) -- (0.9,-1.4) node[below] {$\vec v_\text{н}$};
+\end{tikzpicture}
+```
+
 Второй закон Ньютона для верхней точки в проекции на ось, направленную вниз (к центру):
 $mg + T - qv_\text{в}B = \dfrac{mv_\text{в}^2}{L}$.
 

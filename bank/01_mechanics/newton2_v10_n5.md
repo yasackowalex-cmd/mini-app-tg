@@ -34,6 +34,23 @@ $$a = \frac{v^2}{R} = \frac{20^2}{200} = 2~\text{м/с}^2.$$
 
 Второй закон Ньютона: $N - mg = ma$, откуда $N = m(g + a) = 550 \cdot 12 = 6600$~Н; $mg = 5500$~Н.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % вогнутый мост: дуга окружности радиуса 4 с центром (0,4)
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-2.2,0.66) arc (236.6:303.4:4) -- (2.2,0.5) arc (303.4:236.6:4.15) -- cycle;
+  \draw[thick, brandSecondary] (-2.2,0.66) arc (236.6:303.4:4);
+  \draw[thick, fill=brandPrimary!15] (-0.3,0) rectangle (0.3,0.4);
+  \fill (0,0.2) circle (1.2pt);
+  \draw[Fvec] (0.1,0.2) -- (0.1,1.45) node[right] {$\vec N$};
+  \draw[Fvec] (-0.1,0.2) -- (-0.1,-0.8) node[below] {$m\vec g$};
+  \draw[vvec] (-1.2,1.0) -- (-1.2,1.6) node[left] {$\vec a$};
+  \draw[vvec] (0.45,0.6) -- (1.35,0.6) node[right] {$\vec v$};
+  \draw[dashed, thin, -{Stealth[scale=0.6]}] (0,2.6) node[above] {центр кривизны} -- (0,1.75);
+\end{tikzpicture}
+```
+
 1) Неверно: равнодействующая $ma = 550 \cdot 2 = 1100$~Н, а не $11000$~Н.
 
 2) Неверно: равнодействующая сонаправлена с ускорением, то есть направлена вертикально вверх.

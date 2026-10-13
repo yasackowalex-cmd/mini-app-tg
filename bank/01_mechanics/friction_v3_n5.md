@@ -38,6 +38,21 @@ source: трение.tex
 
 По таблице скорость за каждые $0{,}1$~с растёт на $0{,}2$~м/с, то есть равномерно. Отсюда ускорение $a = \dfrac{0{,}2}{0{,}1} = 2$~м/с$^2$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-2.0,-0.15) rectangle (2.2,0);
+  \draw[thick, brandSecondary] (-2.0,0) -- (2.2,0);
+  \draw[thick, fill=brandPrimary!10] (-0.6,0) rectangle (0.6,0.6);
+  \draw[Fvec] (0.6,0.3) -- (1.8,0.3) node[above] {$\vec F$};
+  \draw[Fvec] (-0.6,0.08) -- (-1.2,0.08) node[above left, inner sep=1pt] {$\vec F_\text{тр}$};
+  \draw[Fvec] (0.15,0.6) -- (0.15,1.5) node[right] {$\vec N$};
+  \draw[Fvec] (-0.15,0.3) -- (-0.15,-0.6) node[below] {$m\vec g$};
+  \draw[vvec] (-0.9,1.15) -- (-0.1,1.15) node[above, xshift=-6pt] {$\vec a$};
+\end{tikzpicture}
+```
+
 1) Верно: $a = 2$~м/с$^2$, как посчитали выше.
 
 2) Неверно: равнодействующая $ma = 0{,}2 \cdot 2 = 0{,}4$~Н, значит, сила трения $F_\text{тр} = F - ma = 0{,}8 - 0{,}4 = 0{,}4$~Н и $\mu = \dfrac{F_\text{тр}}{mg} = \dfrac{0{,}4}{0{,}2 \cdot 10} = 0{,}2$, а не $0{,}3$.

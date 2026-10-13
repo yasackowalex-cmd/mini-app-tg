@@ -54,6 +54,36 @@ source: col.tex
 
 На шарик действуют сила тяжести $m\vec{g}$ (вниз), сила натяжения нити $\vec{T}$ (вдоль нити) и электрическая сила $\vec{F} = q\vec{E}$ (горизонтально), $F = qE$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % пластины
+  \draw[ultra thick, brandSecondary] (-1.2,-0.4) -- (-1.2,2.6);
+  \draw[ultra thick, brandSecondary] (2.4,-0.4) -- (2.4,2.6);
+  \node[above] at (-1.2,2.6) {$+$};
+  \node[above] at (2.4,2.6) {$-$};
+  \draw[-{Stealth[scale=0.7]}, brandPrimary!70] (-1.0,-0.2) -- (-0.3,-0.2) node[right] {$\vec E$};
+  % подвес, нить, шарик
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.3,2.4) rectangle (0.3,2.52);
+  \draw[thick] (-0.3,2.4) -- (0.3,2.4);
+  \coordinate (P) at (0,2.4);
+  \coordinate (S) at ($(P)+(-65:2.0)$);
+  \draw[dashed, gray] (P) -- (0,0.1);
+  \draw[thick] (P) -- (S);
+  \draw (0,1.5) arc (270:295:0.9);
+  \node at ($(P)+(-78:1.2)$) {$\alpha$};
+  \fill[brandAccent] (S) circle (3pt);
+  % силы
+  \draw[Fvec] (S) -- ($(S)+(115:0.95)$) node[right] {$\vec T$};
+  \draw[Fvec] (S) -- ($(S)+(0,-0.95)$) node[left] {$m\vec g$};
+  \draw[Fvec] (S) -- ($(S)+(0.6,0)$) node[above] {$q\vec E$};
+  % оси
+  \draw[-{Stealth[scale=0.7]}] (1.5,1.7) -- (2.05,1.7) node[below] {$x$};
+  \draw[-{Stealth[scale=0.7]}] (1.5,1.7) -- (1.5,2.25) node[left] {$y$};
+\end{tikzpicture}
+```
+
 Шарик в равновесии, по второму закону Ньютона $m\vec{g} + \vec{T} + q\vec{E} = 0$. В проекциях на горизонтальную и вертикальную оси:
 $T\sin\alpha = qE$, $T\cos\alpha = mg$.
 

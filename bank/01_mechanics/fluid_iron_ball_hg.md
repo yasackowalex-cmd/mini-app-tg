@@ -40,7 +40,25 @@ source: pres.tex
 
 Обозначим $V$ — объём шара, $V_1$ — объём его части, находящейся в ртути, $x = \dfrac{V_1}{V}$ — искомая доля. Плотности (табличные): железа $\rho = 7800\,\text{кг/м}^3$, ртути $\rho_1 = 13\,600\,\text{кг/м}^3$, воды $\rho_2 = 1000\,\text{кг/м}^3$.
 
-На шар действуют сила тяжести $\rho Vg$ и выталкивающие силы со стороны ртути $\rho_1 gV_1$ и воды $\rho_2 g(V - V_1)$ (закон Архимеда). Условие плавания (равновесия): $\rho Vg = \rho_1 gV_1 + \rho_2 g(V - V_1)$.
+На шар действуют сила тяжести $\rho Vg$ и выталкивающие силы со стороны ртути $\rho_1 gV_1$ и воды $\rho_2 g(V - V_1)$ (закон Архимеда). Условие плавания (равновесия): $\rho Vg = \rho_1 gV_1 + \rho_2 g(V - V_1)$. Силы показаны на рисунке ($F_{\text{А}1} = \rho_1 gV_1$ — со стороны ртути, $F_{\text{А}2} = \rho_2 g(V - V_1)$ — со стороны воды).
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \fill[brandPrimary!25] (-1.9,-0.8) rectangle (1.9,1.5);
+  \fill[brandPrimary!8] (-1.9,1.5) rectangle (1.9,3.6);
+  \draw[brandPrimary!70] (-1.9,1.5) -- (1.9,1.5) (-1.9,3.6) -- (1.9,3.6);
+  \draw[very thick, brandSecondary] (-1.9,4.1) -- (-1.9,-0.8) -- (1.9,-0.8) -- (1.9,4.1);
+  \node[right, brandSecondary] at (1.9,2.55) {вода};
+  \node[right, brandSecondary] at (1.9,0.35) {ртуть};
+  \draw[thick, fill=gray!30] (0,1.44) circle (1.1);
+  \draw[densely dashed, brandPrimary!80] (-1.1,1.5) -- (1.1,1.5);
+  \fill (0,1.44) circle (1.2pt);
+  % силы
+  \draw[Fvec] (-0.15,1.44) -- (-0.15,-0.31) node[below] {$\rho V\vec g$};
+  \draw[Fvec] (0.3,1.03) -- (0.3,2.63) node[above] {$\vec F_{\text{А}1}$};
+  \draw[Fvec] (-0.32,1.75) -- (-0.32,2.15) node[left, pos=0.3] {$\vec F_{\text{А}2}$};
+\end{tikzpicture}
+```
 
 Разделив на $gV$: $\rho = \rho_1 x + \rho_2(1 - x)$, откуда $x = \dfrac{\rho - \rho_2}{\rho_1 - \rho_2}$.
 
