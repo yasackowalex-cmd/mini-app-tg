@@ -50,6 +50,50 @@ source: трение.tex
 
 \textbf{Решение.} Обозначим $F_\text{с}$ — модуль силы сопротивления, $T_1$, $T_2$ — силы натяжения нити в первом и втором случаях, $a$ — модуль ускорения в первом случае. Блок справа, поэтому нить тянет тележку вправо.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \foreach \dy/\cap/\case in {0/{движение вправо}/1, -3.5/{движение влево}/2} {
+  \begin{scope}[yshift=\dy cm]
+    \node[anchor=west, font=\footnotesize, brandSecondary] at (-1.2,1.35) {\cap};
+    % стол и блок
+    \fill[pattern=north east lines, pattern color=brandSecondary!40] (-1.2,-0.15) rectangle (2.6,0);
+    \draw[thick, brandSecondary] (-1.2,0) -- (2.6,0) -- (2.6,-0.5);
+    \draw[thick] (2.6,0) -- (2.75,0.25);
+    \draw[thick, fill=gray!15] (2.75,0.25) circle (0.15);
+    \fill (2.75,0.25) circle (1pt);
+    % тележка
+    \draw[thick, fill=brandPrimary!10] (0.3,0.12) rectangle (1.3,0.55);
+    \node at (0.8,0.33) {$M$};
+    \draw[thick, fill=gray!50] (0.5,0.06) circle (0.06);
+    \draw[thick, fill=gray!50] (1.1,0.06) circle (0.06);
+    % нить и грузик
+    \draw[thick] (1.3,0.4) -- (2.75,0.4);
+    \draw[thick] (2.9,0.25) -- (2.9,-0.9);
+    \draw[thick, fill=brandAccent!20] (2.7,-1.3) rectangle (3.1,-0.9);
+    \node at (2.9,-1.1) {$m$};
+    \draw[Fvec] (2.9,-1.3) -- (2.9,-1.95) node[right] {$m\vec g$};
+  \end{scope}}
+  % случай 1: вправо, равномерно
+  \draw[Fvec] (1.3,0.4) -- (2.05,0.4) node[above, xshift=-2pt] {$\vec T_2$};
+  \draw[Fvec] (0.3,0.33) -- (-0.45,0.33) node[above, xshift=2pt] {$\vec F_\text{с}$};
+  \draw[vvec] (0.5,0.85) -- (1.1,0.85) node[right] {$\vec v$};
+  \draw[Fvec] (2.9,-0.9) -- (2.9,-0.35) node[right, yshift=-2pt] {$\vec T_2$};
+  \draw[vvec] (3.6,-0.7) -- (3.6,-1.3) node[right] {$\vec v$};
+  % случай 2: влево, торможение
+  \begin{scope}[yshift=-3.5cm]
+  \draw[Fvec] (1.3,0.4) -- (2.05,0.4) node[above, xshift=-2pt] {$\vec T_1$};
+  \draw[Fvec] (1.3,0.2) -- (1.95,0.2) node[below, xshift=-2pt, yshift=-1pt] {$\vec F_\text{с}$};
+  \draw[vvec] (1.1,0.85) -- (0.5,0.85) node[left] {$\vec v$};
+  \draw[vvec] (0.5,1.2) -- (1.1,1.2) node[right] {$\vec a$};
+  \draw[Fvec] (2.9,-0.9) -- (2.9,-0.35) node[right, yshift=-2pt] {$\vec T_1$};
+  \draw[vvec] (3.6,-1.3) -- (3.6,-0.7) node[right] {$\vec v$};
+  \draw[vvec] (4.15,-0.7) -- (4.15,-1.3) node[right] {$\vec a$};
+  \end{scope}
+\end{tikzpicture}
+```
+
 Тележку толкнули вправо, она движется равномерно: для тележки $T_2 - F_\text{с} = 0$, для грузика $mg - T_2 = 0$. Значит, $F_\text{с} = mg$.
 
 Тележку толкнули влево: она движется влево, грузик поднимается. Сила натяжения и сила сопротивления действуют на тележку вправо, ускорение системы направлено вправо (тележка тормозит). По второму закону Ньютона:

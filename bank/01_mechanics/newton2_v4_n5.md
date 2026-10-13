@@ -36,7 +36,24 @@ source: din.tex
 
 ## Решение
 
-По таблице скорость за каждые $0{,}1$~с растёт на $0{,}2$~м/с, то есть равномерно. Отсюда ускорение $a = \dfrac{0{,}2}{0{,}1} = 2$~м/с$^2$, а равнодействующая $ma = 0{,}2 \cdot 2 = 0{,}4$~Н.
+По таблице скорость за каждые $0{,}1$~с растёт на $0{,}2$~м/с, то есть равномерно. Отсюда ускорение $a = \dfrac{0{,}2}{0{,}1} = 2$~м/с$^2$, а равнодействующая $ma = 0{,}2 \cdot 2 = 0{,}4$~Н. Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % поверхность
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-1.7,-0.15) rectangle (1.9,0);
+  \draw[thick, brandSecondary] (-1.7,0) -- (1.9,0);
+  % брусок
+  \draw[thick, fill=brandPrimary!10] (-0.6,0) rectangle (0.6,0.6);
+  \fill (0,0.3) circle (1.2pt);
+  % силы
+  \draw[Fvec] (-0.12,0.3) -- (-0.12,-0.75) node[below] {$m\vec g$};
+  \draw[Fvec] (0.12,0) -- (0.12,1.05) node[above] {$\vec N$};
+  \draw[Fvec] (0.6,0.3) -- (1.6,0.3) node[above] {$\vec F$};
+  \draw[Fvec] (-0.6,0.06) -- (-1.1,0.06) node[above left, inner sep=1pt] {$\vec F_\text{тр}$};
+  \draw[vvec] (0.7,1.0) -- (1.5,1.0) node[right] {$\vec a$};
+\end{tikzpicture}
+```
 
 1) Неверно: $a = 2$~м/с$^2$, а не $0{,}4$~м/с$^2$.
 

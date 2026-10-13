@@ -45,7 +45,28 @@ source: din.tex
 
 ## Решение
 
-Обозначим $a$ — ускорение грузов, $T$ — сила натяжения нити. При максимальной силе $F = 18\,\text{Н}$ натяжение нити $T = 10\,\text{Н}$.
+Обозначим $a$ — ускорение грузов, $T$ — сила натяжения нити. При максимальной силе $F = 18\,\text{Н}$ натяжение нити $T = 10\,\text{Н}$. Горизонтальные силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % поверхность
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.3,-0.15) rectangle (5.2,0);
+  \draw[thick, brandSecondary] (-0.3,0) -- (5.2,0);
+  % грузы и нить
+  \draw[thick, fill=brandAccent!20] (0,0) rectangle (1,0.6);
+  \node at (0.5,0.3) {$M_2$};
+  \draw[thick, fill=brandPrimary!10] (2.9,0) rectangle (3.9,0.6);
+  \node at (3.4,0.3) {$M_1$};
+  \draw[thick] (1,0.3) -- (2.9,0.3);
+  % силы
+  \draw[Fvec] (1,0.3) -- (1.6,0.3) node[above] {$\vec T$};
+  \draw[Fvec] (2.9,0.3) -- (2.3,0.3) node[above] {$\vec T$};
+  \draw[Fvec] (3.9,0.3) -- (5.0,0.3) node[above] {$\vec F$};
+  \draw[vvec] (2.0,1.0) -- (2.8,1.0) node[right] {$\vec a$};
+  % ось
+  \draw[-{Stealth[scale=0.8]}, thin] (0,-0.45) -- (0.8,-0.45) node[right] {$x$};
+\end{tikzpicture}
+```
 
 Нить нерастяжима, поэтому грузы движутся с одинаковым ускорением. Нить невесома, поэтому силы натяжения, действующие на оба груза, равны по модулю. Поверхность гладкая, вертикальные силы скомпенсированы.
 

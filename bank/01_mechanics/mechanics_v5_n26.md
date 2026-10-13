@@ -28,6 +28,56 @@ source: kim22,26.tex
 
 На рычаг действуют силы натяжения нитей $\vec T_1$, $\vec T_2$ и сила реакции опоры; на каждый груз — сила тяжести, сила натяжения нити, а в керосине — ещё и сила Архимеда.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=0.95, font=\small]
+  % (а) в воздухе
+  \node[anchor=west, font=\footnotesize, brandSecondary] at (1.6,0.75) {в воздухе};
+  \draw[thick, fill=gray!15] (0,-0.05) rectangle (4,0.05);
+  \draw[thick, fill=gray!30] (0.8,-0.05) -- (0.6,-0.4) -- (1.0,-0.4) -- cycle;
+  \fill[pattern=north east lines, pattern color=brandSecondary!50] (0.45,-0.52) rectangle (1.15,-0.4);
+  \draw[thick] (0,0) -- (0,-1.7);
+  \draw[thick] (4,0) -- (4,-1.7);
+  \draw[thick, fill=brandAccent!20] (-0.25,-2.2) rectangle (0.25,-1.7);
+  \draw[thick, fill=brandAccent!20] (3.75,-2.2) rectangle (4.25,-1.7);
+  \node[font=\footnotesize] at (-0.55,-1.95) {$m_1$};
+  \node[font=\footnotesize] at (4.55,-1.95) {$m_2$};
+  \draw[Fvec] (0,0) -- (0,-0.7) node[left] {$\vec T_1$};
+  \draw[Fvec] (4,0) -- (4,-0.4) node[left] {$\vec T_2$};
+  \draw[Fvec] (0.8,0.05) -- (0.8,0.95) node[right] {$\vec N$};
+  \draw[Fvec] (0,-1.7) -- (0,-1.15) node[left] {$\vec T_1$};
+  \draw[Fvec] (0,-1.95) -- (0,-2.8) node[right] {$m_1\vec g$};
+  \draw[Fvec] (4,-1.7) -- (4,-1.35) node[right] {$\vec T_2$};
+  \draw[Fvec] (4,-1.95) -- (4,-2.4) node[right] {$m_2\vec g$};
+  \fill (0,-1.95) circle (1pt); \fill (4,-1.95) circle (1pt);
+  % (б) в жидкости
+  \begin{scope}[yshift=-4.3cm]
+  \node[anchor=west, font=\footnotesize, brandSecondary] at (1.6,0.75) {в жидкости};
+  \fill[brandPrimary!12] (-0.9,-1.45) rectangle (4.9,-3.2);
+  \draw[brandPrimary!70] (-0.9,-1.45) -- (4.9,-1.45);
+  \draw[thick, fill=gray!15] (0,-0.05) rectangle (4,0.05);
+  \draw[thick, fill=gray!30] (0.4,-0.05) -- (0.2,-0.4) -- (0.6,-0.4) -- cycle;
+  \fill[pattern=north east lines, pattern color=brandSecondary!50] (0.05,-0.52) rectangle (0.75,-0.4);
+  \draw[thick] (0,0) -- (0,-1.7);
+  \draw[thick] (4,0) -- (4,-1.7);
+  \draw[thick, fill=brandAccent!20] (-0.25,-2.2) rectangle (0.25,-1.7);
+  \draw[thick, fill=brandAccent!20] (3.75,-2.2) rectangle (4.25,-1.7);
+  \node[font=\footnotesize] at (-0.55,-1.95) {$m_1$};
+  \node[font=\footnotesize] at (4.55,-1.95) {$m_2$};
+  \draw[Fvec] (0,0) -- (0,-0.65) node[left] {$\vec T_1'$};
+  \draw[Fvec] (4,0) -- (4,-0.3) node[left] {$\vec T_2'$};
+  \draw[Fvec] (0.4,0.05) -- (0.4,0.8) node[right] {$\vec N$};
+  \draw[Fvec] (-0.1,-1.7) -- (-0.1,-1.2) node[left] {$\vec T_1'$};
+  \draw[Fvec] (0.1,-1.95) -- (0.1,-1.3) node[right] {$\vec F_\text{А}$};
+  \draw[Fvec] (-0.1,-1.95) -- (-0.1,-2.8) node[right, xshift=3pt] {$m_1\vec g$};
+  \draw[Fvec] (3.9,-1.7) -- (3.9,-1.45) node[left] {$\vec T_2'$};
+  \draw[Fvec] (4.1,-1.95) -- (4.1,-1.3) node[right] {$\vec F_\text{А}$};
+  \draw[Fvec] (3.9,-1.95) -- (3.9,-2.55) node[right, xshift=3pt] {$m_2\vec g$};
+  \end{scope}
+\end{tikzpicture}
+```
+
 В воздухе $T_1 = m_1g$, $T_2 = m_2g$, и по правилу моментов $m_1gl_1 = m_2gl_2$, т.е. $l_2 = \dfrac{m_1}{m_2}l_1 = 4l_1$, $L = l_1 + l_2 = 5l_1$.
 
 В керосине на каждый груз действует одинаковая сила Архимеда $F_\text{А} = \rho_\text{к} gV = 800\cdot 10\cdot 2{,}5\cdot 10^{-4}\,\text{Н} = 2\,\text{Н}$. Из условия равновесия грузов

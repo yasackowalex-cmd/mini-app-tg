@@ -67,6 +67,37 @@ source: kim22,26.tex
 
 На пластину действуют $M\vec g$ и сила натяжения нити $\vec T$, $T = Mg$. На рычаг действуют: сила $\vec F$ натяжения нити динамометра в точке $A$ под углом $\beta = 45^\circ$ к вертикали, сила натяжения нити пластины $Mg$ в точке $C$ (вниз), сила тяжести рычага $m\vec g$ в его середине и сила реакции оси в точке $O$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % рычаг: A=0, C=1, середина 2,1, O=3,5, B=4,2
+  \draw[thick, fill=gray!15] (0,-0.06) rectangle (4.2,0.06);
+  \node[below left, inner sep=1pt] at (0,-0.06) {$A$};
+  \node[right] at (4.2,0) {$B$};
+  \fill (1.0,0) circle (1.3pt) node[above left, inner sep=1.5pt] {$C$};
+  \draw[thick, fill=white] (3.5,0) circle (2pt);
+  \node[below, yshift=-2pt] at (3.5,0) {$O$};
+  % нить динамометра
+  \draw[thick] (0,0) -- (-1.0,1.0);
+  \draw[dashed, thin] (0,0) -- (0,1.2);
+  \draw (0,0.45) arc (90:135:0.45);
+  \node at (-0.17,0.68) {$\beta$};
+  % пластина
+  \draw[thick] (1.0,0) -- (1.0,-1.6);
+  \draw[thick, fill=gray!40] (0.75,-2.15) rectangle (1.25,-1.6);
+  \node[left] at (0.75,-1.88) {$M$};
+  % силы на рычаг
+  \draw[Fvec] (0,0) -- (-0.85,0.85) node[left] {$\vec F$};
+  \draw[Fvec] (1.0,0) -- (1.0,-0.65) node[left] {$\vec T\,'$};
+  \draw[Fvec] (2.1,0) -- (2.1,-0.75) node[below] {$m\vec g$};
+  \draw[Fvec] (3.5,0) -- ++(36:0.85) node[above right, inner sep=1pt] {$\vec R$};
+  % силы на пластину
+  \draw[Fvec] (1.0,-1.6) -- (1.0,-1.05) node[right, yshift=-1pt] {$\vec T$};
+  \draw[Fvec] (1.0,-1.88) -- (1.0,-2.75) node[right] {$M\vec g$};
+\end{tikzpicture}
+```
+
 Плечо силы $\vec F$ относительно $O$ равно $AO\cos\beta$ (горизонтальная составляющая силы направлена вдоль рычага и момента не создаёт). Точки $A$, $C$ и середина рычага лежат по одну сторону от $O$: сила $\vec F$ поворачивает рычаг в одну сторону, силы $Mg$ и $mg$ — в другую. Правило моментов относительно оси $O$:
 $F\cdot AO\cos\beta = Mg\cdot CO + mg\cdot d$.
 

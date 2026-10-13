@@ -45,7 +45,34 @@ source: work.tex
 
 ## Решение
 
-Брусок движется равномерно, значит, сумма сил равна нулю. Сила $F$ направлена вертикально вверх и просто уменьшает «вес» бруска: вместо $mg = 20$~Н вниз действует $mg - F = 20 - 4 = 16$~Н.
+Брусок движется равномерно, значит, сумма сил равна нулю. Сила $F$ направлена вертикально вверх и просто уменьшает «вес» бруска: вместо $mg = 20$~Н вниз действует $mg - F = 20 - 4 = 16$~Н. Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % наклонная плоскость
+  \draw[thick, fill=gray!10] (0,0) -- (3.6,0) -- (3.6,2.08) -- cycle;
+  \draw (0.55,0) arc (0:30:0.55);
+  \node at (0.82,0.2) {$30^\circ$};
+  % брусок
+  \begin{scope}[shift={(1.732,1.0)}, rotate=30]
+    \draw[thick, fill=brandPrimary!15] (-0.45,0) rectangle (0.45,0.5);
+    \coordinate (C) at (0,0.25);
+    \coordinate (N0) at (-0.1,0);
+    \coordinate (N1) at (-0.1,0.95);
+    \coordinate (Ft0) at (0.45,0.04);
+    \coordinate (Ft1) at (0.9,0.04);
+    \coordinate (v0) at (0.95,-0.42);
+    \coordinate (v1) at (0.2,-0.42);
+  \end{scope}
+  \fill (C) circle (1.2pt);
+  % силы
+  \draw[Fvec] (C) -- ++(0,-1.1) node[below] {$m\vec g$};
+  \draw[Fvec] ($(C)+(0.12,0)$) -- ++(0,0.5) node[right, inner sep=2pt] {$\vec F$};
+  \draw[Fvec] (N0) -- (N1) node[above left, inner sep=1pt] {$\vec N$};
+  \draw[Fvec] (Ft0) -- (Ft1) node[right] {$\vec F_\text{тр}$};
+  \draw[vvec] (v0) -- (v1) node[below right, inner sep=1pt] {$\vec v$};
+\end{tikzpicture}
+```
 
 Вдоль плоскости силу трения уравновешивает составляющая этой силы:
 

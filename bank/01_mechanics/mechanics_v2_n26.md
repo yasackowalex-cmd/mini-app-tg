@@ -66,6 +66,42 @@ source: kim22,26.tex
 
 \textbf{Решение.} На стержень действуют сила тяжести $m\vec g$ (в середине стержня), сила натяжения нити $\vec T$ (в точке $B$, горизонтально к стене) и сила $\vec F$ со стороны шарнира. Обозначим $L$ — длину стержня, $F_x$, $F_y$ — горизонтальную и вертикальную составляющие силы $\vec F$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % стена и пол
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,2.8);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (3.4,0);
+  \draw[thick, brandSecondary] (0,2.8) -- (0,0) -- (3.4,0);
+  % шарнир и стержень
+  \coordinate (A) at (1.2,0.5);
+  \coordinate (B) at (3.0,2.3);
+  \draw[thick] (1.0,0) -- (A) -- (1.4,0);
+  \draw[line width=3pt, brandPrimary!35] (A) -- (B);
+  \draw[thick, fill=white] (A) circle (2pt);
+  \node[left, xshift=-2pt] at (A) {$A$};
+  \node[above right, inner sep=1pt] at (B) {$B$};
+  % нить
+  \draw[thick] (0,2.3) -- (B);
+  \node[above right, inner sep=1pt] at (0,2.3) {$C$};
+  % угол
+  \draw[dashed, thin] (A) -- (2.1,0.5);
+  \draw (1.65,0.5) arc (0:45:0.45);
+  \node at (1.85,0.65) {$\alpha$};
+  % силы
+  \draw[Fvec] (B) -- (2.4,2.3) node[above] {$\vec T$};
+  \draw[Fvec] (2.1,1.4) -- (2.1,0.2) node[right] {$m\vec g$};
+  \fill (2.1,1.4) circle (1.2pt);
+  \draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.8,0.5);
+  \node[below] at (1.75,0.5) {$F_x$};
+  \draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.2,1.7);
+  \node[left] at (1.2,1.35) {$F_y$};
+  \draw[dashed, thin, gray] (1.2,1.7) -- (1.8,1.7) -- (1.8,0.5);
+  \draw[Fvec] (A) -- (1.8,1.7) node[above] {$\vec F$};
+\end{tikzpicture}
+```
+
 Правило моментов относительно оси $A$: $TL\sin\alpha = mg\dfrac{L}{2}\cos\alpha$, откуда $T = \dfrac{mg}{2\,\mathrm{tg}\,\alpha} = \dfrac{mg}{2}$ (так как $\mathrm{tg}\,45^\circ = 1$).
 
 Равенство нулю суммы сил: по горизонтали $F_x = T = \dfrac{mg}{2}$, по вертикали $F_y = mg$.

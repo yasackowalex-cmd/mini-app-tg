@@ -26,6 +26,35 @@ source: kim22,26.tex
 
 \textbf{Решение.} Обозначим $u$ — скорость тела с пулей сразу после удара, $v$ — скорость в момент отрыва, $\varphi$ — угол между радиусом, проведённым в точку отрыва, и вертикалью; $\cos\varphi = \dfrac{h}{R}$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-2.4,-0.15) rectangle (3.4,0);
+  \draw[thick, brandSecondary] (-2.4,0) -- (3.4,0);
+  \draw[thick, fill=brandPrimary!8] (-2,0) arc (180:0:2) -- cycle;
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (50:2.1);
+  \fill (O) circle (1.2pt);
+  \draw[dashed, thin] (O) -- (0,2.35);
+  \draw[dashed, thin] (O) -- (P);
+  \draw (50:0.6) arc (50:90:0.6);
+  \node at (70:0.8) {$\varphi$};
+  \node[font=\footnotesize] at (0.72,1.27) {$R$};
+  % тело на вершине
+  \draw[thick, fill=brandAccent!30] (-0.12,2) rectangle (0.12,2.2);
+  \draw[vvec] (0.2,2.1) -- (0.95,2.1) node[right] {$\vec u$};
+  % тело в момент отрыва
+  \draw[thick, fill=brandAccent!30] (P) circle (0.1);
+  \draw[Fvec] (P) -- ++(0,-1.0) node[right, xshift=1pt] {$(M+m)\vec g$};
+  \draw[Fvec] (P) -- ++(50:0.55) node[above] {$\vec N$};
+  \draw[vvec] (P) -- ++(-40:0.85) node[right] {$\vec v$};
+  % высота
+  \draw[dashed, thin] (P) -- (3.15,1.609);
+  \draw[{Stealth[scale=0.7]}-{Stealth[scale=0.7]}] (3.15,0) -- (3.15,1.609) node[midway, right] {$h$};
+\end{tikzpicture}
+```
+
 По закону сохранения импульса: $mv_0 = (M + m)u$, откуда $u = \dfrac{mv_0}{M + m} = \dfrac{0{,}01\cdot 200}{1}\,\text{м/с} = 2\,\text{м/с}$.
 
 По второму закону Ньютона в проекции на радиус в момент отрыва ($N = 0$): $(M + m)g\cos\varphi = (M + m)\dfrac{v^2}{R}$, откуда $v^2 = gR\cos\varphi = gh$.

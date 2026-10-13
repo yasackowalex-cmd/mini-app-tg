@@ -68,6 +68,46 @@ source: din.tex
 
 \textbf{Решение.} Брусок движется от блока (вправо), груз поднимается. Обозначим $T$ — силу натяжения нити, $N$ — силу нормальной реакции стола, $a$ — модуль ускорения тел.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % стол и блок
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);
+  \draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);
+  \draw[thick] (0,0) -- (-0.25,0.05);
+  \draw[thick, fill=gray!15] (-0.25,0.05) circle (0.15);
+  \fill (-0.25,0.05) circle (1pt);
+  % брусок
+  \draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);
+  \node at (1.42,0.3) {$M$};
+  % нити и груз
+  \draw[thick] (-0.25,0.2) -- (1.2,0.2);
+  \draw[thick] (-0.4,0.05) -- (-0.4,-0.95);
+  \draw[thick, fill=brandAccent!20] (-0.62,-1.4) rectangle (-0.18,-0.95);
+  \node at (-0.85,-1.17) {$m$};
+  % силы на брусок
+  \draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\vec F$};
+  \draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);
+  \draw (2.65,0.3) arc (0:30:0.45);
+  \node at (2.85,0.42) {$\alpha$};
+  \draw[Fvec] (1.2,0.2) -- (0.55,0.2) node[above] {$\vec T$};
+  \draw[Fvec] (1.6,0) -- (0.95,0) node[below, yshift=-1pt] {$\vec F_\text{тр}$};
+  \draw[Fvec] (1.5,0.6) -- (1.5,1.35) node[left] {$\vec N$};
+  \draw[Fvec] (1.7,0.3) -- (1.7,-0.7) node[right] {$M\vec g$};
+  \fill (1.7,0.3) circle (1pt);
+  \draw[vvec] (1.8,1.6) -- (2.5,1.6) node[right] {$\vec a$};
+  % силы на груз
+  \draw[Fvec] (-0.4,-0.95) -- (-0.4,-0.4) node[left] {$\vec T$};
+  \draw[Fvec] (-0.4,-1.18) -- (-0.4,-1.95) node[left] {$m\vec g$};
+  \draw[vvec] (-1.35,-1.6) -- (-1.35,-1.0) node[left] {$\vec a$};
+  % оси
+  \draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (3.5,-1.5) node[below] {$x$};
+  \draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (2.8,-0.85) node[left] {$y$};
+\end{tikzpicture}
+```
+
 По второму закону Ньютона для бруска в проекциях на горизонтальную ось (по направлению движения) и вертикальную ось:
 $F\cos\alpha - T - F_\text{тр} = Ma$, $N + F\sin\alpha - Mg = 0$.
 Сила трения скольжения $F_\text{тр} = \mu N = \mu(Mg - F\sin\alpha)$.

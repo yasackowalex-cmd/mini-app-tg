@@ -31,6 +31,35 @@ $mv_0 = (M+m)v$, откуда $v = \dfrac{mv_0}{M+m} = \dfrac{0{,}01\cdot 200}{1
 
 Обозначим $\theta$ — угол между вертикалью и радиусом, проведённым к телу в момент отрыва, $u$ — скорость тела в этот момент. Тогда $h = R\cos\theta$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-2.4,-0.15) rectangle (3.4,0);
+  \draw[thick, brandSecondary] (-2.4,0) -- (3.4,0);
+  \draw[thick, fill=brandPrimary!8] (-2,0) arc (180:0:2) -- cycle;
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (50:2.1);
+  \fill (O) circle (1.2pt);
+  \draw[dashed, thin] (O) -- (0,2.35);
+  \draw[dashed, thin] (O) -- (P);
+  \draw (50:0.6) arc (50:90:0.6);
+  \node at (70:0.8) {$\theta$};
+  \node[font=\footnotesize] at (0.72,1.27) {$R$};
+  % тело на вершине
+  \draw[thick, fill=brandAccent!30] (-0.12,2) rectangle (0.12,2.2);
+  \draw[vvec] (0.2,2.1) -- (0.95,2.1) node[right] {$\vec v$};
+  % тело в момент отрыва
+  \draw[thick, fill=brandAccent!30] (P) circle (0.1);
+  \draw[Fvec] (P) -- ++(0,-1.0) node[right, xshift=1pt] {$(M+m)\vec g$};
+  \draw[Fvec] (P) -- ++(50:0.55) node[above] {$\vec N$};
+  \draw[vvec] (P) -- ++(-40:0.85) node[right] {$\vec u$};
+  % высота
+  \draw[dashed, thin] (P) -- (3.15,1.609);
+  \draw[{Stealth[scale=0.7]}-{Stealth[scale=0.7]}] (3.15,0) -- (3.15,1.609) node[midway, right] {$h$};
+\end{tikzpicture}
+```
+
 По закону сохранения механической энергии (тело стартует с высоты $R$):
 $\dfrac{(M+m)v^2}{2} + (M+m)gR = \dfrac{(M+m)u^2}{2} + (M+m)gh$, откуда $u^2 = v^2 + 2g(R-h)$.
 

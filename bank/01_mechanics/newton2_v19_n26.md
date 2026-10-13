@@ -66,6 +66,38 @@ source: din.tex
 
 \textbf{Решение.} Блок закреплён на стене слева, поэтому доска движется вправо, а брусок — влево. Обозначим $T$ — силу натяжения нити. Брусок скользит по доске: сила трения скольжения между ними $\mu_1 mg$, на брусок она действует вправо, на доску — влево. Доска давит на стол с силой $(M+m)g$ (вес доски и прижимающая сила бруска), поэтому сила трения со стороны стола $\mu_2(M+m)g$ направлена влево.
 
+Силы показаны на рисунке (для наглядности брусок изображён приподнятым над доской).
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % стена, стол, блок
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (0,2.1);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (6.0,0);
+  \draw[thick, brandSecondary] (0,2.1) -- (0,0) -- (6.0,0);
+  \draw[thick] (0,0.775) -- (0.6,0.775);
+  \draw[thick, fill=gray!15] (0.6,0.775) circle (0.575);
+  \fill (0.6,0.775) circle (1.2pt);
+  % доска и брусок (брусок приподнят для наглядности)
+  \draw[thick, fill=brandPrimary!10] (1.6,0) rectangle (5.0,0.4);
+  \node at (2.2,0.2) {$M$};
+  \draw[thick, fill=brandAccent!20] (4.0,1.1) rectangle (4.6,1.6);
+  \node at (4.3,1.35) {$m$};
+  % нити
+  \draw[thick] (0.6,1.35) -- (4.0,1.35);
+  \draw[thick] (0.6,0.2) -- (1.6,0.2);
+  % силы на брусок
+  \draw[Fvec] (4.0,1.35) -- (3.4,1.35) node[above] {$\vec T$};
+  \draw[Fvec] (4.0,1.1) -- (4.7,1.1) node[right] {$\mu_1 mg$};
+  \draw[vvec] (4.5,1.95) -- (3.8,1.95) node[left] {$\vec a$};
+  % силы на доску
+  \draw[Fvec] (5.0,0.2) -- (5.8,0.2) node[above] {$\vec F$};
+  \draw[Fvec] (1.6,0.2) -- (1.15,0.2) node[above, yshift=1pt] {$\vec T$};
+  \draw[Fvec] (4.6,0.4) -- (3.9,0.4) node[above left, inner sep=1pt] {$\mu_1 mg$};
+  \draw[Fvec] (3.0,0) -- (2.3,0) node[below, yshift=-2pt] {$\mu_2(M+m)g$};
+  \draw[vvec] (2.0,0.75) -- (2.7,0.75) node[above] {$\vec a$};
+\end{tikzpicture}
+```
+
 По второму закону Ньютона:
 для бруска (ось влево) $T - \mu_1 mg = ma$,
 для доски (ось вправо) $F - T - \mu_1 mg - \mu_2(M+m)g = Ma$.

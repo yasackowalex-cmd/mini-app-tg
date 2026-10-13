@@ -71,6 +71,37 @@ source: din.tex
 
 \textbf{Решение.} Блок закреплён на стене слева, поэтому брусок движется вправо, а доска — влево. Обозначим $T$ — силу натяжения нити, $a$ — модуль ускорения каждого тела. Брусок скользит по доске, сила трения скольжения $F_\text{тр} = \mu N = \mu mg$; на брусок она действует влево, на доску (по третьему закону Ньютона) — вправо.
 
+Силы показаны на рисунке (для наглядности брусок изображён приподнятым над доской).
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % стена, стол, блок
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (0,2.1);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (5.3,0);
+  \draw[thick, brandSecondary] (0,2.1) -- (0,0) -- (5.3,0);
+  \draw[thick] (0,0.775) -- (0.6,0.775);
+  \draw[thick, fill=gray!15] (0.6,0.775) circle (0.575);
+  \fill (0.6,0.775) circle (1.2pt);
+  % доска и брусок (брусок приподнят для наглядности)
+  \draw[thick, fill=brandPrimary!10] (1.6,0) rectangle (5.0,0.4);
+  \node at (4.5,0.2) {$M$};
+  \draw[thick, fill=brandAccent!20] (1.6,1.1) rectangle (2.2,1.6);
+  \node at (1.9,1.35) {$m$};
+  % нити
+  \draw[thick] (0.6,1.35) -- (1.6,1.35);
+  \draw[thick] (0.6,0.2) -- (1.6,0.2);
+  % силы на брусок
+  \draw[Fvec] (2.2,1.35) -- (3.1,1.35) node[right] {$\vec F$};
+  \draw[Fvec] (1.6,1.35) -- (1.15,1.35) node[above] {$\vec T$};
+  \draw[Fvec] (2.2,1.1) -- (1.65,1.1) node[below right, inner sep=1pt, yshift=-1pt] {$\vec F_\text{тр}$};
+  \draw[vvec] (1.6,1.95) -- (2.3,1.95) node[right] {$\vec a$};
+  % силы на доску
+  \draw[Fvec] (1.6,0.2) -- (1.15,0.2) node[above, yshift=1pt] {$\vec T$};
+  \draw[Fvec] (2.6,0.4) -- (3.3,0.4) node[above, xshift=-4pt] {$\vec F_\text{тр}$};
+  \draw[vvec] (4.8,0.75) -- (4.1,0.75) node[above] {$\vec a$};
+\end{tikzpicture}
+```
+
 По второму закону Ньютона:
 для бруска (ось вправо) $F - T - \mu mg = ma$,
 для доски (ось влево) $T - \mu mg = Ma$.

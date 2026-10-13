@@ -41,4 +41,19 @@ source: 3law.tex
 
 Трения нет, поэтому сила $F$ — единственная горизонтальная сила, и по второму закону Ньютона $F = ma$. Масса равна отношению силы к ускорению в любой точке графика, например $F = 12$~Н при $a = 0{,}6$~м/с$^2$.
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-1.6,-0.15) rectangle (2.2,0);
+  \draw[thick, brandSecondary] (-1.6,0) -- (2.2,0);
+  \draw[thick, fill=brandPrimary!10] (-0.6,0) rectangle (0.6,0.6);
+  \node at (-0.35,0.3) {$m$};
+  \draw[Fvec] (0.6,0.3) -- (1.8,0.3) node[above] {$\vec F$};
+  \draw[Fvec] (0.15,0.6) -- (0.15,1.4) node[right] {$\vec N$};
+  \draw[Fvec] (0.15,0.3) -- (0.15,-0.5) node[below] {$m\vec g$};
+  \draw[vvec] (-1.2,1.0) -- (-0.4,1.0) node[right] {$\vec a$};
+\end{tikzpicture}
+```
+
 $$m = \frac{F}{a} = \frac{12}{0{,}6} = 20~\text{кг}.$$

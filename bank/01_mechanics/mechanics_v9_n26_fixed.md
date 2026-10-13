@@ -86,6 +86,48 @@ source: kim22,26.tex
 
 \textbf{Решение.} На груз действуют сила тяжести $m\vec g$ и сила натяжения $\vec T_2$; на блок — силы натяжения $\vec T_1'$ (плечо $r$), $\vec T_2'$ (плечо $R$) и сила со стороны оси; на брусок — сила тяжести $M\vec g$ (в середине бруска), сила натяжения $\vec T_1$ (вверх, в точке $B$) и сила реакции стола $\vec N$ (вверх).
 
+Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % стол
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.4,-0.15) rectangle (2.0,0);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (1.85,-0.9) rectangle (2.0,0);
+  \draw[thick, brandSecondary] (-0.4,0) -- (2.0,0) -- (2.0,-0.9);
+  % брусок
+  \draw[thick, fill=brandPrimary!10] (0,0) rectangle (3.0,0.25);
+  \node[left] at (0,0.15) {$A$};
+  \node[below right, inner sep=1pt] at (3.0,0) {$B$};
+  % блок
+  \coordinate (O) at (3.4,2.4);
+  \draw[thick, gray] (3.4,2.4) -- (3.4,3.7);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (3.0,3.7) rectangle (3.8,3.85);
+  \draw[thick, brandSecondary] (3.0,3.7) -- (3.8,3.7);
+  \draw[thick, fill=gray!10] (O) circle (0.6);
+  \draw[thick, fill=gray!25] (O) circle (0.4);
+  \fill (O) circle (1.2pt);
+  \draw[thin] (O) -- (3.0,2.4); \node[above, font=\footnotesize, inner sep=1pt] at (3.17,2.4) {$r$};
+  \draw[thin] (O) -- (4.0,2.4); \node[above, font=\footnotesize, inner sep=1pt] at (3.72,2.4) {$R$};
+  % нити и груз
+  \draw[thick] (3.0,0.25) -- (3.0,2.4);
+  \draw[thick] (4.0,2.4) -- (4.0,0.6);
+  \draw[thick, fill=brandAccent!20] (3.75,0.1) rectangle (4.25,0.6);
+  \node[right] at (4.25,0.35) {$m$};
+  % силы на брусок
+  \draw[Fvec] (3.0,0.25) -- (3.0,0.95) node[left] {$\vec T_1$};
+  \draw[Fvec] (1.5,0.12) -- (1.5,-0.7) node[below] {$M\vec g$};
+  \fill (1.5,0.12) circle (1pt);
+  \draw[Fvec] (0.6,0) -- (0.6,0.75) node[above] {$\vec N$};
+  % силы на блок
+  \draw[Fvec] (3.0,2.4) -- (3.0,1.8) node[left] {$\vec T_1'$};
+  \draw[Fvec] (4.0,2.4) -- (4.0,1.85) node[right] {$\vec T_2'$};
+  \draw[Fvec] (O) -- (3.4,3.25) node[right] {$\vec F_\text{оси}$};
+  % силы на груз
+  \draw[Fvec] (4.0,0.6) -- (4.0,1.15) node[right] {$\vec T_2$};
+  \draw[Fvec] (4.0,0.35) -- (4.0,-0.4) node[right] {$m\vec g$};
+\end{tikzpicture}
+```
+
 Условие равновесия груза: $T_2 = mg$.
 
 Правило моментов для блока относительно его оси: $T_2'R = T_1'r$, откуда $T_1 = mg\dfrac{R}{r}$.
