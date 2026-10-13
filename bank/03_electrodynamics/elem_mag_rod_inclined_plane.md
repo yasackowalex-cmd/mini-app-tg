@@ -29,11 +29,8 @@ source: mag.tex
     \draw[thick] (0.000,0.000)--(-1.992,0.626);
     \draw[thick] (0.000,0.000)--(2.571,1.148);
     \draw[thick] (0.000,0.000)--(2.571,3.289);
-    \draw[dashed, gray] (-1.992,0.626)--(0.579,1.774);
     \draw[thick] (-1.992,0.626)--(0.579,3.915);
-    \draw[dashed, gray] (2.571,1.148)--(0.579,1.774);
     \draw[thick] (2.571,1.148)--(2.571,3.289);
-    \draw[dashed, gray] (0.579,1.774)--(0.579,3.915);
     \draw[thick] (2.571,3.289)--(0.579,3.915);
     \draw[line width=3pt, brandSecondary] (0.921,1.432)--(-0.752,1.957);
     \draw[-{Stealth[scale=0.8]}, thick, brandAccent] (0.122,1.109)--(-0.774,1.390) node[left] {$I$};

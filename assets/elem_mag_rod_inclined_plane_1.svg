@@ -14,11 +14,8 @@
 <path d='M8.464843 54.441406L-48.00392 36.6953' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <path d='M8.464843 54.441406L81.34378 21.8984' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <path d='M8.464843 54.441406L81.34378-38.793' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
-<path d='M-48.00392 36.6953L24.87498 4.1523' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-linejoin='bevel' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-48.00392 36.6953L24.87498-56.5353' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
-<path d='M81.34378 21.8984L24.87498 4.1523' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-linejoin='bevel' stroke-dasharray='2.98883 2.98883'/>
 <path d='M81.34378 21.8984V-38.793' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
-<path d='M24.87498 4.1523V-56.5353' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-linejoin='bevel' stroke-dasharray='2.98883 2.98883'/>
 <path d='M81.34378-38.793L24.87498-56.5353' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <path d='M34.57028 13.8477L-12.85152-1.0352' stroke='#1b1f3b' fill='none' stroke-width='2.98883' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <path d='M11.92187 23.0039L-10.40232 16.0039' stroke='#ff6b35' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
