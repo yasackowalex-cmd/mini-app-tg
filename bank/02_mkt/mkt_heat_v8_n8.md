@@ -24,21 +24,23 @@ source: cal.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,5);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$Q, \text{ кДж}$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \,^{\circ}\text{C}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$t, \,^{\circ}\text{C}$};
     
-    \coordinate (A) at (0,1);
-    \coordinate (B) at (3.75,3.5);
+    \coordinate (A) at (0,2);
+    \coordinate (B) at (3.75,4.5);
     
     \draw[ultra thick, brandPrimary] (A) -- (B);
     
-    \draw[dashed, gray] (3,0) -- (3,3);
-    \draw[dashed, gray] (0,3) -- (3,3);
+    \draw[dashed, gray] (3,0) -- (3,4);
+    \draw[dashed, gray] (0,4) -- (3,4);
     
-    \node[left] at (0,1) {100};
-    \node[left] at (0,2) {150};
-    \node[left] at (0,3) {200};
+    \node[left] at (0,1) {50};
+    \node[left] at (0,2) {100};
+    \node[left] at (0,3) {150};
+    \node[left] at (0,4) {200};
+    \node[left] at (0,5) {250};
     \node[below] at (1,0) {120};
     \node[below] at (2,0) {240};
     \node[below] at (3,0) {360};

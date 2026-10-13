@@ -24,23 +24,18 @@ source: LC.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[thick, black] (0.5,0.5) -- (0.5,1.5) -- (2.5,1.5) -- (2.5,0.5) -- cycle;
+    % Провода
+    \draw[thick, black] (0.5,0.7) -- (0.5,0.5) -- (2.5,0.5) -- (2.5,0.9);
+    \draw[thick, black] (0.5,1.3) -- (0.5,1.5) -- (2.5,1.5) -- (2.5,1.1);
     
     % Катушка L (слева)
-    \fill[white] (0.5,0.7) rectangle (0.5,1.3);
-    \draw[thick, black] (0.5,0.5) -- (0.5,0.7);
     \draw[thick, black] (0.5,0.7) arc (-90:90:0.1) arc (-90:90:0.1) arc (-90:90:0.1);
-    \draw[thick, black] (0.5,1.3) -- (0.5,1.5);
     \node[left=2pt] at (0.5,1.0) {$L$};
     
     % Конденсатор C (справа)
-    \fill[white] (2.5,0.8) rectangle (2.5,1.2);
-    \draw[thick, black] (2.5,0.5) -- (2.5,0.9);
     \draw[ultra thick, black] (2.2,0.9) -- (2.8,0.9);
     \draw[ultra thick, black] (2.2,1.1) -- (2.8,1.1);
-    \draw[thick, black] (2.5,1.1) -- (2.5,1.5);
-    \node[right=2pt] at (2.5,1.0) {$C$};
-    
+    \node[right=2pt] at (2.8,1.0) {$C$};
 \end{tikzpicture}
 ```
 

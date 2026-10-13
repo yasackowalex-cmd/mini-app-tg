@@ -44,10 +44,10 @@ source: nuc.tex
     \draw[dashed, black] (0,2.8) node[left] {$0$} -- (3.5,2.8);
     
     % Стрелки
-    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[below] {1};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,2.2) -- (1.6,0.5) node[below] {2};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[below] {3};
-    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[below] {4};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (0.8,1.2) -- (0.8,0.5) node[midway, right] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (1.6,2.2) -- (1.6,0.5) node[midway, right] {2};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (2.4,0.5) -- (2.4,2.2) node[midway, right] {3};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (3.2,0.5) -- (3.2,2.5) node[midway, right] {4};
     
 \end{tikzpicture}
 ```

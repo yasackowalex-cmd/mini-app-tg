@@ -24,21 +24,21 @@ source: 1td.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$p$};
     
     \coordinate (1) at (1,1);
-    \coordinate (2) at (1,3);
+    \coordinate (2) at (1,2);
     \coordinate (3) at (3,1);
     
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,2.2);
-    \draw[ultra thick, brandPrimary] (1,2.0) -- (2);
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.2,1.8);
-    \draw[ultra thick, brandPrimary] (2.1,1.9) -- (3);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1,1.6);
+    \draw[ultra thick, brandPrimary] (1,1.5) -- (2);
+    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.1,1.45);
+    \draw[ultra thick, brandPrimary] (2,1.5) -- (3);
     
     \draw[dashed, gray] (0,1) -- (1,1);
-    \draw[dashed, gray] (0,3) -- (1,3);
+    \draw[dashed, gray] (0,2) -- (1,2);
     \draw[dashed, gray] (1,0) -- (1,1);
     \draw[dashed, gray] (3,0) -- (3,1);
     
@@ -47,7 +47,7 @@ source: 1td.tex
     \fill[black] (3) circle (1.5pt) node[above right] {3};
     
     \node[left] at (0,1) {$p_0$};
-    \node[left] at (0,3) {$2p_0$};
+    \node[left] at (0,2) {$2p_0$};
     \node[below] at (1,0) {$V_0$};
     \node[below] at (2,0) {$2V_0$};
     \node[below] at (3,0) {$3V_0$};

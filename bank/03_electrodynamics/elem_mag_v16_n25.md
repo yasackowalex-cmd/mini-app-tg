@@ -24,33 +24,31 @@ source: mag.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    % Силовые линии поля (влево)
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.5,0.3) -- (0.5,0.3);
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.5,1.5) -- (0.5,1.5) node[above left] {$\vec{B}$};
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.5,2.7) -- (0.5,2.7);
+    % Вектор индукции поля (влево, параллельно KL и NM) — над контуром
+    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.0,3.35) -- (1.0,3.35);
+    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (4.0,3.8) -- (1.0,3.8);
+    \node[left, brandPrimary] at (1.0,3.575) {$\vec{B}$};
     
-    % Прямоугольный контур
-    \draw[ultra thick, black] (1,0.8) coordinate (K) -- (4,0.8) coordinate (L) -- (4,2.2) coordinate (M) -- (1,2.2) coordinate (N) -- cycle;
+    % Прямоугольный контур (KL : LM = 4 : 3)
+    \draw[ultra thick, black] (1,1) coordinate (K) -- (3.4,1) coordinate (L) -- (3.4,2.8) coordinate (M) -- (1,2.8) coordinate (N) -- cycle;
     \draw[ultra thick, black] (K) -- (M);
     
     % Подключение к источнику за KM
-    \draw[thick, black] (K) -- (1,0.1) -- (2.2,0.1);
-    \draw[thick, black] (M) -- (4.5,2.2) -- (4.5,0.1) -- (2.8,0.1);
+    \draw[thick, black] (K) -- (1,0.3) -- (2.1,0.3);
+    \draw[thick, black] (M) -- (4.1,2.8) -- (4.1,0.3) -- (2.5,0.3);
+    \fill[black] (K) circle (1.6pt);
+    \fill[black] (M) circle (1.6pt);
     
     % Источник
-    \fill[white] (2.2,0.0) rectangle (2.8,0.2);
-    \draw[thick, black] (2.2,0.1) -- (2.4,0.1);
-    \draw[thick, black] (2.4,-0.1) -- (2.4,0.3);
-    \draw[ultra thick, black] (2.6,0.0) -- (2.6,0.2);
-    \draw[thick, black] (2.6,0.1) -- (2.8,0.1);
-    \node[below=2pt] at (2.5,-0.1) {$\mathcal{E}$};
+    \draw[thick, black] (2.1,0.1) -- (2.1,0.5);
+    \draw[ultra thick, black] (2.5,0.2) -- (2.5,0.4);
+    \node[below=2pt] at (2.3,0.1) {$\mathcal{E}$};
     
     % Подписи вершин
     \node[below left] at (K) {$K$};
     \node[below right] at (L) {$L$};
     \node[above right] at (M) {$M$};
     \node[above left] at (N) {$N$};
-    
 \end{tikzpicture}
 ```
 

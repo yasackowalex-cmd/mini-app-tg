@@ -28,10 +28,27 @@ DOC = r"""\documentclass[tikz,border=2pt]{standalone}
 """
 
 
+# Несколько tikzpicture в одном блоке (графики А и Б): класс standalone с опцией tikz
+# сделал бы из каждого отдельную страницу, а dvisvgm берёт только первую,
+# поэтому такие блоки собираются в одну строку картинок.
+DOC_ROW = r"""\documentclass[border=2pt]{standalone}
+\def\pgfsysdriver{pgfsys-dvisvgm.def}
+%(preamble)s
+\begin{document}
+\mbox{%(body)s}
+\end{document}
+"""
+
+
 def compile_one(src, dst, preamble, tmp):
     tex = os.path.join(tmp, 'pic.tex')
     with open(tex, 'w', encoding='utf-8') as f:
-        f.write(DOC % {'preamble': preamble, 'body': src})
+        if src.count(r'\begin{tikzpicture}') > 1:
+            body = re.sub(r'\n\s*\n', '\n', src)
+            body = re.sub(r'\\end\{tikzpicture\}\s*(?=\\begin\{tikzpicture\})', r'\\end{tikzpicture}\\hspace{2em}', body)
+            f.write(DOC_ROW % {'preamble': preamble, 'body': body})
+        else:
+            f.write(DOC % {'preamble': preamble, 'body': src})
     r = subprocess.run(['latex', '-interaction=nonstopmode', '-halt-on-error', 'pic.tex'],
                        cwd=tmp, capture_output=True, text=True, encoding='utf-8', errors='replace')
     if r.returncode != 0:

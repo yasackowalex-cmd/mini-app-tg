@@ -24,9 +24,6 @@ source: col.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[-{Stealth[scale=0.8]}, black, thick] (-0.5,0) -- (3.5,0) node[right] {$x$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,-0.5) -- (0,3.5) node[above] {$y$};
-    
     \coordinate (1) at (0.5,0.5);
     \coordinate (2) at (2.5,0.5);
     \coordinate (3) at (2.5,2.5);
@@ -43,7 +40,6 @@ source: col.tex
     \fill[black] (4) circle (2pt) node[above left] {$+q$};
     \fill[black] (O) circle (1.5pt) node[below] {$O$};
     
-    \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 

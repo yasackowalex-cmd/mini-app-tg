@@ -44,7 +44,6 @@ source: ind.tex
     
     \node[left] at (0,4) {2};
     \node[left] at (0,3) {1};
-    \node[left] at (0,2) {0};
     \node[left] at (0,1) {--1};
     \node[left] at (0,0) {--2};
     

@@ -28,16 +28,19 @@ source: mkt.tex
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$V$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$p$};
     
-    \coordinate (1) at (2,4);
-    \coordinate (2) at (4,5); % В соответствии со значениями 8p0 и 4V0
+    \coordinate (1) at (2,2);
+    \coordinate (2) at (4,4); % 8p0 и 4V0; одна клетка = 2p0 по оси p и V0 по оси V
     
     \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1);
     
-    \fill[black] (1) circle (1.5pt) node[above left] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
+    \draw[dashed, gray] (0,2) -- (1) -- (2,0);
+    \draw[dashed, gray] (0,4) -- (2) -- (4,0);
     
-    \node[left] at (0,4) {$4p_0$};
-    \node[left] at (0,5) {$8p_0$};
+    \fill[black] (1) circle (1.5pt) node[above left] {1};
+    \fill[black] (2) circle (1.5pt) node[above left] {2};
+    
+    \node[left] at (0,2) {$4p_0$};
+    \node[left] at (0,4) {$8p_0$};
     \node[below] at (2,0) {$2V_{0}$};
     \node[below] at (4,0) {$4V_{0}$};
     \node[below left] at (0,0) {0};
