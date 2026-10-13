@@ -24,26 +24,25 @@ source: mag.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.0, font=\small, line join=round]
-    % клин: передняя грань A-B-C, глубина d = (1.2,1.4)
-    \coordinate (A) at (0,0); \coordinate (B) at (4,0); \coordinate (C) at (4,2.31);
-    \coordinate (d) at (1.2,1.4);
-    \coordinate (A2) at ($(A)+(d)$); \coordinate (B2) at ($(B)+(d)$); \coordinate (C2) at ($(C)+(d)$);
-    \fill[brandLight] (A)--(C)--(C2)--(A2)--cycle;
-    \fill[gray!15] (B)--(B2)--(C2)--(C)--cycle;
-    \draw[dashed, gray] (A2)--(B2);
-    \draw[thick] (A)--(B)--(C)--cycle;
-    \draw[thick] (C)--(C2)--(A2)--(A);
-    \draw[thick] (B)--(B2)--(C2);
-    \draw (0.8,0) arc (0:30:0.8); \node at (1.05,0.2) {$\alpha$};
-    % стержень поперёк плоскости (горизонтален)
-    \coordinate (P) at ($(A)!0.4!(C)$);
-    \draw[line width=3pt, brandSecondary] ($(P)+0.06*(d)$) -- ($(P)+0.94*(d)$);
-    \draw[-{Stealth[scale=0.8]}, thick, brandAccent] ($(A)!0.25!(C)+0.25*(d)$) -- ($(A)!0.25!(C)+0.75*(d)$) node[left] {$I$};
-    % ускорение вдоль плоскости вверх
-    \draw[-{Stealth[scale=0.9]}, thick] ($(A)!0.55!(C)+0.5*(d)$) -- ($(A)!0.85!(C)+0.5*(d)$) node[above left] {$\vec a$};
-    % вертикальное магнитное поле
-    \foreach \x in {-0.6,6.0} \draw[-{Stealth[scale=0.9]}, thick, brandPrimary] (\x,0.2) -- (\x,3.6);
-    \node[right, brandPrimary] at (6.0,3.4) {$\vec B$};
+    \fill[brandLight] (0.000,0.000)--(2.571,3.289)--(0.579,3.915)--(-1.992,0.626)--cycle;
+    \fill[gray!8] (0.000,0.000)--(2.571,1.148)--(2.571,3.289)--cycle;
+    \draw[thick] (0.000,0.000)--(-1.992,0.626);
+    \draw[thick] (0.000,0.000)--(2.571,1.148);
+    \draw[thick] (0.000,0.000)--(2.571,3.289);
+    \draw[dashed, gray] (-1.992,0.626)--(0.579,1.774);
+    \draw[thick] (-1.992,0.626)--(0.579,3.915);
+    \draw[dashed, gray] (2.571,1.148)--(0.579,1.774);
+    \draw[thick] (2.571,1.148)--(2.571,3.289);
+    \draw[dashed, gray] (0.579,1.774)--(0.579,3.915);
+    \draw[thick] (2.571,3.289)--(0.579,3.915);
+    \draw[line width=3pt, brandSecondary] (0.921,1.432)--(-0.752,1.957);
+    \draw[-{Stealth[scale=0.8]}, thick, brandAccent] (0.122,1.109)--(-0.774,1.390) node[left] {$I$};
+    \draw[-{Stealth[scale=0.9]}, thick] (0.495,2.267)--(1.267,3.254) node[above] {$\vec a$};
+    \draw (0.514,0.230) -- (0.514,0.268) -- (0.511,0.306) -- (0.508,0.343) -- (0.503,0.379) -- (0.497,0.414) -- (0.489,0.448) -- (0.480,0.480) -- (0.470,0.511) -- (0.458,0.541) -- (0.445,0.570);
+    \node at (0.686,0.553) {$\alpha$};
+    \draw[-{Stealth[scale=0.9]}, thick, brandPrimary] (-2.69,0.00)--(-2.69,4.32);
+    \draw[-{Stealth[scale=0.9]}, thick, brandPrimary] (3.27,0.00)--(3.27,4.32);
+    \node[right, brandPrimary] at (3.27,4.12) {$\vec B$};
 \end{tikzpicture}
 ```
 
