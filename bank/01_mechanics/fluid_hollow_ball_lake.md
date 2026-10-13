@@ -22,6 +22,24 @@ source: pres.tex
 
 ## Решение
 
-Шар полностью в воде, сила Архимеда определяется только его объёмом, масса шара здесь не нужна. Объём $15$~дм$^3 = 0{,}015$~м$^3$.
+Шар полностью в воде, сила Архимеда определяется только его объёмом, масса шара здесь не нужна. Объём $15$~дм$^3 = 0{,}015$~м$^3$. Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % вода и дно
+  \fill[brandPrimary!12] (-1.8,0) rectangle (1.8,2.4);
+  \draw[brandPrimary!70] (-1.8,2.4) -- (1.8,2.4);
+  \fill[pattern=north east lines, pattern color=brandSecondary!50] (-1.8,0) rectangle (1.8,-0.15);
+  \draw[thick, brandSecondary] (-1.8,0) -- (1.8,0);
+  % шар
+  \draw[thick, fill=gray!30] (0,0.6) circle (0.6);
+  \fill (0,0.6) circle (1.2pt);
+  % силы
+  \draw[Fvec] (-0.14,0.6) -- (-0.14,-1.0) node[below] {$m\vec g$};
+  \draw[Fvec] (0.14,0.6) -- (0.14,1.8) node[above] {$\vec F_\text{А}$};
+  \draw[Fvec] (0,0) -- (0,0.45);
+  \node[right, inner sep=1pt] at (0.03,0.18) {$\vec N$};
+\end{tikzpicture}
+```
 
 $$F_\text{А} = \rho_\text{в} g V = 1000 \cdot 10 \cdot 0{,}015 = 150~\text{Н}.$$

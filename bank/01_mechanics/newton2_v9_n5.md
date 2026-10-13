@@ -28,7 +28,22 @@ source: din.tex
 
 ## Решение
 
-Скорость $v = 54$~км/ч $= 15$~м/с.
+Скорость $v = 54$~км/ч $= 15$~м/с. Силы показаны на рисунке.
+
+```latex
+\begin{tikzpicture}[scale=1.0, font=\small]
+  % мост
+  \draw[thick, fill=gray!10] (1.69,-0.375) arc (65:115:4) -- (-1.69,-0.7) -- (1.69,-0.7) -- cycle;
+  % мотоцикл (схематично)
+  \draw[thick, fill=brandAccent!20] (-0.35,0) rectangle (0.35,0.45);
+  \fill (0,0.22) circle (1.2pt);
+  % силы
+  \draw[Fvec] (-0.12,0.22) -- (-0.12,-0.98) node[below] {$m\vec g$};
+  \draw[Fvec] (0.12,0) -- (0.12,0.93) node[above] {$\vec N$};
+  \draw[vvec] (0.5,0.75) -- (1.3,0.75) node[right] {$\vec v$};
+  \draw[vvec] (-0.85,0.95) -- (-0.85,0.35) node[left] {$\vec a$};
+\end{tikzpicture}
+```
 
 1) Верно: $a = \dfrac{v^2}{R} = \dfrac{15^2}{100} = 2{,}25$~м/с$^2$.
 
