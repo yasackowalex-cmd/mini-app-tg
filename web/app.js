@@ -3,6 +3,15 @@
 (function () {
   'use strict';
 
+  // решение; метка [[рис N]] — чертёж из «## Решение» (assets/<id>_sN.svg)
+  function solutionHtml(t) {
+    const imgs = t.solution_images || [];
+    return texToHtml(t.solution).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
+      const src = imgs[n - 1];
+      return src ? `<div class="figs"><img src="${src}" alt="Рисунок к решению" loading="lazy"></div>` : '';
+    });
+  }
+
   const PAGE = 20;
   const FILTERS = [
     { key: 'section', el: 'f-section', all: 'Все разделы' },
@@ -126,7 +135,7 @@
         ${t.solution ? '<button class="btn" type="button" data-show="solution" aria-expanded="false">Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
-      ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${texToHtml(t.solution)}</div>` : ''}
+      ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${solutionHtml(t)}</div>` : ''}
       <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml}</div>
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {

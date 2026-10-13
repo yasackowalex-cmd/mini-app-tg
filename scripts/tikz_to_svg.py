@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg.
+Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg
+(чертежи из «## Решение» → assets/<id>_s<n>.svg).
 Каждый блок ```latex из раздела «## Рисунок (TikZ)» собирается отдельным
 standalone-документом: latex → .dvi → dvisvgm (шрифты превращаются в контуры,
 SVG не зависит от шрифтов браузера).
@@ -66,6 +67,8 @@ def main():
         t = parse_md(f)
         for i, src in enumerate(t['tikz'], 1):
             pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
+        for i, src in enumerate(t['sol_tikz'], 1):  # чертежи в решении
+            pics[f"{t['id']}_s{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
 
     todo = [n for n, (src, h) in pics.items()
             if (not a.only or n.startswith(a.only + '_'))

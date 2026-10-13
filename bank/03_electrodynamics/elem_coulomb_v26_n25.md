@@ -8,7 +8,7 @@ topic: 3.1.1
 level: Б
 type: расчётная (часть 2)
 variant: 26
-answer: "9"
+answer: "18"
 unit: "°"
 has_image: true
 author_task: false
@@ -52,4 +52,11 @@ source: col.tex
 
 ## Решение
 
-TODO
+На шарик действуют сила тяжести $m\vec{g}$ (вниз), сила натяжения нити $\vec{T}$ (вдоль нити) и электрическая сила $\vec{F} = q\vec{E}$ (горизонтально), $F = qE$.
+
+Шарик в равновесии, по второму закону Ньютона $m\vec{g} + \vec{T} + q\vec{E} = 0$. В проекциях на горизонтальную и вертикальную оси:
+$T\sin\alpha = qE$, $T\cos\alpha = mg$.
+
+Отсюда $\operatorname{tg}\alpha = \dfrac{qE}{mg} = \dfrac{10\cdot 10^{-9}\cdot 3\cdot 10^5}{0{,}9\cdot 10^{-3}\cdot 10} = \dfrac{1}{3}$, $\alpha = \operatorname{arctg}\dfrac{1}{3} \approx 18^\circ$.
+
+Ответ: $\alpha = \operatorname{arctg}\dfrac{1}{3} \approx 18^\circ$.

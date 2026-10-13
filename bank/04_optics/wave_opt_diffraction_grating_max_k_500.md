@@ -22,4 +22,12 @@ source: dif.tex
 
 ## Решение
 
-TODO
+Период решётки $d = \dfrac{10^{-3}}{500}\,\text{м} = 2\cdot 10^{-6}\,\text{м}$. Длина волны света $\lambda = \dfrac{c}{\nu} = \dfrac{3\cdot 10^8}{5\cdot 10^{14}}\,\text{м} \approx 6\cdot 10^{-7}\,\text{м}$.
+
+Условие главных максимумов дифракционной решётки при нормальном падении: $d\sin\varphi = k\lambda$, где $k$ — порядок максимума.
+
+Так как $\sin\varphi < 1$ (максимум под углом $90^\circ$ не наблюдается), $k < \dfrac{d}{\lambda} = \dfrac{d\nu}{c}$.
+
+$\dfrac{d}{\lambda} \approx \dfrac{2\cdot 10^{-6}}{6\cdot 10^{-7}} \approx 3{,}3$, поэтому наибольший целый порядок $k_\text{max} = 3$.
+
+Ответ: $k_\text{max} = 3$.

@@ -8,7 +8,7 @@ topic: 3.1.6
 level: Б
 type: расчётная (часть 2)
 variant: 28
-answer: "180"
+answer: "200"
 unit: "Дж"
 has_image: false
 author_task: false
@@ -22,4 +22,12 @@ source: jou.tex
 
 ## Решение
 
-TODO
+Обозначим $R_\text{вн}$ — сопротивление внешней цепи, $I$ — сила тока в цепи. Для двух одинаковых параллельно соединённых резисторов $R_\text{вн} = \dfrac{R}{2} = 5\,\text{Ом}$.
+
+По закону Ома для полной цепи $I = \dfrac{\mathcal{E}}{R_\text{вн} + r} = \dfrac{12}{5 + 1}\,\text{А} = 2\,\text{А}$.
+
+По закону Джоуля — Ленца количество теплоты во внешней цепи $Q = I^2R_\text{вн}t = \dfrac{\mathcal{E}^2Rt}{2\left(\dfrac{R}{2} + r\right)^2}$.
+
+$Q = 2^2\cdot 5\cdot 10\,\text{Дж} = 200\,\text{Дж}$.
+
+Ответ: $Q = 200\,\text{Дж}$.

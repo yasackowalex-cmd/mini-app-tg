@@ -54,6 +54,10 @@ def parse_md(path):
     meta['tikz'] = re.findall(r'```latex\n(.*?)\n```', tikz_sec, re.S)
     meta['condition'] = sections.get('Условие', '')
     sol = sections.get('Решение', '')
+    # чертежи внутри решения (рисунок с указанием сил и т. п.): блок ```latex → метка [[рис N]]
+    meta['sol_tikz'] = re.findall(r'```latex\n(.*?)\n```', sol, re.S)
+    n = iter(range(1, len(meta['sol_tikz']) + 1))
+    sol = re.sub(r'```latex\n.*?\n```', lambda _: f'[[рис {next(n)}]]', sol, flags=re.S)
     meta['solution'] = None if sol in ('', 'TODO') else sol
     meta['unit'] = meta.get('unit', '')
     meta['check'] = check_mode(meta)
@@ -108,6 +112,13 @@ def main():
             else:
                 problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
         t['images'] = imgs
+        t['solution_images'] = []
+        for i in range(1, len(t['sol_tikz']) + 1):
+            name = f"{t['id']}_s{i}.svg"
+            if os.path.exists(os.path.join(a.assets, name)):
+                t['solution_images'].append('assets/' + name)
+            else:
+                problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
         tasks.append(t)
     for i, n in ids.items():
         if n > 1:
