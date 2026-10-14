@@ -46,7 +46,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .btn { font: 600 15px/1 "PT Sans", sans-serif; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--blue); background: #fff; color: var(--blue); cursor: pointer; }
 .btn:hover, .btn[aria-expanded="true"] { background: var(--blue); color: #fff; }
 .reveal { margin-top: 10px; padding: 10px 12px; background: #F7F9FF; border-radius: 8px; }
-.reveal b { font-family: Oswald, sans-serif; font-weight: 500; }
+.reveal > b { font-family: Oswald, sans-serif; font-weight: 500; }
 .id { font-size: 12px; color: var(--muted); margin-top: 8px; }
 .more-wrap { text-align: center; margin: 8px 0 24px; }
 .status { text-align: center; color: var(--muted); }
