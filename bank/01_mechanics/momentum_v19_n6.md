@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: ИМПУЛЬС ТЕЛА. ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА
 topic: 1.3.1
-level: П
+level: Б
 type: соответствие/выбор
 variant: 19
 answer: "33"

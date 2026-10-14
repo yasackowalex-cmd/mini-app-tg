@@ -5,7 +5,7 @@ kim: 17
 section: Квантовая физика
 theme: ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА
 topic: 4.5
-level: П
+level: Б
 type: соответствие/выбор
 variant: 
 answer: "23"

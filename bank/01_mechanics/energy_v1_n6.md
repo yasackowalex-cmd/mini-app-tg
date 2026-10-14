@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: КИНЕТИЧЕСКАЯ И ПОТЕНЦИАЛЬНАЯ ЭНЕРГИЯ. ЗСЭ
 topic: 1.3.3
-level: П
+level: Б
 type: соответствие/выбор
 variant: 1
 answer: "31"

@@ -5,7 +5,7 @@ kim: 18
 section: Механика
 theme: ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИЙ ПАКЕТ)
 topic: 4.7
-level: П
+level: Б
 type: соответствие/выбор
 variant: 
 answer: "245"

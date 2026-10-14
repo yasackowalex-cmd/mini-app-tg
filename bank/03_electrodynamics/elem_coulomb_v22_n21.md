@@ -5,7 +5,7 @@ kim: 21
 section: Электродинамика
 theme: ЗАКОН КУЛОНА. НАПРЯЖЕННОСТЬ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
 topic: 3.1.1
-level: В
+level: П
 type: качественная
 variant: 22
 answer: "L/3"
