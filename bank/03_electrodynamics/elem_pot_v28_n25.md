@@ -5,7 +5,7 @@ kim: 25
 section: Электродинамика
 theme: ПОТЕНЦИАЛ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
 topic: 3.1.2
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 28
 answer: "4500"

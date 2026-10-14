@@ -5,7 +5,7 @@ kim: 26
 section: Механика
 theme: ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА И СВЯЗАННЫЕ ТЕЛА)
 topic: 1.2.2
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 
 answer: "0,7"

@@ -5,7 +5,7 @@ kim: 22
 section: Механика
 theme: ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)
 topic: 1.3.1
-level: Б
+level: П
 type: расчётная (часть 2)
 variant: 5
 answer: "1,6"

@@ -5,7 +5,7 @@ kim: 14
 section: Электродинамика
 theme: ПОТЕНЦИАЛ ЭЛЕКТРИЧЕСКОГО ПОЛЯ
 topic: 3.1.2
-level: Б
+level: П
 type: соответствие/выбор
 variant: 17
 answer: "25"

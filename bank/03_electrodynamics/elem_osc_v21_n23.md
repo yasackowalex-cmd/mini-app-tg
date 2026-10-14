@@ -5,7 +5,7 @@ kim: 25
 section: Электродинамика
 theme: КОЛЕБАТЕЛЬНЫЙ КОНТУР
 topic: 3.2.3
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 21
 answer: "2"

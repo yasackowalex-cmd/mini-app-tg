@@ -5,7 +5,7 @@ kim: 26
 section: Механика
 theme: СИЛА ТРЕНИЯ (ДИНАМИКА СВЯЗАННЫХ ТЕЛ)
 topic: 1.2.4
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 11
 answer: "0,85"

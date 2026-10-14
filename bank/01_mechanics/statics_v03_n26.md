@@ -5,7 +5,7 @@ kim: 26
 section: Механика
 theme: МОМЕНТ СИЛЫ. СТАТИКА
 topic: 1.4.1
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 
 answer: "0,16"

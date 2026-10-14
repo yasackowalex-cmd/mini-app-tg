@@ -5,7 +5,7 @@ kim: 24
 section: МКТ и термодинамика
 theme: КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА
 topic: 2.6
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 
 answer: "30"

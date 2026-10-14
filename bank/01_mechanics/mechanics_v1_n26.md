@@ -5,7 +5,7 @@ kim: 26
 section: Механика
 theme: МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)
 topic: 1.4.1
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 1
 answer: "3,13"

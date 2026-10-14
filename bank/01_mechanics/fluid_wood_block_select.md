@@ -5,7 +5,7 @@ kim: 5
 section: Механика
 theme: ДАВЛЕНИЕ. СИЛА АРХИМЕДА
 topic: 1.4.2
-level: Б
+level: П
 type: соответствие/выбор
 variant: 
 answer: "145"

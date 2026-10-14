@@ -5,7 +5,7 @@ kim: 25
 section: Оптика
 theme: 
 topic: 4.3
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 9
 answer: "600"

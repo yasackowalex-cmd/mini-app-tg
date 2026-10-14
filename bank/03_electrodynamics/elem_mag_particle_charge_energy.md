@@ -5,7 +5,7 @@ kim: 25
 section: Электродинамика
 theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА
 topic: 3.2.1
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 
 answer: "8"
