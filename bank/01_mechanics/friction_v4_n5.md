@@ -5,7 +5,7 @@ kim: 5
 section: Механика
 theme: СИЛА ТРЕНИЯ
 topic: 1.2.4
-level: Б
+level: П
 type: соответствие/выбор
 variant: 4
 answer: "25"

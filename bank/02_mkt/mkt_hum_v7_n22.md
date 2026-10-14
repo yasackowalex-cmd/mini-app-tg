@@ -5,7 +5,7 @@ kim: 23
 section: МКТ и термодинамика
 theme: ВЛАЖНОСТЬ ВОЗДУХА. НАСЫЩЕННЫЕ ПАРЫ
 topic: 2.3
-level: Б
+level: П
 type: расчётная (часть 2)
 variant: 7
 answer: "68"

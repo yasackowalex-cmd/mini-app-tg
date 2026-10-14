@@ -5,7 +5,7 @@ kim: 22
 section: Механика
 theme: МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)
 topic: 1.3.2
-level: Б
+level: П
 type: расчётная (часть 2)
 variant: 11
 answer: "2000"

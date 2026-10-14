@@ -5,7 +5,7 @@ kim: 25
 section: Электродинамика
 theme: РАБОТА И МОЩНОСТЬ ТОКА. ЗАКОН ДЖОУЛЯ — ЛЕНЦА
 topic: 3.1.6
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 27
 answer: "60"

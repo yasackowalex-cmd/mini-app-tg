@@ -5,7 +5,7 @@ kim: 15
 section: Оптика
 theme: 
 topic: 4.1
-level: Б
+level: П
 type: соответствие/выбор
 variant: 
 answer: "22"

@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ И ВОЛНЫ
 topic: 1.5.2
-level: Б
+level: П
 type: соответствие/выбор
 variant: 1
 answer: "31"

@@ -5,7 +5,7 @@ kim: 25
 section: Электродинамика
 theme: 
 topic: 3.1.3
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 
 answer: "50"

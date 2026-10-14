@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: ГИДРОСТАТИКА. СИЛА АРХИМЕДА
 topic: 1.4.2
-level: Б
+level: П
 type: соответствие/выбор
 variant: 
 answer: "13"

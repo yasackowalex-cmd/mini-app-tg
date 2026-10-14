@@ -5,7 +5,7 @@ kim: 22
 section: Механика
 theme: СИЛА УПРУГОСТИ (ЗАКОН ГУКА)
 topic: 1.2.4
-level: Б
+level: П
 type: расчётная (часть 2)
 variant: 2
 answer: "150"

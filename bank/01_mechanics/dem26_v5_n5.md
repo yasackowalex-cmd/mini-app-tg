@@ -5,7 +5,7 @@ kim: 5
 section: Механика
 theme: 
 topic: 1.1.3
-level: Б
+level: П
 type: соответствие/выбор
 variant: 5
 answer: "34"

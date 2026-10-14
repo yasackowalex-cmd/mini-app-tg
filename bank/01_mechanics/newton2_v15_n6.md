@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА)
 topic: 1.2.2
-level: Б
+level: П
 type: соответствие/выбор
 variant: 15
 answer: "14"

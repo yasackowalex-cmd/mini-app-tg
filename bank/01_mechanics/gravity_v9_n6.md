@@ -5,7 +5,7 @@ kim: 6
 section: Механика
 theme: ЗАКОН ВСЕМИРНОГО ТЯГОТЕНИЯ И ТРЕТИЙ ЗАКОН НЬЮТОНА
 topic: 1.2.3
-level: Б
+level: П
 type: соответствие/выбор
 variant: 9
 answer: "12"

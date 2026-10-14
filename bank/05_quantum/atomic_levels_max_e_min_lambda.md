@@ -5,7 +5,7 @@ kim: 17
 section: Квантовая физика
 theme: РАДИОАКТИВНЫЙ РАСПАД. КВАНТОВЫЕ ПЕРЕХОДЫ
 topic: 4.6
-level: Б
+level: П
 type: соответствие/выбор
 variant: 
 answer: "42"

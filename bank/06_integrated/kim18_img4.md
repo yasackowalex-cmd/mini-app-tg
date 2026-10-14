@@ -5,7 +5,7 @@ kim: 18
 section: Механика
 theme: ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ДОПОЛНИТЕЛЬНАЯ ВЫРЕЗКА)
 topic: 4.7
-level: Б
+level: П
 type: соответствие/выбор
 variant: 
 answer: "35"

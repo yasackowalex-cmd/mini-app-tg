@@ -5,7 +5,7 @@ kim: 26
 section: Механика
 theme: ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)
 topic: 1.3.1
-level: Б
+level: В
 type: расчётная (часть 2)
 variant: 16
 answer: "\\dfrac{2g\\tau}{\\sqrt{3}\\sin\\alpha}"
