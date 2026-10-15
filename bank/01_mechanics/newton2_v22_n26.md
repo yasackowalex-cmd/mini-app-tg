@@ -86,24 +86,24 @@ source: din.tex
   % брусок с креплением блока
   \draw[thick, fill=brandPrimary!10] (0,0) rectangle (0.8,1.2);
   \node at (0.4,0.3) {$M$};
-  \draw[thick, fill=gray!30] (0.8,0.6) rectangle (1.15,0.7);
-  \draw[thick, fill=gray!10] (1.4,0.65) circle (0.25);
-  \fill (1.4,0.65) circle (1.2pt);
+  \draw[thick, fill=gray!30] (0.8,0.6) rectangle (1.5,0.7);
+  \draw[thick, fill=gray!10] (1.75,0.65) circle (0.25);
+  \fill (1.75,0.65) circle (1.2pt);
   % тело
   \draw[thick, fill=brandAccent!20] (3.6,0) rectangle (4.2,0.5);
   \node at (3.9,0.2) {$m$};
   % нити
-  \draw[thick] (1.4,0.9) -- (4.7,0.9);
-  \draw[thick] (1.4,0.4) -- (3.6,0.4);
+  \draw[thick] (1.75,0.9) -- (4.7,0.9);
+  \draw[thick] (1.75,0.4) -- (3.6,0.4);
   % силы на брусок
   \draw[Fvec] (0,0.75) -- (-0.9,0.75) node[above] {$\vec F$};
   \draw[Fvec] (0.8,0.15) -- (1.3,0.15) node[right] {$\vec T_4$};
   % силы на блок
-  \draw[Fvec] (1.4,0.9) -- (1.95,0.9) node[above] {$\vec T_2$};
-  \draw[Fvec] (1.4,0.4) -- (2.05,0.4) node[above right, inner sep=1pt] {$\vec T_2$};
-  \draw[Fvec] (1.15,0.65) -- (0.85,1.0) node[above] {$\vec T_3$};
+  \draw[Fvec] (1.75,0.9) -- (2.3,0.9) node[above] {$\vec T_2$};
+  \draw[Fvec] (1.75,0.4) -- (2.4,0.4) node[above right, inner sep=1pt] {$\vec T_2$};
+  \draw[Fvec] (1.75,0.65) -- (1.0,0.65) node[above, xshift=4pt, yshift=1pt] {$\vec T_3$};
   % сила на тело
-  \draw[Fvec] (3.6,0.4) -- (2.95,0.4) node[above, inner sep=2pt] {$\vec T_1$};
+  \draw[Fvec] (3.6,0.4) -- (2.95,0.4) node[midway, above, inner sep=2pt] {$\vec T_1$};
   % ускорения
   \draw[vvec] (0.7,1.55) -- (0.0,1.55) node[left] {$\vec a_2$};
   \draw[vvec] (4.2,-0.45) -- (2.9,-0.45) node[left] {$\vec a_1$};
