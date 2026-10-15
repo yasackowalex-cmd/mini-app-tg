@@ -20,6 +20,8 @@ source: cap.tex
 
 Незаряженное металлическое тело незамкнутой формы внесли во внешнее однородное электростатическое поле с напряжённостью $\vec{E}_0$. На рисунке показано сечение тела и точки $A, B, C, D$. Из приведённого ниже списка выберите все верные утверждения относительно электростатического состояния тела.
 
+[[рис 1]]
+
 1) Напряжённость суммарного электрического поля в точке $B$ равна нулю.\\
 2) Потенциал электрического поля в точке $A$ больше, чем в точке $C$.\\
 3) Концентрация свободных электронов в точке $A$ меньше, чем в точке $C$.\\
@@ -31,19 +33,17 @@ source: cap.tex
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
     % Силовые линии внешнего поля
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,0.6) -- (1.2,0.6);
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,1.5) -- (1.2,1.5) node[above left] {$\vec{E}_0$};
-    \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0.2,2.4) -- (1.2,2.4);
-    
-    % Проводник
-    \draw[ultra thick, black, fill=gray!20] (2,0.5) -- (4,0.5) arc (-90:90:1) -- (2,2.5) arc (90:270:0.5) -- cycle;
-    
+    \foreach \y in {0.4,1.5,2.6}
+      \draw[-{Stealth[scale=0.8]}, brandPrimary, thick] (0,\y) -- (1.1,\y);
+    \node[above] at (0.55,1.5) {$\vec{E}_0$};
+    % Сечение незамкнутого металлического тела
+    \draw[thick, black, fill=gray!20, rounded corners=3pt]
+      (4.6,0) -- (1.6,0) -- (1.6,3) -- (4.6,3) -- (4.6,2.2) -- (2.4,2.2) -- (2.4,0.8) -- (4.6,0.8) -- cycle;
     % Точки
-    \fill[black] (1.6,1.5) circle (1.5pt) node[left] {$A$};
-    \fill[black] (3,1.5) circle (1.5pt) node[above] {$B$};
-    \fill[black] (4.4,1.5) circle (1.5pt) node[right] {$C$};
-    \fill[black] (3,0.5) circle (1.5pt) node[below] {$D$};
-    
+    \fill[black] (2.0,1.5) circle (1.5pt) node[right] {$A$};
+    \fill[black] (3.3,2.6) circle (1.5pt) node[right] {$B$};
+    \fill[black] (4.2,0.4) circle (1.5pt) node[left] {$C$};
+    \fill[black] (3.5,1.5) circle (1.5pt) node[right] {$D$};
 \end{tikzpicture}
 ```
 

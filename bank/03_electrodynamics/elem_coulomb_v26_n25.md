@@ -24,8 +24,6 @@ source: col.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (-1,0) grid (3,3);
-    
     % Пластины
     \draw[ultra thick, black] (-0.5,0.5) -- (-0.5,2.5);
     \draw[ultra thick, black] (2.5,0.5) -- (2.5,2.5);
@@ -45,8 +43,7 @@ source: col.tex
     % Угол alpha
     \draw (1,2.0) arc (270:300:0.5);
     \node at (1.15,1.8) {$\alpha$};
-    
-    \node[below left] at (-1,0) {0};
+
 \end{tikzpicture}
 ```
 
