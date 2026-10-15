@@ -25,10 +25,9 @@ source: ohm2.tex
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
     % Внешняя контурная рамка цепи
-    \draw[thick, black] (0.5,0.5) -- (0.5,2.5) -- (3.5,2.5) -- (3.5,0.5) -- cycle;
+    \draw[thick, black] (0.5,1.4) -- (0.5,0.5) -- (3.5,0.5) -- (3.5,2.5) -- (0.5,2.5) -- (0.5,1.6);
     
     % Источник тока (слева)
-    \fill[white] (0.5,1.1) rectangle (0.5,1.9);
     \draw[thick, black] (0.5,1.1) -- (0.5,1.4);
     \draw[thick, black] (0.2,1.4) -- (0.8,1.4);
     \draw[ultra thick, black] (0.35,1.6) -- (0.65,1.6);
