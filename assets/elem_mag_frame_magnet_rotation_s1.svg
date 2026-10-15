@@ -35,7 +35,7 @@
 <path d='M36.4062-31.78125C61.0313-31.78125 74.4336-25.0352 99.0547-25.0352' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <path d='M-11.7813-27.92578V-46.23828H12.3125V-27.92578Z' fill='#fff'/>
 <path d='M-11.7813-27.92578V-46.23828H12.3125V-27.92578Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
-<path d='M12.3125-27.92578V-46.23828H36.4062V-27.92578Z'/>
+<path d='M12.3125-27.92578V-46.23828H36.4062V-27.92578Z' fill='#c7ffff'/>
 <path d='M12.3125-27.92578V-46.23828H36.4062V-27.92578Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10' stroke-linejoin='bevel'/>
 <g transform='matrix(1 0 0 1 -15.99516 4.0847)'>
 <use x='12.312684' y='-37.081054' xlink:href='#g3-83'/>

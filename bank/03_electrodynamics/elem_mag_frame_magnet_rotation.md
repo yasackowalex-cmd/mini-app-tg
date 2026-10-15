@@ -25,8 +25,10 @@ source: mag.tex
 ```latex
 \begin{tikzpicture}[scale=0.7, line join=round, every node/.style={font=\small}]
   % полосовой магнит в перспективе
-  \fill[black] (1.30,1.90) -- (2.70,1.90) -- (2.70,3.10) -- (1.30,3.10) -- (0.75,3.65) -- (0.75,2.45) -- cycle;
-  \fill[gray!55] (1.30,3.10) -- (2.70,3.10) -- (2.15,3.65) -- (0.75,3.65) -- cycle;
+  % северный полюс голубой
+  \fill[cyan!22] (1.30,1.90) rectangle (2.70,3.10);
+  \fill[cyan!45] (1.30,1.90) -- (1.30,3.10) -- (0.75,3.65) -- (0.75,2.45) -- cycle;
+  \fill[cyan!32] (1.30,3.10) -- (2.70,3.10) -- (2.15,3.65) -- (0.75,3.65) -- cycle;
   \draw[thick] (1.30,1.90) rectangle (4.05,3.10);
   \draw[thick] (1.30,3.10) -- (0.75,3.65) -- (3.50,3.65) -- (4.05,3.10);
   \draw[thick] (0.75,3.65) -- (0.75,2.45) -- (1.30,1.90);
@@ -65,9 +67,9 @@ source: mag.tex
   \draw[thick] (1,-0.3) to[out=-10, in=160] (3.6,-1.35);
   \draw[thick] (1,0.22) to[out=0, in=180] (3.6,0.5);
   \draw[thick] (1,-0.22) to[out=0, in=180] (3.6,-0.5);
-  % магнит в сечении: S слева (белый), N справа (чёрный)
+  % магнит в сечении: S слева (белый), N справа (голубой)
   \draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);
-  \draw[thick, fill=black] (0,-0.38) rectangle (1,0.38);
+  \draw[thick, fill=cyan!22] (0,-0.38) rectangle (1,0.38);
   \node[font=\large] at (-0.5,0) {$S$};
   \draw[thick, fill=white] (1.9,0) circle (0.17);
   \draw[thick] (1.9-0.12,0-0.12) -- (1.9+0.12,0+0.12) (1.9-0.12,0+0.12) -- (1.9+0.12,0-0.12);
@@ -94,9 +96,9 @@ source: mag.tex
   \draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\arrow{Stealth}}}] (1,0) -- (4.0,0);
   \draw[thick] (1,0.3) to[out=15, in=210] (3.8,1.45);
   \draw[thick] (1,-0.3) to[out=-15, in=150] (3.8,-1.45);
-  % магнит в сечении: S слева (белый), N справа (чёрный)
+  % магнит в сечении: S слева (белый), N справа (голубой)
   \draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);
-  \draw[thick, fill=black] (0,-0.38) rectangle (1,0.38);
+  \draw[thick, fill=cyan!22] (0,-0.38) rectangle (1,0.38);
   \node[font=\large] at (-0.5,0) {$S$};
   \coordinate (W2) at (2.75,0.87);
   \coordinate (W1) at (2.75,-0.87);

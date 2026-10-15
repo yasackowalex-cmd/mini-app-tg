@@ -29,10 +29,10 @@
   "check": "number",
   "file": "01_mechanics/2d_friction_inclined_n26.md",
   "images": [
-   "assets/2d_friction_inclined_n26_1.svg"
+   "assets/2d_friction_inclined_n26_1.svg?v=8e1cac2c"
   ],
   "solution_images": [
-   "assets/2d_friction_inclined_n26_s1.svg"
+   "assets/2d_friction_inclined_n26_s1.svg?v=f185547f"
   ]
  },
  {
@@ -65,10 +65,10 @@
   "check": "number",
   "file": "01_mechanics/atwood_overload_n26.md",
   "images": [
-   "assets/atwood_overload_n26_1.svg"
+   "assets/atwood_overload_n26_1.svg?v=11ae5ec1"
   ],
   "solution_images": [
-   "assets/atwood_overload_n26_s1.svg"
+   "assets/atwood_overload_n26_s1.svg?v=044c6952"
   ]
  },
  {
@@ -98,7 +98,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v10_n1.md",
   "images": [
-   "assets/dem26_v10_n1_1.svg"
+   "assets/dem26_v10_n1_1.svg?v=195867ea"
   ],
   "solution_images": []
  },
@@ -210,7 +210,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v11_n1.md",
   "images": [
-   "assets/dem26_v11_n1_1.svg"
+   "assets/dem26_v11_n1_1.svg?v=5e026061"
   ],
   "solution_images": []
  },
@@ -296,7 +296,7 @@
   "file": "01_mechanics/dem26_v11_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v11_n4_s1.svg"
+   "assets/dem26_v11_n4_s1.svg?v=ea2018be"
   ]
  },
  {
@@ -326,7 +326,7 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v11_n6.md",
   "images": [
-   "assets/dem26_v11_n6_1.svg"
+   "assets/dem26_v11_n6_1.svg?v=7c4b940d"
   ],
   "solution_images": []
  },
@@ -357,7 +357,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v12_n1.md",
   "images": [
-   "assets/dem26_v12_n1_1.svg"
+   "assets/dem26_v12_n1_1.svg?v=5e026061"
   ],
   "solution_images": []
  },
@@ -469,7 +469,7 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v12_n6.md",
   "images": [
-   "assets/dem26_v12_n6_1.svg"
+   "assets/dem26_v12_n6_1.svg?v=1ec30682"
   ],
   "solution_images": []
  },
@@ -500,7 +500,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v13_n1.md",
   "images": [
-   "assets/dem26_v13_n1_1.svg"
+   "assets/dem26_v13_n1_1.svg?v=21a021cc"
   ],
   "solution_images": []
  },
@@ -612,7 +612,7 @@
   "check": "set",
   "file": "01_mechanics/dem26_v13_n5.md",
   "images": [
-   "assets/dem26_v13_n5_1.svg"
+   "assets/dem26_v13_n5_1.svg?v=f1482a60"
   ],
   "solution_images": []
  },
@@ -643,7 +643,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v14_n1.md",
   "images": [
-   "assets/dem26_v14_n1_1.svg"
+   "assets/dem26_v14_n1_1.svg?v=21a021cc"
   ],
   "solution_images": []
  },
@@ -755,7 +755,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v15_n1.md",
   "images": [
-   "assets/dem26_v15_n1_1.svg"
+   "assets/dem26_v15_n1_1.svg?v=07229233"
   ],
   "solution_images": []
  },
@@ -868,8 +868,8 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v15_n6.md",
   "images": [
-   "assets/dem26_v15_n6_1.svg",
-   "assets/dem26_v15_n6_2.svg"
+   "assets/dem26_v15_n6_1.svg?v=61c8e0cb",
+   "assets/dem26_v15_n6_2.svg?v=091ae0d4"
   ],
   "solution_images": []
  },
@@ -900,7 +900,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v16_n1.md",
   "images": [
-   "assets/dem26_v16_n1_1.svg"
+   "assets/dem26_v16_n1_1.svg?v=07229233"
   ],
   "solution_images": []
  },
@@ -1012,7 +1012,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v17_n1.md",
   "images": [
-   "assets/dem26_v17_n1_1.svg"
+   "assets/dem26_v17_n1_1.svg?v=e6cb314e"
   ],
   "solution_images": []
  },
@@ -1043,7 +1043,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v17_n2.md",
   "images": [
-   "assets/dem26_v17_n2_1.svg"
+   "assets/dem26_v17_n2_1.svg?v=d4c7457c"
   ],
   "solution_images": []
  },
@@ -1129,7 +1129,7 @@
   "file": "01_mechanics/dem26_v17_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v17_n4_s1.svg"
+   "assets/dem26_v17_n4_s1.svg?v=d3ef274a"
   ]
  },
  {
@@ -1160,8 +1160,8 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v17_n6.md",
   "images": [
-   "assets/dem26_v17_n6_1.svg",
-   "assets/dem26_v17_n6_2.svg"
+   "assets/dem26_v17_n6_1.svg?v=3e844b6a",
+   "assets/dem26_v17_n6_2.svg?v=2a5fd25c"
   ],
   "solution_images": []
  },
@@ -1192,7 +1192,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v18_n1.md",
   "images": [
-   "assets/dem26_v18_n1_1.svg"
+   "assets/dem26_v18_n1_1.svg?v=e6cb314e"
   ],
   "solution_images": []
  },
@@ -1225,10 +1225,10 @@
   "check": "number",
   "file": "01_mechanics/dem26_v18_n2.md",
   "images": [
-   "assets/dem26_v18_n2_1.svg"
+   "assets/dem26_v18_n2_1.svg?v=d4c7457c"
   ],
   "solution_images": [
-   "assets/dem26_v18_n2_s1.svg"
+   "assets/dem26_v18_n2_s1.svg?v=0db915b6"
   ]
  },
  {
@@ -1286,7 +1286,7 @@
   "file": "01_mechanics/dem26_v18_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v18_n4_s1.svg"
+   "assets/dem26_v18_n4_s1.svg?v=cc4ba886"
   ]
  },
  {
@@ -1316,7 +1316,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v19_n1.md",
   "images": [
-   "assets/dem26_v19_n1_1.svg"
+   "assets/dem26_v19_n1_1.svg?v=57547940"
   ],
   "solution_images": []
  },
@@ -1375,7 +1375,7 @@
   "file": "01_mechanics/dem26_v19_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v19_n4_s1.svg"
+   "assets/dem26_v19_n4_s1.svg?v=3d50f349"
   ]
  },
  {
@@ -1405,7 +1405,7 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v19_n6.md",
   "images": [
-   "assets/dem26_v19_n6_1.svg"
+   "assets/dem26_v19_n6_1.svg?v=17c90e09"
   ],
   "solution_images": []
  },
@@ -1436,7 +1436,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v1_n1.md",
   "images": [
-   "assets/dem26_v1_n1_1.svg"
+   "assets/dem26_v1_n1_1.svg?v=d76a58f9"
   ],
   "solution_images": []
  },
@@ -1495,7 +1495,7 @@
   "file": "01_mechanics/dem26_v1_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v1_n4_s1.svg"
+   "assets/dem26_v1_n4_s1.svg?v=db3b607e"
   ]
  },
  {
@@ -1525,7 +1525,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v20_n1.md",
   "images": [
-   "assets/dem26_v20_n1_1.svg"
+   "assets/dem26_v20_n1_1.svg?v=57547940"
   ],
   "solution_images": []
  },
@@ -1584,7 +1584,7 @@
   "file": "01_mechanics/dem26_v20_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v20_n4_s1.svg"
+   "assets/dem26_v20_n4_s1.svg?v=65c0b334"
   ]
  },
  {
@@ -1614,7 +1614,7 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v20_n6.md",
   "images": [
-   "assets/dem26_v20_n6_1.svg"
+   "assets/dem26_v20_n6_1.svg?v=cbcc63f6"
   ],
   "solution_images": []
  },
@@ -1645,7 +1645,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v21_n1.md",
   "images": [
-   "assets/dem26_v21_n1_1.svg"
+   "assets/dem26_v21_n1_1.svg?v=bdaa6800"
   ],
   "solution_images": []
  },
@@ -1676,7 +1676,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v22_n1.md",
   "images": [
-   "assets/dem26_v22_n1_1.svg"
+   "assets/dem26_v22_n1_1.svg?v=bdaa6800"
   ],
   "solution_images": []
  },
@@ -1707,7 +1707,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v23_n1.md",
   "images": [
-   "assets/dem26_v23_n1_1.svg"
+   "assets/dem26_v23_n1_1.svg?v=ed725b0c"
   ],
   "solution_images": []
  },
@@ -1765,7 +1765,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v24_n1.md",
   "images": [
-   "assets/dem26_v24_n1_1.svg"
+   "assets/dem26_v24_n1_1.svg?v=ed725b0c"
   ],
   "solution_images": []
  },
@@ -1823,7 +1823,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v25_n1.md",
   "images": [
-   "assets/dem26_v25_n1_1.svg"
+   "assets/dem26_v25_n1_1.svg?v=e4bde89c"
   ],
   "solution_images": []
  },
@@ -1854,7 +1854,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v26_n1.md",
   "images": [
-   "assets/dem26_v26_n1_1.svg"
+   "assets/dem26_v26_n1_1.svg?v=e4bde89c"
   ],
   "solution_images": []
  },
@@ -1885,7 +1885,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v27_n1.md",
   "images": [
-   "assets/dem26_v27_n1_1.svg"
+   "assets/dem26_v27_n1_1.svg?v=4fbd31ad"
   ],
   "solution_images": []
  },
@@ -1916,7 +1916,7 @@
   "check": "set",
   "file": "01_mechanics/dem26_v27_n5.md",
   "images": [
-   "assets/dem26_v27_n5_1.svg"
+   "assets/dem26_v27_n5_1.svg?v=01cc2766"
   ],
   "solution_images": []
  },
@@ -1948,8 +1948,8 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v27_n6.md",
   "images": [
-   "assets/dem26_v27_n6_1.svg",
-   "assets/dem26_v27_n6_2.svg"
+   "assets/dem26_v27_n6_1.svg?v=3e844b6a",
+   "assets/dem26_v27_n6_2.svg?v=c687a77a"
   ],
   "solution_images": []
  },
@@ -1980,7 +1980,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v28_n1.md",
   "images": [
-   "assets/dem26_v28_n1_1.svg"
+   "assets/dem26_v28_n1_1.svg?v=02824935"
   ],
   "solution_images": []
  },
@@ -2011,7 +2011,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v29_n1.md",
   "images": [
-   "assets/dem26_v29_n1_1.svg"
+   "assets/dem26_v29_n1_1.svg?v=1125c85b"
   ],
   "solution_images": []
  },
@@ -2043,8 +2043,8 @@
   "check": "seq",
   "file": "01_mechanics/dem26_v29_n6.md",
   "images": [
-   "assets/dem26_v29_n6_1.svg",
-   "assets/dem26_v29_n6_2.svg"
+   "assets/dem26_v29_n6_1.svg?v=7144a011",
+   "assets/dem26_v29_n6_2.svg?v=d4dbc1c6"
   ],
   "solution_images": []
  },
@@ -2075,7 +2075,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v2_n1.md",
   "images": [
-   "assets/dem26_v2_n1_1.svg"
+   "assets/dem26_v2_n1_1.svg?v=d76a58f9"
   ],
   "solution_images": []
  },
@@ -2107,7 +2107,7 @@
   "file": "01_mechanics/dem26_v2_n3.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v2_n3_s1.svg"
+   "assets/dem26_v2_n3_s1.svg?v=3ae85d31"
   ]
  },
  {
@@ -2138,7 +2138,7 @@
   "file": "01_mechanics/dem26_v2_n4.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v2_n4_s1.svg"
+   "assets/dem26_v2_n4_s1.svg?v=2b1fa368"
   ]
  },
  {
@@ -2168,7 +2168,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v30_n1.md",
   "images": [
-   "assets/dem26_v30_n1_1.svg"
+   "assets/dem26_v30_n1_1.svg?v=1125c85b"
   ],
   "solution_images": []
  },
@@ -2199,7 +2199,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v3_n1.md",
   "images": [
-   "assets/dem26_v3_n1_1.svg"
+   "assets/dem26_v3_n1_1.svg?v=77b305bf"
   ],
   "solution_images": []
  },
@@ -2311,7 +2311,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v4_n1.md",
   "images": [
-   "assets/dem26_v4_n1_1.svg"
+   "assets/dem26_v4_n1_1.svg?v=0253f3f5"
   ],
   "solution_images": []
  },
@@ -2423,7 +2423,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v5_n1.md",
   "images": [
-   "assets/dem26_v5_n1_1.svg"
+   "assets/dem26_v5_n1_1.svg?v=4e2d6ca8"
   ],
   "solution_images": []
  },
@@ -2508,7 +2508,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v5_n4.md",
   "images": [
-   "assets/dem26_v5_n4_1.svg"
+   "assets/dem26_v5_n4_1.svg?v=a078247d"
   ],
   "solution_images": []
  },
@@ -2539,7 +2539,7 @@
   "check": "set",
   "file": "01_mechanics/dem26_v5_n5.md",
   "images": [
-   "assets/dem26_v5_n5_1.svg"
+   "assets/dem26_v5_n5_1.svg?v=d2a1e243"
   ],
   "solution_images": []
  },
@@ -2570,7 +2570,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v6_n1.md",
   "images": [
-   "assets/dem26_v6_n1_1.svg"
+   "assets/dem26_v6_n1_1.svg?v=86061adc"
   ],
   "solution_images": []
  },
@@ -2655,7 +2655,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v6_n4.md",
   "images": [
-   "assets/dem26_v6_n4_1.svg"
+   "assets/dem26_v6_n4_1.svg?v=dfc2196d"
   ],
   "solution_images": []
  },
@@ -2686,7 +2686,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v7_n1.md",
   "images": [
-   "assets/dem26_v7_n1_1.svg"
+   "assets/dem26_v7_n1_1.svg?v=77b305bf"
   ],
   "solution_images": []
  },
@@ -2798,7 +2798,7 @@
   "check": "set",
   "file": "01_mechanics/dem26_v7_n5.md",
   "images": [
-   "assets/dem26_v7_n5_1.svg"
+   "assets/dem26_v7_n5_1.svg?v=1cc73e27"
   ],
   "solution_images": []
  },
@@ -2829,7 +2829,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v8_n1.md",
   "images": [
-   "assets/dem26_v8_n1_1.svg"
+   "assets/dem26_v8_n1_1.svg?v=31efcba7"
   ],
   "solution_images": []
  },
@@ -2941,7 +2941,7 @@
   "check": "number",
   "file": "01_mechanics/dem26_v9_n1.md",
   "images": [
-   "assets/dem26_v9_n1_1.svg"
+   "assets/dem26_v9_n1_1.svg?v=195867ea"
   ],
   "solution_images": []
  },
@@ -2973,7 +2973,7 @@
   "file": "01_mechanics/dem26_v9_n2.md",
   "images": [],
   "solution_images": [
-   "assets/dem26_v9_n2_s1.svg"
+   "assets/dem26_v9_n2_s1.svg?v=3f36c504"
   ]
  },
  {
@@ -3060,10 +3060,10 @@
   "check": "number",
   "file": "01_mechanics/elastic_friction_connected_n26.md",
   "images": [
-   "assets/elastic_friction_connected_n26_1.svg"
+   "assets/elastic_friction_connected_n26_1.svg?v=dcf98765"
   ],
   "solution_images": [
-   "assets/elastic_friction_connected_n26_s1.svg"
+   "assets/elastic_friction_connected_n26_s1.svg?v=b4e90abd"
   ]
  },
  {
@@ -3096,10 +3096,10 @@
   "check": "number",
   "file": "01_mechanics/elastic_inclined_connected_n26.md",
   "images": [
-   "assets/elastic_inclined_connected_n26_1.svg"
+   "assets/elastic_inclined_connected_n26_1.svg?v=3f6283a5"
   ],
   "solution_images": [
-   "assets/elastic_inclined_connected_n26_s1.svg"
+   "assets/elastic_inclined_connected_n26_s1.svg?v=10d13c55"
   ]
  },
  {
@@ -3129,7 +3129,7 @@
   "check": "number",
   "file": "01_mechanics/elastic_v11_n2.md",
   "images": [
-   "assets/elastic_v11_n2_1.svg"
+   "assets/elastic_v11_n2_1.svg?v=49d54e10"
   ],
   "solution_images": []
  },
@@ -3214,7 +3214,7 @@
   "check": "number",
   "file": "01_mechanics/elastic_v5_n2.md",
   "images": [
-   "assets/elastic_v5_n2_1.svg"
+   "assets/elastic_v5_n2_1.svg?v=26e49418"
   ],
   "solution_images": []
  },
@@ -3246,8 +3246,8 @@
   "check": "seq",
   "file": "01_mechanics/energy_v1_n6.md",
   "images": [
-   "assets/energy_v1_n6_1.svg",
-   "assets/energy_v1_n6_2.svg"
+   "assets/energy_v1_n6_1.svg?v=eae6fa1a",
+   "assets/energy_v1_n6_2.svg?v=57e5e832"
   ],
   "solution_images": []
  },
@@ -3279,8 +3279,8 @@
   "check": "seq",
   "file": "01_mechanics/energy_v2_n6.md",
   "images": [
-   "assets/energy_v2_n6_1.svg",
-   "assets/energy_v2_n6_2.svg"
+   "assets/energy_v2_n6_1.svg?v=eae6fa1a",
+   "assets/energy_v2_n6_2.svg?v=aeae2c18"
   ],
   "solution_images": []
  },
@@ -3364,7 +3364,7 @@
   "file": "01_mechanics/fluid_ball_bottom_kerosene.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_ball_bottom_kerosene_s1.svg"
+   "assets/fluid_ball_bottom_kerosene_s1.svg?v=6a908d5e"
   ]
  },
  {
@@ -3393,7 +3393,7 @@
   "file": "01_mechanics/fluid_ball_bottom_water.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_ball_bottom_water_s1.svg"
+   "assets/fluid_ball_bottom_water_s1.svg?v=d2b93413"
   ]
  },
  {
@@ -3422,7 +3422,7 @@
   "file": "01_mechanics/fluid_ball_kerosene_to_water.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_ball_kerosene_to_water_s1.svg"
+   "assets/fluid_ball_kerosene_to_water_s1.svg?v=3022c0e6"
   ]
  },
  {
@@ -3451,7 +3451,7 @@
   "file": "01_mechanics/fluid_ball_water_to_kerosene.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_ball_water_to_kerosene_s1.svg"
+   "assets/fluid_ball_water_to_kerosene_s1.svg?v=3022c0e6"
   ]
  },
  {
@@ -3505,7 +3505,7 @@
   "file": "01_mechanics/fluid_hollow_ball_float.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_hollow_ball_float_s1.svg"
+   "assets/fluid_hollow_ball_float_s1.svg?v=9385c97d"
   ]
  },
  {
@@ -3534,7 +3534,7 @@
   "file": "01_mechanics/fluid_hollow_ball_lake.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_hollow_ball_lake_s1.svg"
+   "assets/fluid_hollow_ball_lake_s1.svg?v=2fa9c241"
   ]
  },
  {
@@ -3564,10 +3564,10 @@
   "check": "number",
   "file": "01_mechanics/fluid_iron_ball_hg.md",
   "images": [
-   "assets/fluid_iron_ball_hg_1.svg"
+   "assets/fluid_iron_ball_hg_1.svg?v=569814cd"
   ],
   "solution_images": [
-   "assets/fluid_iron_ball_hg_s1.svg"
+   "assets/fluid_iron_ball_hg_s1.svg?v=a8fbfd3b"
   ]
  },
  {
@@ -3596,7 +3596,7 @@
   "file": "01_mechanics/fluid_iron_cube.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_iron_cube_s1.svg"
+   "assets/fluid_iron_cube_s1.svg?v=ea2018be"
   ]
  },
  {
@@ -3626,10 +3626,10 @@
   "check": "number",
   "file": "01_mechanics/fluid_two_liquids_ball.md",
   "images": [
-   "assets/fluid_two_liquids_ball_1.svg"
+   "assets/fluid_two_liquids_ball_1.svg?v=7e9cd0fe"
   ],
   "solution_images": [
-   "assets/fluid_two_liquids_ball_s1.svg"
+   "assets/fluid_two_liquids_ball_s1.svg?v=860d8146"
   ]
  },
  {
@@ -3658,7 +3658,7 @@
   "file": "01_mechanics/fluid_v06_n26.md",
   "images": [],
   "solution_images": [
-   "assets/fluid_v06_n26_s1.svg"
+   "assets/fluid_v06_n26_s1.svg?v=864be7d2"
   ]
  },
  {
@@ -3738,10 +3738,10 @@
   "check": "set",
   "file": "01_mechanics/fluid_wood_block_select.md",
   "images": [
-   "assets/fluid_wood_block_select_1.svg"
+   "assets/fluid_wood_block_select_1.svg?v=f2686083"
   ],
   "solution_images": [
-   "assets/fluid_wood_block_select_s1.svg"
+   "assets/fluid_wood_block_select_s1.svg?v=444ffeb1"
   ]
  },
  {
@@ -3773,10 +3773,10 @@
   "check": "number",
   "file": "01_mechanics/friction_v11_n26.md",
   "images": [
-   "assets/friction_v11_n26_1.svg"
+   "assets/friction_v11_n26_1.svg?v=7eadb3c6"
   ],
   "solution_images": [
-   "assets/friction_v11_n26_s1.svg"
+   "assets/friction_v11_n26_s1.svg?v=baf28db9"
   ]
  },
  {
@@ -3808,10 +3808,10 @@
   "check": "number",
   "file": "01_mechanics/friction_v12_n26.md",
   "images": [
-   "assets/friction_v12_n26_1.svg"
+   "assets/friction_v12_n26_1.svg?v=7eadb3c6"
   ],
   "solution_images": [
-   "assets/friction_v12_n26_s1.svg"
+   "assets/friction_v12_n26_s1.svg?v=baf28db9"
   ]
  },
  {
@@ -3842,7 +3842,7 @@
   "file": "01_mechanics/friction_v3_n5.md",
   "images": [],
   "solution_images": [
-   "assets/friction_v3_n5_s1.svg"
+   "assets/friction_v3_n5_s1.svg?v=335c06f9"
   ]
  },
  {
@@ -3873,7 +3873,7 @@
   "file": "01_mechanics/friction_v4_n5.md",
   "images": [],
   "solution_images": [
-   "assets/friction_v4_n5_s1.svg"
+   "assets/friction_v4_n5_s1.svg?v=335c06f9"
   ]
  },
  {
@@ -4175,10 +4175,10 @@
   "check": "number",
   "file": "01_mechanics/gravity_v25_n2.md",
   "images": [
-   "assets/gravity_v25_n2_1.svg"
+   "assets/gravity_v25_n2_1.svg?v=3600fca9"
   ],
   "solution_images": [
-   "assets/gravity_v25_n2_s1.svg"
+   "assets/gravity_v25_n2_s1.svg?v=10e61ccc"
   ]
  },
  {
@@ -4210,10 +4210,10 @@
   "check": "number",
   "file": "01_mechanics/gravity_v26_n2.md",
   "images": [
-   "assets/gravity_v26_n2_1.svg"
+   "assets/gravity_v26_n2_1.svg?v=b50a4720"
   ],
   "solution_images": [
-   "assets/gravity_v26_n2_s1.svg"
+   "assets/gravity_v26_n2_s1.svg?v=10e61ccc"
   ]
  },
  {
@@ -4462,10 +4462,10 @@
   "check": "none",
   "file": "01_mechanics/kim22_26_t20.md",
   "images": [
-   "assets/kim22_26_t20_1.svg"
+   "assets/kim22_26_t20_1.svg?v=59a23b64"
   ],
   "solution_images": [
-   "assets/kim22_26_t20_s1.svg"
+   "assets/kim22_26_t20_s1.svg?v=f2ad48f7"
   ]
  },
  {
@@ -4497,10 +4497,10 @@
   "check": "number",
   "file": "01_mechanics/kim22_26_t21.md",
   "images": [
-   "assets/kim22_26_t21_1.svg"
+   "assets/kim22_26_t21_1.svg?v=84e2b065"
   ],
   "solution_images": [
-   "assets/kim22_26_t21_s1.svg"
+   "assets/kim22_26_t21_s1.svg?v=77d31ce3"
   ]
  },
  {
@@ -4559,10 +4559,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v10_n26_fixed.md",
   "images": [
-   "assets/mechanics_v10_n26_fixed_1.svg"
+   "assets/mechanics_v10_n26_fixed_1.svg?v=718a3a24"
   ],
   "solution_images": [
-   "assets/mechanics_v10_n26_fixed_s1.svg"
+   "assets/mechanics_v10_n26_fixed_s1.svg?v=7f32664d"
   ]
  },
  {
@@ -4593,7 +4593,7 @@
   "file": "01_mechanics/mechanics_v11_n22.md",
   "images": [],
   "solution_images": [
-   "assets/mechanics_v11_n22_s1.svg"
+   "assets/mechanics_v11_n22_s1.svg?v=ad698f5b"
   ]
  },
  {
@@ -4652,10 +4652,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v1_n26.md",
   "images": [
-   "assets/mechanics_v1_n26_1.svg"
+   "assets/mechanics_v1_n26_1.svg?v=21fc2c51"
   ],
   "solution_images": [
-   "assets/mechanics_v1_n26_s1.svg"
+   "assets/mechanics_v1_n26_s1.svg?v=31864342"
   ]
  },
  {
@@ -4714,10 +4714,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v2_n26.md",
   "images": [
-   "assets/mechanics_v2_n26_1.svg"
+   "assets/mechanics_v2_n26_1.svg?v=21fc2c51"
   ],
   "solution_images": [
-   "assets/mechanics_v2_n26_s1.svg"
+   "assets/mechanics_v2_n26_s1.svg?v=31864342"
   ]
  },
  {
@@ -4776,10 +4776,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v3_n26.md",
   "images": [
-   "assets/mechanics_v3_n26_1.svg"
+   "assets/mechanics_v3_n26_1.svg?v=6f5caf8a"
   ],
   "solution_images": [
-   "assets/mechanics_v3_n26_s1.svg"
+   "assets/mechanics_v3_n26_s1.svg?v=0bfbb864"
   ]
  },
  {
@@ -4838,10 +4838,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v4_n26.md",
   "images": [
-   "assets/mechanics_v4_n26_1.svg"
+   "assets/mechanics_v4_n26_1.svg?v=6f5caf8a"
   ],
   "solution_images": [
-   "assets/mechanics_v4_n26_s1.svg"
+   "assets/mechanics_v4_n26_s1.svg?v=7f32664d"
   ]
  },
  {
@@ -4899,7 +4899,7 @@
   "file": "01_mechanics/mechanics_v5_n26.md",
   "images": [],
   "solution_images": [
-   "assets/mechanics_v5_n26_s1.svg"
+   "assets/mechanics_v5_n26_s1.svg?v=47751a53"
   ]
  },
  {
@@ -4957,7 +4957,7 @@
   "file": "01_mechanics/mechanics_v6_n26.md",
   "images": [],
   "solution_images": [
-   "assets/mechanics_v6_n26_s1.svg"
+   "assets/mechanics_v6_n26_s1.svg?v=47751a53"
   ]
  },
  {
@@ -4988,7 +4988,7 @@
   "file": "01_mechanics/mechanics_v7_n26.md",
   "images": [],
   "solution_images": [
-   "assets/mechanics_v7_n26_s1.svg"
+   "assets/mechanics_v7_n26_s1.svg?v=4aca301b"
   ]
  },
  {
@@ -5019,7 +5019,7 @@
   "file": "01_mechanics/mechanics_v8_n26.md",
   "images": [],
   "solution_images": [
-   "assets/mechanics_v8_n26_s1.svg"
+   "assets/mechanics_v8_n26_s1.svg?v=8ccac38b"
   ]
  },
  {
@@ -5078,10 +5078,10 @@
   "check": "number",
   "file": "01_mechanics/mechanics_v9_n26_fixed.md",
   "images": [
-   "assets/mechanics_v9_n26_fixed_1.svg"
+   "assets/mechanics_v9_n26_fixed_1.svg?v=be68a494"
   ],
   "solution_images": [
-   "assets/mechanics_v9_n26_fixed_s1.svg"
+   "assets/mechanics_v9_n26_fixed_s1.svg?v=90786cd1"
   ]
  },
  {
@@ -5679,7 +5679,7 @@
   "file": "01_mechanics/newton2_v10_n5.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v10_n5_s1.svg"
+   "assets/newton2_v10_n5_s1.svg?v=ae90db93"
   ]
  },
  {
@@ -5738,10 +5738,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v11_n26.md",
   "images": [
-   "assets/newton2_v11_n26_1.svg"
+   "assets/newton2_v11_n26_1.svg?v=79cac348"
   ],
   "solution_images": [
-   "assets/newton2_v11_n26_s1.svg"
+   "assets/newton2_v11_n26_s1.svg?v=010600ab"
   ]
  },
  {
@@ -5800,10 +5800,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v12_n26.md",
   "images": [
-   "assets/newton2_v12_n26_1.svg"
+   "assets/newton2_v12_n26_1.svg?v=79cac348"
   ],
   "solution_images": [
-   "assets/newton2_v12_n26_s1.svg"
+   "assets/newton2_v12_n26_s1.svg?v=010600ab"
   ]
  },
  {
@@ -5835,10 +5835,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v13_n26.md",
   "images": [
-   "assets/newton2_v13_n26_1.svg"
+   "assets/newton2_v13_n26_1.svg?v=6096d4d8"
   ],
   "solution_images": [
-   "assets/newton2_v13_n26_s1.svg"
+   "assets/newton2_v13_n26_s1.svg?v=56946b9d"
   ]
  },
  {
@@ -5897,10 +5897,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v14_n26.md",
   "images": [
-   "assets/newton2_v14_n26_1.svg"
+   "assets/newton2_v14_n26_1.svg?v=6096d4d8"
   ],
   "solution_images": [
-   "assets/newton2_v14_n26_s1.svg"
+   "assets/newton2_v14_n26_s1.svg?v=56946b9d"
   ]
  },
  {
@@ -5958,8 +5958,8 @@
   "check": "seq",
   "file": "01_mechanics/newton2_v15_n6.md",
   "images": [
-   "assets/newton2_v15_n6_1.svg",
-   "assets/newton2_v15_n6_2.svg"
+   "assets/newton2_v15_n6_1.svg?v=032c669d",
+   "assets/newton2_v15_n6_2.svg?v=091ae0d4"
   ],
   "solution_images": []
  },
@@ -5991,8 +5991,8 @@
   "check": "seq",
   "file": "01_mechanics/newton2_v16_n6.md",
   "images": [
-   "assets/newton2_v16_n6_1.svg",
-   "assets/newton2_v16_n6_2.svg"
+   "assets/newton2_v16_n6_1.svg?v=c49ae22b",
+   "assets/newton2_v16_n6_2.svg?v=a3ee48c2"
   ],
   "solution_images": []
  },
@@ -6025,10 +6025,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v17_n26.md",
   "images": [
-   "assets/newton2_v17_n26_1.svg"
+   "assets/newton2_v17_n26_1.svg?v=04a5152a"
   ],
   "solution_images": [
-   "assets/newton2_v17_n26_s1.svg"
+   "assets/newton2_v17_n26_s1.svg?v=a8b2e750"
   ]
  },
  {
@@ -6060,10 +6060,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v18_n26.md",
   "images": [
-   "assets/newton2_v18_n26_1.svg"
+   "assets/newton2_v18_n26_1.svg?v=04a5152a"
   ],
   "solution_images": [
-   "assets/newton2_v18_n26_s1.svg"
+   "assets/newton2_v18_n26_s1.svg?v=a8b2e750"
   ]
  },
  {
@@ -6122,10 +6122,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v19_n26.md",
   "images": [
-   "assets/newton2_v19_n26_1.svg"
+   "assets/newton2_v19_n26_1.svg?v=eeade25d"
   ],
   "solution_images": [
-   "assets/newton2_v19_n26_s1.svg"
+   "assets/newton2_v19_n26_s1.svg?v=edff7512"
   ]
  },
  {
@@ -6183,7 +6183,7 @@
   "file": "01_mechanics/newton2_v1_n5.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v1_n5_s1.svg"
+   "assets/newton2_v1_n5_s1.svg?v=4acaffa2"
   ]
  },
  {
@@ -6242,10 +6242,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v20_n26.md",
   "images": [
-   "assets/newton2_v20_n26_1.svg"
+   "assets/newton2_v20_n26_1.svg?v=eeade25d"
   ],
   "solution_images": [
-   "assets/newton2_v20_n26_s1.svg"
+   "assets/newton2_v20_n26_s1.svg?v=edff7512"
   ]
  },
  {
@@ -6304,10 +6304,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v22_n26.md",
   "images": [
-   "assets/newton2_v22_n26_1.svg"
+   "assets/newton2_v22_n26_1.svg?v=29d5fc5b"
   ],
   "solution_images": [
-   "assets/newton2_v22_n26_s1.svg"
+   "assets/newton2_v22_n26_s1.svg?v=a78b2e0f"
   ]
  },
  {
@@ -6337,7 +6337,7 @@
   "check": "number",
   "file": "01_mechanics/newton2_v26_n2.md",
   "images": [
-   "assets/newton2_v26_n2_1.svg"
+   "assets/newton2_v26_n2_1.svg?v=daa18283"
   ],
   "solution_images": []
  },
@@ -6369,7 +6369,7 @@
   "file": "01_mechanics/newton2_v27_n22.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v27_n22_s1.svg"
+   "assets/newton2_v27_n22_s1.svg?v=2040afe8"
   ]
  },
  {
@@ -6400,7 +6400,7 @@
   "file": "01_mechanics/newton2_v28_n22.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v28_n22_s1.svg"
+   "assets/newton2_v28_n22_s1.svg?v=2040afe8"
   ]
  },
  {
@@ -6432,10 +6432,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v29_n22.md",
   "images": [
-   "assets/newton2_v29_n22_1.svg"
+   "assets/newton2_v29_n22_1.svg?v=47cb55c6"
   ],
   "solution_images": [
-   "assets/newton2_v29_n22_s1.svg"
+   "assets/newton2_v29_n22_s1.svg?v=790ddeeb"
   ]
  },
  {
@@ -6521,10 +6521,10 @@
   "check": "number",
   "file": "01_mechanics/newton2_v30_n22.md",
   "images": [
-   "assets/newton2_v30_n22_1.svg"
+   "assets/newton2_v30_n22_1.svg?v=47cb55c6"
   ],
   "solution_images": [
-   "assets/newton2_v30_n22_s1.svg"
+   "assets/newton2_v30_n22_s1.svg?v=790ddeeb"
   ]
  },
  {
@@ -6555,7 +6555,7 @@
   "file": "01_mechanics/newton2_v3_n5.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v3_n5_s1.svg"
+   "assets/newton2_v3_n5_s1.svg?v=13f73310"
   ]
  },
  {
@@ -6586,7 +6586,7 @@
   "file": "01_mechanics/newton2_v4_n5.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v4_n5_s1.svg"
+   "assets/newton2_v4_n5_s1.svg?v=13f73310"
   ]
  },
  {
@@ -6616,7 +6616,7 @@
   "check": "set",
   "file": "01_mechanics/newton2_v5_n5.md",
   "images": [
-   "assets/newton2_v5_n5_1.svg"
+   "assets/newton2_v5_n5_1.svg?v=f0752b5e"
   ],
   "solution_images": []
  },
@@ -6647,7 +6647,7 @@
   "check": "set",
   "file": "01_mechanics/newton2_v6_n5.md",
   "images": [
-   "assets/newton2_v6_n5_1.svg"
+   "assets/newton2_v6_n5_1.svg?v=cdadad1f"
   ],
   "solution_images": []
  },
@@ -6679,7 +6679,7 @@
   "file": "01_mechanics/newton2_v9_n5.md",
   "images": [],
   "solution_images": [
-   "assets/newton2_v9_n5_s1.svg"
+   "assets/newton2_v9_n5_s1.svg?v=1e92ddff"
   ]
  },
  {
@@ -6710,7 +6710,7 @@
   "check": "number",
   "file": "01_mechanics/oscillations_optics_v25_n25.md",
   "images": [
-   "assets/oscillations_optics_v25_n25_1.svg"
+   "assets/oscillations_optics_v25_n25_1.svg?v=1e318aa5"
   ],
   "solution_images": []
  },
@@ -6742,7 +6742,7 @@
   "check": "number",
   "file": "01_mechanics/oscillations_optics_v26_n25.md",
   "images": [
-   "assets/oscillations_optics_v26_n25_1.svg"
+   "assets/oscillations_optics_v26_n25_1.svg?v=1e318aa5"
   ],
   "solution_images": []
  },
@@ -6989,7 +6989,7 @@
   "check": "number",
   "file": "01_mechanics/oscillations_v5_n4.md",
   "images": [
-   "assets/oscillations_v5_n4_1.svg"
+   "assets/oscillations_v5_n4_1.svg?v=eda6cb70"
   ],
   "solution_images": []
  },
@@ -7020,7 +7020,7 @@
   "check": "number",
   "file": "01_mechanics/oscillations_v6_n4.md",
   "images": [
-   "assets/oscillations_v6_n4_1.svg"
+   "assets/oscillations_v6_n4_1.svg?v=eda6cb70"
   ],
   "solution_images": []
  },
@@ -7052,7 +7052,7 @@
   "check": "number",
   "file": "01_mechanics/power_inclined_force_n3.md",
   "images": [
-   "assets/power_inclined_force_n3_1.svg"
+   "assets/power_inclined_force_n3_1.svg?v=2103bdeb"
   ],
   "solution_images": []
  },
@@ -7136,7 +7136,7 @@
   "file": "01_mechanics/statics_v01_n04.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v01_n04_s1.svg"
+   "assets/statics_v01_n04_s1.svg?v=1591c704"
   ]
  },
  {
@@ -7165,7 +7165,7 @@
   "file": "01_mechanics/statics_v02_n04.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v02_n04_s1.svg"
+   "assets/statics_v02_n04_s1.svg?v=a7070bb5"
   ]
  },
  {
@@ -7194,7 +7194,7 @@
   "file": "01_mechanics/statics_v11_n04.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v11_n04_s1.svg"
+   "assets/statics_v11_n04_s1.svg?v=db9a1582"
   ]
  },
  {
@@ -7223,7 +7223,7 @@
   "file": "01_mechanics/statics_v12_n04.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v12_n04_s1.svg"
+   "assets/statics_v12_n04_s1.svg?v=233026d0"
   ]
  },
  {
@@ -7252,7 +7252,7 @@
   "file": "01_mechanics/statics_v13_n26.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v13_n26_s1.svg"
+   "assets/statics_v13_n26_s1.svg?v=230fa56c"
   ]
  },
  {
@@ -7281,7 +7281,7 @@
   "file": "01_mechanics/statics_v14_n26.md",
   "images": [],
   "solution_images": [
-   "assets/statics_v14_n26_s1.svg"
+   "assets/statics_v14_n26_s1.svg?v=230fa56c"
   ]
  },
  {
@@ -7420,7 +7420,7 @@
   "file": "01_mechanics/work_v2_n3.md",
   "images": [],
   "solution_images": [
-   "assets/work_v2_n3_s1.svg"
+   "assets/work_v2_n3_s1.svg?v=4e1d9cdb"
   ]
  },
  {
@@ -7505,7 +7505,7 @@
   "check": "none",
   "file": "02_mkt/2td_t7.md",
   "images": [
-   "assets/2td_t7_1.svg"
+   "assets/2td_t7_1.svg?v=df3d7298"
   ],
   "solution_images": []
  },
@@ -7647,7 +7647,7 @@
   "check": "pm",
   "file": "02_mkt/meth_manometer_boyle_n19.md",
   "images": [
-   "assets/meth_manometer_boyle_n19_photo1.png"
+   "assets/meth_manometer_boyle_n19_photo1.png?v=a5dc6d35"
   ],
   "solution_images": []
  },
@@ -7679,7 +7679,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_adiabat_a12_4a31.md",
   "images": [
-   "assets/mkt_cyc_v24_adiabat_a12_4a31_1.svg"
+   "assets/mkt_cyc_v24_adiabat_a12_4a31_1.svg?v=b627f7a6"
   ],
   "solution_images": []
  },
@@ -7711,7 +7711,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_adiabat_eta20.md",
   "images": [
-   "assets/mkt_cyc_v24_adiabat_eta20_1.svg"
+   "assets/mkt_cyc_v24_adiabat_eta20_1.svg?v=b627f7a6"
   ],
   "solution_images": []
  },
@@ -7743,7 +7743,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_p1_3_1_5.md",
   "images": [
-   "assets/mkt_cyc_v24_p1_3_1_5_1.svg"
+   "assets/mkt_cyc_v24_p1_3_1_5_1.svg?v=8acc084b"
   ],
   "solution_images": []
  },
@@ -7775,7 +7775,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_q_hol_a12_8kj.md",
   "images": [
-   "assets/mkt_cyc_v24_q_hol_a12_8kj_1.svg"
+   "assets/mkt_cyc_v24_q_hol_a12_8kj_1.svg?v=e5375c8d"
   ],
   "solution_images": []
  },
@@ -7807,7 +7807,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_q_nagr_a12_5kj.md",
   "images": [
-   "assets/mkt_cyc_v24_q_nagr_a12_5kj_1.svg"
+   "assets/mkt_cyc_v24_q_nagr_a12_5kj_1.svg?v=6f9cfc90"
   ],
   "solution_images": []
  },
@@ -7839,7 +7839,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_q_nagr_t2_250k.md",
   "images": [
-   "assets/mkt_cyc_v24_q_nagr_t2_250k_1.svg"
+   "assets/mkt_cyc_v24_q_nagr_t2_250k_1.svg?v=7c48468e"
   ],
   "solution_images": []
  },
@@ -7871,7 +7871,7 @@
   "check": "number",
   "file": "02_mkt/mkt_cyc_v24_t2_q120kj.md",
   "images": [
-   "assets/mkt_cyc_v24_t2_q120kj_1.svg"
+   "assets/mkt_cyc_v24_t2_q120kj_1.svg?v=7c48468e"
   ],
   "solution_images": []
  },
@@ -8152,7 +8152,7 @@
   "check": "none",
   "file": "02_mkt/mkt_gas_v1_n21.md",
   "images": [
-   "assets/mkt_gas_v1_n21_1.svg"
+   "assets/mkt_gas_v1_n21_1.svg?v=eeb5d593"
   ],
   "solution_images": []
  },
@@ -8345,7 +8345,7 @@
   "check": "seq",
   "file": "02_mkt/mkt_gas_v5_n10.md",
   "images": [
-   "assets/mkt_gas_v5_n10_1.svg"
+   "assets/mkt_gas_v5_n10_1.svg?v=15b4e1ee"
   ],
   "solution_images": []
  },
@@ -8376,7 +8376,7 @@
   "check": "seq",
   "file": "02_mkt/mkt_gas_v6_n10.md",
   "images": [
-   "assets/mkt_gas_v6_n10_1.svg"
+   "assets/mkt_gas_v6_n10_1.svg?v=df251875"
   ],
   "solution_images": []
  },
@@ -8461,7 +8461,7 @@
   "check": "seq",
   "file": "02_mkt/mkt_gas_v9_n10.md",
   "images": [
-   "assets/mkt_gas_v9_n10_1.svg"
+   "assets/mkt_gas_v9_n10_1.svg?v=c10fd79e"
   ],
   "solution_images": []
  },
@@ -8493,7 +8493,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v3_n8.md",
   "images": [
-   "assets/mkt_heat_v3_n8_1.svg"
+   "assets/mkt_heat_v3_n8_1.svg?v=98671e38"
   ],
   "solution_images": []
  },
@@ -8525,7 +8525,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v4_n8.md",
   "images": [
-   "assets/mkt_heat_v4_n8_1.svg"
+   "assets/mkt_heat_v4_n8_1.svg?v=98671e38"
   ],
   "solution_images": []
  },
@@ -8557,7 +8557,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v7_n8.md",
   "images": [
-   "assets/mkt_heat_v7_n8_1.svg"
+   "assets/mkt_heat_v7_n8_1.svg?v=2f2610e2"
   ],
   "solution_images": []
  },
@@ -8589,7 +8589,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v8_n8.md",
   "images": [
-   "assets/mkt_heat_v8_n8_1.svg"
+   "assets/mkt_heat_v8_n8_1.svg?v=e687fc30"
   ],
   "solution_images": []
  },
@@ -8789,7 +8789,7 @@
   "check": "number",
   "file": "02_mkt/mkt_hum_v7_n22.md",
   "images": [
-   "assets/mkt_hum_v7_n22_1.svg"
+   "assets/mkt_hum_v7_n22_1.svg?v=446c54d3"
   ],
   "solution_images": []
  },
@@ -8821,7 +8821,7 @@
   "check": "number",
   "file": "02_mkt/mkt_hum_v8_n22.md",
   "images": [
-   "assets/mkt_hum_v8_n22_1.svg"
+   "assets/mkt_hum_v8_n22_1.svg?v=446c54d3"
   ],
   "solution_images": []
  },
@@ -8853,7 +8853,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v11_n8.md",
   "images": [
-   "assets/mkt_therm_v11_n8_1.svg"
+   "assets/mkt_therm_v11_n8_1.svg?v=b558f128"
   ],
   "solution_images": []
  },
@@ -8885,7 +8885,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v12_n8.md",
   "images": [
-   "assets/mkt_therm_v12_n8_1.svg"
+   "assets/mkt_therm_v12_n8_1.svg?v=b558f128"
   ],
   "solution_images": []
  },
@@ -8917,7 +8917,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v13_n8.md",
   "images": [
-   "assets/mkt_therm_v13_n8_1.svg"
+   "assets/mkt_therm_v13_n8_1.svg?v=f2a1f5d1"
   ],
   "solution_images": []
  },
@@ -8949,7 +8949,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v19_n8.md",
   "images": [
-   "assets/mkt_therm_v19_n8_1.svg"
+   "assets/mkt_therm_v19_n8_1.svg?v=04bf35bc"
   ],
   "solution_images": []
  },
@@ -8981,7 +8981,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v1_n8.md",
   "images": [
-   "assets/mkt_therm_v1_n8_1.svg"
+   "assets/mkt_therm_v1_n8_1.svg?v=bf65f3d8"
   ],
   "solution_images": []
  },
@@ -9014,7 +9014,7 @@
   "check": "none",
   "file": "02_mkt/mkt_therm_v22_n21.md",
   "images": [
-   "assets/mkt_therm_v22_n21_1.svg"
+   "assets/mkt_therm_v22_n21_1.svg?v=ce06454a"
   ],
   "solution_images": []
  },
@@ -9046,7 +9046,7 @@
   "check": "number",
   "file": "02_mkt/mkt_therm_v2_n8.md",
   "images": [
-   "assets/mkt_therm_v2_n8_1.svg"
+   "assets/mkt_therm_v2_n8_1.svg?v=bf65f3d8"
   ],
   "solution_images": []
  },
@@ -9078,7 +9078,7 @@
   "check": "set",
   "file": "02_mkt/mkt_therm_v3_n9.md",
   "images": [
-   "assets/mkt_therm_v3_n9_1.svg"
+   "assets/mkt_therm_v3_n9_1.svg?v=cc43a736"
   ],
   "solution_images": []
  },
@@ -9110,7 +9110,7 @@
   "check": "set",
   "file": "02_mkt/mkt_therm_v4_n9.md",
   "images": [
-   "assets/mkt_therm_v4_n9_1.svg"
+   "assets/mkt_therm_v4_n9_1.svg?v=a641190c"
   ],
   "solution_images": []
  },
@@ -9141,7 +9141,7 @@
   "check": "number",
   "file": "02_mkt/mkt_v10_n7.md",
   "images": [
-   "assets/mkt_v10_n7_1.svg"
+   "assets/mkt_v10_n7_1.svg?v=59370728"
   ],
   "solution_images": []
  },
@@ -9253,7 +9253,7 @@
   "check": "set",
   "file": "02_mkt/mkt_v1_n9.md",
   "images": [
-   "assets/mkt_v1_n9_1.svg"
+   "assets/mkt_v1_n9_1.svg?v=d5c726ce"
   ],
   "solution_images": []
  },
@@ -9365,7 +9365,7 @@
   "check": "set",
   "file": "02_mkt/mkt_v2_n9.md",
   "images": [
-   "assets/mkt_v2_n9_1.svg"
+   "assets/mkt_v2_n9_1.svg?v=f0136b05"
   ],
   "solution_images": []
  },
@@ -9450,7 +9450,7 @@
   "check": "number",
   "file": "02_mkt/mkt_v5_n7.md",
   "images": [
-   "assets/mkt_v5_n7_1.svg"
+   "assets/mkt_v5_n7_1.svg?v=1ee9346f"
   ],
   "solution_images": []
  },
@@ -9481,7 +9481,7 @@
   "check": "number",
   "file": "02_mkt/mkt_v6_n7.md",
   "images": [
-   "assets/mkt_v6_n7_1.svg"
+   "assets/mkt_v6_n7_1.svg?v=8f3396a3"
   ],
   "solution_images": []
  },
@@ -9512,7 +9512,7 @@
   "check": "number",
   "file": "02_mkt/mkt_v9_n7.md",
   "images": [
-   "assets/mkt_v9_n7_1.svg"
+   "assets/mkt_v9_n7_1.svg?v=f76dd014"
   ],
   "solution_images": []
  },
@@ -9602,7 +9602,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_cap_recharge_heat.md",
   "images": [
-   "assets/elem_cap_recharge_heat_1.svg"
+   "assets/elem_cap_recharge_heat_1.svg?v=5f5cee8f"
   ],
   "solution_images": []
  },
@@ -9634,7 +9634,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_cap_recharge_heat_2.md",
   "images": [
-   "assets/elem_cap_recharge_heat_2_1.svg"
+   "assets/elem_cap_recharge_heat_2_1.svg?v=5f5cee8f"
   ],
   "solution_images": []
  },
@@ -9890,7 +9890,7 @@
   "check": "set",
   "file": "03_electrodynamics/elem_cap_v7_n14.md",
   "images": [
-   "assets/elem_cap_v7_n14_1.svg"
+   "assets/elem_cap_v7_n14_1.svg?v=65758c1a"
   ],
   "solution_images": []
  },
@@ -9952,7 +9952,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_circ_v12_n11.md",
   "images": [
-   "assets/elem_circ_v12_n11_1.svg"
+   "assets/elem_circ_v12_n11_1.svg?v=3b93d5dc"
   ],
   "solution_images": []
  },
@@ -10072,7 +10072,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_circ_v22_n11.md",
   "images": [
-   "assets/elem_circ_v22_n11_1.svg"
+   "assets/elem_circ_v22_n11_1.svg?v=8284f20e"
   ],
   "solution_images": []
  },
@@ -10134,7 +10134,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_circ_v2_n11.md",
   "images": [
-   "assets/elem_circ_v2_n11_1.svg"
+   "assets/elem_circ_v2_n11_1.svg?v=4c949b6c"
   ],
   "solution_images": []
  },
@@ -10196,7 +10196,7 @@
   "check": "none",
   "file": "03_electrodynamics/elem_circuit_diodes_k1_k2.md",
   "images": [
-   "assets/elem_circuit_diodes_k1_k2_1.svg"
+   "assets/elem_circuit_diodes_k1_k2_1.svg?v=760519eb"
   ],
   "solution_images": []
  },
@@ -10318,10 +10318,10 @@
   "check": "none",
   "file": "03_electrodynamics/elem_coulomb_v22_n21.md",
   "images": [
-   "assets/elem_coulomb_v22_n21_1.svg"
+   "assets/elem_coulomb_v22_n21_1.svg?v=f4d62fd0"
   ],
   "solution_images": [
-   "assets/elem_coulomb_v22_n21_s1.svg"
+   "assets/elem_coulomb_v22_n21_s1.svg?v=dcd47816"
   ]
  },
  {
@@ -10413,10 +10413,10 @@
   "check": "number",
   "file": "03_electrodynamics/elem_coulomb_v26_n25.md",
   "images": [
-   "assets/elem_coulomb_v26_n25_1.svg"
+   "assets/elem_coulomb_v26_n25_1.svg?v=b05e19fa"
   ],
   "solution_images": [
-   "assets/elem_coulomb_v26_n25_s1.svg"
+   "assets/elem_coulomb_v26_n25_s1.svg?v=e470f0e4"
   ]
  },
  {
@@ -10590,7 +10590,7 @@
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v13_n14.md",
   "images": [
-   "assets/elem_ind_v13_n14_1.svg"
+   "assets/elem_ind_v13_n14_1.svg?v=d905f19f"
   ],
   "solution_images": []
  },
@@ -10707,7 +10707,7 @@
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v1_n14.md",
   "images": [
-   "assets/elem_ind_v1_n14_1.svg"
+   "assets/elem_ind_v1_n14_1.svg?v=f6407e2d"
   ],
   "solution_images": []
  },
@@ -10852,8 +10852,8 @@
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v2_n14.md",
   "images": [
-   "assets/elem_ind_v2_n14_photo1.png",
-   "assets/elem_ind_v2_n14_1.svg"
+   "assets/elem_ind_v2_n14_photo1.png?v=ae63a28a",
+   "assets/elem_ind_v2_n14_1.svg?v=1560e34e"
   ],
   "solution_images": []
  },
@@ -10942,7 +10942,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_ind_v3_n12.md",
   "images": [
-   "assets/elem_ind_v3_n12_1.svg"
+   "assets/elem_ind_v3_n12_1.svg?v=b590591f"
   ],
   "solution_images": []
  },
@@ -10975,7 +10975,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_ind_v4_n12.md",
   "images": [
-   "assets/elem_ind_v4_n12_1.svg"
+   "assets/elem_ind_v4_n12_1.svg?v=d72060d7"
   ],
   "solution_images": []
  },
@@ -11147,7 +11147,7 @@
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v9_n14.md",
   "images": [
-   "assets/elem_ind_v9_n14_1.svg"
+   "assets/elem_ind_v9_n14_1.svg?v=6b008765"
   ],
   "solution_images": []
  },
@@ -11238,7 +11238,7 @@
   "file": "03_electrodynamics/elem_mag_angular_velocity.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_angular_velocity_s1.svg"
+   "assets/elem_mag_angular_velocity_s1.svg?v=624569c4"
   ]
  },
  {
@@ -11272,10 +11272,10 @@
   "check": "none",
   "file": "03_electrodynamics/elem_mag_charge_vertical_circle.md",
   "images": [
-   "assets/elem_mag_charge_vertical_circle_1.svg"
+   "assets/elem_mag_charge_vertical_circle_1.svg?v=dd4fa216"
   ],
   "solution_images": [
-   "assets/elem_mag_charge_vertical_circle_s1.svg"
+   "assets/elem_mag_charge_vertical_circle_s1.svg?v=c3c51049"
   ]
  },
  {
@@ -11300,22 +11300,22 @@
   ],
   "source": "mag.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.7, line join=round, every node/.style={font=\\small}]\n  % полосовой магнит в перспективе\n  \\fill[black] (1.30,1.90) -- (2.70,1.90) -- (2.70,3.10) -- (1.30,3.10) -- (0.75,3.65) -- (0.75,2.45) -- cycle;\n  \\fill[gray!55] (1.30,3.10) -- (2.70,3.10) -- (2.15,3.65) -- (0.75,3.65) -- cycle;\n  \\draw[thick] (1.30,1.90) rectangle (4.05,3.10);\n  \\draw[thick] (1.30,3.10) -- (0.75,3.65) -- (3.50,3.65) -- (4.05,3.10);\n  \\draw[thick] (0.75,3.65) -- (0.75,2.45) -- (1.30,1.90);\n  \\draw[thick] (2.70,1.90) -- (2.70,3.10) -- (2.15,3.65);\n  \\node[font=\\large] at (3.375,2.50) {$S$};\n  % ось MO\n  \\draw[thin, dash dot] (4.60,4.48) -- (9.00,0.15);\n  \\node at (3.70,4.50) {$M$};\n  \\node at (7.90,0.20) {$O$};\n  % рамка с выводами\n  \\draw[thick] (7.45,1.18) -- (6.40,2.22) -- (5.60,2.22) -- (3.90,3.95) -- (6.40,3.95) -- (8.12,2.22) -- (7.30,2.22) -- (8.35,1.18);\n  \\node at (6.28,1.62) {$-$};\n  \\node at (8.60,1.68) {$+$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.7, line join=round, every node/.style={font=\\small}]\n  % полосовой магнит в перспективе\n  % северный полюс голубой\n  \\fill[cyan!22] (1.30,1.90) rectangle (2.70,3.10);\n  \\fill[cyan!45] (1.30,1.90) -- (1.30,3.10) -- (0.75,3.65) -- (0.75,2.45) -- cycle;\n  \\fill[cyan!32] (1.30,3.10) -- (2.70,3.10) -- (2.15,3.65) -- (0.75,3.65) -- cycle;\n  \\draw[thick] (1.30,1.90) rectangle (4.05,3.10);\n  \\draw[thick] (1.30,3.10) -- (0.75,3.65) -- (3.50,3.65) -- (4.05,3.10);\n  \\draw[thick] (0.75,3.65) -- (0.75,2.45) -- (1.30,1.90);\n  \\draw[thick] (2.70,1.90) -- (2.70,3.10) -- (2.15,3.65);\n  \\node[font=\\large] at (3.375,2.50) {$S$};\n  % ось MO\n  \\draw[thin, dash dot] (4.60,4.48) -- (9.00,0.15);\n  \\node at (3.70,4.50) {$M$};\n  \\node at (7.90,0.20) {$O$};\n  % рамка с выводами\n  \\draw[thick] (7.45,1.18) -- (6.40,2.22) -- (5.60,2.22) -- (3.90,3.95) -- (6.40,3.95) -- (8.12,2.22) -- (7.30,2.22) -- (8.35,1.18);\n  \\node at (6.28,1.62) {$-$};\n  \\node at (8.60,1.68) {$+$};\n\\end{tikzpicture}"
   ],
   "condition": "Небольшую рамку с постоянным током удерживают неподвижно в поле полосового магнита (см. рисунок). Полярность подключения источника тока к выводам рамки показана на рисунке. Опишите движение рамки относительно неподвижной оси $MO$ после того, как рамку отпустят. Ответ поясните, указав, какие физические закономерности Вы использовали для объяснения. Считать, что рамка испытывает небольшое сопротивление движению со стороны воздуха. ЭДС индукции, возникающей в рамке, и колебаниями рамки пренебречь.",
   "sol_tikz": [
-   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=10, in=200] (3.6,1.35);\n  \\draw[thick] (1,-0.3) to[out=-10, in=160] (3.6,-1.35);\n  \\draw[thick] (1,0.22) to[out=0, in=180] (3.6,0.5);\n  \\draw[thick] (1,-0.22) to[out=0, in=180] (3.6,-0.5);\n  % магнит в сечении: S слева (белый), N справа (чёрный)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=black] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\draw[thick, fill=white] (1.9,0) circle (0.17);\n  \\draw[thick] (1.9-0.12,0-0.12) -- (1.9+0.12,0+0.12) (1.9-0.12,0+0.12) -- (1.9+0.12,0-0.12);\n  \\draw[thick, fill=white] (3.0,0) circle (0.17); \\fill (3.0,0) circle (0.045);\n  \\draw[Fvec] (1.9,-0.17) -- (1.9,-1.0) node[left] {$\\vec F_{A1}$};\n  \\draw[Fvec] (3.0,0.17) -- (3.0,1.0) node[left] {$\\vec F_{A2}$};\n  \\node at (0.3,-1.85) {Рис. а};\n\\end{tikzpicture}",
-   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=15, in=210] (3.8,1.45);\n  \\draw[thick] (1,-0.3) to[out=-15, in=150] (3.8,-1.45);\n  % магнит в сечении: S слева (белый), N справа (чёрный)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=black] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\coordinate (W2) at (2.75,0.87);\n  \\coordinate (W1) at (2.75,-0.87);\n  \\draw[thick, fill=white] (2.75,0.87) circle (0.17); \\fill (2.75,0.87) circle (0.045);\n  \\draw[thick, fill=white] (2.75,-0.87) circle (0.17);\n  \\draw[thick] (2.75-0.12,-0.87-0.12) -- (2.75+0.12,-0.87+0.12) (2.75-0.12,-0.87+0.12) -- (2.75+0.12,-0.87-0.12);\n  \\draw[Fvec] (2.68,1.03) -- (2.40,1.75) node[left] {$\\vec F_{A2}$};\n  \\draw[Fvec] (2.68,-1.03) -- (2.40,-1.75) node[left] {$\\vec F_{A1}$};\n  \\node at (0.3,-2.25) {Рис. б};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=10, in=200] (3.6,1.35);\n  \\draw[thick] (1,-0.3) to[out=-10, in=160] (3.6,-1.35);\n  \\draw[thick] (1,0.22) to[out=0, in=180] (3.6,0.5);\n  \\draw[thick] (1,-0.22) to[out=0, in=180] (3.6,-0.5);\n  % магнит в сечении: S слева (белый), N справа (голубой)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=cyan!22] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\draw[thick, fill=white] (1.9,0) circle (0.17);\n  \\draw[thick] (1.9-0.12,0-0.12) -- (1.9+0.12,0+0.12) (1.9-0.12,0+0.12) -- (1.9+0.12,0-0.12);\n  \\draw[thick, fill=white] (3.0,0) circle (0.17); \\fill (3.0,0) circle (0.045);\n  \\draw[Fvec] (1.9,-0.17) -- (1.9,-1.0) node[left] {$\\vec F_{A1}$};\n  \\draw[Fvec] (3.0,0.17) -- (3.0,1.0) node[left] {$\\vec F_{A2}$};\n  \\node at (0.3,-1.85) {Рис. а};\n\\end{tikzpicture}",
+   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=15, in=210] (3.8,1.45);\n  \\draw[thick] (1,-0.3) to[out=-15, in=150] (3.8,-1.45);\n  % магнит в сечении: S слева (белый), N справа (голубой)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=cyan!22] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\coordinate (W2) at (2.75,0.87);\n  \\coordinate (W1) at (2.75,-0.87);\n  \\draw[thick, fill=white] (2.75,0.87) circle (0.17); \\fill (2.75,0.87) circle (0.045);\n  \\draw[thick, fill=white] (2.75,-0.87) circle (0.17);\n  \\draw[thick] (2.75-0.12,-0.87-0.12) -- (2.75+0.12,-0.87+0.12) (2.75-0.12,-0.87+0.12) -- (2.75+0.12,-0.87-0.12);\n  \\draw[Fvec] (2.68,1.03) -- (2.40,1.75) node[left] {$\\vec F_{A2}$};\n  \\draw[Fvec] (2.68,-1.03) -- (2.40,-1.75) node[left] {$\\vec F_{A1}$};\n  \\node at (0.3,-2.25) {Рис. б};\n\\end{tikzpicture}"
   ],
   "solution": "1. Ответ: рамка повернётся против часовой стрелки и своей плоскостью встанет перпендикулярно оси магнита так, что контакт «+» окажется внизу.\n\n2. Рассмотрим сечение рамки плоскостью рисунка.\n\nВ исходном положении в левом звене рамки ток направлен от нас, а в правом — к нам.\n\n[[рис 1]]\n\nНа левое звено рамки действует сила Ампера $\\vec F_{A1}$, направленная вниз, а на правое звено — сила Ампера $\\vec F_{A2}$, направленная вверх. Эти силы разворачивают рамку относительно неподвижной оси $MO$ против часовой стрелки (см. рисунок а).\n\n3. Под действием этих сил рамка поворачивается вокруг оси и благодаря сопротивлению воздуха устанавливается в положении равновесия перпендикулярно оси магнита так, что контакт «+» оказывается внизу. При этом силы Ампера $\\vec F_{A1}$ и $\\vec F_{A2}$ обеспечивают равновесие рамки относительно оси $MO$ (см. рисунок б).\n\n[[рис 2]]",
   "check": "none",
   "file": "03_electrodynamics/elem_mag_frame_magnet_rotation.md",
   "images": [
-   "assets/elem_mag_frame_magnet_rotation_1.svg"
+   "assets/elem_mag_frame_magnet_rotation_1.svg?v=ad9236f7"
   ],
   "solution_images": [
-   "assets/elem_mag_frame_magnet_rotation_s1.svg",
-   "assets/elem_mag_frame_magnet_rotation_s2.svg"
+   "assets/elem_mag_frame_magnet_rotation_s1.svg?v=c97c914f",
+   "assets/elem_mag_frame_magnet_rotation_s2.svg?v=2ad217e4"
   ]
  },
  {
@@ -11377,7 +11377,7 @@
   "file": "03_electrodynamics/elem_mag_particle_charge_energy.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_particle_charge_energy_s1.svg"
+   "assets/elem_mag_particle_charge_energy_s1.svg?v=e4cc4d8b"
   ]
  },
  {
@@ -11470,10 +11470,10 @@
   "check": "number",
   "file": "03_electrodynamics/elem_mag_rod_inclined_plane.md",
   "images": [
-   "assets/elem_mag_rod_inclined_plane_1.svg"
+   "assets/elem_mag_rod_inclined_plane_1.svg?v=b191bc9b"
   ],
   "solution_images": [
-   "assets/elem_mag_rod_inclined_plane_s1.svg"
+   "assets/elem_mag_rod_inclined_plane_s1.svg?v=222a1b7b"
   ]
  },
  {
@@ -11563,7 +11563,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_mag_v16_n25.md",
   "images": [
-   "assets/elem_mag_v16_n25_1.svg"
+   "assets/elem_mag_v16_n25_1.svg?v=7ad5df82"
   ],
   "solution_images": []
  },
@@ -11742,7 +11742,7 @@
   "file": "03_electrodynamics/elem_mag_v25_n23.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_v25_n23_s1.svg"
+   "assets/elem_mag_v25_n23_s1.svg?v=e4cc4d8b"
   ]
  },
  {
@@ -11775,7 +11775,7 @@
   "file": "03_electrodynamics/elem_mag_v27_n15.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_v27_n15_s1.svg"
+   "assets/elem_mag_v27_n15_s1.svg?v=9eb03927"
   ]
  },
  {
@@ -11866,7 +11866,7 @@
   "file": "03_electrodynamics/elem_mag_v3_n15.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_v3_n15_s1.svg"
+   "assets/elem_mag_v3_n15_s1.svg?v=96dc14c0"
   ]
  },
  {
@@ -11927,7 +11927,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_mag_v5_n25.md",
   "images": [
-   "assets/elem_mag_v5_n25_1.svg"
+   "assets/elem_mag_v5_n25_1.svg?v=7ad5df82"
   ],
   "solution_images": []
  },
@@ -11961,7 +11961,7 @@
   "file": "03_electrodynamics/elem_mag_v7_n15.md",
   "images": [],
   "solution_images": [
-   "assets/elem_mag_v7_n15_s1.svg"
+   "assets/elem_mag_v7_n15_s1.svg?v=9eb03927"
   ]
  },
  {
@@ -12225,7 +12225,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_ohm_v5_n11.md",
   "images": [
-   "assets/elem_ohm_v5_n11_1.svg"
+   "assets/elem_ohm_v5_n11_1.svg?v=ba26340c"
   ],
   "solution_images": []
  },
@@ -12404,8 +12404,8 @@
   "check": "seq",
   "file": "03_electrodynamics/elem_osc_v19_n15.md",
   "images": [
-   "assets/elem_osc_v19_n15_1.svg",
-   "assets/elem_osc_v19_n15_2.svg"
+   "assets/elem_osc_v19_n15_1.svg?v=49866fd6",
+   "assets/elem_osc_v19_n15_2.svg?v=eba98c4a"
   ],
   "solution_images": []
  },
@@ -12467,7 +12467,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_osc_v1_n23.md",
   "images": [
-   "assets/elem_osc_v1_n23_1.svg"
+   "assets/elem_osc_v1_n23_1.svg?v=95c0941a"
   ],
   "solution_images": []
  },
@@ -12501,8 +12501,8 @@
   "check": "seq",
   "file": "03_electrodynamics/elem_osc_v20_n15.md",
   "images": [
-   "assets/elem_osc_v20_n15_1.svg",
-   "assets/elem_osc_v20_n15_2.svg"
+   "assets/elem_osc_v20_n15_1.svg?v=49866fd6",
+   "assets/elem_osc_v20_n15_2.svg?v=61493909"
   ],
   "solution_images": []
  },
@@ -12739,8 +12739,8 @@
   "check": "seq",
   "file": "03_electrodynamics/elem_osc_v5_n15.md",
   "images": [
-   "assets/elem_osc_v5_n15_1.svg",
-   "assets/elem_osc_v5_n15_2.svg"
+   "assets/elem_osc_v5_n15_1.svg?v=49866fd6",
+   "assets/elem_osc_v5_n15_2.svg?v=fe6ef123"
   ],
   "solution_images": []
  },
@@ -12774,8 +12774,8 @@
   "check": "seq",
   "file": "03_electrodynamics/elem_osc_v6_n15.md",
   "images": [
-   "assets/elem_osc_v6_n15_1.svg",
-   "assets/elem_osc_v6_n15_2.svg"
+   "assets/elem_osc_v6_n15_1.svg?v=49866fd6",
+   "assets/elem_osc_v6_n15_2.svg?v=6c4f2425"
   ],
   "solution_images": []
  },
@@ -13213,7 +13213,7 @@
   "check": "number",
   "file": "03_electrodynamics/elem_pow_v6_n11.md",
   "images": [
-   "assets/elem_pow_v6_n11_1.svg"
+   "assets/elem_pow_v6_n11_1.svg?v=aaab6633"
   ],
   "solution_images": []
  },
@@ -13272,7 +13272,7 @@
   "check": "set",
   "file": "03_electrodynamics/ind2_t1.md",
   "images": [
-   "assets/ind2_t1_1.svg"
+   "assets/ind2_t1_1.svg?v=c47198bf"
   ],
   "solution_images": []
  },
@@ -13301,7 +13301,7 @@
   "check": "number",
   "file": "03_electrodynamics/ind2_t2.md",
   "images": [
-   "assets/ind2_t2_1.svg"
+   "assets/ind2_t2_1.svg?v=e80f1324"
   ],
   "solution_images": []
  },
@@ -13332,10 +13332,10 @@
   "check": "number",
   "file": "03_electrodynamics/ind2_t3.md",
   "images": [
-   "assets/ind2_t3_1.svg"
+   "assets/ind2_t3_1.svg?v=f34992aa"
   ],
   "solution_images": [
-   "assets/ind2_t3_s1.svg"
+   "assets/ind2_t3_s1.svg?v=b4f582bb"
   ]
  },
  {
@@ -13364,7 +13364,7 @@
   "file": "03_electrodynamics/ind2_t4.md",
   "images": [],
   "solution_images": [
-   "assets/ind2_t4_s1.svg"
+   "assets/ind2_t4_s1.svg?v=b4f582bb"
   ]
  },
  {
@@ -13392,7 +13392,7 @@
   "check": "number",
   "file": "03_electrodynamics/ind2_t5.md",
   "images": [
-   "assets/ind2_t5_1.svg"
+   "assets/ind2_t5_1.svg?v=025371d0"
   ],
   "solution_images": []
  },
@@ -13424,7 +13424,7 @@
   "check": "pm",
   "file": "03_electrodynamics/meth_ammeter_scale_n19.md",
   "images": [
-   "assets/meth_ammeter_scale_n19_1.svg"
+   "assets/meth_ammeter_scale_n19_1.svg?v=28eab9c2"
   ],
   "solution_images": []
  },
@@ -13482,7 +13482,7 @@
   "check": "pm",
   "file": "03_electrodynamics/meth_circuit_battery_voltage_n19.md",
   "images": [
-   "assets/meth_circuit_battery_voltage_n19_photo1.png"
+   "assets/meth_circuit_battery_voltage_n19_photo1.png?v=7af15c9e"
   ],
   "solution_images": []
  },
@@ -13512,7 +13512,7 @@
   "check": "pm",
   "file": "03_electrodynamics/meth_circuit_rheostat_current_n19.md",
   "images": [
-   "assets/meth_circuit_rheostat_current_n19_photo1.png"
+   "assets/meth_circuit_rheostat_current_n19_photo1.png?v=7af15c9e"
   ],
   "solution_images": []
  },
@@ -13544,7 +13544,7 @@
   "check": "pm",
   "file": "03_electrodynamics/meth_voltmeter_scale_n19.md",
   "images": [
-   "assets/meth_voltmeter_scale_n19_1.svg"
+   "assets/meth_voltmeter_scale_n19_1.svg?v=1b26fc1c"
   ],
   "solution_images": []
  },
@@ -13801,7 +13801,7 @@
   "check": "number",
   "file": "04_optics/geom_opt_mirror_rotation_gamma_between.md",
   "images": [
-   "assets/geom_opt_mirror_rotation_gamma_between_1.svg"
+   "assets/geom_opt_mirror_rotation_gamma_between_1.svg?v=0991aa09"
   ],
   "solution_images": []
  },
@@ -13834,7 +13834,7 @@
   "check": "number",
   "file": "04_optics/geom_opt_mirror_rotation_gamma_refl.md",
   "images": [
-   "assets/geom_opt_mirror_rotation_gamma_refl_1.svg"
+   "assets/geom_opt_mirror_rotation_gamma_refl_1.svg?v=06a6024b"
   ],
   "solution_images": []
  },
@@ -13867,7 +13867,7 @@
   "check": "seq",
   "file": "04_optics/geom_opt_wave_air_glycerin.md",
   "images": [
-   "assets/geom_opt_wave_air_glycerin_1.svg"
+   "assets/geom_opt_wave_air_glycerin_1.svg?v=4cc2bd3f"
   ],
   "solution_images": []
  },
@@ -13900,7 +13900,7 @@
   "check": "seq",
   "file": "04_optics/geom_opt_wave_air_plexiglas.md",
   "images": [
-   "assets/geom_opt_wave_air_plexiglas_1.svg"
+   "assets/geom_opt_wave_air_plexiglas_1.svg?v=4cc2bd3f"
   ],
   "solution_images": []
  },
@@ -13933,7 +13933,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_inside_focus.md",
   "images": [
-   "assets/optics_lens_inside_focus_1.svg"
+   "assets/optics_lens_inside_focus_1.svg?v=8aa01833"
   ],
   "solution_images": []
  },
@@ -13966,7 +13966,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_inside_focus_right.md",
   "images": [
-   "assets/optics_lens_inside_focus_right_1.svg"
+   "assets/optics_lens_inside_focus_right_1.svg?v=fdbb3ac6"
   ],
   "solution_images": []
  },
@@ -13999,7 +13999,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v1.md",
   "images": [
-   "assets/optics_lens_item_to_image_v1_1.svg"
+   "assets/optics_lens_item_to_image_v1_1.svg?v=173d6893"
   ],
   "solution_images": []
  },
@@ -14032,7 +14032,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v2.md",
   "images": [
-   "assets/optics_lens_item_to_image_v2_1.svg"
+   "assets/optics_lens_item_to_image_v2_1.svg?v=6558c49b"
   ],
   "solution_images": []
  },
@@ -14066,7 +14066,7 @@
   "file": "04_optics/optics_lens_light_spot_diameter.md",
   "images": [],
   "solution_images": [
-   "assets/optics_lens_light_spot_diameter_s1.svg"
+   "assets/optics_lens_light_spot_diameter_s1.svg?v=d1ab56a5"
   ]
  },
  {
@@ -14098,7 +14098,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_optical_axis_ray.md",
   "images": [
-   "assets/optics_lens_optical_axis_ray_1.svg"
+   "assets/optics_lens_optical_axis_ray_1.svg?v=3aa6ac30"
   ],
   "solution_images": []
  },
@@ -14131,7 +14131,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_optical_axis_ray_bottom.md",
   "images": [
-   "assets/optics_lens_optical_axis_ray_bottom_1.svg"
+   "assets/optics_lens_optical_axis_ray_bottom_1.svg?v=9a8daf68"
   ],
   "solution_images": []
  },
@@ -14164,7 +14164,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_2f.md",
   "images": [
-   "assets/optics_lens_point_source_2f_1.svg"
+   "assets/optics_lens_point_source_2f_1.svg?v=c5223bd6"
   ],
   "solution_images": []
  },
@@ -14197,7 +14197,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_2f_bottom.md",
   "images": [
-   "assets/optics_lens_point_source_2f_bottom_1.svg"
+   "assets/optics_lens_point_source_2f_bottom_1.svg?v=f9e6ab5b"
   ],
   "solution_images": []
  },
@@ -14230,7 +14230,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_v1.md",
   "images": [
-   "assets/optics_lens_point_source_v1_1.svg"
+   "assets/optics_lens_point_source_v1_1.svg?v=9706d472"
   ],
   "solution_images": []
  },
@@ -14263,7 +14263,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_v2.md",
   "images": [
-   "assets/optics_lens_point_source_v2_1.svg"
+   "assets/optics_lens_point_source_v2_1.svg?v=531ef6c2"
   ],
   "solution_images": []
  },
@@ -14325,7 +14325,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_triangle_image_area.md",
   "images": [
-   "assets/optics_lens_triangle_image_area_1.svg"
+   "assets/optics_lens_triangle_image_area_1.svg?v=416621a0"
   ],
   "solution_images": []
  },
@@ -14648,7 +14648,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_max_e_min_lambda.md",
   "images": [
-   "assets/atomic_levels_max_e_min_lambda_1.svg"
+   "assets/atomic_levels_max_e_min_lambda_1.svg?v=676b8565"
   ],
   "solution_images": []
  },
@@ -14681,7 +14681,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_max_freq_min_energy.md",
   "images": [
-   "assets/atomic_levels_max_freq_min_energy_1.svg"
+   "assets/atomic_levels_max_freq_min_energy_1.svg?v=319d5304"
   ],
   "solution_images": []
  },
@@ -14714,7 +14714,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_max_lambda_min_e.md",
   "images": [
-   "assets/atomic_levels_max_lambda_min_e_1.svg"
+   "assets/atomic_levels_max_lambda_min_e_1.svg?v=43ff9ff4"
   ],
   "solution_images": []
  },
@@ -14747,7 +14747,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_max_lambda_min_freq.md",
   "images": [
-   "assets/atomic_levels_max_lambda_min_freq_1.svg"
+   "assets/atomic_levels_max_lambda_min_freq_1.svg?v=319d5304"
   ],
   "solution_images": []
  },
@@ -14780,7 +14780,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_min_freq_max_energy.md",
   "images": [
-   "assets/atomic_levels_min_freq_max_energy_1.svg"
+   "assets/atomic_levels_min_freq_max_energy_1.svg?v=319d5304"
   ],
   "solution_images": []
  },
@@ -14813,7 +14813,7 @@
   "check": "seq",
   "file": "05_quantum/atomic_levels_min_lambda_max_freq.md",
   "images": [
-   "assets/atomic_levels_min_lambda_max_freq_1.svg"
+   "assets/atomic_levels_min_lambda_max_freq_1.svg?v=319d5304"
   ],
   "solution_images": []
  },
@@ -15281,7 +15281,7 @@
   "check": "number",
   "file": "05_quantum/nuclear_decay_graph_point1.md",
   "images": [
-   "assets/nuclear_decay_graph_point1_1.svg"
+   "assets/nuclear_decay_graph_point1_1.svg?v=ff3cb72c"
   ],
   "solution_images": []
  },
@@ -15314,7 +15314,7 @@
   "check": "number",
   "file": "05_quantum/nuclear_decay_graph_point3.md",
   "images": [
-   "assets/nuclear_decay_graph_point3_1.svg"
+   "assets/nuclear_decay_graph_point3_1.svg?v=b011bccb"
   ],
   "solution_images": []
  },
@@ -15405,7 +15405,7 @@
   "check": "number",
   "file": "05_quantum/nuclear_half_life_mass_graph.md",
   "images": [
-   "assets/nuclear_half_life_mass_graph_1.svg"
+   "assets/nuclear_half_life_mass_graph_1.svg?v=e2efdf99"
   ],
   "solution_images": []
  },
@@ -15438,7 +15438,7 @@
   "check": "number",
   "file": "05_quantum/nuclear_half_life_mercury_graph.md",
   "images": [
-   "assets/nuclear_half_life_mercury_graph_1.svg"
+   "assets/nuclear_half_life_mercury_graph_1.svg?v=6a05d225"
   ],
   "solution_images": []
  },
@@ -16022,7 +16022,7 @@
   "check": "seq",
   "file": "05_quantum/photo_graphs_e_nu_i_u.md",
   "images": [
-   "assets/photo_graphs_e_nu_i_u_1.svg"
+   "assets/photo_graphs_e_nu_i_u_1.svg?v=7b27a1ad"
   ],
   "solution_images": []
  },
@@ -16055,7 +16055,7 @@
   "check": "seq",
   "file": "05_quantum/photo_graphs_ek_nu_e_lambda.md",
   "images": [
-   "assets/photo_graphs_ek_nu_e_lambda_1.svg"
+   "assets/photo_graphs_ek_nu_e_lambda_1.svg?v=9daf1d59"
   ],
   "solution_images": []
  },
