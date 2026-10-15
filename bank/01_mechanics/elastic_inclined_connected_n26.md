@@ -23,53 +23,29 @@ source: din.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}, decoration={coil, aspect=0.4, segment length=3pt, amplitude=2.5pt}]
-    % Геометрия наклонной плоскости (угол примерно 26.5 градусов для удобства сетки: atan(1.5/3))
-    % Координаты клина: (0,0) -> (3.5,0) -> (3.5,1.75) -> cycle
-    \draw[thick, fill=gray!5] (0,0) -- (3.5,0) -- (3.5,1.75) -- cycle;
-    \draw (0.5,0) arc (0:26.5:0.5);
-    \node at (0.7,0.16) {$\alpha$};
-
-    % Идеальный блок на вершине
-    \coordinate (BlockCenter) at (3.5,1.75);
-    \draw[thick, fill=white] (3.62,1.87) circle (0.15);
-    \draw[thick, fill=white] (3.62,1.87) circle (0.04);
-    \fill[black] (3.62,1.87) circle (1pt);
-    \draw[thick] (BlockCenter) -- (3.62,1.87);
-
-    % Наклонные линии для позиционирования брусков
-    % Линия параллельна гипотенузе, смещена по нормали на высоту брусков
-    % Нижний брусок m (первый по склону)
-    \begin{scope}[shift={(1.0,0.5)}, rotate=26.5]
-        \draw[thick, fill=brandAccent!20] (0,0) rectangle (0.5,0.3);
-        \node at (0.25,0.45) {$m$};
-    \end{scope}
-
-    % Верхний брусок m (второй по склону)
-    \begin{scope}[shift={(2.2,1.1)}, rotate=26.5]
-        \draw[thick, fill=brandAccent!20] (0,0) rectangle (0.5,0.3);
-        \node at (0.25,0.45) {$m$};
-    \end{scope}
-
-    % Пружина между брусками
-    \begin{scope}[rotate=26.5]
-        % В повернутых координатах торцы брусков находятся на фиксированных точках
-        % Нижний брусок (от x=1.0 до x=1.5 в проекции) -> торец при x = 1.118*1.5 = 1.67
-        \draw[thick, decorate] (1.56, 0.15) -- (2.32, 0.15);
-    \end{scope}
-
-    % Груз M (висит вертикально справа)
-    \draw[thick, fill=brandPrimary!10] (3.62,0.4) rectangle (3.92,1.0);
-    \node[right] at (3.95,0.7) {$M$};
-
-    % Нити
-    % Наклонная нить от верхнего бруска к блоку
-    \begin{scope}[rotate=26.5]
-        \draw[thick] (2.95,0.15) -- (3.9,0.15);
-    \end{scope}
-    % Вертикальная нить от блока к грузу M
-    \draw[thick] (3.77,1.87) -- (3.77,1.0);
-
+\begin{tikzpicture}[scale=1.0, font=\small,
+  decoration={coil, aspect=0.4, segment length=4pt, amplitude=2.5pt}]
+  % клин (угол 30°)
+  \draw[thick, fill=gray!8] (0,0) -- (4.5,0) -- (4.5,2.598) -- cycle;
+  \draw (0.45,0) arc (0:30:0.45);
+  \node at (0.65,0.15) {$\alpha$};
+  % блок
+  \draw[thick] (4.5,2.598) -- (4.4875,2.62);
+  \draw[thick, fill=white] (4.4875,2.62) circle (0.2);
+  \fill (4.4875,2.62) circle (1pt);
+  \begin{scope}[rotate=30]
+    % бруски, пружина, нить
+    \draw[thick, fill=brandAccent!20] (0.8,0) rectangle (1.6,0.45);
+    \draw[thick, fill=brandAccent!20] (2.9,0) rectangle (3.7,0.45);
+    \node[rotate=30] at (1.2,0.225) {$m$};
+    \node[rotate=30] at (3.3,0.225) {$m$};
+    \draw[thick, decorate] (1.6,0.225) -- (2.9,0.225);
+    \draw[thick] (3.7,0.225) -- (5.196,0.225);
+  \end{scope}
+  % груз M
+  \draw[thick] (4.6875,2.62) -- (4.6875,1.3);
+  \draw[thick, fill=brandPrimary!10] (4.54,0.6) rectangle (4.84,1.3);
+  \node[right] at (4.84,0.95) {$M$};
 \end{tikzpicture}
 ```
 

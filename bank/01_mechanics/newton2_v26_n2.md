@@ -27,13 +27,12 @@ source: din.tex
     \draw[xstep=0.1, ystep=3, gray!30, thin] (0,0) grid (0.6,12);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0.68,0) node[right] {$a, \text{ м/с}^{2}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,13) node[above] {$F, \text{ Н}$};
-    \foreach \y in {3,6,12} \node[left] at (0,\y) {\y};
+    \foreach \y in {3,6,9,12} \node[left] at (0,\y) {\y};
     \node[below] at (0.2,0) {$0{,}2$};
     \node[below] at (0.4,0) {$0{,}4$};
     \node[below] at (0.6,0) {$0{,}6$};
     \node[below left] at (0,0) {0};
     \draw[ultra thick, brandPrimary] (0,0) -- (0.6,12);
-    \fill[black] (0.6,12) circle (1.5pt);
 \end{tikzpicture}
 ```
 
