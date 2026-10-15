@@ -31,7 +31,6 @@ source: упругость.tex
     \foreach \y in {4,8,12,16,20,24} \node[left] at (0,\y) {\y};
     \node[below left] at (0,0) {0};
     \draw[ultra thick, brandPrimary] (0,0) -- (5,20);
-    \fill[black] (5,20) circle (1.5pt);
 \end{tikzpicture}
 ```
 

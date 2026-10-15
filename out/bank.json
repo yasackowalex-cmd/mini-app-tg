@@ -3121,7 +3121,7 @@
   ],
   "source": "упругость.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=1.5cm, y=0.4cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (4,8);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\Delta l, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,8.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {2,4,6,8} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,6);\n    \\fill[black] (4,6) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=1.5cm, y=0.4cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (4,8);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\\Delta l, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,8.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {2,4,6,8} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,6);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $\\Delta l$. Чему равна жёсткость этой пружины?",
   "sol_tikz": [],
@@ -3206,7 +3206,7 @@
   ],
   "source": "упругость.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (5,24);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {4,8,12,16,20,24} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,20);\n    \\fill[black] (5,20) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (5,24);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {4,8,12,16,20,24} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,20);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $x$. Чему равна жёсткость этой пружины?",
   "sol_tikz": [],
@@ -5639,7 +5639,7 @@
   ],
   "source": "imp.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (3,4) -- (4,0);\n    \\fill[black] (2,4) circle (1.5pt);\n    \\fill[black] (3,4) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (3,4) -- (4,0);\n\\end{tikzpicture}"
   ],
   "condition": "В инерциальной системе отсчёта тело движется по прямой линии в одном направлении под действием постоянной силы. На рисунке приведён график зависимости модуля этой силы $F$ от времени $t$. Чему равен модуль изменения импульса тела в интервале времени от $0$ до $3$~с?",
   "sol_tikz": [],
@@ -5697,7 +5697,7 @@
   ],
   "source": "imp.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (4,4) -- (5,0);\n    \\fill[black] (2,4) circle (1.5pt);\n    \\fill[black] (4,4) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (4,4) -- (5,0);\n\\end{tikzpicture}"
   ],
   "condition": "В инерциальной системе отсчёта тело движется по прямой линии в одном направлении под действием постоянной силы. На рисунке приведён график зависимости модуля этой силы $F$ от времени $t$. Чему равен модуль изменения импульса тела в интервале времени от $0$ до $4$~с?",
   "sol_tikz": [],

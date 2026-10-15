@@ -31,8 +31,6 @@ source: imp.tex
     \foreach \y in {1,2,3,4,5} \node[left] at (0,\y) {\y};
     \node[below left] at (0,0) {0};
     \draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (4,4) -- (5,0);
-    \fill[black] (2,4) circle (1.5pt);
-    \fill[black] (4,4) circle (1.5pt);
 \end{tikzpicture}
 ```
 
