@@ -34,16 +34,6 @@ source: jou.tex
     % График q(t)
     \draw[ultra thick, brandPrimary] (0,0) -- (4,4);
     
-    % Точки на узлах
-    \fill[black] (1,1) circle (1.5pt);
-    \fill[black] (2,2) circle (1.5pt);
-    \fill[black] (3,3) circle (1.5pt);
-    \fill[black] (4,4) circle (1.5pt);
-    
-    % Пунктиры
-    \draw[dashed, gray] (4,0) -- (4,4);
-    \draw[dashed, gray] (0,4) -- (4,4);
-    
     % Оцифровка
     \node[left] at (0,1) {0,2};
     \node[left] at (0,2) {0,4};
