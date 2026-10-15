@@ -1366,7 +1366,7 @@
   ],
   "source": "kim04.tex",
   "tikz": [],
-  "condition": "Ученик выполнял лабораторную работу по исследованию условий равновесия рычага под действием двух сил: $\\vec{F}_{1}$ и $\\vec{F}_{2}$, плечи которых равны соответственно $l_{1}$ и $l_{2}$. Он внёс результаты измерений в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n& 0,4 & 20 & 1,2 \\\\ \\hline\n\\end{tabular}\n\\end{center}\nОпределите модуль силы $\\vec{F}_{1}$, если рычаг находится в равновесии. Массой рычага пренебречь.",
+  "condition": "Ученик выполнял лабораторную работу по исследованию условий равновесия рычага под действием двух сил: $\\vec{F}_{1}$ и $\\vec{F}_{2}$, плечи которых равны соответственно $l_{1}$ и $l_{2}$. Он внёс результаты измерений в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n? & 0,4 & 20 & 1,2 \\\\ \\hline\n\\end{tabular}\n\\end{center}\nОпределите модуль силы $\\vec{F}_{1}$, если рычаг находится в равновесии. Массой рычага пренебречь.",
   "sol_tikz": [
    "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг и опора\n  \\draw[line width=2.2pt, brandSecondary] (-1.00,0) -- (3.00,0);\n  \\draw[thick, fill=gray!20] (0,-0.04) -- (-0.2,-0.42) -- (0.2,-0.42) -- cycle;\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,-0.42) rectangle (0.4,-0.56);\n  \\draw[thick, brandSecondary] (-0.4,-0.42) -- (0.4,-0.42);\n  \\fill (0,0) circle (1.4pt);\n  \\node[above] at (0,0.02) {$O$};\n  % плечи\n  \\draw[densely dashed, gray] (-1.00,0.05) -- (-1.00,0.75) (3.00,0.05) -- (3.00,0.75) (0,0.35) -- (0,0.75);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (-1.00,0.6) -- (0,0.6) node[midway, above] {$l_1$};\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0,0.6) -- (3.00,0.6) node[midway, above] {$l_2$};\n  % силы\n  \\draw[Fvec] (-1.00,0) -- (-1.00,-1.50) node[below] {$\\vec F_1$};\n  \\draw[Fvec] (3.00,0) -- (3.00,-0.50) node[below] {$\\vec F_2$};\n\\end{tikzpicture}"
   ],
@@ -1486,7 +1486,7 @@
   ],
   "source": "kim04.tex",
   "tikz": [],
-  "condition": "Школьник выполнял лабораторную работу по исследованию условий равновесия лёгкого рычага под действием двух сил. Полученные результаты он занёс в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n40 & 0,6 & 120 & \\\\ \\hline\n\\end{tabular}\n\\end{center}\nКаково плечо $l_{2}$, если рычаг находится в равновесии?",
+  "condition": "Школьник выполнял лабораторную работу по исследованию условий равновесия лёгкого рычага под действием двух сил. Полученные результаты он занёс в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n40 & 0,6 & 120 & ? \\\\ \\hline\n\\end{tabular}\n\\end{center}\nКаково плечо $l_{2}$, если рычаг находится в равновесии?",
   "sol_tikz": [
    "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг и опора\n  \\draw[line width=2.2pt, brandSecondary] (-3.00,0) -- (1.00,0);\n  \\draw[thick, fill=gray!20] (0,-0.04) -- (-0.2,-0.42) -- (0.2,-0.42) -- cycle;\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,-0.42) rectangle (0.4,-0.56);\n  \\draw[thick, brandSecondary] (-0.4,-0.42) -- (0.4,-0.42);\n  \\fill (0,0) circle (1.4pt);\n  \\node[above] at (0,0.02) {$O$};\n  % плечи\n  \\draw[densely dashed, gray] (-3.00,0.05) -- (-3.00,0.75) (1.00,0.05) -- (1.00,0.75) (0,0.35) -- (0,0.75);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (-3.00,0.6) -- (0,0.6) node[midway, above] {$l_1$};\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0,0.6) -- (1.00,0.6) node[midway, above] {$l_2$};\n  % силы\n  \\draw[Fvec] (-3.00,0) -- (-3.00,-0.50) node[below] {$\\vec F_1$};\n  \\draw[Fvec] (1.00,0) -- (1.00,-1.50) node[below] {$\\vec F_2$};\n\\end{tikzpicture}"
   ],
@@ -1575,7 +1575,7 @@
   ],
   "source": "kim04.tex",
   "tikz": [],
-  "condition": "Ученик выполнял лабораторную работу по исследованию условий равновесия рычага под действием двух сил: $\\vec{F}_{1}$ и $\\vec{F}_{2}$, плечи которых равны соответственно $l_{1}$ и $l_{2}$. Он внёс результаты измерений в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n80 & 0,25 & 20 & \\\\ \\hline\n\\end{tabular}\n\\end{center}\nОпределите длину плеча $l_{2}$, если рычаг находится в равновесии. Массой рычага пренебречь.",
+  "condition": "Ученик выполнял лабораторную работу по исследованию условий равновесия рычага под действием двух сил: $\\vec{F}_{1}$ и $\\vec{F}_{2}$, плечи которых равны соответственно $l_{1}$ и $l_{2}$. Он внёс результаты измерений в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n80 & 0,25 & 20 & ? \\\\ \\hline\n\\end{tabular}\n\\end{center}\nОпределите длину плеча $l_{2}$, если рычаг находится в равновесии. Массой рычага пренебречь.",
   "sol_tikz": [
    "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг и опора\n  \\draw[line width=2.2pt, brandSecondary] (-0.80,0) -- (3.20,0);\n  \\draw[thick, fill=gray!20] (0,-0.04) -- (-0.2,-0.42) -- (0.2,-0.42) -- cycle;\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,-0.42) rectangle (0.4,-0.56);\n  \\draw[thick, brandSecondary] (-0.4,-0.42) -- (0.4,-0.42);\n  \\fill (0,0) circle (1.4pt);\n  \\node[above] at (0,0.02) {$O$};\n  % плечи\n  \\draw[densely dashed, gray] (-0.80,0.05) -- (-0.80,0.75) (3.20,0.05) -- (3.20,0.75) (0,0.35) -- (0,0.75);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (-0.80,0.6) -- (0,0.6) node[midway, above] {$l_1$};\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0,0.6) -- (3.20,0.6) node[midway, above] {$l_2$};\n  % силы\n  \\draw[Fvec] (-0.80,0) -- (-0.80,-1.60) node[below] {$\\vec F_1$};\n  \\draw[Fvec] (3.20,0) -- (3.20,-0.40) node[below] {$\\vec F_2$};\n\\end{tikzpicture}"
   ],
@@ -2129,7 +2129,7 @@
   ],
   "source": "kim04.tex",
   "tikz": [],
-  "condition": "Школьник выполнял лабораторную работу по исследованию условий равновесия лёгкого рычага под действием двух сил. Полученные результаты он занёс в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n80 & & 120 & 0,2 \\\\ \\hline\n\\end{tabular}\n\\end{center}\nКаково плечо $l_{1}$, если рычаг находится в равновесии?",
+  "condition": "Школьник выполнял лабораторную работу по исследованию условий равновесия лёгкого рычага под действием двух сил. Полученные результаты он занёс в таблицу:\n\\begin{center}\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n$F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\\\ \\hline\n80 & ? & 120 & 0,2 \\\\ \\hline\n\\end{tabular}\n\\end{center}\nКаково плечо $l_{1}$, если рычаг находится в равновесии?",
   "sol_tikz": [
    "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг и опора\n  \\draw[line width=2.2pt, brandSecondary] (-2.40,0) -- (1.60,0);\n  \\draw[thick, fill=gray!20] (0,-0.04) -- (-0.2,-0.42) -- (0.2,-0.42) -- cycle;\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,-0.42) rectangle (0.4,-0.56);\n  \\draw[thick, brandSecondary] (-0.4,-0.42) -- (0.4,-0.42);\n  \\fill (0,0) circle (1.4pt);\n  \\node[above] at (0,0.02) {$O$};\n  % плечи\n  \\draw[densely dashed, gray] (-2.40,0.05) -- (-2.40,0.75) (1.60,0.05) -- (1.60,0.75) (0,0.35) -- (0,0.75);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (-2.40,0.6) -- (0,0.6) node[midway, above] {$l_1$};\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0,0.6) -- (1.60,0.6) node[midway, above] {$l_2$};\n  % силы\n  \\draw[Fvec] (-2.40,0) -- (-2.40,-1.00) node[below] {$\\vec F_1$};\n  \\draw[Fvec] (1.60,0) -- (1.60,-1.50) node[below] {$\\vec F_2$};\n\\end{tikzpicture}"
   ],
@@ -3206,7 +3206,7 @@
   ],
   "source": "упругость.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=2, gray!30, thin] (0,0) grid (5,24);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {4,8,12,16,20,24} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,20);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=1.2cm, y=0.15cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=4, gray!30, thin] (0,0) grid (5,24);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$x, \\text{ см}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,25) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {4,8,12,16,20,24} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,20);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости модуля силы упругости $F$ пружины от её удлинения $x$. Чему равна жёсткость этой пружины?",
   "sol_tikz": [],
@@ -3237,15 +3237,17 @@
   ],
   "source": "energy.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.0*sin(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\fill[pattern=north east lines] (-0.9,2.5) rectangle (0.9,2.7);\n    \\draw[thick] (-0.9,2.5) -- (0.9,2.5);\n    \\draw[dashed] (0,2.5) -- (0,0.2);\n    \\draw[thick] (0,2.5) -- (-0.75,0.55);\n    \\fill[gray!50] (-0.75,0.4) circle (0.17);\n    \\draw[thick] (-0.75,0.4) circle (0.17);\n    \\draw[-{Stealth[scale=0.8]}] (-1.5,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\draw (0,-0.12) -- (0,-0.28);\n    \\node[below] at (0,-0.25) {0};\n\\end{tikzpicture}",
+   "\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\footnotesize}]\n  \\begin{scope}\n    \\node at (-0.7,1.6) {А)};\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw (4,-0.08) -- (4,0.08);\n    \\node[below right] at (3.85,0) {$T$};\n    \\node[below left] at (0,0) {0};\n  \\end{scope}\n  \\begin{scope}[yshift=-4cm]\n    \\node at (-0.7,1.6) {Б)};\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.0*sin(\\x*180/2)});\n    \\draw (4,-0.08) -- (4,0.08);\n    \\node[below right] at (3.85,0) {$T$};\n    \\node[below left] at (0,0) {0};\n  \\end{scope}\n\\end{tikzpicture}"
   ],
-  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок).\n\n[[рис 1]]\n\nНа графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\ \\hline\n[[рис 2]] &\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
   "sol_tikz": [],
   "solution": "Груз отклонили против оси $Ox$ и отпустили без начальной скорости, поэтому $x(t) = -A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент $x = -A$.\n\nА) Проекция ускорения $a_x = -\\omega^2 x = \\omega^2 A\\cos\\dfrac{2\\pi t}{T}$: в начальный момент максимальна и положительна, график — «плюс косинус» (3). Это не потенциальная энергия: $E_\\text{п} \\ge 0$, а график А уходит в отрицательные значения, к тому же $E_\\text{п}$ меняется с периодом $T/2$.\n\nБ) Проекция скорости $v_x = \\omega A\\sin\\dfrac{2\\pi t}{T}$: в начальный момент равна нулю, затем положительна — груз движется к положению равновесия по оси $Ox$ (1).",
   "check": "seq",
   "file": "01_mechanics/energy_v1_n6.md",
   "images": [
-   "assets/energy_v1_n6_1.svg"
+   "assets/energy_v1_n6_1.svg",
+   "assets/energy_v1_n6_2.svg"
   ],
   "solution_images": []
  },
@@ -3268,15 +3270,17 @@
   ],
   "source": "energy.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.7, every node/.style={font=\\footnotesize}]\n    \\draw[thick] (-0.8,2.5) -- (0.8,2.5);\n    \\foreach \\x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}\n        \\draw (\\x,2.5) -- (\\x+0.1,2.7);\n    \\draw[dashed] (0,2.5) -- (0,0);\n    \\draw[thick] (0,2.5) -- (-0.8,0.5);\n    \\draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);\n    \\draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\node[below] at (0,-0.2) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,1.2);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}\n\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\tiny}]\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {-1.0*cos(\\x*180/2)});\n    \\draw[dashed] (4,0) -- (4,0);\n    \\node[below] at (4,0) {$T$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\fill[pattern=north east lines] (-0.9,2.5) rectangle (0.9,2.7);\n    \\draw[thick] (-0.9,2.5) -- (0.9,2.5);\n    \\draw[dashed] (0,2.5) -- (0,0.2);\n    \\draw[thick] (0,2.5) -- (-0.75,0.55);\n    \\fill[gray!50] (-0.75,0.4) circle (0.17);\n    \\draw[thick] (-0.75,0.4) circle (0.17);\n    \\draw[-{Stealth[scale=0.8]}] (-1.5,-0.2) -- (1.5,-0.2) node[right] {$x$};\n    \\draw (0,-0.12) -- (0,-0.28);\n    \\node[below] at (0,-0.25) {0};\n\\end{tikzpicture}",
+   "\\begin{tikzpicture}[scale=0.55, every node/.style={font=\\footnotesize}]\n  \\begin{scope}\n    \\node at (-0.7,1.6) {А)};\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {1.2*cos(\\x*180/2)});\n    \\draw (4,-0.08) -- (4,0.08);\n    \\node[below right] at (3.85,0) {$T$};\n    \\node[below left] at (0,0) {0};\n  \\end{scope}\n  \\begin{scope}[yshift=-4cm]\n    \\node at (-0.7,1.6) {Б)};\n    \\draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};\n    \\draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);\n    \\draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\\x, {-1.0*cos(\\x*180/2)});\n    \\draw (4,-0.08) -- (4,0.08);\n    \\node[below right] at (3.85,0) {$T$};\n    \\node[below left] at (0,0) {0};\n  \\end{scope}\n\\end{tikzpicture}"
   ],
-  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{cc}\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\\n\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\\n \n\\end{tabular}\n\\end{center}\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "condition": "Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок).\n\n[[рис 1]]\n\nНа графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.\n\nУстановите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\\\ \\hline\n[[рис 2]] &\n\\begin{tabular}{l}\n1) проекция скорости $v_x$ \\\\\n2) координата $x$ \\\\\n3) проекция ускорения $a_x$ \\\\\n4) потенциальная энергия груза $E_{\\text{п}}$\n\\end{tabular} \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
   "sol_tikz": [],
   "solution": "Груз отклонён влево, против оси $Ox$, и отпущен без начальной скорости, поэтому $x = -A\\cos\\omega t$.\n\nА) График начинается с наибольшего положительного значения и меняется по закону $\\cos$. Это проекция ускорения: $a_x = -\\omega^2 x = \\omega^2 A\\cos\\omega t$, в начальный момент ускорение направлено к положению равновесия, то есть по оси (3).\n\nБ) График начинается с наименьшего отрицательного значения, закон $-\\cos$ — это координата $x$ (2).\n\nПроекция скорости при $t = 0$ равна нулю, а потенциальная энергия не бывает отрицательной и колеблется с периодом $T/2$, поэтому эти величины не подходят.",
   "check": "seq",
   "file": "01_mechanics/energy_v2_n6.md",
   "images": [
-   "assets/energy_v2_n6_1.svg"
+   "assets/energy_v2_n6_1.svg",
+   "assets/energy_v2_n6_2.svg"
   ],
   "solution_images": []
  },
@@ -5270,33 +5274,6 @@
   "solution_images": []
  },
  {
-  "id": "momentum_v19_n6",
-  "exam": "ЕГЭ",
-  "kim": 6,
-  "section": "Механика",
-  "theme": "ИМПУЛЬС ТЕЛА. ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА",
-  "topic": "1.3.1",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": 19,
-  "answer": "33",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "imp.tex",
-  "tikz": [],
-  "condition": "Стальной шарик падает с некоторой высоты на горизонтальную плиту и упруго отскакивает от неё вверх. Как изменяются в результате удара модуль импульса шарика и его кинетическая энергия (сравните значения сразу после отскока и непосредственно перед ударом)?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль импульса шарика & Кинетическая энергия шарика \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [],
-  "solution": "При упругом ударе о неподвижную массивную плиту механическая энергия не теряется, поэтому шарик отскакивает с той же по модулю скоростью $v$, только направленной вверх.\n\nМодуль импульса $p = mv$ не изменяется (3): меняется лишь направление импульса.\n\nКинетическая энергия $E_\\text{к} = \\dfrac{mv^2}{2}$ тоже не изменяется (3).",
-  "check": "seq",
-  "file": "01_mechanics/momentum_v19_n6.md",
-  "images": [],
-  "solution_images": []
- },
- {
   "id": "momentum_v1_n22",
   "exam": "ЕГЭ",
   "kim": 22,
@@ -5621,37 +5598,6 @@
   "solution_images": []
  },
  {
-  "id": "momentum_v5_n3",
-  "exam": "ЕГЭ",
-  "kim": 3,
-  "section": "Механика",
-  "theme": "ИМПУЛЬС ТЕЛА. ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА",
-  "topic": "1.3.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 5,
-  "answer": "8",
-  "unit": "кг·м/с",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "imp.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (3,4) -- (4,0);\n\\end{tikzpicture}"
-  ],
-  "condition": "В инерциальной системе отсчёта тело движется по прямой линии в одном направлении под действием постоянной силы. На рисунке приведён график зависимости модуля этой силы $F$ от времени $t$. Чему равен модуль изменения импульса тела в интервале времени от $0$ до $3$~с?",
-  "sol_tikz": [],
-  "solution": "Изменение импульса тела равно импульсу силы, то есть площади под графиком $F(t)$.\n\nОт $0$ до $2$~с — треугольник, от $2$ до $3$~с — прямоугольник:\n\n$$\\Delta p = \\frac{4 \\cdot 2}{2} + 4 \\cdot 1 = 4 + 4 = 8~\\text{кг}\\cdot\\text{м/с}.$$",
-  "check": "number",
-  "file": "01_mechanics/momentum_v5_n3.md",
-  "images": [
-   "assets/momentum_v5_n3_1.svg"
-  ],
-  "solution_images": []
- },
- {
   "id": "momentum_v6_n22",
   "exam": "ЕГЭ",
   "kim": 22,
@@ -5676,37 +5622,6 @@
   "check": "number",
   "file": "01_mechanics/momentum_v6_n22.md",
   "images": [],
-  "solution_images": []
- },
- {
-  "id": "momentum_v6_n3",
-  "exam": "ЕГЭ",
-  "kim": 3,
-  "section": "Механика",
-  "theme": "ИМПУЛЬС ТЕЛА. ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА",
-  "topic": "1.3.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 6,
-  "answer": "12",
-  "unit": "кг·м/с",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "imp.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[x=1.5cm, y=0.8cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$F, \\text{ Н}$};\n    \\foreach \\x in {1,2,3,4,5} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {1,2,3,4,5} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2,4) -- (4,4) -- (5,0);\n\\end{tikzpicture}"
-  ],
-  "condition": "В инерциальной системе отсчёта тело движется по прямой линии в одном направлении под действием постоянной силы. На рисунке приведён график зависимости модуля этой силы $F$ от времени $t$. Чему равен модуль изменения импульса тела в интервале времени от $0$ до $4$~с?",
-  "sol_tikz": [],
-  "solution": "Изменение импульса равно импульсу силы, а он равен площади под графиком $F(t)$.\n\nОт $0$ до $2$~с — треугольник: $\\dfrac{2 \\cdot 4}{2} = 4$~Н·с. От $2$ до $4$~с — прямоугольник: $2 \\cdot 4 = 8$~Н·с.\n\n$$\\Delta p = 4 + 8 = 12~\\text{кг}\\cdot\\text{м/с}.$$",
-  "check": "number",
-  "file": "01_mechanics/momentum_v6_n3.md",
-  "images": [
-   "assets/momentum_v6_n3_1.svg"
-  ],
   "solution_images": []
  },
  {
@@ -7287,39 +7202,6 @@
   ]
  },
  {
-  "id": "statics_v01_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МОМЕНТ СИЛЫ. СТАТИКА",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "3,1",
-  "unit": "кг",
-  "has_image": true,
-  "author_task": false,
-  "tags": [],
-  "source": "statics.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.4, every node/.style={font=\\footnotesize}]\n    % --- ГЕОМЕТРИЯ ОПОРНЫХ ПОВЕРХНОСТЕЙ ---\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.5);\n    \\foreach \\y in {0.0, 0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.2,3.4}\n        \\draw[gray, thin] (0,\\y) -- (-0.15,\\y+0.15);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.5,0);\n    \\foreach \\x in {0.3,0.5,0.7,0.9,1.1,1.3,1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,3.1,3.3}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.15,-0.15);\n    \n    % Угловая штриховка в начале координат\n    \\draw[gray, thin] (0,0) -- (-0.15,-0.15);\n\n\n\n    % --- КОРЕННЫЕ ТОЧКИ (КООРДИНАТЫ) ---\n    \\coordinate (A) at (1.2,0.5);   % Шарнир стержня\n    \\coordinate (B) at (2.8,2.7);   % Верхний конец стержня\n    \\coordinate (C) at (0,2.7);     % Точка крепления нити на стене\n% --- ОБОЗНАЧЕНИЕ УГЛА ALPHA ---\n    % Пунктирный горизонт от точки А\n    \\draw[dashed, thin] (A) -- (2.3,0.5);\n    % Дуга угла\n    \\draw (1.6,0.5) arc (0:54:0.4); % Угол наклона стержня примерно 54 градуса\n    \\node at (1.8,0.68) {$\\alpha$};\n% --- СТЕРЖЕНЬ AB ---\n    % Отрисовка объемного стержня прямоугольником со скругленными краями через поворот\n    \\begin{scope}[shift={(A)}, rotate={atan2(2.7-0.5, 2.8-1.2)}]\n        \\draw[thick, fill=white] (0,-0.06) rectangle (2.72,0.06); % Длина стержня ~2.72\n    \\end{scope}\n    % Точка B на конце стержня\n    \\fill[black] (B) circle (1.5pt) node[above right=2pt] {$B$};\n\n    % --- ШАРНИРНАЯ ОПОРА А ---\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=4pt, yshift=2pt] {$A$};\n\n    \n\n    % --- ГОРИЗОНТАЛЬНАЯ НИТЬ BC ---\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    \n\n\\end{tikzpicture}"
-  ],
-  "condition": "Тонкий однородный стержень $AB$ постоянного сечения шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$, угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите массу стержня $m$, если модуль силы $F$, с которой шарнир действует на стержень, равен 35~Н. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,3.0);\n  \\draw[thick, brandSecondary] (0,3.0) -- (0,0) -- (3.6,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.6,0);\n  % шарнир\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.2,2.5);\n  \\draw[thick] (0.95,0) -- (A) -- (1.45,0);\n  % стержень и нить\n  \\draw[line width=3pt, brandSecondary!80] (A) -- (B);\n  \\draw[thick] (0,2.5) -- (B);\n  \\fill (A) circle (1.6pt) node[left=3pt] {$A$};\n  \\fill (B) circle (1.6pt) node[right] {$B$};\n  \\node[above right] at (0,2.5) {$C$};\n  % угол\n  \\draw[thin] (1.55,0.5) arc (0:45:0.35);\n  \\node at (1.78,0.68) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.7,2.5) node[above] {$\\vec T$};\n  \\fill (2.2,1.5) circle (1.4pt);\n  \\draw[Fvec] (2.2,1.5) -- (2.2,0.5) node[right] {$m\\vec g$};\n  \\draw[Fvec] (A) -- (1.7,1.5) node[above] {$\\vec F$};\n  \\draw[-{Stealth[scale=0.7]}, thin, dashed] (A) -- (1.7,0.5) node[below right, inner sep=1pt] {$F_x$};\n  \\draw[-{Stealth[scale=0.7]}, thin, dashed] (A) -- (1.2,1.5) node[left] {$F_y$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень считаем твёрдым телом; он покоится, поэтому выполняются условия равновесия: векторная сумма сил, действующих на стержень, равна нулю, и сумма моментов этих сил относительно любой оси равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесомая, сила натяжения направлена вдоль нити (горизонтально). Трения в шарнире нет, поэтому шарнир действует на стержень силой $\\vec F$, приложенной в точке $A$, без момента сил трения.\n\n\\textbf{Решение.} На стержень действуют: сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира (в точке $A$). Обозначим $L$ — длину стержня, $F_x$ и $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$. Силы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси, проходящей через $A$:\n$TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\text{tg}\\,\\alpha}$.\n\nРавенство нулю суммы сил в проекциях на горизонталь и вертикаль: $F_x = T$, $F_y = mg$. Тогда\n$F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{1 + \\dfrac{1}{4\\,\\text{tg}^2\\alpha}}$. При $\\alpha = 45^\\circ$: $F = mg\\sqrt{1 + \\dfrac{1}{4}} = \\dfrac{\\sqrt{5}}{2}mg$.\n\nОтсюда $m = \\dfrac{2F}{\\sqrt{5}\\,g} = \\dfrac{2\\cdot 35}{2{,}24\\cdot 10}\\,\\text{кг} \\approx 3{,}1\\,\\text{кг}$.\n\nОтвет: $m \\approx 3{,}1\\,\\text{кг}$.",
-  "check": "number",
-  "file": "01_mechanics/statics_v01_n26.md",
-  "images": [
-   "assets/statics_v01_n26_1.svg"
-  ],
-  "solution_images": [
-   "assets/statics_v01_n26_s1.svg"
-  ]
- },
- {
   "id": "statics_v02_n04",
   "exam": "ЕГЭ",
   "kim": 4,
@@ -7346,97 +7228,6 @@
   "images": [],
   "solution_images": [
    "assets/statics_v02_n04_s1.svg"
-  ]
- },
- {
-  "id": "statics_v02_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МОМЕНТ СИЛЫ. СТАТИКА",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "30",
-  "unit": "Н",
-  "has_image": true,
-  "author_task": false,
-  "tags": [],
-  "source": "statics.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.4, every node/.style={font=\\footnotesize}]\n    % --- ГЕОМЕТРИЯ ОПОРНЫХ ПОВЕРХНОСТЕЙ ---\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.5);\n    \\foreach \\y in {0.0, 0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.2,3.4}\n        \\draw[gray, thin] (0,\\y) -- (-0.15,\\y+0.15);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.5,0);\n    \\foreach \\x in {0.3,0.5,0.7,0.9,1.1,1.3,1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,3.1,3.3}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.15,-0.15);\n    \n    % Угловая штриховка в начале координат\n    \\draw[gray, thin] (0,0) -- (-0.15,-0.15);\n\n\n\n    % --- КОРЕННЫЕ ТОЧКИ (КООРДИНАТЫ) ---\n    \\coordinate (A) at (1.2,0.5);   % Шарнир стержня\n    \\coordinate (B) at (2.8,2.7);   % Верхний конец стержня\n    \\coordinate (C) at (0,2.7);     % Точка крепления нити на стене\n% --- ОБОЗНАЧЕНИЕ УГЛА ALPHA ---\n    % Пунктирный горизонт от точки А\n    \\draw[dashed, thin] (A) -- (2.3,0.5);\n    % Дуга угла\n    \\draw (1.6,0.5) arc (0:54:0.4); % Угол наклона стержня примерно 54 градуса\n    \\node at (1.8,0.68) {$\\alpha$};\n% --- СТЕРЖЕНЬ AB ---\n    % Отрисовка объемного стержня прямоугольником со скругленными краями через поворот\n    \\begin{scope}[shift={(A)}, rotate={atan2(2.7-0.5, 2.8-1.2)}]\n        \\draw[thick, fill=white] (0,-0.06) rectangle (2.72,0.06); % Длина стержня ~2.72\n    \\end{scope}\n    % Точка B на конце стержня\n    \\fill[black] (B) circle (1.5pt) node[above right=2pt] {$B$};\n\n    % --- ШАРНИРНАЯ ОПОРА А ---\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=4pt, yshift=2pt] {$A$};\n\n    \n\n    % --- ГОРИЗОНТАЛЬНАЯ НИТЬ BC ---\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    \n\n\\end{tikzpicture}"
-  ],
-  "condition": "Тонкий однородный стержень $AB$ постоянного сечения массой 2{,}7~кг шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$, угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите модуль силы $F$, с которой шарнир действует на стержень. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,3.0);\n  \\draw[thick, brandSecondary] (0,3.0) -- (0,0) -- (3.6,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.6,0);\n  % шарнир\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.2,2.5);\n  \\draw[thick] (0.95,0) -- (A) -- (1.45,0);\n  % стержень и нить\n  \\draw[line width=3pt, brandSecondary!80] (A) -- (B);\n  \\draw[thick] (0,2.5) -- (B);\n  \\fill (A) circle (1.6pt) node[left=3pt] {$A$};\n  \\fill (B) circle (1.6pt) node[right] {$B$};\n  \\node[above right] at (0,2.5) {$C$};\n  % угол\n  \\draw[thin] (1.55,0.5) arc (0:45:0.35);\n  \\node at (1.78,0.68) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.7,2.5) node[above] {$\\vec T$};\n  \\fill (2.2,1.5) circle (1.4pt);\n  \\draw[Fvec] (2.2,1.5) -- (2.2,0.5) node[right] {$m\\vec g$};\n  \\draw[Fvec] (A) -- (1.7,1.5) node[above] {$\\vec F$};\n  \\draw[-{Stealth[scale=0.7]}, thin, dashed] (A) -- (1.7,0.5) node[below right, inner sep=1pt] {$F_x$};\n  \\draw[-{Stealth[scale=0.7]}, thin, dashed] (A) -- (1.2,1.5) node[left] {$F_y$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень считаем твёрдым телом; он покоится, поэтому выполняются условия равновесия: векторная сумма сил, действующих на стержень, равна нулю, и сумма моментов этих сил относительно любой оси равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесомая, сила натяжения направлена вдоль нити (горизонтально). Трения в шарнире нет, поэтому шарнир действует на стержень силой $\\vec F$, приложенной в точке $A$, без момента сил трения.\n\n\\textbf{Решение.} На стержень действуют: сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира (в точке $A$). Обозначим $L$ — длину стержня, $F_x$ и $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$. Силы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси, проходящей через $A$:\n$TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\text{tg}\\,\\alpha}$.\n\nРавенство нулю суммы сил в проекциях на горизонталь и вертикаль: $F_x = T$, $F_y = mg$. Тогда\n$F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{1 + \\dfrac{1}{4\\,\\text{tg}^2\\alpha}}$. При $\\alpha = 45^\\circ$: $F = mg\\sqrt{1 + \\dfrac{1}{4}} = \\dfrac{\\sqrt{5}}{2}mg$.\n\n$F = \\dfrac{\\sqrt{5}}{2}\\cdot 2{,}7\\cdot 10\\,\\text{Н} \\approx 30\\,\\text{Н}$.\n\nОтвет: $F \\approx 30\\,\\text{Н}$.",
-  "check": "number",
-  "file": "01_mechanics/statics_v02_n26.md",
-  "images": [
-   "assets/statics_v02_n26_1.svg"
-  ],
-  "solution_images": [
-   "assets/statics_v02_n26_s1.svg"
-  ]
- },
- {
-  "id": "statics_v03_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МОМЕНТ СИЛЫ. СТАТИКА",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "0,16",
-  "unit": "кг",
-  "has_image": false,
-  "author_task": false,
-  "tags": [],
-  "source": "statics.tex",
-  "tikz": [],
-  "condition": "Однородный рычаг $AB$ может вращаться без трения вокруг неподвижной оси, проходящей через рычаг в точке $O$ перпендикулярно ему. К левому концу рычага в точке $A$ прикреплена нить, за которую с помощью динамометра $D$ рычаг неподвижно удерживается в горизонтальном положении. Нить составляет с вертикалью угол, который можно измерить с помощью транспортира $T$. Показания динамометра (в ньютонах) и транспортира (в градусах) видны на фотографии. К точке $C$ с помощью другой невесомой нерастяжимой нити подвешена медная пластина. Рычаг, пластина, нить и динамометр расположены в вертикальной плоскости. Массами транспортира и нитей пренебречь. Определите массу медной пластины, если рычаг имеет массу 30~г. Сделайте рисунок, на котором укажите все силы, действующие на рычаг и пластину. Обоснуйте применимость законов, используемых для решения задачи.\n\n    \\begin{center}\n        \\includegraphics[width=0.5\\linewidth]{01_mechanics/statics_1.png}\n    \\end{center}",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг: 7 делений по 0,6\n  \\draw[thick, fill=brandPrimary!10] (0,-0.06) rectangle (4.2,0.06);\n  \\foreach \\x in {0.6,1.2,...,3.6} \\draw[thin] (\\x,-0.06) -- (\\x,0.06);\n  \\coordinate (A) at (0,0);\n  \\coordinate (C) at (1.2,0);\n  \\coordinate (O) at (3.6,0);\n  \\fill (A) circle (1.4pt) node[below right, inner sep=2pt] {$A$};\n  \\fill (C) circle (1.4pt) node[above left, inner sep=2pt] {$C$};\n  \\draw[thick, fill=white] (O) circle (2.2pt) node[below=2pt] {$O$};\n  \\node[right] at (4.2,0) {$B$};\n  % нить динамометра и угол\n  \\draw[thin] (A) -- (-1.1,1.1);\n  \\draw[thin, dashed] (A) -- (0,1.1);\n  \\draw[thin] (0,0.42) arc (90:135:0.42);\n  \\node at (-0.2,0.62) {$\\beta$};\n  % нить и пластина\n  \\draw[thin] (C) -- (1.2,-1.6);\n  \\draw[thick, fill=brandAccent!25] (0.95,-2.4) rectangle (1.45,-1.6);\n  \\fill (1.2,-2.0) circle (1.2pt);\n  % силы на рычаг\n  \\draw[Fvec] (A) -- (-0.6,0.6) node[above left, inner sep=1pt] {$\\vec F$};\n  \\draw[Fvec] (C) -- (1.2,-0.6) node[right] {$\\vec T_1$};\n  \\fill (2.1,0) circle (1.2pt);\n  \\draw[Fvec] (2.1,0) -- (2.1,-0.45) node[below] {$m_\\text{р}\\vec g$};\n  \\draw[Fvec] (O) -- (4.12,0.3) node[above right, inner sep=1pt] {$\\vec R$};\n  % силы на пластину\n  \\draw[Fvec] (1.2,-1.6) -- (1.2,-1.0) node[left] {$\\vec T_2$};\n  \\draw[Fvec] (1.2,-2.0) -- (1.2,-2.6) node[below] {$m_\\text{пл}\\vec g$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с Землёй.\n\n2. Рычаг будем считать твёрдым телом, а пластину — материальной точкой. Тела покоятся, поэтому векторная сумма сил, действующих на пластину, равна нулю, а для рычага, который может вращаться вокруг оси $O$, сумма моментов сил относительно этой оси равна нулю. Трения в оси нет, а момент силы реакции оси относительно $O$ равен нулю.\n\n3. Рычаг однородный, поэтому сила тяжести, действующая на рычаг, приложена к его середине.\n\n4. Нить, на которой подвешена пластина, невесома, поэтому силы её натяжения, действующие на рычаг и на пластину, равны по модулю:\n$T_1 = T_2 = T$ (1)\n\n5. Нить, которая удерживает рычаг, невесома, поэтому динамометр показывает модуль силы $\\vec F$, с которой эта нить действует на рычаг в точке $A$.\n\n\\textbf{Решение}\n\n1. По фотографии: показание динамометра $F = 1{,}7\\,\\text{Н}$, угол нити с вертикалью $\\beta = 45^\\circ$. Рычаг разделён на $7$ равных делений; обозначим $l$ — длину деления. Тогда $OA = 6l$, $OC = 4l$, $OB = l$, а середина рычага находится на расстоянии $3{,}5l$ от $A$, т. е. на расстоянии $2{,}5l$ от $O$ (слева от оси, как и точка $C$).\n\n2. На рисунке показаны силы, действующие на рычаг и на пластину. На рычаг действуют: сила натяжения нити динамометра $\\vec F$ в точке $A$, сила тяжести $m_\\text{р}\\vec g$ ($m_\\text{р}$ — масса рычага) в середине рычага, сила натяжения нити $\\vec T_1$ в точке $C$ и сила реакции оси $\\vec R$ в точке $O$. На пластину действуют сила тяжести $m_\\text{пл}\\vec g$ ($m_\\text{пл}$ — масса пластины) и сила натяжения нити $\\vec T_2$.\n\n[[рис 1]]\n\n3. Условие равновесия пластины: $T_2 = m_\\text{пл}g$ (2)\n\n4. Плечо силы $\\vec F$ относительно оси $O$ равно $OA\\cos\\beta$. Правило моментов для рычага относительно оси $O$:\n$F\\cdot 6l\\cos\\beta = m_\\text{р}g\\cdot 2{,}5l + T_1\\cdot 4l$ (3)\n\nС учётом (1)–(3) получим:\n$F\\cdot 6l\\cos\\beta = m_\\text{р}g\\cdot 2{,}5l + m_\\text{пл}g\\cdot 4l$.\n\n5. Отсюда $m_\\text{пл} = \\dfrac{6F\\cos\\beta - 2{,}5m_\\text{р}g}{4g} = \\dfrac{6\\cdot 1{,}7\\cdot 0{,}707 - 2{,}5\\cdot 0{,}03\\cdot 10}{4\\cdot 10}\\,\\text{кг} \\approx 0{,}16\\,\\text{кг}$.\n\nОтвет: $m_\\text{пл} \\approx 0{,}16\\,\\text{кг}$.",
-  "check": "number",
-  "file": "01_mechanics/statics_v03_n26.md",
-  "images": [],
-  "solution_images": [
-   "assets/statics_v03_n26_s1.svg"
-  ]
- },
- {
-  "id": "statics_v04_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МОМЕНТ СИЛЫ. СТАТИКА",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "0,1",
-  "unit": "кг",
-  "has_image": false,
-  "author_task": false,
-  "tags": [],
-  "source": "statics.tex",
-  "tikz": [],
-  "condition": "Однородный рычаг $AB$ может вращаться без трения вокруг неподвижной оси, проходящей через рычаг в точке $O$ перпендикулярно ему. К левому концу рычага в точке $A$ прикреплена нить, за которую с помощью динамометра $D$ рычаг неподвижно удерживается в горизонтальном положении. Нить составляет с вертикалью угол, который можно измерить с помощью транспортира $T$. Показания динамометра (в ньютонах) и транспортира (в градусах) видны на фотографии. К точке $C$ с помощью другой невесомой нерастяжимой нити подвешена латунная пластина. Рычаг, пластина, нить и динамометр расположены в вертикальной плоскости. Массами транспортира и нитей пренебречь. Определите массу рычага, если латунная пластина имеет массу 120~г. Сделайте рисунок, на котором укажите все силы, действующие на рычаг и пластину. Обоснуйте применимость законов, используемых для решения задачи.\n\n \\begin{center}\n        \\includegraphics[width=0.5\\linewidth]{01_mechanics/statics_1.png}\n    \\end{center}",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % рычаг: 7 делений по 0,6\n  \\draw[thick, fill=brandPrimary!10] (0,-0.06) rectangle (4.2,0.06);\n  \\foreach \\x in {0.6,1.2,...,3.6} \\draw[thin] (\\x,-0.06) -- (\\x,0.06);\n  \\coordinate (A) at (0,0);\n  \\coordinate (C) at (1.2,0);\n  \\coordinate (O) at (3.6,0);\n  \\fill (A) circle (1.4pt) node[below right, inner sep=2pt] {$A$};\n  \\fill (C) circle (1.4pt) node[above left, inner sep=2pt] {$C$};\n  \\draw[thick, fill=white] (O) circle (2.2pt) node[below=2pt] {$O$};\n  \\node[right] at (4.2,0) {$B$};\n  % нить динамометра и угол\n  \\draw[thin] (A) -- (-1.1,1.1);\n  \\draw[thin, dashed] (A) -- (0,1.1);\n  \\draw[thin] (0,0.42) arc (90:135:0.42);\n  \\node at (-0.2,0.62) {$\\beta$};\n  % нить и пластина\n  \\draw[thin] (C) -- (1.2,-1.6);\n  \\draw[thick, fill=brandAccent!25] (0.95,-2.4) rectangle (1.45,-1.6);\n  \\fill (1.2,-2.0) circle (1.2pt);\n  % силы на рычаг\n  \\draw[Fvec] (A) -- (-0.6,0.6) node[above left, inner sep=1pt] {$\\vec F$};\n  \\draw[Fvec] (C) -- (1.2,-0.6) node[right] {$\\vec T_1$};\n  \\fill (2.1,0) circle (1.2pt);\n  \\draw[Fvec] (2.1,0) -- (2.1,-0.45) node[below] {$m_\\text{р}\\vec g$};\n  \\draw[Fvec] (O) -- (4.12,0.3) node[above right, inner sep=1pt] {$\\vec R$};\n  % силы на пластину\n  \\draw[Fvec] (1.2,-1.6) -- (1.2,-1.0) node[left] {$\\vec T_2$};\n  \\draw[Fvec] (1.2,-2.0) -- (1.2,-2.6) node[below] {$m_\\text{пл}\\vec g$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с Землёй.\n\n2. Рычаг будем считать твёрдым телом, а пластину — материальной точкой. Тела покоятся, поэтому векторная сумма сил, действующих на пластину, равна нулю, а для рычага, который может вращаться вокруг оси $O$, сумма моментов сил относительно этой оси равна нулю. Трения в оси нет, а момент силы реакции оси относительно $O$ равен нулю.\n\n3. Рычаг однородный, поэтому сила тяжести, действующая на рычаг, приложена к его середине.\n\n4. Нить, на которой подвешена пластина, невесома, поэтому силы её натяжения, действующие на рычаг и на пластину, равны по модулю:\n$T_1 = T_2 = T$ (1)\n\n5. Нить, которая удерживает рычаг, невесома, поэтому динамометр показывает модуль силы $\\vec F$, с которой эта нить действует на рычаг в точке $A$.\n\n\\textbf{Решение}\n\n1. По фотографии: показание динамометра $F = 1{,}7\\,\\text{Н}$, угол нити с вертикалью $\\beta = 45^\\circ$. Рычаг разделён на $7$ равных делений; обозначим $l$ — длину деления. Тогда $OA = 6l$, $OC = 4l$, $OB = l$, а середина рычага находится на расстоянии $3{,}5l$ от $A$, т. е. на расстоянии $2{,}5l$ от $O$ (слева от оси, как и точка $C$).\n\n2. На рисунке показаны силы, действующие на рычаг и на пластину. На рычаг действуют: сила натяжения нити динамометра $\\vec F$ в точке $A$, сила тяжести $m_\\text{р}\\vec g$ ($m_\\text{р}$ — масса рычага) в середине рычага, сила натяжения нити $\\vec T_1$ в точке $C$ и сила реакции оси $\\vec R$ в точке $O$. На пластину действуют сила тяжести $m_\\text{пл}\\vec g$ ($m_\\text{пл}$ — масса пластины) и сила натяжения нити $\\vec T_2$.\n\n[[рис 1]]\n\n3. Условие равновесия пластины: $T_2 = m_\\text{пл}g$ (2)\n\n4. Плечо силы $\\vec F$ относительно оси $O$ равно $OA\\cos\\beta$. Правило моментов для рычага относительно оси $O$:\n$F\\cdot 6l\\cos\\beta = m_\\text{р}g\\cdot 2{,}5l + T_1\\cdot 4l$ (3)\n\nС учётом (1)–(3) получим:\n$F\\cdot 6l\\cos\\beta = m_\\text{р}g\\cdot 2{,}5l + m_\\text{пл}g\\cdot 4l$.\n\n5. Отсюда $m_\\text{р} = \\dfrac{6F\\cos\\beta - 4m_\\text{пл}g}{2{,}5g} = \\dfrac{6\\cdot 1{,}7\\cdot 0{,}707 - 4\\cdot 0{,}12\\cdot 10}{2{,}5\\cdot 10}\\,\\text{кг} \\approx 0{,}1\\,\\text{кг}$.\n\nОтвет: $m_\\text{р} \\approx 0{,}1\\,\\text{кг}$.",
-  "check": "number",
-  "file": "01_mechanics/statics_v04_n26.md",
-  "images": [],
-  "solution_images": [
-   "assets/statics_v04_n26_s1.svg"
   ]
  },
  {
@@ -7581,42 +7372,6 @@
   "file": "01_mechanics/waves_v9_n4.md",
   "images": [],
   "solution_images": []
- },
- {
-  "id": "work_inclined_friction_n3",
-  "exam": "ЕГЭ",
-  "kim": 3,
-  "section": "Механика",
-  "theme": "РАБОТА И МОЩНОСТЬ СИЛЫ",
-  "topic": "1.3.2",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "8",
-  "unit": "Дж",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "РАБОТА_СИЛЫ"
-  ],
-  "source": "work.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\footnotesize}]\n    % Наклонная плоскость\n    \\draw[thick, fill=gray!5] (0,0) -- (4.0,0) -- (4.0,2.31) -- cycle; % 4*tan(30) = 2.31\n    \n    % Угол наклонной плоскости\n    \\draw (0.5,0) arc (0:30:0.5);\n    \\node at (0.8,0.22) {$30^{\\circ}$};\n\n    % Брусок на склоне (повернутый)\n    \\begin{scope}[shift={(1.5,0.866)}, rotate=30]\n        \\draw[thick, fill=brandPrimary!20] (0,0) rectangle (1.2,0.6);\n        % Точка приложения вертикальной силы в центре бруска\n        \\coordinate (C) at (0.6,0.3);\n    \\end{scope}\n    \n    % Сила F (строго вертикально вверх из центра бруска)\n    \\draw[-{Stealth[scale=0.8]}, ultra thick, brandAccent] (C) -- ++(0,1.0) node[right] {$\\vec{F}$};\n\\end{tikzpicture}"
-  ],
-  "condition": "\\textbf{Задача X.} Брусок массой $2$~кг, к которому приложена сила $4$~Н, направленная вертикально вверх, равномерно движется вниз по шероховатой наклонной плоскости с углом при основании $30^{\\circ}$. Чему равен модуль работы, которую совершит над бруском сила трения при перемещении бруска на $1$~м?",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % наклонная плоскость\n  \\draw[thick, fill=gray!10] (0,0) -- (3.6,0) -- (3.6,2.08) -- cycle;\n  \\draw (0.55,0) arc (0:30:0.55);\n  \\node at (0.82,0.2) {$30^\\circ$};\n  % брусок\n  \\begin{scope}[shift={(1.732,1.0)}, rotate=30]\n    \\draw[thick, fill=brandPrimary!15] (-0.45,0) rectangle (0.45,0.5);\n    \\coordinate (C) at (0,0.25);\n    \\coordinate (N0) at (-0.1,0);\n    \\coordinate (N1) at (-0.1,0.95);\n    \\coordinate (Ft0) at (0.45,0.04);\n    \\coordinate (Ft1) at (0.9,0.04);\n    \\coordinate (v0) at (0.95,-0.42);\n    \\coordinate (v1) at (0.2,-0.42);\n  \\end{scope}\n  \\fill (C) circle (1.2pt);\n  % силы\n  \\draw[Fvec] (C) -- ++(0,-1.1) node[below] {$m\\vec g$};\n  \\draw[Fvec] ($(C)+(0.12,0)$) -- ++(0,0.5) node[right, inner sep=2pt] {$\\vec F$};\n  \\draw[Fvec] (N0) -- (N1) node[above left, inner sep=1pt] {$\\vec N$};\n  \\draw[Fvec] (Ft0) -- (Ft1) node[right] {$\\vec F_\\text{тр}$};\n  \\draw[vvec] (v0) -- (v1) node[below right, inner sep=1pt] {$\\vec v$};\n\\end{tikzpicture}"
-  ],
-  "solution": "Брусок движется равномерно, значит, сумма сил равна нулю. Сила $F$ направлена вертикально вверх и просто уменьшает «вес» бруска: вместо $mg = 20$~Н вниз действует $mg - F = 20 - 4 = 16$~Н. Силы показаны на рисунке.\n\n[[рис 1]]\n\nВдоль плоскости силу трения уравновешивает составляющая этой силы:\n\n$$F_\\text{тр} = (mg - F)\\sin 30^\\circ = 16 \\cdot 0{,}5 = 8~\\text{Н}.$$\n\nМодуль работы силы трения: $|A| = F_\\text{тр} s = 8 \\cdot 1 = 8$~Дж.",
-  "check": "number",
-  "file": "01_mechanics/work_inclined_friction_n3.md",
-  "images": [
-   "assets/work_inclined_friction_n3_1.svg"
-  ],
-  "solution_images": [
-   "assets/work_inclined_friction_n3_s1.svg"
-  ]
  },
  {
   "id": "work_v11_n3",
