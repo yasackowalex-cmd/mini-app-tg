@@ -20,6 +20,8 @@ source: din.tex
 
 Два тела, каждое массой $2$~кг, движутся по одной прямой, вдоль которой направлена ось $Ox$. На рисунке приведены графики зависимости проекций $v_x$ их скоростей от времени $t$.
 
+[[рис 1]]
+
 Из приведённого ниже списка выберите все верные утверждения о движении тел.
 
 1) Равнодействующая сил, действующих на тело 1, монотонно убывает в течение всего времени наблюдения.
@@ -31,7 +33,7 @@ source: din.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[x=0.4cm, y=0.35cm, every node/.style={font=\footnotesize}]
+\begin{tikzpicture}[x=0.4cm, y=0.6cm, every node/.style={font=\footnotesize}]
     \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (18,7);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (19.5,0) node[right] {$t, \text{ с}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,7.5) node[above] {$v_x, \text{ м/с}$};

@@ -18,25 +18,29 @@ source: energy.tex
 
 ## Условие
 
-Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок). На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.
+Груз, привязанный к длинной нерастяжимой нити, отклонили от положения равновесия на малый угол и в момент времени $t=0$ отпустили с нулевой начальной скоростью (см. рисунок).
+
+[[рис 1]]
+
+На графиках А и Б показано изменение физических величин, характеризующих движение груза после этого. $T$ — период колебаний. Сопротивлением воздуха пренебречь. Потенциальная энергия груза отсчитывается от положения равновесия.
 
 Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут представлять.
 
-К каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.
+К каждой позиции первого столбца подберите соответствующую позицию из второго столбца.
 
 \begin{center}
-\begin{tabular}{cc}
-\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\
-
-\begin{tabular}{l}
-1) проекция скорости $v_x$ \\
-2) координата $x$ \\
-3) проекция ускорения $a_x$ \\
-4) потенциальная энергия груза $E_{\text{п}}$
-\end{tabular} \\
- 
+\begin{tabular}{|c|l|}
+\hline
+\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\ \hline
+[[рис 2]] &
+1) проекция скорости~$v_x$
+2) координата~$x$
+3) проекция ускорения~$a_x$
+4) потенциальная энергия груза~$E_{\text{п}}$ \\ \hline
 \end{tabular}
 \end{center}
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
 
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -49,31 +53,39 @@ source: energy.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=0.7, every node/.style={font=\footnotesize}]
-    \draw[thick] (-0.8,2.5) -- (0.8,2.5);
-    \foreach \x in {-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7}
-        \draw (\x,2.5) -- (\x+0.1,2.7);
-    \draw[dashed] (0,2.5) -- (0,0);
-    \draw[thick] (0,2.5) -- (-0.8,0.5);
-    \draw[thick, fill=gray!40] (-0.8,0.5) rectangle (-0.4,1.1);
-    \draw[-{Stealth[scale=0.7]}] (-1.2,-0.2) -- (1.5,-0.2) node[right] {$x$};
-    \node[below] at (0,-0.2) {0};
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
+    \fill[pattern=north east lines] (-0.9,2.5) rectangle (0.9,2.7);
+    \draw[thick] (-0.9,2.5) -- (0.9,2.5);
+    \draw[dashed] (0,2.5) -- (0,0.2);
+    \draw[thick] (0,2.5) -- (-0.75,0.55);
+    \fill[gray!50] (-0.75,0.4) circle (0.17);
+    \draw[thick] (-0.75,0.4) circle (0.17);
+    \draw[-{Stealth[scale=0.8]}] (-1.5,-0.2) -- (1.5,-0.2) node[right] {$x$};
+    \draw (0,-0.12) -- (0,-0.28);
+    \node[below] at (0,-0.25) {0};
 \end{tikzpicture}
-\begin{tikzpicture}[scale=0.55, every node/.style={font=\tiny}]
-    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
-    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,2) node[above] {А};
+```
+
+```latex
+\begin{tikzpicture}[scale=0.62, every node/.style={font=\footnotesize}]
+  \begin{scope}
+    \node at (-0.7,1.6) {А)};
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);
     \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.2*cos(\x*180/2)});
-    \draw[dashed] (4,0) -- (4,1.2);
-    \node[below] at (4,0) {$T$};
+    \draw (4,-0.08) -- (4,0.08);
+    \node[below] at (4,-0.05) {$T$};
     \node[below left] at (0,0) {0};
-\end{tikzpicture}
-\begin{tikzpicture}[scale=0.55, every node/.style={font=\tiny}]
-    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.5,0) node[right] {$t$};
-    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.5) node[above] {Б};
+  \end{scope}
+  \begin{scope}[yshift=-4cm]
+    \node at (-0.7,1.6) {Б)};
+    \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};
+    \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);
     \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {-1.0*cos(\x*180/2)});
-    \draw[dashed] (4,0) -- (4,0);
-    \node[below] at (4,0) {$T$};
+    \draw (4,-0.08) -- (4,0.08);
+    \node[above] at (4,0.05) {$T$};
     \node[below left] at (0,0) {0};
+  \end{scope}
 \end{tikzpicture}
 ```
 

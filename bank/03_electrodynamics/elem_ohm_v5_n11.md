@@ -38,25 +38,11 @@ source: ohm1.tex
     % Проводник 2: R2=1 Ом -> I = U/1 (проходит через (0,0), (2,2), (4,4))
     \draw[ultra thick, brandPrimary] (0,0) -- (4,4) node[above right] {2};
     
-    % Точки на узлах
-    \fill[black] (2,1) circle (1.5pt);
-    \fill[black] (4,2) circle (1.5pt);
-    \fill[black] (2,2) circle (1.5pt);
-    \fill[black] (4,4) circle (1.5pt);
-    
-    % Пунктиры
-    \draw[dashed, gray] (2,0) -- (2,2);
-    \draw[dashed, gray] (4,0) -- (4,4);
-    \draw[dashed, gray] (0,1) -- (2,1);
-    \draw[dashed, gray] (0,2) -- (4,2);
-    \draw[dashed, gray] (0,4) -- (4,4);
-    
     % Оцифровка
-    \node[left] at (0,1) {1};
-    \node[left] at (0,2) {2};
-    \node[left] at (0,4) {4};
-    \node[below] at (2,0) {2};
-    \node[below] at (4,0) {4};
+    \foreach \k in {1,2,3,4} {
+      \draw[black] (\k,0) -- (\k,-0.08) node[below] {\k};
+      \draw[black] (0,\k) -- (-0.08,\k) node[left] {\k};
+    }
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```

@@ -23,33 +23,12 @@ source: cap2.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    % Внешний контур
-    \draw[thick, black] (0.5,1.0) -- (0.5,1.5) -- (1.5,1.5);
-    \draw[thick, black] (2.5,1.5) -- (3.5,1.5) -- (3.5,1.0);
-    \draw[thick, black] (0.5,0.5) -- (0.5,0.5) -- (1.5,0.5);
-    \draw[thick, black] (2.5,0.5) -- (3.5,0.5) -- (3.5,0.5);
-    
-    % Конденсатор C1 (слева)
-    \draw[ultra thick, black] (0.2,0.9) -- (0.8,0.9);
-    \draw[ultra thick, black] (0.2,0.7) -- (0.8,0.7);
-    \node[left] at (0.2,0.8) {$C_1$};
-    
-    % Ключ K (сверху)
-    \fill[black] (1.5,1.5) circle (1.5pt);
-    \fill[black] (2.5,1.5) circle (1.5pt);
-    \draw[thick, black] (1.5,1.5) -- (2.3,1.8);
-    \node[above] at (2.0,1.8) {$K$};
-    
-    % Конденсатор C2 (справа)
-    \draw[ultra thick, black] (3.2,0.9) -- (3.8,0.9);
-    \draw[ultra thick, black] (3.2,0.7) -- (3.8,0.7);
-    \node[right] at (3.8,0.8) {$C_2$};
-    
-    % Резистор R (снизу)
-    \draw[thick, black, fill=white] (1.5,0.3) rectangle (2.5,0.7) node[pos=.5] {$R$};
-    
-\end{tikzpicture}
+\begin{circuitikz}[european, scale=1, every node/.style={font=\footnotesize}]
+  \draw (0,0) to[C, l=$C_1$] (0,2) -- (0.9,2)
+        to[nos, l=$K$] (2.1,2) -- (3,2)
+        to[C, l_=$C_2$] (3,0)
+        to[R, l_=$R$] (0,0);
+\end{circuitikz}
 ```
 
 ## Решение

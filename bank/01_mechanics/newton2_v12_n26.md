@@ -23,41 +23,24 @@ source: din.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
-    % Стол (нижняя толстая плита и ножка)
-    \draw[thick, fill=gray!20] (-2.5,-0.3) rectangle (3.0,0);
-    \draw[thick, fill=gray!20] (1.8,-1.2) rectangle (2.0,-0.3);
-    
-    % Лабораторный трек / рельс (длинная серая плита на столе)
-    \draw[thick, fill=gray!10] (-1.9,0) rectangle (2.9,0.15);
-    % Левый упор (ограничитель) на треке
-    \draw[thick, fill=gray!30] (-1.9,0.15) rectangle (-1.7,0.45);
-
-    % Неподвижный блок на правом краю трека
-    \draw[thick, fill=gray!40] (3.0,0.15) circle (0.12);
-    \draw[thick, fill=gray!10] (3.0,0.15) circle (0.04);
-    \fill[black] (3.0,0.15) circle (1pt);
-    % Крепление блока к рельсу
-    \draw[thick] (2.9,0.05) -- (3.0,0.15);
-
-    % Тележка M (с ушками по краям)
-    \draw[thick, fill=brandPrimary!10] (-0.8,0.22) rectangle (-0.2,0.42);
-    \draw[thick, fill=brandPrimary!10] (-0.8,0.42) -- (-0.8,0.52) -- (-0.75,0.52) -- (-0.75,0.22);
-    \draw[thick, fill=brandPrimary!10] (-0.2,0.42) -- (-0.2,0.52) -- (-0.25,0.52) -- (-0.25,0.22);
-    \node[above] at (-0.5,0.52) {$M$};
-    % Колёса тележки
-    \draw[thick, fill=black!50] (-0.65,0.185) circle (0.04);
-    \draw[thick, fill=black!50] (-0.35,0.185) circle (0.04);
-
-    % Груз m (подвешенный вертикально)
-    \draw[thick, fill=brandAccent!20] (2.85,-0.9) rectangle (3.15,-0.83);
-    \node[right] at (3.2,-0.86) {$m$};
-
-    % Горизонтальная нить (от правого края тележки к блоку)
-    \draw[thick] (-0.2,0.42) -- (3.0,0.27);
-    
-    % Вертикальная нить (от блока к грузу m)
-    \draw[thick] (3.12,0.15) -- (3.12,-0.83);
+\begin{tikzpicture}[scale=1.2, font=\small]
+  % стол и блок
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-1.2,-0.15) rectangle (2.6,0);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (2.45,-1.6) rectangle (2.6,0);
+  \draw[thick, brandSecondary] (-1.2,0) -- (2.6,0) -- (2.6,-1.6);
+  \draw[thick] (2.6,0) -- (2.75,0.25);
+  \draw[thick, fill=gray!15] (2.75,0.25) circle (0.15);
+  \fill (2.75,0.25) circle (1pt);
+  % тележка
+  \draw[thick, fill=brandPrimary!10] (0.3,0.12) rectangle (1.3,0.55);
+  \node at (0.8,0.33) {$M$};
+  \draw[thick, fill=gray!50] (0.5,0.06) circle (0.06);
+  \draw[thick, fill=gray!50] (1.1,0.06) circle (0.06);
+  % нить и грузик
+  \draw[thick] (1.3,0.4) -- (2.75,0.4);
+  \draw[thick] (2.9,0.25) -- (2.9,-0.9);
+  \draw[thick, fill=brandAccent!20] (2.72,-1.38) rectangle (3.08,-0.9);
+  \node[right] at (3.08,-1.14) {$m$};
 \end{tikzpicture}
 ```
 
