@@ -10898,7 +10898,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 5)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n\\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t$, с};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$q$, Кл};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,4);\n    \\fill[black] (4,4) circle (1.5pt);\n    \\node[left] at (0,1) {0,2}; \\node[left] at (0,2) {0,4}; \\node[left] at (0,3) {0,6}; \\node[left] at (0,4) {0,8};\n    \\node[below] at (1,0) {1}; \\node[below] at (2,0) {2}; \\node[below] at (3,0) {3}; \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n\\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t$, с};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$q$, Кл};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,4);\n    \\node[left] at (0,1) {0,2}; \\node[left] at (0,2) {0,4}; \\node[left] at (0,3) {0,6}; \\node[left] at (0,4) {0,8};\n    \\node[below] at (1,0) {1}; \\node[below] at (2,0) {2}; \\node[below] at (3,0) {3}; \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "По проводнику сопротивлением $10$~Ом течёт постоянный электрический ток. Величина заряда, прошедшего через поперечное сечение проводника, возрастает с течением времени согласно графику (см. рисунок). Определите напряжение на концах проводника.",
   "sol_tikz": [],
