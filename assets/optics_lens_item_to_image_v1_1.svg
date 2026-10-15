@@ -38,19 +38,19 @@
 <use x='43.110765' y='-18.784979' xlink:href='#g1-50'/>
 <use x='47.344948' y='-18.784979' xlink:href='#g0-70'/>
 </g>
-<path d='M81.3789-18.785156V-10.73438' stroke='#000' fill='none' stroke-width='1.49442' stroke-miterlimit='10'/>
-<path d='M81.378898-7.89452L82.8203-11.68358L81.378898-10.40624L79.93749-11.68358Z'/>
-<path d='M81.378898-7.89452L82.8203-11.68358L81.378898-10.40624L79.93749-11.68358Z' stroke='#000' fill='none' stroke-width='1.31134' stroke-miterlimit='10'/>
+<path d='M81.3789-18.785156V-4.3555' stroke='#000' fill='none' stroke-width='1.49442' stroke-miterlimit='10'/>
+<path d='M81.378898-1.51953L82.8203-5.30469L81.378898-4.02734L79.93749-5.30469Z'/>
+<path d='M81.378898-1.51953L82.8203-5.30469L81.378898-4.02734L79.93749-5.30469Z' stroke='#000' fill='none' stroke-width='1.31134' stroke-miterlimit='10'/>
 <g transform='matrix(1 0 0 1 35.0964 -4.0669)'>
 <use x='43.110765' y='-18.784979' xlink:href='#g0-65'/>
 </g>
-<g transform='matrix(1 0 0 1 34.8778 22.26921)'>
+<g transform='matrix(1 0 0 1 34.8778 28.64719)'>
 <use x='43.110765' y='-18.784979' xlink:href='#g0-66'/>
 </g>
-<path d='M-33.4258-18.785156V-41.0742' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
-<path d='M-33.425825-43.16017L-34.50395-40.32423L-33.425825-41.27345L-32.3477-40.32423Z'/>
-<path d='M-33.425825-43.16017L-34.50395-40.32423L-33.425825-41.27345L-32.3477-40.32423Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
-<g transform='matrix(1 0 0 1 -72.8176 -22.9416)'>
+<path d='M-33.4258-18.785156V-53.832' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
+<path d='M-33.425825-55.918L-34.50395-53.07816L-33.425825-54.03128L-32.3477-53.07816Z'/>
+<path d='M-33.425825-55.918L-34.50395-53.07816L-33.425825-54.03128L-32.3477-53.07816Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
+<g transform='matrix(1 0 0 1 -72.8176 -35.6976)'>
 <use x='43.110765' y='-18.784979' xlink:href='#g2-49'/>
 </g>
 <path d='M22.7031-18.785156V-11.80469' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
