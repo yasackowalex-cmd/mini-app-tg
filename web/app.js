@@ -12,6 +12,19 @@
     });
   }
 
+  // условие; метка [[рис N]] ставит N-й рисунок задачи в это место, остальные рисунки идут после условия
+  function conditionHtml(t) {
+    const imgs = t.images || [];
+    const used = new Set();
+    const html = texToHtml(t.condition).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
+      const src = imgs[n - 1];
+      if (!src) return '';
+      used.add(n - 1);
+      return `<div class="figs"><img src="${src}" alt="Рисунок к задаче" loading="lazy"></div>`;
+    });
+    return { html, rest: imgs.filter((_, i) => !used.has(i)) };
+  }
+
   const PAGE = 20;
   const FILTERS = [
     { key: 'section', el: 'f-section', all: 'Все разделы' },
@@ -125,7 +138,8 @@
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
     ].join('');
-    const figs = (t.images || []).map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
+    const cond = conditionHtml(t);
+    const figs = cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
     const answerHtml = t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
     const form = t.check && t.check !== 'none' ? `<form class="try">
         <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}"
@@ -135,7 +149,7 @@
         <span class="verdict" role="status"></span>
       </form>` : '';
     el.innerHTML = `<div class="meta">${chips}</div>
-      <div class="cond">${texToHtml(t.condition)}</div>
+      <div class="cond">${cond.html}</div>
       ${figs ? `<div class="figs">${figs}</div>` : ''}
       ${form}
       <div class="actions">

@@ -35,8 +35,8 @@ source: kinem.tex
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};
     \draw[ultra thick, brandPrimary, domain=0.1:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
     \fill[black] (0.3, 0.61) circle (1.5pt) node[left] {$A$};
-    \fill[black] (0.75, 0.2) circle (1.5pt) node[below] {$B$};
-    \fill[black] (2.25, 2.2) circle (1.5pt) node[left] {$C$};
+    \fill[black] (0.75, 0.2) circle (1.5pt) node[above] {$B$};
+    \fill[black] (2.25, 2.2) circle (1.5pt) node[above] {$C$};
     \fill[black] (2.5, 2.07) circle (1.5pt) node[right] {$D$};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}

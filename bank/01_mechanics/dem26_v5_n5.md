@@ -30,14 +30,11 @@ source: kinem.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[x=0.25cm, y=0.15cm, every node/.style={font=\footnotesize}]
-    \draw[xstep=2, ystep=2, gray!30, thin] (0,0) grid (18,8);
+\begin{tikzpicture}[x=0.25cm, y=0.45cm, every node/.style={font=\footnotesize}]
+    \draw[xstep=2, ystep=1, gray!30, thin] (0,0) grid (18,8);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (20,0) node[right] {$t, \text{ с}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,9) node[above] {$v_x, \text{ м/с}$};
-    \node[left] at (0,8) {$8$};
-    \node[left] at (0,6) {$6$};
-    \node[left] at (0,4) {$4$};
-    \node[left] at (0,2) {$2$};
+    \foreach \v in {1,...,8} \node[left] at (0,\v) {$\v$};
     \node[below left] at (0,0) {$0$};
     \foreach \x in {2,4,6,8,10,12,14,16,18} \node[below] at (\x,0) {\x};
     \draw[ultra thick, brandPrimary] (0,7) -- (18,3.14) node[right, black] {1};
