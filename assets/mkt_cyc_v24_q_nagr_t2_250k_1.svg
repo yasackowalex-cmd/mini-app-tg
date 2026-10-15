@@ -35,10 +35,6 @@
 <path d='M62.8672-15.4688L20.6562 12.7578' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 <path d='M17.511752 14.863278L24.2305 14.011711L20.656281 12.75781L20.863308 8.976559' fill='#06f'/>
 <path d='M20.3477 12.8789L-22.1758 41.2227' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
-<path d='M-50.51953 41.2227H-22.1758' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M-50.51953-15.4688H62.8672' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M-22.1758 69.570311V41.2227' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M62.8672 69.570311V-15.4688' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-20.6797 41.2227C-20.6797 40.3984-21.3477 39.7305-22.1758 39.7305C-23 39.7305-23.668 40.3984-23.668 41.2227C-23.668 42.0508-23 42.7187-22.1758 42.7187C-21.3477 42.7187-20.6797 42.0508-20.6797 41.2227Z'/>
 <g transform='matrix(1 0 0 1 20.5947 -19.6872)'>
 <use x='-50.520813' y='69.570744' xlink:href='#g3-49'/>

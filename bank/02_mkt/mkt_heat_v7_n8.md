@@ -33,10 +33,6 @@ source: cal.tex
     
     \draw[ultra thick, brandPrimary] (A) -- (B);
     
-    \draw[dashed, gray] (1,0) -- (1,2.5);
-    \draw[dashed, gray] (2,0) -- (2,3);
-    \draw[dashed, gray] (3,0) -- (3,3.5);
-    \draw[dashed, gray] (4,0) -- (4,4);
     
     \node[left] at (0,1) {50};
     \node[left] at (0,2) {100};
@@ -45,6 +41,7 @@ source: cal.tex
     \node[below] at (1,0) {120};
     \node[below] at (2,0) {240};
     \node[below] at (3,0) {360};
+    \node[below] at (4,0) {480};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```

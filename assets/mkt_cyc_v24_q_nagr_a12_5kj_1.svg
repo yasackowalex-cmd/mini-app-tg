@@ -35,10 +35,6 @@
 <path d='M-19.3359 19.9609L-19.3398 5.043' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 <path d='M-19.339861 1.253906L-22.367205 7.3125L-19.339863 5.042971L-16.308616 7.312499' fill='#06f'/>
 <path d='M-19.3398 4.375L-19.3359-11.2266' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
-<path d='M-50.51953 19.9648H-19.3398' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M-50.51953-11.2187H-19.3398' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M-19.3398 51.144533V19.9648' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M43.0234 51.144533V-11.2187' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-17.6914-11.2266C-17.6914-12.1328-18.4258-12.8711-19.3359-12.8711C-20.2422-12.8711-20.9805-12.1328-20.9805-11.2266C-20.9805-10.3164-20.2422-9.582-19.3359-9.582C-18.4258-9.582-17.6914-10.3164-17.6914-11.2266Z'/>
 <g transform='matrix(1 0 0 1 23.4337 -65.8908)'>
 <use x='-50.520813' y='51.146154' xlink:href='#g3-49'/>

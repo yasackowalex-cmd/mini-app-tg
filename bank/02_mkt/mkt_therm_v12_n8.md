@@ -32,17 +32,10 @@ source: 1td.tex
     \coordinate (2) at (2,2);
     \coordinate (3) at (2,1);
     
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (1.6,2);
-    \draw[ultra thick, brandPrimary] (1.5,2) -- (2);
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2,1.4);
-    \draw[ultra thick, brandPrimary] (2,1.5) -- (3);
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (1.5,1.5);
-    \draw[ultra thick, brandPrimary] (1.6,1.6) -- (1);
-    
-    \draw[dashed, gray] (0,1) -- (2,1);
-    \draw[dashed, gray] (0,2) -- (1,2);
-    \draw[dashed, gray] (1,0) -- (1,2);
-    \draw[dashed, gray] (2,0) -- (2,2);
+    \tikzset{midarrow/.style={postaction={decorate}, decoration={markings, mark=at position 0.58 with {\arrow{Stealth[length=7pt, width=6pt]}}}}}
+    \draw[ultra thick, brandPrimary, midarrow] (1) -- (2);
+    \draw[ultra thick, brandPrimary, midarrow] (2) -- (3);
+    \draw[ultra thick, brandPrimary, midarrow] (3) -- (1);
     
     \fill[black] (1) circle (1.5pt) node[above left] {1};
     \fill[black] (2) circle (1.5pt) node[above right] {2};

@@ -35,12 +35,6 @@ source: cal.tex
     
     \draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);
     
-    \draw[dashed, gray] (1,0) -- (1,2.5);
-    \draw[dashed, gray] (2,0) -- (2,2.5);
-    \draw[dashed, gray] (3,0) -- (3,2.5);
-    \draw[dashed, gray] (4,0) -- (4,2.5);
-    \draw[dashed, gray] (5,0) -- (5,1.5);
-    \draw[dashed, gray] (6,0) -- (6,0.5);
     
     \node[left] at (0,1) {20};
     \node[left] at (0,2) {40};
