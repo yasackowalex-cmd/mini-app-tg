@@ -207,8 +207,8 @@
   async function init() {
     try {
       const [b, tp] = await Promise.all([
-        fetch('out/bank.json').then(r => r.json()),
-        fetch('out/topics.json').then(r => r.json()),
+        fetch('out/bank.json', { cache: 'no-cache' }).then(r => r.json()),
+        fetch('out/topics.json', { cache: 'no-cache' }).then(r => r.json()),
       ]);
       topics = tp;
       bank = b.map(t => ({ ...t, kim: t.kim ?? '', _search: norm(t.condition + ' ' + t.id + ' ' + (t.theme || '')) }));
