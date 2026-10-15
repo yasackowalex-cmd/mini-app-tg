@@ -4161,7 +4161,7 @@
   ],
   "source": "3law.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.6cm, y=10cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=0.05, gray!30, thin] (0,0) grid (6,0.25);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$F, \\text{ Н}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,0.27) node[above] {$a, \\text{ м/с}^{2}$};\n    \\foreach \\x in {2,4,6} \\node[below] at (\\x,0) {\\x};\n    \\node[left] at (0,0.1) {$0{,}1$};\n    \\node[left] at (0,0.2) {$0{,}2$};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,0.2);\n    \\fill[black] (5,0.2) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.6cm, y=10cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=0.05, gray!30, thin] (0,0) grid (6,0.25);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$F, \\text{ Н}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,0.27) node[above] {$a, \\text{ м/с}^{2}$};\n    \\foreach \\x in {2,4,6} \\node[below] at (\\x,0) {\\x};\n    \\node[left] at (0,0.1) {$0{,}1$};\n    \\node[left] at (0,0.2) {$0{,}2$};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (5,0.2);\n\\end{tikzpicture}"
   ],
   "condition": "На графике приведена зависимость ускорения $a$ бруска, скользящего без трения по горизонтальной поверхности, от величины приложенной к нему горизонтальной силы $\\vec{F}$. Систему отсчёта считать инерциальной. Чему равна масса бруска?",
   "sol_tikz": [
@@ -4196,7 +4196,7 @@
   ],
   "source": "3law.tex",
   "tikz": [
-   "\\begin{tikzpicture}[x=6cm, y=0.25cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.1, ystep=3, gray!30, thin] (0,0) grid (0.6,12);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0.68,0) node[right] {$a, \\text{ м/с}^{2}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,13) node[above] {$F, \\text{ Н}$};\n    \\foreach \\y in {3,6,12} \\node[left] at (0,\\y) {\\y};\n    \\node[below] at (0.2,0) {$0{,}2$};\n    \\node[below] at (0.4,0) {$0{,}4$};\n    \\node[below] at (0.6,0) {$0{,}6$};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (0.6,12);\n    \\fill[black] (0.6,12) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=6cm, y=0.25cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.1, ystep=3, gray!30, thin] (0,0) grid (0.6,12);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0.68,0) node[right] {$a, \\text{ м/с}^{2}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,13) node[above] {$F, \\text{ Н}$};\n    \\foreach \\y in {3,6,12} \\node[left] at (0,\\y) {\\y};\n    \\node[below] at (0.2,0) {$0{,}2$};\n    \\node[below] at (0.4,0) {$0{,}4$};\n    \\node[below] at (0.6,0) {$0{,}6$};\n    \\node[below left] at (0,0) {0};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (0.6,12);\n\\end{tikzpicture}"
   ],
   "condition": "На графике приведена зависимость модуля горизонтальной силы $\\vec{F}$, приложенной к бруску, скользящего без трения по горизонтальной поверхности, от модуля его ускорения $a$. Систему отсчёта считать инерциальной. Чему равна масса бруска?",
   "sol_tikz": [

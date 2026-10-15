@@ -32,7 +32,6 @@ source: 3law.tex
     \node[left] at (0,0.2) {$0{,}2$};
     \node[below left] at (0,0) {0};
     \draw[ultra thick, brandPrimary] (0,0) -- (5,0.2);
-    \fill[black] (5,0.2) circle (1.5pt);
 \end{tikzpicture}
 ```
 
