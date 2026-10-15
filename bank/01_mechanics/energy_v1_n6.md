@@ -33,12 +33,10 @@ source: energy.tex
 \hline
 \textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\ \hline
 [[рис 2]] &
-\begin{tabular}{l}
-1) проекция скорости $v_x$ \\
-2) координата $x$ \\
-3) проекция ускорения $a_x$ \\
-4) потенциальная энергия груза $E_{\text{п}}$
-\end{tabular} \\ \hline
+1) проекция скорости~$v_x$
+2) координата~$x$
+3) проекция ускорения~$a_x$
+4) потенциальная энергия груза~$E_{\text{п}}$ \\ \hline
 \end{tabular}
 \end{center}
 
@@ -69,14 +67,14 @@ source: energy.tex
 ```
 
 ```latex
-\begin{tikzpicture}[scale=0.55, every node/.style={font=\footnotesize}]
+\begin{tikzpicture}[scale=0.62, every node/.style={font=\footnotesize}]
   \begin{scope}
     \node at (-0.7,1.6) {А)};
     \draw[-{Stealth[scale=0.7]}] (0,0) -- (4.6,0) node[right] {$t$};
     \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);
     \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.2*cos(\x*180/2)});
     \draw (4,-0.08) -- (4,0.08);
-    \node[below right] at (3.85,0) {$T$};
+    \node[below] at (4,-0.05) {$T$};
     \node[below left] at (0,0) {0};
   \end{scope}
   \begin{scope}[yshift=-4cm]
@@ -85,7 +83,7 @@ source: energy.tex
     \draw[-{Stealth[scale=0.7]}] (0,-1.5) -- (0,1.8);
     \draw[ultra thick, brandPrimary] plot[domain=0:4, samples=100] (\x, {1.0*sin(\x*180/2)});
     \draw (4,-0.08) -- (4,0.08);
-    \node[below right] at (3.85,0) {$T$};
+    \node[above] at (4,0.05) {$T$};
     \node[below left] at (0,0) {0};
   \end{scope}
 \end{tikzpicture}
