@@ -27,9 +27,9 @@ source: opt.tex
     % Поверхность горизонтальная и под углом 15 град
     \fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;
     \draw[thick, black] (1.0,0.8) -- (4.0,0.8);
-    \draw[dashed, black, thick] (1.0,0.8) -- (4.0,0.1);
-    \draw (3.3,0.8) arc (0:-15:0.8);
-    \node[right] at (3.5,0.5) {$15^\circ$};
+    \draw[dashed, black, thick] (0.8,1.256) -- (4.2,0.344);
+    \draw (3.8,0.8) arc (0:-15:1.3);
+    \node[anchor=west] at (4.25,0.58) {$15^\circ$};
     
     % Нормаль и лучи
     \draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);
@@ -37,10 +37,10 @@ source: opt.tex
     \draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.0,2.8);
     
     \draw (2.5,1.8) arc (90:126:1.0);
-    \node[left] at (2.4,2.0) {$25^\circ$};
+    \node at (2.08,2.08) {$25^\circ$};
     
     \draw (2.5,1.4) arc (90:53:0.6);
-    \node[right] at (2.5,1.6) {$\gamma$};
+    \node at (2.8,1.68) {$\gamma$};
     
 \end{tikzpicture}
 ```

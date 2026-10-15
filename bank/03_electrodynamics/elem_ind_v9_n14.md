@@ -39,10 +39,6 @@ source: ind.tex
     
     \draw[ultra thick, brandPrimary] (0,4) -- (2,4) -- (5,1) -- (8,1);
     
-    \fill[black] (0,4) circle (1.5pt);
-    \fill[black] (2,4) circle (1.5pt);
-    \fill[black] (5,1) circle (1.5pt);
-    \fill[black] (8,1) circle (1.5pt);
     
     \node[left] at (0,4) {2};
     \node[left] at (0,3) {1};

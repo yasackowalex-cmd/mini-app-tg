@@ -26,7 +26,7 @@ source: len.tex
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
     \draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);
     
-    \draw[thick, black, dash dot] (-4,0) -- (4,0);
+    \draw[thick, black] (-4,0) -- (4,0);
     \draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);
     
     \draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};

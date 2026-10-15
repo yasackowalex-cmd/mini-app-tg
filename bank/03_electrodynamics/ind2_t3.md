@@ -45,7 +45,9 @@ $F=1{,}6$~Н перемычка движется с постоянной ско�
   % перемычка
   \draw[line width=2.8pt,brandAccent] (2.60,0) -- (2.60,1.55);
   \draw[Fvec] (2.80,0.78) -- (3.80,0.78) node[right,font=\footnotesize,black] {$\vec F$};
-  \draw[<->,gray] (2.30,0) -- (2.30,1.55) node[midway,fill=white,font=\footnotesize,black] {$l$};
+  \draw[gray,thin] (5.0,0) -- (5.45,0);
+  \draw[gray,thin] (5.0,1.55) -- (5.45,1.55);
+  \draw[{Stealth[scale=0.8]}-{Stealth[scale=0.8]},black] (5.3,0) -- (5.3,1.55) node[midway,right,font=\footnotesize] {$l$};
 \end{tikzpicture}
 ```
 

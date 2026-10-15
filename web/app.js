@@ -105,9 +105,12 @@
   }
 
   // число: «0,5», «0.50», «−3» и «-3» считаются одним ответом
+  // число, в том числе вида 2,5·10⁸, 2,5*10^8, 2,5e8
+  const SUP = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-' };
   const toNum = s => {
-    const v = String(s).replace(/\s+/g, '').replace(/[−–]/g, '-').replace(',', '.');
-    return /^[-+]?\d+(\.\d+)?$/.test(v) ? parseFloat(v) : NaN;
+    const v = String(s).replace(/\s+/g, '').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]/g, c => SUP[c]).replace(/[−–]/g, '-').replace(',', '.');
+    const m = v.match(/^([-+]?\d+(?:\.\d+)?)(?:(?:[eE]|[·*xх×]10\^?)([-+]?\d+))?$/);
+    return m ? parseFloat(m[1]) * Math.pow(10, m[2] ? parseInt(m[2], 10) : 0) : NaN;
   };
   const digits = s => String(s).replace(/[\s,;.]+/g, '');
 
@@ -121,7 +124,7 @@
     }
     if (t.check === 'number') {
       const a = toNum(input), b = toNum(t.answer);
-      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(b));
+      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * (b === 0 ? 1 : Math.abs(b));
     }
     const a = digits(input), b = digits(t.answer);
     // «выберите верные утверждения» — порядок цифр не важен, в соответствии важен

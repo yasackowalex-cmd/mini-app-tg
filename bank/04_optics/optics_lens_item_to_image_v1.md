@@ -41,10 +41,10 @@ source: len.tex
     \draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};
     
     % Изображение AB
-    \draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.5) node[pos=0, above] {$A$} node[pos=1, below] {$B$};
+    \draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.75) node[pos=0, above] {$A$} node[pos=1, below] {$B$};
     
     % Предметы 1-4
-    \draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1) node[right] {1};
+    \draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1.5) node[right] {1};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};

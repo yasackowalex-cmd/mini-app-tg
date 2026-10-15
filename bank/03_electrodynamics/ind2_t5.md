@@ -27,14 +27,15 @@ $S_0=0{,}1$~мм$^2$ помещена в однородное поле элек�
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[x=0.95cm, y=3.1cm, font=\small, >=Stealth]
+\begin{tikzpicture}[x=0.95cm, y=7cm, font=\small, >=Stealth]
   \foreach \t in {1,2,3,4,5}{\draw[gray!35,thin] (\t,-0.25) -- (\t,0.35);}
   \foreach \b in {-0.2,-0.1,0.1,0.2,0.3}{\draw[gray!35,thin] (0,\b) -- (5.6,\b);}
   \draw[-{Stealth[scale=0.8]},thick] (0,0) -- (6.2,0) node[below right] {$t$, с};
   \draw[-{Stealth[scale=0.8]},thick] (0,-0.28) -- (0,0.40) node[above] {$B_n$, Тл};
   \draw[ultra thick,brandPrimary] (0,0.3) -- (5,-0.2);
   \foreach \t in {1,2,4,5}{\node[below,font=\footnotesize] at (\t,0) {\t};}
-  \foreach \b/\lab in {0.3/{0,3},0.2/{0,2},0.1/{0,1},-0.1/{-0,1},-0.2/{-0,2}}{
+  \node[below right,font=\footnotesize] at (3,0) {3};
+  \foreach \b/\lab in {0.3/{$0{,}3$},0.2/{$0{,}2$},0.1/{$0{,}1$},-0.1/{$-0{,}1$},-0.2/{$-0{,}2$}}{
     \node[left,font=\footnotesize] at (0,\b) {\lab};}
   \node[below left,font=\footnotesize] at (0,0) {0};
 \end{tikzpicture}

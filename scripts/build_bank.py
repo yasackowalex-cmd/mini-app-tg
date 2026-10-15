@@ -81,7 +81,7 @@ def check_mode(t):
         if re.search(r'выбер', cond, re.I) and not re.search(r'соответстви', cond, re.I):
             return 'set'
         return 'seq'
-    if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?', a):
+    if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?(?:·10[⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)?', a):
         return 'number'
     return 'none'
 
