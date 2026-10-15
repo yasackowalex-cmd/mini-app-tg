@@ -49,7 +49,9 @@ source: ind2.tex
   % стержень
   \draw[line width=2.6pt,brandAccent] (2.75,0) -- (2.75,1.55);
   \draw[vvec] (2.95,0.78) -- (3.85,0.78) node[right,font=\footnotesize,black] {$\vec v$};
-  \draw[<->,gray] (2.45,0) -- (2.45,1.55) node[midway,fill=white,font=\footnotesize,black] {$l$};
+  \draw[gray,thin] (5.05,0) -- (5.45,0);
+  \draw[gray,thin] (5.05,1.55) -- (5.45,1.55);
+  \draw[{Stealth[scale=0.8]}-{Stealth[scale=0.8]},black] (5.3,0) -- (5.3,1.55) node[midway,right,font=\footnotesize] {$l$};
 \end{tikzpicture}
 ```
 

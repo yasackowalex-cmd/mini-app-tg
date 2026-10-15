@@ -42,13 +42,6 @@ source: ind.tex
     % График
     \draw[ultra thick, brandPrimary] (0,2) -- (1,4) -- (2,4) -- (4,0) -- (5,0);
     
-    % Узлы
-    \fill[black] (0,2) circle (1.5pt);
-    \fill[black] (1,4) circle (1.5pt);
-    \fill[black] (2,4) circle (1.5pt);
-    \fill[black] (3,2) circle (1.5pt);
-    \fill[black] (4,0) circle (1.5pt);
-    \fill[black] (5,0) circle (1.5pt);
     
     % Оцифровка
     \node[left] at (0,4) {2};
