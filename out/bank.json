@@ -10905,7 +10905,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 23)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\small}]\n\\draw[step=0.5, gray!40, thin] (0,0) grid (3,3);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.6,0) node[below] {$V$, м$^3$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.5) node[left] {$p$, $10^4$~Па};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\v in {2,4,6} \\node[below] at (\\v/2,0) {$\\v$};\n  \\foreach \\p in {3,6} \\node[left] at (0,\\p/2) {$\\p$};\n  \\draw[very thick, brandPrimary] (1,1.5) -- (3,1.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,1.5) -- (2.1,1.5);\n  \\node[above left] at (1,1.5) {1};\n  \\node[above right] at (3,1.5) {2};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\small}]\n\\draw[step=0.5, gray!40, thin] (0,0) grid (3.5,3);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.1,0) node[below] {$V$, м$^3$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.5) node[left] {$p$, $10^4$~Па};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\v in {2,4,6} \\node[below] at (\\v/2,0) {$\\v$};\n  \\foreach \\p in {3,6} \\node[left] at (0,\\p/2) {$\\p$};\n  \\draw[very thick, brandPrimary] (1,1.5) -- (3,1.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,1.5) -- (2.1,1.5);\n  \\node[above left] at (1,1.5) {1};\n  \\node[above right] at (3,1.5) {2};\n\\end{tikzpicture}"
   ],
   "condition": "Какую работу совершает идеальный газ при переходе из состояния 1 в состояние 2 (см. рисунок)?\n\n[[рис 1]]",
   "sol_tikz": [],
@@ -10913,7 +10913,7 @@
   "check": "number",
   "file": "02_mkt/dem26_v23_n8.md",
   "images": [
-   "assets/dem26_v23_n8_1.svg?v=94ab0024"
+   "assets/dem26_v23_n8_1.svg?v=0e215c92"
   ],
   "solution_images": []
  },
@@ -10938,7 +10938,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 23)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.7, every node/.style={font=\\small}]\n\\draw[step=0.5, gray!40, thin] (0,0) grid (2,1.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (2.6,0) node[below] {$V$, л};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.0) node[left] {$p$, кПа};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\v in {2,4,6,8} \\node[below] at (\\v/4,0) {$\\v$};\n  \\node[left] at (0,0.5) {$100$};\n  \\node[left] at (0,1) {$200$};\n  \\draw[very thick, brandPrimary] (1.5,1) -- (2,1) -- (2,0.5) -- (1.5,0.5) -- cycle;\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.5,1) -- (1.8,1);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,1) -- (2,0.7);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,0.5) -- (1.7,0.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.5,0.5) -- (1.5,0.8);\n  \\node[above left] at (1.5,1) {1};\n  \\node[above right] at (2,1) {2};\n  \\node[below right] at (2,0.5) {3};\n  \\node[below left] at (1.5,0.5) {4};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.7, every node/.style={font=\\small}]\n\\draw[step=0.5, gray!40, thin] (0,0) grid (2.5,1.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.1,0) node[below] {$V$, л};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.0) node[left] {$p$, кПа};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\v in {2,4,6,8} \\node[below] at (\\v/4,0) {$\\v$};\n  \\node[left] at (0,0.5) {$100$};\n  \\node[left] at (0,1) {$200$};\n  \\draw[very thick, brandPrimary] (1.5,1) -- (2,1) -- (2,0.5) -- (1.5,0.5) -- cycle;\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.5,1) -- (1.8,1);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,1) -- (2,0.7);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,0.5) -- (1.7,0.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.5,0.5) -- (1.5,0.8);\n  \\node[above left] at (1.5,1) {1};\n  \\node[above right] at (2,1) {2};\n  \\node[below right] at (2,0.5) {3};\n  \\node[below left] at (1.5,0.5) {4};\n\\end{tikzpicture}"
   ],
   "condition": "С одноатомным идеальным газом происходит циклический процесс 1–2–3–4–1, $pV$-диаграмма которого представлена на рисунке. Максимальная температура, достигаемая газом в этом процессе, составляет $400$~К. Масса газа постоянна.\n\n[[рис 1]]\n\nНа основании анализа этого циклического процесса выберите все верные утверждения.\n\n1) Минимальная температура в циклическом процессе равна $150$~К.\\\\\n2) Количество теплоты, переданное газу при изохорном нагревании, равно $1500$~Дж.\\\\\n3) В процессе 2–3 газ отдаёт положительное количество теплоты.\\\\\n4) Работа, совершённая над газом при его изобарном сжатии, равна $200$~Дж.\\\\\n5) Работа газа за цикл равна $400$~Дж.",
   "sol_tikz": [],
@@ -10946,7 +10946,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v23_n9.md",
   "images": [
-   "assets/dem26_v23_n9_1.svg?v=ea82ff27"
+   "assets/dem26_v23_n9_1.svg?v=4fc53f5f"
   ],
   "solution_images": []
  },
@@ -15748,7 +15748,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 23)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\small}]\n\\draw[thick] (-0.4,0) -- (6.2,0);\n  \\draw[thick] (0.5,0.8) -- (6.4,0.8);\n  \\draw[-{Stealth[scale=0.9]}, thick] (0,0) -- (0,2.2) node[left] {$\\vec B$};\n  \\draw[thick, fill=gray!35] (1.4,-0.07) -- (1.55,-0.07) -- (2.35,0.73) -- (2.2,0.73) -- cycle;\n  \\draw[thick, fill=gray!35] (4.4,-0.07) -- (4.55,-0.07) -- (5.35,0.73) -- (5.2,0.73) -- cycle;\n  \\node[above] at (2.3,0.85) {2};\n  \\node[above] at (5.3,0.85) {1};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (4.9,0.4) -- (6.8,0.4) node[above left] {$\\vec F$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\small}]\n\\draw[thick] (-0.4,0) -- (6.2,0);\n  \\draw[thick] (0.5,0.8) -- (6.4,0.8);\n  \\draw[-{Stealth[scale=0.9]}, thick] (0,0) -- (0,2.2) node[left] {$\\vec B$};\n  \\draw[thick, fill=gray!20] (1.30,0.04) -- (1.46,0.04) -- (2.46,1.04) -- (2.30,1.04) -- cycle;\n  \\draw[thick, fill=gray!45] (1.46,-0.10) -- (2.46,0.90) -- (2.46,1.04) -- (1.46,0.04) -- cycle;\n  \\draw[thick, fill=gray!30] (1.30,-0.10) -- (1.46,-0.10) -- (1.46,0.04) -- (1.30,0.04) -- cycle;\n  \\draw[thick, fill=gray!20] (4.30,0.04) -- (4.46,0.04) -- (5.46,1.04) -- (5.30,1.04) -- cycle;\n  \\draw[thick, fill=gray!45] (4.46,-0.10) -- (5.46,0.90) -- (5.46,1.04) -- (4.46,0.04) -- cycle;\n  \\draw[thick, fill=gray!30] (4.30,-0.10) -- (4.46,-0.10) -- (4.46,0.04) -- (4.30,0.04) -- cycle;\n  \\node[above] at (2.4,1.05) {2};\n  \\node[above] at (5.4,1.05) {1};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (4.95,0.5) -- (6.8,0.5) node[above left] {$\\vec F$};\n\\end{tikzpicture}"
   ],
   "condition": "По горизонтальным шероховатым рельсам с пренебрежимо малым электрическим сопротивлением могут скользить два одинаковых стержня сопротивлением $R = 0{,}1$~Ом каждый. Расстояние между рельсами $l = 10$~см. Рельсы со стержнями находятся в однородном вертикальном магнитном поле с индукцией $B = 1$~Тл (см. рисунок).\n\n[[рис 1]]\n\nЕсли на первый стержень действует горизонтальная сила величиной $F = 0{,}1$~Н, направленная вдоль рельсов, то оба стержня движутся поступательно равномерно с разными скоростями. Какова скорость движения первого стержня относительно второго? Самоиндукцией контура пренебречь.",
   "sol_tikz": [
@@ -15758,7 +15758,7 @@
   "check": "number",
   "file": "03_electrodynamics/dem26_v23_n25.md",
   "images": [
-   "assets/dem26_v23_n25_1.svg?v=de76c56a"
+   "assets/dem26_v23_n25_1.svg?v=3ed78044"
   ],
   "solution_images": [
    "assets/dem26_v23_n25_s1.svg?v=a1ef32f1"
