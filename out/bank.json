@@ -11243,7 +11243,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 25)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\small}]\n\\foreach \\x in {1,2,3,4} \\draw[gray!40, thin] (\\x,0.4) -- (\\x,2.8);\n  \\foreach \\y in {0.4,1.2,2.0,2.8} \\draw[gray!40, thin] (0,\\y) -- (4,\\y);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5.3,0) node[below] {$Q$, кДж};\n  \\draw[thick] (0,0) -- (0,0.1) -- (-0.08,0.14) -- (0.08,0.2) -- (0,0.24);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0.24) -- (0,3.3) node[left] {$T$, К};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\q/\\x in {20/1,40/2,60/3,80/4} \\node[below] at (\\x,0) {$\\q$};\n  \\foreach \\t/\\y in {320/0.4,350/1.2,380/2.0,410/2.8} \\node[left] at (0,\\y) {$\\t$};\n  \\draw[very thick, brandPrimary] (0,0.4) -- (3.5,2.267);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\small}]\n\\foreach \\x in {1,2,3,4} \\draw[gray!40, thin] (\\x,0) -- (\\x,2.8);\n  \\foreach \\y in {0.4,1.2,2.0,2.8} \\draw[gray!40, thin] (0,\\y) -- (4,\\y);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5.3,0) node[below] {$Q$, кДж};\n  \\draw[thick] (0,0) -- (0,0.1) -- (-0.08,0.14) -- (0.08,0.2) -- (0,0.24);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0.24) -- (0,3.3) node[left] {$T$, К};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\q/\\x in {20/1,40/2,60/3,80/4} \\node[below] at (\\x,0) {$\\q$};\n  \\foreach \\t/\\y in {320/0.4,350/1.2,380/2.0,410/2.8} \\node[left] at (0,\\y) {$\\t$};\n  \\draw[very thick, brandPrimary] (0,0.4) -- (3.5,2.267);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке изображён график зависимости температуры тела от подводимого к нему количества теплоты. Удельная теплоёмкость вещества этого тела равна $500$~Дж/(кг·К). Чему равна масса тела?\n\n[[рис 1]]",
   "sol_tikz": [],
@@ -11251,7 +11251,7 @@
   "check": "number",
   "file": "02_mkt/dem26_v25_n8.md",
   "images": [
-   "assets/dem26_v25_n8_1.svg?v=bee9ca10"
+   "assets/dem26_v25_n8_1.svg?v=f8d156d1"
   ],
   "solution_images": []
  },
