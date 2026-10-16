@@ -4,7 +4,7 @@
 Картинки берутся из assets/ (их делает scripts/tikz_to_svg.py).
 Запуск: python -I scripts/build_bank.py [--bank bank] [--assets assets] [--out out/bank.json]
 """
-import re, os, sys, json, glob, argparse
+import re, os, sys, json, glob, argparse, hashlib
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,6 +13,11 @@ INT_FIELDS = ('kim', 'variant')
 BOOL_FIELDS = ('has_image', 'author_task')
 REQUIRED = ('id', 'exam', 'kim', 'section', 'topic', 'level', 'type', 'answer')
 
+
+
+def versioned(assets_dir, path):
+    with open(os.path.join(assets_dir, os.path.basename(path)), 'rb') as fh:
+        return f"{path}?v={hashlib.sha1(fh.read()).hexdigest()[:8]}"
 
 def parse_scalar(v):
     v = v.strip()
@@ -81,7 +86,7 @@ def check_mode(t):
         if re.search(r'выбер', cond, re.I) and not re.search(r'соответстви', cond, re.I):
             return 'set'
         return 'seq'
-    if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?', a):
+    if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?(?:·10[⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)?', a):
         return 'number'
     return 'none'
 
@@ -116,12 +121,13 @@ def main():
                 imgs.append('assets/' + name)
             else:
                 problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
-        t['images'] = imgs
+        # ?v=<хеш файла>: браузер и Telegram не показывают старую картинку после правки рисунка
+        t['images'] = [versioned(a.assets, p) for p in imgs]
         t['solution_images'] = []
         for i in range(1, len(t['sol_tikz']) + 1):
             name = f"{t['id']}_s{i}.svg"
             if os.path.exists(os.path.join(a.assets, name)):
-                t['solution_images'].append('assets/' + name)
+                t['solution_images'].append(versioned(a.assets, 'assets/' + name))
             else:
                 problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
         tasks.append(t)

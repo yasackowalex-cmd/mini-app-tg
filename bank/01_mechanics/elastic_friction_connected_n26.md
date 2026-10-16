@@ -23,40 +23,29 @@ source: din.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}, decoration={coil, aspect=0.4, segment length=3pt, amplitude=2.5pt}]
-    % Поверхность стола и обрыв стены (чистый fill=gray!5)
-    \draw[thick, fill=gray!5] (-1.8,0) -- (0.2,0) -- (0.2,-0.1) -- (0.0,-0.1) -- (0.0,-2.5) -- (-0.1,-2.5) -- (-0.1,-0.1) -- cycle;
-    % Штриховка стола и вертикальной стены
-    \foreach \x in {-1.7,-1.5,-1.3,-1.1,-0.9,-0.7,-0.5,-0.3,-0.1}
-        \draw[thin] (\x,0) -- (\x-0.1,-0.1);
-    \foreach \y in {-0.2,-0.4,-0.6,-0.8,-1.0,-1.2,-1.4,-1.6,-1.8,-2.0,-2.2,-2.4}
-        \draw[thin] (0.0,\y) -- (-0.1,\y-0.1);
-
-    % Неподвижный блок на углу стола
-    \draw[thick, fill=gray!30] (0.1,0) circle (0.14);
-    \draw[thick, fill=gray!10] (0.1,0) circle (0.04);
-    \fill[black] (0.1,0) circle (1pt);
-
-    % Настольный груз M
-    \draw[thick, fill=brandPrimary!10] (-1.2,0) rectangle (-0.5,0.6);
-    \node at (-0.85,0.3) {$M$};
-
-    % Верхний висящий брусок m
-    \draw[thick, fill=brandAccent!20] (0.22,-0.9) rectangle (0.62,-0.5);
-    \node at (0.82,-0.7) {$m$};
-
-    % Пружина между брусками
-    \draw[thick, decorate] (0.42,-0.9) -- (0.42,-1.6);
-
-    % Нижний висящий брусок m
-    \draw[thick, fill=brandAccent!20] (0.22,-2.0) rectangle (0.62,-1.6);
-    \node at (0.82,-1.8) {$m$};
-
-    % Горизонтальный участок нити (от M до блока)
-    \draw[thick] (-0.5,0.14) -- (0.1,0.14);
-
-    % Вертикальный участок нити (от блока до верхнего m)
-    \draw[thick] (0.24,0) -- (0.24,-0.5);
+\begin{tikzpicture}[scale=1.0, font=\small, decoration={coil, aspect=0.4, segment length=4pt, amplitude=4pt}]
+  % стол
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-4.0,-0.15) rectangle (0,0);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-4.2) rectangle (0,0);
+  \draw[thick, brandSecondary] (-4.0,0) -- (0,0) -- (0,-4.2);
+  % блок
+  \draw[thick] (0,0) -- (0.6,0.45);
+  \draw[thick, fill=gray!30] (0.6,0.45) circle (0.4);
+  \fill (0.6,0.45) circle (1.2pt);
+  % груз M
+  \draw[thick, fill=brandPrimary!10] (-3.1,0) rectangle (-1.7,1.1);
+  \node at (-2.4,0.55) {$M$};
+  % нити
+  \draw[thick] (-1.7,0.85) -- (0.6,0.85);
+  \draw[thick] (1.0,0.45) -- (1.0,-0.9);
+  % верхний брусок
+  \draw[thick, fill=brandAccent!20] (0.4,-1.5) rectangle (1.6,-0.9);
+  \node at (1.0,-1.2) {$m$};
+  % пружина
+  \draw[thick, decorate] (1.0,-1.5) -- (1.0,-3.3);
+  % нижний брусок
+  \draw[thick, fill=brandAccent!20] (0.4,-3.9) rectangle (1.6,-3.3);
+  \node at (1.0,-3.6) {$m$};
 \end{tikzpicture}
 ```
 

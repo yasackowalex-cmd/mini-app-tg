@@ -33,7 +33,6 @@ source: 3law.tex
     \node[below] at (0.6,0) {$0{,}6$};
     \node[below left] at (0,0) {0};
     \draw[ultra thick, brandPrimary] (0,0) -- (0.6,12);
-    \fill[black] (0.6,12) circle (1.5pt);
 \end{tikzpicture}
 ```
 

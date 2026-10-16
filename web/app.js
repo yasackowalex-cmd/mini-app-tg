@@ -12,6 +12,19 @@
     });
   }
 
+  // условие; метка [[рис N]] ставит N-й рисунок задачи в это место, остальные рисунки идут после условия
+  function conditionHtml(t) {
+    const imgs = t.images || [];
+    const used = new Set();
+    const html = texToHtml(t.condition).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
+      const src = imgs[n - 1];
+      if (!src) return '';
+      used.add(n - 1);
+      return `<div class="figs"><img src="${src}" alt="Рисунок к задаче" loading="lazy"></div>`;
+    });
+    return { html, rest: imgs.filter((_, i) => !used.has(i)) };
+  }
+
   const PAGE = 20;
   const FILTERS = [
     { key: 'section', el: 'f-section', all: 'Все разделы' },
@@ -92,9 +105,12 @@
   }
 
   // число: «0,5», «0.50», «−3» и «-3» считаются одним ответом
+  // число, в том числе вида 2,5·10⁸, 2,5*10^8, 2,5e8
+  const SUP = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-' };
   const toNum = s => {
-    const v = String(s).replace(/\s+/g, '').replace(/[−–]/g, '-').replace(',', '.');
-    return /^[-+]?\d+(\.\d+)?$/.test(v) ? parseFloat(v) : NaN;
+    const v = String(s).replace(/\s+/g, '').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]/g, c => SUP[c]).replace(/[−–]/g, '-').replace(',', '.');
+    const m = v.match(/^([-+]?\d+(?:\.\d+)?)(?:(?:[eE]|[·*xх×]10\^?)([-+]?\d+))?$/);
+    return m ? parseFloat(m[1]) * Math.pow(10, m[2] ? parseInt(m[2], 10) : 0) : NaN;
   };
   const digits = s => String(s).replace(/[\s,;.]+/g, '');
 
@@ -108,7 +124,7 @@
     }
     if (t.check === 'number') {
       const a = toNum(input), b = toNum(t.answer);
-      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(b));
+      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * (b === 0 ? 1 : Math.abs(b));
     }
     const a = digits(input), b = digits(t.answer);
     // «выберите верные утверждения» — порядок цифр не важен, в соответствии важен
@@ -125,7 +141,8 @@
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
     ].join('');
-    const figs = (t.images || []).map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
+    const cond = conditionHtml(t);
+    const figs = cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
     const answerHtml = t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
     const form = t.check && t.check !== 'none' ? `<form class="try">
         <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}"
@@ -135,7 +152,7 @@
         <span class="verdict" role="status"></span>
       </form>` : '';
     el.innerHTML = `<div class="meta">${chips}</div>
-      <div class="cond">${texToHtml(t.condition)}</div>
+      <div class="cond">${cond.html}</div>
       ${figs ? `<div class="figs">${figs}</div>` : ''}
       ${form}
       <div class="actions">
@@ -190,8 +207,8 @@
   async function init() {
     try {
       const [b, tp] = await Promise.all([
-        fetch('out/bank.json').then(r => r.json()),
-        fetch('out/topics.json').then(r => r.json()),
+        fetch('out/bank.json', { cache: 'no-cache' }).then(r => r.json()),
+        fetch('out/topics.json', { cache: 'no-cache' }).then(r => r.json()),
       ]);
       topics = tp;
       bank = b.map(t => ({ ...t, kim: t.kim ?? '', _search: norm(t.condition + ' ' + t.id + ' ' + (t.theme || '')) }));

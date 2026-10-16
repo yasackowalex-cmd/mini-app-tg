@@ -96,7 +96,7 @@
     let guard = 0, m;
     while ((m = TAB.exec(s)) && guard++ < 50) {
       const body = m[2].replace(/\\(hline|toprule|midrule|bottomrule)/g, '').replace(/\\cline\{[^}]*\}/g, '');
-      const rows = body.split(/\\\\(?:\[[^\]]*\])?/).map(r => r.trim()).filter(r => r.replace(/&amp;|\s/g, ''));
+      const rows = body.split(/\\\\(?:\[[^\]]*\])?/).map(r => r.trim()).filter(r => r.replace(/\s/g, '')); // пустая строка с & — клетки для ответа, её оставляем
       const html = rows.map(r => '<tr>' + r.split('&amp;').map(c => {
         let span = '';
         c = replaceCmd(c, 'multicolumn', 3, a => { span = ` colspan="${parseInt(a[0], 10) || 1}"`; return a[2]; });

@@ -23,42 +23,31 @@ source: din.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
-    % Поверхность стола и угловой обрыв (чистый fill=gray!5)
-    \draw[thick, fill=gray!5] (-1.5,0) -- (3.5,0) -- (3.5,-0.1) -- (-1.4,-0.1) -- (-1.4,-2.2) -- (-1.5,-2.2) -- cycle;
-    % Штриховка обрыва стола
-    \foreach \y in {-0.2,-0.4,-0.6,-0.8,-1.0,-1.2,-1.4,-1.6,-1.8,-2.0}
-        \draw[thin] (-1.5,\y) -- (-1.4,\y+0.1);
-
-    % Неподвижный блок на углу стола
-    \draw[thick, fill=gray!30] (-1.5,0) circle (0.18);
-    \draw[thick, fill=gray!10] (-1.5,0) circle (0.06);
-    \fill[black] (-1.5,0) circle (1.2pt);
-
-    % Брусок M (на столе)
-    \draw[thick, fill=brandPrimary!10] (0.5,0) rectangle (1.7,0.7);
-    \node at (1.1,0.35) {$M$};
-    
-    % Сила F, приложенная к бруску M
-    \draw[-{Stealth[scale=0.8]}, ultra thick, brandAccent] (1.7,0.35) -- (2.7,0.85) node[above] {$\vec{F}$};
-    \draw[dashed, thick] (1.7,0.35) -- (2.7,0.35);
-    \draw (2.1,0.35) arc (0:26.5:0.4);
-    \node at (2.25,0.47) {$\alpha$};
-    
-    % Груз m (висит вертикально)
-    \draw[thick, fill=brandAccent!20] (-1.9,-1.5) rectangle (-1.45,-1.0);
-    \node at (-1.675,-1.25) {$m$};
-    
-    % Горизонтальный участок нити (от блока к бруску M)
-    \draw[thick] (-1.5,0.18) -- (0.5,0.18);
-    
-    % Вертикальный участок нити (от блока к грузу m)
-    \draw[thick] (-1.68,0) -- (-1.68,-1.0);
-    
-    % Выносные линии и стрелка для расстояния L
-    \draw[gray] (-1.4,0) -- (-1.0,0);
-    \draw[gray] (-1.45,-1.0) -- (-1.0,-1.0);
-    \draw[<->, gray] (-1.1,0) -- (-1.1,-1.0) node[midway, right, black] {$L$};
+\begin{tikzpicture}[scale=1.2, font=\small]
+  % стол и блок
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);
+  \fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);
+  \draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);
+  \draw[thick] (0,0) -- (-0.35,0.05);
+  \draw[thick, fill=gray!15] (-0.35,0.05) circle (0.15);
+  \fill (-0.35,0.05) circle (1pt);
+  % брусок
+  \draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);
+  \node at (1.7,0.3) {$M$};
+  % нити и груз
+  \draw[thick] (-0.35,0.2) -- (1.2,0.2);
+  \draw[thick] (-0.5,0.05) -- (-0.5,-0.95);
+  \draw[thick, fill=brandAccent!20] (-0.72,-1.4) rectangle (-0.28,-0.95);
+  \node at (-0.5,-1.175) {$m$};
+  % сила F
+  \draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\vec F$};
+  \draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);
+  \draw (2.65,0.3) arc (0:30:0.45);
+  \node at (2.85,0.42) {$\alpha$};
+  % расстояние L
+  \draw[thin, gray] (-0.6,0) -- (-1.3,0);
+  \draw[thin, gray] (-0.76,-0.95) -- (-1.3,-0.95);
+  \draw[<->, thin] (-1.2,0) -- (-1.2,-0.95) node[midway, left] {$L$};
 \end{tikzpicture}
 ```
 

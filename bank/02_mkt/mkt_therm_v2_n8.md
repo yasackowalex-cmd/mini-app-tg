@@ -37,11 +37,6 @@ source: 1td.tex
     \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (2.6,1.4);
     \draw[ultra thick, brandPrimary] (2.5,1.5) -- (3);
     
-    \draw[dashed, gray] (0,1) -- (3,1);
-    \draw[dashed, gray] (0,2) -- (1,2);
-    \draw[dashed, gray] (1,0) -- (1,2);
-    \draw[dashed, gray] (2,0) -- (2,2);
-    \draw[dashed, gray] (3,0) -- (3,1);
     
     \fill[black] (1) circle (1.5pt) node[above left] {1};
     \fill[black] (2) circle (1.5pt) node[above right] {2};

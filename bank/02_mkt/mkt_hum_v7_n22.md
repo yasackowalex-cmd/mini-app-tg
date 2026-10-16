@@ -23,25 +23,16 @@ source: wet.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t, \,^{\circ}\text{C}$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p_{\text{н}}$, гПа};
-    
-    \draw[ultra thick, brandPrimary] (0,0.4) plot[domain=0:4, samples=20] (\x, {0.4 + 0.15*\x^2 + 0.02*\x^3});
-    
-    \fill[black] (2.2,1.3) circle (1.5pt) node[above left] {26};
-    \draw[dashed, gray] (2.2,0) -- (2.2,1.3) -- (0,1.3);
-    
-    \node[below] at (2.2,0) {22};
-    \node[left] at (0,1) {20};
-    \node[left] at (0,2) {40};
-    \node[left] at (0,3) {60};
-    \node[left] at (0,4) {80};
-    \node[below] at (1,0) {10};
-    \node[below] at (2,0) {20};
-    \node[below] at (3,0) {30};
-    \node[below] at (4,0) {40};
+\begin{tikzpicture}[x=0.16cm, y=0.08cm, every node/.style={font=\footnotesize}]
+    \draw[gray!20, very thin, xstep=2, ystep=2] (0,0) grid (40,80);
+    \draw[gray!55, thin, xstep=10, ystep=10] (0,0) grid (40,80);
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (44,0) node[right] {$t, \,^{\circ}\text{C}$};
+    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,86) node[above] {$p_{\text{н}}$, гПа};
+    \draw[ultra thick, brandPrimary] plot[domain=0:40, samples=81, smooth] (\x, {6.112*exp(17.62*\x/(243.12+\x))});
+    \foreach \t in {10,20,30,40} \draw[thick] (\t,0) -- (\t,-1.5) node[below] {\t};
+    \foreach \t in {2,4,...,38} \draw (\t,0) -- (\t,-0.8);
+    \foreach \p in {10,20,...,80} \draw[thick] (0,\p) -- (-0.75,\p) node[left] {\p};
+    \foreach \p in {2,4,...,78} \draw (0,\p) -- (-0.4,\p);
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```

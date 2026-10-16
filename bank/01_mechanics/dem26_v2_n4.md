@@ -23,7 +23,7 @@ source: kim04.tex
 \begin{tabular}{|c|c|c|c|}
 \hline
 $F_{1}$, Н & $l_{1}$, м & $F_{2}$, Н & $l_{2}$, м \\ \hline
-80 & & 120 & 0,2 \\ \hline
+80 & ? & 120 & 0,2 \\ \hline
 \end{tabular}
 \end{center}
 Каково плечо $l_{1}$, если рычаг находится в равновесии?

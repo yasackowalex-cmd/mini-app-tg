@@ -20,17 +20,33 @@ source: LC.tex
 
 Конденсатор идеального колебательного контура длительное время подключён к источнику постоянного напряжения. В момент $t = 0$ переключатель $K$ перевели из положения 1 в положение 2. Графики А и Б отражают изменение с течением времени физических величин, характеризующих свободные электромагнитные колебания, возникшие в контуре после этого ($T$ --- период колебаний).
 
+[[рис 1]]
+
 Установите соответствие между графиками и физическими величинами, зависимость которых от времени эти графики могут изображать.
 
-\smallskip
-\begin{tabular}{p{0.45\textwidth}p{0.5\textwidth}}
-\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\
-А) График А & 1) заряд левой обкладки конденсатора \\
-Б) График Б & 2) модуль напряжения на конденсаторе \\
-& 3) энергия электрического поля конденсатора \\
-& 4) сила тока в катушке
-\end{tabular}
+К каждой позиции первого столбца подберите соответствующую позицию из второго столбца.
 
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+\textbf{ГРАФИКИ} & \textbf{ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ} \\ \hline
+[[рис 2]] &
+1) заряд левой обкладки конденсатора
+2) модуль напряжения на конденсаторе
+3) энергия электрического поля конденсатора
+4) сила тока в катушке \\ \hline
+\end{tabular}
+\end{center}
+
+Запишите в таблицу выбранные цифры под соответствующими буквами.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+А & Б \\ \hline
+ & \\ \hline
+\end{tabular}
+\end{center}
 
 ## Рисунок (TikZ)
 
@@ -55,23 +71,24 @@ source: LC.tex
 ```
 
 ```latex
-\begin{tikzpicture}[x=2.2cm, y=0.8cm, every node/.style={font=\footnotesize}]
+\begin{tikzpicture}[x=1.9cm, y=0.75cm, every node/.style={font=\footnotesize}]
   \begin{scope}
     \node at (-0.3,1.3) {А)};
     \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (1.35,0) node[right] {$t$};
     \draw[-{Stealth[scale=0.8]}, thick] (0,-1.3) -- (0,1.5);
     \node[below left] at (0,0) {$0$};
-    \node[below] at (1,0) {$T$};
+    \draw (1,-0.08) -- (1,0.08);
+    \node[below right, inner xsep=1pt] at (1,0) {$T$};
     \draw[ultra thick, brandPrimary, domain=0:1.2, samples=80, smooth] plot (\x, {sin(360*\x)});
   \end{scope}
-  \begin{scope}[yshift=-3.4cm]
+  \begin{scope}[yshift=-3.0cm]
     \node at (-0.3,1.3) {Б)};
     \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (1.35,0) node[right] {$t$};
-    \draw[-{Stealth[scale=0.8]}, thick] (0,-1.3) -- (0,1.5);
+    \draw[-{Stealth[scale=0.8]}, thick] (0,-0.3) -- (0,1.5);
     \node[below left] at (0,0) {$0$};
-    \node[below] at (1,0) {$T$};
-    \draw[dashed] (1,0) -- (1,1);
-    \draw[ultra thick, brandPrimary, domain=0:1, samples=80, smooth] plot (\x, {cos(360*\x)^2});
+    \draw (1,-0.08) -- (1,0.08);
+    \node[below right, inner xsep=1pt] at (1,0) {$T$};
+    \draw[ultra thick, brandPrimary, domain=0:1.2, samples=80, smooth] plot (\x, {cos(360*\x)^2});
   \end{scope}
 \end{tikzpicture}
 ```

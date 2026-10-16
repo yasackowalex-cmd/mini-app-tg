@@ -1,11 +1,11 @@
 ---
 id: elem_mag_v25_n23
 exam: ЕГЭ
-kim: 25
+kim: 23
 section: Электродинамика
 theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА
 topic: 3.2.1
-level: В
+level: П
 type: расчётная (часть 2)
 variant: 25
 answer: "0,2"
