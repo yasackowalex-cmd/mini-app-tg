@@ -11613,7 +11613,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 27)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.6, every node/.style={font=\\small}]\n\\foreach \\x in {0.4,0.8,...,2.0} \\draw[gray!40, thin] (\\x,0) -- (\\x,2.0);\n  \\foreach \\y in {0.4,0.8,...,2.0} \\draw[gray!40, thin] (0,\\y) -- (2.0,\\y);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (2.5,0) node[below] {$Q$, кДж};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.4) node[left] {$t$, °C};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (0.4,0) {$40$}; \\node[below] at (0.8,0) {$80$}; \\node[below] at (1.8,0) {$180$};\n  \\node[left] at (0,0.8) {$40$}; \\node[left] at (0,1.6) {$80$};\n  \\draw[dashed, thin] (0.4,0) -- (0.4,0.8); \\draw[dashed, thin] (0.8,0) -- (0.8,0.8);\n  \\draw[dashed, thin] (1.8,0) -- (1.8,1.6); \\draw[dashed, thin] (0,1.6) -- (1.8,1.6);\n  \\draw[very thick, brandPrimary] (0,0) -- (0.4,0.8) -- (0.8,0.8) -- (1.8,1.6);\n  \\fill (0.4,0.8) circle (1.6pt) node[above] {1};\n  \\fill (0.8,0.8) circle (1.6pt) node[above] {2};\n  \\fill (1.8,1.6) circle (1.6pt) node[above] {3};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.6, every node/.style={font=\\small}]\n\\foreach \\x in {0.4,0.8,...,2.0} \\draw[gray!40, thin] (\\x,0) -- (\\x,2.0);\n  \\foreach \\y in {0.4,0.8,...,2.0} \\draw[gray!40, thin] (0,\\y) -- (2.0,\\y);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (2.5,0) node[below] {$Q$, кДж};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.4) node[left] {$t$, °C};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (0.4,0) {$40$}; \\node[below] at (0.8,0) {$80$}; \\node[below] at (1.8,0) {$180$};\n  \\node[left] at (0,0.8) {$40$}; \\node[left] at (0,1.6) {$80$};\n  \\draw[dashed, thin] (0.4,0) -- (0.4,0.8); \\draw[dashed, thin] (0.8,0) -- (0.8,0.8);\n  \\draw[dashed, thin] (1.8,0) -- (1.8,1.6); \\draw[dashed, thin] (0,1.6) -- (1.8,1.6);\n  \\draw[very thick, brandPrimary] (0,0) -- (0.4,0.8) -- (0.8,0.8) -- (1.8,1.6);\n  \\node[above] at (0.4,0.8) {1};\n  \\node[above] at (0.8,0.8) {2};\n  \\node[above] at (1.8,1.6) {3};\n\\end{tikzpicture}"
   ],
   "condition": "Твёрдый образец вещества нагревают в печи. На графике представлены результаты измерения поглощённого количества теплоты $Q$ и температуры образца $t$.\n\n[[рис 1]]\n\nВыберите из предложенного перечня все утверждения, которые соответствуют результатам проведённых экспериментальных наблюдений.\n\n1) В состоянии 2 вещество расплавилось наполовину.\\\\\n2) На участке 0–1 внутренняя энергия вещества возрастает.\\\\\n3) Температура кипения вещества равна $40$~°C.\\\\\n4) Удельная теплоёмкость вещества в жидком состоянии больше, чем в твёрдом.\\\\\n5) Для того чтобы увеличить температуру этого образца вещества в жидком состоянии на $40$~°C, ему надо передать количество теплоты, равное $180$~кДж.",
   "sol_tikz": [],
@@ -11621,7 +11621,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v27_n9.md",
   "images": [
-   "assets/dem26_v27_n9_1.svg?v=4edebe4a"
+   "assets/dem26_v27_n9_1.svg?v=0ba17611"
   ],
   "solution_images": []
  },
