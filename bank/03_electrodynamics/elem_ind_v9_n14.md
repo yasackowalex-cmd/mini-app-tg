@@ -8,7 +8,7 @@ topic: 3.2.2
 level: П
 type: соответствие/выбор
 variant: 9
-answer: "12"
+answer: "23"
 unit: ""
 has_image: true
 author_task: false
@@ -31,36 +31,34 @@ source: ind.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (8,4);
-    
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,2) -- (8.5,2) node[right] {$t$, мс};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$B_n$, Тл};
-    
-    \draw[ultra thick, brandPrimary] (0,4) -- (2,4) -- (5,1) -- (8,1);
-    
-    
-    \node[left] at (0,4) {2};
-    \node[left] at (0,3) {1};
-    \node[left] at (0,1) {--1};
-    \node[left] at (0,0) {--2};
-    
-    \foreach \x in {1,2,3,4,5,6,7,8}
-        \node[below] at (\x,2) {\x};
-    \node[below left] at (0,2) {0};
+\begin{tikzpicture}[scale=1.5, every node/.style={font=\small}]
+  \draw[xstep=0.5, ystep=0.4, gray!35, thin] (0,-0.8) grid (4,1.2);
+  \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.5,0) node[below] {$t$, мс};
+  \draw[-{Stealth[scale=0.8]}, thick] (0,-0.9) -- (0,1.6) node[left] {$B_n$, Тл};
+  \foreach \t in {1,...,8} \node[below, font=\footnotesize] at (\t*0.5,0) {\t};
+  \foreach \b in {-2,-1,1,2,3} \node[left, font=\footnotesize] at (0,\b*0.4) {\b};
+  \node[below left, font=\footnotesize] at (0,0) {0};
+  \draw[very thick, brandPrimary] (0,-0.8) -- (1,0.8) -- (2,-0.4) -- (2.5,-0.4) -- (4,1.2);
 \end{tikzpicture}
 ```
 
 ## Решение
 
-Площадь рамки $S = 40~\text{см}^2 = 4 \cdot 10^{-3}~\text{м}^2$. По графику $B_n = 2$~Тл от $0$ до $2$~мс, затем равномерно убывает до $-1$~Тл к $5$~мс и дальше не меняется. ЭДС индукции $|\mathcal{E}| = S\left|\dfrac{\Delta B}{\Delta t}\right|$.
+Модуль ЭДС индукции $|\mathcal{E}| = S\left|\dfrac{\Delta B_n}{\Delta t}\right|$, $S = 40\cdot 10^{-4}$~м$^2$. По графику:
 
-1) Верно: от $2$ до $5$~мс $\left|\dfrac{\Delta B}{\Delta t}\right| = \dfrac{3}{3 \cdot 10^{-3}} = 1000$~Тл/с, $|\mathcal{E}| = 4 \cdot 10^{-3} \cdot 1000 = 4$~В.
+от $0$ до $2$~мс: $\dfrac{4~\text{Тл}}{2\cdot 10^{-3}~\text{с}}$, $|\mathcal{E}| = 40\cdot 10^{-4}\cdot 2000 = 8$~В;\\
+от $2$ до $4$~мс: $\dfrac{3}{2\cdot 10^{-3}}$, $|\mathcal{E}| = 6$~В;\\
+от $4$ до $5$~мс: $B_n$ не меняется, $\mathcal{E} = 0$;\\
+от $5$ до $8$~мс: $\dfrac{4}{3\cdot 10^{-3}}$, $|\mathcal{E}| \approx 5{,}3$~В.
 
-2) Верно: $\Phi = B_n S = 2 \cdot 4 \cdot 10^{-3} = 8 \cdot 10^{-3}~\text{Вб} = 8$~мВб в оба момента.
+1) Неверно: от $4$ до $5$~мс $B_n$ не меняется, ЭДС равна нулю.
 
-3) Неверно: от $0$ до $2$~мс поле не меняется, ЭДС и ток равны нулю.
+2) Верно: $|\Phi| = |B_n|S$; при $0$~мс $|B_n| = 2$~Тл, при $2$~мс $B_n = 2$~Тл, $|\Phi| = 2\cdot 40\cdot 10^{-4} = 8\cdot 10^{-3}$~Вб $= 8$~мВб.
 
-4) Неверно: ЭДС отлична от нуля только от $2$ до $5$~мс, когда меняется $B_n$.
+3) Верно: ток пропорционален ЭДС, наибольшая ЭДС ($8$~В) от $0$ до $2$~мс.
 
-5) Неверно: при $t = 1$~мс тока нет; ток течёт только от $2$ до $5$~мс и направление не меняет, так как скорость изменения $B_n$ постоянна.
+4) Неверно: ЭДС отлична от нуля ещё и от $2$ до $4$~мс.
+
+5) Неверно: при $t = 1$~мс $B_n$ проходит через ноль, но скорость его изменения та же, ЭДС и ток направление не меняют.
+
+Ответ: 23.

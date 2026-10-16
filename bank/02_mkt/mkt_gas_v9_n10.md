@@ -8,7 +8,7 @@ topic: 2.2
 level: Б
 type: соответствие/выбор
 variant: 9
-answer: "22"
+answer: "13"
 unit: ""
 has_image: true
 author_task: false
@@ -37,26 +37,25 @@ source: ig.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$T$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};
-    
-    \coordinate (1) at (2,1);
-    \coordinate (2) at (2,3);
-    
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
-    
-    \fill[black] (1) circle (1.5pt) node[below right] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
-    \node[below left] at (0,0) {0};
+\begin{tikzpicture}[scale=1.0, every node/.style={font=\small}]
+  \draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);
+  \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$T$};
+  \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};
+  \node[below left] at (0,0) {$0$};
+  \draw[dashed, gray] (0,0) -- (0.5,0.5);
+  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,2) -- (1.15,1.15);
+  \draw[very thick, brandPrimary] (1.15,1.15) -- (0.5,0.5);
+  \fill (2,2) circle (1.6pt) node[above] {$1$};
+  \fill (0.5,0.5) circle (1.6pt) node[below right] {$2$};
 \end{tikzpicture}
 ```
 
 ## Решение
 
-На диаграмме $V(T)$ отрезок 1–2 вертикальный: температура не меняется, объём увеличивается в $3$ раза.
+На диаграмме $V(T)$ отрезок 1–2 лежит на прямой, проходящей через начало координат: $V \sim T$, процесс изобарный. Объём уменьшается.
 
-Концентрация $n = \dfrac{N}{V}$: число молекул постоянно, объём растёт — концентрация уменьшается (2).
+Концентрация $n = \dfrac{N}{V}$: число молекул постоянно, объём уменьшается — концентрация увеличивается (1).
 
-Давление $p = nkT$: $T = \text{const}$, $n$ уменьшается — давление уменьшается (2).
+Давление при изобарном процессе не изменяется (3).
+
+Ответ: 13.
