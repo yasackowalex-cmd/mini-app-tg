@@ -9408,7 +9408,7 @@
   "level": "Б",
   "type": "соответствие/выбор",
   "variant": 9,
-  "answer": "22",
+  "answer": "13",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -9417,15 +9417,15 @@
   ],
   "source": "ig.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$T$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$V$};\n    \n    \\coordinate (1) at (2,1);\n    \\coordinate (2) at (2,3);\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);\n    \n    \\fill[black] (1) circle (1.5pt) node[below right] {1};\n    \\fill[black] (2) circle (1.5pt) node[above right] {2};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n  \\draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (0.5,0.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,2) -- (1.15,1.15);\n  \\draw[very thick, brandPrimary] (1.15,1.15) -- (0.5,0.5);\n  \\fill (2,2) circle (1.6pt) node[above] {$1$};\n  \\fill (0.5,0.5) circle (1.6pt) node[below right] {$2$};\n\\end{tikzpicture}"
   ],
   "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nКонцентрация молекул газа & Давление газа \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
   "sol_tikz": [],
-  "solution": "На диаграмме $V(T)$ отрезок 1–2 вертикальный: температура не меняется, объём увеличивается в $3$ раза.\n\nКонцентрация $n = \\dfrac{N}{V}$: число молекул постоянно, объём растёт — концентрация уменьшается (2).\n\nДавление $p = nkT$: $T = \\text{const}$, $n$ уменьшается — давление уменьшается (2).",
+  "solution": "На диаграмме $V(T)$ отрезок 1–2 лежит на прямой, проходящей через начало координат: $V \\sim T$, процесс изобарный. Объём уменьшается.\n\nКонцентрация $n = \\dfrac{N}{V}$: число молекул постоянно, объём уменьшается — концентрация увеличивается (1).\n\nДавление при изобарном процессе не изменяется (3).\n\nОтвет: 13.",
   "check": "seq",
   "file": "02_mkt/mkt_gas_v9_n10.md",
   "images": [
-   "assets/mkt_gas_v9_n10_1.svg?v=c10fd79e"
+   "assets/mkt_gas_v9_n10_1.svg?v=3fa953d0"
   ],
   "solution_images": []
  },
@@ -10088,7 +10088,7 @@
   "level": "Б",
   "type": "расчётная",
   "variant": 10,
-  "answer": "4",
+  "answer": "2",
   "unit": "раз",
   "has_image": true,
   "author_task": false,
@@ -10097,15 +10097,15 @@
   ],
   "source": "mkt.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,5);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$p$};\n    \n    \\coordinate (1) at (2,2);\n    \\coordinate (2) at (4,4); % 8p0 и 4V0; одна клетка = 2p0 по оси p и V0 по оси V\n    \n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1);\n    \n    \\draw[dashed, gray] (0,2) -- (1) -- (2,0);\n    \\draw[dashed, gray] (0,4) -- (2) -- (4,0);\n    \n    \\fill[black] (1) circle (1.5pt) node[above left] {1};\n    \\fill[black] (2) circle (1.5pt) node[above left] {2};\n    \n    \\node[left] at (0,2) {$4p_0$};\n    \\node[left] at (0,4) {$8p_0$};\n    \\node[below] at (2,0) {$2V_{0}$};\n    \\node[below] at (4,0) {$4V_{0}$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n  \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.6) node[above] {$p$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (4,2) -- (2.5,3);\n  \\draw[very thick, brandPrimary] (2.5,3) -- (1,4);\n  \\fill (4,2) circle (1.5pt) node[above right] {1};\n  \\fill (1,4) circle (1.5pt) node[above right] {2};\n  \\node[left] at (0,2) {$4p_0$};\n  \\node[left] at (0,4) {$8p_0$};\n  \\node[below] at (2,0) {$2V_0$};\n  \\node[below] at (4,0) {$4V_0$};\n  \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
-  "condition": "В сосуде под поршнем находится некоторое постоянное количество идеального газа. Во сколько раз уменьшится температура газа, если он перейдёт из состояния 2 в состояние 1 (см. рисунок)?",
+  "condition": "В сосуде под поршнем находится некоторое постоянное количество идеального газа. Во сколько раз уменьшится температура газа, если он перейдёт из состояния 1 в состояние 2 (см. рисунок)?",
   "sol_tikz": [],
-  "solution": "Для постоянного количества газа $\\dfrac{pV}{T} = \\text{const}$, поэтому температура пропорциональна произведению $pV$.\n\nПо графику в состоянии 2: $p_2 = 8p_0$, $V_2 = 4V_0$; в состоянии 1: $p_1 = 4p_0$, $V_1 = 2V_0$.\n\n$$\\frac{T_2}{T_1} = \\frac{p_2V_2}{p_1V_1} = \\frac{8p_0 \\cdot 4V_0}{4p_0 \\cdot 2V_0} = 4.$$\n\nТемпература уменьшится в 4 раза.",
+  "solution": "Для постоянного количества газа $\\dfrac{pV}{T} = \\text{const}$, поэтому температура пропорциональна произведению $pV$.\n\nПо графику в состоянии 1: $p_1 = 4p_0$, $V_1 = 4V_0$; в состоянии 2: $p_2 = 8p_0$, $V_2 = V_0$.\n\n$$\\frac{T_1}{T_2} = \\frac{p_1V_1}{p_2V_2} = \\frac{4p_0 \\cdot 4V_0}{8p_0 \\cdot V_0} = 2.$$\n\nТемпература уменьшится в $2$ раза.",
   "check": "number",
   "file": "02_mkt/mkt_v10_n7.md",
   "images": [
-   "assets/mkt_v10_n7_1.svg?v=59370728"
+   "assets/mkt_v10_n7_1.svg?v=cf7e2200"
   ],
   "solution_images": []
  },
@@ -12823,7 +12823,7 @@
   "level": "П",
   "type": "соответствие/выбор",
   "variant": 9,
-  "answer": "12",
+  "answer": "23",
   "unit": "",
   "has_image": true,
   "author_task": false,
@@ -12833,15 +12833,15 @@
   ],
   "source": "ind.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (8,4);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,2) -- (8.5,2) node[right] {$t$, мс};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$B_n$, Тл};\n    \n    \\draw[ultra thick, brandPrimary] (0,4) -- (2,4) -- (5,1) -- (8,1);\n    \n    \n    \\node[left] at (0,4) {2};\n    \\node[left] at (0,3) {1};\n    \\node[left] at (0,1) {--1};\n    \\node[left] at (0,0) {--2};\n    \n    \\foreach \\x in {1,2,3,4,5,6,7,8}\n        \\node[below] at (\\x,2) {\\x};\n    \\node[below left] at (0,2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.5, every node/.style={font=\\small}]\n  \\draw[xstep=0.5, ystep=0.4, gray!35, thin] (0,-0.8) grid (4,1.2);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.5,0) node[below] {$t$, мс};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,-0.9) -- (0,1.6) node[left] {$B_n$, Тл};\n  \\foreach \\t in {1,...,8} \\node[below, font=\\footnotesize] at (\\t*0.5,0) {\\t};\n  \\foreach \\b in {-2,-1,1,2,3} \\node[left, font=\\footnotesize] at (0,\\b*0.4) {\\b};\n  \\node[below left, font=\\footnotesize] at (0,0) {0};\n  \\draw[very thick, brandPrimary] (0,-0.8) -- (1,0.8) -- (2,-0.4) -- (2.5,-0.4) -- (4,1.2);\n\\end{tikzpicture}"
   ],
   "condition": "Проволочная замкнутая рамка площадью $40\\text{ см}^2$ помещена в однородное магнитное поле перпендикулярно вектору магнитной индукции. Проекция $B_n$ индукции магнитного поля изменяется со временем согласно графику. Из приведённого ниже списка выберите все верные утверждения о процессах в рамке.\n\n[[рис 1]]\n\n1) Модуль ЭДС индукции, возникающей в рамке в промежутке времени от $4$ до $5\\text{ мс}$, равен $4\\text{ В}$.\\\\\n2) Модули магнитных потоков, пронизывающих рамку в моменты времени $0\\text{ мс}$ и $2\\text{ мс}$, одинаковы и равны $8\\text{ мВб}$.\\\\\n3) Модуль силы индукционного тока в рамке максимален в промежутке времени от $0\\text{ мс}$ до $2\\text{ мс}$.\\\\\n4) ЭДС индукции в рамке отлична от $0$ только в промежутках времени от $0$ до $2\\text{ мс}$ и от $5$ до $8\\text{ мс}$.\\\\\n5) В момент времени $t = 1\\text{ мс}$ индукционный ток в рамке изменяет направление на противоположное.",
   "sol_tikz": [],
-  "solution": "Площадь рамки $S = 40~\\text{см}^2 = 4 \\cdot 10^{-3}~\\text{м}^2$. По графику $B_n = 2$~Тл от $0$ до $2$~мс, затем равномерно убывает до $-1$~Тл к $5$~мс и дальше не меняется. ЭДС индукции $|\\mathcal{E}| = S\\left|\\dfrac{\\Delta B}{\\Delta t}\\right|$.\n\n1) Верно: от $2$ до $5$~мс $\\left|\\dfrac{\\Delta B}{\\Delta t}\\right| = \\dfrac{3}{3 \\cdot 10^{-3}} = 1000$~Тл/с, $|\\mathcal{E}| = 4 \\cdot 10^{-3} \\cdot 1000 = 4$~В.\n\n2) Верно: $\\Phi = B_n S = 2 \\cdot 4 \\cdot 10^{-3} = 8 \\cdot 10^{-3}~\\text{Вб} = 8$~мВб в оба момента.\n\n3) Неверно: от $0$ до $2$~мс поле не меняется, ЭДС и ток равны нулю.\n\n4) Неверно: ЭДС отлична от нуля только от $2$ до $5$~мс, когда меняется $B_n$.\n\n5) Неверно: при $t = 1$~мс тока нет; ток течёт только от $2$ до $5$~мс и направление не меняет, так как скорость изменения $B_n$ постоянна.",
+  "solution": "Модуль ЭДС индукции $|\\mathcal{E}| = S\\left|\\dfrac{\\Delta B_n}{\\Delta t}\\right|$, $S = 40\\cdot 10^{-4}$~м$^2$. По графику:\n\nот $0$ до $2$~мс: $\\dfrac{4~\\text{Тл}}{2\\cdot 10^{-3}~\\text{с}}$, $|\\mathcal{E}| = 40\\cdot 10^{-4}\\cdot 2000 = 8$~В;\\\\\nот $2$ до $4$~мс: $\\dfrac{3}{2\\cdot 10^{-3}}$, $|\\mathcal{E}| = 6$~В;\\\\\nот $4$ до $5$~мс: $B_n$ не меняется, $\\mathcal{E} = 0$;\\\\\nот $5$ до $8$~мс: $\\dfrac{4}{3\\cdot 10^{-3}}$, $|\\mathcal{E}| \\approx 5{,}3$~В.\n\n1) Неверно: от $4$ до $5$~мс $B_n$ не меняется, ЭДС равна нулю.\n\n2) Верно: $|\\Phi| = |B_n|S$; при $0$~мс $|B_n| = 2$~Тл, при $2$~мс $B_n = 2$~Тл, $|\\Phi| = 2\\cdot 40\\cdot 10^{-4} = 8\\cdot 10^{-3}$~Вб $= 8$~мВб.\n\n3) Верно: ток пропорционален ЭДС, наибольшая ЭДС ($8$~В) от $0$ до $2$~мс.\n\n4) Неверно: ЭДС отлична от нуля ещё и от $2$ до $4$~мс.\n\n5) Неверно: при $t = 1$~мс $B_n$ проходит через ноль, но скорость его изменения та же, ЭДС и ток направление не меняют.\n\nОтвет: 23.",
   "check": "set",
   "file": "03_electrodynamics/elem_ind_v9_n14.md",
   "images": [
-   "assets/elem_ind_v9_n14_1.svg?v=6b008765"
+   "assets/elem_ind_v9_n14_1.svg?v=0d32f446"
   ],
   "solution_images": []
  },

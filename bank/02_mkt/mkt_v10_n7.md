@@ -8,7 +8,7 @@ topic: 2.1
 level: Б
 type: расчётная
 variant: 10
-answer: "4"
+answer: "2"
 unit: "раз"
 has_image: true
 author_task: false
@@ -18,32 +18,24 @@ source: mkt.tex
 
 ## Условие
 
-В сосуде под поршнем находится некоторое постоянное количество идеального газа. Во сколько раз уменьшится температура газа, если он перейдёт из состояния 2 в состояние 1 (см. рисунок)?
+В сосуде под поршнем находится некоторое постоянное количество идеального газа. Во сколько раз уменьшится температура газа, если он перейдёт из состояния 1 в состояние 2 (см. рисунок)?
 
 ## Рисунок (TikZ)
 
 ```latex
 \begin{tikzpicture}[scale=1.0, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,5);
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (5.5,0) node[right] {$V$};
-    \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,5.5) node[above] {$p$};
-    
-    \coordinate (1) at (2,2);
-    \coordinate (2) at (4,4); % 8p0 и 4V0; одна клетка = 2p0 по оси p и V0 по оси V
-    
-    \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1);
-    
-    \draw[dashed, gray] (0,2) -- (1) -- (2,0);
-    \draw[dashed, gray] (0,4) -- (2) -- (4,0);
-    
-    \fill[black] (1) circle (1.5pt) node[above left] {1};
-    \fill[black] (2) circle (1.5pt) node[above left] {2};
-    
-    \node[left] at (0,2) {$4p_0$};
-    \node[left] at (0,4) {$8p_0$};
-    \node[below] at (2,0) {$2V_{0}$};
-    \node[below] at (4,0) {$4V_{0}$};
-    \node[below left] at (0,0) {0};
+  \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
+  \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$V$};
+  \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.6) node[above] {$p$};
+  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (4,2) -- (2.5,3);
+  \draw[very thick, brandPrimary] (2.5,3) -- (1,4);
+  \fill (4,2) circle (1.5pt) node[above right] {1};
+  \fill (1,4) circle (1.5pt) node[above right] {2};
+  \node[left] at (0,2) {$4p_0$};
+  \node[left] at (0,4) {$8p_0$};
+  \node[below] at (2,0) {$2V_0$};
+  \node[below] at (4,0) {$4V_0$};
+  \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
 
@@ -51,8 +43,8 @@ source: mkt.tex
 
 Для постоянного количества газа $\dfrac{pV}{T} = \text{const}$, поэтому температура пропорциональна произведению $pV$.
 
-По графику в состоянии 2: $p_2 = 8p_0$, $V_2 = 4V_0$; в состоянии 1: $p_1 = 4p_0$, $V_1 = 2V_0$.
+По графику в состоянии 1: $p_1 = 4p_0$, $V_1 = 4V_0$; в состоянии 2: $p_2 = 8p_0$, $V_2 = V_0$.
 
-$$\frac{T_2}{T_1} = \frac{p_2V_2}{p_1V_1} = \frac{8p_0 \cdot 4V_0}{4p_0 \cdot 2V_0} = 4.$$
+$$\frac{T_1}{T_2} = \frac{p_1V_1}{p_2V_2} = \frac{4p_0 \cdot 4V_0}{8p_0 \cdot V_0} = 2.$$
 
-Температура уменьшится в 4 раза.
+Температура уменьшится в $2$ раза.
