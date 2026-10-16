@@ -8128,7 +8128,7 @@
   "check": "pm",
   "file": "02_mkt/dem26_v11_n19.md",
   "images": [
-   "assets/dem26_v11_n19_photo1.png?v=5fe1735d"
+   "assets/dem26_v11_n19_photo1.png?v=507fa1d7"
   ],
   "solution_images": []
  },
@@ -8240,7 +8240,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 11)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[step=0.4, gray!35, thin] (0,0) grid (3.2,3.2);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.7,0) node[below] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$p$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (0.8,1.2) -- (1.75,1.2);\n  \\draw[very thick, brandPrimary] (1.75,1.2) -- (2.4,1.2);\n  \\node[below] at (1.95,1.2) {1};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.6,2.4) -- (2.1,2.4);\n  \\draw[very thick, brandPrimary] (2.1,2.4) -- (2.4,2.4);\n  \\node[below] at (2.15,2.4) {2};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[step=0.4, gray!35, thin] (0,0) grid (3.2,3.2);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.7,0) node[below] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$p$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[very thick, brandPrimary] (0.8,1.2) -- (2.4,1.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (0.8,1.2) -- (1.75,1.2);\n  \\node[below] at (1.95,1.2) {1};\n  \\draw[very thick, brandPrimary] (1.6,2.4) -- (2.4,2.4);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.6,2.4) -- (2.1,2.4);\n  \\node[below] at (2.15,2.4) {2};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показаны два процесса, проведённых с одним и тем же количеством газообразного аргона ($p$ — давление аргона; $V$ — его объём). Из приведённого ниже списка выберите все верные утверждения, характеризующие процессы на рисунке.\n\n[[рис 1]]\n\n1) В процессе 2 объём аргона увеличился в $1{,}5$ раза.\\\\\n2) В процессе 1 концентрация молекул аргона уменьшилась в $3$ раза.\\\\\n3) В процессе 1 плотность аргона изобарно увеличилась в $2$ раза.\\\\\n4) В процессе 2 абсолютная температура аргона изобарно уменьшилась в $1{,}5$ раза.\\\\\n5) Работа, совершённая аргоном, в процессе 1 больше, чем в процессе 2.",
   "sol_tikz": [],
@@ -8248,7 +8248,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v11_n9.md",
   "images": [
-   "assets/dem26_v11_n9_1.svg?v=9c22c8d9"
+   "assets/dem26_v11_n9_1.svg?v=37b43429"
   ],
   "solution_images": []
  },
@@ -8388,7 +8388,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 12)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[step=0.4, gray!35, thin] (0,0) grid (3.2,3.2);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.7,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (0.8,1.2) -- (1.75,1.2);\n  \\draw[very thick, brandPrimary] (1.75,1.2) -- (2.4,1.2);\n  \\node[below] at (1.95,1.2) {1};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.6,2.4) -- (2.1,2.4);\n  \\draw[very thick, brandPrimary] (2.1,2.4) -- (2.4,2.4);\n  \\node[below] at (2.15,2.4) {2};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[step=0.4, gray!35, thin] (0,0) grid (3.2,3.2);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.7,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[very thick, brandPrimary] (0.8,1.2) -- (2.4,1.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (0.8,1.2) -- (1.75,1.2);\n  \\node[below] at (1.95,1.2) {1};\n  \\draw[very thick, brandPrimary] (1.6,2.4) -- (2.4,2.4);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.6,2.4) -- (2.1,2.4);\n  \\node[below] at (2.15,2.4) {2};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показаны два процесса, проведённых с одним и тем же количеством газообразного аргона ($V$ — объём аргона; $T$ — его абсолютная температура). Из приведённого ниже списка выберите все верные утверждения, характеризующие процессы на рисунке.\n\n[[рис 1]]\n\n1) В процессе 2 давление аргона уменьшилось в $1{,}5$ раза.\\\\\n2) В процессе 1 концентрация молекул аргона увеличилась в $3$ раза.\\\\\n3) В процессе 1 плотность аргона не изменилась.\\\\\n4) В процессе 2 внутренняя энергия аргона изохорно увеличилась в $1{,}5$ раза.\\\\\n5) В обоих процессах газ не совершал работу.",
   "sol_tikz": [],
@@ -8396,7 +8396,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v12_n9.md",
   "images": [
-   "assets/dem26_v12_n9_1.svg?v=f124fa4f"
+   "assets/dem26_v12_n9_1.svg?v=afc44669"
   ],
   "solution_images": []
  },
