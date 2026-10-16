@@ -64,3 +64,4 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .verdict.bad { color: #C5221F; }
 .cond td.num { white-space: nowrap; }
 .cond td:has(br) { text-align: left; }
+.top .hello { margin: 6px 0 0; color: #FF6B35; font-weight: 700; }
