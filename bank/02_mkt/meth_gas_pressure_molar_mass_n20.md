@@ -7,13 +7,13 @@ theme: ПЛАНИРОВАНИЕ ОПЫТА
 topic: 4.8
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 3
 answer: "15"
 unit: ""
 has_image: false
 author_task: false
 tags: [МЕТОДЫ, ПЛАНИРОВАНИЕ_ОПЫТА]
-source: сборник (скриншот)
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 3)
 ---
 
 ## Условие

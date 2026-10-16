@@ -7,13 +7,13 @@ theme: ПОКАЗАНИЯ ИЗМЕРИТЕЛЬНЫХ ПРИБОРОВ. ПОГР�
 topic: 4.8
 level: Б
 type: расчётная
-variant: 
+variant: 4
 answer: "1,00 ± 0,05"
 unit: "А"
 has_image: true
 author_task: false
 tags: [МЕТОДЫ, ПОГРЕШНОСТИ]
-source: сборник (скриншот)
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 4)
 ---
 
 ## Условие
