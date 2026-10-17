@@ -1,6 +1,9 @@
 // Функция Supabase: проверяет initData из Telegram и запоминает ученика.
-// Запрос: POST {"initData": "<window.Telegram.WebApp.initData>"}.
-// Ответ: {"ok": true, "user": {"id": ..., "first_name": ...}} или 401.
+// Запрос: POST {"initData": "<window.Telegram.WebApp.initData>", "action": ...}.
+//   action "login" (по умолчанию) — запомнить ученика, ответ {"ok": true, "user": {...}};
+//   action "attempt", task_id, answer, correct — записать попытку;
+//   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}}}.
+// Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
 // Один файл, чтобы его можно было вставить в редактор функций в панели Supabase.
 
@@ -53,29 +56,61 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, 'Content-Type': 'application/json' } });
 
-// В Node (тесты) Deno нет: там файл только отдаёт verifyInitData.
+// Действия после проверки подписи. db — клиент Supabase с сервисным ключом.
+export async function route(body: any, user: TgUser, db: any): Promise<[number, unknown]> {
+  const action = body.action || 'login';
+
+  if (action === 'login') {
+    // Храним только Telegram id и имя (PROJECT.md: минимум персональных данных).
+    const { error } = await db.from('users').upsert(
+      { tg_id: user.id, first_name: user.first_name ?? '', last_seen_at: new Date().toISOString() },
+      { onConflict: 'tg_id' },
+    );
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, user: { id: user.id, first_name: user.first_name ?? '' } }];
+  }
+
+  if (action === 'attempt') {
+    const task_id = String(body.task_id || '').slice(0, 100);
+    const answer = String(body.answer ?? '').slice(0, 200);
+    if (!task_id || typeof body.correct !== 'boolean') return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('attempts').insert({ tg_id: user.id, task_id, answer, correct: body.correct });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+
+  if (action === 'progress') {
+    const { data, error } = await db.from('attempts').select('task_id, correct').eq('tg_id', user.id).limit(20000);
+    if (error) return [500, { ok: false, error: 'db' }];
+    const tasks: Record<string, { n: number; ok: number }> = {};
+    for (const r of data ?? []) {
+      const t = (tasks[r.task_id] ??= { n: 0, ok: 0 });
+      t.n++;
+      if (r.correct) t.ok++;
+    }
+    return [200, { ok: true, tasks }];
+  }
+
+  return [400, { ok: false, error: 'action' }];
+}
+
+// В Node (тесты) Deno нет: там файл только отдаёт verifyInitData и route.
 const D = (globalThis as any).Deno;
 if (D) D.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: cors });
   if (req.method !== 'POST') return json({ ok: false, error: 'method' }, 405);
 
-  let initData = '';
+  let body: any;
   try {
-    initData = String((await req.json()).initData || '');
+    body = await req.json();
   } catch {
     return json({ ok: false, error: 'bad request' }, 400);
   }
-  const user = await verifyInitData(initData, D.env.get('BOT_TOKEN') ?? '');
+  const user = await verifyInitData(String(body?.initData || ''), D.env.get('BOT_TOKEN') ?? '');
   if (!user) return json({ ok: false, error: 'unauthorized' }, 401);
 
-  // Храним только Telegram id и имя (PROJECT.md: минимум персональных данных).
   const { createClient } = await import('npm:@supabase/supabase-js@2');
   const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
-  const { error } = await db.from('users').upsert(
-    { tg_id: user.id, first_name: user.first_name ?? '', last_seen_at: new Date().toISOString() },
-    { onConflict: 'tg_id' },
-  );
-  if (error) return json({ ok: false, error: 'db' }, 500);
-
-  return json({ ok: true, user: { id: user.id, first_name: user.first_name ?? '' } });
+  const [status, res] = await route(body, user, db);
+  return json(res, status);
 });

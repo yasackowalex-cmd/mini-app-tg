@@ -140,6 +140,7 @@
       `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>`,
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
+      '<span class="chip mark" hidden></span>',
     ].join('');
     const cond = conditionHtml(t);
     const figs = cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
@@ -179,8 +180,66 @@
       out.className = 'verdict ' + (ok ? 'ok' : 'bad');
       f.elements.a.classList.toggle('ok', ok);
       f.elements.a.classList.toggle('bad', !ok);
+      saveAttempt(t, v, ok);
+      markCard(el, t);
     });
+    markCard(el, t);
     return el;
+  }
+
+  // ---- Прогресс ученика (только в Телеграме, после проверки входа на сервере) ----
+  const prog = () => window.tgProgress;
+
+  function markCard(el, t) {
+    const m = el.querySelector('.chip.mark'), p = prog() && prog()[t.id];
+    if (!p) { m.hidden = true; return; }
+    m.hidden = false;
+    m.textContent = p.ok ? '✓ решена' : 'пока не решена';
+    m.className = 'chip mark ' + (p.ok ? 'ok' : 'bad');
+  }
+
+  function saveAttempt(t, answer, correct) {
+    if (!window.tgApi || !prog()) return;
+    const p = prog()[t.id] || (prog()[t.id] = { n: 0, ok: 0 });
+    p.n++;
+    if (correct) p.ok++;
+    window.tgApi('attempt', { task_id: t.id, answer, correct });
+    renderProgress();
+  }
+
+  // По каждой теме, где были попытки: решено задач из числа задач темы в банке
+  // и доля верных ответов среди всех попыток.
+  function renderProgress() {
+    const box = $('progress');
+    if (!prog()) { box.hidden = true; return; }
+    const total = new Map(), rows = new Map();
+    bank.forEach(t => total.set(t.topic, (total.get(t.topic) || 0) + 1));
+    const byId = new Map(bank.map(t => [t.id, t]));
+    let solved = 0, n = 0, ok = 0;
+    for (const [id, p] of Object.entries(prog())) {
+      const t = byId.get(id);
+      if (!t) continue;
+      const r = rows.get(t.topic) || { solved: 0, n: 0, ok: 0 };
+      r.n += p.n; r.ok += p.ok; if (p.ok) r.solved++;
+      rows.set(t.topic, r);
+      n += p.n; ok += p.ok; if (p.ok) solved++;
+    }
+    box.hidden = false;
+    if (!n) {
+      $('progress-body').innerHTML = '<p class="muted">Здесь будет ваш прогресс по темам. Решайте задачи и нажимайте «Проверить».</p>';
+      return;
+    }
+    const pct = (a, b) => Math.round(100 * a / b);
+    const list = [...rows.entries()].sort((a, b) => codeKey(a[0]) < codeKey(b[0]) ? -1 : 1).map(([code, r]) =>
+      `<tr><td><a href="#topic=${encodeURIComponent(code)}">${code} ${topics[code] || ''}</a></td>
+        <td class="num">${r.solved} из ${total.get(code)}</td><td class="num">${pct(r.ok, r.n)}%</td></tr>`).join('');
+    $('progress-body').innerHTML = `<p>Решено задач: <b>${solved}</b>, верных ответов: <b>${pct(ok, n)}%</b> (${ok} из ${n})</p>
+      <table class="prog"><thead><tr><th>Тема</th><th>Решено</th><th>Верных</th></tr></thead><tbody>${list}</tbody></table>`;
+  }
+
+  function onProgress() {
+    renderProgress();
+    document.querySelectorAll('#list article.task').forEach((el, i) => markCard(el, found[i]));
   }
 
   function showMore() {
@@ -229,7 +288,15 @@
       apply();
     });
     $('more').addEventListener('click', showMore);
+    window.addEventListener('hashchange', () => {
+      const h = readHash();
+      $('q').value = h.q;
+      fillSelects(h);
+      apply();
+    });
     apply();
+    document.addEventListener('tg-progress', onProgress);
+    if (prog()) onProgress();
   }
 
   init();

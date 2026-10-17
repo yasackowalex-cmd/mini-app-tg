@@ -19,10 +19,25 @@
     el.textContent = `Привет, ${user.first_name}!`;
     el.hidden = false;
   }
-  // Сервер проверяет подпись initData и запоминает ученика. Проверенный пользователь
-  // лежит в window.tgUser; если сервер недоступен, банк работает как раньше.
-  fetch(AUTH_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ initData: tg.initData }) })
-    .then(r => r.ok ? r.json() : null)
-    .then(res => { if (res && res.ok) window.tgUser = res.user; })
-    .catch(() => {});
+  // Запрос к серверу: каждый раз с initData, сервер проверяет подпись. Ответ или null.
+  const api = (action, extra) =>
+    fetch(AUTH_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initData: tg.initData, action, ...extra }) })
+      .then(r => r.ok ? r.json() : null)
+      .then(res => res && res.ok ? res : null)
+      .catch(() => null);
+
+  // Вход: проверенный ученик в window.tgUser, его попытки в window.tgProgress
+  // ({task_id: {n, ok}}), о загрузке app.js узнаёт по событию tg-progress.
+  // Если сервер недоступен, банк работает как раньше, без сохранения.
+  api('login').then(res => {
+    if (!res) return null;
+    window.tgUser = res.user;
+    window.tgApi = api;
+    return api('progress');
+  }).then(res => {
+    if (!res) return;
+    window.tgProgress = res.tasks || {};
+    document.dispatchEvent(new CustomEvent('tg-progress'));
+  });
 })();
