@@ -1,0 +1,3 @@
+# Ученики приходят из Телеграма без JWT Supabase; функция сама проверяет подпись initData.
+[functions.tg-auth]
+verify_jwt = false
