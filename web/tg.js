@@ -2,7 +2,8 @@
 // развернуть на весь экран, покрасить шапку в цвет бренда и поздороваться по имени.
 // В обычном браузере initData пустой, и файл ничего не делает.
 (function () {
-  const AUTH_URL = 'https://jbvcqegszgggvlbyccwk.supabase.co/functions/v1/tg-auth';
+  // Функция tg-auth в панели Supabase создана с адресом clever-responder.
+  const AUTH_URL = 'https://jbvcqegszgggvlbyccwk.supabase.co/functions/v1/clever-responder';
   const tg = window.Telegram && window.Telegram.WebApp;
   if (!tg || !tg.initData) return;
   document.documentElement.classList.add('in-tg');
