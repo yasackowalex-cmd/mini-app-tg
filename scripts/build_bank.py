@@ -15,8 +15,9 @@ REQUIRED = ('id', 'exam', 'kim', 'section', 'topic', 'level', 'type', 'answer')
 
 
 
-def versioned(assets_dir, path):
-    with open(os.path.join(assets_dir, os.path.basename(path)), 'rb') as fh:
+def versioned(assets_dir, path, rel=None):
+    # rel: путь файла относительно assets_dir; по умолчанию только имя файла
+    with open(os.path.join(assets_dir, rel or os.path.basename(path)), 'rb') as fh:
         return f"{path}?v={hashlib.sha1(fh.read()).hexdigest()[:8]}"
 
 def parse_scalar(v):
@@ -91,6 +92,18 @@ def check_mode(t):
     return 'none'
 
 
+def stamp_index():
+    """Ставит в index.html ?v=<хеш файла> у скриптов и стилей из web/,
+    чтобы Телеграм и браузеры брали новую версию сразу после заливки."""
+    path = os.path.join(ROOT, 'index.html')
+    html = open(path, encoding='utf-8').read()
+    def sub(m):
+        return f'{m.group(1)}="{versioned(ROOT, m.group(2), m.group(2))}"'
+    new = re.sub(r'(src|href)="(web/[^"?]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"', sub, html)
+    if new != html:
+        open(path, 'w', encoding='utf-8', newline='\n').write(new)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--bank', default=os.path.join(ROOT, 'bank'))
@@ -146,6 +159,7 @@ def main():
     with open(os.path.join(os.path.dirname(a.out), 'topics.json'), 'w', encoding='utf-8', newline='\n') as f:
         json.dump(topics, f, ensure_ascii=False, indent=1)
 
+    stamp_index()
     print(f"ЗАДАЧ В БАНКЕ: {len(tasks)}  →  {os.path.relpath(a.out, ROOT)}")
     print(f"с topic: {sum(1 for t in tasks if t.get('topic') not in (None, '', 'TODO'))}, "
           f"с решением: {sum(1 for t in tasks if t['solution'])}, "
