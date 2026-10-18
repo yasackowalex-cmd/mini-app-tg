@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=ed5656ec">
+<link rel="stylesheet" href="web/style.css?v=b119aa3b">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -34,6 +34,11 @@
     <button name="save" class="btn solid" type="submit">Сохранить</button>
     <span class="msg" role="status"></span>
   </form>
+  <details id="hw" class="progress hw" hidden>
+    <summary>Домашние задания</summary>
+    <div id="hw-body"></div>
+  </details>
+
   <details id="progress" class="progress" hidden>
     <summary>Мой прогресс</summary>
     <div id="progress-body"></div>
@@ -53,6 +58,7 @@
       <button id="pick-all" type="button" class="link" hidden></button></div>
   </section>
 
+  <div id="viewbar" class="viewbar" hidden><span id="view-title"></span> <button id="view-close" type="button" class="link">Ко всем задачам</button></div>
   <section id="list" aria-live="polite"></section>
   <div class="more-wrap"><button id="more" type="button" class="btn" hidden>Показать ещё</button></div>
   <p id="status" class="status">Загружаю банк…</p>
@@ -63,13 +69,20 @@
     <span id="pick-count"></span>
     <a id="pick-open" class="btn solid" target="_blank" rel="noopener">Открыть для печати</a>
     <button id="pick-clear" type="button" class="link">Очистить</button>
+    <button id="hw-new" type="button" class="btn solid orange" hidden>Задать как ДЗ</button>
   </div>
+  <form id="hw-form" class="wrap hw-form" hidden>
+    <input name="title" maxlength="100" placeholder="Название, например «ДЗ к 22 октября»" autocomplete="off">
+    <button class="btn solid" type="submit">Создать ссылку</button>
+    <span class="msg" role="status"></span>
+  </form>
 </div>
 
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=da6f3fcc"></script>
 <script src="web/render.js?v=0c3b98f4"></script>
-<script src="web/app.js?v=55b5beff"></script>
-<script defer src="web/tg.js?v=b147f060"></script>
+<script src="web/app.js?v=0b81c5dc"></script>
+<script src="web/hw.js?v=7adb4468"></script>
+<script defer src="web/tg.js?v=ad067407"></script>
 </body>
 </html>

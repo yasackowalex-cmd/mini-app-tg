@@ -18,7 +18,9 @@
   const LEVEL_NAME = { 'Б': 'базовый', 'П': 'повышенный', 'В': 'высокий' };
 
   const $ = id => document.getElementById(id);
-  let bank = [], topics = {}, found = [], shown = 0;
+  let bank = [], topics = {}, found = [], shown = 0, byId = {};
+  // view — показ одного ДЗ ({title, ids}) вместо фильтров банка; любой фильтр его снимает
+  let view = null;
 
   const codeKey = c => String(c).split('.').map(n => n.padStart(3, '0')).join('.');
   const norm = s => (s || '').toLowerCase().replace(/ё/g, 'е');
@@ -201,6 +203,7 @@
   }
 
   $('pick-clear').addEventListener('click', () => { pick.set([]); renderPick(); });
+  document.addEventListener('pick-changed', renderPick);
   $('pick-all').addEventListener('click', () => {
     const ids = pick.get();
     found.forEach(t => { if (!ids.includes(t.id)) ids.push(t.id); });
@@ -232,6 +235,7 @@
     if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000)]);
     window.tgApi('attempt', { task_id: t.id, answer, correct });
     renderProgress();
+    document.dispatchEvent(new CustomEvent('tg-attempt'));
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
@@ -366,8 +370,10 @@
     const st = state();
     writeHash(st);
     fillSelects(st);
-    found = bank.filter(t => matches(t, st));
+    found = view ? view.ids.map(id => byId[id]).filter(Boolean) : bank.filter(t => matches(t, st));
     $('count').textContent = `Найдено задач: ${found.length} из ${bank.length}`;
+    $('viewbar').hidden = !view;
+    if (view) $('view-title').textContent = `Домашнее задание «${view.title}»: задач ${found.length}`;
     $('list').innerHTML = '';
     shown = 0;
     $('status').textContent = found.length ? '' : 'Ничего не нашлось. Попробуйте убрать часть фильтров.';
@@ -384,6 +390,7 @@
       topics = tp;
       bank = b.map(t => ({ ...t, kim: t.kim ?? '', _search: norm(t.condition + ' ' + t.id + ' ' + (t.theme || '')) }));
       bank.sort((a, b) => codeKey(a.topic) < codeKey(b.topic) ? -1 : codeKey(a.topic) > codeKey(b.topic) ? 1 : (a.kim - b.kim) || (a.variant || 0) - (b.variant || 0));
+      bank.forEach(t => { byId[t.id] = t; });
     } catch (e) {
       $('status').textContent = 'Не удалось загрузить банк задач.';
       return;
@@ -391,10 +398,13 @@
     const st = readHash();
     $('q').value = st.q;
     fillSelects(st);
-    FILTERS.forEach(f => $(f.el).addEventListener('change', apply));
+    const applyAll = () => { view = null; apply(); };
+    FILTERS.forEach(f => $(f.el).addEventListener('change', applyAll));
     let timer;
-    $('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(apply, 250); });
+    $('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(applyAll, 250); });
+    $('view-close').addEventListener('click', applyAll);
     $('reset').addEventListener('click', () => {
+      view = null;
       $('q').value = '';
       FILTERS.forEach(f => { $(f.el).value = ''; });
       apply();
@@ -404,11 +414,18 @@
       const h = readHash();
       $('q').value = h.q;
       fillSelects(h);
-      apply();
+      applyAll();
     });
     apply();
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
+    // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
+    window.bankView = {
+      show(title, ids) { view = { title, ids }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
+      solved: id => !!(prog() && prog()[id] && prog()[id].ok > 0),
+      has: id => !!byId[id],
+    };
+    document.dispatchEvent(new CustomEvent('bank-ready'));
   }
 
   init();

@@ -2,6 +2,10 @@
 // Запрос: POST {"initData": "<window.Telegram.WebApp.initData>", "action": ...}.
 //   action "login" (по умолчанию) — запомнить ученика, ответ {"ok": true, "user": {...}, "profile": {last_name, grade} | null};
 //   action "profile", last_name, grade — анкета ученика (фамилия и класс);
+//   action "hw_create" (учитель), title, task_ids — задать ДЗ, ответ {"hw": {id, ...}};
+//   action "hw_open", id — ученик открыл ссылку на ДЗ; "hw_list" — ДЗ ученика (mine) и заданные учителем (given);
+//   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам.
+// Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
 //     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым}.
@@ -58,9 +62,21 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, 'Content-Type': 'application/json' } });
 
+// Код ДЗ для ссылки t.me/<бот>?startapp=hw_<код>: 8 символов без похожих букв и цифр.
+const HW_ABC = 'abcdefghjkmnpqrstuvwxyz23456789';
+function hwCode(): string {
+  const b = crypto.getRandomValues(new Uint8Array(8));
+  return Array.from(b, x => HW_ABC[x % HW_ABC.length]).join('');
+}
+const cleanIds = (a: unknown): string[] | null =>
+  Array.isArray(a) && a.length >= 1 && a.length <= 60 && a.every(x => typeof x === 'string' && x.length > 0 && x.length <= 100)
+    ? [...new Set(a as string[])] : null;
+
 // Действия после проверки подписи. db — клиент Supabase с сервисным ключом.
-export async function route(body: any, user: TgUser, db: any): Promise<[number, unknown]> {
+// teachers — Telegram id учителей из секрета TEACHER_IDS (через запятую).
+export async function route(body: any, user: TgUser, db: any, teachers: number[] = []): Promise<[number, unknown]> {
   const action = body.action || 'login';
+  const isTeacher = teachers.includes(user.id);
 
   if (action === 'login') {
     // Храним только Telegram id, имя, а после анкеты фамилию и класс (минимум персональных данных).
@@ -73,7 +89,7 @@ export async function route(body: any, user: TgUser, db: any): Promise<[number, 
     // profile: null, и сайт анкету не показывает.
     const { data: prof, error: perr } = await db.from('users').select('last_name, grade').eq('tg_id', user.id).maybeSingle();
     const profile = perr ? null : { last_name: prof?.last_name ?? '', grade: prof?.grade ?? '' };
-    return [200, { ok: true, user: { id: user.id, first_name: user.first_name ?? '' }, profile }];
+    return [200, { ok: true, user: { id: user.id, first_name: user.first_name ?? '' }, profile, teacher: isTeacher }];
   }
 
   if (action === 'profile') {
@@ -109,6 +125,78 @@ export async function route(body: any, user: TgUser, db: any): Promise<[number, 
     return [200, { ok: true, tasks, log }];
   }
 
+  // ---- Домашние задания ----
+  if (action === 'hw_create') {
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const title = String(body.title ?? '').trim().slice(0, 100) || 'Домашнее задание';
+    const task_ids = cleanIds(body.task_ids);
+    if (!task_ids) return [400, { ok: false, error: 'bad request' }];
+    const id = hwCode();
+    const { error } = await db.from('homework').insert({ id, title, task_ids, teacher_id: user.id });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, hw: { id, title, task_ids } }];
+  }
+
+  if (action === 'hw_open') {
+    // ученик открыл ссылку на ДЗ: запоминаем, что ДЗ у него есть
+    const id = String(body.id ?? '').slice(0, 20);
+    const { data: hw, error } = await db.from('homework').select('id, title, task_ids, created_at').eq('id', id).maybeSingle();
+    if (error) return [500, { ok: false, error: 'db' }];
+    if (!hw) return [404, { ok: false, error: 'not found' }];
+    const { error: e2 } = await db.from('homework_students').upsert({ hw_id: id, tg_id: user.id }, { onConflict: 'hw_id,tg_id' });
+    if (e2) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, hw }];
+  }
+
+  if (action === 'hw_list') {
+    // ученику — его ДЗ, учителю — ещё и заданные им
+    const { data: links, error } = await db.from('homework_students').select('hw_id').eq('tg_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    const ids = (links ?? []).map((r: any) => r.hw_id);
+    let mine: any[] = [];
+    if (ids.length) {
+      const { data, error: e2 } = await db.from('homework').select('id, title, task_ids, created_at').in('id', ids);
+      if (e2) return [500, { ok: false, error: 'db' }];
+      mine = data ?? [];
+    }
+    let given: any[] = [];
+    if (isTeacher) {
+      const { data, error: e3 } = await db.from('homework').select('id, title, task_ids, created_at').eq('teacher_id', user.id);
+      if (e3) return [500, { ok: false, error: 'db' }];
+      given = data ?? [];
+    }
+    const byDate = (a: any, b: any) => String(b.created_at).localeCompare(String(a.created_at));
+    return [200, { ok: true, mine: mine.sort(byDate), given: given.sort(byDate) }];
+  }
+
+  if (action === 'hw_report') {
+    // учителю: по каждому ученику ДЗ — лучший результат по каждой задаче после выдачи ДЗ
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const id = String(body.id ?? '').slice(0, 20);
+    const { data: hw, error } = await db.from('homework').select('id, title, task_ids, created_at, teacher_id').eq('id', id).maybeSingle();
+    if (error) return [500, { ok: false, error: 'db' }];
+    if (!hw || hw.teacher_id !== user.id) return [404, { ok: false, error: 'not found' }];
+    const { data: links, error: e2 } = await db.from('homework_students').select('tg_id').eq('hw_id', id);
+    if (e2) return [500, { ok: false, error: 'db' }];
+    const sids = (links ?? []).map((r: any) => r.tg_id);
+    if (!sids.length) return [200, { ok: true, hw: { id, title: hw.title, task_ids: hw.task_ids }, students: [] }];
+    const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade').in('tg_id', sids);
+    if (e3) return [500, { ok: false, error: 'db' }];
+    const { data: at, error: e4 } = await db.from('attempts').select('tg_id, task_id, correct')
+      .in('tg_id', sids).in('task_id', hw.task_ids).gte('created_at', hw.created_at).limit(20000);
+    if (e4) return [500, { ok: false, error: 'db' }];
+    // по задаче: 1 — решена верно, 0 — были только неверные ответы; нет ключа — не решал
+    const res: Record<string, Record<string, number>> = {};
+    for (const a of at ?? []) {
+      const r = (res[a.tg_id] ??= {});
+      r[a.task_id] = Math.max(r[a.task_id] ?? 0, a.correct ? 1 : 0);
+    }
+    const students = (us ?? []).map((u: any) => ({
+      first_name: u.first_name ?? '', last_name: u.last_name ?? '', grade: u.grade ?? '', tasks: res[u.tg_id] ?? {},
+    }));
+    return [200, { ok: true, hw: { id, title: hw.title, task_ids: hw.task_ids }, students }];
+  }
+
   return [400, { ok: false, error: 'action' }];
 }
 
@@ -129,6 +217,7 @@ if (D) D.serve(async (req: Request) => {
 
   const { createClient } = await import('npm:@supabase/supabase-js@2');
   const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
-  const [status, res] = await route(body, user, db);
+  const teachers = String(D.env.get('TEACHER_IDS') ?? '').split(',').map(Number).filter(Boolean);
+  const [status, res] = await route(body, user, db, teachers);
   return json(res, status);
 });
