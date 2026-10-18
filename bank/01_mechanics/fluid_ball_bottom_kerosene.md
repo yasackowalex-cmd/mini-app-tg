@@ -52,5 +52,3 @@ source: pres.tex
 $F = mg - \dfrac{\rho_\text{к}}{2\rho}mg = mg\left(1 - \dfrac{\rho_\text{к}}{2\rho}\right)$, откуда $m = \dfrac{F}{g\left(1 - \dfrac{\rho_\text{к}}{2\rho}\right)}$.
 
 $m = \dfrac{2}{10\cdot\left(1 - \dfrac{800}{2\cdot 480}\right)}\,\text{кг} = \dfrac{2}{10\cdot\dfrac{1}{6}}\,\text{кг} = 1{,}2\,\text{кг}$.
-
-Ответ: $m = 1{,}2\,\text{кг}$.

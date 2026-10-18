@@ -26,5 +26,3 @@ source: ohm2.tex
 
 По закону Ома для полной цепи $I = \dfrac{\mathcal{E}}{3R + r}$, откуда
 $r = \dfrac{\mathcal{E}}{I} - 3R = \left(\dfrac{12}{0{,}75} - 15\right)\,\text{Ом} = 1\,\text{Ом}$.
-
-Ответ: $r = 1\,\text{Ом}$.

@@ -43,5 +43,3 @@ $Q = \dfrac{C_1U^2}{2} - \dfrac{(C_1 + C_2)U'^2}{2} = \dfrac{C_1U^2}{2} - \dfrac
 Отсюда $\dfrac{1}{C_1} + \dfrac{1}{C_2} = \dfrac{U^2}{2Q}$, $C_1 = \dfrac{2QC_2}{C_2U^2 - 2Q}$.
 
 $C_1 = \dfrac{2\cdot 30\cdot 10^{-3}\cdot 2\cdot 10^{-6}}{2\cdot 10^{-6}\cdot 300^2 - 2\cdot 30\cdot 10^{-3}}\,\text{Ф} = \dfrac{1{,}2\cdot 10^{-7}}{0{,}12}\,\text{Ф} = 1\cdot 10^{-6}\,\text{Ф} = 1\,\text{мкФ}$.
-
-Ответ: $C_1 = 1\,\text{мкФ}$.

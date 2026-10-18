@@ -64,5 +64,3 @@ source: ind2.tex
 Энергия заряженного конденсатора $W = \dfrac{CU^2}{2}$, откуда $C = \dfrac{2W}{U^2} = \dfrac{2W}{B^2v^2l^2}$.
 
 $U = 5\cdot 1\cdot 0{,}8\,\text{В} = 4\,\text{В}$, $C = \dfrac{2\cdot 40\cdot 10^{-6}}{4^2}\,\text{Ф} = 5\cdot 10^{-6}\,\text{Ф} = 5\,\text{мкФ}$.
-
-Ответ: $C = 5\,\text{мкФ}$.

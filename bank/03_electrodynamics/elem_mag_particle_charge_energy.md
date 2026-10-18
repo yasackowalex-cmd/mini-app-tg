@@ -54,5 +54,3 @@ $qvB = \dfrac{mv^2}{R}$, откуда $q = \dfrac{mv}{BR} = \dfrac{\sqrt{2Wm}}{B
 
 $v = \sqrt{\dfrac{2\cdot 8\cdot 10^{-14}}{1{,}6\cdot 10^{-25}}}\,\text{м/с} = 10^6\,\text{м/с}$,
 $q = \dfrac{1{,}6\cdot 10^{-25}\cdot 10^6}{0{,}5\cdot 0{,}4}\,\text{Кл} = 8\cdot 10^{-19}\,\text{Кл}$.
-
-Ответ: $q = 8\cdot 10^{-19}\,\text{Кл}$.

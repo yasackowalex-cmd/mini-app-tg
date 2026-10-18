@@ -68,5 +68,3 @@ source: 2td.tex
 
 КПД цикла: $\eta = \dfrac{A}{Q_\text{н}} = \dfrac{A_{12} - A_{31}}{\dfrac{5}{2}A_{12}}$, откуда $A_{12} - A_{31} = \dfrac{5}{2}\eta A_{12}$ и
 $\dfrac{A_{12}}{A_{31}} = \dfrac{1}{1 - \dfrac{5}{2}\eta} = \dfrac{1}{1 - 2{,}5\cdot 0{,}2} = 2$.
-
-Ответ: $\dfrac{A_{12}}{A_{31}} = 2$.

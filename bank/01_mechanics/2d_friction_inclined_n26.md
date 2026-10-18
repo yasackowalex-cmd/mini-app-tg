@@ -111,5 +111,3 @@ $\mu mg\cos\alpha = \sqrt{F^2 + (mg\sin\alpha)^2}$, откуда $\mu = \dfrac{\
 
 $mg\sin\alpha = 0{,}5\cdot 10\cdot 0{,}5 = 2{,}5\,\text{Н}$, $mg\cos\alpha = 0{,}5\cdot 10\cdot 0{,}866 \approx 4{,}33\,\text{Н}$;
 $\mu = \dfrac{\sqrt{1{,}7^2 + 2{,}5^2}}{4{,}33} \approx \dfrac{3{,}02}{4{,}33} \approx 0{,}7$.
-
-Ответ: $\mu \approx 0{,}7$.

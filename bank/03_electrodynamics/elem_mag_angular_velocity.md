@@ -53,5 +53,3 @@ $qvB = \dfrac{mv^2}{r}$, откуда $\dfrac{v}{r} = \dfrac{qB}{m}$.
 Угловая скорость $\omega = \dfrac{v}{r} = \dfrac{qB}{m}$.
 
 $\omega = \dfrac{8\cdot 10^{-19}\cdot 0{,}5}{1{,}6\cdot 10^{-27}}\,\text{рад/с} = 2{,}5\cdot 10^{8}\,\text{рад/с}$.
-
-Ответ: $\omega = 2{,}5\cdot 10^{8}\,\text{рад/с}$.

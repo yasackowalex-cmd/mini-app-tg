@@ -30,5 +30,3 @@ source: ind.tex
 $Q = I^2Rt = \dfrac{(Bvl)^2t}{R}$.
 
 $Q = \dfrac{(1\cdot 1\cdot 0{,}1)^2\cdot 60}{10}\,\text{Дж} = 0{,}06\,\text{Дж}$.
-
-Ответ: $Q = 0{,}06\,\text{Дж}$.

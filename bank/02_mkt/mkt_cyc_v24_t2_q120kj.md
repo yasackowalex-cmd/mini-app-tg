@@ -80,5 +80,3 @@ source: 2td.tex
 Из уравнения Менделеева–Клапейрона для состояния 2: $2p_0V_0 = \nu RT_2$, откуда $p_0V_0 = \dfrac{\nu RT_2}{2}$ и $Q_\text{нагр} = 12\nu RT_2$.
 
 Отсюда $T_2 = \dfrac{Q_\text{нагр}}{12\nu R} = \dfrac{120\cdot 10^3}{12\cdot 4\cdot 8{,}31}\,\text{К} \approx 301\,\text{К}$.
-
-Ответ: $T_2 \approx 301\,\text{К}$.

@@ -29,5 +29,3 @@ source: imp.tex
 Векторы $m\vec{v}_1$ и $m\vec{v}_2$ взаимно перпендикулярны, поэтому по теореме Пифагора $2mu = m\sqrt{v_1^2 + v_2^2} = m\sqrt{v_1^2 + 4v_1^2} = mv_1\sqrt{5}$.
 
 Отсюда $v_1 = \dfrac{2u}{\sqrt{5}} = \dfrac{2\cdot 4{,}5}{\sqrt{5}} \approx 4{,}02\,\text{м/с}$.
-
-Ответ: $v_1 \approx 4{,}02\,\text{м/с}$.

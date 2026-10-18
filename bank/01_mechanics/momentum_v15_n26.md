@@ -36,5 +36,3 @@ $H = v_0\sin\alpha\cdot t_1 - \dfrac{gt_1^2}{2} = \dfrac{v_0^2\sin^2\alpha}{2g} 
 $\tau = \sqrt{\dfrac{2H}{g}} = \dfrac{\sqrt{3}\,v_0\sin\alpha}{2g}$.
 
 $\tau = \dfrac{\sqrt{3}\cdot 12\cdot \dfrac{\sqrt{3}}{2}}{2\cdot 10}\,\text{с} = 0{,}9\,\text{с}$.
-
-Ответ: $\tau = 0{,}9\,\text{с}$.

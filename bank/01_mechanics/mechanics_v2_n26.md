@@ -109,5 +109,3 @@ source: kim22,26.tex
 Модуль силы шарнира: $F = \sqrt{F_x^2 + F_y^2} = mg\sqrt{\dfrac{1}{4} + 1} = \dfrac{\sqrt{5}}{2}mg$.
 
 $F = \dfrac{2{,}236}{2}\cdot 2{,}7\cdot 10\,\text{Н} \approx 30{,}2\,\text{Н}$.
-
-Ответ: $F \approx 30{,}2\,\text{Н}$.

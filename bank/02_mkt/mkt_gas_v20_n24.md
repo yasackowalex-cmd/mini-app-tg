@@ -32,5 +32,3 @@ $pV = \left(\dfrac{m_1}{M_1} + \dfrac{m_2}{M_2}\right)RT = \nu RT$, где $\nu$
 $\nu = \dfrac{4/3}{2}\,\text{моль} + \dfrac{2/3}{4}\,\text{моль} = \dfrac{5}{6}\,\text{моль}$.
 
 $T = \dfrac{pV}{\nu R} = \dfrac{250\cdot 10^3\cdot 8\cdot 10^{-3}\cdot 6}{5\cdot 8{,}31}\,\text{К} \approx 289\,\text{К}$.
-
-Ответ: $T \approx 289\,\text{К}$.

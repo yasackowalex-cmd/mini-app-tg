@@ -33,5 +33,3 @@ source: len.tex
 Складывая, получаем $\dfrac{1}{x} + \dfrac{1}{d} = 2D$, откуда $d = \dfrac{x}{2Dx - 1}$ и $L = x + d = x + \dfrac{x}{2Dx - 1} = \dfrac{2Dx^2}{2Dx - 1}$.
 
 $d = \dfrac{0{,}2}{2\cdot 4\cdot 0{,}2 - 1}\,\text{м} = \dfrac{1}{3}\,\text{м}$ (при этом $f = 1\,\text{м}$), $L = 0{,}2\,\text{м} + 0{,}33\,\text{м} \approx 0{,}53\,\text{м}$.
-
-Ответ: $L \approx 0{,}53\,\text{м}$.

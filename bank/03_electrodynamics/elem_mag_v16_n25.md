@@ -68,5 +68,3 @@ $I_1 = \dfrac{\mathcal{E}}{R_1} = \dfrac{3}{0{,}525}\,\text{А} \approx 5{,}71\,
 $F = (I_1 + 2I_2)Bl_2 = \left(\dfrac{1}{R_1} + \dfrac{2}{R_2}\right)\mathcal{E}Bl_2$.
 
 $F = (5{,}71 + 2\cdot 4{,}08)\cdot 0{,}5\cdot 0{,}15\,\text{Н} \approx 1{,}04\,\text{Н}$.
-
-Ответ: $F \approx 1{,}04\,\text{Н}$.

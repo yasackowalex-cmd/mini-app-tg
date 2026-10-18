@@ -35,5 +35,3 @@ $H = v_0\sin\alpha\cdot t_1 - \dfrac{gt_1^2}{2} = \dfrac{v_0^2\sin^2\alpha}{2g} 
 После столкновения вертикальная составляющая скорости равна нулю, поэтому $H = \dfrac{g\tau^2}{2}$, где $\tau$ — время падения после столкновения. Отсюда
 $\tau = \sqrt{\dfrac{2H}{g}} = \dfrac{\sqrt{3}\,v_0\sin\alpha}{2g}$, и начальная скорость первого шарика
 $v_0 = \dfrac{2g\tau}{\sqrt{3}\sin\alpha}$.
-
-Ответ: $v_0 = \dfrac{2g\tau}{\sqrt{3}\sin\alpha}$.

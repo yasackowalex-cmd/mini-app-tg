@@ -31,5 +31,3 @@ source: LC.tex
 Отсюда $C = \dfrac{I_{\max}}{\omega U_{\max}}$.
 
 $C = \dfrac{2\cdot 10^{-3}}{5000\cdot 0{,}2}\,\text{Ф} = 2\cdot 10^{-6}\,\text{Ф}$.
-
-Ответ: $C = 2\cdot 10^{-6}\,\text{Ф} = 2\,\text{мкФ}$.

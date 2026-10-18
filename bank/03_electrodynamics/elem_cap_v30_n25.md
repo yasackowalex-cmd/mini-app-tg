@@ -31,5 +31,3 @@ $U = \dfrac{C_1U_1}{C_1 + C_2} = \dfrac{4\cdot 6}{4 + 8}\,\text{В} = 2\,\text{�
 $Q = \dfrac{C_1U_1^2}{2} - \dfrac{(C_1 + C_2)U^2}{2}$.
 
 $Q = \left(\dfrac{4\cdot 10^{-6}\cdot 6^2}{2} - \dfrac{12\cdot 10^{-6}\cdot 2^2}{2}\right)\,\text{Дж} = (72 - 24)\cdot 10^{-6}\,\text{Дж} = 48\,\text{мкДж}$.
-
-Ответ: $Q = 48\,\text{мкДж}$.

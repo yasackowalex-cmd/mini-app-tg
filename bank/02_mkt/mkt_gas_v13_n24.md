@@ -33,5 +33,3 @@ source: ig.tex
 Тогда $\dfrac{\Delta U}{A} = \dfrac{Lm - \dfrac{m}{M}RT}{\dfrac{m}{M}RT} = \dfrac{LM}{RT} - 1$.
 
 $\dfrac{\Delta U}{A} = \dfrac{846\cdot 10^3\cdot 46\cdot 10^{-3}}{8{,}31\cdot 351} - 1 \approx 13{,}3 - 1 \approx 12{,}3$.
-
-Ответ: $\dfrac{\Delta U}{A} \approx 12{,}3$.

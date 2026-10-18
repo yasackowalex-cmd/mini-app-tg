@@ -134,5 +134,3 @@ $a = \dfrac{(M - 2m\sin\alpha)g}{M + 2m} = \dfrac{(2 - 2\cdot 0{,}25\cdot 0{,}5)
 $x = \dfrac{m(a + g\sin\alpha)}{k} = \dfrac{0{,}25\cdot(7 + 5)}{100}\,\text{м} = 0{,}03\,\text{м} = 3\,\text{см}$.
 
 4. Длина нерастянутой пружины: $l = L - x = 15\,\text{см} - 3\,\text{см} = 12\,\text{см}$.
-
-Ответ: $l = 12\,\text{см}$.

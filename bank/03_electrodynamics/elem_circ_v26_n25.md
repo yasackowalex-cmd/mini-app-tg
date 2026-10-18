@@ -29,5 +29,3 @@ $R = \dfrac{R_1R_2}{R_1 + R_2} = \dfrac{6\cdot 12}{6 + 12}\,\text{Ом} = 4\,\te
 
 По закону Ома для полной цепи $\mathcal{E} = I(R + r) = U + Ir$, откуда
 $r = \dfrac{\mathcal{E} - U}{I} = \dfrac{10 - 8}{2}\,\text{Ом} = 1\,\text{Ом}$.
-
-Ответ: $r = 1\,\text{Ом}$.

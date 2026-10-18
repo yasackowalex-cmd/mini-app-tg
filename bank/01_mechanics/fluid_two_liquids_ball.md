@@ -63,5 +63,3 @@ source: pres.tex
 Отсюда $\rho = \dfrac{\rho_1 + 3\rho_2}{4}$.
 
 $\rho = \dfrac{1000 + 3\cdot 800}{4} = 850\,\text{кг/м}^3$.
-
-Ответ: $\rho = 850\,\text{кг/м}^3$.

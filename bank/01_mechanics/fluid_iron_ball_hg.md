@@ -63,5 +63,3 @@ source: pres.tex
 Разделив на $gV$: $\rho = \rho_1 x + \rho_2(1 - x)$, откуда $x = \dfrac{\rho - \rho_2}{\rho_1 - \rho_2}$.
 
 $x = \dfrac{7800 - 1000}{13\,600 - 1000} = \dfrac{6800}{12\,600} \approx 0{,}54$.
-
-Ответ: $x \approx 0{,}54$.

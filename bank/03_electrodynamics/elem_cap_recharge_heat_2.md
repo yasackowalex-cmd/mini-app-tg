@@ -43,5 +43,3 @@ $Q = \dfrac{C_1U^2}{2} - \dfrac{(C_1 + C_2)U'^2}{2} = \dfrac{C_1U^2}{2} - \dfrac
 Отсюда $\dfrac{1}{C_1} + \dfrac{1}{C_2} = \dfrac{U^2}{2Q}$, $C_2 = \dfrac{2QC_1}{C_1U^2 - 2Q}$.
 
 $C_2 = \dfrac{2\cdot 60\cdot 10^{-3}\cdot 5\cdot 10^{-6}}{5\cdot 10^{-6}\cdot 200^2 - 2\cdot 60\cdot 10^{-3}}\,\text{Ф} = \dfrac{6\cdot 10^{-7}}{0{,}08}\,\text{Ф} = 7{,}5\cdot 10^{-6}\,\text{Ф} = 7{,}5\,\text{мкФ}$.
-
-Ответ: $C_2 = 7{,}5\,\text{мкФ}$.
