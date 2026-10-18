@@ -28,7 +28,8 @@
       .catch(() => null);
 
   // Вход: проверенный ученик в window.tgUser, его попытки в window.tgProgress
-  // ({task_id: {n, ok}}), о загрузке app.js узнаёт по событию tg-progress.
+  // ({task_id: {n, ok}}) и журнал ответов в window.tgLog ([task_id, 1|0, время], новые первыми),
+  // о загрузке app.js узнаёт по событию tg-progress.
   // Если сервер недоступен, банк работает как раньше, без сохранения.
   api('login').then(res => {
     if (!res) return null;
@@ -38,6 +39,7 @@
   }).then(res => {
     if (!res) return;
     window.tgProgress = res.tasks || {};
+    window.tgLog = Array.isArray(res.log) ? res.log : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 })();

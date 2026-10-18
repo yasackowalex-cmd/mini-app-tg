@@ -203,17 +203,21 @@
     const p = prog()[t.id] || (prog()[t.id] = { n: 0, ok: 0 });
     p.n++;
     if (correct) p.ok++;
+    if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000)]);
     window.tgApi('attempt', { task_id: t.id, answer, correct });
     renderProgress();
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
-  // разных задач этого номера (по уровню сложности номера) и доля верных ответов по нему не ниже KIM_MIN_ACC.
+  // разных задач этого номера (по уровню сложности номера) и из последних KIM_WINDOW ответов по нему
+  // верных не меньше KIM_MIN_ACC. Освоение можно потерять: ошибки в последних ответах возвращают номер
+  // «в работу», а если номер не решали KIM_STALE_DAYS дней, он просит повторения и не идёт в прогноз.
+  // Звёзды — за 2× и 3× порога разных решённых задач, чтобы было куда расти после «освоен».
   // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (спецификация 2027, всего 45).
   const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
     14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
   const KIM_LEVEL = k => [24, 25, 26].includes(+k) ? 'В' : [5, 9, 14, 21, 22, 23].includes(+k) ? 'П' : 'Б';
-  const KIM_MAX = 45, KIM_MIN_SOLVED = { 'Б': 5, 'П': 7, 'В': 7 }, KIM_MIN_ACC = 0.8;
+  const KIM_MAX = 45, KIM_MIN_SOLVED = { 'Б': 5, 'П': 7, 'В': 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
 
   // Ниже — решено задач по четырём разделам физики (оптика входит в электродинамику,
   // как в кодификаторе) и по темам внутри раздела. Доля верных ответов — отдельной строкой.
@@ -233,16 +237,33 @@
   const balls = n => n % 10 === 1 && n % 100 !== 11 ? 'балл' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'балла' : 'баллов';
 
   function kimStats(p) {
-    const st = {};
-    Object.keys(KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0 }; });
+    const st = {}, kimOf = {};
+    Object.keys(KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0, recent: [], last: 0 }; });
     bank.forEach(t => {
+      if (!st[t.kim] || (t.tags || []).includes('ВНЕ_ЕГЭ_2027')) return;
+      kimOf[t.id] = t.kim;
       const r = p[t.id], s = st[t.kim];
-      if (!r || !s || (t.tags || []).includes('ВНЕ_ЕГЭ_2027')) return;
+      if (!r) return;
       s.n += r.n; s.ok += r.ok;
       if (r.ok > 0) s.solved++;
     });
+    // Журнал ответов (новые первыми). Без него (старая версия функции) — доля верных за всё время.
+    const log = window.tgLog;
+    if (log) log.forEach(([id, ok, ts]) => {
+      const s = st[kimOf[id]];
+      if (!s) return;
+      if (s.recent.length < KIM_WINDOW) s.recent.push(ok);
+      if (ts > s.last) s.last = ts;
+    });
+    const now = Date.now() / 1000;
     Object.entries(st).forEach(([k, s]) => {
-      s.state = s.solved >= KIM_MIN_SOLVED[KIM_LEVEL(k)] && s.ok >= KIM_MIN_ACC * s.n ? 'done' : s.n ? 'work' : 'none';
+      const need = KIM_MIN_SOLVED[KIM_LEVEL(k)];
+      const acc = log ? s.recent.filter(Boolean).length / (s.recent.length || 1) : s.ok / (s.n || 1);
+      s.acc = acc;
+      s.stars = s.solved >= 3 * need ? 2 : s.solved >= 2 * need ? 1 : 0;
+      s.state = !s.n ? 'none'
+        : s.solved < need || acc < KIM_MIN_ACC ? 'work'
+        : log && s.last && now - s.last > KIM_STALE_DAYS * 86400 ? 'stale' : 'done';
     });
     return st;
   }
@@ -261,8 +282,11 @@
     const done = kims.filter(k => ks[k].state === 'done');
     const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
     const cells = kims.map(k => {
-      const s = ks[k], hint = s.state === 'done' ? 'освоен' : s.n ? `решено ${s.solved} из ${KIM_MIN_SOLVED[KIM_LEVEL(k)]}, верных ${pct(s.ok, s.n)}%` : 'не начат';
-      return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small></a>`;
+      const s = ks[k], hint = !s.n ? 'не начат'
+        : `решено ${s.solved} разных задач (нужно ${KIM_MIN_SOLVED[KIM_LEVEL(k)]}), верных ${Math.round(100 * s.acc)}%` +
+          (s.state === 'stale' ? ', пора повторить' : s.state === 'done' ? ', освоен' : '');
+      return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small>` +
+        (s.stars ? `<i class="stars">${'★'.repeat(s.stars)}</i>` : '') + `</a>`;
     }).join('');
 
     const groups = PROGRESS_GROUPS.map(g => {
@@ -289,8 +313,8 @@
       ${bar(score, KIM_MAX, true)}
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
-      <p class="legend"><span class="kc done"></span> освоен <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED['Б']} разных задач этого номера (у номеров повышенного и высокого уровня ${KIM_MIN_SOLVED['П']}) и не меньше ${Math.round(100 * KIM_MIN_ACC)}% ответов по нему верные. Одна задача, решённая несколько раз, считается один раз. Нажмите на номер, чтобы открыть его задачи.</p>
+      <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
+      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED['Б']} разных задач этого номера (у номеров повышенного и высокого уровня ${KIM_MIN_SOLVED['П']}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}

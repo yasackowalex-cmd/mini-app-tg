@@ -2,7 +2,8 @@
 // Запрос: POST {"initData": "<window.Telegram.WebApp.initData>", "action": ...}.
 //   action "login" (по умолчанию) — запомнить ученика, ответ {"ok": true, "user": {...}};
 //   action "attempt", task_id, answer, correct — записать попытку;
-//   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}}}.
+//   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
+//     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым}.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
 // Один файл, чтобы его можно было вставить в редактор функций в панели Supabase.
@@ -80,15 +81,18 @@ export async function route(body: any, user: TgUser, db: any): Promise<[number, 
   }
 
   if (action === 'progress') {
-    const { data, error } = await db.from('attempts').select('task_id, correct').eq('tg_id', user.id).limit(20000);
+    const { data, error } = await db.from('attempts').select('task_id, correct, created_at').eq('tg_id', user.id)
+      .order('created_at', { ascending: false }).limit(20000);
     if (error) return [500, { ok: false, error: 'db' }];
     const tasks: Record<string, { n: number; ok: number }> = {};
+    const log: [string, number, number][] = [];
     for (const r of data ?? []) {
       const t = (tasks[r.task_id] ??= { n: 0, ok: 0 });
       t.n++;
       if (r.correct) t.ok++;
+      log.push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
     }
-    return [200, { ok: true, tasks }];
+    return [200, { ok: true, tasks, log }];
   }
 
   return [400, { ok: false, error: 'action' }];

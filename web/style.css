@@ -84,6 +84,10 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .kc.work { background: var(--chip); border-color: #B8D3FF; }
 .kc.done { background: var(--blue); border-color: var(--blue); color: #fff; }
 .kc.done small { color: #DCE8FF; }
+.kc { position: relative; }
+.kc.stale { background: #FFF1EA; border-color: var(--orange); }
+.kc .stars { position: absolute; top: 1px; right: 3px; font-size: 11px; font-style: normal; color: var(--orange); letter-spacing: -1px; }
+.kc.done .stars { color: #FFD9C7; }
 .legend { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .legend .kc { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-left: 6px; }
 .legend .kc:first-child { margin-left: 0; }
