@@ -85,5 +85,3 @@ source: col.tex
 $T\sin\alpha = qE$, $T\cos\alpha = mg$.
 
 Отсюда $\operatorname{tg}\alpha = \dfrac{qE}{mg} = \dfrac{10\cdot 10^{-9}\cdot 3\cdot 10^5}{0{,}9\cdot 10^{-3}\cdot 10} = \dfrac{1}{3}$, $\alpha = \operatorname{arctg}\dfrac{1}{3} \approx 18^\circ$.
-
-Ответ: $\alpha = \operatorname{arctg}\dfrac{1}{3} \approx 18^\circ$.

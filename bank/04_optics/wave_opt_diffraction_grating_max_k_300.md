@@ -29,5 +29,3 @@ source: dif.tex
 Так как $\sin\varphi < 1$ (максимум под углом $90^\circ$ не наблюдается), $k < \dfrac{d}{\lambda} = \dfrac{d\nu}{c}$.
 
 $\dfrac{d}{\lambda} \approx \dfrac{10^{-3}\cdot 5{,}6\cdot 10^{14}}{300\cdot 3\cdot 10^8} \approx 6{,}2$, поэтому наибольший целый порядок $k_\text{max} = 6$.
-
-Ответ: $k_\text{max} = 6$.

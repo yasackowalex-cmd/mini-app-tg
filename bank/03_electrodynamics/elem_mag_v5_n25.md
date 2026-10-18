@@ -68,5 +68,3 @@ $I_1 = \dfrac{\mathcal{E}}{R_1} = \dfrac{6}{1{,}375}\,\text{А} \approx 4{,}36\,
 $F = (I_1 + 2I_2)Bl_2$, откуда $B = \dfrac{F}{(I_1 + 2I_2)l_2}$.
 
 $B = \dfrac{1{,}6}{(4{,}36 + 2\cdot 3{,}12)\cdot 0{,}15}\,\text{Тл} \approx 1{,}0\,\text{Тл}$.
-
-Ответ: $B \approx 1{,}0\,\text{Тл}$.

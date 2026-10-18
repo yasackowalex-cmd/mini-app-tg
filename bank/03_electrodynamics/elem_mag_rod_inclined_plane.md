@@ -84,5 +84,3 @@ $IBL\cos\alpha - mg\sin\alpha = ma$.
 $I = \dfrac{m(a + g\sin\alpha)}{BL\cos\alpha} = \dfrac{m}{L}\cdot\dfrac{a + g\sin\alpha}{B\cos\alpha}$.
 
 $I = 0{,}1\cdot\dfrac{1{,}5 + 10\cdot 0{,}5}{0{,}3\cdot 0{,}866}\,\text{А} \approx 2{,}5\,\text{А}$.
-
-Ответ: $I \approx 2{,}5\,\text{А}$.

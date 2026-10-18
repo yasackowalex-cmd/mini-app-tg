@@ -69,5 +69,3 @@ source: osc.tex
 $\Delta = \dfrac{F^2}{x_1} - \dfrac{F^2}{x_2} = F^2\cdot\dfrac{x_2 - x_1}{x_1x_2} = \dfrac{2AF^2}{l^2 - A^2}$.
 
 $\Delta = \dfrac{2\cdot 1\cdot 2^2}{5 - 1}\,\text{см} = 2\,\text{см}$.
-
-Ответ: $\Delta = 2\,\text{см}$.

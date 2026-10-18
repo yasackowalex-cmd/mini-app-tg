@@ -70,5 +70,3 @@ $\Delta = \dfrac{F^2}{x_1} - \dfrac{F^2}{x_2} = F^2\cdot\dfrac{x_2 - x_1}{x_1x_2
 $F = \sqrt{\dfrac{\Delta(l^2 - A^2)}{2A}} = \sqrt{\dfrac{2\cdot(5 - 1)}{2\cdot 1}}\,\text{см} = 2\,\text{см} = 0{,}02\,\text{м}$.
 
 Оптическая сила линзы: $D = \dfrac{1}{F} = \dfrac{1}{0{,}02\,\text{м}} = 50\,\text{дптр}$.
-
-Ответ: $D = 50\,\text{дптр}$.

@@ -32,5 +32,3 @@ $pV = \left(\dfrac{m_1}{M_1} + \dfrac{m_2}{M_2}\right)RT = \nu RT$, где $\nu$
 $\nu = \dfrac{4/3}{2}\,\text{моль} + \dfrac{2/3}{4}\,\text{моль} = \dfrac{5}{6}\,\text{моль}$.
 
 $p = \dfrac{\nu RT}{V} = \dfrac{5\cdot 8{,}31\cdot 193}{6\cdot 8\cdot 10^{-3}}\,\text{Па} \approx 1{,}67\cdot 10^5\,\text{Па}$.
-
-Ответ: $p \approx 1{,}67\cdot 10^5\,\text{Па}$.

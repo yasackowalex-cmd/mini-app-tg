@@ -34,5 +34,3 @@ $m_1 = \dfrac{p_1VM}{RT_1}$, $m_2 = \dfrac{p_{\text{н}2}VM}{RT_2}$.
 Отсюда $V = \dfrac{\Delta m R}{M\left(\dfrac{p_1}{T_1} - \dfrac{p_{\text{н}2}}{T_2}\right)}$.
 
 $V = \dfrac{0{,}9\cdot 10^{-3}\cdot 8{,}31}{18\cdot 10^{-3}\left(\dfrac{8\cdot 10^3}{423} - \dfrac{2{,}5\cdot 10^3}{293}\right)}\,\text{м}^3 \approx 0{,}04\,\text{м}^3$.
-
-Ответ: $V \approx 0{,}04\,\text{м}^3$ ($40\,\text{л}$).

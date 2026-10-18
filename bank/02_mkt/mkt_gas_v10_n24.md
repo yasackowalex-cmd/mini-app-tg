@@ -34,5 +34,3 @@ $\nu = \dfrac{10/7}{2}\,\text{моль} + \dfrac{4/7}{4}\,\text{моль} = \dfr
 Температура $T = 273 - 17 = 256\,\text{К}$, объём $V = 12\cdot 10^{-3}\,\text{м}^3$.
 
 $p = \dfrac{\nu RT}{V} = \dfrac{6\cdot 8{,}31\cdot 256}{7\cdot 12\cdot 10^{-3}}\,\text{Па} \approx 1{,}52\cdot 10^5\,\text{Па}$.
-
-Ответ: $p \approx 1{,}52\cdot 10^5\,\text{Па}$.

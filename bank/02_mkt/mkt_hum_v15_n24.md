@@ -32,5 +32,3 @@ $m_1 = \dfrac{p_1VM}{RT_1}$, $m_2 = \dfrac{p_{\text{н}2}VM}{RT_2}$.
 Масса сконденсировавшейся воды: $\Delta m = m_1 - m_2 = \dfrac{VM}{R}\left(\dfrac{p_1}{T_1} - \dfrac{p_{\text{н}2}}{T_2}\right)$.
 
 $\Delta m = \dfrac{80\cdot 10^{-3}\cdot 18\cdot 10^{-3}}{8{,}31}\left(\dfrac{8\cdot 10^3}{423} - \dfrac{2{,}5\cdot 10^3}{293}\right)\,\text{кг} \approx 1{,}8\cdot 10^{-3}\,\text{кг} = 1{,}8\,\text{г}$.
-
-Ответ: $\Delta m \approx 1{,}8\,\text{г}$.

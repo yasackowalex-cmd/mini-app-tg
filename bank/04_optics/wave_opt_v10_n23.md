@@ -27,5 +27,3 @@ source: dif.tex
 Условие главных максимумов дифракционной решётки при нормальном падении: $d\sin\varphi = k\lambda$, откуда $d = \dfrac{k\lambda}{\sin\varphi}$.
 
 $d = \dfrac{3\cdot 500\cdot 10^{-9}}{0{,}6}\,\text{м} = 2{,}5\cdot 10^{-6}\,\text{м} = 2{,}5\,\text{мкм}$.
-
-Ответ: $d = 2{,}5\,\text{мкм}$.

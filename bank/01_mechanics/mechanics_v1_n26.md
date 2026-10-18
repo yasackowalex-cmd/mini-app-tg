@@ -109,5 +109,3 @@ source: kim22,26.tex
 Модуль силы шарнира: $F = \sqrt{F_x^2 + F_y^2} = mg\sqrt{\dfrac{1}{4} + 1} = \dfrac{\sqrt{5}}{2}mg$.
 
 Отсюда $m = \dfrac{2F}{\sqrt{5}g} = \dfrac{2\cdot 35}{2{,}236\cdot 10}\,\text{кг} \approx 3{,}13\,\text{кг}$.
-
-Ответ: $m \approx 3{,}13\,\text{кг}$.

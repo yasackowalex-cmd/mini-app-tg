@@ -113,5 +113,3 @@ source: din.tex
 Складывая, получаем $(M + m)a = mg + F_\text{с} = 2mg$.
 
 3. Отсюда $m(2g - a) = Ma$ и $m = \dfrac{Ma}{2g - a} = \dfrac{0{,}45\cdot 2}{2\cdot 10 - 2}\,\text{кг} = 0{,}05\,\text{кг}$.
-
-Ответ: $m = 0{,}05\,\text{кг}$.

@@ -29,5 +29,3 @@ source: jou.tex
 По закону Джоуля — Ленца количество теплоты во внешней цепи $Q = I^2R_\text{вн}t = \dfrac{\mathcal{E}^2Rt}{2\left(\dfrac{R}{2} + r\right)^2}$.
 
 $Q = 2^2\cdot 5\cdot 10\,\text{Дж} = 200\,\text{Дж}$.
-
-Ответ: $Q = 200\,\text{Дж}$.

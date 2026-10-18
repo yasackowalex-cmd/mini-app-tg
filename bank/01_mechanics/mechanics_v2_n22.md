@@ -29,5 +29,3 @@ source: kim22,26.tex
 Векторы $m\vec v_1$ и $m\vec v_2$ перпендикулярны, по теореме Пифагора: $2mu = \sqrt{(mv_1)^2 + (mv_2)^2} = mv_2\sqrt{5}$, откуда $v_2 = \dfrac{2u}{\sqrt{5}}$.
 
 $v_2 = \dfrac{2\cdot 4{,}5}{\sqrt{5}} \approx 4\,\text{м/с}$.
-
-Ответ: $v_2 \approx 4\,\text{м/с}$.

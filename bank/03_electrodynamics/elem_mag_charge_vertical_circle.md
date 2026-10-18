@@ -87,5 +87,3 @@ $qv_\text{в}B = mg - \dfrac{mv_\text{в}^2}{L}$, $q = \dfrac{m(gL - v_\text{в}
 
 Подставим $v_\text{в}^2 = v_\text{н}^2 - 4gL$:
 $q = \dfrac{m(5gL - v_\text{н}^2)}{BL\sqrt{v_\text{н}^2 - 4gL}}$.
-
-Ответ: $q = \dfrac{m(5gL - v_\text{н}^2)}{BL\sqrt{v_\text{н}^2 - 4gL}}$.

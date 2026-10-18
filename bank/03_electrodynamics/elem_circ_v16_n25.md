@@ -27,5 +27,3 @@ $R = \dfrac{R_1R_2}{R_1 + R_2} = \dfrac{4\cdot 12}{4 + 12}\,\text{Ом} = 3\,\te
 
 По закону Ома для полной цепи $I = \dfrac{\mathcal{E}}{R + r}$, откуда
 $r = \dfrac{\mathcal{E}}{I} - R = \left(\dfrac{6}{1{,}5} - 3\right)\,\text{Ом} = 1\,\text{Ом}$.
-
-Ответ: $r = 1\,\text{Ом}$.

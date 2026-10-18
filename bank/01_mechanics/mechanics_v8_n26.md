@@ -67,5 +67,3 @@ $\dfrac{(M+m)v^2}{2} + (M+m)gR = \dfrac{(M+m)u^2}{2} + (M+m)gh$, откуда $u
 
 Приравнивая: $gh = v^2 + 2gR - 2gh$, откуда
 $h = \dfrac{v^2 + 2gR}{3g} = \dfrac{4 + 2\cdot 10\cdot 1}{3\cdot 10}\,\text{м} = 0{,}8\,\text{м}$.
-
-Ответ: $h = 0{,}8\,\text{м}$.

@@ -51,5 +51,3 @@ source: pres.tex
 Отсюда $V = \dfrac{2(mg - P)}{\rho_\text{в} g}$ и $\rho = \dfrac{m}{V} = \dfrac{\rho_\text{в} mg}{2(mg - P)}$.
 
 $\rho = \dfrac{1000\cdot 1{,}6\cdot 10}{2\cdot(16 - 6)}\,\text{кг/м}^3 = 800\,\text{кг/м}^3$.
-
-Ответ: $\rho = 800\,\text{кг/м}^3$.

@@ -29,5 +29,3 @@ source: LC.tex
 Подставляя, получим $\dfrac{U_{\max}^2}{\omega^2L} = LI_{\max}^2$, откуда $L = \dfrac{U_{\max}}{\omega I_{\max}}$.
 
 $L = \dfrac{20}{5000\cdot 0{,}2}\,\text{Гн} = 0{,}02\,\text{Гн}$.
-
-Ответ: $L = 0{,}02\,\text{Гн}$.

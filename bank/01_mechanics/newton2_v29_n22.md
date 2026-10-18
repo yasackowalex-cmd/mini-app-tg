@@ -79,5 +79,3 @@ source: din.tex
 Сложив уравнения, получим $a = \dfrac{F}{M_1 + M_2}$, тогда $T = \dfrac{FM_2}{M_1 + M_2}$.
 
 Отсюда $M_1 = \dfrac{FM_2}{T} - M_2 = M_2\left(\dfrac{F}{T} - 1\right) = 3\cdot\left(\dfrac{18}{10} - 1\right) = 2{,}4\,\text{кг}$.
-
-Ответ: $M_1 = 2{,}4\,\text{кг}$.

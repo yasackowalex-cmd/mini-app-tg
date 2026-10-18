@@ -124,5 +124,3 @@ source: din.tex
 
 4. С учётом (3) груз давит на брусок с силой
 $F = N = \dfrac{2Mmg}{2M + m} = \dfrac{2\cdot 0{,}5\cdot 0{,}1\cdot 10}{2\cdot 0{,}5 + 0{,}1}\,\text{Н} \approx 0{,}9\,\text{Н}$.
-
-Ответ: $F \approx 0{,}9\,\text{Н}$.

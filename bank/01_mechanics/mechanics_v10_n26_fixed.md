@@ -114,5 +114,3 @@ $F\cdot AO\cos\beta = Mg\cdot CO + mg\cdot d$.
 3. Отсюда $m = \dfrac{F\cdot AO\cos\beta - Mg\cdot CO}{g\cdot d}$.
 
 $m = \dfrac{1{,}8\cdot 3{,}5\cdot 0{,}707 - 0{,}12\cdot 10\cdot 2{,}5}{10\cdot 1{,}4}\,\text{кг} = \dfrac{4{,}45 - 3}{14}\,\text{кг} \approx 0{,}1\,\text{кг}$.
-
-Ответ: $m \approx 0{,}1\,\text{кг}$.

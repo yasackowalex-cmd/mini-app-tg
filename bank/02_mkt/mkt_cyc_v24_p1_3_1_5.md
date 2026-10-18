@@ -79,5 +79,3 @@ source: 2td.tex
 
 За цикл $Q_\text{н} - |Q_\text{х}| = A$, откуда $|Q_\text{х}| = Q_\text{н} - A = 33{,}75p_1V_1$ и
 $\dfrac{|Q_\text{х}|}{Q_\text{н}} = \dfrac{33{,}75}{36{,}75} \approx 0{,}92$.
-
-Ответ: $\dfrac{|Q_\text{х}|}{Q_\text{н}} \approx 0{,}92$.
