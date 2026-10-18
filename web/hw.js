@@ -50,10 +50,11 @@
   }
 
   function render() {
-    const h = window.tgHw, v = window.bankView;
-    if (!h || !v) return;
+    // кнопка учителя не зависит от списка ДЗ: он может не загрузиться (например, таблиц ДЗ ещё нет)
     const teacher = !!window.tgTeacher;
     $('hw-new').hidden = !teacher;
+    const h = window.tgHw, v = window.bankView;
+    if (!h || !v) return;
     const box = $('hw');
     box.hidden = !h.mine.length && !(teacher && h.given.length);
     $('hw-body').innerHTML =
