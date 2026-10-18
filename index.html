@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=427f02a8">
+<link rel="stylesheet" href="web/style.css?v=37fe7a38">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -36,7 +36,8 @@
       <label>Тип <select id="f-type"></select></label>
       <label>Экзамен <select id="f-exam"></select></label>
     </div>
-    <div class="summary"><span id="count"></span> <button id="reset" type="button" class="link">Сбросить фильтры</button></div>
+    <div class="summary"><span id="count"></span> <button id="reset" type="button" class="link">Сбросить фильтры</button>
+      <button id="pick-all" type="button" class="link" hidden></button></div>
   </section>
 
   <section id="list" aria-live="polite"></section>
@@ -44,9 +45,18 @@
   <p id="status" class="status">Загружаю банк…</p>
 </main>
 
+<div id="pickbar" class="pickbar" hidden>
+  <div class="wrap">
+    <span id="pick-count"></span>
+    <a id="pick-open" class="btn solid" target="_blank" rel="noopener">Открыть для печати</a>
+    <button id="pick-clear" type="button" class="link">Очистить</button>
+  </div>
+</div>
+
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=da6f3fcc"></script>
-<script src="web/app.js?v=c49afa21"></script>
+<script src="web/render.js?v=0c3b98f4"></script>
+<script src="web/app.js?v=55b5beff"></script>
 <script defer src="web/tg.js?v=d974f49d"></script>
 </body>
 </html>
