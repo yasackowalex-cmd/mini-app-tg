@@ -3,7 +3,7 @@
   'use strict';
   const { solutionHtml, conditionHtml, answerHtml, pick } = window.taskRender;
   const $ = id => document.getElementById(id);
-  const OPTS = ['name', 'kim', 'line', 'ans', 'sol'];
+  const OPTS = ['name', 'kim', 'id', 'line', 'ans', 'sol'];
   let byId = {}, ids = [];
 
   function readHash() {
@@ -37,7 +37,8 @@
       const figs = c.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('');
       return `<li class="ptask" data-id="${t.id}">
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
-        ${opt('kim') ? `<span class="pkim">КИМ ${t.kim}</span>` : ''}
+        ${opt('kim') || opt('id') ? `<span class="pmeta">${opt('id') ? `<span class="pid">${t.id}</span>` : ''}${
+          opt('kim') ? `<span class="pkim">КИМ ${t.kim}</span>` : ''}</span>` : ''}
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ: ________________${t.unit ? ' ' + t.unit : ''}</p>` : ''}
@@ -45,7 +46,7 @@
     }).join('');
 
     $('answers').innerHTML = opt('ans') && tasks.length ? `<h2>Ответы</h2><table class="atable"><tbody>${
-      tasks.map((t, i) => `<tr><td>${i + 1}</td><td>${answerHtml(t)}</td></tr>`).join('')}</tbody></table>` : '';
+      tasks.map((t, i) => `<tr><td>${i + 1}</td><td>${answerHtml(t)}</td><td class="pid">${t.id}</td></tr>`).join('')}</tbody></table>` : '';
     const sols = tasks.map((t, i) => [t, i]).filter(([t]) => t.solution);
     $('solutions').innerHTML = opt('sol') && sols.length ? `<h2>Решения</h2>${
       sols.map(([t, i]) => `<div class="psol"><h3>Задача ${i + 1}</h3><div class="cond">${solutionHtml(t)}</div></div>`).join('')}` : '';

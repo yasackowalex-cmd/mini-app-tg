@@ -1,6 +1,7 @@
 // Функция Supabase: проверяет initData из Telegram и запоминает ученика.
 // Запрос: POST {"initData": "<window.Telegram.WebApp.initData>", "action": ...}.
-//   action "login" (по умолчанию) — запомнить ученика, ответ {"ok": true, "user": {...}};
+//   action "login" (по умолчанию) — запомнить ученика, ответ {"ok": true, "user": {...}, "profile": {last_name, grade} | null};
+//   action "profile", last_name, grade — анкета ученика (фамилия и класс);
 //   action "attempt", task_id, answer, correct — записать попытку;
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
 //     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым}.
@@ -62,13 +63,26 @@ export async function route(body: any, user: TgUser, db: any): Promise<[number, 
   const action = body.action || 'login';
 
   if (action === 'login') {
-    // Храним только Telegram id и имя (PROJECT.md: минимум персональных данных).
+    // Храним только Telegram id, имя, а после анкеты фамилию и класс (минимум персональных данных).
     const { error } = await db.from('users').upsert(
       { tg_id: user.id, first_name: user.first_name ?? '', last_seen_at: new Date().toISOString() },
       { onConflict: 'tg_id' },
     );
     if (error) return [500, { ok: false, error: 'db' }];
-    return [200, { ok: true, user: { id: user.id, first_name: user.first_name ?? '' } }];
+    // Фамилия и класс — анкета ученика для учителя. Если столбцов ещё нет (миграция 002 не выполнена),
+    // profile: null, и сайт анкету не показывает.
+    const { data: prof, error: perr } = await db.from('users').select('last_name, grade').eq('tg_id', user.id).maybeSingle();
+    const profile = perr ? null : { last_name: prof?.last_name ?? '', grade: prof?.grade ?? '' };
+    return [200, { ok: true, user: { id: user.id, first_name: user.first_name ?? '' }, profile }];
+  }
+
+  if (action === 'profile') {
+    const last_name = String(body.last_name ?? '').trim().replace(/\s+/g, ' ');
+    const grade = String(body.grade ?? '').trim().replace(/\s+/g, '').toUpperCase();
+    if (!last_name || last_name.length > 50 || !grade || grade.length > 10) return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('users').update({ last_name, grade }).eq('tg_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, profile: { last_name, grade } }];
   }
 
   if (action === 'attempt') {

@@ -14,7 +14,10 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 "PT 
 .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
 
 .top { background: var(--dark); color: #fff; padding: 18px 0 16px; }
-.brand { font: 600 13px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--orange); }
+.brand { font: 600 14px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--blue); }
+.top .head { display: flex; align-items: center; gap: 14px; }
+.logo { flex: none; display: block; background: #fff; border-radius: 10px; padding: 6px; }
+.logo img { display: block; height: 58px; width: auto; }
 .top h1 { margin: 6px 0 0; font: 600 26px/1.2 Oswald, sans-serif; }
 
 .filters { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin: 16px 0; }
@@ -112,3 +115,12 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .pickbar { position: sticky; bottom: 0; background: var(--dark); color: #fff; padding: 10px 0; z-index: 5; }
 .pickbar .wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .pickbar .link { color: #BFD6FF; }
+
+.profile { background: var(--card); border: 2px solid var(--blue); border-radius: 12px; padding: 14px; margin: 16px 0 0; }
+.profile h2 { font: 600 20px/1.2 Oswald, sans-serif; margin: 0 0 4px; }
+.profile .muted { color: var(--muted); margin: 0 0 10px; font-size: 15px; }
+.profile .row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+.profile label { display: flex; flex-direction: column; font-size: 13px; color: var(--muted); gap: 3px; }
+.profile input { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; }
+.profile input[name="grade"] { width: 6em; }
+.profile .msg { margin-left: 10px; color: #C5221F; }

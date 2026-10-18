@@ -9,13 +9,17 @@
 .opts label { display: flex; align-items: center; gap: 6px; }
 
 .sheet { max-width: 800px; margin: 16px auto 32px; background: #fff; padding: 28px 32px; border: 1px solid var(--line); border-radius: 12px; }
-.sheet-head .brand { font: 600 12px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--orange); }
+.sheet-head { display: flex; justify-content: space-between; gap: 16px; }
+.sheet-head .brand { font: 600 13px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--blue); }
+.sheet-logo { height: 64px; width: auto; flex: none; }
 .sheet-head h1 { font: 600 24px/1.2 Oswald, sans-serif; margin: 6px 0 8px; }
 .name-line { margin: 0 0 12px; }
 .tasks { padding-left: 1.6em; margin: 0; }
 .ptask { position: relative; padding: 12px 0; border-top: 1px solid var(--line); break-inside: avoid; }
 .ptask::marker { font: 600 18px Oswald, sans-serif; }
-.pkim { float: right; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; margin-left: 8px; }
+.pmeta { float: right; display: flex; gap: 6px; margin-left: 8px; }
+.pid { font-size: 12px; color: var(--muted); }
+.pkim { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
 .ptask .rm { position: absolute; left: -3.2em; top: 10px; border: 0; background: none; color: #C5221F; font-size: 16px; cursor: pointer; }
 .ans-line { margin: 8px 0 0; }
 .answers h2, .solutions h2 { font: 600 20px/1.2 Oswald, sans-serif; margin: 24px 0 8px; }
