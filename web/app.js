@@ -207,34 +207,56 @@
     renderProgress();
   }
 
-  // По каждой теме, где были попытки: решено задач из числа задач темы в банке
-  // и доля верных ответов среди всех попыток.
+  // Прогресс: решено задач (хотя бы один верный ответ) из всех задач банка,
+  // по четырём разделам физики (оптика входит в электродинамику, как в кодификаторе)
+  // и по темам внутри раздела. Доля верных ответов — отдельной строкой.
+  const PROGRESS_GROUPS = [
+    { name: 'Механика', sections: ['Механика'] },
+    { name: 'МКТ и термодинамика', sections: ['МКТ и термодинамика'] },
+    { name: 'Электродинамика и оптика', sections: ['Электродинамика', 'Оптика'] },
+    { name: 'Квантовая физика', sections: ['Квантовая физика'] },
+  ];
+
+  const pct = (a, b) => {
+    const v = b ? 100 * a / b : 0;
+    return v > 0 && v < 10 ? v.toFixed(1).replace('.', ',') : String(Math.round(v));
+  };
+  const bar = (a, b, big) =>
+    `<div class="bar${big ? ' big' : ''}"><span style="width:${b ? Math.min(100, 100 * a / b) : 0}%"></span></div>`;
+
   function renderProgress() {
     const box = $('progress');
     if (!prog()) { box.hidden = true; return; }
-    const total = new Map(), rows = new Map();
-    bank.forEach(t => total.set(t.topic, (total.get(t.topic) || 0) + 1));
-    const byId = new Map(bank.map(t => [t.id, t]));
-    let solved = 0, n = 0, ok = 0;
-    for (const [id, p] of Object.entries(prog())) {
-      const t = byId.get(id);
-      if (!t) continue;
-      const r = rows.get(t.topic) || { solved: 0, n: 0, ok: 0 };
-      r.n += p.n; r.ok += p.ok; if (p.ok) r.solved++;
-      rows.set(t.topic, r);
-      n += p.n; ok += p.ok; if (p.ok) solved++;
-    }
     box.hidden = false;
-    if (!n) {
-      $('progress-body').innerHTML = '<p class="muted">Здесь будет ваш прогресс по темам. Решайте задачи и нажимайте «Проверить».</p>';
-      return;
-    }
-    const pct = (a, b) => Math.round(100 * a / b);
-    const list = [...rows.entries()].sort((a, b) => codeKey(a[0]) < codeKey(b[0]) ? -1 : 1).map(([code, r]) =>
-      `<tr><td><a href="#topic=${encodeURIComponent(code)}">${code} ${topics[code] || ''}</a></td>
-        <td class="num">${r.solved} из ${total.get(code)}</td><td class="num">${pct(r.ok, r.n)}%</td></tr>`).join('');
-    $('progress-body').innerHTML = `<p>Решено задач: <b>${solved}</b>, верных ответов: <b>${pct(ok, n)}%</b> (${ok} из ${n})</p>
-      <table class="prog"><thead><tr><th>Тема</th><th>Решено</th><th>Верных</th></tr></thead><tbody>${list}</tbody></table>`;
+    const p = prog();
+    const isSolved = t => p[t.id] && p[t.id].ok > 0;
+    let n = 0, ok = 0;
+    Object.values(p).forEach(r => { n += r.n; ok += r.ok; });
+    const solved = bank.filter(isSolved).length;
+
+    const groups = PROGRESS_GROUPS.map(g => {
+      const tasks = bank.filter(t => g.sections.includes(t.section));
+      const byTopic = new Map();
+      tasks.forEach(t => {
+        const r = byTopic.get(t.topic) || { total: 0, solved: 0 };
+        r.total++; if (isSolved(t)) r.solved++;
+        byTopic.set(t.topic, r);
+      });
+      const gs = tasks.filter(isSolved).length;
+      const topicsHtml = [...byTopic.entries()].sort((x, y) => codeKey(x[0]) < codeKey(y[0]) ? -1 : 1).map(([code, r]) =>
+        `<li><a href="#topic=${encodeURIComponent(code)}">${code} ${topics[code] || ''}</a>
+          <span class="cnt">${r.solved} из ${r.total}</span>${bar(r.solved, r.total)}</li>`).join('');
+      return `<details class="grp"><summary><span class="gname">${g.name}</span>
+          <span class="cnt">${gs} из ${tasks.length} · ${pct(gs, tasks.length)}%</span>${bar(gs, tasks.length)}</summary>
+        <ul class="tlist">${topicsHtml}</ul></details>`;
+    }).join('');
+
+    $('progress-body').innerHTML = `
+      <div class="total"><div class="big-num">${pct(solved, bank.length)}%</div>
+        <div>Решено <b>${solved}</b> из ${bank.length} задач банка</div></div>
+      ${bar(solved, bank.length, true)}
+      ${groups}
+      <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}% (${ok} из ${n} попыток)` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
   }
 
   function onProgress() {
