@@ -35,13 +35,35 @@
     if (!res) return null;
     window.tgUser = res.user;
     window.tgApi = api;
+    window.tgTeacher = !!res.teacher;
     if (res.profile && !res.profile.last_name) askProfile();
+    loadHomework();
     return api('progress');
   }).then(res => {
     if (!res) return;
     window.tgProgress = res.tasks || {};
     window.tgLog = Array.isArray(res.log) ? res.log : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
+  });
+
+  // ДЗ: ссылка t.me/<бот>?startapp=hw_<код> приходит сюда как start_param.
+  // Сначала ученик записывается в это ДЗ, потом загружается список его ДЗ (и заданных, если это учитель).
+  function loadHomework() {
+    const sp = tg.initDataUnsafe && tg.initDataUnsafe.start_param;
+    const hwId = sp && /^hw_[a-z0-9]{4,20}$/.test(sp) ? sp.slice(3) : null;
+    (hwId ? api('hw_open', { id: hwId }) : Promise.resolve(null)).then(o => {
+      window.tgHwOpen = o && o.hw ? o.hw.id : null;
+      return api('hw_list');
+    }).then(l => {
+      if (!l) return;
+      window.tgHw = { mine: l.mine || [], given: l.given || [] };
+      document.dispatchEvent(new CustomEvent('tg-hw'));
+    });
+  }
+  window.tgReloadHw = () => api('hw_list').then(l => {
+    if (!l) return;
+    window.tgHw = { mine: l.mine || [], given: l.given || [] };
+    document.dispatchEvent(new CustomEvent('tg-hw'));
   });
 
   // Анкета при первом входе: фамилия и класс, чтобы учитель видел, кто решает ДЗ.

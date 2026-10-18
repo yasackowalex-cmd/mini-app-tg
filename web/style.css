@@ -126,3 +126,19 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .profile input { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; }
 .profile input[name="grade"] { width: 6em; }
 .profile .msg { margin-left: 10px; color: #C5221F; }
+
+.btn.solid.orange { background: var(--orange); border-color: var(--orange); }
+.hw-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding-top: 8px; }
+.hw-form input { flex: 1 1 220px; font: inherit; padding: 8px 10px; border-radius: 8px; border: 0; }
+.hw-form .msg { color: #FFD9C7; }
+.viewbar { background: #FFF1EA; border: 1px solid var(--orange); border-radius: 12px; padding: 10px 14px; margin: 0 0 14px; font-weight: 700; }
+.hwl { list-style: none; margin: 8px 0 0; padding: 0; }
+.hwi { border-top: 1px solid var(--line); padding: 10px 0; }
+.hwi:first-child { border-top: 0; }
+.hwa { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.hwr { border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+.hwr th, .hwr td { border: 1px solid var(--line); padding: 4px 6px; text-align: center; }
+.hwr tbody th { text-align: left; font-weight: 400; white-space: nowrap; }
+.hwr td.ok { color: #1E7B3A; background: #E3F6E8; }
+.hwr td.bad { color: #B3261E; background: #FDECEA; }
+.hwr td.sum { font-weight: 700; }
