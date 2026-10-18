@@ -16,8 +16,10 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 "PT 
 .top { background: var(--dark); color: #fff; padding: 18px 0 16px; }
 .brand { font: 600 14px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--blue); }
 .top .head { display: flex; align-items: center; gap: 14px; }
-.logo { flex: none; display: block; background: #fff; border-radius: 10px; padding: 6px; }
-.logo img { display: block; height: 58px; width: auto; }
+/* на тёмной шапке лого с белыми буквами (web/logo-white.svg), на белом листе подборки — обычное */
+.top .brand { color: #5C9BFF; }
+.logo { flex: none; display: block; }
+.logo img { display: block; height: 64px; width: auto; }
 .top h1 { margin: 6px 0 0; font: 600 26px/1.2 Oswald, sans-serif; }
 
 .filters { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin: 16px 0; }
