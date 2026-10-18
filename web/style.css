@@ -17,7 +17,7 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 "PT 
 .brand { font: 600 14px/1 Oswald, sans-serif; letter-spacing: .12em; color: var(--blue); }
 .top .head { display: flex; align-items: center; gap: 14px; }
 /* на тёмной шапке лого с белыми буквами (web/logo-white.svg), на белом листе подборки — обычное */
-.top .brand { color: #5C9BFF; }
+.top .brand { color: var(--blue); }
 .logo { flex: none; display: block; }
 .logo img { display: block; height: 64px; width: auto; }
 .top h1 { margin: 6px 0 0; font: 600 26px/1.2 Oswald, sans-serif; }
