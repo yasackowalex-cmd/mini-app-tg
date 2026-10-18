@@ -35,6 +35,7 @@
     if (!res) return null;
     window.tgUser = res.user;
     window.tgApi = api;
+    if (res.profile && !res.profile.last_name) askProfile();
     return api('progress');
   }).then(res => {
     if (!res) return;
@@ -42,4 +43,23 @@
     window.tgLog = Array.isArray(res.log) ? res.log : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
+
+  // Анкета при первом входе: фамилия и класс, чтобы учитель видел, кто решает ДЗ.
+  function askProfile() {
+    const f = document.getElementById('profile');
+    if (!f) return;
+    f.hidden = false;
+    f.addEventListener('submit', e => {
+      e.preventDefault();
+      const last_name = f.elements.last_name.value.trim(), grade = f.elements.grade.value.trim();
+      const msg = f.querySelector('.msg');
+      if (!last_name || !grade) { msg.textContent = 'Заполните фамилию и класс.'; return; }
+      f.elements.save.disabled = true;
+      api('profile', { last_name, grade }).then(res => {
+        f.elements.save.disabled = false;
+        if (!res) { msg.textContent = 'Не получилось сохранить, попробуйте ещё раз.'; return; }
+        f.hidden = true;
+      });
+    });
+  }
 })();

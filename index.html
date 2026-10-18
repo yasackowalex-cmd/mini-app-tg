@@ -8,19 +8,32 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=37fe7a38">
+<link rel="stylesheet" href="web/style.css?v=4009e210">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
 <header class="top">
-  <div class="wrap">
-    <div class="brand">САНЯ ДАЙ СОТКУ</div>
-    <h1>Банк задач ЕГЭ по физике</h1>
-    <p id="hello" class="hello" hidden></p>
+  <div class="wrap head">
+    <a class="logo" href="./"><img src="web/logo.png" alt="Саня дай сотку"></a>
+    <div>
+      <div class="brand">САНЯ ДАЙ СОТКУ</div>
+      <h1>Банк задач ЕГЭ по физике</h1>
+      <p id="hello" class="hello" hidden></p>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
+  <form id="profile" class="profile" hidden>
+    <h2>Давайте познакомимся</h2>
+    <p class="muted">Фамилию и класс увидит только учитель, когда будет проверять домашние задания.</p>
+    <div class="row">
+      <label>Фамилия <input name="last_name" maxlength="50" autocomplete="family-name" required></label>
+      <label>Класс <input name="grade" maxlength="10" placeholder="11А" autocomplete="off" required></label>
+    </div>
+    <button name="save" class="btn solid" type="submit">Сохранить</button>
+    <span class="msg" role="status"></span>
+  </form>
   <details id="progress" class="progress" hidden>
     <summary>Мой прогресс</summary>
     <div id="progress-body"></div>
@@ -57,6 +70,6 @@
 <script src="web/tex.js?v=da6f3fcc"></script>
 <script src="web/render.js?v=0c3b98f4"></script>
 <script src="web/app.js?v=55b5beff"></script>
-<script defer src="web/tg.js?v=d974f49d"></script>
+<script defer src="web/tg.js?v=b147f060"></script>
 </body>
 </html>
