@@ -3,27 +3,7 @@
 (function () {
   'use strict';
 
-  // решение; метка [[рис N]] — чертёж из «## Решение» (assets/<id>_sN.svg)
-  function solutionHtml(t) {
-    const imgs = t.solution_images || [];
-    return texToHtml(t.solution).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
-      const src = imgs[n - 1];
-      return src ? `<div class="figs"><img src="${src}" alt="Рисунок к решению" loading="lazy"></div>` : '';
-    });
-  }
-
-  // условие; метка [[рис N]] ставит N-й рисунок задачи в это место, остальные рисунки идут после условия
-  function conditionHtml(t) {
-    const imgs = t.images || [];
-    const used = new Set();
-    const html = texToHtml(t.condition).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
-      const src = imgs[n - 1];
-      if (!src) return '';
-      used.add(n - 1);
-      return `<div class="figs"><img src="${src}" alt="Рисунок к задаче" loading="lazy"></div>`;
-    });
-    return { html, rest: imgs.filter((_, i) => !used.has(i)) };
-  }
+  const { solutionHtml, conditionHtml, answerHtml, pick } = window.taskRender;
 
   const PAGE = 20;
   const FILTERS = [
@@ -144,7 +124,6 @@
     ].join('');
     const cond = conditionHtml(t);
     const figs = cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
-    const answerHtml = t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
     const form = t.check && t.check !== 'none' ? `<form class="try">
         <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}"
           placeholder="${{number: 'число', pm: 'x ± Δx'}[t.check] || 'цифры'}" aria-label="Ваш ответ"></label>
@@ -157,13 +136,15 @@
       ${figs ? `<div class="figs">${figs}</div>` : ''}
       ${form}
       <div class="actions">
+        <button class="btn pick" type="button" data-pick></button>
         ${t.solution ? '<button class="btn" type="button" data-show="solution" aria-expanded="false">Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
       ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${solutionHtml(t)}</div>` : ''}
-      <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml}</div>
+      <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml(t)}</div>
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {
+      if (e.target.closest('[data-pick]')) { togglePick(t.id); return; }
       const b = e.target.closest('[data-show]');
       if (!b) return;
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
@@ -184,8 +165,53 @@
       markCard(el, t);
     });
     markCard(el, t);
+    markPick(el, t);
     return el;
   }
+
+  // ---- Подборка: задачи для печати в PDF и для ДЗ ----
+  const PICK_ALL_MAX = 40;
+
+  function markPick(el, t) {
+    const on = pick.get().includes(t.id), b = el.querySelector('[data-pick]');
+    b.textContent = on ? '✓ В подборке' : '+ В подборку';
+    b.setAttribute('aria-pressed', String(on));
+  }
+
+  function togglePick(id) {
+    const ids = pick.get(), i = ids.indexOf(id);
+    if (i < 0) ids.push(id); else ids.splice(i, 1);
+    pick.set(ids);
+    renderPick();
+  }
+
+  function pickUrl(ids) {
+    return new URL('print.html#ids=' + ids.map(encodeURIComponent).join(','), location.href).href;
+  }
+
+  function renderPick() {
+    const ids = pick.get();
+    $('pickbar').hidden = !ids.length;
+    $('pick-count').textContent = `В подборке задач: ${ids.length}`;
+    $('pick-open').href = pickUrl(ids);
+    const rest = found.filter(t => !ids.includes(t.id)).length;
+    $('pick-all').hidden = !rest || found.length > PICK_ALL_MAX;
+    $('pick-all').textContent = `Добавить найденные в подборку (${rest})`;
+    document.querySelectorAll('#list article.task').forEach((el, i) => markPick(el, found[i]));
+  }
+
+  $('pick-clear').addEventListener('click', () => { pick.set([]); renderPick(); });
+  $('pick-all').addEventListener('click', () => {
+    const ids = pick.get();
+    found.forEach(t => { if (!ids.includes(t.id)) ids.push(t.id); });
+    pick.set(ids);
+    renderPick();
+  });
+  // В Телеграме печати нет: подборка открывается в обычном браузере.
+  $('pick-open').addEventListener('click', e => {
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg && tg.initData) { e.preventDefault(); tg.openLink(e.currentTarget.href); }
+  });
 
   // ---- Прогресс ученика (только в Телеграме, после проверки входа на сервере) ----
   const prog = () => window.tgProgress;
@@ -346,6 +372,7 @@
     shown = 0;
     $('status').textContent = found.length ? '' : 'Ничего не нашлось. Попробуйте убрать часть фильтров.';
     showMore();
+    renderPick();
   }
 
   async function init() {

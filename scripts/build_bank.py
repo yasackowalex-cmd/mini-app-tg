@@ -93,15 +93,16 @@ def check_mode(t):
 
 
 def stamp_index():
-    """Ставит в index.html ?v=<хеш файла> у скриптов и стилей из web/,
+    """Ставит в index.html и print.html ?v=<хеш файла> у скриптов и стилей из web/,
     чтобы Телеграм и браузеры брали новую версию сразу после заливки."""
-    path = os.path.join(ROOT, 'index.html')
-    html = open(path, encoding='utf-8').read()
     def sub(m):
         return f'{m.group(1)}="{versioned(ROOT, m.group(2), m.group(2))}"'
-    new = re.sub(r'(src|href)="(web/[^"?]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"', sub, html)
-    if new != html:
-        open(path, 'w', encoding='utf-8', newline='\n').write(new)
+    for name in ('index.html', 'print.html'):
+        path = os.path.join(ROOT, name)
+        html = open(path, encoding='utf-8').read()
+        new = re.sub(r'(src|href)="(web/[^"?]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"', sub, html)
+        if new != html:
+            open(path, 'w', encoding='utf-8', newline='\n').write(new)
 
 
 def main():

@@ -106,3 +106,9 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .tlist li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; margin: 6px 0; }
 .tlist li .bar { grid-column: 1 / -1; height: 4px; }
 .tlist a { color: var(--text); text-decoration: none; }
+
+.btn.pick[aria-pressed="true"] { background: #FFF1EA; border-color: var(--orange); color: #B4441A; }
+.btn.solid { background: var(--blue); color: #fff; text-decoration: none; }
+.pickbar { position: sticky; bottom: 0; background: var(--dark); color: #fff; padding: 10px 0; z-index: 5; }
+.pickbar .wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pickbar .link { color: #BFD6FF; }

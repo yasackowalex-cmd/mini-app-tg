@@ -1,5 +1,5 @@
 # Автосборка банка: после каждого коммита в main с правками задач или сайта (web/)
-# пересобирает чертежи (assets/*.svg) и out/bank.json, ставит версии скриптов в index.html, коммитит результат
+# пересобирает чертежи (assets/*.svg) и out/bank.json, ставит версии скриптов в index.html и print.html, коммитит результат
 # и просит GitHub Pages обновить сайт.
 name: Сборка банка
 
@@ -54,7 +54,7 @@ jobs:
       - name: Закоммитить результат
         id: commit
         run: |
-          git add assets out index.html
+          git add assets out index.html print.html
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Банк не изменился."
