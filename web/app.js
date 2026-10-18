@@ -207,9 +207,15 @@
     renderProgress();
   }
 
-  // Прогресс: решено задач (хотя бы один верный ответ) из всех задач банка,
-  // по четырём разделам физики (оптика входит в электродинамику, как в кодификаторе)
-  // и по темам внутри раздела. Доля верных ответов — отдельной строкой.
+  // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решены хотя бы
+  // KIM_MIN_SOLVED разных задач этого номера и доля верных ответов по нему не ниже KIM_MIN_ACC.
+  // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (спецификация 2027, всего 45).
+  const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
+    14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
+  const KIM_MAX = 45, KIM_MIN_SOLVED = 3, KIM_MIN_ACC = 0.7;
+
+  // Ниже — решено задач по четырём разделам физики (оптика входит в электродинамику,
+  // как в кодификаторе) и по темам внутри раздела. Доля верных ответов — отдельной строкой.
   const PROGRESS_GROUPS = [
     { name: 'Механика', sections: ['Механика'] },
     { name: 'МКТ и термодинамика', sections: ['МКТ и термодинамика'] },
@@ -223,6 +229,22 @@
   };
   const bar = (a, b, big) =>
     `<div class="bar${big ? ' big' : ''}"><span style="width:${b ? Math.min(100, 100 * a / b) : 0}%"></span></div>`;
+  const balls = n => n % 10 === 1 && n % 100 !== 11 ? 'балл' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'балла' : 'баллов';
+
+  function kimStats(p) {
+    const st = {};
+    Object.keys(KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0 }; });
+    bank.forEach(t => {
+      const r = p[t.id], s = st[t.kim];
+      if (!r || !s || (t.tags || []).includes('ВНЕ_ЕГЭ_2027')) return;
+      s.n += r.n; s.ok += r.ok;
+      if (r.ok > 0) s.solved++;
+    });
+    Object.values(st).forEach(s => {
+      s.state = s.solved >= KIM_MIN_SOLVED && s.ok >= KIM_MIN_ACC * s.n ? 'done' : s.n ? 'work' : 'none';
+    });
+    return st;
+  }
 
   function renderProgress() {
     const box = $('progress');
@@ -233,6 +255,14 @@
     let n = 0, ok = 0;
     Object.values(p).forEach(r => { n += r.n; ok += r.ok; });
     const solved = bank.filter(isSolved).length;
+
+    const ks = kimStats(p), kims = Object.keys(KIM_POINTS);
+    const done = kims.filter(k => ks[k].state === 'done');
+    const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
+    const cells = kims.map(k => {
+      const s = ks[k], hint = s.state === 'done' ? 'освоен' : s.n ? `решено ${s.solved}, верных ${pct(s.ok, s.n)}%` : 'не начат';
+      return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small></a>`;
+    }).join('');
 
     const groups = PROGRESS_GROUPS.map(g => {
       const tasks = bank.filter(t => g.sections.includes(t.section));
@@ -252,9 +282,17 @@
     }).join('');
 
     $('progress-body').innerHTML = `
-      <div class="total"><div class="big-num">${pct(solved, bank.length)}%</div>
-        <div>Решено <b>${solved}</b> из ${bank.length} задач банка</div></div>
-      ${bar(solved, bank.length, true)}
+      <h3 class="ph">Готовность к ЕГЭ</h3>
+      <div class="total"><div class="big-num">${score}</div>
+        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах</div></div>
+      ${bar(score, KIM_MAX, true)}
+      <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
+      <div class="kgrid">${cells}</div>
+      <p class="legend"><span class="kc done"></span> освоен <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
+      <p class="muted small">Номер освоен, когда верно решены хотя бы ${KIM_MIN_SOLVED} разные задачи этого номера и не меньше ${Math.round(100 * KIM_MIN_ACC)}% ответов по нему верные. Нажмите на номер, чтобы открыть его задачи.</p>
+      <h3 class="ph">Банк задач</h3>
+      <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
+      ${bar(solved, bank.length)}
       ${groups}
       <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}% (${ok} из ${n} попыток)` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
   }
