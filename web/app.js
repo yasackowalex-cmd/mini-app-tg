@@ -207,12 +207,13 @@
     renderProgress();
   }
 
-  // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решены хотя бы
-  // KIM_MIN_SOLVED разных задач этого номера и доля верных ответов по нему не ниже KIM_MIN_ACC.
+  // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
+  // разных задач этого номера (по уровню сложности номера) и доля верных ответов по нему не ниже KIM_MIN_ACC.
   // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (спецификация 2027, всего 45).
   const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
     14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
-  const KIM_MAX = 45, KIM_MIN_SOLVED = 3, KIM_MIN_ACC = 0.7;
+  const KIM_LEVEL = k => [24, 25, 26].includes(+k) ? 'В' : [5, 9, 14, 21, 22, 23].includes(+k) ? 'П' : 'Б';
+  const KIM_MAX = 45, KIM_MIN_SOLVED = { 'Б': 5, 'П': 7, 'В': 7 }, KIM_MIN_ACC = 0.8;
 
   // Ниже — решено задач по четырём разделам физики (оптика входит в электродинамику,
   // как в кодификаторе) и по темам внутри раздела. Доля верных ответов — отдельной строкой.
@@ -240,8 +241,8 @@
       s.n += r.n; s.ok += r.ok;
       if (r.ok > 0) s.solved++;
     });
-    Object.values(st).forEach(s => {
-      s.state = s.solved >= KIM_MIN_SOLVED && s.ok >= KIM_MIN_ACC * s.n ? 'done' : s.n ? 'work' : 'none';
+    Object.entries(st).forEach(([k, s]) => {
+      s.state = s.solved >= KIM_MIN_SOLVED[KIM_LEVEL(k)] && s.ok >= KIM_MIN_ACC * s.n ? 'done' : s.n ? 'work' : 'none';
     });
     return st;
   }
@@ -260,7 +261,7 @@
     const done = kims.filter(k => ks[k].state === 'done');
     const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
     const cells = kims.map(k => {
-      const s = ks[k], hint = s.state === 'done' ? 'освоен' : s.n ? `решено ${s.solved}, верных ${pct(s.ok, s.n)}%` : 'не начат';
+      const s = ks[k], hint = s.state === 'done' ? 'освоен' : s.n ? `решено ${s.solved} из ${KIM_MIN_SOLVED[KIM_LEVEL(k)]}, верных ${pct(s.ok, s.n)}%` : 'не начат';
       return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small></a>`;
     }).join('');
 
@@ -289,7 +290,7 @@
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
       <p class="legend"><span class="kc done"></span> освоен <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-      <p class="muted small">Номер освоен, когда верно решены хотя бы ${KIM_MIN_SOLVED} разные задачи этого номера и не меньше ${Math.round(100 * KIM_MIN_ACC)}% ответов по нему верные. Нажмите на номер, чтобы открыть его задачи.</p>
+      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED['Б']} разных задач этого номера (у номеров повышенного и высокого уровня ${KIM_MIN_SOLVED['П']}) и не меньше ${Math.round(100 * KIM_MIN_ACC)}% ответов по нему верные. Одна задача, решённая несколько раз, считается один раз. Нажмите на номер, чтобы открыть его задачи.</p>
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}
