@@ -63,6 +63,7 @@
     e.preventDefault();
     const f = e.currentTarget, msg = f.querySelector('.msg'), ids = pick.get();
     if (!ids.length) { msg.textContent = 'Подборка пуста.'; return; }
+    if (ids.length > 60) { msg.textContent = `В одном ДЗ не больше 60 задач, сейчас ${ids.length}.`; return; }
     f.querySelector('button').disabled = true;
     msg.textContent = 'Создаю…';
     window.tgApi('hw_create', { title: f.elements.title.value.trim(), task_ids: ids }).then(r => {
