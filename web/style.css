@@ -216,8 +216,7 @@ a.btn { text-decoration: none; display: inline-block; }
 .ex-card.resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: #FFF5EE; border-color: #FFD2BC; }
 .ex-end.actions { justify-content: center; }
 .exams-top { background: var(--dark); color: #fff; border-radius: 12px; padding: 12px 14px 14px; margin: 16px 0 0; }
-.exams-top h2 { margin: 0 0 2px; font: 600 18px/1.2 Oswald, sans-serif; letter-spacing: .02em; }
-.exams-top p { margin: 0; color: #C9CCE0; font-size: 15px; }
+.exams-top h2 { margin: 0 0 4px; font: 600 18px/1.2 Oswald, sans-serif; letter-spacing: .02em; }
 .exams-top .vpick { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
 .exams-top .vbtn { min-height: 46px; }
 .exams-top .vbtn.rnd { grid-column: span 2; }
