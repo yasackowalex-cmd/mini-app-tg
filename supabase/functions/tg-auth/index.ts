@@ -4,7 +4,8 @@
 //   action "profile", last_name, grade — анкета ученика (фамилия и класс);
 //   action "hw_create" (учитель), title, task_ids — задать ДЗ, ответ {"hw": {id, ...}};
 //   action "hw_open", id — ученик открыл ссылку на ДЗ; "hw_list" — ДЗ ученика (mine) и заданные учителем (given);
-//   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам.
+//   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам; "hw_delete" (учитель), id — удалить ДЗ;
+//   action "teacher" (учитель) — кабинет: все его ДЗ, их ученики и результаты.
 // Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
@@ -195,6 +196,52 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       first_name: u.first_name ?? '', last_name: u.last_name ?? '', grade: u.grade ?? '', tasks: res[u.tg_id] ?? {},
     }));
     return [200, { ok: true, hw: { id, title: hw.title, task_ids: hw.task_ids }, students }];
+  }
+
+  if (action === 'hw_delete') {
+    // учитель удаляет своё ДЗ; записи учеников о нём удаляются вместе с ним (on delete cascade)
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const id = String(body.id ?? '').slice(0, 20);
+    const { error } = await db.from('homework').delete().eq('id', id).eq('teacher_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+
+  if (action === 'teacher') {
+    // кабинет учителя одним запросом: его ДЗ, ученики этих ДЗ и по каждой паре «ДЗ — ученик»
+    // верно решённые (ok) и решённые только неверно (bad) задачи, ответы после выдачи ДЗ
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const { data: hws, error } = await db.from('homework').select('id, title, task_ids, created_at').eq('teacher_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    const homework = (hws ?? []).sort((a: any, b: any) => String(b.created_at).localeCompare(String(a.created_at)));
+    if (!homework.length) return [200, { ok: true, homework: [], students: [], results: {} }];
+    const { data: links, error: e2 } = await db.from('homework_students').select('hw_id, tg_id').in('hw_id', homework.map((h: any) => h.id));
+    if (e2) return [500, { ok: false, error: 'db' }];
+    const sids = [...new Set((links ?? []).map((r: any) => r.tg_id))];
+    let students: any[] = [], at: any[] = [];
+    if (sids.length) {
+      const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade').in('tg_id', sids);
+      if (e3) return [500, { ok: false, error: 'db' }];
+      students = us ?? [];
+      const tasks = [...new Set(homework.flatMap((h: any) => h.task_ids))];
+      const since = homework[homework.length - 1].created_at;
+      const { data, error: e4 } = await db.from('attempts').select('tg_id, task_id, correct, created_at')
+        .in('tg_id', sids).in('task_id', tasks).gte('created_at', since).limit(50000);
+      if (e4) return [500, { ok: false, error: 'db' }];
+      at = data ?? [];
+    }
+    const byHw = Object.fromEntries(homework.map((h: any) => [h.id, h]));
+    const results: Record<string, Record<string, { ok: string[]; bad: string[] }>> = {};
+    for (const l of links ?? []) {
+      const h = byHw[l.hw_id], ok = new Set<string>(), tried = new Set<string>();
+      for (const a of at) {
+        if (a.tg_id !== l.tg_id || a.created_at < h.created_at || !h.task_ids.includes(a.task_id)) continue;
+        tried.add(a.task_id);
+        if (a.correct) ok.add(a.task_id);
+      }
+      (results[l.hw_id] ??= {})[l.tg_id] = { ok: [...ok], bad: [...tried].filter(t => !ok.has(t)) };
+    }
+    return [200, { ok: true, homework, students, results }];
   }
 
   return [400, { ok: false, error: 'action' }];

@@ -144,3 +144,33 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .hwr td.ok { color: #1E7B3A; background: #E3F6E8; }
 .hwr td.bad { color: #B3261E; background: #FDECEA; }
 .hwr td.sum { font-weight: 700; }
+
+/* вкладки учителя и кабинет */
+.tabs { display: flex; gap: 6px; margin: 16px 0 0; }
+.tabs button, .seg button { font: 600 15px/1 "PT Sans", sans-serif; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+.tabs button[aria-pressed="true"], .seg button[aria-pressed="true"] { background: var(--dark); border-color: var(--dark); color: #fff; }
+.teacher-mode #pickbar { display: none !important; }
+.teacher { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 12px 0 24px; }
+.t-bar { display: flex; flex-direction: column; gap: 10px; }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.t-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.t-filters select { flex: 0 0 auto; }
+.t-filters input { flex: 1 1 200px; font: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.teacher .ph { font: 600 15px/1.2 Oswald, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 16px 0 4px; }
+.t-list { list-style: none; margin: 0; padding: 0; }
+.t-item { border-top: 1px solid var(--line); }
+.t-head { display: grid; grid-template-columns: 1fr; gap: 3px; width: 100%; text-align: left; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; cursor: pointer; }
+.t-head .bar { height: 5px; }
+.t-title::before { content: '▸ '; color: var(--muted); }
+.t-item.open .t-title::before { content: '▾ '; }
+.t-detail { padding: 0 0 12px; }
+.t-sub { list-style: none; margin: 0; padding: 0 0 0 14px; font-size: 15px; }
+.t-sub li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; margin: 8px 0; }
+.t-sub li .bar { grid-column: 1 / -1; height: 4px; }
+.cnt.okc { color: #1E7B3A; }
+.cnt.badc { color: #B3261E; }
+.btn.danger-o { border-color: #C5221F; color: #C5221F; }
+.btn.danger-o:hover { background: #FDECEA; color: #C5221F; }
+.btn.danger { background: #C5221F; border-color: #C5221F; color: #fff; }
+.teacher .muted { color: var(--muted); }
+.teacher .small { font-size: 14px; }
