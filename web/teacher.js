@@ -1,6 +1,7 @@
 // Кабинет учителя (вкладка видна только учителю из TEACHER_IDS). Данные — одним запросом action "teacher":
 // все ДЗ учителя, их ученики и по каждой паре «ДЗ — ученик» верно (ok) и неверно (bad) решённые задачи.
-// Два вида: «Домашние задания» (по месяцам, у каждого таблица учеников) и «Ученики» (у каждого его ДЗ).
+// Три вида: «Домашние задания» (по месяцам, у каждого таблица учеников), «Ученики» (у каждого его ДЗ)
+// и «Пробники» (итоги пробных вариантов ЕГЭ по ученикам, баллы в тестовых по шкале 2027).
 // Фильтр по классу и поиск по названию ДЗ или фамилии работают в обоих видах.
 (function () {
   'use strict';
@@ -12,6 +13,7 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
+  const { testScore } = window.taskRender;
 
   let data = null, loading = false, viewMode = 'hw', openId = null, confirmDel = null;
 
@@ -40,6 +42,7 @@
       if (!r) { $('t-body').innerHTML = '<p class="status">Не удалось загрузить. Попробуйте открыть вкладку ещё раз.</p>'; return; }
       data = r;
       data.byId = Object.fromEntries(r.students.map(s => [s.tg_id, s]));
+      data.exams = r.exams || [];
       fillGrades();
       render();
     });
@@ -108,8 +111,10 @@
     const list = data.students
       .filter(s => (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
+    if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда откроют ДЗ или решат пробник.</p>';
     if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
     return `<ul class="t-list">${list.map(s => {
+      const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
       const hws = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id]);
       const ps = hws.map(hw => pctOf(data.results[hw.id][s.tg_id].ok.length, hw.task_ids.length));
       const avg = ps.length ? Math.round(ps.reduce((a, b) => a + b, 0) / ps.length) : 0;
@@ -117,7 +122,7 @@
       return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">ДЗ ${hws.length} · в среднем ${avg}%</span>${bar(avg)}
+          <span class="cnt">ДЗ ${hws.length} · в среднем ${avg}%${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(avg)}
         </button>${open ? `<div class="t-detail"><ul class="t-sub">${hws.map((hw, i) => {
           const r = data.results[hw.id][s.tg_id], n = hw.task_ids.length, p = ps[i];
           return `<li><span>${esc(hw.title)} <span class="cnt">${day(hw.created_at)}</span></span>
@@ -126,14 +131,38 @@
     }).join('')}</ul>`;
   }
 
+  // пробники: по ученику — последний и лучший результат, внутри — все его пробники
+  function renderExams(q) {
+    const g = $('t-grade').value, by = {};
+    data.exams.forEach(e => { (by[e.tg_id] ??= []).push(e); });
+    const list = Object.keys(by).map(id => data.byId[id] || { tg_id: id })
+      .filter(s => (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
+      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
+    if (!data.exams.length) return '<p class="status">Пробников пока никто не решал. Ученики решают их в Телеграме кнопкой «Пробный вариант ЕГЭ».</p>';
+    if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
+    const row = e => `<li><span>${day(e.finished_at)}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
+      <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`;
+    return `<ul class="t-list">${list.map(s => {
+      const es = by[s.tg_id], last = es[0], best = Math.max(...es.map(e => e.score));
+      const open = openId === 'e' + s.tg_id;
+      return `<li class="t-item${open ? ' open' : ''}" data-id="e${esc(s.tg_id)}">
+        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
+          <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
+          <span class="cnt">пробников ${es.length} · последний ${testScore(last.score)} · лучший ${testScore(best)}</span>${bar(testScore(last.score))}
+        </button>${open ? `<div class="t-detail"><ul class="t-sub">${es.map(row).join('')}</ul>
+          <p class="muted small">тб — тестовые баллы, перв. — первичные (часть 1 + часть 2). Первую часть проверяет сайт, вторую ученик оценивает сам по решению из банка.</p></div>` : ''}</li>`;
+    }).join('')}</ul>`;
+  }
+
   function render() {
     if (!data) return;
     document.querySelectorAll('#teacher [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === viewMode)));
-    if (!data.homework.length) {
+    const q = norm($('t-q').value.trim());
+    if (viewMode === 'exams') { $('t-body').innerHTML = renderExams(q); return; }
+    if (viewMode === 'hw' && !data.homework.length) {
       $('t-body').innerHTML = '<p class="status">Заданных ДЗ пока нет. Соберите подборку в банке и нажмите «Задать как ДЗ».</p>';
       return;
     }
-    const q = norm($('t-q').value.trim());
     $('t-body').innerHTML = viewMode === 'hw' ? renderHw(q) : renderStudents(q);
   }
 

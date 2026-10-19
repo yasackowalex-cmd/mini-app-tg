@@ -165,7 +165,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .t-item.open .t-title::before { content: '▾ '; }
 .t-detail { padding: 0 0 12px; }
 .t-sub { list-style: none; margin: 0; padding: 0 0 0 14px; font-size: 15px; }
-.t-sub li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; margin: 8px 0; }
+.t-sub li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; margin: 8px 0; }
 .t-sub li .bar { grid-column: 1 / -1; height: 4px; }
 .cnt.okc { color: #1E7B3A; }
 .cnt.badc { color: #B3261E; }

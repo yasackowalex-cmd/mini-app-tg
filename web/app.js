@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS, testScore } = window.taskRender;
 
   const PAGE = 20;
   const FILTERS = [
@@ -309,7 +309,7 @@
     $('progress-body').innerHTML = `
       <h3 class="ph">Готовность к ЕГЭ</h3>
       <div class="total"><div class="big-num">${score}</div>
-        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах</div></div>
+        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах, это <b>${testScore(score)}</b> тестовых из 100</div></div>
       ${bar(score, KIM_MAX, true)}
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>

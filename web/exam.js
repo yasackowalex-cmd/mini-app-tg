@@ -4,7 +4,7 @@
 // Ход пробника хранится в браузере: закрыли Телеграм посреди варианта — при следующем открытии продолжаем.
 (function () {
   'use strict';
-  const { solutionHtml, conditionHtml, answerHtml, isRight, KIM_POINTS } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, KIM_POINTS, testScore } = window.taskRender;
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const tg = () => window.Telegram && window.Telegram.WebApp;
@@ -95,7 +95,7 @@
     const hist = store.get('exams', []);
     $('ex-history').hidden = !hist.length;
     $('ex-hist-body').innerHTML = hist.slice(0, 10).map(e => `<li>${new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}:
-      <b>${e.score} из ${MAX}</b> <span class="muted">(часть 1: ${e.p1} из ${PART1_MAX}${e.graded ? '' : ', вторая часть не оценена'})</span></li>`).join('');
+      <b>${testScore(e.score)} тестовых</b> <span class="muted">(первичных ${e.score} из ${MAX}${e.graded ? '' : ', вторая часть не оценена'})</span></li>`).join('');
   }
 
   function taskForm(t) {
@@ -151,14 +151,18 @@
     const i = hist.findIndex(x => x.date === exam.finished);
     if (i >= 0) hist[i] = e; else hist.unshift(e);
     store.set('exams', hist.slice(0, 30));
+    // в Телеграме итог уходит учителю (кабинет, вид «Пробники»); повторная запись обновляет тот же пробник
+    if (window.tgApi) window.tgApi('exam_save', { started: exam.started, finished: exam.finished, task_ids: exam.ids,
+      p1: s.p1, p2: s.p2, graded: s.graded === s.p2n });
   }
 
   function renderResult() {
     const ts = tasks(), s = scores();
-    $('ex-score').innerHTML = `<div class="big">${s.p1 + s.p2} <small>из ${MAX}</small></div>
+    $('ex-score').innerHTML = `<div class="big">${testScore(s.p1 + s.p2)} <small>тестовых баллов из 100</small></div>
+      <p>Первичный балл: <b>${s.p1 + s.p2} из ${MAX}</b></p>
       <p>Часть 1: <b>${s.p1} из ${PART1_MAX}</b> · Часть 2: <b>${s.graded === s.p2n ? `${s.p2} из ${MAX - PART1_MAX}` : `оценено ${s.graded} из ${s.p2n}`}</b></p>
       ${s.graded < s.p2n ? '<p class="muted small">Вторую часть оцените сами: сравните своё решение с решением под задачей и поставьте балл.</p>' : ''}
-      <p class="muted small">Первичный балл. Перевод в тестовые баллы появится, когда ФИПИ опубликует шкалу 2027 года.</p>`;
+      <p class="muted small">Тестовый балл по шкале перевода 2027 года.</p>`;
     $('ex-review').innerHTML = ts.map((t, i) => {
       const a = String(exam.answers[t.id] || '').trim(), max = KIM_POINTS[t.kim];
       let mark, grade = '';
@@ -232,6 +236,9 @@
     const t = tg();
     if (t && t.initData && t.openLink) { e.preventDefault(); t.openLink($('ex-print').href); }
   });
+
+  // вход в Телеграме закончился позже, чем ученик завершил пробник: отправляем итог сейчас
+  document.addEventListener('tg-progress', () => { if (exam && exam.finished) record(); });
 
   // ---- запуск ----
   function start() {
