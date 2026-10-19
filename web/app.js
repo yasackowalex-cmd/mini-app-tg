@@ -398,5 +398,21 @@
     document.dispatchEvent(new CustomEvent('bank-ready'));
   }
 
+  // пробные варианты наверху: решённые (история пробников в этом браузере, exam.js) отмечены лучшим тестовым баллом
+  function markExams() {
+    let hist = [];
+    try { hist = JSON.parse(localStorage.getItem('exams')) || []; } catch (e) { return; }
+    const best = {};
+    hist.forEach(e => { if (e.n) best[e.n] = Math.max(best[e.n] ?? 0, e.score); });
+    document.querySelectorAll('#exams-top [data-v]').forEach(a => {
+      const b = best[a.dataset.v];
+      if (b === undefined) return;
+      a.classList.add('done');
+      a.title = `решён: ${testScore(b)} тестовых`;
+      a.insertAdjacentHTML('beforeend', `<small>${testScore(b)}</small>`);
+    });
+  }
+
+  markExams();
   init();
 })();
