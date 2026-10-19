@@ -56,6 +56,10 @@
   const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
     14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
 
+  // Перевод первичного балла (0–45) в тестовый (шкала 2027, прислал Александр 19.10.2026).
+  const TEST_SCALE = [0, 5, 9, 14, 18, 23, 27, 32, 36, 39, 41, 43, 44, 46, 48, 49, 51, 53, 54, 56, 58, 59, 61, 62, 64, 65, 67, 68, 70, 71, 73, 74, 76, 77, 79, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100];
+  const testScore = p => TEST_SCALE[Math.max(0, Math.min(45, Math.round(p)))];
+
   const answerHtml = t => t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
 
   // Подборка задач (для печати и ДЗ): список id в порядке добавления, хранится в браузере.
@@ -67,5 +71,5 @@
     set(ids) { mem = ids; try { localStorage.setItem(KEY, JSON.stringify(ids)); } catch (e) { /* остаётся mem */ } },
   };
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS, testScore };
 })();
