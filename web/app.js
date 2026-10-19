@@ -172,7 +172,7 @@
   }
 
   // ---- Подборка: задачи для печати в PDF и для ДЗ ----
-  const PICK_ALL_MAX = 40;
+  const PICK_ALL_MAX = 100;
 
   function markPick(el, t) {
     const on = pick.get().includes(t.id), b = el.querySelector('[data-pick]');
