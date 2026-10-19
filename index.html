@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=b119aa3b">
+<link rel="stylesheet" href="web/style.css?v=2b6bf30d">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -34,6 +34,29 @@
     <button name="save" class="btn solid" type="submit">Сохранить</button>
     <span class="msg" role="status"></span>
   </form>
+
+  <nav id="tabs" class="tabs" hidden>
+    <button type="button" data-tab="bank" aria-pressed="true">Банк задач</button>
+    <button type="button" data-tab="teacher" aria-pressed="false">Кабинет учителя</button>
+  </nav>
+
+  <section id="teacher" class="teacher" hidden>
+    <div class="t-bar">
+      <div class="seg">
+        <button type="button" data-view="hw" aria-pressed="true">Домашние задания</button>
+        <button type="button" data-view="students" aria-pressed="false">Ученики</button>
+        <button type="button" data-view="exams" aria-pressed="false">Пробники</button>
+      </div>
+      <div class="t-filters">
+        <select id="t-grade" aria-label="Класс"></select>
+        <input id="t-q" type="search" placeholder="Поиск: ДЗ или фамилия" autocomplete="off">
+      </div>
+    </div>
+    <div id="t-body"><p class="status">Загружаю…</p></div>
+  </section>
+
+  <div id="bank-area">
+  <a class="exam-link" href="exam.html"><span><b>Пробный вариант ЕГЭ</b><br>26 заданий на время, баллы как на экзамене</span><i>Решать →</i></a>
   <details id="hw" class="progress hw" hidden>
     <summary>Домашние задания</summary>
     <div id="hw-body"></div>
@@ -62,6 +85,7 @@
   <section id="list" aria-live="polite"></section>
   <div class="more-wrap"><button id="more" type="button" class="btn" hidden>Показать ещё</button></div>
   <p id="status" class="status">Загружаю банк…</p>
+  </div>
 </main>
 
 <div id="pickbar" class="pickbar" hidden>
@@ -80,9 +104,10 @@
 
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=da6f3fcc"></script>
-<script src="web/render.js?v=0c3b98f4"></script>
-<script src="web/app.js?v=0b81c5dc"></script>
-<script src="web/hw.js?v=7adb4468"></script>
+<script src="web/render.js?v=51db5bc5"></script>
+<script src="web/app.js?v=02e24ad8"></script>
+<script src="web/hw.js?v=fdfd8f8e"></script>
+<script src="web/teacher.js?v=b8d91f21"></script>
 <script defer src="web/tg.js?v=ad067407"></script>
 </body>
 </html>

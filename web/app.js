@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, pick } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS, testScore } = window.taskRender;
 
   const PAGE = 20;
   const FILTERS = [
@@ -86,34 +86,6 @@
     });
   }
 
-  // число: «0,5», «0.50», «−3» и «-3» считаются одним ответом
-  // число, в том числе вида 2,5·10⁸, 2,5*10^8, 2,5e8
-  const SUP = { '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9', '⁻': '-' };
-  const toNum = s => {
-    const v = String(s).replace(/\s+/g, '').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]/g, c => SUP[c]).replace(/[−–]/g, '-').replace(',', '.');
-    const m = v.match(/^([-+]?\d+(?:\.\d+)?)(?:(?:[eE]|[·*xх×]10\^?)([-+]?\d+))?$/);
-    return m ? parseFloat(m[1]) * Math.pow(10, m[2] ? parseInt(m[2], 10) : 0) : NaN;
-  };
-  const digits = s => String(s).replace(/[\s,;.]+/g, '');
-
-  // «4,4 ± 0,2», «4,4 0,2», «4,4+-0,2»: два числа, оба должны совпасть
-  const pair = s => String(s).trim().split(/\s*(?:±|\+\/?-)\s*|\s+/).map(toNum);
-
-  function isRight(t, input) {
-    if (t.check === 'pm') {
-      const a = pair(input), b = pair(t.answer);
-      return a.length === 2 && a.every((v, i) => Math.abs(v - b[i]) <= 1e-9 * Math.max(1, Math.abs(b[i])));
-    }
-    if (t.check === 'number') {
-      const a = toNum(input), b = toNum(t.answer);
-      return !isNaN(a) && Math.abs(a - b) <= 1e-9 * (b === 0 ? 1 : Math.abs(b));
-    }
-    const a = digits(input), b = digits(t.answer);
-    // «выберите верные утверждения» — порядок цифр не важен, в соответствии важен
-    if (t.check === 'set') return [...a].sort().join('') === [...b].sort().join('');
-    return a === b;
-  }
-
   function card(t) {
     const el = document.createElement('article');
     el.className = 'task lv-' + t.level;
@@ -172,7 +144,7 @@
   }
 
   // ---- Подборка: задачи для печати в PDF и для ДЗ ----
-  const PICK_ALL_MAX = 40;
+  const PICK_ALL_MAX = 100;
 
   function markPick(el, t) {
     const on = pick.get().includes(t.id), b = el.querySelector('[data-pick]');
@@ -243,9 +215,7 @@
   // верных не меньше KIM_MIN_ACC. Освоение можно потерять: ошибки в последних ответах возвращают номер
   // «в работу», а если номер не решали KIM_STALE_DAYS дней, он просит повторения и не идёт в прогноз.
   // Звёзды — за 2× и 3× порога разных решённых задач, чтобы было куда расти после «освоен».
-  // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (спецификация 2027, всего 45).
-  const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
-    14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
+  // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (KIM_POINTS в render.js, всего 45).
   const KIM_LEVEL = k => [24, 25, 26].includes(+k) ? 'В' : [5, 9, 14, 21, 22, 23].includes(+k) ? 'П' : 'Б';
   const KIM_MAX = 45, KIM_MIN_SOLVED = { 'Б': 5, 'П': 7, 'В': 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
 
@@ -339,7 +309,7 @@
     $('progress-body').innerHTML = `
       <h3 class="ph">Готовность к ЕГЭ</h3>
       <div class="total"><div class="big-num">${score}</div>
-        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах</div></div>
+        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах, это <b>${testScore(score)}</b> тестовых из 100</div></div>
       ${bar(score, KIM_MAX, true)}
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>

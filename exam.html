@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пробный вариант ЕГЭ · Саня дай сотку</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231B1F3B%22/%3E%3Ctext x=%2216%22 y=%2223%22 font-size=%2218%22 text-anchor=%22middle%22 fill=%22%23FF6B35%22 font-family=%22sans-serif%22 font-weight=%22bold%22%3E100%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
+<link rel="stylesheet" href="web/style.css?v=2b6bf30d">
+<script defer src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap head">
+    <a class="logo" href="./"><img src="web/logo-white.svg" alt="Саня дай сотку"></a>
+    <div>
+      <div class="brand">САНЯ ДАЙ СОТКУ</div>
+      <h1>Пробный вариант ЕГЭ</h1>
+      <p id="hello" class="hello" hidden></p>
+    </div>
+  </div>
+</header>
+
+<div id="timer" class="timer" hidden><div class="wrap">Осталось <b id="timer-left"></b></div></div>
+
+<main class="wrap exam">
+  <p class="back"><a href="./">← К банку задач</a></p>
+  <p id="status" class="status">Загружаю банк…</p>
+
+  <section id="ex-start" hidden>
+    <div class="ex-card">
+      <h2>Вариант собран</h2>
+      <p>26 заданий по структуре ЕГЭ 2027, по одному на каждый номер. На решение 3 часа 55 минут, максимум 45 первичных баллов.
+        Первая часть проверяется сразу, вторую вы оцените сами по решению.</p>
+      <p class="muted small">Таймер не остановится, если закрыть страницу: ответы сохраняются, и пробник продолжится с того же места.</p>
+      <div class="actions">
+        <button id="ex-begin" type="button" class="btn solid">Начать</button>
+        <a id="ex-print" class="btn" target="_blank" rel="noopener">Распечатать вариант</a>
+        <button id="ex-new" type="button" class="btn">Другой вариант</button>
+        <button id="ex-copy" type="button" class="link">Ссылка на этот вариант</button>
+      </div>
+      <p id="ex-msg" class="muted small" role="status"></p>
+    </div>
+    <details class="ex-card">
+      <summary>Темы заданий</summary>
+      <ol id="ex-kims" class="ex-kims"></ol>
+    </details>
+    <div id="ex-history" class="ex-card" hidden>
+      <h2>Мои пробники</h2>
+      <ul id="ex-hist-body" class="ex-hist"></ul>
+    </div>
+  </section>
+
+  <section id="ex-run" hidden>
+    <div id="ex-tasks"></div>
+    <div class="ex-end"><button id="ex-finish" type="button" class="btn solid">Завершить и проверить</button></div>
+  </section>
+
+  <section id="ex-result" hidden>
+    <div id="ex-score" class="ex-card ex-score"></div>
+    <div id="ex-review"></div>
+    <div class="ex-end"><button id="ex-again" type="button" class="btn solid">Новый вариант</button></div>
+  </section>
+</main>
+
+<script src="web/katex/katex.min.js?v=a43bf9e2"></script>
+<script src="web/tex.js?v=da6f3fcc"></script>
+<script src="web/render.js?v=51db5bc5"></script>
+<script src="web/exam.js?v=69930e98"></script>
+<script defer src="web/tg.js?v=ad067407"></script>
+</body>
+</html>
