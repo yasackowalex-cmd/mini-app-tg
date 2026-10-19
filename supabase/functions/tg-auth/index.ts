@@ -232,7 +232,7 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     if (error) return [500, { ok: false, error: 'db' }];
     const homework = (hws ?? []).sort((a: any, b: any) => String(b.created_at).localeCompare(String(a.created_at)));
     // пробники всех учеников, новые первыми; без таблицы exams (миграция 004 не выполнена) — пустой список
-    const { data: ex } = await db.from('exams').select('tg_id, finished_at, started_at, p1, p2, graded, score')
+    const { data: ex } = await db.from('exams').select('tg_id, finished_at, started_at, task_ids, p1, p2, graded, score')
       .order('finished_at', { ascending: false }).limit(5000);
     const exams = ex ?? [];
     let links: any[] = [];

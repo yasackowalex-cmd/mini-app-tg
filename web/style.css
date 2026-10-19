@@ -175,12 +175,6 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .teacher .muted { color: var(--muted); }
 .teacher .small { font-size: 14px; }
 
-/* ссылка на пробник на главной */
-.exam-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 0 0; padding: 12px 16px;
-  background: var(--dark); color: #fff; border-radius: 12px; text-decoration: none; }
-.exam-link b { font: 600 18px/1.2 Oswald, sans-serif; letter-spacing: .02em; }
-.exam-link span { color: #C9CCE0; font-size: 15px; }
-.exam-link i { font-style: normal; color: var(--orange); font-weight: 700; white-space: nowrap; }
 
 /* пробный вариант (exam.html) */
 .exam .back { margin: 12px 0 0; font-size: 15px; }
@@ -209,3 +203,21 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .small { font-size: 14px; }
 .muted { color: var(--muted); }
 a.btn { text-decoration: none; display: inline-block; }
+/* выбор пробного варианта */
+.vpick { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 8px; margin-top: 8px; }
+.vbtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 52px; padding: 6px 4px;
+  font: inherit; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--text); cursor: pointer; text-decoration: none; }
+.vbtn b { font: 600 20px/1 Oswald, sans-serif; }
+.vbtn small { font-size: 12px; color: var(--muted); line-height: 1.1; text-align: center; }
+.vbtn.done { background: #EEF8F0; border-color: #9BD3AA; }
+.vbtn.done small { color: #1E7B3A; font-weight: 700; }
+.vbtn[aria-pressed="true"] { border: 2px solid var(--blue); }
+.vbtn.rnd small { font-size: 11px; }
+.ex-card.resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: #FFF5EE; border-color: #FFD2BC; }
+.ex-end.actions { justify-content: center; }
+.exams-top { background: var(--dark); color: #fff; border-radius: 12px; padding: 12px 14px 14px; margin: 16px 0 0; }
+.exams-top h2 { margin: 0 0 2px; font: 600 18px/1.2 Oswald, sans-serif; letter-spacing: .02em; }
+.exams-top p { margin: 0; color: #C9CCE0; font-size: 15px; }
+.exams-top .vpick { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
+.exams-top .vbtn { min-height: 46px; }
+.exams-top .vbtn.rnd { grid-column: span 2; }

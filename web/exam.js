@@ -1,6 +1,7 @@
 // Пробный вариант ЕГЭ: по одной задаче на каждый номер КИМ 1–26, решение на время (3 ч 55 мин),
 // автопроверка первой части по критериям ФИПИ и самооценка второй части по решению из банка.
-// Вариант лежит в адресе (exam.html#ids=a,b,…), поэтому ссылкой можно дать всей группе один и тот же вариант.
+// Есть 10 постоянных вариантов (exams/variants.json, адрес exam.html#v=N) и случайный (exam.html#ids=a,b,… или #new).
+// Вариант лежит в адресе, поэтому ссылкой можно дать всей группе один и тот же вариант.
 // Ход пробника хранится в браузере: закрыли Телеграм посреди варианта — при следующем открытии продолжаем.
 (function () {
   'use strict';
@@ -19,7 +20,7 @@
     set(k, v) { mem[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* остаётся mem */ } },
   };
 
-  let byId = {}, topics = {}, exam = null, timer = null;
+  let byId = {}, topics = {}, variants = [], exam = null, timer = null;
   const tasks = () => exam.ids.map(id => byId[id]).filter(Boolean);
   const save = () => store.set('exam', exam);
 
@@ -39,14 +40,28 @@
     }).filter(Boolean);
   }
 
-  const variantUrl = ids => new URL('exam.html#ids=' + ids.map(encodeURIComponent).join(','), location.href).href;
-  const printUrl = ids => new URL('print.html#ids=' + ids.map(encodeURIComponent).join(',') + '&t=' +
-    encodeURIComponent('Пробный вариант ЕГЭ по физике'), location.href).href;
+  const hashOf = e => e.n ? '#v=' + e.n : '#ids=' + e.ids.map(encodeURIComponent).join(',');
+  const variantUrl = e => new URL('exam.html' + hashOf(e), location.href).href;
+  const titleOf = e => e.n ? `Вариант ${e.n}` : 'Случайный вариант';
+  const printUrl = e => new URL('print.html#ids=' + e.ids.map(encodeURIComponent).join(',') + '&t=' +
+    encodeURIComponent(e.n ? `Пробный вариант ЕГЭ по физике № ${e.n}` : 'Пробный вариант ЕГЭ по физике'), location.href).href;
 
   // новый вариант сохраняется при нажатии «Начать»: незаконченный старый пробник до этого не теряется
-  function setVariant(ids) {
-    exam = { ids, started: 0, finished: 0, answers: {}, self: {} };
-    history.replaceState(null, '', '#ids=' + ids.map(encodeURIComponent).join(','));
+  function setVariant(ids, n) {
+    exam = { ids, n: n || 0, started: 0, finished: 0, answers: {}, self: {} };
+    history.replaceState(null, '', hashOf(exam));
+  }
+  function setFixed(n) { setVariant(variants[n - 1].ids, n); }
+  // лучший результат по каждому постоянному варианту из истории: {n: первичный балл}
+  function doneFixed() {
+    const d = {};
+    store.get('exams', []).forEach(e => { if (e.n) d[e.n] = Math.max(d[e.n] ?? 0, e.score); });
+    return d;
+  }
+  // по умолчанию — первый постоянный вариант, который ученик ещё не решал
+  function nextVariant() {
+    const d = doneFixed(), v = variants.find(x => d[x.n] === undefined);
+    if (v) setFixed(v.n); else setVariant(newVariant());
   }
 
   // ---- баллы первой части по критериям ФИПИ ----
@@ -91,10 +106,22 @@
   function renderStart() {
     const ts = tasks();
     $('ex-kims').innerHTML = ts.map((t, i) => `<li><b>${i + 1}</b><span>${esc(topics[t.topic] || t.topic)}</span></li>`).join('');
-    $('ex-print').href = printUrl(exam.ids);
+    $('ex-print').href = printUrl(exam);
+    $('ex-title').textContent = exam.n ? `Вариант ${exam.n} из ${variants.length}` : 'Случайный вариант';
+    // выбор варианта: постоянные 1–10 (решённые отмечены лучшим тестовым баллом) и случайный
+    const d = doneFixed();
+    $('ex-pick').innerHTML = variants.map(v => `<button type="button" class="vbtn${d[v.n] !== undefined ? ' done' : ''}" data-v="${v.n}"
+      aria-pressed="${exam.n === v.n}" title="${d[v.n] !== undefined ? `решён: ${testScore(d[v.n])} тестовых` : 'ещё не решали'}"><b>${v.n}</b>${
+      d[v.n] !== undefined ? `<small>${testScore(d[v.n])}</small>` : ''}</button>`).join('') +
+      `<button type="button" class="vbtn rnd" data-v="0" aria-pressed="${!exam.n}"><b>?</b><small>случайный</small></button>`;
+    // открыли другой вариант, а прошлый пробник не закончен — можно вернуться к нему
+    const saved = store.get('exam', null);
+    const pending = saved && saved.started && !saved.finished && saved.ids.join() !== exam.ids.join();
+    $('ex-resume').hidden = !pending;
+    if (pending) $('ex-resume-title').textContent = titleOf(saved).toLowerCase();
     const hist = store.get('exams', []);
     $('ex-history').hidden = !hist.length;
-    $('ex-hist-body').innerHTML = hist.slice(0, 10).map(e => `<li>${new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}:
+    $('ex-hist-body').innerHTML = hist.slice(0, 10).map(e => `<li>${new Date(e.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}, ${esc(titleOf(e).toLowerCase())}:
       <b>${testScore(e.score)} тестовых</b> <span class="muted">(первичных ${e.score} из ${MAX}${e.graded ? '' : ', вторая часть не оценена'})</span></li>`).join('');
   }
 
@@ -147,7 +174,7 @@
   // итог пробника в историю (обновляется, пока ученик оценивает вторую часть)
   function record() {
     const s = scores(), hist = store.get('exams', []);
-    const e = { date: exam.finished, ids: exam.ids, score: s.p1 + s.p2, p1: s.p1, graded: s.graded === s.p2n };
+    const e = { date: exam.finished, ids: exam.ids, n: exam.n || 0, score: s.p1 + s.p2, p1: s.p1, graded: s.graded === s.p2n };
     const i = hist.findIndex(x => x.date === exam.finished);
     if (i >= 0) hist[i] = e; else hist.unshift(e);
     store.set('exams', hist.slice(0, 30));
@@ -196,8 +223,20 @@
     save();
   });
   $('ex-begin').addEventListener('click', () => { exam.started = Date.now(); save(); show('run'); });
-  $('ex-new').addEventListener('click', () => { setVariant(newVariant()); show('start'); });
-  $('ex-again').addEventListener('click', () => { setVariant(newVariant()); show('start'); });
+  $('ex-pick').addEventListener('click', e => {
+    const b = e.target.closest('[data-v]');
+    if (!b) return;
+    const n = +b.dataset.v;
+    if (n) setFixed(n); else setVariant(newVariant());
+    show('start');
+  });
+  $('ex-again').addEventListener('click', () => { nextVariant(); show('start'); });
+  $('ex-retry').addEventListener('click', () => { setVariant(exam.ids, exam.n); show('start'); });
+  $('ex-resume-btn').addEventListener('click', () => {
+    exam = store.get('exam', null);
+    history.replaceState(null, '', hashOf(exam));
+    if (Date.now() >= exam.started + DURATION) finish(); else show('run');
+  });
   $('ex-finish').addEventListener('click', () => {
     const b = $('ex-finish');
     if (b.dataset.sure) { finish(); return; }
@@ -226,7 +265,7 @@
     }
   });
   $('ex-copy').addEventListener('click', () => {
-    const url = variantUrl(exam.ids);
+    const url = variantUrl(exam);
     const ok = () => { $('ex-msg').textContent = 'Ссылка на этот вариант скопирована'; };
     if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, () => { $('ex-msg').textContent = url; });
     else $('ex-msg').textContent = url;
@@ -243,25 +282,31 @@
   // ---- запуск ----
   function start() {
     const p = new URLSearchParams(location.hash.slice(1));
-    const urlIds = (p.get('ids') || '').split(',').map(s => s.trim()).filter(id => byId[id]);
+    const n = +p.get('v') || 0, fixed = variants[n - 1];
+    const urlIds = fixed ? fixed.ids : (p.get('ids') || '').split(',').map(s => s.trim()).filter(id => byId[id]);
     const saved = store.get('exam', null);
-    const same = saved && urlIds.join() === (saved.ids || []).join();
-    if (saved && saved.ids && (!urlIds.length || same)) {
+    const same = saved && saved.ids && urlIds.join() === saved.ids.join();
+    // без варианта в адресе — продолжаем последний пробник (или показываем его итог); тот же вариант по ссылке — тоже
+    if (saved && saved.ids && ((!urlIds.length && !p.has('new')) || same)) {
       exam = saved;
-      history.replaceState(null, '', '#ids=' + exam.ids.map(encodeURIComponent).join(','));
+      history.replaceState(null, '', hashOf(exam));
       if (exam.started && !exam.finished && Date.now() >= exam.started + DURATION) { finish(); return; }
       show(exam.finished ? 'result' : exam.started ? 'run' : 'start');
       return;
     }
-    // вариант по ссылке учителя или новый
-    setVariant(urlIds.length ? urlIds : newVariant());
+    if (fixed) setFixed(n);
+    else if (urlIds.length) setVariant(urlIds);
+    else if (p.has('new')) setVariant(newVariant());
+    else nextVariant();
     show('start');
   }
 
   Promise.all([
     fetch('out/bank.json', { cache: 'no-cache' }).then(r => r.json()),
     fetch('out/topics.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => ({})),
-  ]).then(([b, tp]) => {
+    fetch('exams/variants.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []),
+  ]).then(([b, tp, vs]) => {
+    variants = vs;
     b.forEach(t => { byId[t.id] = t; });
     topics = tp;
     $('status').hidden = true;

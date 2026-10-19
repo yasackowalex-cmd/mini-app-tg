@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=2b6bf30d">
+<link rel="stylesheet" href="web/style.css?v=25562b62">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -30,15 +30,21 @@
   <p id="status" class="status">Загружаю банк…</p>
 
   <section id="ex-start" hidden>
+    <div id="ex-resume" class="ex-card resume" hidden>
+      <span>Не закончен <b id="ex-resume-title"></b>.</span> <button id="ex-resume-btn" type="button" class="btn solid">Продолжить</button>
+    </div>
     <div class="ex-card">
-      <h2>Вариант собран</h2>
+      <h2>Выберите вариант</h2>
+      <div id="ex-pick" class="vpick"></div>
+    </div>
+    <div class="ex-card">
+      <h2 id="ex-title"></h2>
       <p>26 заданий по структуре ЕГЭ 2027, по одному на каждый номер. На решение 3 часа 55 минут, максимум 45 первичных баллов.
         Первая часть проверяется сразу, вторую вы оцените сами по решению.</p>
       <p class="muted small">Таймер не остановится, если закрыть страницу: ответы сохраняются, и пробник продолжится с того же места.</p>
       <div class="actions">
         <button id="ex-begin" type="button" class="btn solid">Начать</button>
         <a id="ex-print" class="btn" target="_blank" rel="noopener">Распечатать вариант</a>
-        <button id="ex-new" type="button" class="btn">Другой вариант</button>
         <button id="ex-copy" type="button" class="link">Ссылка на этот вариант</button>
       </div>
       <p id="ex-msg" class="muted small" role="status"></p>
@@ -61,14 +67,15 @@
   <section id="ex-result" hidden>
     <div id="ex-score" class="ex-card ex-score"></div>
     <div id="ex-review"></div>
-    <div class="ex-end"><button id="ex-again" type="button" class="btn solid">Новый вариант</button></div>
+    <div class="ex-end actions"><button id="ex-again" type="button" class="btn solid">Следующий вариант</button>
+      <button id="ex-retry" type="button" class="btn">Решить этот вариант заново</button></div>
   </section>
 </main>
 
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=da6f3fcc"></script>
 <script src="web/render.js?v=51db5bc5"></script>
-<script src="web/exam.js?v=69930e98"></script>
+<script src="web/exam.js?v=05ec96e3"></script>
 <script defer src="web/tg.js?v=ad067407"></script>
 </body>
 </html>
