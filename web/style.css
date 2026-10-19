@@ -10,6 +10,8 @@
   --chip: #E8F1FF;
 }
 * { box-sizing: border-box; }
+/* hidden прячет всегда, даже если у элемента свой display (flex у формы ДЗ и т.п.) */
+[hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 "PT Sans", system-ui, sans-serif; }
 .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
 

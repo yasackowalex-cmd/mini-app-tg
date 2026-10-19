@@ -86,7 +86,7 @@
   $('hw-new').addEventListener('click', () => {
     const f = $('hw-form');
     f.hidden = !f.hidden;
-    if (!f.hidden) f.elements.title.focus();
+    if (!f.hidden) { f.elements.title.focus(); f.scrollIntoView({ block: 'end' }); }
   });
   $('hw-form').addEventListener('submit', e => {
     e.preventDefault();
