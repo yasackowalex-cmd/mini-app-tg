@@ -5,7 +5,8 @@
 //   action "hw_create" (учитель), title, task_ids — задать ДЗ, ответ {"hw": {id, ...}};
 //   action "hw_open", id — ученик открыл ссылку на ДЗ; "hw_list" — ДЗ ученика (mine) и заданные учителем (given);
 //   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам; "hw_delete" (учитель), id — удалить ДЗ;
-//   action "teacher" (учитель) — кабинет: все его ДЗ, их ученики и результаты, итоги пробников всех учеников (exams);
+//   action "teacher" (учитель) — кабинет: все его ДЗ, их ученики и результаты, итоги пробников всех учеников (exams),
+//     все ученики (students) и журнал ответов каждого (logs: {tg_id: [[task_id, 1|0, unix-время], ...]} от новых к старым);
 //   action "exam_save", started, finished (мс), task_ids, p1, p2, graded — итог пробного варианта ЕГЭ.
 // Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
@@ -75,6 +76,19 @@ const cleanIds = (a: unknown): string[] | null =>
     ? [...new Set(a as string[])] : null;
 
 // Действия после проверки подписи. db — клиент Supabase с сервисным ключом.
+// Supabase отдаёт не больше 1000 строк за запрос, поэтому длинные списки (попытки) читаем страницами.
+// make() строит запрос заново для каждой страницы; порядок в нём должен быть однозначным (по id).
+async function pages(make: () => any, max = 200000): Promise<{ data: any[] | null; error: unknown }> {
+  const out: any[] = [];
+  for (let from = 0; from < max; from += 1000) {
+    const { data, error } = await make().range(from, from + 999);
+    if (error) return { data: null, error };
+    out.push(...(data ?? []));
+    if (!data || data.length < 1000) break;
+  }
+  return { data: out, error: null };
+}
+
 // teachers — Telegram id учителей из секрета TEACHER_IDS (через запятую).
 export async function route(body: any, user: TgUser, db: any, teachers: number[] = []): Promise<[number, unknown]> {
   const action = body.action || 'login';
@@ -113,8 +127,8 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
   }
 
   if (action === 'progress') {
-    const { data, error } = await db.from('attempts').select('task_id, correct, created_at').eq('tg_id', user.id)
-      .order('created_at', { ascending: false }).limit(20000);
+    const { data, error } = await pages(() => db.from('attempts').select('task_id, correct, created_at').eq('tg_id', user.id)
+      .order('id', { ascending: false }));
     if (error) return [500, { ok: false, error: 'db' }];
     const tasks: Record<string, { n: number; ok: number }> = {};
     const log: [string, number, number][] = [];
@@ -184,8 +198,8 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     if (!sids.length) return [200, { ok: true, hw: { id, title: hw.title, task_ids: hw.task_ids }, students: [] }];
     const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade').in('tg_id', sids);
     if (e3) return [500, { ok: false, error: 'db' }];
-    const { data: at, error: e4 } = await db.from('attempts').select('tg_id, task_id, correct')
-      .in('tg_id', sids).in('task_id', hw.task_ids).gte('created_at', hw.created_at).limit(20000);
+    const { data: at, error: e4 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct')
+      .in('tg_id', sids).in('task_id', hw.task_ids).gte('created_at', hw.created_at).order('id', { ascending: true }));
     if (e4) return [500, { ok: false, error: 'db' }];
     // по задаче: 1 — решена верно, 0 — были только неверные ответы; нет ключа — не решал
     const res: Record<string, Record<string, number>> = {};
@@ -242,18 +256,21 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       links = data ?? [];
     }
     const sids = [...new Set(links.map((r: any) => r.tg_id))];
-    const uids = [...new Set([...sids, ...exams.map((e: any) => e.tg_id)])];
-    let students: any[] = [], at: any[] = [];
-    if (uids.length) {
-      const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade').in('tg_id', uids);
-      if (e3) return [500, { ok: false, error: 'db' }];
-      students = us ?? [];
-    }
+    // все ученики (кроме учителей) и все их ответы — для вида «Прогресс»
+    const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade, last_seen_at').limit(5000);
+    if (e3) return [500, { ok: false, error: 'db' }];
+    const students = (us ?? []).filter((u: any) => !teachers.includes(Number(u.tg_id)));
+    const { data: all, error: e5 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct, created_at')
+      .order('id', { ascending: false }));
+    if (e5) return [500, { ok: false, error: 'db' }];
+    const logs: Record<string, [string, number, number][]> = {};
+    for (const r of all ?? []) (logs[r.tg_id] ??= []).push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+    let at: any[] = [];
     if (sids.length) {
       const tasks = [...new Set(homework.flatMap((h: any) => h.task_ids))];
       const since = homework[homework.length - 1].created_at;
-      const { data, error: e4 } = await db.from('attempts').select('tg_id, task_id, correct, created_at')
-        .in('tg_id', sids).in('task_id', tasks).gte('created_at', since).limit(50000);
+      const { data, error: e4 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct, created_at')
+        .in('tg_id', sids).in('task_id', tasks).gte('created_at', since).order('id', { ascending: true }));
       if (e4) return [500, { ok: false, error: 'db' }];
       at = data ?? [];
     }
@@ -268,7 +285,7 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       }
       (results[l.hw_id] ??= {})[l.tg_id] = { ok: [...ok], bad: [...tried].filter(t => !ok.has(t)) };
     }
-    return [200, { ok: true, homework, students, results, exams }];
+    return [200, { ok: true, homework, students, results, exams, logs }];
   }
 
   return [400, { ok: false, error: 'action' }];

@@ -236,7 +236,8 @@
     `<div class="bar${big ? ' big' : ''}"><span style="width:${b ? Math.min(100, 100 * a / b) : 0}%"></span></div>`;
   const balls = n => n % 10 === 1 && n % 100 !== 11 ? 'балл' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'балла' : 'баллов';
 
-  function kimStats(p) {
+  // p — {task_id: {n, ok}}, log — журнал ответов [[task_id, 1|0, время]] от новых к старым или null
+  function kimStats(p, log) {
     const st = {}, kimOf = {};
     Object.keys(KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0, recent: [], last: 0 }; });
     bank.forEach(t => {
@@ -248,7 +249,6 @@
       if (r.ok > 0) s.solved++;
     });
     // Журнал ответов (новые первыми). Без него (старая версия функции) — доля верных за всё время.
-    const log = window.tgLog;
     if (log) log.forEach(([id, ok, ts]) => {
       const s = st[kimOf[id]];
       if (!s) return;
@@ -278,7 +278,7 @@
     Object.values(p).forEach(r => { n += r.n; ok += r.ok; });
     const solved = bank.filter(isSolved).length;
 
-    const ks = kimStats(p), kims = Object.keys(KIM_POINTS);
+    const ks = kimStats(p, window.tgLog), kims = Object.keys(KIM_POINTS);
     const done = kims.filter(k => ks[k].state === 'done');
     const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
     const cells = kims.map(k => {
@@ -389,6 +389,8 @@
     apply();
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
+    // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
+    window.bankStats = { kimStats, topics, byId, KIM_MIN_SOLVED, KIM_LEVEL, KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
     // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
     window.bankView = {
       show(title, ids) { view = { title, ids }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },

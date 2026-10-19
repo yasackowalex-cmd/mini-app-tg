@@ -159,7 +159,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .teacher .ph { font: 600 15px/1.2 Oswald, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 16px 0 4px; }
 .t-list { list-style: none; margin: 0; padding: 0; }
 .t-item { border-top: 1px solid var(--line); }
-.t-head { display: grid; grid-template-columns: 1fr; gap: 3px; width: 100%; text-align: left; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; cursor: pointer; }
+.t-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3px; width: 100%; text-align: left; background: none; border: 0; padding: 10px 0; font: inherit; color: inherit; cursor: pointer; }
 .t-head .bar { height: 5px; }
 .t-title::before { content: '▸ '; color: var(--muted); }
 .t-item.open .t-title::before { content: '▾ '; }
@@ -220,3 +220,11 @@ a.btn { text-decoration: none; display: inline-block; }
 .exams-top .vpick { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
 .exams-top .vbtn { min-height: 46px; }
 .exams-top .vbtn.rnd { grid-column: span 2; }
+/* кабинет учителя, вид «Прогресс»: сводка по классу */
+.t-sum { margin: 4px 0 12px; font-size: 15px; }
+.t-sum p { margin: 8px 0; }
+.kc.good { background: #E3F6E8; border-color: #9BD3AA; }
+.kc.mid { background: #FFF1DD; border-color: #F2C27B; }
+.kc.bad { background: #FDECEA; border-color: #EBA39C; }
+.t-weak { margin: 4px 0 8px; padding-left: 1.2em; font-size: 15px; }
+.t-weak li { margin: 3px 0; }
