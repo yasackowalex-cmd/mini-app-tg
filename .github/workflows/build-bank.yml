@@ -10,6 +10,7 @@ on:
       - 'bank/**'
       - 'scripts/**'
       - 'topics.csv'
+      - 'exams/**'
       - 'web/**'
       - '.github/workflows/build-bank.yml'
   workflow_dispatch:

@@ -15,6 +15,10 @@
   const tg = () => window.Telegram && window.Telegram.WebApp;
   const { testScore } = window.taskRender;
 
+  // постоянные пробные варианты: номер варианта узнаём по составу задач
+  let variantOf = {};
+  fetch('exams/variants.json', { cache: 'no-cache' }).then(r => r.json())
+    .then(vs => { variantOf = Object.fromEntries(vs.map(v => [v.ids.join(), v.n])); }).catch(() => {});
   let data = null, loading = false, viewMode = 'hw', openId = null, confirmDel = null;
 
   // ---- вкладки «Банк задач» / «Кабинет учителя» ----
@@ -140,7 +144,8 @@
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
     if (!data.exams.length) return '<p class="status">Пробников пока никто не решал. Ученики решают их в Телеграме кнопкой «Пробный вариант ЕГЭ».</p>';
     if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
-    const row = e => `<li><span>${day(e.finished_at)}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
+    const vn = e => variantOf[(e.task_ids || []).join()];
+    const row = e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
       <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`;
     return `<ul class="t-list">${list.map(s => {
       const es = by[s.tg_id], last = es[0], best = Math.max(...es.map(e => e.score));
