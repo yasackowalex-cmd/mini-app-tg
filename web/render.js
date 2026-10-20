@@ -62,14 +62,17 @@
 
   const answerHtml = t => t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
 
-  // Подборка задач (для печати и ДЗ): список id в порядке добавления, хранится в браузере.
-  // Если хранилище недоступно, подборка живёт до перезагрузки страницы.
-  const KEY = 'pick';
-  let mem = [];
-  const pick = {
-    get() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return mem; } },
-    set(ids) { mem = ids; try { localStorage.setItem(KEY, JSON.stringify(ids)); } catch (e) { /* остаётся mem */ } },
-  };
+  // Списки задач в браузере: id в порядке добавления. Если хранилище недоступно, список живёт до перезагрузки.
+  //   pick — подборка: что решаем или печатаем сейчас (печать и ДЗ);
+  //   fav  — избранное ученика (звёздочка): задачи, к которым он хочет вернуться позже.
+  function idList(key) {
+    let mem = [];
+    return {
+      get() { try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return mem; } },
+      set(ids) { mem = ids; try { localStorage.setItem(key, JSON.stringify(ids)); } catch (e) { /* остаётся mem */ } },
+    };
+  }
+  const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS, testScore };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore };
 })();
