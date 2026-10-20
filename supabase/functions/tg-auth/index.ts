@@ -11,7 +11,8 @@
 // Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
-//     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым}.
+//     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым, "fav": [task_id, ...] избранное, новые первыми};
+//   action "fav_set", task_id, on — добавить задачу в избранное (on: true) или убрать (on: false).
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
 // Один файл, чтобы его можно было вставить в редактор функций в панели Supabase.
@@ -138,7 +139,21 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       if (r.correct) t.ok++;
       log.push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
     }
-    return [200, { ok: true, tasks, log }];
+    // избранное; если таблицы ещё нет (не выполнен favorites.sql), прогресс отдаётся без него
+    const f = await pages(() => db.from('favorites').select('task_id').eq('tg_id', user.id)
+      .order('created_at', { ascending: false }).order('task_id'));
+    const fav = f.error ? null : (f.data ?? []).map(r => r.task_id);
+    return [200, { ok: true, tasks, log, fav }];
+  }
+
+  if (action === 'fav_set') {
+    const task_id = String(body.task_id || '').slice(0, 100);
+    if (!task_id || typeof body.on !== 'boolean') return [400, { ok: false, error: 'bad request' }];
+    const { error } = body.on
+      ? await db.from('favorites').upsert({ tg_id: user.id, task_id }, { onConflict: 'tg_id,task_id', ignoreDuplicates: true })
+      : await db.from('favorites').delete().eq('tg_id', user.id).eq('task_id', task_id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
   }
 
   // ---- Домашние задания ----

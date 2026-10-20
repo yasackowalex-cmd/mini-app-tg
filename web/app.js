@@ -169,6 +169,20 @@
     if (i < 0) ids.unshift(id); else ids.splice(i, 1);
     fav.set(ids);
     renderFav();
+    if (window.tgApi) window.tgApi('fav_set', { task_id: id, on: i < 0 });
+  }
+
+  // В Телеграме избранное хранится на сервере: объединяем его с отмеченным на этом устройстве,
+  // недостающее на сервере досылаем
+  function syncFav() {
+    const server = window.tgFav;
+    if (!server) return;
+    const local = fav.get(), merged = [...local];
+    for (const id of server) if (!merged.includes(id)) merged.push(id);
+    for (const id of local) if (!server.includes(id)) window.tgApi('fav_set', { task_id: id, on: true });
+    fav.set(merged);
+    renderFav();
+    document.querySelectorAll('#list article.task').forEach((el, i) => markFav(el, found[i]));
   }
 
   function renderFav() {
@@ -350,6 +364,7 @@
   function onProgress() {
     renderProgress();
     document.querySelectorAll('#list article.task').forEach((el, i) => markCard(el, found[i]));
+    syncFav();
   }
 
   function showMore() {
