@@ -114,7 +114,6 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .tlist li .bar { grid-column: 1 / -1; height: 4px; }
 .tlist a { color: var(--text); text-decoration: none; }
 
-.btn.pick[aria-pressed="true"] { background: #FFF1EA; border-color: var(--orange); color: #B4441A; }
 .btn.solid { background: var(--blue); color: #fff; text-decoration: none; }
 .pickbar { position: sticky; bottom: 0; background: var(--dark); color: #fff; padding: 10px 0; z-index: 5; }
 .pickbar .wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -228,3 +227,16 @@ a.btn { text-decoration: none; display: inline-block; }
 .kc.bad { background: #FDECEA; border-color: #EBA39C; }
 .t-weak { margin: 4px 0 8px; padding-left: 1.2em; font-size: 15px; }
 .t-weak li { margin: 3px 0; }
+/* кнопки карточки (вариант А, выбор владельца 20.10): подборка оранжевая, подсказка жёлтая; избранное — звёздочка в углу */
+.btn.pick { border-color: var(--orange); color: #B4441A; }
+.btn.pick:hover { background: #FFF1EA; color: #B4441A; }
+.btn.pick[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #fff; }
+.btn.hint { background: #FFF4CC; border-color: #F2C94C; color: #6B5000; }
+.btn.hint:hover, .btn.hint[aria-expanded="true"] { background: #F2C94C; border-color: #F2C94C; color: #3D2E00; }
+.task { position: relative; }
+.task > .meta { padding-right: 44px; }
+.fav { position: absolute; top: 8px; right: 8px; width: 38px; height: 38px; padding: 0; font-size: 22px; line-height: 1;
+  border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--muted); cursor: pointer; }
+.fav:hover { border-color: var(--orange); color: var(--orange); }
+.fav[aria-pressed="true"] { color: var(--orange); border-color: var(--orange); background: #FFF1EA; }
+.fav-link { color: #B4441A; font-weight: 700; }

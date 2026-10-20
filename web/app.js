@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, KIM_POINTS, testScore } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore } = window.taskRender;
 
   const PAGE = 20;
   const FILTERS = [
@@ -19,7 +19,7 @@
 
   const $ = id => document.getElementById(id);
   let bank = [], topics = {}, found = [], shown = 0, byId = {};
-  // view — показ одного ДЗ ({title, ids}) вместо фильтров банка; любой фильтр его снимает
+  // view — показ одного ДЗ ({title, ids}) или избранного ({fav: true, ids}) вместо фильтров банка; любой фильтр его снимает
   let view = null;
 
   const codeKey = c => String(c).split('.').map(n => n.padStart(3, '0')).join('.');
@@ -105,13 +105,14 @@
         <button class="btn" type="submit">Проверить</button>
         <span class="verdict" role="status"></span>
       </form>` : '';
-    el.innerHTML = `<div class="meta">${chips}</div>
+    el.innerHTML = `<button class="fav" type="button" data-fav></button>
+      <div class="meta">${chips}</div>
       <div class="cond">${cond.html}</div>
       ${figs ? `<div class="figs">${figs}</div>` : ''}
       ${form}
       <div class="actions">
         <button class="btn pick" type="button" data-pick></button>
-        ${t.solution ? '<button class="btn" type="button" data-show="solution" aria-expanded="false">Подсказка</button>' : ''}
+        ${t.solution ? '<button class="btn hint" type="button" data-show="solution" aria-expanded="false">💡 Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
       ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${solutionHtml(t)}</div>` : ''}
@@ -119,6 +120,7 @@
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {
       if (e.target.closest('[data-pick]')) { togglePick(t.id); return; }
+      if (e.target.closest('[data-fav]')) { toggleFav(t.id); markFav(el, t); return; }
       const b = e.target.closest('[data-show]');
       if (!b) return;
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
@@ -140,6 +142,7 @@
     });
     markCard(el, t);
     markPick(el, t);
+    markFav(el, t);
     return el;
   }
 
@@ -150,6 +153,28 @@
     const on = pick.get().includes(t.id), b = el.querySelector('[data-pick]');
     b.textContent = on ? '✓ В подборке' : '+ В подборку';
     b.setAttribute('aria-pressed', String(on));
+  }
+
+  // ---- Избранное: звёздочка в углу карточки ----
+  function markFav(el, t) {
+    const on = fav.get().includes(t.id), b = el.querySelector('[data-fav]');
+    b.textContent = on ? '★' : '☆';
+    b.setAttribute('aria-pressed', String(on));
+    b.title = on ? 'Убрать из избранного' : 'В избранное: вернуться к задаче позже';
+    b.setAttribute('aria-label', b.title);
+  }
+
+  function toggleFav(id) {
+    const ids = fav.get(), i = ids.indexOf(id);
+    if (i < 0) ids.unshift(id); else ids.splice(i, 1);
+    fav.set(ids);
+    renderFav();
+  }
+
+  function renderFav() {
+    const n = fav.get().filter(id => byId[id]).length;
+    $('fav-open').hidden = !n;
+    $('fav-open').textContent = `★ Избранное (${n})`;
   }
 
   function togglePick(id) {
@@ -343,12 +368,13 @@
     found = view ? view.ids.map(id => byId[id]).filter(Boolean) : bank.filter(t => matches(t, st));
     $('count').textContent = `Найдено задач: ${found.length} из ${bank.length}`;
     $('viewbar').hidden = !view;
-    if (view) $('view-title').textContent = `Домашнее задание «${view.title}»: задач ${found.length}`;
+    if (view) $('view-title').textContent = view.fav ? `★ Избранное: задач ${found.length}` : `Домашнее задание «${view.title}»: задач ${found.length}`;
     $('list').innerHTML = '';
     shown = 0;
     $('status').textContent = found.length ? '' : 'Ничего не нашлось. Попробуйте убрать часть фильтров.';
     showMore();
     renderPick();
+    renderFav();
   }
 
   async function init() {
@@ -373,6 +399,11 @@
     let timer;
     $('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(applyAll, 250); });
     $('view-close').addEventListener('click', applyAll);
+    $('fav-open').addEventListener('click', () => {
+      view = { fav: true, ids: fav.get() };
+      apply();
+      $('viewbar').scrollIntoView({ behavior: 'smooth' });
+    });
     $('reset').addEventListener('click', () => {
       view = null;
       $('q').value = '';
