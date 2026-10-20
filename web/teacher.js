@@ -4,6 +4,7 @@
 // «Пробники» (итоги пробных вариантов ЕГЭ по ученикам, баллы в тестовых по шкале 2027)
 // и «Прогресс» (готовность каждого ученика по 26 номерам КИМ и сводка по классу: где проваливаются).
 // Фильтр по классу и поиск по названию ДЗ или фамилии работают в обоих видах.
+// «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
 (function () {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -21,7 +22,8 @@
   let variantOf = {};
   fetch('exams/variants.json', { cache: 'no-cache' }).then(r => r.json())
     .then(vs => { variantOf = Object.fromEntries(vs.map(v => [v.ids.join(), v.n])); }).catch(() => {});
-  let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null;
+  let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null;
+  const BOT = 'physics_is_phun_bot';
 
   // ---- вкладки «Банк задач» / «Кабинет учителя» ----
   function setTab(tab) {
@@ -50,7 +52,12 @@
       data.byId = Object.fromEntries(r.students.map(s => [s.tg_id, s]));
       data.exams = r.exams || [];
       data.logs = r.logs || {};
+      // mine: null — таблицы своих учеников ещё нет, тогда показываем всех
+      data.mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : null;
+      if (who === null) who = data.mine && data.mine.size ? 'mine' : 'all';
       fillGrades();
+      fillWho();
+      renderInvite();
       render();
     });
   }
@@ -62,6 +69,59 @@
     const grades = [...new Set(data.students.map(s => s.grade).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
     sel.innerHTML = '<option value="">Все классы</option>' + grades.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
     sel.value = grades.includes(cur) ? cur : '';
+  }
+
+  // ---- свои ученики и остальные ----
+  const isMine = s => !!data.mine && data.mine.has(String(s.tg_id));
+  const whoOk = s => !data.mine || who === 'all' || (who === 'mine') === isMine(s);
+  function fillWho() {
+    const sel = $('t-who');
+    sel.hidden = !data.mine;
+    if (!data.mine) return;
+    const n = data.students.filter(isMine).length;
+    sel.innerHTML = `<option value="mine">Мои ученики (${n})</option><option value="other">Остальные (${data.students.length - n})</option>` +
+      `<option value="all">Все (${data.students.length})</option>`;
+    sel.value = who;
+  }
+  const inviteLink = () => `https://t.me/${BOT}?startapp=t_${data.invite}`;
+  function renderInvite() {
+    const box = $('t-invite');
+    box.hidden = !(data.mine && data.invite);
+    if (box.hidden) return;
+    box.innerHTML = `<span class="small">Ваша ссылка для учеников: кто откроет её, попадёт в «Мои ученики». Кто открыл ваше ДЗ, попадает туда сам.</span>
+      <span class="hwa"><button class="btn" type="button" data-inv="share">Отправить ссылку</button>
+      <button class="btn" type="button" data-inv="copy">Скопировать</button></span>`;
+  }
+  $('t-invite').addEventListener('click', e => {
+    const b = e.target.closest('[data-inv]');
+    if (!b) return;
+    const url = inviteLink(), t = tg();
+    if (b.dataset.inv === 'share' && t && t.openTelegramLink) {
+      t.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent('Задачи ЕГЭ по физике: банк, пробники и ДЗ')}`);
+      return;
+    }
+    const done = () => { b.textContent = 'Скопировано'; setTimeout(() => { b.textContent = 'Скопировать'; }, 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => prompt('Ссылка:', url));
+    else prompt('Ссылка:', url);
+  });
+  function myBtn(s) {
+    if (!data.mine) return '';
+    return isMine(s)
+      ? `<p class="hwa"><span class="cnt">Ваш ученик</span> <button class="btn" type="button" data-act="my-off">Убрать из моих</button></p>`
+      : `<p class="hwa"><button class="btn" type="button" data-act="my-on">Добавить в мои ученики</button></p>`;
+  }
+  function setMine(tgId, on) {
+    window.tgApi('my_set', { tg_id: Number(tgId), on }).then(r => {
+      if (!r) { const t = tg(); if (t && t.showAlert) t.showAlert('Не получилось сохранить, попробуйте ещё раз.'); return; }
+      if (on) data.mine.add(String(tgId)); else data.mine.delete(String(tgId));
+      fillWho();
+      render();
+    });
+  }
+  function emptyWho() {
+    return who === 'mine'
+      ? '<p class="status">В «Моих учениках» пока никого. Отправьте ученикам свою ссылку (она выше) или добавьте их из «Остальных».</p>'
+      : '<p class="status">Ничего не нашлось.</p>';
   }
 
   // ученики ДЗ (с учётом фильтра класса) и их результат
@@ -116,10 +176,10 @@
   function renderStudents(q) {
     const g = $('t-grade').value;
     const list = data.students
-      .filter(s => (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
+      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
     if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда откроют ДЗ или решат пробник.</p>';
-    if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
+    if (!list.length) return emptyWho();
     return `<ul class="t-list">${list.map(s => {
       const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
       const hws = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id]);
@@ -134,7 +194,7 @@
           const r = data.results[hw.id][s.tg_id], n = hw.task_ids.length, p = ps[i];
           return `<li><span>${esc(hw.title)} <span class="cnt">${day(hw.created_at)}</span></span>
             <span class="cnt ${p === 100 ? 'okc' : r.ok.length + r.bad.length === 0 ? 'badc' : ''}">${r.ok.length} из ${n}${r.bad.length ? `, ошибок ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
-        }).join('')}</ul></div>` : ''}</li>`;
+        }).join('')}</ul>${myBtn(s)}</div>` : ''}</li>`;
     }).join('')}</ul>`;
   }
 
@@ -143,10 +203,10 @@
     const g = $('t-grade').value, by = {};
     data.exams.forEach(e => { (by[e.tg_id] ??= []).push(e); });
     const list = Object.keys(by).map(id => data.byId[id] || { tg_id: id })
-      .filter(s => (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
+      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
     if (!data.exams.length) return '<p class="status">Пробников пока никто не решал. Ученики решают их в Телеграме кнопкой «Пробный вариант ЕГЭ».</p>';
-    if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
+    if (!list.length) return emptyWho();
     const vn = e => variantOf[(e.task_ids || []).join()];
     const row = e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
       <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`;
@@ -205,11 +265,11 @@
     if (!window.bankStats) return '<p class="status">Загружаю банк задач…</p>';
     const g = $('t-grade').value;
     const list = data.students
-      .filter(s => (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
+      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
       .map(s => ({ s, st: studentStats(s.tg_id) }))
       .sort((a, b) => (a.s.grade || '').localeCompare(b.s.grade || '', 'ru', { numeric: true }) || name(a.s).localeCompare(name(b.s), 'ru'));
     if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда войдут в приложение через Телеграм.</p>';
-    if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
+    if (!list.length) return emptyWho();
     const active = list.filter(x => x.st.log.length);
 
     // сводка по выбранным ученикам: по каждому номеру — сколько освоили и средняя доля верных
@@ -231,7 +291,7 @@
     const weakT = Object.entries(tp).filter(([, y]) => y.n >= 2 * WEAK_MIN && y.ok / y.n < WEAK_ACC)
       .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).slice(0, 8);
     const summary = `<div class="t-sum">
-      <h3 class="ph">${g ? `Класс ${esc(g)}` : 'Все ученики'}: решают ${active.length} из ${list.length}</h3>
+      <h3 class="ph">${g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики'}: решают ${active.length} из ${list.length}</h3>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
       ${hard.length ? `<p><b>Хуже всего идут номера:</b> ${hard.map(c => `№ ${c.k} (${pc(c.acc)}%, освоили ${c.done} из ${c.tried})`).join(', ')}</p>` : ''}
@@ -251,7 +311,7 @@
           <p class="small">Прогноз: <b>${st.primary}</b> первичных из 45, это <b>${testScore(st.primary)}</b> тестовых.</p>
           ${st.weak.length ? `<p class="small"><b>Проблемные темы:</b></p><ul class="t-weak">${st.weak.map(([t, x]) =>
             `<li>${esc(topicName(t))} <span class="cnt">верных ${x.ok} из ${x.n}</span></li>`).join('')}</ul>` : '<p class="muted small">Проблемных тем нет.</p>'}`
-          : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}</div>` : ''}</li>`;
+          : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
     return summary + `<ul class="t-list">${rows}</ul>`;
   }
@@ -287,6 +347,7 @@
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
     if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; render(); return; }
+    if (act === 'my-on' || act === 'my-off') { setMine(id.slice(1), act === 'my-on'); return; }
     if (!hw) return;
     if (act === 'open') { setTab('bank'); window.bankView.show(hw.title, hw.task_ids); }
     if (act === 'share') window.hwShare(hw);
@@ -298,5 +359,6 @@
     viewMode = b.dataset.view; openId = null; confirmDel = null; render();
   }));
   $('t-grade').addEventListener('change', render);
+  $('t-who').addEventListener('change', () => { who = $('t-who').value; openId = null; render(); });
   $('t-q').addEventListener('input', render);
 })();
