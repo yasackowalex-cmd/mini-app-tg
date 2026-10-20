@@ -13,6 +13,9 @@
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
 //     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым, "fav": [task_id, ...] избранное, новые первыми};
 //   action "fav_set", task_id, on — добавить задачу в избранное (on: true) или убрать (on: false).
+//   action "join", code — ученик открыл личную ссылку учителя t.me/<бот>?startapp=t_<код>: он становится «его учеником»;
+//   action "my_set" (учитель), tg_id, on — отметить ученика своим или убрать из своих.
+//   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
 // Один файл, чтобы его можно было вставить в редактор функций в панели Supabase.
@@ -76,6 +79,11 @@ const cleanIds = (a: unknown): string[] | null =>
   Array.isArray(a) && a.length >= 1 && a.length <= 60 && a.every(x => typeof x === 'string' && x.length > 0 && x.length <= 100)
     ? [...new Set(a as string[])] : null;
 
+// Код личной ссылки учителя: из его Telegram id и BOT_TOKEN, поэтому хранить его не нужно, а подобрать нельзя.
+async function inviteCode(teacherId: number, secret: string): Promise<string> {
+  return hex(await hmac(enc.encode(secret), 'invite:' + teacherId)).slice(0, 12);
+}
+
 // Действия после проверки подписи. db — клиент Supabase с сервисным ключом.
 // Supabase отдаёт не больше 1000 строк за запрос, поэтому длинные списки (попытки) читаем страницами.
 // make() строит запрос заново для каждой страницы; порядок в нём должен быть однозначным (по id).
@@ -90,8 +98,8 @@ async function pages(make: () => any, max = 200000): Promise<{ data: any[] | nul
   return { data: out, error: null };
 }
 
-// teachers — Telegram id учителей из секрета TEACHER_IDS (через запятую).
-export async function route(body: any, user: TgUser, db: any, teachers: number[] = []): Promise<[number, unknown]> {
+// teachers — Telegram id учителей из секрета TEACHER_IDS (через запятую); secret — BOT_TOKEN, ключ для кодов ссылок.
+export async function route(body: any, user: TgUser, db: any, teachers: number[] = [], secret = ''): Promise<[number, unknown]> {
   const action = body.action || 'login';
   const isTeacher = teachers.includes(user.id);
 
@@ -169,14 +177,40 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
   }
 
   if (action === 'hw_open') {
-    // ученик открыл ссылку на ДЗ: запоминаем, что ДЗ у него есть
+    // ученик открыл ссылку на ДЗ: запоминаем, что ДЗ у него есть, и он становится учеником этого учителя
     const id = String(body.id ?? '').slice(0, 20);
-    const { data: hw, error } = await db.from('homework').select('id, title, task_ids, created_at').eq('id', id).maybeSingle();
+    const { data: hw, error } = await db.from('homework').select('id, title, task_ids, created_at, teacher_id').eq('id', id).maybeSingle();
     if (error) return [500, { ok: false, error: 'db' }];
     if (!hw) return [404, { ok: false, error: 'not found' }];
     const { error: e2 } = await db.from('homework_students').upsert({ hw_id: id, tg_id: user.id }, { onConflict: 'hw_id,tg_id' });
     if (e2) return [500, { ok: false, error: 'db' }];
-    return [200, { ok: true, hw }];
+    if (Number(hw.teacher_id) !== user.id) await addMine(db, Number(hw.teacher_id), user.id, 'hw');
+    const { teacher_id: _, ...out } = hw;
+    return [200, { ok: true, hw: out }];
+  }
+
+  if (action === 'join') {
+    // личная ссылка учителя: код сверяем с каждым учителем из TEACHER_IDS
+    const code = String(body.code ?? '');
+    for (const t of teachers) {
+      if (t === user.id || !secret || code !== await inviteCode(t, secret)) continue;
+      const ok = await addMine(db, t, user.id, 'link');
+      return ok ? [200, { ok: true }] : [500, { ok: false, error: 'db' }];
+    }
+    return [404, { ok: false, error: 'not found' }];
+  }
+
+  if (action === 'my_set') {
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const tg_id = Number(body.tg_id);
+    if (!Number.isSafeInteger(tg_id) || tg_id <= 0 || typeof body.on !== 'boolean') return [400, { ok: false, error: 'bad request' }];
+    if (body.on) {
+      if (!await addMine(db, user.id, tg_id, 'manual')) return [500, { ok: false, error: 'db' }];
+    } else {
+      const { error } = await db.from('my_students').delete().eq('teacher_id', user.id).eq('tg_id', tg_id);
+      if (error) return [500, { ok: false, error: 'db' }];
+    }
+    return [200, { ok: true }];
   }
 
   if (action === 'hw_list') {
@@ -300,10 +334,21 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       }
       (results[l.hw_id] ??= {})[l.tg_id] = { ok: [...ok], bad: [...tried].filter(t => !ok.has(t)) };
     }
-    return [200, { ok: true, homework, students, results, exams, logs }];
+    // свои ученики; без таблицы my_students (миграция 006 не выполнена) — null, и кабинет показывает всех
+    const { data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000);
+    const mine = e6 ? null : (my ?? []).map((r: any) => Number(r.tg_id));
+    const invite = secret ? await inviteCode(user.id, secret) : null;
+    return [200, { ok: true, homework, students, results, exams, logs, mine, invite }];
   }
 
   return [400, { ok: false, error: 'action' }];
+}
+
+// Ученик становится «своим» для учителя. Повторная запись ничего не меняет (источник остаётся первым).
+async function addMine(db: any, teacher_id: number, tg_id: number, source: string): Promise<boolean> {
+  const { error } = await db.from('my_students').upsert({ teacher_id, tg_id, source },
+    { onConflict: 'teacher_id,tg_id', ignoreDuplicates: true });
+  return !error;
 }
 
 // В Node (тесты) Deno нет: там файл только отдаёт verifyInitData и route.
@@ -324,6 +369,6 @@ if (D) D.serve(async (req: Request) => {
   const { createClient } = await import('npm:@supabase/supabase-js@2');
   const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   const teachers = String(D.env.get('TEACHER_IDS') ?? '').split(',').map(Number).filter(Boolean);
-  const [status, res] = await route(body, user, db, teachers);
+  const [status, res] = await route(body, user, db, teachers, D.env.get('BOT_TOKEN') ?? '');
   return json(res, status);
 });

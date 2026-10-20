@@ -53,6 +53,8 @@
   function loadHomework() {
     const sp = tg.initDataUnsafe && tg.initDataUnsafe.start_param;
     const hwId = sp && /^hw_[a-z0-9]{4,20}$/.test(sp) ? sp.slice(3) : null;
+    // личная ссылка учителя t.me/<бот>?startapp=t_<код>: ученик попадает в его «Мои ученики»
+    if (sp && /^t_[a-f0-9]{12}$/.test(sp)) api('join', { code: sp.slice(2) });
     (hwId ? api('hw_open', { id: hwId }) : Promise.resolve(null)).then(o => {
       window.tgHwOpen = o && o.hw ? o.hw.id : null;
       return api('hw_list');
