@@ -155,6 +155,8 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .t-filters { display: flex; gap: 8px; flex-wrap: wrap; }
 .t-filters select { flex: 0 0 auto; }
 .t-filters input { flex: 1 1 200px; font: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.t-invite { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 0; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; }
+.t-invite .hwa { display: flex; gap: 8px; margin: 0; }
 .teacher .ph { font: 600 15px/1.2 Oswald, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 16px 0 4px; }
 .t-list { list-style: none; margin: 0; padding: 0; }
 .t-item { border-top: 1px solid var(--line); }

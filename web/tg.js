@@ -29,6 +29,7 @@
 
   // Вход: проверенный ученик в window.tgUser, его попытки в window.tgProgress
   // ({task_id: {n, ok}}) и журнал ответов в window.tgLog ([task_id, 1|0, время], новые первыми),
+  // избранное с сервера в window.tgFav (null, если сервер его не хранит);
   // о загрузке app.js узнаёт по событию tg-progress.
   // Если сервер недоступен, банк работает как раньше, без сохранения.
   api('login').then(res => {
@@ -43,6 +44,7 @@
     if (!res) return;
     window.tgProgress = res.tasks || {};
     window.tgLog = Array.isArray(res.log) ? res.log : null;
+    window.tgFav = Array.isArray(res.fav) ? res.fav : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 
@@ -51,6 +53,8 @@
   function loadHomework() {
     const sp = tg.initDataUnsafe && tg.initDataUnsafe.start_param;
     const hwId = sp && /^hw_[a-z0-9]{4,20}$/.test(sp) ? sp.slice(3) : null;
+    // личная ссылка учителя t.me/<бот>?startapp=t_<код>: ученик попадает в его «Мои ученики»
+    if (sp && /^t_[a-f0-9]{12}$/.test(sp)) api('join', { code: sp.slice(2) });
     (hwId ? api('hw_open', { id: hwId }) : Promise.resolve(null)).then(o => {
       window.tgHwOpen = o && o.hw ? o.hw.id : null;
       return api('hw_list');
