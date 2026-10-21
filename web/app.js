@@ -94,6 +94,7 @@
       `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>`,
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
+      view && view.err && view.ids.indexOf(t.id) >= view.err ? '<span class="chip sim">похожая</span>' : '',
       '<span class="chip mark" hidden></span>',
     ].join('');
     const cond = conditionHtml(t);
@@ -126,6 +127,7 @@
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
       part.hidden = !part.hidden;
       b.setAttribute('aria-expanded', String(!part.hidden));
+      if (!part.hidden) saveReveal(t, b.dataset.show === 'solution' ? 'hint' : 'answer');
     });
     const f = el.querySelector('form.try');
     if (f) f.addEventListener('submit', e => {
@@ -191,6 +193,29 @@
     $('fav-open').textContent = `★ Избранное (${n})`;
   }
 
+  // ---- Работа над ошибками (только в Телеграме, по журналу ответов) ----
+  // В списке задачи, последний ответ на которые неверный (новые первыми), а после них к каждой
+  // одна похожая: тот же номер КИМ и, если найдётся, та же тема, ещё не решавшаяся учеником.
+  function mistakes() {
+    const log = window.tgLog;
+    if (!log) return null;
+    const last = {}, wrong = [];
+    for (const [id, ok] of log) if (!(id in last)) { last[id] = ok; if (!ok && byId[id]) wrong.push(id); }
+    const used = new Set(wrong), similar = [];
+    for (const id of wrong) {
+      const w = byId[id], free = t => t.kim === w.kim && !(t.id in last) && !used.has(t.id);
+      const t = bank.find(t => free(t) && t.topic === w.topic) || bank.find(free);
+      if (t) { used.add(t.id); similar.push(t.id); }
+    }
+    return { wrong, similar };
+  }
+
+  function renderMistakes() {
+    const m = mistakes(), b = $('err-open');
+    b.hidden = !m || !m.wrong.length;
+    if (m) b.textContent = `✗ Работа над ошибками (${m.wrong.length})`;
+  }
+
   function togglePick(id) {
     const ids = pick.get(), i = ids.indexOf(id);
     if (i < 0) ids.push(id); else ids.splice(i, 1);
@@ -246,7 +271,18 @@
     if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000)]);
     window.tgApi('attempt', { task_id: t.id, answer, correct });
     renderProgress();
+    renderMistakes();
     document.dispatchEvent(new CustomEvent('tg-attempt'));
+  }
+
+  // Открытая подсказка или ответ (в Телеграме): для ДЗ задача, решённая после неё, считается решённой с подсказкой.
+  // Одна запись на задачу и вид за время работы страницы.
+  const revealed = new Set();
+  function saveReveal(t, kind) {
+    if (!window.tgApi || revealed.has(kind + t.id)) return;
+    revealed.add(kind + t.id);
+    (window.tgReveals || (window.tgReveals = [])).unshift([t.id, kind, Math.floor(Date.now() / 1000)]);
+    window.tgApi('reveal', { task_id: t.id, kind });
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
@@ -365,6 +401,7 @@
     renderProgress();
     document.querySelectorAll('#list article.task').forEach((el, i) => markCard(el, found[i]));
     syncFav();
+    renderMistakes();
   }
 
   function showMore() {
@@ -383,13 +420,16 @@
     found = view ? view.ids.map(id => byId[id]).filter(Boolean) : bank.filter(t => matches(t, st));
     $('count').textContent = `Найдено задач: ${found.length} из ${bank.length}`;
     $('viewbar').hidden = !view;
-    if (view) $('view-title').textContent = view.fav ? `★ Избранное: задач ${found.length}` : `Домашнее задание «${view.title}»: задач ${found.length}`;
+    if (view) $('view-title').textContent = view.fav ? `★ Избранное: задач ${found.length}`
+      : view.err ? `✗ Работа над ошибками: с ошибками ${view.err}, похожих ${found.length - view.err}`
+      : `Домашнее задание «${view.title}»: задач ${found.length}`;
     $('list').innerHTML = '';
     shown = 0;
     $('status').textContent = found.length ? '' : 'Ничего не нашлось. Попробуйте убрать часть фильтров.';
     showMore();
     renderPick();
     renderFav();
+    renderMistakes();
   }
 
   async function init() {
@@ -416,6 +456,12 @@
     $('view-close').addEventListener('click', applyAll);
     $('fav-open').addEventListener('click', () => {
       view = { fav: true, ids: fav.get() };
+      apply();
+      $('viewbar').scrollIntoView({ behavior: 'smooth' });
+    });
+    $('err-open').addEventListener('click', () => {
+      const m = mistakes();
+      view = { err: m.wrong.length, ids: [...m.wrong, ...m.similar] };
       apply();
       $('viewbar').scrollIntoView({ behavior: 'smooth' });
     });

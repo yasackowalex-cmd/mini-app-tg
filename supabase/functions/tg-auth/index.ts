@@ -6,12 +6,14 @@
 //   action "hw_open", id — ученик открыл ссылку на ДЗ; "hw_list" — ДЗ ученика (mine) и заданные учителем (given);
 //   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам; "hw_delete" (учитель), id — удалить ДЗ;
 //   action "teacher" (учитель) — кабинет: все его ДЗ, их ученики и результаты, итоги пробников всех учеников (exams),
+//     в results по паре «ДЗ — ученик»: ok (решены верно), из них retry (после неверного ответа) и help (после подсказки или ответа), bad;
 //     все ученики (students) и журнал ответов каждого (logs: {tg_id: [[task_id, 1|0, unix-время], ...]} от новых к старым);
 //   action "exam_save", started, finished (мс), task_ids, p1, p2, graded — итог пробного варианта ЕГЭ.
 // Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
 //   action "progress" — {"ok": true, "tasks": {"<task_id>": {"n": попыток, "ok": верных}},
 //     "log": [[task_id, 1|0 (верно), unix-время], ...] от новых к старым, "fav": [task_id, ...] избранное, новые первыми};
+//   action "reveal", task_id, kind ("hint" | "answer") — ученик открыл подсказку или ответ (в progress — reveals: [[task_id, kind, unix]]);
 //   action "fav_set", task_id, on — добавить задачу в избранное (on: true) или убрать (on: false).
 //   action "join", code — ученик открыл личную ссылку учителя t.me/<бот>?startapp=t_<код>: он становится «его учеником»;
 //   action "my_set" (учитель), tg_id, on — отметить ученика своим или убрать из своих.
@@ -151,7 +153,18 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const f = await pages(() => db.from('favorites').select('task_id').eq('tg_id', user.id)
       .order('created_at', { ascending: false }).order('task_id'));
     const fav = f.error ? null : (f.data ?? []).map(r => r.task_id);
-    return [200, { ok: true, tasks, log, fav }];
+    // открытые подсказки и ответы (для звёзд за ДЗ); без таблицы reveals — null
+    const rv = await pages(() => db.from('reveals').select('task_id, kind, created_at').eq('tg_id', user.id).order('id', { ascending: false }));
+    const reveals = rv.error ? null : (rv.data ?? []).map(r => [r.task_id, r.kind, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+    return [200, { ok: true, tasks, log, fav, reveals }];
+  }
+
+  if (action === 'reveal') {
+    const task_id = String(body.task_id || '').slice(0, 100);
+    if (!task_id || !['hint', 'answer'].includes(body.kind)) return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('reveals').insert({ tg_id: user.id, task_id, kind: body.kind });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
   }
 
   if (action === 'fav_set') {
@@ -314,7 +327,7 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     if (e5) return [500, { ok: false, error: 'db' }];
     const logs: Record<string, [string, number, number][]> = {};
     for (const r of all ?? []) (logs[r.tg_id] ??= []).push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
-    let at: any[] = [];
+    let at: any[] = [], rv: any[] = [];
     if (sids.length) {
       const tasks = [...new Set(homework.flatMap((h: any) => h.task_ids))];
       const since = homework[homework.length - 1].created_at;
@@ -322,17 +335,29 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
         .in('tg_id', sids).in('task_id', tasks).gte('created_at', since).order('id', { ascending: true }));
       if (e4) return [500, { ok: false, error: 'db' }];
       at = data ?? [];
+      // подсказки и ответы, открытые после выдачи ДЗ; без таблицы reveals (миграция 007) — без них
+      const r = await pages(() => db.from('reveals').select('tg_id, task_id, created_at')
+        .in('tg_id', sids).in('task_id', tasks).gte('created_at', since).order('id', { ascending: true }));
+      if (!r.error) rv = r.data ?? [];
     }
     const byHw = Object.fromEntries(homework.map((h: any) => [h.id, h]));
-    const results: Record<string, Record<string, { ok: string[]; bad: string[] }>> = {};
+    // по задаче ДЗ: решена ли верно и что было до первого верного ответа — неверные ответы (retry)
+    // или открытая подсказка/ответ (help); учитываются только события после выдачи ДЗ
+    const results: Record<string, Record<string, { ok: string[]; bad: string[]; retry: string[]; help: string[] }>> = {};
     for (const l of links) {
-      const h = byHw[l.hw_id], ok = new Set<string>(), tried = new Set<string>();
+      const h = byHw[l.hw_id], first = new Map<string, string>(), tried = new Set<string>(), wrong = new Set<string>();
+      const mine = (x: any) => x.tg_id === l.tg_id && x.created_at >= h.created_at && h.task_ids.includes(x.task_id);
       for (const a of at) {
-        if (a.tg_id !== l.tg_id || a.created_at < h.created_at || !h.task_ids.includes(a.task_id)) continue;
+        if (!mine(a)) continue;
         tried.add(a.task_id);
-        if (a.correct) ok.add(a.task_id);
+        if (a.correct && !first.has(a.task_id)) first.set(a.task_id, a.created_at);
+        if (!a.correct && !first.has(a.task_id)) wrong.add(a.task_id);
       }
-      (results[l.hw_id] ??= {})[l.tg_id] = { ok: [...ok], bad: [...tried].filter(t => !ok.has(t)) };
+      const ok = [...first.keys()];
+      const help = ok.filter(t => rv.some(r => mine(r) && r.task_id === t && r.created_at <= first.get(t)!));
+      (results[l.hw_id] ??= {})[l.tg_id] = {
+        ok, bad: [...tried].filter(t => !first.has(t)), help, retry: ok.filter(t => wrong.has(t) && !help.includes(t)),
+      };
     }
     // свои ученики; без таблицы my_students (миграция 006 не выполнена) — null, и кабинет показывает всех
     const { data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000);
