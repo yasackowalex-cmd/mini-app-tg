@@ -5,7 +5,7 @@
   'use strict';
   const BOT = 'physics_is_phun_bot';
   const $ = id => document.getElementById(id);
-  const { pick } = window.taskRender;
+  const { pick, hwStars, starsText } = window.taskRender;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const link = id => `https://t.me/${BOT}?startapp=hw_${id}`;
   const date = s => new Date(s).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
@@ -19,11 +19,29 @@
     else if (navigator.clipboard) navigator.clipboard.writeText(url);
   }
 
+  // Итог ученика по ДЗ, как у учителя в кабинете: решённые верно после выдачи ДЗ и из них решённые
+  // после подсказки или показанного ответа (они стоят звезду).
+  function hwResult(hw, ids) {
+    const since = Date.parse(hw.created_at) / 1000, log = window.tgLog || [], rv = window.tgReveals || [];
+    let ok = 0, help = 0;
+    for (const id of ids) {
+      let first = null;
+      for (const e of log) if (e[0] === id && e[1] && e[2] >= since) first = e[2]; // журнал от новых к старым
+      if (first === null) continue;
+      ok++;
+      if (rv.some(r => r[0] === id && r[2] >= since && r[2] <= first)) help++;
+    }
+    return { ok, help };
+  }
+
   function hwItem(hw) {
     const v = window.bankView, ids = hw.task_ids.filter(v.has);
-    const done = ids.filter(v.solved).length;
+    const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help);
+    const res = st ? `<span class="stars" title="Звёзды за ДЗ: 3 — всё сам, подсказки и показанные ответы стоят звезду">${starsText(st)}</span>`
+      : `решено ${r.ok} из ${ids.length}`;
     return `<li class="hwi" data-id="${esc(hw.id)}">
-      <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt">${date(hw.created_at)} · задач ${ids.length} · решено ${done} из ${ids.length}</span></div>
+      <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
+      ${st ? '' : `<p class="cnt">Реши все задачи, чтобы получить звёзды. Подсказки можно брать, но каждая может стоить звезду.</p>`}
       <div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button></div>
     </li>`;
   }

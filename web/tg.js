@@ -45,6 +45,7 @@
     window.tgProgress = res.tasks || {};
     window.tgLog = Array.isArray(res.log) ? res.log : null;
     window.tgFav = Array.isArray(res.fav) ? res.fav : null;
+    window.tgReveals = Array.isArray(res.reveals) ? res.reveals : [];
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 

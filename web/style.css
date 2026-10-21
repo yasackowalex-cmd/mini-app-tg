@@ -143,6 +143,10 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .hwr tbody th { text-align: left; font-weight: 400; white-space: nowrap; }
 .hwr td.ok { color: #1E7B3A; background: #E3F6E8; }
 .hwr td.bad { color: #B3261E; background: #FDECEA; }
+.hwr td.retry { color: #9A6B00; background: #FFF4CC; }
+.hwr td.help { background: #FFF4CC; }
+.retryc { color: #9A6B00; }
+.stars { color: #E8A200; letter-spacing: 1px; white-space: nowrap; }
 .hwr td.sum { font-weight: 700; }
 
 /* вкладки учителя и кабинет */

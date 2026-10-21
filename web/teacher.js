@@ -15,7 +15,9 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, KIM_POINTS } = window.taskRender;
+  const { testScore, KIM_POINTS, hwStars, starsText } = window.taskRender;
+  // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
+  const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
   const KIMS = Object.keys(KIM_POINTS);
 
   // постоянные пробные варианты: номер варианта узнаём по составу задач
@@ -137,10 +139,13 @@
   function hwDetail(hw, rows) {
     const ids = hw.task_ids;
     const table = rows.length ? `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${ids.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
-      rows.map(({ s, r }) => `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
-        r.ok.includes(t) ? '<td class="ok">✓</td>' : r.bad.includes(t) ? '<td class="bad">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${ids.length}</td></tr>`).join('')
+      rows.map(({ s, r }) => { const st = starsOf(r, ids.length); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
+        (r.help || []).includes(t) ? '<td class="help" title="решена после подсказки или ответа">💡</td>'
+        : (r.retry || []).includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
+        : r.ok.includes(t) ? '<td class="ok" title="решена сам с первой попытки">✓</td>'
+        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${ids.length}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
       }</tbody></table></div>
-      <p class="muted small">✓ решена верно, ✗ были только неверные ответы, · не решал. Учитываются ответы после выдачи ДЗ.</p>`
+      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Учитываются ответы после выдачи ДЗ. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`
       : '<p class="muted small">Ссылку ещё никто не открыл.</p>';
     const del = confirmDel === hw.id
       ? `<button class="btn danger" type="button" data-act="del-yes">Точно удалить</button><button class="btn" type="button" data-act="del-no">Отмена</button>`
@@ -193,7 +198,7 @@
         </button>${open ? `<div class="t-detail"><ul class="t-sub">${hws.map((hw, i) => {
           const r = data.results[hw.id][s.tg_id], n = hw.task_ids.length, p = ps[i];
           return `<li><span>${esc(hw.title)} <span class="cnt">${day(hw.created_at)}</span></span>
-            <span class="cnt ${p === 100 ? 'okc' : r.ok.length + r.bad.length === 0 ? 'badc' : ''}">${r.ok.length} из ${n}${r.bad.length ? `, ошибок ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
+            <span class="cnt ${p === 100 ? 'okc' : r.ok.length + r.bad.length === 0 ? 'badc' : ''}">${starsOf(r, n) ? `<span class="stars">${starsText(starsOf(r, n))}</span> ` : ''}${r.ok.length} из ${n}${r.bad.length ? `, ошибок ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>${bar(p)}</li>`;
         }).join('')}</ul>${myBtn(s)}</div>` : ''}</li>`;
     }).join('')}</ul>`;
   }

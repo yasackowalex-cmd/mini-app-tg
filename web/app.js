@@ -127,6 +127,7 @@
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
       part.hidden = !part.hidden;
       b.setAttribute('aria-expanded', String(!part.hidden));
+      if (!part.hidden) saveReveal(t, b.dataset.show === 'solution' ? 'hint' : 'answer');
     });
     const f = el.querySelector('form.try');
     if (f) f.addEventListener('submit', e => {
@@ -272,6 +273,16 @@
     renderProgress();
     renderMistakes();
     document.dispatchEvent(new CustomEvent('tg-attempt'));
+  }
+
+  // Открытая подсказка или ответ (в Телеграме): для ДЗ задача, решённая после неё, считается решённой с подсказкой.
+  // Одна запись на задачу и вид за время работы страницы.
+  const revealed = new Set();
+  function saveReveal(t, kind) {
+    if (!window.tgApi || revealed.has(kind + t.id)) return;
+    revealed.add(kind + t.id);
+    (window.tgReveals || (window.tgReveals = [])).unshift([t.id, kind, Math.floor(Date.now() / 1000)]);
+    window.tgApi('reveal', { task_id: t.id, kind });
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
