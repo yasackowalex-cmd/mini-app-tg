@@ -11,6 +11,7 @@ on:
       - 'scripts/**'
       - 'topics.csv'
       - 'exams/**'
+      - 'lessons/**'
       - 'web/**'
       - '.github/workflows/build-bank.yml'
   workflow_dispatch:

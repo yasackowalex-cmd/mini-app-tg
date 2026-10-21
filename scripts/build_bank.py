@@ -171,6 +171,32 @@ def main():
     with open(os.path.join(os.path.dirname(a.out), 'topics.json'), 'w', encoding='utf-8', newline='\n') as f:
         json.dump(topics, f, ensure_ascii=False, indent=1)
 
+    # уроки по темам (lessons/<тема>.md, scripts/import_lesson.py): конспект, видео, задачи ДЗ из банка
+    lessons = []
+    by_id = {t['id'] for t in tasks}
+    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md'))):
+        rel = os.path.relpath(f, ROOT)
+        L = parse_md(f)
+        code = L['topic'].replace('.', '_')
+        raw = open(f, encoding='utf-8').read()
+        m = re.search(r'## Конспект\n(.*?)(?=\n## |\Z)', raw, re.S)
+
+        def img(m, rel=rel, code=code):
+            # [[рис N]] — чертёж TikZ из этого файла, [[файл имя]] — картинка из assets/lessons/
+            name = f'lesson_{code}_{m.group(1)}.svg' if m.group(1) else 'lessons/' + m.group(2)
+            if not os.path.exists(os.path.join(a.assets, name)):
+                problems.append((rel, f'нет картинки {name}'))
+                return ''
+            return f'[[img {versioned(a.assets, "assets/" + name, name)}]]'
+        text = re.sub(r'\[\[рис (\d+)\]\]|\[\[файл ([^\]]+)\]\]', img, m.group(1).strip() if m else '')
+        hw = [i for i in (L.get('hw') or []) if i in by_id]
+        for i in set(L.get('hw') or []) - by_id:
+            problems.append((rel, f'задачи ДЗ {i} нет в банке'))
+        lessons.append({'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
+                        'video': L.get('video') or [], 'hw': hw, 'conspect': text})
+    with open(os.path.join(os.path.dirname(a.out), 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(lessons, f, ensure_ascii=False, indent=1)
+
     stamp_index()
     print(f"ЗАДАЧ В БАНКЕ: {len(tasks)}  →  {os.path.relpath(a.out, ROOT)}")
     print(f"с topic: {sum(1 for t in tasks if t.get('topic') not in (None, '', 'TODO'))}, "

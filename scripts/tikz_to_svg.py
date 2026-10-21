@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg
+Компиляция чертежей TikZ из банка в SVG: bank/**/*.md → assets/<id>_<n>.svg,
+конспекты уроков lessons/<тема>.md → assets/lesson_<тема>_<n>.svg
 (чертежи из «## Решение» → assets/<id>_s<n>.svg).
 Каждый блок ```latex из раздела «## Рисунок (TikZ)» собирается отдельным
 standalone-документом: latex → .dvi → dvisvgm (шрифты превращаются в контуры,
@@ -86,6 +87,11 @@ def main():
             pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
         for i, src in enumerate(t['sol_tikz'], 1):  # чертежи в решении
             pics[f"{t['id']}_s{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
+    # чертежи конспектов уроков: lessons/<тема>.md → lesson_<тема через _>_<n>.svg
+    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md'))):
+        t = parse_md(f)
+        for i, src in enumerate(t['tikz'], 1):
+            pics[f"lesson_{t['topic'].replace('.', '_')}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
 
     todo = [n for n, (src, h) in pics.items()
             if (not a.only or n.startswith(a.only + '_'))

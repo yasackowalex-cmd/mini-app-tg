@@ -33,6 +33,8 @@
   }
 
   function writeHash(st) {
+    // урок (lesson.js) живёт в адресе сам по себе: #lesson=<тема>
+    if (view && view.lesson) { history.replaceState(null, '', '#lesson=' + view.lesson); return; }
     const p = new URLSearchParams();
     Object.entries(st).forEach(([k, v]) => { if (v) p.set(k, v); });
     const h = p.toString();
@@ -422,6 +424,7 @@
     $('viewbar').hidden = !view;
     if (view) $('view-title').textContent = view.fav ? `★ Избранное: задач ${found.length}`
       : view.err ? `✗ Работа над ошибками: с ошибками ${view.err}, похожих ${found.length - view.err}`
+      : view.lesson ? `Домашнее задание к уроку ${view.lesson}: задач ${found.length}`
       : `Домашнее задание «${view.title}»: задач ${found.length}`;
     $('list').innerHTML = '';
     shown = 0;
@@ -430,6 +433,18 @@
     renderPick();
     renderFav();
     renderMistakes();
+    if (window.lessonView) window.lessonView.show(view && view.lesson);
+  }
+
+  // #lesson=<тема> в адресе → урок: шапка с конспектом (lesson.js) и задачи его ДЗ вместо фильтров
+  const lessonInHash = () => new URLSearchParams(location.hash.slice(1)).get('lesson');
+  async function openLesson(topic = lessonInHash()) {
+    const L = topic && window.lessonView ? await window.lessonView.get(topic) : null;
+    if (!L) return false;
+    view = { lesson: L.topic, ids: L.hw };
+    apply();
+    window.scrollTo(0, 0);
+    return true;
   }
 
   async function init() {
@@ -472,13 +487,16 @@
       apply();
     });
     $('more').addEventListener('click', showMore);
-    window.addEventListener('hashchange', () => {
+    window.addEventListener('hashchange', async () => {
+      if (await openLesson()) return;
       const h = readHash();
       $('q').value = h.q;
       fillSelects(h);
       applyAll();
     });
+    const lesson = lessonInHash();   // apply() перепишет адрес, поэтому урок читаем до него
     apply();
+    if (lesson) openLesson(lesson);
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
     // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
