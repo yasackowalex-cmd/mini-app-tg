@@ -60,6 +60,11 @@
   const TEST_SCALE = [0, 5, 9, 14, 18, 23, 27, 32, 36, 39, 41, 43, 44, 46, 48, 49, 51, 53, 54, 56, 58, 59, 61, 62, 64, 65, 67, 68, 70, 71, 73, 74, 76, 77, 79, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100];
   const testScore = p => TEST_SCALE[Math.max(0, Math.min(45, Math.round(p)))];
 
+  // Звёзды за ДЗ (0–3): только когда решены все n задач. Ошибки звёзд не стоят, подсказки и показанные
+  // ответы — стоят: без них 3, если они понадобились не больше чем в трети задач — 2, иначе 1.
+  const hwStars = (n, ok, help) => !n || ok < n ? 0 : !help ? 3 : help <= n / 3 ? 2 : 1;
+  const starsText = k => '★'.repeat(k) + '☆'.repeat(3 - k);
+
   const answerHtml = t => t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
 
   // Списки задач в браузере: id в порядке добавления. Если хранилище недоступно, список живёт до перезагрузки.
@@ -74,5 +79,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText };
 })();
