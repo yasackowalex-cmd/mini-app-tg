@@ -282,7 +282,7 @@ a.btn { text-decoration: none; display: inline-block; }
 .lbox.solutionbox .lbox-t { background: #1B1F3B; }
 .lbox.critbox { border-color: #FF6B35; background: #fff; }
 .lbox.critbox .lbox-t { background: #FF6B35; }
-.kf { border: 1.5px solid #0066FF; border-radius: 8px; padding: 6px 10px; margin: 10px auto; width: fit-content; max-width: 100%; overflow-x: auto; background: #fff; }
+.kf { border: 1.5px solid #0066FF; border-radius: 8px; padding: 8px 10px; margin: 10px auto; width: fit-content; max-width: 100%; overflow-x: auto; overflow-y: hidden; background: #fff; }
 .kf .katex-display { margin: 0; }
 .lfig { text-align: center; margin: 10px 0; }
 .lfig img { max-width: 100%; height: auto; }

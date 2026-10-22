@@ -61,7 +61,8 @@
       .replace(/---/g, '—').replace(/--/g, '–')
       .replace(/\\\\(?:\[[^\]]*\])?/g, '\u0003')
       .replace(/\\([%&#_$])/g, '$1')
-      .replace(/\\,/g, '&thinsp;');
+      .replace(/\\,/g, '&thinsp;')
+      .replace(/\\ /g, ' ');   // «\ » — обычный пробел
   }
 
   function texToHtml(src) {
