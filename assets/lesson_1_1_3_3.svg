@@ -28,9 +28,9 @@
 <use x='-49.352556' y='11.213671' xlink:href='#g1-118'/>
 <use x='-44.523425' y='12.708052' xlink:href='#g2-120'/>
 </g>
-<path d='M-49.351562-44.9141L69.1364 48.6328' stroke='#ff6b35' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
 <path d='M-49.351562 11.214843V-44.9141L21.7422 11.214843Z' fill='#e8f1ff' fill-opacity='.8'/>
 <path d='M21.7422 11.214843H62.9024V46.7617Z' fill='#ffe1d7'/>
+<path d='M-49.351562-44.9141L69.1364 48.6328' stroke='#ff6b35' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
 <path d='M62.9024 11.214843V46.7617' stroke='#828493' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <g transform='matrix(1 0 0 1 -17.3354 -54.7295)'>
 <use x='-49.352556' y='11.213671' xlink:href='#g1-118'/>

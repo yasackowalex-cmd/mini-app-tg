@@ -116,10 +116,14 @@
     });
   }
 
+  // 1 задание, 2 задания, 5 заданий
+  const tasksWord = n => n % 10 === 1 && n % 100 !== 11 ? 'задание'
+    : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'задания' : 'заданий';
+
   function renderList() {
     $('lessons-list').innerHTML = list.length ? `<h2>Уроки по темам</h2>
       <div class="lpick">${list.map(L => `<a class="lbtn" href="#lesson=${esc(L.topic)}"><b>${esc(L.topic)}</b> ${esc(L.title)}
-        <small>${L.video.length ? 'видео · ' : ''}конспект${L.hw.length ? ` · ДЗ: ${L.hw.length}` : ''}</small></a>`).join('')}</div>`
+        <small>${L.video.length ? 'видео · ' : ''}конспект${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}</small></a>`).join('')}</div>`
       : '<p class="status">Уроков пока нет.</p>';
   }
 

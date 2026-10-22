@@ -87,7 +87,7 @@ def import_chapter(path, topic):
     m = re.search(r'\\begin\{center\}(.*?)\\end\{center\}', body, re.S)
     if m and 'Глава' in m.group(1):
         head = m.group(1)
-        t = re.search(r'Глава\s+[\d.]+\.?\s*(.*?)\}', head)
+        t = re.search(r'Глава\s+[\d.]+\.?\s*(.*?)\s*(?:\}|\\\\|\n)', head)
         title = t.group(1).strip() if t else ''
         k = re.search(r'ключевые понятия:\s*(.*)', head, re.S)
         kw = re.sub(r'\s+', ' ', k.group(1)).strip() if k else ''
@@ -149,6 +149,8 @@ def guess_answer(task, sol):
     if not sol: return ''
     txt, full = sol
     if full or (task['kim'] or 0) >= 21: return ''
+    m = re.search(r'ответ:\s*\\textbf\{(\d+)\}', txt)   # «Время — 3, дальность — 1 (ответ: \textbf{31})»
+    if m: return m.group(1)
     if re.search(r'выбер', task['text'], re.I):
         m = re.match(r'\s*\\textbf\{([\d\s,и]+)\.?\}', txt)
         if m: return re.sub(r'\D', '', m.group(1))
@@ -172,7 +174,7 @@ def task_type(task):
     k = task['kim'] or 0
     if k >= 22: return 'расчётная (часть 2)'
     if k == 21: return 'качественная'
-    if re.search(r'выбер|соответстви|как измен', task['text'], re.I): return 'соответствие/выбор'
+    if re.search(r'выбер|соответстви|как измен|характер изменения', task['text'], re.I): return 'соответствие/выбор'
     return 'расчётная'
 
 
