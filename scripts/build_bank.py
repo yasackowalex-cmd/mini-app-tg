@@ -206,7 +206,7 @@ def main():
         for i in set(L.get('hw') or []) - by_id - set(own):
             problems.append((rel, f'задачи ДЗ {i} нет ни в банке, ни в lessons/tasks'))
         lessons.append({'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
-                        'video': L.get('video') or [], 'hw': hw, 'conspect': text,
+                        'video': L.get('video') or [], 'hw': hw, 'conspect': text, 'label': L.get('label') or 'Конспект',
                         # свои задачи урока (темы, где в банке мало задач): только в уроке, в банк не попадают
                         'tasks': [own[i] for i in hw if i in own]})
     with open(os.path.join(os.path.dirname(a.out), 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:

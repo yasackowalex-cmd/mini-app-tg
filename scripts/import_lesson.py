@@ -65,12 +65,20 @@ def clean(s):
     s = re.sub(r'\\\\\[[^\]]*\]', r'\\\\', s)
     # «\vec v\,'» KaTeX не разбирает (штрих после отступа) — штрих к группе: {\vec v}'
     s = re.sub(r"(\\vec\s*\w)\\,'", r"{\1}'", s)
-    # «{\small …}» — размер шрифта для печати; на сайте скобки остались бы в тексте
-    while (m := re.search(r'\{\\(?:small|footnotesize|scriptsize|large|Large)(?![a-zA-Z])\s*', s)):
-        d, j = 1, m.end()
-        while j < len(s) and d:
-            d += {'{': 1, '}': -1}.get(s[j], 0); j += 1
-        s = s[:m.start()] + s[m.end():j - 1] + s[j:]
+    # «{\small …}» — размер шрифта для печати; на сайте скобки остались бы в тексте.
+    # В чертежах не трогаем: там это подпись узла, node{…} без скобок не собирается.
+    parts = re.split(r'(\\begin\{tikzpicture\}.*?\\end\{tikzpicture\})', s, flags=re.S)
+    for k in range(0, len(parts), 2):
+        t = parts[k]
+        while (m := re.search(r'\{\\(?:small|footnotesize|scriptsize|large|Large)(?![a-zA-Z])\s*', t)):
+            d, j = 1, m.end()
+            while j < len(t) and d:
+                d += {'{': 1, '}': -1}.get(t[j], 0); j += 1
+            t = t[:m.start()] + t[m.end():j - 1] + t[j:]
+        parts[k] = t
+    s = ''.join(parts)
+    s = re.sub(r'\\shead\{', r'\\subsection{', s)                 # заголовки шпаргалки
+    s = re.sub(r'\{\\color\{[^}]*\}\\rule\{[^}]*\}\{[^}]*\}\}', '', s)  # цветная линия под шапкой
     s = s.replace('\\emph{Сначала на пальцах.} ', '')    # владелец: эту фразу не используем
     return s
 
@@ -95,7 +103,7 @@ def import_chapter(path, topic):
     body = clean(body_of(open(path, encoding='utf-8').read()))
     title, kw = '', ''
     m = re.search(r'\\begin\{center\}(.*?)\\end\{center\}', body, re.S)
-    if m and 'Глава' in m.group(1):
+    if m and re.search(r'Глава|Шпаргалка', m.group(1)):
         head = m.group(1)
         t = re.search(r'Глава\s+[\d.]+\.?\s*(.*?)\s*(?:\}|\\\\|\n)', head)
         title = t.group(1).strip() if t else ''
@@ -184,7 +192,7 @@ def task_type(task):
     k = task['kim'] or 0
     if k >= 22: return 'расчётная (часть 2)'
     if k == 21: return 'качественная'
-    if re.search(r'выбер|соответстви|как измен|характер изменения', task['text'], re.I): return 'соответствие/выбор'
+    if re.search(r'выбер|соответстви|как измен|характер\s+(?:её\s+)?изменени', task['text'], re.I): return 'соответствие/выбор'
     return 'расчётная'
 
 
@@ -195,7 +203,7 @@ def words(text):
     return {w.lower()[:6] for w in WORD.findall(re.sub(r'\\[a-zA-Z]+', ' ', text))}
 
 
-def pick_from_bank(t, bank, used):
+def pick_from_bank(t, bank, used, min_sim=0.0):
     """Задача банка вместо задачи ДЗ: та же тема и номер КИМ, тот же вид (выбор или расчёт),
     рисунок, если он был; из подходящих — самая близкая по словам условия."""
     if not t['kim']: return None
@@ -203,8 +211,10 @@ def pick_from_bank(t, bank, used):
     ty = task_type(t)
     cand = [b for b in bank if b['id'] not in used and str(b.get('kim')) == str(t['kim'])
             and b.get('type') == ty and 'ВНЕ_ЕГЭ_2027' not in (b.get('tags') or [])]
-    if not cand: return None
     w = words(t['text'])
+    if min_sim:
+        cand = [b for b in cand if len(w & words(b.get('condition', ''))) / (len(w | words(b.get('condition', ''))) or 1) >= min_sim]
+    if not cand: return None
     jac = lambda x, y: len(x & y) / (len(x | y) or 1)
     picked = [words(x.get('condition', '')) for x in bank if x['id'] in used]
     def score(b):
@@ -228,7 +238,15 @@ def main():
     # исходного ДЗ — задача банка того же номера КИМ; если подходящей в банке нет (или задача
     # без номера КИМ), остаётся своя задача ДЗ: lessons/tasks/<id>.md, в банк она не попадает.
     bank_path = os.path.join(ROOT, 'out', 'bank.json')
-    bank = [b for b in json.load(open(bank_path, encoding='utf-8')) if b.get('topic') == topic] if os.path.exists(bank_path) else []
+    full = json.load(open(bank_path, encoding='utf-8')) if os.path.exists(bank_path) else []
+    bank = [b for b in full if b.get('topic') == topic]
+    min_sim = 0.0
+    if not bank:
+        # своих задач у темы в банке нет (РЗ-марафон по разделу) — ищем по всему разделу (1.1.*),
+        # но берём только задачи, заметно похожие на задачу ДЗ
+        pre = topic.rsplit('.', 1)[0] + '.'
+        bank = [b for b in full if str(b.get('topic', '')).startswith(pre)]
+        min_sim = 0.2
     used = set()
     hw_ids = []
     hw = glob.glob(os.path.join(a.src, f'{code}_hw.tex'))
@@ -236,7 +254,7 @@ def main():
         tasks, sols = import_hw(hw[0])
         os.makedirs(os.path.join(ROOT, 'lessons', 'tasks'), exist_ok=True)
         for t in tasks:
-            b = pick_from_bank(t, bank, used)
+            b = pick_from_bank(t, bank, used, min_sim)
             if b:
                 used.add(b['id']); hw_ids.append(b['id'])
                 report.append(f"№{t['n']} → из банка {b['id']}")
@@ -279,11 +297,16 @@ def main():
             open(out, 'w', encoding='utf-8', newline='\n').write(md)
 
     ch = glob.glob(os.path.join(a.src, f'{code}_chapter.tex'))
+    sheet = not ch and glob.glob(os.path.join(a.src, f'{code}_cheatsheet.tex'))
+    if sheet: ch = sheet   # конспекта нет (РЗ-марафон) — на его месте шпаргалка
     out = os.path.join(ROOT, 'lessons', topic + '.md')
     if ch and (a.force or not os.path.exists(out)):
         old = open(out, encoding='utf-8').read() if os.path.exists(out) else ''
         video = re.search(r'^video: (.*)$', old, re.M)   # ссылки на видео при повторном переносе не теряем
         title, kw, body, pics = import_chapter(ch[0], topic)
+        if sheet:
+            m = re.search(r'^title: "(.*)"$', old, re.M)
+            title = m.group(1) if m else ''
         os.makedirs(os.path.dirname(out), exist_ok=True)
         files = re.findall(r'\[\[файл ([^\]]+)\]\]', body)
         if files:
@@ -297,10 +320,11 @@ def main():
             body = re.sub(r'\[\[файл ([^\]]+)\]\]', lambda m: f'[[файл {code}_{m.group(1)}]]', body)
         head = [('topic', topic), ('title', f'"{title}"'), ('keywords', f'"{kw}"'),
                 ('video', video.group(1) if video else '[]'), ('hw', '[' + ', '.join(hw_ids) + ']')]
+        if sheet: head.append(('label', '"Шпаргалка"'))
         md = '---\n' + '\n'.join(f'{k}: {v}' for k, v in head) + '\n---\n\n## Конспект\n\n' + body + '\n'
         if pics: md += '\n## Рисунок (TikZ)\n\n' + latex_blocks(pics) + '\n'
         open(out, 'w', encoding='utf-8', newline='\n').write(md)
-    print(f'{topic}: задач ДЗ {len(hw_ids)}, конспект {"есть" if ch else "нет"}')
+    print(f'{topic}: задач ДЗ {len(hw_ids)}, {"шпаргалка" if sheet else "конспект"} {"есть" if ch else "нет"}')
     for r in report: print('  ' + r)
 
 

@@ -99,7 +99,7 @@
       <h2>Урок ${esc(L.topic)}. ${esc(L.title)}</h2>
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
-      <details class="lconspect" open><summary>Конспект</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
+      <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
       ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
       ${next ? `<p class="lnext"><a class="btn" href="#lesson=${esc(next.topic)}">Следующий урок: ${esc(next.topic)} ${esc(next.title)} →</a></p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
@@ -123,7 +123,7 @@
   function renderList() {
     $('lessons-list').innerHTML = list.length ? `<h2>Уроки по темам</h2>
       <div class="lpick">${list.map(L => `<a class="lbtn" href="#lesson=${esc(L.topic)}"><b>${esc(L.topic)}</b> ${esc(L.title)}
-        <small>${L.video.length ? 'видео · ' : ''}конспект${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}</small></a>`).join('')}</div>`
+        <small>${L.video.length ? 'видео · ' : ''}${esc((L.label || 'Конспект').toLowerCase())}${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}</small></a>`).join('')}</div>`
       : '<p class="status">Уроков пока нет.</p>';
   }
 
