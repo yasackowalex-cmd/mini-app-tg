@@ -1307,20 +1307,20 @@
   ],
   "source": "Демидова, ЕГЭ-2024, 30 вариантов (вариант 25)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-0.15,0) rectangle (0,2.1); \\draw[thick] (0,0) -- (0,2.1);\n  \\fill[pattern=north east lines] (2.6,0) rectangle (2.75,2.1); \\draw[thick] (2.6,0) -- (2.6,2.1);\n  \\fill[pattern=north east lines] (-0.15,-0.15) rectangle (2.75,0); \\draw[thick] (-0.15,0) -- (2.75,0);\n  \\draw[very thick] (0,1.5) -- (2.6,0);\n  \\draw (0,1.05) arc (270:300:0.45); \\node at (0.15,0.85) {$\\alpha$};\n  \\draw[thin] (0.866,1.0) -- (0.866,0.75); \\draw[thick, fill=white] (0.866,0.65) circle (0.1);\n\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0.866,0.65) -- node[left, pos=0.55] {$m\\vec g$} (0.866,0.05);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.6,0.06) -- (2.0,0.06) node[above] {$\\vec N$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.5, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-0.18,-0.18) rectangle (0,1.9); \\draw[thick] (0,0) -- (0,1.9);\n  \\fill[pattern=north east lines] (2.6,-0.18) rectangle (2.78,1.9); \\draw[thick] (2.6,0) -- (2.6,1.9);\n  \\fill[pattern=north east lines] (-0.18,-0.18) rectangle (2.78,0); \\draw[thick] (0,0) -- (2.6,0);\n  \\draw[very thick] (0,1.5) -- (2.6,0);\n  \\draw (0,1.1) arc (270:300:0.4); \\node at (0.2,0.88) {$\\alpha$};\n  \\draw[thin] (0.866,1.0) -- (0.866,0.82); \\draw[thick, fill=white] (0.866,0.74) circle (0.08);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0.866,0.74) -- node[left, pos=0.6] {$m\\vec g$} (0.866,0.2);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.6,0.07) -- (2.05,0.07) node[above left] {$\\vec N$};\n\\end{tikzpicture}"
   ],
   "condition": "Невесомый стержень длиной $3$~м, находящийся в ящике с гладкими дном и стенками, составляет с вертикалью угол $\\alpha = 60^\\circ$ (см. рисунок). К стержню на расстоянии $2$~м от правого его конца подвешен на нити шар массой $5$~кг. Каков модуль силы нормальной реакции $\\vec N$ правой стенки ящика, действующей на нижний конец стержня?\n\n[[рис 1]]",
   "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.4, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-0.15,0) rectangle (0,2.1); \\draw[thick] (0,0) -- (0,2.1);\n  \\fill[pattern=north east lines] (2.6,0) rectangle (2.75,2.1); \\draw[thick] (2.6,0) -- (2.6,2.1);\n  \\fill[pattern=north east lines] (-0.15,-0.15) rectangle (2.75,0); \\draw[thick] (-0.15,0) -- (2.75,0);\n  \\draw[very thick] (0,1.5) -- (2.6,0);\n  \\draw (0,1.05) arc (270:300:0.45); \\node at (0.15,0.85) {$\\alpha$};\n  \\draw[thin] (0.866,1.0) -- (0.866,0.75); \\draw[thick, fill=white] (0.866,0.65) circle (0.1);\n\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0.866,0.65) -- node[left, pos=0.55] {$m\\vec g$} (0.866,0.05);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.6,0.06) -- (2.0,0.06) node[above] {$\\vec N$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.55,0) -- (2.55,0.7) node[left] {$\\vec N_1$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0,1.5) -- (0.6,1.5) node[above] {$\\vec N_2$};\n  \\fill (0,1.5) circle (1.5pt); \\fill (2.6,0) circle (1.5pt);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.4, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-0.18,-0.18) rectangle (0,1.9); \\draw[thick] (0,0) -- (0,1.9);\n  \\fill[pattern=north east lines] (2.6,-0.18) rectangle (2.78,1.9); \\draw[thick] (2.6,0) -- (2.6,1.9);\n  \\fill[pattern=north east lines] (-0.18,-0.18) rectangle (2.78,0); \\draw[thick] (0,0) -- (2.6,0);\n  \\draw[very thick] (0,1.5) -- (2.6,0);\n  \\draw (0,1.1) arc (270:300:0.4); \\node at (0.2,0.88) {$\\alpha$};\n  \\draw[thin] (0.866,1.0) -- (0.866,0.82); \\draw[thick, fill=white] (0.866,0.74) circle (0.08);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0.866,0.74) -- node[left, pos=0.6] {$m\\vec g$} (0.866,0.2);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.6,0.07) -- (2.05,0.07) node[above left] {$\\vec N$};\n\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.53,0) -- (2.53,0.75) node[left] {$\\vec N_1$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0,1.5) -- (0.6,1.5) node[above] {$\\vec N_2$};\n  \\fill (0,1.5) circle (1.5pt); \\fill (2.6,0) circle (1.5pt);\n\\end{tikzpicture}"
   ],
   "solution": "1. На стержень действуют: сила натяжения нити, равная $mg$ (шар покоится), сила реакции дна $\\vec N_1$ (вверх) и сила реакции правой стенки $\\vec N$ (влево) в нижнем конце, сила реакции левой стенки $\\vec N_2$ (вправо) в верхнем конце. Поверхности гладкие, поэтому реакции перпендикулярны им.\n\n[[рис 1]]\n\n2. Условия равновесия стержня: сумма сил равна нулю,\n$$N_2 - N = 0, \\qquad N_1 - mg = 0,$$\nи сумма моментов относительно любой оси равна нулю.\n\n3. Правило моментов относительно оси, проходящей через нижний конец стержня (моменты сил $\\vec N$ и $\\vec N_1$ равны нулю). Плечо силы $mg$ равно $l\\sin\\alpha$, где $l = 2$~м — расстояние от нижнего конца до точки подвеса; плечо силы $\\vec N_2$ равно $L\\cos\\alpha$:\n$$mgl\\sin\\alpha = N_2L\\cos\\alpha.$$\n\n4. Отсюда\n$$N = N_2 = \\frac{mgl\\,\\text{tg}\\,\\alpha}{L} = \\frac{5 \\cdot 10 \\cdot 2 \\cdot \\sqrt3}{3} \\approx 57{,}7~\\text{Н}.$$",
   "check": "number",
   "file": "01_mechanics/dem24_v25_n22.md",
   "images": [
-   "assets/dem24_v25_n22_1.svg?v=9b4a0e3c"
+   "assets/dem24_v25_n22_1.svg?v=8a7e5561"
   ],
   "solution_images": [
-   "assets/dem24_v25_n22_s1.svg?v=7f0ed67a"
+   "assets/dem24_v25_n22_s1.svg?v=3931056a"
   ]
  },
  {
@@ -1348,7 +1348,7 @@
   ],
   "condition": "К бруску массой $M = 2$~кг прикреплён лёгкий блок (см. рисунок), через него переброшена лёгкая нерастяжимая нить, один конец которой привязан к стене, а к другому прикреплено тело массой $m = 0{,}75$~кг. На брусок действует сила $F = 10$~Н. Определите ускорение тела. Свободные куски нити горизонтальны и лежат в одной вертикальной плоскости, тела двигаются вдоль одной прямой. Массой блока и нити, а также трением пренебречь.\n\n[[рис 1]]\n\nОбоснуйте применимость законов, используемых при решении задачи.",
   "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-1.2,-0.15) rectangle (4.0,0); \\draw[thick] (-1.2,0) -- (4.0,0);\n  \\fill[pattern=north east lines] (3.85,0) rectangle (4.0,1.6); \\draw[thick] (3.85,0) -- (3.85,1.6);\n  \\draw[thick] (0,0) rectangle (1.6,1.4); \\node at (0.8,0.85) {$M$};\n  \\draw[thick, fill=white] (1.6,0.75) rectangle (2.1,0.95);\n  \\draw[thick] (2.1,0.85) circle (0.3);\n  \\draw[thick] (2.1,1.15) -- (3.85,1.15); \\draw[thick] (2.1,0.55) -- (3.0,0.55);\n  \\draw[thick] (3.0,0) rectangle (3.6,0.7); \\node at (3.3,0.32) {$m$};\n  \\draw[-{Stealth[scale=0.9]}, very thick] (0,0.95) -- (-0.9,0.95) node[above right] {$\\vec F$};\n\n  \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (3.0,0.3) -- (2.5,0.3) node[left] {$\\vec T$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (2.42,1.3) -- (2.92,1.3) node[right] {$\\vec T$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (2.42,0.42) -- (2.92,0.42) node[right] {$\\vec T$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (1.2,1.6) -- (0.4,1.6) node[left] {$\\vec a_2$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (3.6,-0.4) -- (2.8,-0.4) node[left] {$\\vec a_1$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\fill[pattern=north east lines] (-1.2,-0.15) rectangle (4.0,0); \\draw[thick] (-1.2,0) -- (4.0,0);\n  \\fill[pattern=north east lines] (3.85,0) rectangle (4.0,1.6); \\draw[thick] (3.85,0) -- (3.85,1.6);\n  \\draw[thick] (0,0) rectangle (1.6,1.4); \\node at (0.8,0.85) {$M$};\n  \\draw[thick, fill=white] (1.6,0.75) rectangle (2.1,0.95);\n  \\draw[thick] (2.1,0.85) circle (0.3);\n  \\draw[thick] (2.1,1.15) -- (3.85,1.15); \\draw[thick] (2.1,0.55) -- (3.0,0.55);\n  \\draw[thick] (3.0,0) rectangle (3.6,0.7); \\node at (3.3,0.32) {$m$};\n  \\draw[-{Stealth[scale=0.9]}, very thick] (0,0.95) -- (-0.9,0.95) node[above right] {$\\vec F$};\n\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (3.0,0.3) -- (2.5,0.3) node[left] {$\\vec T$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (2.1,0.85) -- (2.95,0.85) node[right] {$2\\vec T$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (1.2,1.6) -- (0.4,1.6) node[left] {$\\vec a_2$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (3.6,-0.4) -- (2.8,-0.4) node[left] {$\\vec a_1$};\n\\end{tikzpicture}"
   ],
   "solution": "\\textbf{Обоснование}\n\n1. Систему отсчёта, связанную с Землёй, считаем инерциальной.\n\n2. Брусок и тело движутся поступательно, поэтому описываем их моделью материальной точки. Их движение в инерциальной системе отсчёта описывается вторым законом Ньютона.\n\n3. Нить невесома, блок идеален (его масса ничтожна, трения нет), поэтому модуль силы натяжения нити во всех её точках один и тот же: $T_1 = T_2 = T$.\n\n4. Блок невесом, поэтому сумма сил, действующих на него, равна нулю: брусок действует на блок с силой $2T$, и по третьему закону Ньютона блок действует на брусок с силой $2T$, направленной вправо.\n\n5. Нить нерастяжима: если брусок с блоком смещается влево на $x$, кусок нити между блоком и стеной удлиняется на $x$, а кусок между блоком и телом укорачивается на $x$, поэтому тело смещается влево на $2x$. Значит, ускорение тела вдвое больше ускорения бруска: $a_1 = 2a_2$.\n\n\\textbf{Решение}\n\n[[рис 1]]\n\n1. Второй закон Ньютона в проекциях на горизонтальную ось, направленную влево:\n$$\\text{для тела:}\\ ma_1 = T; \\qquad \\text{для бруска с блоком:}\\ Ma_2 = F - 2T.$$\n\n2. С учётом $a_1 = 2a_2$: $T = 2ma_2$, $Ma_2 = F - 4ma_2$, откуда\n$$a_2 = \\frac{F}{M + 4m}, \\qquad a_1 = 2a_2 = \\frac{2F}{M + 4m} = \\frac{2 \\cdot 10}{2 + 4 \\cdot 0{,}75} = 4~\\text{м/с}^2.$$",
   "check": "number",
@@ -1357,7 +1357,7 @@
    "assets/dem24_v25_n26_1.svg?v=676bd7b1"
   ],
   "solution_images": [
-   "assets/dem24_v25_n26_s1.svg?v=652b118c"
+   "assets/dem24_v25_n26_s1.svg?v=2cfeca2c"
   ]
  },
  {
@@ -23440,7 +23440,7 @@
   ],
   "condition": "На проводящих рельсах, проложенных по наклонной плоскости, в однородном вертикальном магнитном поле $\\vec B$ находится горизонтальный прямой проводник прямоугольного сечения массой $m = 14$~г (см. рисунок). Плоскость наклонена к горизонту под углом $\\alpha = 30^\\circ$, расстояние между рельсами $L = 40$~см. Когда рельсы подключены к источнику тока, по проводнику течёт постоянный ток $I = 3$~А и проводник поступательно движется вверх по рельсам равномерно и прямолинейно. Коэффициент трения между проводником и рельсами $\\mu = 0{,}2$. Чему равен модуль индукции магнитного поля $\\vec B$? Сделайте рисунок с указанием сил, действующих на проводник.\n\n[[рис 1]]",
   "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\small}]\n\\draw[thick] (-0.3,0) -- (3.4,0);\n  \\draw[thick] (0,0) -- (3.2,1.85);\n  \\draw (0.7,0) arc (0:30:0.7); \\node at (0.95,0.22) {$\\alpha$};\n  \\begin{scope}[shift={(1.7,0.98)}, rotate=30]\n    \\draw[thick, fill=white] (-0.2,0) rectangle (0.2,0.4);\n    \\draw (-0.1,0.1) -- (0.1,0.3); \\draw (-0.1,0.3) -- (0.1,0.1);\n    \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (0,0.2) -- (0,1.0) node[above] {$\\vec N$};\n    \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (-0.2,0.2) -- (-0.9,0.2) node[below left] {$\\vec F_\\text{тр}$};\n    \\draw[-{Stealth[scale=0.9]}, thick] (0.3,0.75) -- (0.9,0.75) node[right] {$\\vec v$};\n  \\end{scope}\n  \\coordinate (C) at ($(1.7,0.98) + (120:0.2)$);\n  \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (C) -- ++(0,-0.85) node[below] {$m\\vec g$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, red!70!black] (C) -- ++(0.9,0) node[right] {$\\vec F_\\text{А}$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (3.6,0.4) -- (3.6,1.4) node[above] {$\\vec B$};\n  \\draw[-{Stealth[scale=0.8]}, thin] (0,0) -- (30:1.1) node[above left] {$x$};\n  \\draw[-{Stealth[scale=0.8]}, thin] (0,0) -- (120:0.8) node[left] {$y$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\small}]\n\\draw[thick] (-0.3,0) -- (3.4,0);\n  \\draw[thick] (0,0) -- (3.2,1.85);\n  \\draw (0.7,0) arc (0:30:0.7); \\node at (0.95,0.22) {$\\alpha$};\n  \\begin{scope}[shift={(1.7,0.98)}, rotate=30]\n    \\draw[thick, fill=white] (-0.2,0) rectangle (0.2,0.4);\n    \\draw (-0.1,0.1) -- (0.1,0.3); \\draw (-0.1,0.3) -- (0.1,0.1);\n    \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (0,0.2) -- (0,1.0) node[above] {$\\vec N$};\n    \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (-0.2,0.2) -- (-0.9,0.2) node[below left] {$\\vec F_\\text{тр}$};\n    \\draw[-{Stealth[scale=0.9]}, thick] (0.3,0.75) -- (0.9,0.75) node[right] {$\\vec v$};\n  \\end{scope}\n  \\coordinate (C) at ($(1.7,0.98) + (120:0.2)$);\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (C) -- ++(0,-0.75) node[right] {$m\\vec g$};\n  \\draw[-{Stealth[scale=0.9]}, very thick, brandPrimary] (C) -- ++(0.9,0) node[right] {$\\vec F_\\text{А}$};\n  \\draw[-{Stealth[scale=0.9]}, thick] (3.6,0.4) -- (3.6,1.4) node[above] {$\\vec B$};\n  \\draw[-{Stealth[scale=0.8]}, thin] (0,0) -- (30:1.1) node[below right] {$x$};\n  \\draw[-{Stealth[scale=0.8]}, thin] (0,0) -- (120:0.8) node[left] {$y$};\n\\end{tikzpicture}"
   ],
   "solution": "1. На проводник с током действует сила Ампера $F_\\text{А} = IBL$, направленная горизонтально, перпендикулярно проводнику. Кроме неё на проводник действуют сила тяжести $m\\vec g$, сила реакции рельсов $\\vec N$ и сила трения скольжения $\\vec F_\\text{тр}$, направленная вниз вдоль рельсов (проводник движется вверх).\n\n[[рис 1]]\n\n2. Систему отсчёта, связанную с наклонной плоскостью, считаем инерциальной. Проводник движется равномерно, поэтому сумма сил равна нулю. В проекциях на оси $Ox$ (вдоль плоскости вверх) и $Oy$ (перпендикулярно плоскости):\n$$Ox:\\ F_\\text{А}\\cos\\alpha - mg\\sin\\alpha - F_\\text{тр} = 0,$$\n$$Oy:\\ N - mg\\cos\\alpha - F_\\text{А}\\sin\\alpha = 0.$$\n\n3. Проводник скользит, поэтому $F_\\text{тр} = \\mu N = \\mu(mg\\cos\\alpha + F_\\text{А}\\sin\\alpha)$. Подставим в первое уравнение:\n$$F_\\text{А}(\\cos\\alpha - \\mu\\sin\\alpha) = mg(\\sin\\alpha + \\mu\\cos\\alpha).$$\n\n4. Отсюда\n$$B = \\frac{mg}{IL} \\cdot \\frac{\\sin\\alpha + \\mu\\cos\\alpha}{\\cos\\alpha - \\mu\\sin\\alpha} = \\frac{14 \\cdot 10^{-3} \\cdot 10}{3 \\cdot 0{,}4} \\cdot \\frac{0{,}5 + 0{,}2 \\cdot 0{,}87}{0{,}87 - 0{,}2 \\cdot 0{,}5} \\approx 0{,}1~\\text{Тл}.$$",
   "check": "number",
@@ -23449,7 +23449,7 @@
    "assets/dem24_v25_n25_1.svg?v=7a607dc5"
   ],
   "solution_images": [
-   "assets/dem24_v25_n25_s1.svg?v=9128fa31"
+   "assets/dem24_v25_n25_s1.svg?v=0097d22e"
   ]
  },
  {
@@ -34141,7 +34141,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 7)",
   "tikz": [],
@@ -34211,7 +34212,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 8)",
   "tikz": [],
@@ -35083,7 +35085,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "dif.tex",
   "tikz": [],
@@ -35112,7 +35115,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "dif.tex",
   "tikz": [],
@@ -35141,7 +35145,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "dif.tex",
   "tikz": [],
@@ -35170,7 +35175,8 @@
   "tags": [
    "ОПТИКА",
    "ВОЛНОВАЯ_ОПТИКА",
-   "ДИФРАКЦИОННАЯ_РЕШЕТКА"
+   "ДИФРАКЦИОННАЯ_РЕШЕТКА",
+   "ВНЕ_ЕГЭ_2027"
   ],
   "source": "dif.tex",
   "tikz": [],
@@ -35838,34 +35844,6 @@
   "solution": "Импульс фотона $p = \\dfrac{h\\nu}{c}$ пропорционален частоте, поэтому\n$$\\frac{p_1}{p_2} = \\frac{\\nu_1}{\\nu_2} = 4.$$",
   "check": "number",
   "file": "05_quantum/dem24_v25_n16.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "dem24_v25_n23",
-  "exam": "ЕГЭ",
-  "kim": 25,
-  "section": "Квантовая физика",
-  "theme": "ФОТОЭФФЕКТ. УРАВНЕНИЕ ЭЙНШТЕЙНА ДЛЯ ФОТОЭФФЕКТА",
-  "topic": "4.5",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 25,
-  "answer": "960",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ФОТОНЫ"
-  ],
-  "source": "Демидова, ЕГЭ-2024, 30 вариантов (вариант 25)",
-  "tikz": [],
-  "condition": "Сколько фотонов падает на сетчатку глаза человека за $3$~с, если мощность поглощённого сетчаткой света равна $13{,}2 \\cdot 10^{-17}$~Вт, а длина волны света составляет $480$~нм?",
-  "sol_tikz": [],
-  "solution": "1. Энергия одного фотона $E_1 = \\dfrac{hc}{\\lambda}$, энергия $N$ фотонов $E = NE_1 = \\dfrac{Nhc}{\\lambda}$.\n\n2. Мощность поглощённого света $P = \\dfrac Et$, откуда $E = Pt$.\n\n3. Число фотонов\n$$N = \\frac{\\lambda Pt}{hc} = \\frac{480 \\cdot 10^{-9} \\cdot 13{,}2 \\cdot 10^{-17} \\cdot 3}{6{,}6 \\cdot 10^{-34} \\cdot 3 \\cdot 10^8} = 960.$$",
-  "check": "number",
-  "file": "05_quantum/dem24_v25_n23.md",
   "images": [],
   "solution_images": []
  },
