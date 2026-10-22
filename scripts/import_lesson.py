@@ -41,8 +41,18 @@ def braced(s, i):
 
 
 def body_of(tex):
+    """Текст между \\begin{document} и \\end{document}; свои команды из преамбулы без аргументов
+    (\\newcommand{\\ac}{a_{\\text{ц}}}) раскрываются — их не знают ни сайт, ни сборка TikZ."""
     m = re.search(r'\\begin\{document\}(.*)\\end\{document\}', tex, re.S)
-    return m.group(1) if m else tex
+    body = m.group(1) if m else tex
+    pre = tex[:m.start()] if m else ''
+    for d in re.finditer(r'\\(?:re)?newcommand\*?\{?\\([a-zA-Z]+)\}?\s*\{', pre):
+        i, depth = d.end(), 1
+        while i < len(pre) and depth:
+            depth += {'{': 1, '}': -1}.get(pre[i], 0); i += 1
+        val = pre[d.end():i - 1]
+        body = re.sub(r'\\' + d.group(1) + r'(?![a-zA-Z])', lambda _: val, body)
+    return body
 
 
 def clean(s):
