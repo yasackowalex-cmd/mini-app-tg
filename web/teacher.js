@@ -27,19 +27,13 @@
   let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null;
   const BOT = 'physics_is_phun_bot';
 
-  // ---- вкладки «Банк задач» / «Кабинет учителя» ----
-  function setTab(tab) {
-    document.querySelectorAll('#tabs [data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === tab)));
-    $('teacher').hidden = tab !== 'teacher';
-    $('bank-area').hidden = tab === 'teacher';
-    document.documentElement.classList.toggle('teacher-mode', tab === 'teacher');
-    if (tab === 'teacher' && !data) load();
-  }
-  $('tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+  // ---- вкладка «Кабинет учителя» (сами вкладки переключает app.js) ----
+  const setTab = t => window.setTab(t);
+  document.addEventListener('tab', e => { if (e.detail === 'teacher' && !data) load(); });
 
   function showTabs() {
     if (!window.tgTeacher) return;
-    $('tabs').hidden = false;
+    document.querySelector('#tabs [data-tab="teacher"]').hidden = false;
   }
   document.addEventListener('tg-progress', showTabs);
   document.addEventListener('tg-hw', showTabs);

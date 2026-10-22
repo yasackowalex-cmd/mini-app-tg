@@ -105,6 +105,27 @@ def stamp_index():
             open(path, 'w', encoding='utf-8', newline='\n').write(new)
 
 
+def attach_images(t, rel, assets, problems):
+    # фото и сканы, которые не перерисованы в TikZ: assets/<id>_photo<N>.png или .jpg, идут перед чертежами
+    imgs = ['assets/' + os.path.basename(p) for p in sorted(
+        glob.glob(os.path.join(assets, f"{t['id']}_photo*.png")) + glob.glob(os.path.join(assets, f"{t['id']}_photo*.jpg")))]
+    for i in range(1, len(t['tikz']) + 1):
+        name = f"{t['id']}_{i}.svg"
+        if os.path.exists(os.path.join(assets, name)):
+            imgs.append('assets/' + name)
+        else:
+            problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
+    # ?v=<хеш файла>: браузер и Telegram не показывают старую картинку после правки рисунка
+    t['images'] = [versioned(assets, p) for p in imgs]
+    t['solution_images'] = []
+    for i in range(1, len(t['sol_tikz']) + 1):
+        name = f"{t['id']}_s{i}.svg"
+        if os.path.exists(os.path.join(assets, name)):
+            t['solution_images'].append(versioned(assets, 'assets/' + name))
+        else:
+            problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--bank', default=os.path.join(ROOT, 'bank'))
@@ -126,24 +147,7 @@ def main():
         for k in REQUIRED:
             if t.get(k) in (None, '', 'TODO'):
                 problems.append((rel, f'пусто поле {k}'))
-        # фото и сканы, которые не перерисованы в TikZ: assets/<id>_photo<N>.png или .jpg, идут перед чертежами
-        imgs = ['assets/' + os.path.basename(p) for p in sorted(
-            glob.glob(os.path.join(a.assets, f"{t['id']}_photo*.png")) + glob.glob(os.path.join(a.assets, f"{t['id']}_photo*.jpg")))]
-        for i in range(1, len(t['tikz']) + 1):
-            name = f"{t['id']}_{i}.svg"
-            if os.path.exists(os.path.join(a.assets, name)):
-                imgs.append('assets/' + name)
-            else:
-                problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
-        # ?v=<хеш файла>: браузер и Telegram не показывают старую картинку после правки рисунка
-        t['images'] = [versioned(a.assets, p) for p in imgs]
-        t['solution_images'] = []
-        for i in range(1, len(t['sol_tikz']) + 1):
-            name = f"{t['id']}_s{i}.svg"
-            if os.path.exists(os.path.join(a.assets, name)):
-                t['solution_images'].append(versioned(a.assets, 'assets/' + name))
-            else:
-                problems.append((rel, f'нет SVG {name} (запустить tikz_to_svg.py)'))
+        attach_images(t, rel, a.assets, problems)
         tasks.append(t)
     for i, n in ids.items():
         if n > 1:
@@ -170,6 +174,43 @@ def main():
         topics = {r['topic']: r['title'] for r in csv.DictReader(f)}
     with open(os.path.join(os.path.dirname(a.out), 'topics.json'), 'w', encoding='utf-8', newline='\n') as f:
         json.dump(topics, f, ensure_ascii=False, indent=1)
+
+    # уроки по темам (lessons/<тема>.md, scripts/import_lesson.py): конспект, видео, задачи ДЗ из банка
+    lessons = []
+    by_id = {t['id'] for t in tasks}
+    own = {}
+    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', 'tasks', '*.md'))):
+        rel = os.path.relpath(f, ROOT)
+        t = parse_md(f)
+        t['file'] = rel
+        if t['id'] in by_id or t['id'] in own:
+            problems.append((rel, f"id {t['id']} уже занят"))
+        attach_images(t, rel, a.assets, problems)
+        own[t['id']] = t
+    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md'))):
+        rel = os.path.relpath(f, ROOT)
+        L = parse_md(f)
+        code = L['topic'].replace('.', '_')
+        raw = open(f, encoding='utf-8').read()
+        m = re.search(r'## Конспект\n(.*?)(?=\n## |\Z)', raw, re.S)
+
+        def img(m, rel=rel, code=code):
+            # [[рис N]] — чертёж TikZ из этого файла, [[файл имя]] — картинка из assets/lessons/
+            name = f'lesson_{code}_{m.group(1)}.svg' if m.group(1) else 'lessons/' + m.group(2)
+            if not os.path.exists(os.path.join(a.assets, name)):
+                problems.append((rel, f'нет картинки {name}'))
+                return ''
+            return f'[[img {versioned(a.assets, "assets/" + name, name)}]]'
+        text = re.sub(r'\[\[рис (\d+)\]\]|\[\[файл ([^\]]+)\]\]', img, m.group(1).strip() if m else '')
+        hw = [i for i in (L.get('hw') or []) if i in by_id or i in own]
+        for i in set(L.get('hw') or []) - by_id - set(own):
+            problems.append((rel, f'задачи ДЗ {i} нет ни в банке, ни в lessons/tasks'))
+        lessons.append({'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
+                        'video': L.get('video') or [], 'hw': hw, 'conspect': text,
+                        # свои задачи урока (темы, где в банке мало задач): только в уроке, в банк не попадают
+                        'tasks': [own[i] for i in hw if i in own]})
+    with open(os.path.join(os.path.dirname(a.out), 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(lessons, f, ensure_ascii=False, indent=1)
 
     stamp_index()
     print(f"ЗАДАЧ В БАНКЕ: {len(tasks)}  →  {os.path.relpath(a.out, ROOT)}")

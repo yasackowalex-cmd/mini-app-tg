@@ -22,6 +22,22 @@
   // view — показ одного ДЗ ({title, ids}) или избранного ({fav: true, ids}) вместо фильтров банка; любой фильтр его снимает
   let view = null;
 
+  // ---- вкладки «Задачи» / «Уроки» / «Кабинет учителя» (последняя только у учителя, её открывает teacher.js) ----
+  let tab = 'bank';
+  function setTab(t) {
+    if (t === tab) return;
+    tab = t;
+    document.querySelectorAll('#tabs [data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === t)));
+    $('bank-area').hidden = t !== 'bank';
+    $('lessons-area').hidden = t !== 'lessons';
+    $('teacher').hidden = t !== 'teacher';
+    document.documentElement.classList.toggle('teacher-mode', t === 'teacher');
+    if (t === 'bank' && bank.length) writeHash(state());
+    document.dispatchEvent(new CustomEvent('tab', { detail: t }));
+  }
+  window.setTab = setTab;
+  $('tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+
   const codeKey = c => String(c).split('.').map(n => n.padStart(3, '0')).join('.');
   const norm = s => (s || '').toLowerCase().replace(/ё/g, 'е');
 
@@ -33,6 +49,8 @@
   }
 
   function writeHash(st) {
+    // адрес вкладки «Уроки» (#lessons, #lesson=<тема>) ведёт lesson.js
+    if (tab !== 'bank') return;
     const p = new URLSearchParams();
     Object.entries(st).forEach(([k, v]) => { if (v) p.set(k, v); });
     const h = p.toString();
@@ -90,8 +108,8 @@
     const el = document.createElement('article');
     el.className = 'task lv-' + t.level;
     const chips = [
-      `<span class="chip kim">КИМ ${t.kim ?? '?'}</span>`,
-      `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>`,
+      t.kim ? `<span class="chip kim">КИМ ${t.kim}</span>` : '',
+      t.topic ? `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>` : '',
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
       view && view.err && view.ids.indexOf(t.id) >= view.err ? '<span class="chip sim">похожая</span>' : '',
@@ -106,13 +124,15 @@
         <button class="btn" type="submit">Проверить</button>
         <span class="verdict" role="status"></span>
       </form>` : '';
-    el.innerHTML = `<button class="fav" type="button" data-fav></button>
+    // свои задачи урока (lesson.js) не в банке: в подборку и избранное их не положить
+    const inBank = !!byId[t.id];
+    el.innerHTML = `${inBank ? '<button class="fav" type="button" data-fav></button>' : ''}
       <div class="meta">${chips}</div>
       <div class="cond">${cond.html}</div>
       ${figs ? `<div class="figs">${figs}</div>` : ''}
       ${form}
       <div class="actions">
-        <button class="btn pick" type="button" data-pick></button>
+        ${inBank ? '<button class="btn pick" type="button" data-pick></button>' : ''}
         ${t.solution ? '<button class="btn hint" type="button" data-show="solution" aria-expanded="false">💡 Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
@@ -143,8 +163,7 @@
       markCard(el, t);
     });
     markCard(el, t);
-    markPick(el, t);
-    markFav(el, t);
+    if (inBank) { markPick(el, t); markFav(el, t); }
     return el;
   }
 
@@ -473,11 +492,14 @@
     });
     $('more').addEventListener('click', showMore);
     window.addEventListener('hashchange', () => {
+      if (window.lessonView && window.lessonView.route()) return;
+      setTab('bank');
       const h = readHash();
       $('q').value = h.q;
       fillSelects(h);
       applyAll();
     });
+    if (window.lessonView) window.lessonView.route();   // #lesson=… сразу открывает вкладку «Уроки»
     apply();
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
@@ -488,6 +510,9 @@
       show(title, ids) { view = { title, ids }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
       solved: id => !!(prog() && prog()[id] && prog()[id].ok > 0),
       has: id => !!byId[id],
+      task: id => byId[id],
+      // для lesson.js: карточки задач ДЗ урока (задачи банка и свои задачи урока) — те же, что в банке
+      cards: tasks => tasks.map(t => card({ ...t, kim: t.kim ?? '' })),
     };
     document.dispatchEvent(new CustomEvent('bank-ready'));
   }
