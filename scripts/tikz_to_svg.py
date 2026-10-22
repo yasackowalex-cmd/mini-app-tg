@@ -81,7 +81,9 @@ def main():
 
     # все чертежи банка: имя SVG → (исходник, хэш)
     pics = {}
-    for f in sorted(glob.glob(os.path.join(a.bank, '**', '*.md'), recursive=True)):
+    # и свои задачи уроков lessons/tasks/*.md (в банк не входят, имена SVG те же)
+    for f in sorted(glob.glob(os.path.join(a.bank, '**', '*.md'), recursive=True)
+                    + glob.glob(os.path.join(ROOT, 'lessons', 'tasks', '*.md'))):
         t = parse_md(f)
         for i, src in enumerate(t['tikz'], 1):
             pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())

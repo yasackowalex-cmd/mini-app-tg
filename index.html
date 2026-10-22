@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=2fb7a75c">
+<link rel="stylesheet" href="web/style.css?v=4d2b572b">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -35,10 +35,16 @@
     <span class="msg" role="status"></span>
   </form>
 
-  <nav id="tabs" class="tabs" hidden>
-    <button type="button" data-tab="bank" aria-pressed="true">Банк задач</button>
-    <button type="button" data-tab="teacher" aria-pressed="false">Кабинет учителя</button>
+  <nav id="tabs" class="tabs">
+    <button type="button" data-tab="bank" aria-pressed="true">Задачи</button>
+    <button type="button" data-tab="lessons" aria-pressed="false">Уроки</button>
+    <button type="button" data-tab="teacher" aria-pressed="false" hidden>Кабинет учителя</button>
   </nav>
+
+  <section id="lessons-area" class="lessons-area" hidden>
+    <div id="lessons-list" class="lessons-list"><p class="status">Загружаю уроки…</p></div>
+    <section id="lesson" class="lesson" hidden></section>
+  </section>
 
   <section id="teacher" class="teacher" hidden>
     <div class="t-bar">
@@ -62,10 +68,6 @@
   <section id="exams-top" class="exams-top" aria-label="Пробные варианты ЕГЭ">
     <h2>Пробные варианты ЕГЭ</h2>
     <div class="vpick"><a class="vbtn" href="exam.html#v=1" data-v="1"><b>1</b></a><a class="vbtn" href="exam.html#v=2" data-v="2"><b>2</b></a><a class="vbtn" href="exam.html#v=3" data-v="3"><b>3</b></a><a class="vbtn" href="exam.html#v=4" data-v="4"><b>4</b></a><a class="vbtn" href="exam.html#v=5" data-v="5"><b>5</b></a><a class="vbtn" href="exam.html#v=6" data-v="6"><b>6</b></a><a class="vbtn" href="exam.html#v=7" data-v="7"><b>7</b></a><a class="vbtn" href="exam.html#v=8" data-v="8"><b>8</b></a><a class="vbtn" href="exam.html#v=9" data-v="9"><b>9</b></a><a class="vbtn" href="exam.html#v=10" data-v="10"><b>10</b></a><a class="vbtn rnd" href="exam.html#new"><b>?</b><small>случайный</small></a></div>
-  </section>
-  <section id="lessons-top" class="lessons-top" aria-label="Уроки по темам" hidden>
-    <h2>Уроки по темам</h2>
-    <div class="lpick"></div>
   </section>
   <details id="hw" class="progress hw" hidden>
     <summary>Домашние задания</summary>
@@ -93,7 +95,6 @@
       <button id="err-open" type="button" class="link err-link" hidden></button></div>
   </section>
 
-  <section id="lesson" class="lesson" hidden></section>
   <div id="viewbar" class="viewbar" hidden><span id="view-title"></span> <button id="view-close" type="button" class="link">Ко всем задачам</button></div>
   <section id="list" aria-live="polite"></section>
   <div class="more-wrap"><button id="more" type="button" class="btn" hidden>Показать ещё</button></div>
@@ -118,10 +119,10 @@
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=da6f3fcc"></script>
 <script src="web/render.js?v=0340df37"></script>
-<script src="web/lesson.js?v=85220fb9"></script>
-<script src="web/app.js?v=db159e8b"></script>
+<script src="web/lesson.js?v=bc31fdec"></script>
+<script src="web/app.js?v=7be82beb"></script>
 <script src="web/hw.js?v=1e138146"></script>
-<script src="web/teacher.js?v=9291738e"></script>
+<script src="web/teacher.js?v=bd2a89d8"></script>
 <script defer src="web/tg.js?v=baaf659c"></script>
 </body>
 </html>

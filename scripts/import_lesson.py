@@ -4,7 +4,8 @@
 в сайт:
   lessons/<тема>.md                — конспект: шапка (тема, название, ключевые слова, видео, задачи ДЗ),
                                       текст в LaTeX, чертежи TikZ блоками ```latex (как в банке);
-  bank/<раздел>/les<тема>_n<N>.md   — задачи ДЗ урока в банке: проверка ответа, подсказки, звёзды, печать.
+  ДЗ урока — задачи банка по теме; где в банке подходящей нет, своя задача ДЗ
+  lessons/tasks/les<тема>_n<N>.md (формат задачи банка, но в банк не входит).
 Ответы берутся из раздела «Ответы и подсказки» в конце ДЗ; ответ, который не удалось вытащить
 автоматически, печатается в отчёт — его надо дописать руками (answer в шапке задачи).
 Запуск: python -I scripts/import_lesson.py <папка темы> [--force]
@@ -52,6 +53,8 @@ def clean(s):
     s = re.sub(r'\\vspace\*?\{[^}]*\}', '', s)
     # «\\[0.2em]» на сайте — просто перенос строки (иначе «\[» читается как начало формулы)
     s = re.sub(r'\\\\\[[^\]]*\]', r'\\\\', s)
+    # «\vec v\,'» KaTeX не разбирает (штрих после отступа) — штрих степенью: {\vec v}^{\,\prime}
+    s = re.sub(r"(\\vec\s*\w)\\,'", r'{\1}^{\\,\\prime}', s)
     return s
 
 
@@ -166,6 +169,32 @@ def task_type(task):
     return 'расчётная'
 
 
+WORD = re.compile(r'[а-яёa-z]{4,}', re.I)
+
+
+def words(text):
+    return {w.lower()[:6] for w in WORD.findall(re.sub(r'\\[a-zA-Z]+', ' ', text))}
+
+
+def pick_from_bank(t, bank, used):
+    """Задача банка вместо задачи ДЗ: та же тема и номер КИМ, тот же вид (выбор или расчёт),
+    рисунок, если он был; из подходящих — самая близкая по словам условия."""
+    if not t['kim']: return None
+    want_pic = r'\begin{tikzpicture}' in t['text'] or 'рисунк' in t['text'].lower()
+    ty = task_type(t)
+    cand = [b for b in bank if b['id'] not in used and str(b.get('kim')) == str(t['kim'])
+            and b.get('type') == ty and 'ВНЕ_ЕГЭ_2027' not in (b.get('tags') or [])]
+    if not cand: return None
+    w = words(t['text'])
+    jac = lambda x, y: len(x & y) / (len(x | y) or 1)
+    picked = [words(x.get('condition', '')) for x in bank if x['id'] in used]
+    def score(b):
+        bw = words(b.get('condition', ''))
+        # похоже на задачу ДЗ, с рисунком, если он был, и не повторяет уже выбранные (разные вопросы)
+        return jac(w, bw) + (0.15 if bool(b.get('images')) == want_pic else 0) - 0.5 * max([jac(bw, x) for x in picked] or [0])
+    return max(cand, key=score)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('src', help='папка темы, например …/1.1.3')
@@ -176,25 +205,47 @@ def main():
     folder, section, tag = section_of(topic)
     report = []
 
+    # ДЗ урока собирается из задач банка по теме (решение владельца 22.10): на место каждой задачи
+    # исходного ДЗ — задача банка того же номера КИМ; если подходящей в банке нет (или задача
+    # без номера КИМ), остаётся своя задача ДЗ: lessons/tasks/<id>.md, в банк она не попадает.
+    bank_path = os.path.join(ROOT, 'out', 'bank.json')
+    bank = [b for b in json.load(open(bank_path, encoding='utf-8')) if b.get('topic') == topic] if os.path.exists(bank_path) else []
+    used = set()
     hw_ids = []
     hw = glob.glob(os.path.join(a.src, f'{code}_hw.tex'))
     if hw:
         tasks, sols = import_hw(hw[0])
+        os.makedirs(os.path.join(ROOT, 'lessons', 'tasks'), exist_ok=True)
         for t in tasks:
+            b = pick_from_bank(t, bank, used)
+            if b:
+                used.add(b['id']); hw_ids.append(b['id'])
+                report.append(f"№{t['n']} → из банка {b['id']}")
+                continue
             tid = f"les{topic.replace('.', '')}_n{t['n']}"
             hw_ids.append(tid)
-            out = os.path.join(ROOT, 'bank', folder, tid + '.md')
+            report.append(f"№{t['n']} → своя задача {tid}")
+            out = os.path.join(ROOT, 'lessons', 'tasks', tid + '.md')
             if os.path.exists(out) and not a.force:
                 continue
             text, pics = tikz_blocks(t['text'], 'рис')
             text = re.sub(r'\n{3,}', '\n\n', text).strip()
             sol = sols.get(t['n'])
             ans = guess_answer(t, sol)
-            if not ans: report.append(f'{tid}: ответ не найден — проверка «показать ответ»')
+            if not ans:
+                report.append(f'   {tid}: ответ не найден — проверка «показать ответ»')
+                # кнопка «Показать ответ» покажет ответ из «Ответов и подсказок» (без подсказки и чертежей)
+                if sol and not sol[1] and 'tikzpicture' not in sol[0]:
+                    ans = re.sub(r'\s*\\emph\{(Подсказка|Критерий)[^}]*\}.*', '', sol[0], flags=re.S)
+                    ans = re.sub(r'\s+', ' ', ans).strip().replace('"', "'")
             sol_txt = sol[0] if sol else ''
             sol_txt = re.sub(r'\\emph\{Подсказка:\}', '\\\\textbf{Подсказка:}', sol_txt)
             # финальную строку «Ответ: …» в решении не пишем (ответ показывает кнопка), правило владельца
             sol_txt = re.sub(r'\n?\\textbf\{Ответ:\}[^\n]*', '', sol_txt).strip()
+            sol_txt, sol_pics = tikz_blocks(sol_txt, 'рис')
+            if sol_pics:  # чертёж в ответе (построение векторов и т. п.) — блоком ```latex, как в банке
+                it = iter(sol_pics)
+                sol_txt = re.sub(r'\[\[рис \d+\]\]', lambda m: '```latex\n' + next(it) + '\n```', sol_txt)
             ty = task_type(t)
             meta = [
                 ('id', tid), ('exam', 'ЕГЭ'), ('kim', t['kim'] or ''), ('section', section), ('theme', ''),
@@ -211,6 +262,8 @@ def main():
     ch = glob.glob(os.path.join(a.src, f'{code}_chapter.tex'))
     out = os.path.join(ROOT, 'lessons', topic + '.md')
     if ch and (a.force or not os.path.exists(out)):
+        old = open(out, encoding='utf-8').read() if os.path.exists(out) else ''
+        video = re.search(r'^video: (.*)$', old, re.M)   # ссылки на видео при повторном переносе не теряем
         title, kw, body, pics = import_chapter(ch[0], topic)
         os.makedirs(os.path.dirname(out), exist_ok=True)
         files = re.findall(r'\[\[файл ([^\]]+)\]\]', body)
@@ -223,8 +276,8 @@ def main():
                 else:
                     report.append(f'конспект: нет файла {f}')
             body = re.sub(r'\[\[файл ([^\]]+)\]\]', lambda m: f'[[файл {code}_{m.group(1)}]]', body)
-        head = [('topic', topic), ('title', f'"{title}"'), ('keywords', f'"{kw}"'), ('video', '[]'),
-                ('hw', '[' + ', '.join(hw_ids) + ']')]
+        head = [('topic', topic), ('title', f'"{title}"'), ('keywords', f'"{kw}"'),
+                ('video', video.group(1) if video else '[]'), ('hw', '[' + ', '.join(hw_ids) + ']')]
         md = '---\n' + '\n'.join(f'{k}: {v}' for k, v in head) + '\n---\n\n## Конспект\n\n' + body + '\n'
         if pics: md += '\n## Рисунок (TikZ)\n\n' + latex_blocks(pics) + '\n'
         open(out, 'w', encoding='utf-8', newline='\n').write(md)
