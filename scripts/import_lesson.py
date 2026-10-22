@@ -55,6 +55,12 @@ def clean(s):
     s = re.sub(r'\\\\\[[^\]]*\]', r'\\\\', s)
     # «\vec v\,'» KaTeX не разбирает (штрих после отступа) — штрих степенью: {\vec v}^{\,\prime}
     s = re.sub(r"(\\vec\s*\w)\\,'", r'{\1}^{\\,\\prime}', s)
+    # «{\small …}» — размер шрифта для печати; на сайте скобки остались бы в тексте
+    while (m := re.search(r'\{\\(?:small|footnotesize|scriptsize|large|Large)(?![a-zA-Z])\s*', s)):
+        d, j = 1, m.end()
+        while j < len(s) and d:
+            d += {'{': 1, '}': -1}.get(s[j], 0); j += 1
+        s = s[:m.start()] + s[m.end():j - 1] + s[j:]
     return s
 
 
