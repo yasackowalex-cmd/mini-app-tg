@@ -49,7 +49,6 @@ source: len.tex
     \draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};
     \draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};
     
-    \node[below left] at (-4,-2) {0};
 \end{tikzpicture}
 ```
 

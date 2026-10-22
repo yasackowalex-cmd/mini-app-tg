@@ -1361,35 +1361,6 @@
   ]
  },
  {
-  "id": "dem24_v25_n3",
-  "exam": "ЕГЭ",
-  "kim": 3,
-  "section": "Механика",
-  "theme": "ИМПУЛЬС ТЕЛА. ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА",
-  "topic": "1.3.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 25,
-  "answer": "32",
-  "unit": "кг·м/с",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "ЗАКОНЫ_СОХРАНЕНИЯ",
-   "ИМПУЛЬС"
-  ],
-  "source": "Демидова, ЕГЭ-2024, 30 вариантов (вариант 25)",
-  "tikz": [],
-  "condition": "В инерциальной системе отсчёта тело движется прямолинейно в одном направлении под действием постоянной силы, равной по модулю $8$~Н. На сколько изменился импульс тела за $4$~с?",
-  "sol_tikz": [],
-  "solution": "По второму закону Ньютона в импульсной форме изменение импульса равно импульсу силы:\n$$\\Delta p = F\\Delta t = 8 \\cdot 4 = 32~\\text{кг}\\cdot\\text{м/с}.$$",
-  "check": "number",
-  "file": "01_mechanics/dem24_v25_n3.md",
-  "images": [],
-  "solution_images": []
- },
- {
   "id": "dem24_v25_n4",
   "exam": "ЕГЭ",
   "kim": 4,
@@ -3703,39 +3674,6 @@
   "images": [
    "assets/dem25_v19_n6_1.svg?v=7a852029",
    "assets/dem25_v19_n6_2.svg?v=f07624e1"
-  ],
-  "solution_images": []
- },
- {
-  "id": "dem25_v21_n1",
-  "exam": "ЕГЭ",
-  "kim": 1,
-  "section": "Механика",
-  "theme": "РАВНОУСКОРЕННОЕ ДВИЖЕНИЕ. ГРАФИКИ",
-  "topic": "1.1.3",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 21,
-  "answer": "0",
-  "unit": "м/с²",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "КИНЕМАТИКА",
-   "ГРАФИКИ"
-  ],
-  "source": "Демидова, ЕГЭ-2025, 30 вариантов (вариант 21)",
-  "tikz": [
-   "\\begin{tikzpicture}[x=1.3cm, y=0.3cm, every node/.style={font=\\footnotesize}]\n\\draw[xstep=0.5, ystep=2, gray!35, thin] (0,-6) grid (4,6);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.6,0) node[right] {$t$, с};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,-6) -- (0,7.2) node[above] {$v_x$, м/с};\n  \\foreach \\y in {6,4,2,-2,-4,-6} \\node[left] at (0,\\y) {$\\y$};\n  \\node[left] at (0,0) {$0$};\n  \\foreach \\x in {1,2,3} \\node[below] at (\\x,-6) {$\\x$};\n  \\draw[ultra thick, brandPrimary] (0,4) -- (0.5,0) -- (1,6) -- (1.5,2) -- (3,2) -- (3.5,-6);\n\\end{tikzpicture}"
-  ],
-  "condition": "На рисунке показан график зависимости проекции $v_x$ скорости тела от времени $t$. Какова проекция $a_x$ ускорения этого тела в момент времени $2$~с? Ответ запишите с учётом знака проекции.\n\n[[рис 1]]",
-  "sol_tikz": [],
-  "solution": "С $1{,}5$ до $3$~с график — горизонтальная прямая: скорость постоянна и равна $2$~м/с. Момент $t = 2$~с попадает в этот интервал, поэтому $a_x = \\dfrac{\\Delta v_x}{\\Delta t} = 0$.",
-  "check": "number",
-  "file": "01_mechanics/dem25_v21_n1.md",
-  "images": [
-   "assets/dem25_v21_n1_1.svg?v=25cae765"
   ],
   "solution_images": []
  },
@@ -9645,37 +9583,6 @@
   "solution_images": [
    "assets/dem26_v2_n4_s1.svg?v=2b1fa368"
   ]
- },
- {
-  "id": "dem26_v30_n1",
-  "exam": "ЕГЭ",
-  "kim": 1,
-  "section": "Механика",
-  "theme": "",
-  "topic": "1.1.3",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": 30,
-  "answer": "-4",
-  "unit": "м/с²",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "kim01.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[x=0.35cm, y=0.12cm, every node/.style={font=\\footnotesize}]\n    % Сетка\n    \\draw[xstep=5, ystep=5, gray!30, thin] (0,-20) grid (30,20);\n    % Оси\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (33,0) node[right] {$t, \\text{ с}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,-20) -- (0,24) node[above] {$v_x, \\text{ м/с}$};\n    % Оцифровка\n    \\node[left] at (0,20) {$20$};\n    \\node[left] at (0,10) {$10$};\n    \\node[below left] at (0,0) {$0$};\n    \\node[left] at (0,-10) {$-10$};\n    \\node[left] at (0,-20) {$-20$};\n    \\node[below] at (5,0) {$5$};\n    \\node[below] at (10,0) {$10$};\n    \\node[below] at (15,0) {$15$};\n    \\node[below] at (20,0) {$20$};\n    \\node[below] at (25,0) {$25$};\n    \\node[below] at (30,0) {$30$};\n    % График\n    \\draw[ultra thick, brandPrimary] (0,-20) -- (10,0) -- (15,10) -- (20,-10) -- (30,20);\n\\end{tikzpicture}"
-  ],
-  "condition": "На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$. Определите проекцию $a_x$ ускорения этого тела в интервале времени от $15$ до $20$~с. Ответ запишите с учётом знака проекции.",
-  "sol_tikz": [],
-  "solution": "На участке от $15$ до $20$~с график — прямая, движение равноускоренное. По графику $v_x = 10$~м/с при $t = 15$~с и $v_x = -10$~м/с при $t = 20$~с.\n\n$$a_x = \\frac{\\Delta v_x}{\\Delta t} = \\frac{-10 - 10}{20 - 15} = \\frac{-20}{5} = -4~\\text{м/с}^2.$$",
-  "check": "number",
-  "file": "01_mechanics/dem26_v30_n1.md",
-  "images": [
-   "assets/dem26_v30_n1_1.svg?v=1125c85b"
-  ],
-  "solution_images": []
  },
  {
   "id": "dem26_v30_n3",
@@ -35072,39 +34979,6 @@
   ]
  },
  {
-  "id": "elem_mag_v27_n15",
-  "exam": "ЕГЭ",
-  "kim": 15,
-  "section": "Электродинамика",
-  "theme": "МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА",
-  "topic": "3.2.1",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": 27,
-  "answer": "13",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "ЭЛЕКТРОДИНАМИКА",
-   "МАГНЕТИЗМ",
-   "СИЛА_ЛОРЕНЦА"
-  ],
-  "source": "mag.tex",
-  "tikz": [],
-  "condition": "Положительно заряженный ион движется по окружности в однородном магнитном поле. Как изменятся модуль центростремительного ускорения иона и период его обращения, если увеличить скорость движения иона?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличится\n2) уменьшится\n3) не изменится\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nМодуль центростремительного ускорения & Период обращения \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % поле «от нас»\n  \\foreach \\x/\\y in {-1.9/1.3,-1.9/-1.3,1.9/1.3,1.9/-1.3,-0.6/-0.75}{\n    \\draw[brandPrimary,thin] (\\x,\\y) circle (0.1);\n    \\draw[brandPrimary,thin] (\\x-0.07,\\y-0.07) -- (\\x+0.07,\\y+0.07);\n    \\draw[brandPrimary,thin] (\\x-0.07,\\y+0.07) -- (\\x+0.07,\\y-0.07);}\n  \\node[brandPrimary] at (2.25,1.3) {$\\vec B$};\n  % траектория\n  \\draw[thick, gray] (0,0) circle (1.3);\n  \\draw[-{Stealth[scale=0.7]}, gray] (60:1.3) arc (60:85:1.3);\n  \\fill (0,0) circle (1.2pt);\n  \\draw[dashed] (0,0) -- (135:1.3) node[pos=0.55, above right, inner sep=1pt] {$R$};\n  % частица\n  \\fill[brandAccent] (1.3,0) circle (2.5pt);\n  \\node[right] at (1.33,-0.2) {$+q$};\n  \\draw[vvec] (1.3,0) -- (1.3,1.0) node[right] {$\\vec v$};\n  \\draw[Fvec] (1.3,0) -- (0.45,0) node[above, xshift=4pt] {$\\vec F_\\text{Л}$};\n  \\draw[vvec] (1.05,-0.25) -- (0.45,-0.25) node[below] {$\\vec a$};\n\\end{tikzpicture}"
-  ],
-  "solution": "В магнитном поле на ион действует сила Лоренца: $qvB = \\dfrac{mv^2}{R}$, откуда радиус $R = \\dfrac{mv}{qB}$.\n\nСилы показаны на рисунке.\n\n[[рис 1]]\n\nЦентростремительное ускорение $a = \\dfrac{v^2}{R} = \\dfrac{qvB}{m}$ пропорционально скорости — увеличится (1).\n\nПериод обращения $T = \\dfrac{2\\pi R}{v} = \\dfrac{2\\pi m}{qB}$ от скорости не зависит — не изменится (3).",
-  "check": "seq",
-  "file": "03_electrodynamics/elem_mag_v27_n15.md",
-  "images": [],
-  "solution_images": [
-   "assets/elem_mag_v27_n15_s1.svg?v=9eb03927"
-  ]
- },
- {
   "id": "elem_mag_v2_n12",
   "exam": "ЕГЭ",
   "kim": 12,
@@ -38046,7 +37920,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Побочные оси\n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.75) node[pos=0, above] {$A$} node[pos=1, below] {$B$};\n    \n    % Предметы 1-4\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1.5) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Побочные оси\n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.5,0) -- (1.5,-0.75) node[pos=0, above] {$A$} node[pos=1, below] {$B$};\n    \n    % Предметы 1-4\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-3,0) -- (-3,1.5) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (-0.8,-0.4) node[right] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[left] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.5,0) -- (-1.5,0.5) node[right] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какому из предметов 1--4 соответствует изображение $AB$ в тонкой собирающей линзе с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38054,7 +37928,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v1.md",
   "images": [
-   "assets/optics_lens_item_to_image_v1_1.svg?v=173d6893"
+   "assets/optics_lens_item_to_image_v1_1.svg?v=ca186052"
   ],
   "solution_images": []
  },
@@ -38079,7 +37953,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.625,0) -- (1.625,0.8125) node[pos=0, below left] {$A$} node[pos=1, above] {$B$};\n    \n    % Предметы\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,-0.65) node[left] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[right] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[dashed, black] (-3,1.5) -- (3,-1.5);\n    \\draw[dashed, black] (-3,-1.5) -- (3,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Изображение AB\n    \\draw[-{Stealth[scale=0.8]}, line width=1.5pt, black] (1.625,0) -- (1.625,0.8125) node[pos=0, below left] {$A$} node[pos=1, above] {$B$};\n    \n    % Предметы\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,0.65) node[right] {1};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-1.3,0) -- (-1.3,-0.65) node[left] {2};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-2.6,0) -- (-2.6,-1.3) node[right] {3};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.3,0) -- (1.3,-0.65) node[right] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какому из предметов 1--4 соответствует изображение $AB$ в тонкой собирающей линзе с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38087,7 +37961,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_item_to_image_v2.md",
   "images": [
-   "assets/optics_lens_item_to_image_v2_1.svg?v=6558c49b"
+   "assets/optics_lens_item_to_image_v2_1.svg?v=b10d364b"
   ],
   "solution_images": []
  },
@@ -38145,7 +38019,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (2,1.2) {$\\sun$};\n    \\node[below] at (2,1.1) {$S$};\n    \n    \\fill[black] (0.8,0.5) circle (1.5pt) node[above] {1};\n    \\fill[black] (-1.0,0.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (2,1.2) {$\\sun$};\n    \\node[below] at (2,1.1) {$S$};\n    \n    \\fill[black] (0.8,0.5) circle (1.5pt) node[above] {1};\n    \\fill[black] (-1.0,0.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4), показанных на рисунке, служит изображением точки $S$ (см. рисунок), создаваемым тонкой собирающей линзой с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38153,7 +38027,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_optical_axis_ray.md",
   "images": [
-   "assets/optics_lens_optical_axis_ray_1.svg?v=3aa6ac30"
+   "assets/optics_lens_optical_axis_ray_1.svg?v=e5af308b"
   ],
   "solution_images": []
  },
@@ -38178,7 +38052,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[above] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[above] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (-2.2,-1.3) {$\\sun$};\n    \\node[below] at (-2.2,-1.4) {$S$};\n    \n    \\fill[black] (-0.8,-0.5) circle (1.5pt) node[below] {1};\n    \\fill[black] (1.0,-0.6) circle (1.5pt) node[below] {2};\n    \\fill[black] (2.0,1.2) circle (1.5pt) node[above] {3};\n    \\fill[black] (1.4,0.8) circle (1.5pt) node[above] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \\draw[dashed, black] (-2.5,1.5) -- (2.5,-1.5);\n    \\draw[dashed, black] (-2.5,-1.5) -- (2.5,1.5);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[above] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[above] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    \\node at (-2.2,-1.3) {$\\sun$};\n    \\node[below] at (-2.2,-1.4) {$S$};\n    \n    \\fill[black] (-0.8,-0.5) circle (1.5pt) node[below] {1};\n    \\fill[black] (1.0,-0.6) circle (1.5pt) node[below] {2};\n    \\fill[black] (2.0,1.2) circle (1.5pt) node[above] {3};\n    \\fill[black] (1.4,0.8) circle (1.5pt) node[above] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4), показанных на рисунке, служит изображением точки $S$ (см. рисунок), создаваемым тонкой собирающей линзой с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38186,7 +38060,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_optical_axis_ray_bottom.md",
   "images": [
-   "assets/optics_lens_optical_axis_ray_bottom_1.svg?v=9a8daf68"
+   "assets/optics_lens_optical_axis_ray_bottom_1.svg?v=63a9901e"
   ],
   "solution_images": []
  },
@@ -38211,7 +38085,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (в 2F)\n    \\node at (2.0,1.2) {$\\sun$};\n    \\node[below] at (2.0,1.1) {$S$};\n    \n    % Точки\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.0,1.2) circle (1.5pt) node[above] {2};\n    \\fill[black] (-1.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (2.0,-1.2) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (в 2F)\n    \\node at (2.0,1.2) {$\\sun$};\n    \\node[below] at (2.0,1.1) {$S$};\n    \n    % Точки\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.0,1.2) circle (1.5pt) node[above] {2};\n    \\fill[black] (-1.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (2.0,-1.2) circle (1.5pt) node[below] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4) является изображением точечного источника света $S$ в собирающей тонкой линзе с фокусным расстоянием $F$ (см. рисунок)?",
   "sol_tikz": [],
@@ -38219,7 +38093,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_2f.md",
   "images": [
-   "assets/optics_lens_point_source_2f_1.svg?v=c5223bd6"
+   "assets/optics_lens_point_source_2f_1.svg?v=2d7de699"
   ],
   "solution_images": []
  },
@@ -38244,7 +38118,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S\n    \\node at (2.0,-1.2) {$\\sun$};\n    \\node[below] at (2.0,-1.3) {$S$};\n    \n    % Точки\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.0,1.2) circle (1.5pt) node[above] {2};\n    \\fill[black] (-1.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (2.0,1.2) circle (1.5pt) node[above] {4};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S\n    \\node at (2.0,-1.2) {$\\sun$};\n    \\node[below] at (2.0,-1.3) {$S$};\n    \n    % Точки\n    \\fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.0,1.2) circle (1.5pt) node[above] {2};\n    \\fill[black] (-1.0,-1.2) circle (1.5pt) node[below] {3};\n    \\fill[black] (2.0,1.2) circle (1.5pt) node[above] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4) является изображением точечного источника света $S$ в собирающей тонкой линзе с фокусным расстоянием $F$ (см. рисунок)?",
   "sol_tikz": [],
@@ -38252,7 +38126,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_2f_bottom.md",
   "images": [
-   "assets/optics_lens_point_source_2f_bottom_1.svg?v=f9e6ab5b"
+   "assets/optics_lens_point_source_2f_bottom_1.svg?v=76e4830b"
   ],
   "solution_images": []
  },
@@ -38277,7 +38151,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \n    % Собирающая линза\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (справа вверху, за 2F)\n    \\node at (2.6,1.2) {$\\sun$};\n    \\node[below] at (2.6,1.1) {$S$};\n    \n    % Точки изображений\n    \\fill[black] (2.6,-1.2) circle (1.5pt) node[right] {1};\n    \\fill[black] (-0.8,-0.5) circle (1.5pt) node[right] {2};\n    \\fill[black] (-1.4,0.8) circle (1.5pt) node[right] {3};\n    \\fill[black] (-2.2,1.4) circle (1.5pt) node[right] {4};\n    \\fill[black] (-1.3,-0.9) circle (1.5pt) node[left] {5};\n    \\fill[black] (-2.2,-1.6) circle (1.5pt) node[left] {6};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    % Главная оптическая ось\n    \\draw[thick, black] (-4,0) -- (4,0);\n    \n    % Собирающая линза\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    % Фокусы\n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (справа вверху, за 2F)\n    \\node at (2.6,1.2) {$\\sun$};\n    \\node[below] at (2.6,1.1) {$S$};\n    \n    % Точки изображений\n    \\fill[black] (2.6,-1.2) circle (1.5pt) node[right] {1};\n    \\fill[black] (-0.8,-0.5) circle (1.5pt) node[right] {2};\n    \\fill[black] (-1.4,0.8) circle (1.5pt) node[right] {3};\n    \\fill[black] (-2.2,1.4) circle (1.5pt) node[right] {4};\n    \\fill[black] (-1.3,-0.9) circle (1.5pt) node[left] {5};\n    \\fill[black] (-2.2,-1.6) circle (1.5pt) node[left] {6};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3, 4, 5 или 6), показанных на рисунке, является изображением точечного источника света $S$, полученным в тонкой собирающей линзе с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38285,7 +38159,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_v1.md",
   "images": [
-   "assets/optics_lens_point_source_v1_1.svg?v=9706d472"
+   "assets/optics_lens_point_source_v1_1.svg?v=b4a8a325"
   ],
   "solution_images": []
  },
@@ -38310,7 +38184,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (справа внизу, за 2F)\n    \\node at (2.6,-1.2) {$\\sun$};\n    \\node[below] at (2.6,-1.3) {$S$};\n    \n    % Точки\n    \\fill[black] (2.6,1.2) circle (1.5pt) node[right] {1};\n    \\fill[black] (-0.8,0.5) circle (1.5pt) node[right] {2};\n    \\fill[black] (-1.3,0.9) circle (1.5pt) node[right] {3};\n    \\fill[black] (-2.2,1.6) circle (1.5pt) node[right] {4};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {5};\n    \\fill[black] (-2.2,-1.4) circle (1.5pt) node[left] {6};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (4,2);\n    \n    \\draw[thick, black] (-4,0) -- (4,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (2,0.1) -- (2,-0.1) node[below] {$2F$};\n    \n    % Источник S (справа внизу, за 2F)\n    \\node at (2.6,-1.2) {$\\sun$};\n    \\node[below] at (2.6,-1.3) {$S$};\n    \n    % Точки\n    \\fill[black] (2.6,1.2) circle (1.5pt) node[right] {1};\n    \\fill[black] (-0.8,0.5) circle (1.5pt) node[right] {2};\n    \\fill[black] (-1.3,0.9) circle (1.5pt) node[right] {3};\n    \\fill[black] (-2.2,1.6) circle (1.5pt) node[right] {4};\n    \\fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {5};\n    \\fill[black] (-2.2,-1.4) circle (1.5pt) node[left] {6};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3, 4, 5 или 6), показанных на рисунке, является изображением точечного источника света $S$, полученным в тонкой собирающей линзе с фокусным расстоянием $F$?",
   "sol_tikz": [],
@@ -38318,7 +38192,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_point_source_v2.md",
   "images": [
-   "assets/optics_lens_point_source_v2_1.svg?v=531ef6c2"
+   "assets/optics_lens_point_source_v2_1.svg?v=cc6af7b8"
   ],
   "solution_images": []
  },
@@ -38372,7 +38246,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (3,2);\n    \n    \\draw[thick, black] (-4,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    % Треугольник (катеты c и h)\n    \\draw[thick, black, fill=gray!50] (-2,0) -- (-2,1.2) -- (-1.4,0) -- cycle;\n    \\node[left] at (-2,0.6) {$h$};\n    \\node[below] at (-1.7,0) {$c$};\n    \n    \\node[below left] at (-4,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-4,-2) grid (3,2);\n    \n    \\draw[thick, black] (-4,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (-2,0.1) -- (-2,-0.1) node[below] {$2F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    % Треугольник (катеты c и h)\n    \\draw[thick, black, fill=gray!50] (-2,0) -- (-2,1.2) -- (-1.4,0) -- cycle;\n    \\node[left] at (-2,0.6) {$h$};\n    \\node[below] at (-1.7,0) {$c$};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Прямоугольный треугольник с катетами $c = 2\\text{ см}$ и $h = 4\\text{ см}$ расположен перед собирающей линзой с фокусным расстоянием $F = 10\\text{ см}$, как показано на рисунке. Постройте изображение треугольника, даваемое линзой. Чему равна площадь этого изображения? Ответ выразите в квадратных сантиметрах ($\\text{см}^2$).",
   "sol_tikz": [],
@@ -38380,7 +38254,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_triangle_image_area.md",
   "images": [
-   "assets/optics_lens_triangle_image_area_1.svg?v=416621a0"
+   "assets/optics_lens_triangle_image_area_1.svg?v=db260ac7"
   ],
   "solution_images": []
  },
@@ -40215,35 +40089,6 @@
   "solution": "При $\\alpha$-распаде ядро испускает ядро гелия $^4_2\\text{He}$:\n\n$$^{212}_{83}\\text{Bi} \\to\\, ^{208}_{81}\\text{Tl} + \\,^4_2\\text{He}.$$\n\nМассовое число уменьшается на $4$ (2).\n\nЧисло протонов уменьшается на $2$ (2).",
   "check": "seq",
   "file": "05_quantum/nuclear_alpha_bismuth_mass_protons.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "nuclear_alpha_mass_protons",
-  "exam": "ЕГЭ",
-  "kim": 17,
-  "section": "Квантовая физика",
-  "theme": "ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА",
-  "topic": "4.6",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "22",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ЯДЕРНАЯ_ФИЗИКА",
-   "АЛЬФА_РАСПАД"
-  ],
-  "source": "nuc.tex",
-  "tikz": [],
-  "condition": "Как изменятся при $\\alpha$-распаде массовое число ядра и число протонов в ядре? Для каждой величины определите соответствующий характер изменения:\n1) увеличится\n2) уменьшится\n3) не изменится\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\small\n\\begin{tabular}{|c|c|}\n\\hline\nМассовое число ядра & Число протонов в ядре \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [],
-  "solution": "При $\\alpha$-распаде ядро испускает ядро гелия $^4_2\\text{He}$, в котором 2 протона и 2 нейтрона.\n\nМассовое число уменьшается на 4 (2).\n\nЧисло протонов уменьшается на 2 (2).",
-  "check": "seq",
-  "file": "05_quantum/nuclear_alpha_mass_protons.md",
   "images": [],
   "solution_images": []
  },

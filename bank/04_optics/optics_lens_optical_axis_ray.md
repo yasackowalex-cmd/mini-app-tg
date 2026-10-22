@@ -44,7 +44,6 @@ source: len.tex
     \fill[black] (-2.0,-1.2) circle (1.5pt) node[below] {3};
     \fill[black] (-1.4,-0.8) circle (1.5pt) node[below] {4};
     
-    \node[below left] at (-4,-2) {0};
 \end{tikzpicture}
 ```
 

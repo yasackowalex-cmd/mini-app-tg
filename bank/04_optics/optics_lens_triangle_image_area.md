@@ -38,7 +38,6 @@ source: len.tex
     \node[left] at (-2,0.6) {$h$};
     \node[below] at (-1.7,0) {$c$};
     
-    \node[below left] at (-4,-2) {0};
 \end{tikzpicture}
 ```
 
