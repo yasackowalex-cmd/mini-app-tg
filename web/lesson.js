@@ -100,7 +100,7 @@
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>Конспект</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
-      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание: задач ${L.hw.length}</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
+      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
       ${next ? `<p class="lnext"><a class="btn" href="#lesson=${esc(next.topic)}">Следующий урок: ${esc(next.topic)} ${esc(next.title)} →</a></p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
