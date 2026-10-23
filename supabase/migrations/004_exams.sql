@@ -16,3 +16,7 @@ create index if not exists exams_finished on exams (finished_at desc);
 
 -- Доступ только через функцию (сервисный ключ), как у остальных таблиц.
 alter table exams enable row level security;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.exams to service_role;

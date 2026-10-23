@@ -20,3 +20,8 @@ create index if not exists homework_students_tg on homework_students (tg_id);
 -- Доступ только через функцию (сервисный ключ), как у users и attempts.
 alter table homework enable row level security;
 alter table homework_students enable row level security;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.homework to service_role;
+grant select, insert, update, delete on public.homework_students to service_role;
