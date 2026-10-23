@@ -59,7 +59,8 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .more-wrap { text-align: center; margin: 8px 0 24px; }
 .status { text-align: center; color: var(--muted); }
 .katex { font-size: 1.05em; }
-.katex-display { overflow-x: auto; overflow-y: hidden; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 3px 2px; scrollbar-width: none; }
+.katex-display::-webkit-scrollbar { display: none; }
 .try { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
 .try label { display: flex; align-items: center; gap: 8px; font-weight: 700; }
 .try input { font: inherit; width: 9em; padding: 7px 10px; border: 1px solid var(--line); border-bottom: 2px solid var(--muted); border-radius: 6px; }
