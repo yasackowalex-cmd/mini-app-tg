@@ -150,11 +150,18 @@ def import_hw(path):
             sols[int(e.group(1))] = (sb + ('\n\n\\textbf{Критерии оценивания}\n\n' + cb if cb else ''), True)
         ans = re.sub(r'\\textbf\{Эталон.*', '', ans, flags=re.S)
         ans = re.sub(r'\\textbf\{(Базовый|Повышенный|Высокий)[^}]*\}(\\\\(\[[^\]]*\])?)?', '', ans)
-        parts = re.split(r'\\textbf\{(\d+)\.\}', ans)
+        # номер ответа — в начале строки («\textbf{6.} \textbf{13.}» — это ответ 13 к задаче 6)
+        parts = re.split(r'(?m)^\s*\\textbf\{(\d+)\.\}', ans)
         for i in range(1, len(parts) - 1, 2):
             num = int(parts[i])
             if num in sols: continue
             txt = re.sub(r'\\\\(\[[^\]]*\])?\s*$', '', parts[i + 1].strip()).strip()
+            if txt.startswith('Эталон'):   # «\textbf{8.} Эталон полного решения: \begin{solutionbox}…»
+                sb = re.search(r'\\begin\{solutionbox\}(.*?)\\end\{solutionbox\}', txt, re.S)
+                cb = re.search(r'\\begin\{critbox\}(.*?)\\end\{critbox\}', txt, re.S)
+                sb = re.sub(r'^\\textbf\{Задание\s*\d+\.\}\s*', '', sb.group(1).strip()) if sb else ''
+                sols[num] = (sb + ('\n\n\\textbf{Критерии оценивания}\n\n' + cb.group(1).strip() if cb else ''), True)
+                continue
             sols[num] = (txt, False)
     return tasks, sols
 
@@ -169,7 +176,7 @@ def guess_answer(task, sol):
     if full or (task['kim'] or 0) >= 21: return ''
     m = re.search(r'ответ:\s*\\textbf\{(\d+)\}', txt)   # «Время — 3, дальность — 1 (ответ: \textbf{31})»
     if m: return m.group(1)
-    if re.search(r'выбер', task['text'], re.I):
+    if task_type(task) == 'соответствие/выбор':   # «\textbf{13.}» или «\textbf{12} (А — 1, Б — 2)»
         m = re.match(r'\s*\\textbf\{([\d\s,и]+)\.?\}', txt)
         if m: return re.sub(r'\D', '', m.group(1))
     if ';' in txt.split('\\emph{Подсказка')[0] and txt.count('=') > 2:
@@ -269,6 +276,9 @@ def main():
             text = re.sub(r'\n{3,}', '\n\n', text).strip()
             sol = sols.get(t['n'])
             ans = guess_answer(t, sol)
+            if not ans and sol and sol[1]:
+                m = re.search(r'\\textbf\{Ответ:\}\s*(.*?)(?:\n\n|\\textbf\{Критерии|$)', sol[0], re.S)
+                if m: ans = re.sub(r'\s+', ' ', m.group(1)).strip().rstrip('.').replace('"', "'")
             if not ans:
                 report.append(f'   {tid}: ответ не найден — проверка «показать ответ»')
                 # кнопка «Показать ответ» покажет ответ из «Ответов и подсказок» (без подсказки и чертежей)
@@ -278,7 +288,8 @@ def main():
             sol_txt = sol[0] if sol else ''
             sol_txt = re.sub(r'\\emph\{Подсказка:\}', '\\\\textbf{Подсказка:}', sol_txt)
             # финальную строку «Ответ: …» в решении не пишем (ответ показывает кнопка), правило владельца
-            sol_txt = re.sub(r'\n?\\textbf\{Ответ:\}[^\n]*', '', sol_txt).strip()
+            sol_txt = re.sub(r'\n?\\textbf\{Ответ:\}.*?(?=\n\n|\\textbf\{Критерии|$)', '', sol_txt, flags=re.S).strip()
+            sol_txt = re.sub(r'\\textbf\{Решение\.\}\s*', '', sol_txt)
             sol_txt, sol_pics = tikz_blocks(sol_txt, 'рис')
             if sol_pics:  # чертёж в ответе (построение векторов и т. п.) — блоком ```latex, как в банке
                 it = iter(sol_pics)
