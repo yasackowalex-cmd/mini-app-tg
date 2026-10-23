@@ -50,7 +50,6 @@ source: len.tex
     \fill[black] (-1.3,-0.9) circle (1.5pt) node[left] {5};
     \fill[black] (-2.2,-1.6) circle (1.5pt) node[left] {6};
     
-    \node[below left] at (-4,-2) {0};
 \end{tikzpicture}
 ```
 
