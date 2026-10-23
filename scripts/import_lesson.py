@@ -149,7 +149,7 @@ def import_hw(path):
             sb = re.sub(r'\\(begin|end)\{solutionbox\}', '', e.group(2)).strip()
             sb = re.sub(r'^\\textbf\{Задание\s*\d+\.\}\s*', '', sb)
             cb = re.sub(r'\\(begin|end)\{critbox\}', '', e.group(3) or '').strip()
-            sols[int(e.group(1))] = (sb + ('\n\n\\textbf{Критерии оценивания}\n\n' + cb if cb else ''), True)
+            sols[int(e.group(1))] = (sb, True)   # критерии оценивания не берём (владелец)
         ans = re.sub(r'\\textbf\{Эталон.*', '', ans, flags=re.S)
         ans = re.sub(r'\\textbf\{(Базовый|Повышенный|Высокий)[^}]*\}(\\\\(\[[^\]]*\])?)?', '', ans)
         # номер ответа — в начале строки («\textbf{6.} \textbf{13.}» — это ответ 13 к задаче 6)
@@ -162,7 +162,7 @@ def import_hw(path):
                 sb = re.search(r'\\begin\{solutionbox\}(.*?)\\end\{solutionbox\}', txt, re.S)
                 cb = re.search(r'\\begin\{critbox\}(.*?)\\end\{critbox\}', txt, re.S)
                 sb = re.sub(r'^\\textbf\{Задание\s*\d+\.\}\s*', '', sb.group(1).strip()) if sb else ''
-                sols[num] = (sb + ('\n\n\\textbf{Критерии оценивания}\n\n' + cb.group(1).strip() if cb else ''), True)
+                sols[num] = (sb, True)   # критерии оценивания не берём (владелец)
                 continue
             sols[num] = (txt, False)
     return tasks, sols
