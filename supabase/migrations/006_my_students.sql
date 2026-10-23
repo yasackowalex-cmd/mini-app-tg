@@ -18,3 +18,7 @@ select distinct h.teacher_id, s.tg_id, 'hw'
 from homework_students s join homework h on h.id = s.hw_id
 where h.teacher_id <> s.tg_id
 on conflict do nothing;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.my_students to service_role;

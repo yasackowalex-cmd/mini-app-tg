@@ -11,3 +11,7 @@ create index if not exists reveals_user on reveals (tg_id, task_id);
 
 -- Доступ только через функцию (сервисный ключ), как у остальных таблиц.
 alter table reveals enable row level security;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.reveals to service_role;

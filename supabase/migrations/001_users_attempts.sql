@@ -21,3 +21,9 @@ create index if not exists attempts_user_idx on attempts (tg_id, created_at desc
 -- Пишут и читают только функции Supabase с сервисным ключом.
 alter table users    enable row level security;
 alter table attempts enable row level security;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.users to service_role;
+grant select, insert, update, delete on public.attempts to service_role;
+grant usage, select on sequence public.attempts_id_seq to service_role;

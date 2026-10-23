@@ -9,3 +9,7 @@ create table if not exists favorites (
 
 -- доступ только через функцию с сервисным ключом
 alter table favorites enable row level security;
+
+-- С 30.10.2026 Supabase не открывает новые таблицы для API сам: доступ только сервисному ключу функции.
+-- anon и authenticated доступа не даём (RLS без политик).
+grant select, insert, update, delete on public.favorites to service_role;
