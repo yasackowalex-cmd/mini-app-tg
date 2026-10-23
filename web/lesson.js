@@ -112,7 +112,11 @@
       if (box.dataset.topic !== topic) return;
       const hw = box.querySelector('.lhw-list');
       hw.innerHTML = '';
-      window.bankView.cards(hwTasks(L)).forEach(el => hw.appendChild(el));
+      // номер задачи в ДЗ — чтобы ученик мог сказать, с какой задачей проблема
+      window.bankView.cards(hwTasks(L)).forEach((el, i) => {
+        el.querySelector('.meta')?.insertAdjacentHTML('afterbegin', `<span class="chip num">№ ${i + 1}</span>`);
+        hw.appendChild(el);
+      });
     });
   }
 
