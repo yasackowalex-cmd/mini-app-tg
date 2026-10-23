@@ -83,7 +83,7 @@
     s = esc(s);
 
     // 2. служебное оформление печатной версии
-    s = s.replace(/\\(nopagebreak|smallskip|medskip|bigskip|hfill|centering|small|footnotesize|normalsize|noindent|newpage)(?![a-zA-Z])/g, '');
+    s = s.replace(/\\(nopagebreak|smallskip|medskip|bigskip|hfill|centering|small|footnotesize|normalsize|noindent|newpage|itshape|bfseries|upshape|mdseries|rmfamily|sffamily)(?![a-zA-Z])/g, '');
     s = replaceCmd(s, '(?:vspace|hspace)\\*?', 1, () => ' ');
     s = replaceCmd(s, 'includegraphics', 1, () => '');
     s = replaceCmd(s, 'answer', 1, () => '');
