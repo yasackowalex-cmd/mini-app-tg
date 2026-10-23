@@ -40,6 +40,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .chip { font-size: 13px; background: var(--chip); color: var(--dark); border-radius: 999px; padding: 2px 10px; }
 .chip.kim { background: var(--dark); color: #fff; font-weight: 700; }
+.chip.num { background: #0066FF; color: #fff; font-weight: 700; }
 .chip.avt { background: #FFE9E0; }
 .chip.sim { background: #E6F0FF; }
 .cond { overflow-wrap: anywhere; }
