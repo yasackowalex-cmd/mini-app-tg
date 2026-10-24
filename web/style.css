@@ -262,8 +262,10 @@ a.btn { text-decoration: none; display: inline-block; }
 .lback a { color: var(--blue); text-decoration: none; }
 .lvsrc { margin: -4px 0 12px; }
 .lvsrc button { padding: 6px 12px; font-size: 14px; }
-.lnext { margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; }
-.lnext .btn { display: inline-block; text-decoration: none; white-space: normal; }
+.lnext { margin: 18px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lnext .btn { display: block; text-decoration: none; white-space: normal; min-width: 0; }
+.lnext .btn.nx { text-align: right; }
+.lnext .btn small { display: block; margin-top: 4px; font-weight: 400; font-size: 12px; line-height: 1.25; opacity: .8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lesson { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 16px 0 0; }
 .lesson h2 { margin: 0 0 4px; font: 600 22px/1.25 Oswald, sans-serif; }
 .lesson .lkw { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
