@@ -45,9 +45,9 @@ source: 2td.tex
     
     
     % Точки
-    \fill[black] (1) circle (1.5pt) node[left=2pt] {1};
-    \fill[black] (2) circle (1.5pt) node[above left] {2};
-    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    \fill[black] (1) circle (1.2pt) node[left=2pt] {1};
+    \fill[black] (2) circle (1.2pt) node[above left] {2};
+    \fill[black] (3) circle (1.2pt) node[above right] {3};
     
     % Засечки и подписи на осях
     \foreach \yy in {1,3,4.5} \draw[thick] (0,\yy) -- (0.12,\yy);

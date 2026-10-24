@@ -35,10 +35,10 @@ source: Демидова, ЕГЭ-2025, 30 вариантов (вариант 3)
 \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.7) node[above] {$x$};
   \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.4,0) node[right] {$t$};
   \draw[ultra thick, brandPrimary, domain=0:3.0, samples=100] plot (\x, {1.35 - 0.95*cos(180*(\x-0.6)/1.7)});
-  \fill[black] (0.6,0.4) circle (1.5pt) node[below right] {$A$};
-  \fill[black] (1.9,{1.35 - 0.95*cos(180*1.3/1.7)}) circle (1.5pt) node[above left] {$B$};
-  \fill[black] (2.3,2.3) circle (1.5pt) node[above] {$C$};
-  \fill[black] (2.95,{1.35 - 0.95*cos(180*2.35/1.7)}) circle (1.5pt) node[right] {$D$};
+  \fill[black] (0.6,0.4) circle (1.2pt) node[below right] {$A$};
+  \fill[black] (1.9,{1.35 - 0.95*cos(180*1.3/1.7)}) circle (1.2pt) node[above left] {$B$};
+  \fill[black] (2.3,2.3) circle (1.2pt) node[above] {$C$};
+  \fill[black] (2.95,{1.35 - 0.95*cos(180*2.35/1.7)}) circle (1.2pt) node[right] {$D$};
   \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```

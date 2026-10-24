@@ -55,9 +55,9 @@ source: 2td.tex
     \draw[dashed, gray] (3,0) -- (3,2);
     
     % Точки
-    \fill[black] (1) circle (1.5pt) node[above left] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
-    \fill[black] (3) circle (1.5pt) node[below left] {3};
+    \fill[black] (1) circle (1.2pt) node[above left] {1};
+    \fill[black] (2) circle (1.2pt) node[above right] {2};
+    \fill[black] (3) circle (1.2pt) node[below left] {3};
     
     % Подписи на осях
     \node[left] at (0,1) {$p_0$};

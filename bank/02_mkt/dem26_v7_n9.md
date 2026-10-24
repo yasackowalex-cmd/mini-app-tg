@@ -47,10 +47,10 @@ source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 7)
   \draw[very thick, brandPrimary] (2.3,2.044) -- (1,0.889);
   \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,0.889) -- (1,1.3);
   \draw[very thick, brandPrimary] (1,1.3) -- (1,1.6);
-  \fill (1,1.6) circle (1.6pt) node[left] {$A$};
-  \fill (2,3.2) circle (1.6pt) node[above] {$B$};
-  \fill (3.6,3.2) circle (1.6pt) node[above right] {$C$};
-  \fill (1,0.889) circle (1.6pt) node[below right] {$D$};
+  \fill (1,1.6) circle (1.2pt) node[left] {$A$};
+  \fill (2,3.2) circle (1.2pt) node[above] {$B$};
+  \fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};
+  \fill (1,0.889) circle (1.2pt) node[below right] {$D$};
 \end{tikzpicture}
 ```
 

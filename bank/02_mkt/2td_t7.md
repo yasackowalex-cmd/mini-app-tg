@@ -34,9 +34,9 @@ source: 2td.tex
   \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (1,0.8)--(1,1.5);
   \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (1,2)--(2.6,2.85);
   \draw[-{Stealth[scale=1.1]},ultra thick,brandPrimary] (4,3.6)--(2.35,2.06);
-  \fill (1,0.8) circle (1.5pt) node[below right]{1};
-  \fill (1,2) circle (1.5pt) node[above left]{2};
-  \fill (4,3.6) circle (1.5pt) node[above right]{3};
+  \fill (1,0.8) circle (1.2pt) node[below right]{1};
+  \fill (1,2) circle (1.2pt) node[above left]{2};
+  \fill (4,3.6) circle (1.2pt) node[above right]{3};
 \end{tikzpicture}
 ```
 

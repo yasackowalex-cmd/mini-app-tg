@@ -46,9 +46,9 @@ source: mkt.tex
     \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
     \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
     
-    \fill[black] (1) circle (1.5pt) node[below right] {1};
-    \fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};
-    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    \fill[black] (1) circle (1.2pt) node[below right] {1};
+    \fill[black] (2) circle (1.2pt) node[right=2pt, yshift=-2pt] {2};
+    \fill[black] (3) circle (1.2pt) node[above right] {3};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```

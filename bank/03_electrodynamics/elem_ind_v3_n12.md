@@ -31,9 +31,9 @@ source: ind.tex
     
     \draw[ultra thick, brandPrimary] (0,0) -- (4,3);
     
-    \fill[black] (0,0) circle (1.5pt);
-    \fill[black] (2,1.5) circle (1.5pt);
-    \fill[black] (4,3) circle (1.5pt);
+    \fill[black] (0,0) circle (1.2pt);
+    \fill[black] (2,1.5) circle (1.2pt);
+    \fill[black] (4,3) circle (1.2pt);
     
     \draw[dashed, gray] (2,0) -- (2,1.5) -- (0,1.5);
     \draw[dashed, gray] (4,0) -- (4,3) -- (0,3);

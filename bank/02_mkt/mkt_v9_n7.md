@@ -33,8 +33,8 @@ source: mkt.tex
     
     \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (1);
     
-    \fill[black] (1) circle (1.5pt) node[above right] {1};
-    \fill[black] (2) circle (1.5pt) node[above left] {2};
+    \fill[black] (1) circle (1.2pt) node[above right] {1};
+    \fill[black] (2) circle (1.2pt) node[above left] {2};
     
     \node[left] at (0,2) {$2p_0$};
     \node[left] at (0,4) {$4p_0$};

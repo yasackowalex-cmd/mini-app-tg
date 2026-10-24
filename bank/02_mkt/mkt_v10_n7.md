@@ -29,8 +29,8 @@ source: mkt.tex
   \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.6) node[above] {$p$};
   \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (4,2) -- (2.5,3);
   \draw[very thick, brandPrimary] (2.5,3) -- (1,4);
-  \fill (4,2) circle (1.5pt) node[above right] {1};
-  \fill (1,4) circle (1.5pt) node[above right] {2};
+  \fill (4,2) circle (1.2pt) node[above right] {1};
+  \fill (1,4) circle (1.2pt) node[above right] {2};
   \node[left] at (0,2) {$4p_0$};
   \node[left] at (0,4) {$8p_0$};
   \node[below] at (2,0) {$2V_0$};
