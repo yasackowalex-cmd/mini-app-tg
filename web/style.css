@@ -262,7 +262,7 @@ a.btn { text-decoration: none; display: inline-block; }
 .lback a { color: var(--blue); text-decoration: none; }
 .lvsrc { margin: -4px 0 12px; }
 .lvsrc button { padding: 6px 12px; font-size: 14px; }
-.lnext { margin: 18px 0 0; }
+.lnext { margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; }
 .lnext .btn { display: inline-block; text-decoration: none; white-space: normal; }
 .lesson { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 16px 0 0; }
 .lesson h2 { margin: 0 0 4px; font: 600 22px/1.25 Oswald, sans-serif; }
