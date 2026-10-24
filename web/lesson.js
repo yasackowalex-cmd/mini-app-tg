@@ -101,7 +101,7 @@
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
       ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
-      ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий урок: ${esc(prev.topic)} ${esc(prev.title)}</a>` : ''}${next ? `<a class="btn" href="#lesson=${esc(next.topic)}">Следующий урок: ${esc(next.topic)} ${esc(next.title)} →</a>` : ''}</p>` : ''}`;
+      ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.topic)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
       if (!b) return;
