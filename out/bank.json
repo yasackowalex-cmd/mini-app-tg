@@ -22967,7 +22967,7 @@
   ],
   "source": "cal.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$Q, 10^5\\text{ Дж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,4);\n    \\coordinate (B) at (1,2.5);\n    \\coordinate (C) at (4,2.5);\n    \\coordinate (D) at (6,0.5);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \n    \\node[left] at (0,1) {20};\n    \\node[left] at (0,2) {40};\n    \\node[left] at (0,3) {60};\n    \\node[left] at (0,4) {80};\n    \\node[below] at (1,0) {1};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (3,0) {3};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (5,0) {5};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.5, ystep=0.5, gray!45, very thin] (0,0) grid (6,4);\n    \\draw[xstep=1, ystep=1, gray!70, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$Q, 10^5\\text{ Дж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,4);\n    \\coordinate (B) at (1,2.5);\n    \\coordinate (C) at (4,2.5);\n    \\coordinate (D) at (6,0.5);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \n    \\node[left] at (0,1) {20};\n    \\node[left] at (0,2) {40};\n    \\node[left] at (0,3) {60};\n    \\node[left] at (0,4) {80};\n    \\node[below] at (1,0) {1};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (3,0) {3};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (5,0) {5};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости температуры вещества в процессе теплообмена с окружающей средой от отдаваемого им количества теплоты. Масса вещества равна $150$~г. Первоначально вещество было в газообразном состоянии. Какова удельная теплота парообразования вещества?",
   "sol_tikz": [],
@@ -22975,7 +22975,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v3_n8.md",
   "images": [
-   "assets/mkt_heat_v3_n8_1.svg?v=98671e38"
+   "assets/mkt_heat_v3_n8_1.svg?v=c7fabfda"
   ],
   "solution_images": []
  },
@@ -22999,7 +22999,7 @@
   ],
   "source": "cal.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$Q, 10^5\\text{ Дж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,4);\n    \\coordinate (B) at (1,2.5);\n    \\coordinate (C) at (4,2.5);\n    \\coordinate (D) at (6,0.5);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \n    \\node[left] at (0,1) {20};\n    \\node[left] at (0,2) {40};\n    \\node[left] at (0,3) {60};\n    \\node[left] at (0,4) {80};\n    \\node[below] at (1,0) {1};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (3,0) {3};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (5,0) {5};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.5, ystep=0.5, gray!45, very thin] (0,0) grid (6,4);\n    \\draw[xstep=1, ystep=1, gray!70, thin] (0,0) grid (6,4);\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$Q, 10^5\\text{ Дж}$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \\,^{\\circ}\\text{C}$};\n    \n    \\coordinate (A) at (0,4);\n    \\coordinate (B) at (1,2.5);\n    \\coordinate (C) at (4,2.5);\n    \\coordinate (D) at (6,0.5);\n    \n    \\draw[ultra thick, brandPrimary] (A) -- (B) -- (C) -- (D);\n    \n    \n    \\node[left] at (0,1) {20};\n    \\node[left] at (0,2) {40};\n    \\node[left] at (0,3) {60};\n    \\node[left] at (0,4) {80};\n    \\node[below] at (1,0) {1};\n    \\node[below] at (2,0) {2};\n    \\node[below] at (3,0) {3};\n    \\node[below] at (4,0) {4};\n    \\node[below] at (5,0) {5};\n    \\node[below] at (6,0) {6};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости температуры вещества в процессе теплообмена с окружающей средой от отдаваемого им количества теплоты. Масса вещества равна $1{,}2$~кг. Первоначально вещество было в жидком состоянии. Какова удельная теплота плавления вещества?",
   "sol_tikz": [],
@@ -23007,7 +23007,7 @@
   "check": "number",
   "file": "02_mkt/mkt_heat_v4_n8.md",
   "images": [
-   "assets/mkt_heat_v4_n8_1.svg?v=98671e38"
+   "assets/mkt_heat_v4_n8_1.svg?v=c7fabfda"
   ],
   "solution_images": []
  },

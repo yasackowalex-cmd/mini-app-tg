@@ -24,7 +24,8 @@ source: cal.tex
 
 ```latex
 \begin{tikzpicture}[scale=1.1, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (6,4);
+    \draw[xstep=0.5, ystep=0.5, gray!45, very thin] (0,0) grid (6,4);
+    \draw[xstep=1, ystep=1, gray!70, thin] (0,0) grid (6,4);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (6.5,0) node[right] {$Q, 10^5\text{ Дж}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$t, \,^{\circ}\text{C}$};
     
