@@ -56,7 +56,8 @@
 <g fill='#1b1f3b' transform='matrix(1 0 0 1 170.0744 -62.196516)'>
 <use x='-64.556391' y='.954216' xlink:href='#g0-86'/>
 </g>
-<path d='M114.0276-4.148434L162.4996-52.621084' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
+<path d='M108.9256 .953125L126.7856-16.902384' stroke='#828493' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
+<path d='M126.7856-16.902384L162.4996-52.621084' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 <g transform='matrix(1 0 0 1 192.8324 15.479084)'>
 <use x='-64.556391' y='.954216' xlink:href='#g0-86'/>
 <use x='-56.331558' y='.954216' xlink:href='#g1-21'/>
