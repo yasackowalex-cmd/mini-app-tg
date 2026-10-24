@@ -36,9 +36,9 @@ source: 1td.tex
     \draw[ultra thick, brandPrimary, midarrow] (1) -- (2);
     \draw[ultra thick, brandPrimary, midarrow] (2) -- (3);
     
-    \fill[black] (1) circle (1.5pt) node[below right] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
-    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    \fill[black] (1) circle (1.2pt) node[below right] {1};
+    \fill[black] (2) circle (1.2pt) node[above right] {2};
+    \fill[black] (3) circle (1.2pt) node[above right] {3};
     
     \node[left] at (0,1) {$p_0$};
     \node[left] at (0,3) {$3p_0$};

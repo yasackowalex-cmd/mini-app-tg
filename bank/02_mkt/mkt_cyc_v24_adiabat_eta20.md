@@ -49,9 +49,9 @@ source: 2td.tex
     \draw[brandPrimary, -{Stealth[scale=0.8, length=5pt, width=4pt]}, domain=2.2:3.5] plot (\x, {6.14 / (\x^1.67)});
     
     % Точки
-    \fill[black] (1) circle (1.5pt) node[above left] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
-    \fill[black] (3) circle (1.5pt) node[below right] {3};
+    \fill[black] (1) circle (1.2pt) node[above left] {1};
+    \fill[black] (2) circle (1.2pt) node[above right] {2};
+    \fill[black] (3) circle (1.2pt) node[below right] {3};
     
     % Ноль на оси
     \node[below left] at (0,0) {0};

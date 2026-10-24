@@ -41,10 +41,10 @@ source: 1td.tex
     \draw[ultra thick, brandPrimary, ->, >=stealth] (3) -- (4);
     \draw[ultra thick, brandPrimary, ->, >=stealth] (4) -- (1);
     
-    \fill[black] (1) circle (1.5pt) node[above left] {1};
-    \fill[black] (2) circle (1.5pt) node[above right] {2};
-    \fill[black] (3) circle (1.5pt) node[right=2pt] {3};
-    \fill[black] (4) circle (1.5pt) node[below right] {4};
+    \fill[black] (1) circle (1.2pt) node[above left] {1};
+    \fill[black] (2) circle (1.2pt) node[above right] {2};
+    \fill[black] (3) circle (1.2pt) node[right=2pt] {3};
+    \fill[black] (4) circle (1.2pt) node[below right] {4};
     
     \node[left] at (0,1) {$p_0$};
     \node[left] at (0,3) {$3p_0$};

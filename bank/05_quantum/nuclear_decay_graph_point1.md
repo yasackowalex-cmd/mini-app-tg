@@ -29,11 +29,11 @@ source: nuc.tex
     \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};
     \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{20}$};
     
-    \fill[black] (0,4) circle (2pt) node[above right] {$A$};
-    \fill[black] (1,2) circle (2pt) node[above right] {1};
-    \fill[black] (2,1.5) circle (2pt) node[above right] {2};
-    \fill[black] (3,1.5) circle (2pt) node[above right] {3};
-    \fill[black] (5,0.5) circle (2pt) node[above right] {4};
+    \fill[black] (0,4) circle (1.2pt) node[above right] {$A$};
+    \fill[black] (1,2) circle (1.2pt) node[above right] {1};
+    \fill[black] (2,1.5) circle (1.2pt) node[above right] {2};
+    \fill[black] (3,1.5) circle (1.2pt) node[above right] {3};
+    \fill[black] (5,0.5) circle (1.2pt) node[above right] {4};
     
     \foreach \x/\val in {1/50, 2/100, 3/150, 4/200, 5/250, 6/300}
         \node[below] at (\x,0) {\val};

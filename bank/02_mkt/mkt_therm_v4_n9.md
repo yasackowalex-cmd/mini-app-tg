@@ -44,11 +44,11 @@ source: 1td.tex
     \draw[ultra thick, brandPrimary, ->, >=stealth] (3,2) -- (3,1.4);
     \draw[ultra thick, brandPrimary, ->, >=stealth] (3,1) -- (1.8,1);
     
-    \fill[black] (1,2) circle (1.5pt) node[above left] {1};
+    \fill[black] (1,2) circle (1.2pt) node[above left] {1};
     \fill[black] (2,2) circle (0pt); 
-    \fill[black] (3,2) circle (1.5pt) node[above right] {2};
-    \fill[black] (3,1) circle (1.5pt) node[below right] {3};
-    \fill[black] (1,1) circle (1.5pt) node[below left] {4};
+    \fill[black] (3,2) circle (1.2pt) node[above right] {2};
+    \fill[black] (3,1) circle (1.2pt) node[below right] {3};
+    \fill[black] (1,1) circle (1.2pt) node[below left] {4};
     
     \node[left] at (0,1) {$p_0$};
     \node[left] at (0,2) {$2p_0$};
