@@ -15958,7 +15958,7 @@
   ],
   "source": "Демидова, ЕГЭ-2024, 30 вариантов (вариант 30)",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.8cm, y=0.6cm, every node/.style={font=\\small}]\n\\foreach \\i in {1,...,4} \\draw[gray!50, thin] (\\i,0) -- (\\i,3);\n  \\foreach \\j in {1,2,3} \\draw[gray!50, thin] (0,\\j) -- (4,\\j);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5.0,0) node[below right] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$p$, $10^4$ Па};\n  \\foreach \\i/\\l in {0/290,1/300,2/310,3/320,4/330} \\node[below] at (\\i,0) {$\\l$};\n  \\foreach \\j/\\l in {1/2{,}0,2/2{,}2,3/2{,}4} \\node[left] at (0,\\j) {$\\l$}; \\node[above left] at (0,0) {$1{,}8$};\n  \\draw[very thick, brandPrimary] (0,0.667) -- (4.5,2.417);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.8cm, y=0.6cm, every node/.style={font=\\small}]\n\\foreach \\i in {1,...,4} \\draw[gray!50, thin] (\\i,0) -- (\\i,3);\n  \\foreach \\j in {1,2,3} \\draw[gray!50, thin] (0,\\j) -- (4,\\j);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5.0,0) node[below right] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.7) node[left] {$p$, $10^4$ Па};\n  \\foreach \\i/\\l in {0/290,1/300,2/310,3/320,4/330} \\node[below] at (\\i,0) {$\\l$};\n  \\foreach \\j/\\l in {1/2{,}0,2/2{,}2,3/2{,}4} \\node[left] at (0,\\j) {$\\l$}; \\node[above left] at (0,0) {$1{,}8$};\n  \\draw[very thick, brandPrimary] (0,0.667) -- (4.5,2.167);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график зависимости давления газа в запаянном сосуде от его температуры. Объём сосуда равен $0{,}25$~м$^3$. Какое количество газообразного вещества содержится в этом сосуде?\n\n[[рис 1]]",
   "sol_tikz": [],
@@ -15966,7 +15966,7 @@
   "check": "number",
   "file": "02_mkt/dem24_v30_n23.md",
   "images": [
-   "assets/dem24_v30_n23_1.svg?v=4be58c53"
+   "assets/dem24_v30_n23_1.svg?v=35def738"
   ],
   "solution_images": []
  },
@@ -18592,7 +18592,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 10)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$p$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (0.5,0.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,2) -- (1.15,1.15);\n  \\draw[very thick, brandPrimary] (1.15,1.15) -- (0.5,0.5);\n  \\fill (2,2) circle (1.2pt) node[above] {$1$};\n  \\fill (0.5,0.5) circle (1.2pt) node[below right] {$2$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$p$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (0.5,0.5);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.57 with {\\arrow{Stealth[scale=0.9]}}}] (2,2) -- (0.5,0.5);\n  \\fill (2,2) circle (1.2pt) node[above] {$1$};\n  \\fill (0.5,0.5) circle (1.2pt) node[below right] {$2$};\n\\end{tikzpicture}"
   ],
   "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. рисунок). Как изменяются при этом плотность газа и его внутренняя энергия?\n\nДля каждой величины определите соответствующий характер изменения:\n\n1) увеличивается\\\\\n2) уменьшается\\\\\n3) не изменяется\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nПлотность газа & Внутренняя энергия газа \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
   "sol_tikz": [],
@@ -18600,7 +18600,7 @@
   "check": "seq",
   "file": "02_mkt/dem26_v10_n10.md",
   "images": [
-   "assets/dem26_v10_n10_1.svg?v=4c087a6d"
+   "assets/dem26_v10_n10_1.svg?v=c53af01c"
   ],
   "solution_images": []
  },
@@ -18949,7 +18949,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 12)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.4,0) node[below] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.0) node[left] {$T$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed] (0,0.8) -- (1,0.8) -- (1,0);\n  \\draw[dashed] (2.6,0.8) -- (2.6,0);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2.6,0.8) -- (1.7,0.8);\n  \\draw[very thick, brandPrimary] (1.7,0.8) -- (1,0.8);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,0.8) -- (1,1.7000000000000002);\n  \\draw[very thick, brandPrimary] (1,1.7000000000000002) -- (1,2.4);\n  \\fill (2.6,0.8) circle (1.2pt) node[above right] {1};\n  \\fill (1,0.8) circle (1.2pt) node[below left] {2};\n  \\fill (1,2.4) circle (1.2pt) node[above left] {3};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.4,0) node[below] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.0) node[left] {$T$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed] (0,0.8) -- (1,0.8) -- (1,0);\n  \\draw[dashed] (2.6,0.8) -- (2.6,0);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[scale=1.1]}}}] (2.6,0.8) -- (1,0.8);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.6 with {\\arrow{Stealth[scale=1.1]}}}] (1,0.8) -- (1,2.4);\n  \\fill (2.6,0.8) circle (1.2pt) node[above right] {1};\n  \\fill (1,0.8) circle (1.2pt) node[below left] {2};\n  \\fill (1,2.4) circle (1.2pt) node[above left] {3};\n\\end{tikzpicture}"
   ],
   "condition": "Идеальный одноатомный газ в количестве $1$~моль на участке 1–2 изотермически сжали. На участке 2–3 газ изохорно нагрели, повысив его давление в $3$ раза (см. рисунок). Какое количество теплоты получил газ на участке 2–3, если в состоянии 1 температура газа $T_1 = 300$~К?",
   "sol_tikz": [],
@@ -18957,7 +18957,7 @@
   "check": "number",
   "file": "02_mkt/dem26_v12_n24.md",
   "images": [
-   "assets/dem26_v12_n24_1.svg?v=28783d25"
+   "assets/dem26_v12_n24_1.svg?v=734d42fc"
   ],
   "solution_images": []
  },
@@ -21532,7 +21532,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 3)",
   "tikz": [
-   "\\begin{tikzpicture}[every node/.style={font=\\small}]\n\n  \\draw[xstep=0.5714, ystep=0.8800, gray!35, thin] (0,0) grid (4.000,2.200);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.500,0) node[below] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.700) node[left] {$p$, $10^5$ Па};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (1.143,0) {$200$};\n  \\node[below] at (2.286,0) {$400$};\n  \\node[below] at (3.429,0) {$600$};\n  \\node[left] at (0,0.880) {$1$};\n  \\node[left] at (0,1.760) {$2$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.143,1.760) -- (2.286,1.320);\n  \\draw[very thick, brandPrimary] (2.286,1.320) -- (3.429,0.880);\n  \\fill (1.143,1.760) circle (1.2pt) node[above] {$1$};\n  \\fill (3.429,0.880) circle (1.2pt) node[above right] {$2$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[every node/.style={font=\\small}]\n\n  \\draw[xstep=0.5714, ystep=0.8800, gray!35, thin] (0,0) grid (4.000,2.200);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.500,0) node[below] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.700) node[left] {$p$, $10^5$ Па};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (1.143,0) {$200$};\n  \\node[below] at (2.286,0) {$400$};\n  \\node[below] at (3.429,0) {$600$};\n  \\node[left] at (0,0.880) {$1$};\n  \\node[left] at (0,1.760) {$2$};\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (1.143,1.76) -- (3.429,0.88);\n  \\fill (1.143,1.760) circle (1.2pt) node[above] {$1$};\n  \\fill (3.429,0.880) circle (1.2pt) node[above right] {$2$};\n\\end{tikzpicture}"
   ],
   "condition": "Во время опыта объём сосуда с разреженным гелием не менялся, и гелий перешёл из состояния 1 в состояние 2 (см. рисунок). Кран у сосуда был закрыт неплотно, и сквозь него мог просачиваться гелий. Определите отношение $\\dfrac{N_2}{N_1}$ числа молекул газа в сосуде в конце и в начале опыта.",
   "sol_tikz": [],
@@ -21540,7 +21540,7 @@
   "check": "none",
   "file": "02_mkt/dem26_v3_n23.md",
   "images": [
-   "assets/dem26_v3_n23_1.svg?v=fa9363a7"
+   "assets/dem26_v3_n23_1.svg?v=45acd745"
   ],
   "solution_images": []
  },
@@ -21564,7 +21564,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 4)",
   "tikz": [
-   "\\begin{tikzpicture}[every node/.style={font=\\small}]\n\n  \\draw[xstep=0.6000, ystep=0.4400, gray!35, thin] (0,0) grid (4.000,2.200);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.500,0) node[below] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.700) node[left] {$p$, $10^5$ Па};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (1.200,0) {$300$};\n  \\node[below] at (2.400,0) {$600$};\n  \\node[below] at (3.600,0) {$900$};\n  \\node[left] at (0,0.880) {$2$};\n  \\node[left] at (0,1.760) {$4$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1.200,1.760) -- (2.100,1.320);\n  \\draw[very thick, brandPrimary] (2.100,1.320) -- (3.000,0.880);\n  \\fill (1.200,1.760) circle (1.2pt) node[above] {$1$};\n  \\fill (3.000,0.880) circle (1.2pt) node[above right] {$2$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[every node/.style={font=\\small}]\n\n  \\draw[xstep=0.6000, ystep=0.4400, gray!35, thin] (0,0) grid (4.000,2.200);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.500,0) node[below] {$T$, К};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.700) node[left] {$p$, $10^5$ Па};\n  \\node[below left] at (0,0) {$0$};\n  \\node[below] at (1.200,0) {$300$};\n  \\node[below] at (2.400,0) {$600$};\n  \\node[below] at (3.600,0) {$900$};\n  \\node[left] at (0,0.880) {$2$};\n  \\node[left] at (0,1.760) {$4$};\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (1.2,1.76) -- (3,0.88);\n  \\fill (1.200,1.760) circle (1.2pt) node[above] {$1$};\n  \\fill (3.000,0.880) circle (1.2pt) node[above right] {$2$};\n\\end{tikzpicture}"
   ],
   "condition": "Во время опыта объём сосуда с разреженным неоном не менялся, и неон перешёл из состояния 1 в состояние 2 (см. рисунок). Кран у сосуда был закрыт неплотно, и сквозь него мог просачиваться неон. Определите отношение $\\dfrac{N_2}{N_1}$ числа молекул газа в сосуде в конце и в начале опыта.",
   "sol_tikz": [],
@@ -21572,7 +21572,7 @@
   "check": "number",
   "file": "02_mkt/dem26_v4_n23.md",
   "images": [
-   "assets/dem26_v4_n23_1.svg?v=b262fc81"
+   "assets/dem26_v4_n23_1.svg?v=09860b88"
   ],
   "solution_images": []
  },
@@ -21800,7 +21800,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 7)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.8) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (1,1.6);\n  \\draw[dashed, gray] (0,0) -- (1,0.889);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,1.6) -- (1.5,2.4);\n  \\draw[very thick, brandPrimary] (1.5,2.4) -- (2,3.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,3.2) -- (2.9,3.2);\n  \\draw[very thick, brandPrimary] (2.9,3.2) -- (3.6,3.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (3.6,3.2) -- (2.3,2.044);\n  \\draw[very thick, brandPrimary] (2.3,2.044) -- (1,0.889);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,0.889) -- (1,1.3);\n  \\draw[very thick, brandPrimary] (1,1.3) -- (1,1.6);\n  \\fill (1,1.6) circle (1.2pt) node[left] {$A$};\n  \\fill (2,3.2) circle (1.2pt) node[above] {$B$};\n  \\fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};\n  \\fill (1,0.889) circle (1.2pt) node[below right] {$D$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.8) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (1,1.6);\n  \\draw[dashed, gray] (0,0) -- (1,0.889);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (1,1.6) -- (2,3.2);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.56 with {\\arrow{Stealth[scale=0.9]}}}] (2,3.2) -- (3.6,3.2);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (3.6,3.2) -- (1,0.889);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.58 with {\\arrow{Stealth[scale=0.9]}}}] (1,0.889) -- (1,1.6);\n  \\fill (1,1.6) circle (1.2pt) node[left] {$A$};\n  \\fill (2,3.2) circle (1.2pt) node[above] {$B$};\n  \\fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};\n  \\fill (1,0.889) circle (1.2pt) node[below right] {$D$};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график циклического процесса, проведённого с одноатомным идеальным газом, в координатах $V$–$T$, где $V$ — объём газа, $T$ — абсолютная температура газа. Количество вещества газа постоянно.\n\nИз приведённого ниже списка выберите все правильные утверждения, характеризующие отражённые на графике процессы.\n\n[[рис 1]]\n\n1) Давление газа в процессе $CD$ постоянно, при этом газ совершает положительную работу.\\\\\n2) В процессе $DA$ давление газа уменьшается.\\\\\n3) В процессе $AB$ газ получает положительное количество теплоты.\\\\\n4) В состоянии $D$ концентрация атомов газа минимальна.\\\\\n5) В процессе $BC$ внутренняя энергия газа уменьшается.",
   "sol_tikz": [],
@@ -21808,7 +21808,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v7_n9.md",
   "images": [
-   "assets/dem26_v7_n9_1.svg?v=38c120da"
+   "assets/dem26_v7_n9_1.svg?v=19ebc65a"
   ],
   "solution_images": []
  },
@@ -21860,7 +21860,7 @@
   ],
   "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 8)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.8) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (1,1.6);\n  \\draw[dashed, gray] (0,0) -- (1,0.889);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,1.6) -- (1.5,2.4);\n  \\draw[very thick, brandPrimary] (1.5,2.4) -- (2,3.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,3.2) -- (2.9,3.2);\n  \\draw[very thick, brandPrimary] (2.9,3.2) -- (3.6,3.2);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (3.6,3.2) -- (2.3,2.044);\n  \\draw[very thick, brandPrimary] (2.3,2.044) -- (1,0.889);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,0.889) -- (1,1.3);\n  \\draw[very thick, brandPrimary] (1,1.3) -- (1,1.6);\n  \\fill (1,1.6) circle (1.2pt) node[left] {$A$};\n  \\fill (2,3.2) circle (1.2pt) node[above] {$B$};\n  \\fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};\n  \\fill (1,0.889) circle (1.2pt) node[below right] {$D$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (4.3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3.8) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (1,1.6);\n  \\draw[dashed, gray] (0,0) -- (1,0.889);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (1,1.6) -- (2,3.2);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.56 with {\\arrow{Stealth[scale=0.9]}}}] (2,3.2) -- (3.6,3.2);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (3.6,3.2) -- (1,0.889);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.58 with {\\arrow{Stealth[scale=0.9]}}}] (1,0.889) -- (1,1.6);\n  \\fill (1,1.6) circle (1.2pt) node[left] {$A$};\n  \\fill (2,3.2) circle (1.2pt) node[above] {$B$};\n  \\fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};\n  \\fill (1,0.889) circle (1.2pt) node[below right] {$D$};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан график циклического процесса, проведённого с одноатомным идеальным газом, в координатах $V$–$T$, где $V$ — объём газа, $T$ — абсолютная температура газа. Количество вещества газа постоянно.\n\nИз приведённого ниже списка выберите все правильные утверждения, характеризующие отражённые на графике процессы.\n\n[[рис 1]]\n\n1) Давление газа в процессе $CD$ постоянно, при этом над газом совершается положительная работа.\\\\\n2) В процессе $DA$ давление газа увеличивается.\\\\\n3) В процессе $AB$ газ отдаёт положительное количество теплоты в окружающую среду.\\\\\n4) В состоянии $D$ концентрация атомов газа максимальна.\\\\\n5) В процессе $BC$ внутренняя энергия газа увеличивается.",
   "sol_tikz": [],
@@ -21868,7 +21868,7 @@
   "check": "set",
   "file": "02_mkt/dem26_v8_n9.md",
   "images": [
-   "assets/dem26_v8_n9_1.svg?v=38c120da"
+   "assets/dem26_v8_n9_1.svg?v=19ebc65a"
   ],
   "solution_images": []
  },
@@ -22935,7 +22935,7 @@
   ],
   "source": "ig.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n  \\draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (0.5,0.5);\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,2) -- (1.15,1.15);\n  \\draw[very thick, brandPrimary] (1.15,1.15) -- (0.5,0.5);\n  \\fill (2,2) circle (1.2pt) node[above] {$1$};\n  \\fill (0.5,0.5) circle (1.2pt) node[below right] {$2$};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\small}]\n  \\draw[xstep=0.5, ystep=0.5, gray!35, thin] (0,0) grid (2.5,2.5);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3,0) node[below] {$T$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,3) node[left] {$V$};\n  \\node[below left] at (0,0) {$0$};\n  \\draw[dashed, gray] (0,0) -- (0.5,0.5);\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.57 with {\\arrow{Stealth[scale=0.9]}}}] (2,2) -- (0.5,0.5);\n  \\fill (2,2) circle (1.2pt) node[above] {$1$};\n  \\fill (0.5,0.5) circle (1.2pt) node[below right] {$2$};\n\\end{tikzpicture}"
   ],
   "condition": "Идеальный одноатомный газ постоянной массы переходит из состояния 1 в состояние 2 (см. диаграмму). Как изменяются при этом концентрация молекул газа и его давление?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличивается;\n2) уменьшается;\n3) не изменяется.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nКонцентрация молекул газа & Давление газа \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
   "sol_tikz": [],
@@ -22943,7 +22943,7 @@
   "check": "seq",
   "file": "02_mkt/mkt_gas_v9_n10.md",
   "images": [
-   "assets/mkt_gas_v9_n10_1.svg?v=3849f128"
+   "assets/mkt_gas_v9_n10_1.svg?v=31ee1053"
   ],
   "solution_images": []
  },
@@ -23559,7 +23559,7 @@
   ],
   "source": "mkt.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n  \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.6) node[above] {$p$};\n  \\draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (4,2) -- (2.5,3);\n  \\draw[very thick, brandPrimary] (2.5,3) -- (1,4);\n  \\fill (4,2) circle (1.2pt) node[above right] {1};\n  \\fill (1,4) circle (1.2pt) node[above right] {2};\n  \\node[left] at (0,2) {$4p_0$};\n  \\node[left] at (0,4) {$8p_0$};\n  \\node[below] at (2,0) {$2V_0$};\n  \\node[below] at (4,0) {$4V_0$};\n  \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n  \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.6,0) node[right] {$V$};\n  \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.6) node[above] {$p$};\n  \\draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[scale=0.9]}}}] (4,2) -- (1,4);\n  \\fill (4,2) circle (1.2pt) node[above right] {1};\n  \\fill (1,4) circle (1.2pt) node[above right] {2};\n  \\node[left] at (0,2) {$4p_0$};\n  \\node[left] at (0,4) {$8p_0$};\n  \\node[below] at (2,0) {$2V_0$};\n  \\node[below] at (4,0) {$4V_0$};\n  \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "В сосуде под поршнем находится некоторое постоянное количество идеального газа. Во сколько раз уменьшится температура газа, если он перейдёт из состояния 1 в состояние 2 (см. рисунок)?",
   "sol_tikz": [],
@@ -23567,7 +23567,7 @@
   "check": "number",
   "file": "02_mkt/mkt_v10_n7.md",
   "images": [
-   "assets/mkt_v10_n7_1.svg?v=1b86ee88"
+   "assets/mkt_v10_n7_1.svg?v=639af4f1"
   ],
   "solution_images": []
  },

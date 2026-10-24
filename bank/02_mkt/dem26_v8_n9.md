@@ -39,14 +39,10 @@ source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 8)
   \node[below left] at (0,0) {$0$};
   \draw[dashed, gray] (0,0) -- (1,1.6);
   \draw[dashed, gray] (0,0) -- (1,0.889);
-  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,1.6) -- (1.5,2.4);
-  \draw[very thick, brandPrimary] (1.5,2.4) -- (2,3.2);
-  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (2,3.2) -- (2.9,3.2);
-  \draw[very thick, brandPrimary] (2.9,3.2) -- (3.6,3.2);
-  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (3.6,3.2) -- (2.3,2.044);
-  \draw[very thick, brandPrimary] (2.3,2.044) -- (1,0.889);
-  \draw[very thick, brandPrimary, -{Stealth[scale=0.9]}] (1,0.889) -- (1,1.3);
-  \draw[very thick, brandPrimary] (1,1.3) -- (1,1.6);
+  \draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\arrow{Stealth[scale=0.9]}}}] (1,1.6) -- (2,3.2);
+  \draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.56 with {\arrow{Stealth[scale=0.9]}}}] (2,3.2) -- (3.6,3.2);
+  \draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\arrow{Stealth[scale=0.9]}}}] (3.6,3.2) -- (1,0.889);
+  \draw[very thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.58 with {\arrow{Stealth[scale=0.9]}}}] (1,0.889) -- (1,1.6);
   \fill (1,1.6) circle (1.2pt) node[left] {$A$};
   \fill (2,3.2) circle (1.2pt) node[above] {$B$};
   \fill (3.6,3.2) circle (1.2pt) node[above right] {$C$};
