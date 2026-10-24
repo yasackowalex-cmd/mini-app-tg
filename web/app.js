@@ -163,6 +163,7 @@
       markCard(el, t);
     });
     markCard(el, t);
+    el._task = t;
     if (inBank) { markPick(el, t); markFav(el, t); }
     return el;
   }
@@ -278,8 +279,11 @@
     const m = el.querySelector('.chip.mark'), p = prog() && prog()[t.id];
     if (!p) { m.hidden = true; return; }
     m.hidden = false;
-    m.textContent = p.ok ? '✓ решена' : 'пока не решена';
-    m.className = 'chip mark ' + (p.ok ? 'ok' : 'bad');
+    // решённая задача, к которой не возвращались KIM_STALE_DAYS дней (по журналу ответов), просит повторения
+    const last = p.ok && window.tgLog && window.tgLog.find(r => r[0] === t.id && r[1]);
+    const stale = last && Date.now() / 1000 - last[2] > KIM_STALE_DAYS * 86400;
+    m.textContent = stale ? '↻ пора повторить' : p.ok ? '✓ решена' : 'пока не решена';
+    m.className = 'chip mark ' + (stale ? 'part' : p.ok ? 'ok' : 'bad');
   }
 
   function saveAttempt(t, answer, correct) {
@@ -419,6 +423,7 @@
   function onProgress() {
     renderProgress();
     document.querySelectorAll('#list article.task').forEach((el, i) => markCard(el, found[i]));
+    document.querySelectorAll('#lesson article.task').forEach(el => el._task && markCard(el, el._task));
     syncFav();
     renderMistakes();
   }

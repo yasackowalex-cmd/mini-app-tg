@@ -94,14 +94,14 @@
     if (!L) { box.innerHTML = ''; box.dataset.topic = ''; return; }
     if (box.dataset.topic === topic) return;
     box.dataset.topic = topic;
-    const i = list.indexOf(L), next = list[i + 1];
+    const i = list.indexOf(L), prev = list[i - 1], next = list[i + 1];
     box.innerHTML = `<p class="lback"><a href="#lessons">← Все уроки</a></p>
       <h2>Урок ${esc(L.topic)}. ${esc(L.title)}</h2>
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
       ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
-      ${next ? `<p class="lnext"><a class="btn" href="#lesson=${esc(next.topic)}">Следующий урок: ${esc(next.topic)} ${esc(next.title)} →</a></p>` : ''}`;
+      ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий урок: ${esc(prev.topic)} ${esc(prev.title)}</a>` : ''}${next ? `<a class="btn" href="#lesson=${esc(next.topic)}">Следующий урок: ${esc(next.topic)} ${esc(next.title)} →</a>` : ''}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
       if (!b) return;

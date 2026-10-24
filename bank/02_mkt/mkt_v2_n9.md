@@ -33,7 +33,7 @@ source: mkt.tex
 ## Рисунок (TikZ)
 
 ```latex
-\begin{tikzpicture}[scale=1.2, every node/.style={font=\footnotesize}]
+\begin{tikzpicture}[scale=0.8, every node/.style={font=\footnotesize}]
     \draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,4);
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$\overline{E}_{\text{к}}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};
@@ -46,9 +46,9 @@ source: mkt.tex
     \draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2);
     \draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3);
     
-    \fill[black] (1) circle (1.5pt) node[below right] {1};
-    \fill[black] (2) circle (1.5pt) node[right=2pt, yshift=-2pt] {2};
-    \fill[black] (3) circle (1.5pt) node[above right] {3};
+    \fill[black] (1) circle (1.2pt) node[below right] {1};
+    \fill[black] (2) circle (1.2pt) node[right=2pt, yshift=-2pt] {2};
+    \fill[black] (3) circle (1.2pt) node[above right] {3};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
 ```
