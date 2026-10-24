@@ -38,7 +38,8 @@
 <g fill='#1b1f3b' transform='matrix(1 0 0 1 84.6091 -63.746316)'>
 <use x='-64.556391' y='.954216' xlink:href='#g0-112'/>
 </g>
-<path d='M27.2852-4.148434L75.7576-52.621084' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
+<path d='M22.1836 .953125L40.0426-16.902384' stroke='#828493' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
+<path d='M40.0426-16.902384L75.7576-52.621084' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 <g transform='matrix(1 0 0 1 107.3665 14.704184)'>
 <use x='-64.556391' y='.954216' xlink:href='#g0-112'/>
 <use x='-58.882219' y='.954216' xlink:href='#g1-21'/>
