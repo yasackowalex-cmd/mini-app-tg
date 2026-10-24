@@ -28,22 +28,18 @@
 </g>
 <path d='M-55.546874 44.09375L-27.1992-1.2617' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-55.546874 44.09375L-27.1992 18.8906' stroke='#808080' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M-27.1992-1.2617L-15.4609-20.0469' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-13.929673-22.496116L-17.25389-19.976583L-15.300764-20.300806L-14.738266-18.406269Z' fill='#06f'/>
-<path d='M-13.929673-22.496116L-17.25389-19.976583L-15.300764-20.300806L-14.738266-18.406269Z' stroke='#06f' fill='none' stroke-width='1.19551' stroke-miterlimit='10'/>
-<path d='M-13.0273-23.9414L1.1445-46.6172' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M1.1445-46.6172H22.0664' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M24.95705-46.617186L21.05861-48.09766L22.3633-46.617186L21.05861-45.13672Z' fill='#06f'/>
-<path d='M24.95705-46.617186L21.05861-48.09766L22.3633-46.617186L21.05861-45.13672Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M26.6563-46.6172H46.4996' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M46.4996-46.6172L13.082-16.8984' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M10.921837-14.980476L14.820278-16.464855L12.859338-16.703134L12.851521-18.679697Z' fill='#06f'/>
-<path d='M10.921837-14.980476L14.820278-16.464855L12.859338-16.703134L12.851521-18.679697Z' stroke='#06f' fill='none' stroke-width='1.195455' stroke-miterlimit='10'/>
-<path d='M9.6484-13.8477L-27.1992 18.8906' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.1992 18.8906V11.832' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.199217 8.94526L-28.68359 12.8437L-27.199217 11.53511L-25.71875 12.8437Z' fill='#06f'/>
-<path d='M-27.199217 8.94526L-28.68359 12.8437L-27.199217 11.53511L-25.71875 12.8437Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.1992 7.2422V-1.2617' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-27.1992-1.2617L1.1445-46.6172' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-13.941425-22.476562L-17.265643-19.953126L-15.316427-20.27734L-14.753923-18.382811Z' fill='#06f'/>
+<path d='M-13.941425-22.476562L-17.265643-19.953126L-15.316427-20.27734L-14.753923-18.382811Z' stroke='#06f' fill='none' stroke-width='1.19551' stroke-miterlimit='10'/>
+<path d='M1.1445-46.6172H46.4996' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M24.8437-46.617186L20.94527-48.09766L22.24995-46.617186L20.94527-45.13672Z' fill='#06f'/>
+<path d='M24.8437-46.617186L20.94527-48.09766L22.24995-46.617186L20.94527-45.13672Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M46.4996-46.6172L-27.1992 18.8906' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M10.960953-15.027367L14.859389-16.507835L12.89454-16.746112L12.890636-18.722673Z' fill='#06f'/>
+<path d='M10.960953-15.027367L14.859389-16.507835L12.89454-16.746112L12.890636-18.722673Z' stroke='#06f' fill='none' stroke-width='1.195453' stroke-miterlimit='10'/>
+<path d='M-27.1992 18.8906V-1.2617' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-27.199217 8.90623L-28.68359 12.80467L-27.199217 11.49607L-25.71875 12.80467Z' fill='#06f'/>
+<path d='M-27.199217 8.90623L-28.68359 12.80467L-27.199217 11.49607L-25.71875 12.80467Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
 <path d='M-26.0039-1.2617C-26.0039-1.9219-26.5391-2.457-27.1992-2.457C-27.8594-2.457-28.3945-1.9219-28.3945-1.2617C-28.3945-.6016-27.8594-.0664-27.1992-.0664C-26.5391-.0664-26.0039-.6016-26.0039-1.2617Z'/>
 <g transform='matrix(1 0 0 1 17.9176 -42.29152)'>
 <use x='-55.54745' y='44.092283' xlink:href='#g0-65'/>

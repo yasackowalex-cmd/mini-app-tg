@@ -27,14 +27,12 @@
 </g>
 <path d='M-56.312498-1.2617H-27.9687V21.414062' stroke='#000' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M17.3867-1.2617V21.414062' stroke='#000' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M17.3867-1.2617H-3.5312' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-6.421873-1.261718L-2.523433 .21875L-3.832033-1.261718L-2.523433-2.74219Z' fill='#06f'/>
-<path d='M-6.421873-1.261718L-2.523433 .21875L-3.832033-1.261718L-2.523433-2.74219Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-8.125-1.2617H-27.9687' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.9687-1.2617V-22.1836' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.968748-25.07031L-29.44922-21.17188L-27.968748-22.48047L-26.48437-21.17188Z' fill='#06f'/>
-<path d='M-27.968748-25.07031L-29.44922-21.17188L-27.968748-22.48047L-26.48437-21.17188Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-27.9687-26.7734V-46.6172' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M17.3867-1.2617H-27.9687' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-5.85547-1.261718L-.28125 .84766L-2.13281-1.261718L-.28125-3.37109Z' fill='#06f'/>
+<path d='M-5.85547-1.261718L-.28125 .84766L-2.13281-1.261718L-.28125-3.37109Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-27.9687-1.2617V-46.6172' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-27.968748-26.7734L-30.07812-21.19918L-27.968748-23.05074L-25.85937-21.19918Z' fill='#06f'/>
+<path d='M-27.968748-26.7734L-30.07812-21.19918L-27.968748-23.05074L-25.85937-21.19918Z' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
 <path d='M18.582-1.2617C18.582-1.9219 18.0469-2.457 17.3867-2.457C16.7266-2.457 16.1914-1.9219 16.1914-1.2617C16.1914-.6016 16.7266-.0664 17.3867-.0664C18.0469-.0664 18.582-.6016 18.582-1.2617Z'/>
 <g transform='matrix(1 0 0 1 77.2209 -26.19652)'>
 <use x='-56.31368' y='21.415055' xlink:href='#g2-49'/>
