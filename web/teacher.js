@@ -2,7 +2,8 @@
 // все ДЗ учителя, их ученики и по каждой паре «ДЗ — ученик» верно (ok) и неверно (bad) решённые задачи.
 // Три вида: «Домашние задания» (по месяцам, у каждого таблица учеников), «Ученики» (у каждого его ДЗ)
 // «Пробники» (итоги пробных вариантов ЕГЭ по ученикам, баллы в тестовых по шкале 2027)
-// и «Прогресс» (готовность каждого ученика по 26 номерам КИМ и сводка по классу: где проваливаются).
+// «Прогресс» (готовность каждого ученика по 26 номерам КИМ и сводка по классу: где проваливаются)
+// и «Уроки» (ДЗ уроков по журналу ответов: по каждому уроку таблица учеников, у ученика — его уроки).
 // Фильтр по классу и поиск по названию ДЗ или фамилии работают в обоих видах.
 // «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
 (function () {
@@ -24,6 +25,14 @@
   let variantOf = {};
   fetch('exams/variants.json', { cache: 'no-cache' }).then(r => r.json())
     .then(vs => { variantOf = Object.fromEntries(vs.map(v => [v.ids.join(), v.n])); }).catch(() => {});
+  // уроки (для ДЗ уроков): грузит lesson.js
+  let lessons = null, lessonsAsked = false;
+  function loadLessons() {
+    if (lessonsAsked) return;
+    lessonsAsked = true;
+    (window.lessonsLoad || fetch('out/lessons.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []))
+      .then(L => { lessons = (L || []).filter(l => (l.hw || []).length); if (data) render(); });
+  }
   let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null;
   const BOT = 'physics_is_phun_bot';
 
@@ -45,6 +54,7 @@
       loading = false;
       if (!r) { $('t-body').innerHTML = '<p class="status">Не удалось загрузить. Попробуйте открыть вкладку ещё раз.</p>'; return; }
       data = r;
+      loadLessons();
       data.byId = Object.fromEntries(r.students.map(s => [s.tg_id, s]));
       data.exams = r.exams || [];
       data.logs = r.logs || {};
@@ -193,7 +203,7 @@
           const r = data.results[hw.id][s.tg_id], n = hw.task_ids.length, p = ps[i];
           return `<li><span>${esc(hw.title)} <span class="cnt">${day(hw.created_at)}</span></span>
             <span class="cnt ${p === 100 ? 'okc' : r.ok.length + r.bad.length === 0 ? 'badc' : ''}">${starsOf(r, n) ? `<span class="stars">${starsText(starsOf(r, n))}</span> ` : ''}${r.ok.length} из ${n}${r.bad.length ? `, ошибок ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>${bar(p)}</li>`;
-        }).join('')}</ul>${myBtn(s)}</div>` : ''}</li>`;
+        }).join('')}</ul>${studentLessons(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('')}</ul>`;
   }
 
@@ -316,12 +326,74 @@
   }
   document.addEventListener('bank-ready', () => { if (viewMode === 'progress' && !$('teacher').hidden) render(); });
 
+  // ---- ДЗ уроков: считаем по журналу ответов (все ответы, без даты выдачи) ----
+  // r: ok — решённые, retry — решённые после неверного ответа, bad — только неверные ответы
+  function lessonResult(id, L) {
+    const log = data.logs[id] || [], set = new Set(L.hw), first = {}, ok = new Set(), bad = new Set();
+    for (let i = log.length - 1; i >= 0; i--) {  // журнал от новых к старым
+      const [t, c] = log[i];
+      if (!set.has(t)) continue;
+      if (!(t in first)) first[t] = c;
+      (c ? ok : bad).add(t);
+    }
+    const okL = L.hw.filter(t => ok.has(t));
+    return { ok: okL, retry: okL.filter(t => !first[t]), bad: L.hw.filter(t => bad.has(t) && !ok.has(t)) };
+  }
+  const touched = r => r.ok.length + r.bad.length > 0;
+  const lessonName = L => `Урок ${L.topic}. ${L.title}`;
+  function lessonStudents() {
+    const g = $('t-grade').value;
+    return data.students.filter(s => whoOk(s) && (!g || s.grade === g))
+      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
+  }
+  // строки «урок — сколько решено» у ученика (вид «Ученики»)
+  function studentLessons(s) {
+    if (!lessons) return '';
+    const rows = lessons.map(L => ({ L, r: lessonResult(s.tg_id, L) })).filter(x => touched(x.r));
+    if (!rows.length) return '';
+    return `<p class="small"><b>ДЗ уроков:</b></p><ul class="t-sub">${rows.map(({ L, r }) => {
+      const n = L.hw.length, p = pctOf(r.ok.length, n);
+      return `<li><span>${esc(lessonName(L))}</span>
+        <span class="cnt ${p === 100 ? 'okc' : ''}">${r.ok.length} из ${n}${r.retry.length ? `, после ошибки ${r.retry.length}` : ''}${r.bad.length ? `, не решено с ошибками ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
+    }).join('')}</ul>`;
+  }
+  function renderLessons(q) {
+    if (!lessons) return '<p class="status">Загружаю уроки…</p>';
+    const studs = lessonStudents();
+    if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда войдут в приложение через Телеграм.</p>';
+    if (!studs.length) return emptyWho();
+    const qs = q && studs.filter(s => norm(name(s)).includes(q));
+    const items = lessons.map(L => {
+      const all = studs.map(s => ({ s, r: lessonResult(s.tg_id, L) }));
+      const rows = all.filter(x => touched(x.r) && (!qs || !qs.length || qs.includes(x.s)));
+      return { L, rows, done: rows.filter(x => x.r.ok.length === L.hw.length).length };
+    }).filter(x => x.rows.length && (!q || (qs && qs.length) || norm(lessonName(x.L)).includes(q)));
+    if (!items.length) return '<p class="status">ДЗ уроков пока никто не решал.</p>';
+    return `<ul class="t-list">${items.map(({ L, rows, done }) => {
+      const id = 'l' + L.topic, open = openId === id, n = L.hw.length;
+      const avg = Math.round(rows.reduce((a, x) => a + pctOf(x.r.ok.length, n), 0) / rows.length);
+      const table = `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${L.hw.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
+        rows.map(({ s, r }) => `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${L.hw.map(t =>
+          r.retry.includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
+          : r.ok.includes(t) ? '<td class="ok" title="решена с первой попытки">✓</td>'
+          : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}</td></tr>`).join('')
+      }</tbody></table></div>
+      <p class="muted small"><b class="okc">✓</b> с первой попытки, <b class="retryc">✓</b> после ошибки, ✗ только неверные ответы, · не решал. Учитываются все ответы ученика на эти задачи в Телеграме: в уроке, в банке, в ДЗ и пробниках.</p>`;
+      return `<li class="t-item${open ? ' open' : ''}" data-id="${esc(id)}">
+        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
+          <span class="t-title"><b>${esc(lessonName(L))}</b> <span class="cnt">задач ${n}</span></span>
+          <span class="cnt">решают ${rows.length} · решили всё ${done} · в среднем ${avg}%</span>${bar(avg)}
+        </button>${open ? `<div class="t-detail">${table}</div>` : ''}</li>`;
+    }).join('')}</ul>`;
+  }
+
   function render() {
     if (!data) return;
     document.querySelectorAll('#teacher [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === viewMode)));
     const q = norm($('t-q').value.trim());
     if (viewMode === 'exams') { $('t-body').innerHTML = renderExams(q); return; }
     if (viewMode === 'progress') { $('t-body').innerHTML = renderProgress(q); return; }
+    if (viewMode === 'lessons') { $('t-body').innerHTML = renderLessons(q); return; }
     if (viewMode === 'hw' && !data.homework.length) {
       $('t-body').innerHTML = '<p class="status">Заданных ДЗ пока нет. Соберите подборку в банке и нажмите «Задать как ДЗ».</p>';
       return;
