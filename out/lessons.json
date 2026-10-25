@@ -2744,7 +2744,7 @@
     ],
     "source": "ДЗ к уроку 3.2.2",
     "tikz": [
-     "\\begin{tikzpicture}[scale=0.9,>=Stealth,font=\\small]\n  \\fill[pattern=north east lines,pattern color=brandSecondary] (-1.6,3.4) rectangle (0.4,3.6);\n  \\draw[thick,brandSecondary] (-1.6,3.4)--(0.4,3.4);\n  \\draw[brandSecondary] (-1.0,3.4)--(-0.65,1.45) (-0.2,3.4)--(-0.55,1.45);\n  \\draw[very thick,brandAccent] (-0.6,0.5) ellipse (0.28 and 0.95);\n  \\draw[brandSecondary,dash dot] (-1.5,0.5)--(5.2,0.5);\n  \\foreach \\i in {0,...,7}{\\draw[thick,brandSecondary] ({1.0+0.42*\\i},0.5) ellipse (0.25 and 0.75);}\n  \\draw[thick,brandSecondary] (1.0,-0.25)--(1.0,-1.2)--(0.3,-1.2)--(0.3,-1.6);\n  \\draw[thick,brandSecondary] (3.94,-0.25)--(3.94,-2.5);\n  \\draw[thick,brandSecondary,fill=white] (0.05,-1.6) rectangle (0.55,-3.0);\n  \\node[left] at (0.0,-2.3){$R$};\n  \\draw[thick,brandSecondary] (0.85,-2.5)--(0.85,-2.0);\n  \\draw[thick,brandSecondary,-{Stealth[scale=0.8]}] (0.85,-2.0)--(0.6,-2.0);\n  \\draw[thick,brandSecondary] (0.85,-2.5)--(2.15,-2.5);\n  \\draw[thick,brandSecondary] (2.15,-2.2)--(2.15,-2.8);\n  \\draw[very thick,brandSecondary] (2.35,-2.35)--(2.35,-2.65);\n  \\draw[thick,brandSecondary] (2.35,-2.5)--(3.94,-2.5);\n  \\node[below] at (2.25,-2.8){$\\mathcal{E},\\ r$};\n\\end{tikzpicture}"
+     "\\begin{tikzpicture}[scale=0.9,>=Stealth,font=\\small]\n  \\fill[pattern=north east lines,pattern color=brandSecondary] (-1.6,3.4) rectangle (0.4,3.6);\n  \\draw[thick,brandSecondary] (-1.6,3.4)--(0.4,3.4);\n  \\draw[brandSecondary] (-1.0,3.4)--(-0.65,1.45) (-0.2,3.4)--(-0.55,1.45);\n  \\draw[thick,brandAccent] (-0.6,0.5) ellipse (0.3 and 0.98); \\draw[thick,brandAccent] (-0.6,0.5) ellipse (0.2 and 0.88);\n  \\draw[brandSecondary,dash dot] (-1.5,0.5)--(5.2,0.5);\n  \\foreach \\i in {0,...,8}{\\draw[thick,brandSecondary] ({1.25+0.33*\\i},0.5) ellipse (0.3 and 0.75);}\n  \\draw[thick,brandSecondary] (1.25,-0.25)--(1.25,-1.2)--(0.3,-1.2)--(0.3,-1.6);\n  \\draw[thick,brandSecondary] (3.89,-0.25)--(3.89,-2.5);\n  \\draw[thick,brandSecondary,fill=white] (0.05,-1.6) rectangle (0.55,-3.0);\n  \\node[left] at (0.0,-2.3){$R$};\n  \\draw[thick,brandSecondary] (0.85,-2.5)--(0.85,-2.0);\n  \\draw[thick,brandSecondary,-{Stealth[scale=0.8]}] (0.85,-2.0)--(0.6,-2.0);\n  \\draw[thick,brandSecondary] (0.85,-2.5)--(2.15,-2.5);\n  \\draw[thick,brandSecondary] (2.15,-2.2)--(2.15,-2.8);\n  \\draw[very thick,brandSecondary] (2.35,-2.35)--(2.35,-2.65);\n  \\draw[thick,brandSecondary] (2.35,-2.5)--(3.89,-2.5);\n  \\node[below] at (2.25,-2.8){$\\mathcal{E},\\ r$};\n\\end{tikzpicture}"
     ],
     "condition": "Многовитковая катушка медного провода подключена к источнику тока через реостат. Вблизи\nторца катушки на шёлковых нитях подвешено замкнутое медное кольцо с малым сопротивлением. Ось кольца\nсовпадает с осью катушки (см. рисунок). Опишите, как начнёт двигаться кольцо (притянется,\nоттолкнётся или останется неподвижным относительно катушки), если движок реостата резко сдвинуть\nвверх в крайнее положение. Ответ поясните, указав, какие физические явления и закономерности Вы\nиспользовали для объяснения.\n\n[[рис 1]]",
     "sol_tikz": [],
@@ -2752,7 +2752,7 @@
     "check": "none",
     "file": "lessons/tasks/les322_n8.md",
     "images": [
-     "assets/les322_n8_1.svg?v=ca159832"
+     "assets/les322_n8_1.svg?v=6ccf9c3c"
     ],
     "solution_images": []
    }
