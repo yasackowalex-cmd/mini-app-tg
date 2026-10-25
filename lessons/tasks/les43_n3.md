@@ -1,12 +1,12 @@
 ---
 id: les43_n3
 exam: ЕГЭ
-kim: 13
+kim: 23
 section: Оптика
 theme: 
 topic: 4.3
 level: П
-type: расчётная
+type: расчётная (часть 2)
 variant: 
 answer: "444"
 unit: "нм"
