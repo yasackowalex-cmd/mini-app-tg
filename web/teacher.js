@@ -16,7 +16,7 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, KIM_POINTS, hwStars, starsText } = window.taskRender;
+  const { testScore, KIM_POINTS, hwStars, starsText, lessonHwResult } = window.taskRender;
   // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
   const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
   const KIMS = Object.keys(KIM_POINTS);
@@ -58,6 +58,7 @@
       data.byId = Object.fromEntries(r.students.map(s => [s.tg_id, s]));
       data.exams = r.exams || [];
       data.logs = r.logs || {};
+      data.rlogs = r.rlogs || {};
       // mine: null — таблицы своих учеников ещё нет, тогда показываем всех
       data.mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : null;
       if (who === null) who = data.mine && data.mine.size ? 'mine' : 'all';
@@ -326,19 +327,9 @@
   }
   document.addEventListener('bank-ready', () => { if (viewMode === 'progress' && !$('teacher').hidden) render(); });
 
-  // ---- ДЗ уроков: считаем по журналу ответов (все ответы, без даты выдачи) ----
-  // r: ok — решённые, retry — решённые после неверного ответа, bad — только неверные ответы
-  function lessonResult(id, L) {
-    const log = data.logs[id] || [], set = new Set(L.hw), first = {}, ok = new Set(), bad = new Set();
-    for (let i = log.length - 1; i >= 0; i--) {  // журнал от новых к старым
-      const [t, c] = log[i];
-      if (!set.has(t)) continue;
-      if (!(t in first)) first[t] = c;
-      (c ? ok : bad).add(t);
-    }
-    const okL = L.hw.filter(t => ok.has(t));
-    return { ok: okL, retry: okL.filter(t => !first[t]), bad: L.hw.filter(t => bad.has(t) && !ok.has(t)) };
-  }
+  // ---- ДЗ уроков: считаем по журналу ответов и открытым подсказкам (все, без даты выдачи) ----
+  // r: ok — решённые, из них help — после подсказки или ответа, retry — после неверного ответа; bad — только неверные
+  const lessonResult = (id, L) => lessonHwResult(L.hw, data.logs[id] || [], data.rlogs[id] || []);
   const touched = r => r.ok.length + r.bad.length > 0;
   const lessonName = L => `Урок ${L.topic}. ${L.title}`;
   function lessonStudents() {
@@ -354,7 +345,7 @@
     return `<p class="small"><b>ДЗ уроков:</b></p><ul class="t-sub">${rows.map(({ L, r }) => {
       const n = L.hw.length, p = pctOf(r.ok.length, n);
       return `<li><span>${esc(lessonName(L))}</span>
-        <span class="cnt ${p === 100 ? 'okc' : ''}">${r.ok.length} из ${n}${r.retry.length ? `, после ошибки ${r.retry.length}` : ''}${r.bad.length ? `, не решено с ошибками ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
+        <span class="cnt ${p === 100 ? 'okc' : ''}">${starsOf(r, n) ? `<span class="stars">${starsText(starsOf(r, n))}</span> ` : ''}${r.ok.length} из ${n}${r.retry.length ? `, после ошибки ${r.retry.length}` : ''}${r.help.length ? `, с подсказкой ${r.help.length}` : ''}${r.bad.length ? `, не решено с ошибками ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
     }).join('')}</ul>`;
   }
   function renderLessons(q) {
@@ -373,12 +364,13 @@
       const id = 'l' + L.topic, open = openId === id, n = L.hw.length;
       const avg = Math.round(rows.reduce((a, x) => a + pctOf(x.r.ok.length, n), 0) / rows.length);
       const table = `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${L.hw.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
-        rows.map(({ s, r }) => `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${L.hw.map(t =>
-          r.retry.includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
+        rows.map(({ s, r }) => { const st = starsOf(r, n); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${L.hw.map(t =>
+          r.help.includes(t) ? '<td class="help" title="решена после подсказки или показанного ответа">💡</td>'
+          : r.retry.includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
           : r.ok.includes(t) ? '<td class="ok" title="решена с первой попытки">✓</td>'
-          : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}</td></tr>`).join('')
+          : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
       }</tbody></table></div>
-      <p class="muted small"><b class="okc">✓</b> с первой попытки, <b class="retryc">✓</b> после ошибки, ✗ только неверные ответы, · не решал. Учитываются все ответы ученика на эти задачи в Телеграме: в уроке, в банке, в ДЗ и пробниках.</p>`;
+      <p class="muted small"><b class="okc">✓</b> с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Учитываются все ответы ученика на эти задачи в Телеграме: в уроке, в банке, в ДЗ и пробниках. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`;
       return `<li class="t-item${open ? ' open' : ''}" data-id="${esc(id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(lessonName(L))}</b> <span class="cnt">задач ${n}</span></span>

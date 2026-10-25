@@ -86,6 +86,26 @@
     return L.hw.map(id => own[id] || window.bankView.task(id)).filter(Boolean);
   }
 
+  // итог ученика по ДЗ урока (только в Телеграме, где есть журнал ответов): звёзды, как у ДЗ от учителя
+  function hwRes(L) {
+    if (!window.tgLog || !L.hw.length) return null;
+    const { lessonHwResult, hwStars } = window.taskRender;
+    const r = lessonHwResult(L.hw, window.tgLog, window.tgReveals || []);
+    return { ok: r.ok.length, n: L.hw.length, st: hwStars(L.hw.length, r.ok.length, r.help.length) };
+  }
+  function renderRes() {
+    const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic), el = box.querySelector('.lhw-res');
+    const r = L && hwRes(L);
+    if (el) {
+      el.hidden = !r;
+      if (r) el.innerHTML = r.st
+        ? `<span class="stars" title="Звёзды за ДЗ: 3 — всё сам, подсказки и показанные ответы стоят звезду">${window.taskRender.starsText(r.st)}</span> Все задачи решены`
+        : `Решено ${r.ok} из ${r.n}. Реши все задачи, чтобы получить звёзды. Подсказки можно брать, но каждая может стоить звезду.`;
+    }
+    if (list.length && !$('lessons-list').hidden) renderList();
+  }
+  ['tg-progress', 'tg-attempt'].forEach(ev => document.addEventListener(ev, renderRes));
+
   let list = [];
   function show(topic) {
     const box = $('lesson'), lst = $('lessons-list');
@@ -101,7 +121,7 @@
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
-      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
+      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><p class="lhw-res cnt" hidden></p><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
       ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.topic)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
@@ -109,6 +129,7 @@
       box.querySelectorAll('.lvsrc [data-src]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
       box.querySelector('.lvideo').innerHTML = frame(b.dataset.src);
     });
+    renderRes();
     if (L.hw.length) bankReady.then(() => {
       if (box.dataset.topic !== topic) return;
       const hw = box.querySelector('.lhw-list');
@@ -125,10 +146,16 @@
   const tasksWord = n => n % 10 === 1 && n % 100 !== 11 ? 'задание'
     : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'задания' : 'заданий';
 
+  // в списке уроков: звёзды за ДЗ или сколько решено
+  function resText(L) {
+    const r = hwRes(L);
+    return !r || !r.ok ? '' : r.st ? ` · <span class="stars">${window.taskRender.starsText(r.st)}</span>` : ` · решено ${r.ok}`;
+  }
+
   function renderList() {
     $('lessons-list').innerHTML = list.length ? `<h2>Уроки по темам</h2>
       <div class="lpick">${list.map(L => `<a class="lbtn" href="#lesson=${esc(L.topic)}"><b>${esc(L.topic)}</b> ${esc(L.title)}
-        <small>${L.video.length ? 'видео · ' : ''}${esc((L.label || 'Конспект').toLowerCase())}${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}</small></a>`).join('')}</div>`
+        <small>${L.video.length ? 'видео · ' : ''}${esc((L.label || 'Конспект').toLowerCase())}${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}${resText(L)}</small></a>`).join('')}</div>`
       : '<p class="status">Уроков пока нет.</p>';
   }
 
