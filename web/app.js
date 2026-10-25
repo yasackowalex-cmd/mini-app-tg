@@ -138,16 +138,20 @@
       </div>
       ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${solutionHtml(t)}</div>` : ''}
       <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml(t)}</div>
+      ${selfMax(t) ? `<div class="grade" hidden><span>Сравните своё решение с разбором и поставьте себе балл:</span>${
+        Array.from({ length: selfMax(t) + 1 }, (_, g) => `<button type="button" class="btn" data-grade="${g}" aria-pressed="false">${g}</button>`).join('')}</div>` : ''}
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {
       if (e.target.closest('[data-pick]')) { togglePick(t.id); return; }
       if (e.target.closest('[data-fav]')) { toggleFav(t.id); markFav(el, t); return; }
+      const g = e.target.closest('[data-grade]');
+      if (g) { saveGrade(el, t, Number(g.dataset.grade)); return; }
       const b = e.target.closest('[data-show]');
       if (!b) return;
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
       part.hidden = !part.hidden;
       b.setAttribute('aria-expanded', String(!part.hidden));
-      if (!part.hidden) saveReveal(t, b.dataset.show === 'solution' ? 'hint' : 'answer');
+      if (!part.hidden) { saveReveal(t, b.dataset.show === 'solution' ? 'hint' : 'answer'); showGrade(el); }
     });
     const f = el.querySelector('form.try');
     if (f) f.addEventListener('submit', e => {
@@ -161,11 +165,37 @@
       f.elements.a.classList.toggle('bad', !ok);
       saveAttempt(t, v, ok);
       markCard(el, t);
+      showGrade(el);
     });
     markCard(el, t);
+    markGrade(el, t);
     el._task = t;
     if (inBank) { markPick(el, t); markFav(el, t); }
     return el;
+  }
+
+  // ---- Самооценка по решению ----
+  // Вторая часть (КИМ 21–26) и задачи без автопроверки ответа: ученик сверяет решение с разбором и ставит
+  // себе балл (как в пробнике). Максимум — балл номера КИМ, у задач без номера 1. Полный балл считается
+  // верным ответом, меньше — неверным: так оценка идёт в прогресс, ДЗ и кабинет учителя.
+  // Кнопки появляются после проверки ответа или открытого разбора/ответа; поставленный балл помнит браузер.
+  const selfMax = t => (t.kim >= 21 || !t.check || t.check === 'none') ? (KIM_POINTS[t.kim] || 1) : 0;
+  const grades = (() => { try { return JSON.parse(localStorage.getItem('grades')) || {}; } catch (e) { return {}; } })();
+  function showGrade(el) { const g = el.querySelector('.grade'); if (g) g.hidden = false; }
+  function markGrade(el, t) {
+    const g = grades[t.id];
+    if (g === undefined) return;
+    showGrade(el);
+    el.querySelectorAll('[data-grade]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.grade) === g)));
+  }
+  function saveGrade(el, t, g) {
+    if (grades[t.id] === g) return;
+    const max = selfMax(t);
+    grades[t.id] = g;
+    try { localStorage.setItem('grades', JSON.stringify(grades)); } catch (e) { /* только до перезагрузки */ }
+    saveAttempt(t, `балл ${g} из ${max}`, g === max);
+    markGrade(el, t);
+    markCard(el, t);
   }
 
   // ---- Подборка: задачи для печати в PDF и для ДЗ ----
