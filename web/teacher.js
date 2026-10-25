@@ -342,22 +342,28 @@
     : r.bad.includes(t) ? ['bad', 'только неверные ответы'] : ['', 'не решал'];
   const marks = (ids, r) => `<span class="mks">${ids.map((t, i) => { const [c, tt] = markOf(r, t);
     return `<span class="${c}" title="№ ${i + 1}: ${tt}">${i + 1}${c === 'help' ? '💡' : ''}</span>`; }).join('')}</span>`;
-  // всё ДЗ ученика в одном списке (ДЗ от учителя и ДЗ уроков), сначала то, что он решал последним
+  // всё ДЗ ученика в одном списке (ДЗ от учителя и ДЗ уроков), сначала то, что он решал последним;
+  // workOf[ученик] — тот же список для кнопок «Открыть» и «Задачи с ошибками»
+  const workOf = {};
+  const errIds = (ids, r) => ids.filter(t => ['bad', 'retry', 'help'].includes(markOf(r, t)[0]));
   function studentWork(s) {
     const log = data.logs[s.tg_id] || [];
     const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
     const items = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
-      .map(hw => ({ title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: data.results[hw.id][s.tg_id],
+      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: data.results[hw.id][s.tg_id],
         last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
-      .concat((lessons || []).map(L => ({ title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
+      .concat((lessons || []).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))
       .sort((a, b) => b.key - a.key);
+    workOf[s.tg_id] = items;
     if (!items.length) return '<p class="muted small">ДЗ ещё не решал.</p>';
-    return `<ul class="t-sub t-work">${items.map(({ title, sub, ids, r, last }) => {
-      const n = ids.length, st = starsOf(r, n);
+    const inBank = id => window.bankStats && window.bankStats.byId[id];
+    return `<ul class="t-sub t-work">${items.map(({ L, title, sub, ids, r, last }, k) => {
+      const n = ids.length, st = starsOf(r, n), errs = errIds(ids, r).filter(inBank);
       return `<li><span><b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
         <span class="cnt ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length ? `, не решено ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
-        ${marks(ids, r)}</li>`;
+        ${marks(ids, r)}
+        <span class="hwa"><button class="btn" type="button" data-act="w-open" data-k="${k}">${L ? 'Открыть урок' : 'Открыть ДЗ'}</button>${errs.length ? `<button class="btn" type="button" data-act="w-err" data-k="${k}">Задачи с ошибками (${errs.length})</button>` : ''}</span></li>`;
     }).join('')}</ul>
     <p class="muted small"><b class="okc">зелёный</b> — с первой попытки, <b class="retryc">жёлтый</b> — после ошибки, 💡 — после подсказки, <b class="badc">красный</b> — только неверные ответы, серый — не решал.</p>`;
   }
@@ -406,6 +412,17 @@
     $('t-body').innerHTML = viewMode === 'hw' ? renderHw(q) : renderStudents(q);
   }
 
+  // из списка ДЗ ученика: урок открываем на вкладке «Уроки», ДЗ от учителя и задачи с ошибками — в банке
+  function openWork(sid, k, onlyErr) {
+    const it = (workOf[sid] || [])[k];
+    if (!it) return;
+    if (!onlyErr && it.L) { location.hash = '#lesson=' + it.L.topic; return; }
+    const s = data.byId[sid] || {}, ids = onlyErr ? errIds(it.ids, it.r).filter(id => window.bankStats.byId[id]) : it.ids;
+    setTab('bank');
+    if (onlyErr) window.bankView.show(`✗ ${name(s)}, ошибки в «${it.title}»`, ids, true);
+    else window.bankView.show(it.title, ids);
+  }
+
   function del(hw) {
     window.tgApi('hw_delete', { id: hw.id }).then(r => {
       if (!r) { const t = tg(); if (t && t.showAlert) t.showAlert('Не получилось удалить, попробуйте ещё раз.'); return; }
@@ -424,6 +441,7 @@
     const hw = data.homework.find(x => x.id === id);
     if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; render(); return; }
     if (act === 'my-on' || act === 'my-off') { setMine(id.slice(1), act === 'my-on'); return; }
+    if (act === 'w-open' || act === 'w-err') { openWork(id.slice(1), +b.dataset.k, act === 'w-err'); return; }
     if (!hw) return;
     if (act === 'open') { setTab('bank'); window.bankView.show(hw.title, hw.task_ids); }
     if (act === 'share') window.hwShare(hw);
