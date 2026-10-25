@@ -7,7 +7,8 @@
 //   action "hw_report" (учитель), id — ученики ДЗ и отметки по задачам; "hw_delete" (учитель), id — удалить ДЗ;
 //   action "teacher" (учитель) — кабинет: все его ДЗ, их ученики и результаты, итоги пробников всех учеников (exams),
 //     в results по паре «ДЗ — ученик»: ok (решены верно), из них retry (после неверного ответа) и help (после подсказки или ответа), bad;
-//     все ученики (students) и журнал ответов каждого (logs: {tg_id: [[task_id, 1|0, unix-время], ...]} от новых к старым);
+//     все ученики (students) и журнал ответов каждого (logs: {tg_id: [[task_id, 1|0, unix-время], ...]} от новых к старым)
+//     и открытые подсказки и ответы каждого (rlogs: {tg_id: [[task_id, вид, unix-время], ...]}, без таблицы reveals — null);
 //   action "exam_save", started, finished (мс), task_ids, p1, p2, graded — итог пробного варианта ЕГЭ.
 // Учителя — секрет TEACHER_IDS (Telegram id через запятую).
 //   action "attempt", task_id, answer, correct — записать попытку;
@@ -327,6 +328,13 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     if (e5) return [500, { ok: false, error: 'db' }];
     const logs: Record<string, [string, number, number][]> = {};
     for (const r of all ?? []) (logs[r.tg_id] ??= []).push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+    // все открытые подсказки и ответы учеников — для ДЗ уроков; без таблицы reveals (миграция 007) — null
+    const ra = await pages(() => db.from('reveals').select('tg_id, task_id, kind, created_at').order('id', { ascending: false }));
+    let rlogs: Record<string, [string, string, number][]> | null = null;
+    if (!ra.error) {
+      rlogs = {};
+      for (const r of ra.data ?? []) (rlogs[r.tg_id] ??= []).push([r.task_id, r.kind, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+    }
     let at: any[] = [], rv: any[] = [];
     if (sids.length) {
       const tasks = [...new Set(homework.flatMap((h: any) => h.task_ids))];
@@ -363,7 +371,7 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const { data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000);
     const mine = e6 ? null : (my ?? []).map((r: any) => Number(r.tg_id));
     const invite = secret ? await inviteCode(user.id, secret) : null;
-    return [200, { ok: true, homework, students, results, exams, logs, mine, invite }];
+    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite }];
   }
 
   return [400, { ok: false, error: 'action' }];

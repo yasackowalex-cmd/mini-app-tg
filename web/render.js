@@ -64,6 +64,20 @@
   // ответы — стоят: без них 3, если они понадобились не больше чем в трети задач — 2, иначе 1.
   const hwStars = (n, ok, help) => !n || ok < n ? 0 : !help ? 3 : help <= n / 3 ? 2 : 1;
   const starsText = k => '★'.repeat(k) + '☆'.repeat(3 - k);
+  // Итог по ДЗ урока (у урока нет даты выдачи — считаются все ответы): log — журнал ответов [id, 1|0, unix]
+  // от новых к старым, rv — открытые подсказки и ответы [id, вид, unix]. ok — решённые верно, из них help —
+  // после подсказки или ответа (открыты до первого верного), retry — после неверного ответа; bad — только неверные.
+  function lessonHwResult(ids, log, rv) {
+    const first = {}, firstOk = {};
+    for (let i = log.length - 1; i >= 0; i--) {
+      const [t, c, ts] = log[i];
+      if (!(t in first)) first[t] = c;
+      if (c && !(t in firstOk)) firstOk[t] = ts;
+    }
+    const ok = ids.filter(t => t in firstOk);
+    const help = ok.filter(t => (rv || []).some(r => r[0] === t && r[2] <= firstOk[t]));
+    return { ok, help, retry: ok.filter(t => !first[t] && !help.includes(t)), bad: ids.filter(t => t in first && !(t in firstOk)) };
+  }
 
   const answerHtml = t => t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
 
@@ -79,5 +93,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, lessonHwResult };
 })();
