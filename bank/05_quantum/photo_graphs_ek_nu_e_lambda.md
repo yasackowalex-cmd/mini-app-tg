@@ -55,7 +55,7 @@ source: fe.tex
     \draw[ultra thick, brandPrimary] (1.0,0) -- (2.8,1.2);
     \node[below left] at (0,0) {0};
     \node[left] at (-0.2,1.8) {\textbf{А)}};
-\begin{scope}[shift={(4.8,0)}]
+\begin{scope}[shift={(0,-3.5)}]
     
     % График Б
     \draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};
