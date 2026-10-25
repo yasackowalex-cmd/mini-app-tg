@@ -476,6 +476,7 @@
     $('viewbar').hidden = !view;
     if (view) $('view-title').textContent = view.fav ? `★ Избранное: задач ${found.length}`
       : view.err ? `✗ Работа над ошибками: с ошибками ${view.err}, похожих ${found.length - view.err}`
+      : view.plain ? `${view.title}: задач ${found.length}`
       : `Домашнее задание «${view.title}»: задач ${found.length}`;
     $('list').innerHTML = '';
     shown = 0;
@@ -542,7 +543,7 @@
     window.bankStats = { kimStats, topics, byId, KIM_MIN_SOLVED, KIM_LEVEL, KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
     // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
     window.bankView = {
-      show(title, ids) { view = { title, ids }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
+      show(title, ids, plain) { view = { title, ids, plain }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
       solved: id => !!(prog() && prog()[id] && prog()[id].ok > 0),
       has: id => !!byId[id],
       task: id => byId[id],
