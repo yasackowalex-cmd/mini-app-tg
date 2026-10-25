@@ -192,19 +192,18 @@
     if (!list.length) return emptyWho();
     return `<ul class="t-list">${list.map(s => {
       const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
-      const hws = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id]);
-      const ps = hws.map(hw => pctOf(data.results[hw.id][s.tg_id].ok.length, hw.task_ids.length));
-      const avg = ps.length ? Math.round(ps.reduce((a, b) => a + b, 0) / ps.length) : 0;
+      // все ДЗ ученика: от учителя и уроков, которые он начинал
+      const rs = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
+        .map(hw => pctOf(data.results[hw.id][s.tg_id].ok.length, hw.task_ids.length))
+        .concat((lessons || []).map(L => lessonResult(s.tg_id, L)).map((r, k) => touched(r) ? pctOf(r.ok.length, lessons[k].hw.length) : -1).filter(p => p >= 0));
+      const avg = rs.length ? Math.round(rs.reduce((a, b) => a + b, 0) / rs.length) : 0;
+      const log = data.logs[s.tg_id] || [];
       const open = openId === 's' + s.tg_id;
       return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">ДЗ ${hws.length} · в среднем ${avg}%${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(avg)}
-        </button>${open ? `<div class="t-detail"><ul class="t-sub">${hws.map((hw, i) => {
-          const r = data.results[hw.id][s.tg_id], n = hw.task_ids.length, p = ps[i];
-          return `<li><span>${esc(hw.title)} <span class="cnt">${day(hw.created_at)}</span></span>
-            <span class="cnt ${p === 100 ? 'okc' : r.ok.length + r.bad.length === 0 ? 'badc' : ''}">${starsOf(r, n) ? `<span class="stars">${starsText(starsOf(r, n))}</span> ` : ''}${r.ok.length} из ${n}${r.bad.length ? `, ошибок ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>${bar(p)}</li>`;
-        }).join('')}</ul>${studentLessons(s)}${myBtn(s)}</div>` : ''}</li>`;
+          <span class="cnt">ДЗ ${rs.length} · в среднем ${avg}%${log.length ? ` · решал ${ago(log[0][2])}` : ''}${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(avg)}
+        </button>${open ? `<div class="t-detail">${studentWork(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('')}</ul>`;
   }
 
@@ -337,16 +336,30 @@
     return data.students.filter(s => whoOk(s) && (!g || s.grade === g))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
   }
-  // строки «урок — сколько решено» у ученика (вид «Ученики»)
-  function studentLessons(s) {
-    if (!lessons) return '';
-    const rows = lessons.map(L => ({ L, r: lessonResult(s.tg_id, L) })).filter(x => touched(x.r));
-    if (!rows.length) return '';
-    return `<p class="small"><b>ДЗ уроков:</b></p><ul class="t-sub">${rows.map(({ L, r }) => {
-      const n = L.hw.length, p = pctOf(r.ok.length, n);
-      return `<li><span>${esc(lessonName(L))}</span>
-        <span class="cnt ${p === 100 ? 'okc' : ''}">${starsOf(r, n) ? `<span class="stars">${starsText(starsOf(r, n))}</span> ` : ''}${r.ok.length} из ${n}${r.retry.length ? `, после ошибки ${r.retry.length}` : ''}${r.help.length ? `, с подсказкой ${r.help.length}` : ''}${r.bad.length ? `, не решено с ошибками ${r.bad.length}` : ''}</span>${bar(p)}</li>`;
-    }).join('')}</ul>`;
+  // отметки по задачам ДЗ одной строкой: номер задачи на цветном фоне, как в таблице ДЗ
+  const markOf = (r, t) => (r.help || []).includes(t) ? ['help', '💡 после подсказки или ответа']
+    : (r.retry || []).includes(t) ? ['retry', 'решена после ошибки'] : r.ok.includes(t) ? ['ok', 'решена с первой попытки']
+    : r.bad.includes(t) ? ['bad', 'только неверные ответы'] : ['', 'не решал'];
+  const marks = (ids, r) => `<span class="mks">${ids.map((t, i) => { const [c, tt] = markOf(r, t);
+    return `<span class="${c}" title="№ ${i + 1}: ${tt}">${i + 1}${c === 'help' ? '💡' : ''}</span>`; }).join('')}</span>`;
+  // всё ДЗ ученика в одном списке (ДЗ от учителя и ДЗ уроков), сначала то, что он решал последним
+  function studentWork(s) {
+    const log = data.logs[s.tg_id] || [];
+    const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
+    const items = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
+      .map(hw => ({ title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: data.results[hw.id][s.tg_id],
+        last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
+      .concat((lessons || []).map(L => ({ title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
+        .filter(x => touched(x.r)))
+      .sort((a, b) => b.key - a.key);
+    if (!items.length) return '<p class="muted small">ДЗ ещё не решал.</p>';
+    return `<ul class="t-sub t-work">${items.map(({ title, sub, ids, r, last }) => {
+      const n = ids.length, st = starsOf(r, n);
+      return `<li><span><b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
+        <span class="cnt ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length ? `, не решено ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
+        ${marks(ids, r)}</li>`;
+    }).join('')}</ul>
+    <p class="muted small"><b class="okc">зелёный</b> — с первой попытки, <b class="retryc">жёлтый</b> — после ошибки, 💡 — после подсказки, <b class="badc">красный</b> — только неверные ответы, серый — не решал.</p>`;
   }
   function renderLessons(q) {
     if (!lessons) return '<p class="status">Загружаю уроки…</p>';
