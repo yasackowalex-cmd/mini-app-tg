@@ -66,7 +66,7 @@ source: Демидова, ЕГЭ-2024, 30 вариантов (вариант 8)
     \node[above] at (3,0) {$t_0$};
     \node[below left] at (0,0) {$0$};
   \end{scope}
-  \begin{scope}[xshift=5cm]
+  \begin{scope}[shift={(0,-4.1)}]
     \node at (1.5,2.0) {Б)};
     \draw[-{Stealth[scale=0.8]}, thick] (0,-0.3) -- (0,1.7);
     \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.6,0) node[right] {$t$};
