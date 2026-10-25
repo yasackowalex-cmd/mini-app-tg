@@ -10,6 +10,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   const load = fetch('out/lessons.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []);
+  window.lessonsLoad = load; // кабинет учителя считает по ним ДЗ уроков
 
   // ---- конспект ----
   const BOX = { defbox: 'Определение', notebox: '', warningbox: 'Внимание', solutionbox: 'Разбор задачи', critbox: 'Критерии оценивания' };
