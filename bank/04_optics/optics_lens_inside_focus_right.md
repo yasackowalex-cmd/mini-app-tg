@@ -24,7 +24,6 @@ source: len.tex
 
 ```latex
 \begin{tikzpicture}[scale=0.9, every node/.style={font=\footnotesize}]
-    \draw[xstep=1, ystep=1, gray!30, thin] (-3,-2) grid (3,2);
     
     \draw[thick, black] (-3,0) -- (3,0);
     \draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);
@@ -40,7 +39,6 @@ source: len.tex
     \fill[black] (-2.2,-0.8) circle (1.5pt) node[below] {3};
     \fill[black] (-1.2,-0.4) circle (1.5pt) node[below] {4};
     
-    \node[below left] at (-3,-2) {0};
 \end{tikzpicture}
 ```
 

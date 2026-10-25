@@ -39322,7 +39322,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,-2) grid (3,2);\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (0.5,0.8) {\\textbf{$\\sun$}};\n    \\node[right] at (0.5,0.7) {$S$};\n    \n    \\fill[black] (0.5,-0.6) circle (1.5pt) node[below] {1};\n    \\fill[black] (1,1.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[left] {3};\n    \\fill[black] (-1.2,-0.6) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-3,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (0.5,0.8) {\\textbf{$\\sun$}};\n    \\node[right] at (0.5,0.7) {$S$};\n    \n    \\fill[black] (0.5,-0.6) circle (1.5pt) node[below] {1};\n    \\fill[black] (1,1.6) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[left] {3};\n    \\fill[black] (-1.2,-0.6) circle (1.5pt) node[below] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4) является изображением точечного источника $S$, создаваемым тонкой собирающей линзой с фокусным расстоянием $F$ (см. рисунок)?",
   "sol_tikz": [],
@@ -39330,7 +39330,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_inside_focus.md",
   "images": [
-   "assets/optics_lens_inside_focus_1.svg?v=8aa01833"
+   "assets/optics_lens_inside_focus_1.svg?v=6c9867a2"
   ],
   "solution_images": []
  },
@@ -39355,7 +39355,7 @@
   ],
   "source": "len.tex",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (-3,-2) grid (3,2);\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (2.2,0.8) {\\textbf{$\\sun$}};\n    \\node[below] at (2.2,0.7) {$S$};\n    \n    \\fill[black] (2.2,-0.8) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.2,0.8) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.2,-0.4) circle (1.5pt) node[below] {4};\n    \n    \\node[below left] at (-3,-2) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    \\draw[thick, black] (-3,0) -- (3,0);\n    \\draw[ultra thick, black, <->] (0,-1.8) -- (0,1.8);\n    \n    \\draw[thick, black] (-1,0.1) -- (-1,-0.1) node[below] {$F$};\n    \\draw[thick, black] (1,0.1) -- (1,-0.1) node[below] {$F$};\n    \n    \\node at (2.2,0.8) {\\textbf{$\\sun$}};\n    \\node[below] at (2.2,0.7) {$S$};\n    \n    \\fill[black] (2.2,-0.8) circle (1.5pt) node[below] {1};\n    \\fill[black] (-2.2,0.8) circle (1.5pt) node[above] {2};\n    \\fill[black] (-2.2,-0.8) circle (1.5pt) node[below] {3};\n    \\fill[black] (-1.2,-0.4) circle (1.5pt) node[below] {4};\n    \n\\end{tikzpicture}"
   ],
   "condition": "Какая из точек (1, 2, 3 или 4) является изображением точечного источника $S$, создаваемым тонкой собирающей линзой с фокусным расстоянием $F$ (см. рисунок)?",
   "sol_tikz": [],
@@ -39363,7 +39363,7 @@
   "check": "number",
   "file": "04_optics/optics_lens_inside_focus_right.md",
   "images": [
-   "assets/optics_lens_inside_focus_right_1.svg?v=fdbb3ac6"
+   "assets/optics_lens_inside_focus_right_1.svg?v=6aa7ace4"
   ],
   "solution_images": []
  },
