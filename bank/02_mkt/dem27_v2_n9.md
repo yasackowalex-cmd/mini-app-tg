@@ -45,7 +45,7 @@ source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 2)
   \draw[-{Stealth[scale=1.0]}, very thick, brandPrimary] (2,4) -- (2.55,5.1);
   \draw[-{Stealth[scale=1.0]}, very thick, brandPrimary] (3,6) -- (5.4,6);
   \draw[-{Stealth[scale=1.0]}, very thick, brandPrimary] (7.5,6) -- (4.6,3.68);
-  \foreach \p in {(2,1.6),(2,4),(3,6),(7.5,6)} \fill \p circle (2.4pt);
+  \foreach \p in {(2,1.6),(2,4),(3,6),(7.5,6)} \fill \p circle (1.2pt);
   \node[left] at (2,4.1) {$A$}; \node[above left] at (3,6) {$B$};
   \node[above] at (7.5,6.05) {$C$}; \node[below right] at (2,1.6) {$D$};
 \end{tikzpicture}
