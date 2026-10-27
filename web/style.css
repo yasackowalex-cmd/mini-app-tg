@@ -306,3 +306,6 @@ p.cnt { white-space: normal; }
 .mks span.retry, .mks span.help { color: #9A6B00; background: #FFF4CC; }
 .mks span.bad { color: #B3261E; background: #FDECEA; }
 .t-work li > .hwa { display: flex; margin-top: 4px; }
+.t-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.t-edit input { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; flex: 1 1 8em; }
+.t-edit #te-grade { flex: 0 0 5em; }
