@@ -116,8 +116,6 @@
 <g transform='matrix(1 0 0 1 -8.1267 -48.13421)'>
 <use x='-33.349625' y='4.690905' xlink:href='#g3-57'/>
 </g>
-<path d='M-33.347655-20.82029H17.6758' stroke='#000' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
-<path d='M60.1953-20.82029V4.691406' stroke='#000' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-33.347655 55.71481L17.6758-20.82029H60.1953L119.7264 38.70701' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
 </g>
 </svg>

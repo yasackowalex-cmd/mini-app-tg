@@ -11897,7 +11897,7 @@
   ],
   "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 7)",
   "tikz": [
-   "\\begin{tikzpicture}[x=0.6cm, y=0.2cm, every node/.style={font=\\small}]\n\\foreach \\i in {1,...,9} \\draw[gray!50, thin] (\\i,-9) -- (\\i,9);\n  \\foreach \\j in {-9,-6,-3,3,6,9} \\draw[gray!50, thin] (0,\\j) -- (9,\\j);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (10,0) node[below right] {$t$, с};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,-9) -- (0,11.8) node[left] {$v_x$, м/с};\n  \\foreach \\i in {1,...,9} \\node[below, fill=white, inner sep=1pt] at (\\i,-0.25) {$\\i$};\n  \\foreach \\j in {-9,-6,-3,0,3,6,9} \\node[left] at (0,\\j) {$\\j$};\n  \\draw[dashed] (0,4.5) -- (3,4.5); \\draw[dashed] (5.5,4.5) -- (5.5,0);\n  \\draw[very thick, brandPrimary] (0,-9) -- (3,4.5) -- (5.5,4.5) -- (9,-6);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[x=0.6cm, y=0.2cm, every node/.style={font=\\small}]\n\\foreach \\i in {1,...,9} \\draw[gray!50, thin] (\\i,-9) -- (\\i,9);\n  \\foreach \\j in {-9,-6,-3,3,6,9} \\draw[gray!50, thin] (0,\\j) -- (9,\\j);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (10,0) node[below right] {$t$, с};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,-9) -- (0,11.8) node[left] {$v_x$, м/с};\n  \\foreach \\i in {1,...,9} \\node[below, fill=white, inner sep=1pt] at (\\i,-0.25) {$\\i$};\n  \\foreach \\j in {-9,-6,-3,0,3,6,9} \\node[left] at (0,\\j) {$\\j$};\n  \\draw[very thick, brandPrimary] (0,-9) -- (3,4.5) -- (5.5,4.5) -- (9,-6);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке приведён график зависимости проекции $v_x$ скорости тела от времени $t$.\n\n[[рис 1]]\n\nОпределите проекцию $a_x$ ускорения этого тела в момент времени $7$~с. Ответ запишите с учётом знака проекции.",
   "sol_tikz": [],
@@ -11905,7 +11905,7 @@
   "check": "number",
   "file": "01_mechanics/dem27_v7_n1.md",
   "images": [
-   "assets/dem27_v7_n1_1.svg?v=3f177afe"
+   "assets/dem27_v7_n1_1.svg?v=7e2842f3"
   ],
   "solution_images": []
  },

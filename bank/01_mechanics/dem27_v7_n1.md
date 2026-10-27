@@ -34,7 +34,6 @@ source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 7)
   \draw[-{Stealth[scale=0.8]}, thick] (0,-9) -- (0,11.8) node[left] {$v_x$, м/с};
   \foreach \i in {1,...,9} \node[below, fill=white, inner sep=1pt] at (\i,-0.25) {$\i$};
   \foreach \j in {-9,-6,-3,0,3,6,9} \node[left] at (0,\j) {$\j$};
-  \draw[dashed] (0,4.5) -- (3,4.5); \draw[dashed] (5.5,4.5) -- (5.5,0);
   \draw[very thick, brandPrimary] (0,-9) -- (3,4.5) -- (5.5,4.5) -- (9,-6);
 \end{tikzpicture}
 ```
