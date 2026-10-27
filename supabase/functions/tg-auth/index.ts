@@ -18,6 +18,7 @@
 //   action "fav_set", task_id, on — добавить задачу в избранное (on: true) или убрать (on: false).
 //   action "join", code — ученик открыл личную ссылку учителя t.me/<бот>?startapp=t_<код>: он становится «его учеником»;
 //   action "my_set" (учитель), tg_id, on — отметить ученика своим или убрать из своих.
+//   action "student_set" (учитель), tg_id, last_name, first_name, grade — исправить имя, фамилию и класс ученика.
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
@@ -108,10 +109,13 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
 
   if (action === 'login') {
     // Храним только Telegram id, имя, а после анкеты фамилию и класс (минимум персональных данных).
-    const { error } = await db.from('users').upsert(
-      { tg_id: user.id, first_name: user.first_name ?? '', last_seen_at: new Date().toISOString() },
-      { onConflict: 'tg_id' },
-    );
+    // Имя из Телеграма берём только при первом входе, чтобы не затирать исправленное учителем.
+    const now = new Date().toISOString();
+    const { data: known, error: kerr } = await db.from('users').select('tg_id').eq('tg_id', user.id).maybeSingle();
+    if (kerr) return [500, { ok: false, error: 'db' }];
+    const { error } = known
+      ? await db.from('users').update({ last_seen_at: now }).eq('tg_id', user.id)
+      : await db.from('users').insert({ tg_id: user.id, first_name: user.first_name ?? '', last_seen_at: now });
     if (error) return [500, { ok: false, error: 'db' }];
     // Фамилия и класс — анкета ученика для учителя. Если столбцов ещё нет (миграция 002 не выполнена),
     // profile: null, и сайт анкету не показывает.
@@ -225,6 +229,20 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       if (error) return [500, { ok: false, error: 'db' }];
     }
     return [200, { ok: true }];
+  }
+
+  if (action === 'student_set') {
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const tg_id = Number(body.tg_id);
+    const clean = (v: unknown) => String(v ?? '').trim().replace(/\s+/g, ' ');
+    const last_name = clean(body.last_name), first_name = clean(body.first_name);
+    const grade = clean(body.grade).replace(/\s+/g, '').toUpperCase();
+    if (!Number.isSafeInteger(tg_id) || tg_id <= 0 || !(last_name || first_name) ||
+        last_name.length > 50 || first_name.length > 50 || grade.length > 10) return [400, { ok: false, error: 'bad request' }];
+    const { data, error } = await db.from('users').update({ last_name, first_name, grade }).eq('tg_id', tg_id).select('tg_id');
+    if (error) return [500, { ok: false, error: 'db' }];
+    if (!data || !data.length) return [404, { ok: false, error: 'not found' }];
+    return [200, { ok: true, student: { tg_id, last_name, first_name, grade } }];
   }
 
   if (action === 'hw_list') {

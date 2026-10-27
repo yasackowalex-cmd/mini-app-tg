@@ -33,7 +33,7 @@
     (window.lessonsLoad || fetch('out/lessons.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []))
       .then(L => { lessons = (L || []).filter(l => (l.hw || []).length); if (data) render(); });
   }
-  let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null;
+  let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null, editId = null;
   const BOT = 'physics_is_phun_bot';
 
   // ---- вкладка «Кабинет учителя» (сами вкладки переключает app.js) ----
@@ -111,7 +111,31 @@
     if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => prompt('Ссылка:', url));
     else prompt('Ссылка:', url);
   });
+  // под учеником: исправить имя (форма) и «мои ученики»
   function myBtn(s) {
+    const edit = editId === String(s.tg_id)
+      ? `<div class="t-edit"><input id="te-last" placeholder="Фамилия" maxlength="50" value="${esc(s.last_name)}">
+          <input id="te-first" placeholder="Имя" maxlength="50" value="${esc(s.first_name)}">
+          <input id="te-grade" placeholder="Класс" maxlength="10" value="${esc(s.grade)}">
+          <span class="hwa"><button class="btn" type="button" data-act="name-save">Сохранить</button>
+          <button class="btn" type="button" data-act="name-no">Отмена</button></span></div>`
+      : `<p class="hwa"><button class="btn" type="button" data-act="name-edit">✎ Изменить имя и класс</button></p>`;
+    return edit + myBtnMine(s);
+  }
+  function saveName(tgId) {
+    const v = id => $(id).value.trim();
+    const body = { tg_id: Number(tgId), last_name: v('te-last'), first_name: v('te-first'), grade: v('te-grade') };
+    const t = tg(), say = m => (t && t.showAlert ? t.showAlert(m) : alert(m));
+    if (!body.last_name && !body.first_name) { say('Укажите фамилию или имя.'); return; }
+    window.tgApi('student_set', body).then(r => {
+      if (!r || !r.student) { say('Не получилось сохранить. Если не помогает, обновите код функции в Supabase.'); return; }
+      Object.assign(data.byId[tgId] || {}, r.student);
+      editId = null;
+      fillGrades();
+      render();
+    });
+  }
+  function myBtnMine(s) {
     if (!data.mine) return '';
     return isMine(s)
       ? `<p class="hwa"><span class="cnt">Ваш ученик</span> <button class="btn" type="button" data-act="my-off">Убрать из моих</button></p>`
@@ -439,7 +463,10 @@
     if (!b) return;
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
-    if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; render(); return; }
+    if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; editId = null; render(); return; }
+    if (act === 'name-edit') { editId = id.slice(1); render(); return; }
+    if (act === 'name-no') { editId = null; render(); return; }
+    if (act === 'name-save') { saveName(id.slice(1)); return; }
     if (act === 'my-on' || act === 'my-off') { setMine(id.slice(1), act === 'my-on'); return; }
     if (act === 'w-open' || act === 'w-err') { openWork(id.slice(1), +b.dataset.k, act === 'w-err'); return; }
     if (!hw) return;
