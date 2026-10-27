@@ -339,13 +339,13 @@
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED
-  // разных задач этого номера (по уровню сложности номера) и из последних KIM_WINDOW ответов по нему
+  // разных задач этого номера (по части экзамена) и из последних KIM_WINDOW ответов по нему
   // верных не меньше KIM_MIN_ACC. Освоение можно потерять: ошибки в последних ответах возвращают номер
   // «в работу», а если номер не решали KIM_STALE_DAYS дней, он просит повторения и не идёт в прогноз.
   // Звёзды — за 2× и 3× порога разных решённых задач, чтобы было куда расти после «освоен».
   // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (KIM_POINTS в render.js, всего 45).
-  const KIM_LEVEL = k => [24, 25, 26].includes(+k) ? 'В' : [5, 9, 14, 21, 22, 23].includes(+k) ? 'П' : 'Б';
-  const KIM_MAX = 45, KIM_MIN_SOLVED = { 'Б': 10, 'П': 7, 'В': 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
+  const KIM_NEED = k => KIM_MIN_SOLVED[+k >= 21 ? 2 : 1];   // порог по части экзамена
+  const KIM_MAX = 45, KIM_MIN_SOLVED = { 1: 10, 2: 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
 
   // Ниже — решено задач по четырём разделам физики (оптика входит в электродинамику,
   // как в кодификаторе) и по темам внутри раздела. Доля верных ответов — отдельной строкой.
@@ -385,7 +385,7 @@
     });
     const now = Date.now() / 1000;
     Object.entries(st).forEach(([k, s]) => {
-      const need = KIM_MIN_SOLVED[KIM_LEVEL(k)];
+      const need = KIM_NEED(k);
       const acc = log ? s.recent.filter(Boolean).length / (s.recent.length || 1) : s.ok / (s.n || 1);
       s.acc = acc;
       s.stars = s.solved >= 3 * need ? 2 : s.solved >= 2 * need ? 1 : 0;
@@ -411,7 +411,7 @@
     const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
     const cells = kims.map(k => {
       const s = ks[k], hint = !s.n ? 'не начат'
-        : `решено ${s.solved} разных задач (нужно ${KIM_MIN_SOLVED[KIM_LEVEL(k)]}), верных ${Math.round(100 * s.acc)}%` +
+        : `решено ${s.solved} разных задач (нужно ${KIM_NEED(k)}), верных ${Math.round(100 * s.acc)}%` +
           (s.state === 'stale' ? ', пора повторить' : s.state === 'done' ? ', освоен' : '');
       return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small>` +
         (s.stars ? `<i class="stars">${'★'.repeat(s.stars)}</i>` : '') + `</a>`;
@@ -442,7 +442,7 @@
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
       <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED['Б']} разных задач этого номера (у номеров повышенного и высокого уровня ${KIM_MIN_SOLVED['П']}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
+      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED[1]} разных задач этого номера (в части 2, номера 21–26, ${KIM_MIN_SOLVED[2]}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}
@@ -540,7 +540,7 @@
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
     // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
-    window.bankStats = { kimStats, topics, byId, KIM_MIN_SOLVED, KIM_LEVEL, KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
+    window.bankStats = { kimStats, topics, byId, KIM_MIN_SOLVED, KIM_NEED, KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
     // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
     window.bankView = {
       show(title, ids, plain) { view = { title, ids, plain }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },

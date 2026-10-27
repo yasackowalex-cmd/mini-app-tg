@@ -263,7 +263,7 @@
   function kimGrid(ks) {
     const B = window.bankStats;
     return `<div class="kgrid">${KIMS.map(k => {
-      const s = ks[k], need = B.KIM_MIN_SOLVED[B.KIM_LEVEL(k)];
+      const s = ks[k], need = B.KIM_NEED(k);
       const hint = !s.n ? 'не начат' : `решено ${s.solved} разных задач (нужно ${need}), верных ${pc(s.acc)}%` +
         (s.state === 'stale' ? ', пора повторить' : s.state === 'done' ? ', освоен' : '');
       return `<span class="kc ${s.state}" title="№ ${k}: ${hint}"><b>${k}</b><small>${s.n ? pc(s.acc) + '%' : '—'}</small></span>`;
