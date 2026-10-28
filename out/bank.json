@@ -11431,6 +11431,164 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v18_n19",
+  "exam": "ЕГЭ",
+  "kim": 19,
+  "section": "Механика",
+  "theme": "ПОКАЗАНИЯ ИЗМЕРИТЕЛЬНЫХ ПРИБОРОВ. ПОГРЕШНОСТИ",
+  "topic": "4.8",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 18,
+  "answer": "2,7 ± 0,1",
+  "unit": "Н",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕТОДЫ",
+   "ПОГРЕШНОСТИ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Запишите показания динамометра с учётом абсолютной погрешности измерений. Абсолютная погрешность прямого измерения силы равна цене деления динамометра. Шкала проградуирована в ньютонах (Н).\n\nОтвет запишите в виде $(F \\pm \\Delta F)$~Н.",
+  "sol_tikz": [],
+  "solution": "Цена деления шкалы $0{,}1$~Н. Указатель стоит на три деления выше отметки $3$~Н: $F = 2{,}7$~Н.\n\nПогрешность равна цене деления: $\\Delta F = 0{,}1$~Н.",
+  "check": "pm",
+  "file": "01_mechanics/dem27_v18_n19.md",
+  "images": [
+   "assets/dem27_v18_n19_photo1.png?v=82f6d4ce"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v18_n22",
+  "exam": "ЕГЭ",
+  "kim": 22,
+  "section": "Механика",
+  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
+  "topic": "1.4.2",
+  "level": "П",
+  "type": "расчётная (часть 2)",
+  "variant": 18,
+  "answer": "0,54",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.2,font=\\small]\n  \\fill[pattern=crosshatch dots, pattern color=brandSecondary!70] (-1.2,0) rectangle (1.2,1.2);\n  \\fill[pattern=dots, pattern color=brandSecondary!40] (-1.2,1.2) rectangle (1.2,2.4);\n  \\fill[white] (0,1.168) circle (0.6);\n  \\draw[thick,brandSecondary] (0,1.168) circle (0.6);\n  \\draw[thick,brandSecondary] (-1.2,1.2)--(-0.599,1.2) (0.599,1.2)--(1.2,1.2);\n  \\draw[thick,brandSecondary] (-1.2,2.4)--(1.2,2.4);\n  \\draw[thick,brandSecondary] (-1.2,3)--(-1.2,0)--(1.2,0)--(1.2,3);\n  \\node[right] at (1.25,1.80) {вода};\n  \\node[right] at (1.25,0.60) {ртуть};\n\\end{tikzpicture}"
+  ],
+  "condition": "В стакан налита ртуть, а поверх неё — вода. Однородный железный шар плавает, погружённый в обе жидкости. Какая часть объёма шара находится в ртути?",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  \\fill[brandPrimary!25] (-1.9,-0.8) rectangle (1.9,1.5);\n  \\fill[brandPrimary!8] (-1.9,1.5) rectangle (1.9,3.6);\n  \\draw[brandPrimary!70] (-1.9,1.5) -- (1.9,1.5) (-1.9,3.6) -- (1.9,3.6);\n  \\draw[very thick, brandSecondary] (-1.9,4.1) -- (-1.9,-0.8) -- (1.9,-0.8) -- (1.9,4.1);\n  \\node[right, brandSecondary] at (1.9,2.55) {вода};\n  \\node[right, brandSecondary] at (1.9,0.35) {ртуть};\n  \\draw[thick, fill=gray!30] (0,1.44) circle (1.1);\n  \\draw[densely dashed, brandPrimary!80] (-1.1,1.5) -- (1.1,1.5);\n  \\fill (0,1.44) circle (1.2pt);\n  % силы\n  \\draw[Fvec] (-0.15,1.44) -- (-0.15,-0.31) node[below] {$\\rho V\\vec g$};\n  \\draw[Fvec] (0.3,1.03) -- (0.3,2.63) node[above] {$\\vec F_{\\text{А}1}$};\n  \\draw[Fvec] (-0.32,1.75) -- (-0.32,2.15) node[left, pos=0.3] {$\\vec F_{\\text{А}2}$};\n\\end{tikzpicture}"
+  ],
+  "solution": "Обозначим $V$ — объём шара, $V_1$ — объём его части, находящейся в ртути, $x = \\dfrac{V_1}{V}$ — искомая доля. Плотности (табличные): железа $\\rho = 7800\\,\\text{кг/м}^3$, ртути $\\rho_1 = 13\\,600\\,\\text{кг/м}^3$, воды $\\rho_2 = 1000\\,\\text{кг/м}^3$.\n\nНа шар действуют сила тяжести $\\rho Vg$ и выталкивающие силы со стороны ртути $\\rho_1 gV_1$ и воды $\\rho_2 g(V - V_1)$ (закон Архимеда). Условие плавания (равновесия): $\\rho Vg = \\rho_1 gV_1 + \\rho_2 g(V - V_1)$. Силы показаны на рисунке ($F_{\\text{А}1} = \\rho_1 gV_1$ — со стороны ртути, $F_{\\text{А}2} = \\rho_2 g(V - V_1)$ — со стороны воды).\n\n[[рис 1]]\n\nРазделив на $gV$: $\\rho = \\rho_1 x + \\rho_2(1 - x)$, откуда $x = \\dfrac{\\rho - \\rho_2}{\\rho_1 - \\rho_2}$.\n\n$x = \\dfrac{7800 - 1000}{13\\,600 - 1000} = \\dfrac{6800}{12\\,600} \\approx 0{,}54$.",
+  "check": "number",
+  "file": "01_mechanics/dem27_v18_n22.md",
+  "images": [
+   "assets/dem27_v18_n22_1.svg?v=569814cd"
+  ],
+  "solution_images": [
+   "assets/dem27_v18_n22_s1.svg?v=a8fbfd3b"
+  ]
+ },
+ {
+  "id": "dem27_v18_n26",
+  "exam": "ЕГЭ",
+  "kim": 26,
+  "section": "Механика",
+  "theme": "ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА)",
+  "topic": "1.2.2",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 18,
+  "answer": "0,2",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.2, font=\\small]\n  % стол и блок\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);\n  \\draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);\n  \\draw[thick] (0,0) -- (-0.35,0.05);\n  \\draw[thick, fill=gray!15] (-0.35,0.05) circle (0.15);\n  \\fill (-0.35,0.05) circle (1pt);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);\n  \\node at (1.7,0.3) {$M$};\n  % нити и груз\n  \\draw[thick] (-0.35,0.2) -- (1.2,0.2);\n  \\draw[thick] (-0.5,0.05) -- (-0.5,-0.95);\n  \\draw[thick, fill=brandAccent!20] (-0.72,-1.4) rectangle (-0.28,-0.95);\n  \\node at (-0.5,-1.175) {$m$};\n  % сила F\n  \\draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\\vec F$};\n  \\draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);\n  \\draw (2.65,0.3) arc (0:30:0.45);\n  \\node at (2.85,0.42) {$\\alpha$};\n  % расстояние L\n  \\draw[thin, gray] (-0.6,0) -- (-1.3,0);\n  \\draw[thin, gray] (-0.76,-0.95) -- (-1.3,-0.95);\n  \\draw[<->, thin] (-1.2,0) -- (-1.2,-0.95) node[midway, left] {$L$};\n\\end{tikzpicture}"
+  ],
+  "condition": "На горизонтальном столе находится брусок массой $M=1$~кг, соединённый невесомой нерастяжимой нитью, перекинутой через гладкий невесомый блок, с грузом массой $m=500$~г. На брусок действует сила величиной $F=8$~Н, направленная под углом $\\alpha=30^{\\circ}$ к горизонту. В момент начала движения груз находится на расстоянии $L=1$~м от края стола. Каков коэффициент трения между бруском и столом, если груз поднимается до края стола за время $t=2$~с? Трением в оси блока и трением о воздух пренебречь.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стол и блок\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);\n  \\draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);\n  \\draw[thick] (0,0) -- (-0.25,0.05);\n  \\draw[thick, fill=gray!15] (-0.25,0.05) circle (0.15);\n  \\fill (-0.25,0.05) circle (1pt);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);\n  \\node at (1.42,0.3) {$M$};\n  % нити и груз\n  \\draw[thick] (-0.25,0.2) -- (1.2,0.2);\n  \\draw[thick] (-0.4,0.05) -- (-0.4,-0.95);\n  \\draw[thick, fill=brandAccent!20] (-0.62,-1.4) rectangle (-0.18,-0.95);\n  \\node at (-0.85,-1.17) {$m$};\n  % силы на брусок\n  \\draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\\vec F$};\n  \\draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);\n  \\draw (2.65,0.3) arc (0:30:0.45);\n  \\node at (2.85,0.42) {$\\alpha$};\n  \\draw[Fvec] (1.2,0.2) -- (0.55,0.2) node[above] {$\\vec T_1$};\n  \\draw[Fvec] (1.6,0) -- (0.95,0) node[below, yshift=-1pt] {$\\vec F_\\text{тр}$};\n  \\draw[Fvec] (1.5,0.6) -- (1.5,1.35) node[left] {$\\vec N$};\n  \\draw[Fvec] (1.7,0.3) -- (1.7,-0.7) node[right] {$M\\vec g$};\n  \\fill (1.7,0.3) circle (1pt);\n  \\draw[vvec] (1.8,1.6) -- (2.5,1.6) node[right] {$\\vec a_1$};\n  % силы на груз\n  \\draw[Fvec] (-0.4,-0.95) -- (-0.4,-0.4) node[left] {$\\vec T_2$};\n  \\draw[Fvec] (-0.4,-1.18) -- (-0.4,-1.95) node[left] {$m\\vec g$};\n  \\draw[vvec] (-1.35,-1.6) -- (-1.35,-1.0) node[left] {$\\vec a_2$};\n  % оси\n  \\draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (3.5,-1.5) node[below] {$x$};\n  \\draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (2.8,-0.85) node[left] {$y$};\n  \\node[below left, inner sep=1pt, font=\\footnotesize] at (2.8,-1.5) {$0$};\n\\end{tikzpicture}"
+  ],
+  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с поверхностью стола.\n\n2. Будем использовать второй закон Ньютона для материальных точек, так как брусок и груз движутся поступательно. Трением о воздух пренебрежём. Силы, действующие на тела, постоянны, движение бруска и груза равноускоренное, поэтому применимы формулы кинематики равноускоренного движения.\n\n3. Так как нить нерастяжима, ускорения бруска и груза равны по модулю: $|\\vec a_1| = |\\vec a_2| = a$ (1)\n\n4. Так как блок и нить невесомы, трения в блоке нет, то силы натяжения нити, действующие на брусок и груз, одинаковы: $T_1 = T_2 = T$ (2)\n\n\\textbf{Решение}\n\n1. На рисунке показаны силы, действующие на брусок, и силы, действующие на груз. Брусок движется от блока (вправо), груз поднимается.\n\n[[рис 1]]\n\nЗапишем второй закон Ньютона для бруска в проекциях на оси $Ox$ и $Oy$, для груза — в проекции на ось $Oy$. С учётом (1) и (2) получим:\n\n$Ma = F\\cos\\alpha - T - F_\\text{тр}$,\n\n$0 = N + F\\sin\\alpha - Mg$,\n\n$ma = T - mg$.\n\nУчитывая, что $F_\\text{тр} = \\mu N = \\mu(Mg - F\\sin\\alpha)$, и складывая первое и третье уравнения, найдём модуль ускорения каждого тела: $a = \\dfrac{F\\cos\\alpha - mg - \\mu(Mg - F\\sin\\alpha)}{M + m}$.\n\n2. Груз начинает движение из состояния покоя, поэтому $L = \\dfrac{at^2}{2}$, откуда $a = \\dfrac{2L}{t^2} = \\dfrac{2\\cdot 1}{2^2}\\,\\text{м/с}^2 = 0{,}5\\,\\text{м/с}^2$.\n\n3. Из выражения для ускорения получим: $\\mu = \\dfrac{F\\cos\\alpha - mg - (M + m)a}{Mg - F\\sin\\alpha} = \\dfrac{8\\cdot 0{,}866 - 0{,}5\\cdot 10 - 1{,}5\\cdot 0{,}5}{1\\cdot 10 - 8\\cdot 0{,}5} \\approx 0{,}2$.",
+  "check": "number",
+  "file": "01_mechanics/dem27_v18_n26.md",
+  "images": [
+   "assets/dem27_v18_n26_1.svg?v=6096d4d8"
+  ],
+  "solution_images": [
+   "assets/dem27_v18_n26_s1.svg?v=56946b9d"
+  ]
+ },
+ {
+  "id": "dem27_v18_n5",
+  "exam": "ЕГЭ",
+  "kim": 5,
+  "section": "Механика",
+  "theme": "РАВНОУСКОРЕННОЕ ДВИЖЕНИЕ. ГРАФИКИ",
+  "topic": "1.1.3",
+  "level": "П",
+  "type": "соответствие/выбор",
+  "variant": 18,
+  "answer": "123",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА",
+   "КИНЕМАТИКА",
+   "ГРАФИКИ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.2, every node/.style={font=\\footnotesize}]\n\\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (0,2.7) node[above] {$x$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (3.4,0) node[right] {$t$};\n  \\draw[ultra thick, brandPrimary, domain=0:3.0, samples=100] plot (\\x, {1.35 - 0.95*cos(180*(\\x-0.6)/1.7)});\n  \\fill[black] (0.6,0.4) circle (1.2pt) node[below right] {$A$};\n  \\fill[black] (1.9,{1.35 - 0.95*cos(180*1.3/1.7)}) circle (1.2pt) node[above left] {$B$};\n  \\fill[black] (2.3,2.3) circle (1.2pt) node[above] {$C$};\n  \\fill[black] (2.95,{1.35 - 0.95*cos(180*2.35/1.7)}) circle (1.2pt) node[right] {$D$};\n  \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "На рисунке показан график зависимости координаты $x$ тела, движущегося вдоль оси $Ox$, от времени $t$. Из приведённого ниже списка выберите все верные утверждения.\n\n[[рис 1]]\n\n1) В точке $A$ скорость тела равна нулю.\\\\\n2) В точке $B$ проекция ускорения тела на ось $Ox$ отрицательна.\\\\\n3) Проекция перемещения тела на ось $Ox$ при переходе из точки $B$ в точку $C$ положительна.\\\\\n4) В точке $D$ проекция скорости тела на ось $Ox$ положительна.\\\\\n5) На участке $CD$ модуль скорости тела уменьшается.",
+  "sol_tikz": [],
+  "solution": "Проекция скорости — наклон касательной к графику $x(t)$, проекция ускорения определяется выпуклостью графика: выпуклость вверх (горб) — $a_x < 0$, выпуклость вниз (впадина) — $a_x > 0$.\n\n1) Верно: $A$ — нижняя точка впадины, касательная горизонтальна, $v_x = 0$.\n\n2) Верно: точка $B$ лежит на горбе перед вершиной $C$, график выпуклый вверх, $a_x < 0$.\n\n3) Верно: координата в точке $C$ больше, чем в точке $B$, $\\Delta x = x_C - x_B > 0$.\n\n4) Неверно: после вершины $C$ координата уменьшается, $v_x < 0$.\n\n5) Неверно: в точке $C$ скорость равна нулю, после неё график становится всё круче, модуль скорости растёт.",
+  "check": "set",
+  "file": "01_mechanics/dem27_v18_n5.md",
+  "images": [
+   "assets/dem27_v18_n5_1.svg?v=c0b139de"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v18_n6",
+  "exam": "ЕГЭ",
+  "kim": 6,
+  "section": "Механика",
+  "theme": "ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА)",
+  "topic": "1.2.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 18,
+  "answer": "11",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Космический аппарат, обращающийся вокруг Луны по круговой орбите, перешёл на другую круговую орбиту меньшего радиуса. Как изменились в результате этого перехода кинетическая энергия аппарата и его частота обращения вокруг Луны?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличилась;\n2) уменьшилась;\n3) не изменилась.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nКинетическая энергия & Частота обращения \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "sol_tikz": [],
+  "solution": "На круговой орбите сила тяготения Луны создаёт центростремительное ускорение: $G\\dfrac{Mm}{r^2} = \\dfrac{mv^2}{r}$, откуда $v^2 = \\dfrac{GM}{r}$. Радиус уменьшился — скорость выросла, и кинетическая энергия $\\dfrac{mv^2}{2}$ увеличилась (1).\n\nЧастота обращения $\\nu = \\dfrac{v}{2\\pi r}$: скорость растёт, а радиус уменьшается, поэтому частота увеличилась (1).",
+  "check": "seq",
+  "file": "01_mechanics/dem27_v18_n6.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v1_n2",
   "exam": "ЕГЭ",
   "kim": 2,
@@ -13630,39 +13788,6 @@
   ]
  },
  {
-  "id": "fluid_iron_ball_hg",
-  "exam": "ЕГЭ",
-  "kim": 22,
-  "section": "Механика",
-  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
-  "topic": "1.4.2",
-  "level": "П",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "0,54",
-  "unit": "",
-  "has_image": true,
-  "author_task": false,
-  "tags": [],
-  "source": "pres.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.2,font=\\small]\n  \\fill[pattern=crosshatch dots, pattern color=brandSecondary!70] (-1.2,0) rectangle (1.2,1.2);\n  \\fill[pattern=dots, pattern color=brandSecondary!40] (-1.2,1.2) rectangle (1.2,2.4);\n  \\fill[white] (0,1.168) circle (0.6);\n  \\draw[thick,brandSecondary] (0,1.168) circle (0.6);\n  \\draw[thick,brandSecondary] (-1.2,1.2)--(-0.599,1.2) (0.599,1.2)--(1.2,1.2);\n  \\draw[thick,brandSecondary] (-1.2,2.4)--(1.2,2.4);\n  \\draw[thick,brandSecondary] (-1.2,3)--(-1.2,0)--(1.2,0)--(1.2,3);\n  \\node[right] at (1.25,1.80) {вода};\n  \\node[right] at (1.25,0.60) {ртуть};\n\\end{tikzpicture}"
-  ],
-  "condition": "В стакан налита ртуть, а поверх неё — вода. Однородный железный шар плавает, погружённый в обе жидкости. Какая часть объёма шара находится в ртути?",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  \\fill[brandPrimary!25] (-1.9,-0.8) rectangle (1.9,1.5);\n  \\fill[brandPrimary!8] (-1.9,1.5) rectangle (1.9,3.6);\n  \\draw[brandPrimary!70] (-1.9,1.5) -- (1.9,1.5) (-1.9,3.6) -- (1.9,3.6);\n  \\draw[very thick, brandSecondary] (-1.9,4.1) -- (-1.9,-0.8) -- (1.9,-0.8) -- (1.9,4.1);\n  \\node[right, brandSecondary] at (1.9,2.55) {вода};\n  \\node[right, brandSecondary] at (1.9,0.35) {ртуть};\n  \\draw[thick, fill=gray!30] (0,1.44) circle (1.1);\n  \\draw[densely dashed, brandPrimary!80] (-1.1,1.5) -- (1.1,1.5);\n  \\fill (0,1.44) circle (1.2pt);\n  % силы\n  \\draw[Fvec] (-0.15,1.44) -- (-0.15,-0.31) node[below] {$\\rho V\\vec g$};\n  \\draw[Fvec] (0.3,1.03) -- (0.3,2.63) node[above] {$\\vec F_{\\text{А}1}$};\n  \\draw[Fvec] (-0.32,1.75) -- (-0.32,2.15) node[left, pos=0.3] {$\\vec F_{\\text{А}2}$};\n\\end{tikzpicture}"
-  ],
-  "solution": "Обозначим $V$ — объём шара, $V_1$ — объём его части, находящейся в ртути, $x = \\dfrac{V_1}{V}$ — искомая доля. Плотности (табличные): железа $\\rho = 7800\\,\\text{кг/м}^3$, ртути $\\rho_1 = 13\\,600\\,\\text{кг/м}^3$, воды $\\rho_2 = 1000\\,\\text{кг/м}^3$.\n\nНа шар действуют сила тяжести $\\rho Vg$ и выталкивающие силы со стороны ртути $\\rho_1 gV_1$ и воды $\\rho_2 g(V - V_1)$ (закон Архимеда). Условие плавания (равновесия): $\\rho Vg = \\rho_1 gV_1 + \\rho_2 g(V - V_1)$. Силы показаны на рисунке ($F_{\\text{А}1} = \\rho_1 gV_1$ — со стороны ртути, $F_{\\text{А}2} = \\rho_2 g(V - V_1)$ — со стороны воды).\n\n[[рис 1]]\n\nРазделив на $gV$: $\\rho = \\rho_1 x + \\rho_2(1 - x)$, откуда $x = \\dfrac{\\rho - \\rho_2}{\\rho_1 - \\rho_2}$.\n\n$x = \\dfrac{7800 - 1000}{13\\,600 - 1000} = \\dfrac{6800}{12\\,600} \\approx 0{,}54$.",
-  "check": "number",
-  "file": "01_mechanics/fluid_iron_ball_hg.md",
-  "images": [
-   "assets/fluid_iron_ball_hg_1.svg?v=569814cd"
-  ],
-  "solution_images": [
-   "assets/fluid_iron_ball_hg_s1.svg?v=a8fbfd3b"
-  ]
- },
- {
   "id": "fluid_wood_block_select",
   "exam": "ЕГЭ",
   "kim": 5,
@@ -14885,68 +15010,6 @@
   "solution_images": [
    "assets/newton2_v10_n5_s1.svg?v=ae90db93"
   ]
- },
- {
-  "id": "newton2_v14_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА)",
-  "topic": "1.2.2",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 14,
-  "answer": "0,2",
-  "unit": "",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "din.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.2, font=\\small]\n  % стол и блок\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);\n  \\draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);\n  \\draw[thick] (0,0) -- (-0.35,0.05);\n  \\draw[thick, fill=gray!15] (-0.35,0.05) circle (0.15);\n  \\fill (-0.35,0.05) circle (1pt);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);\n  \\node at (1.7,0.3) {$M$};\n  % нити и груз\n  \\draw[thick] (-0.35,0.2) -- (1.2,0.2);\n  \\draw[thick] (-0.5,0.05) -- (-0.5,-0.95);\n  \\draw[thick, fill=brandAccent!20] (-0.72,-1.4) rectangle (-0.28,-0.95);\n  \\node at (-0.5,-1.175) {$m$};\n  % сила F\n  \\draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\\vec F$};\n  \\draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);\n  \\draw (2.65,0.3) arc (0:30:0.45);\n  \\node at (2.85,0.42) {$\\alpha$};\n  % расстояние L\n  \\draw[thin, gray] (-0.6,0) -- (-1.3,0);\n  \\draw[thin, gray] (-0.76,-0.95) -- (-1.3,-0.95);\n  \\draw[<->, thin] (-1.2,0) -- (-1.2,-0.95) node[midway, left] {$L$};\n\\end{tikzpicture}"
-  ],
-  "condition": "На горизонтальном столе находится брусок массой $M=1$~кг, соединённый невесомой нерастяжимой нитью, перекинутой через гладкий невесомый блок, с грузом массой $m=500$~г. На брусок действует сила величиной $F=8$~Н, направленная под углом $\\alpha=30^{\\circ}$ к горизонту. В момент начала движения груз находится на расстоянии $L=1$~м от края стола. Каков коэффициент трения между бруском и столом, если груз поднимается до края стола за время $t=2$~с? Трением в оси блока и трением о воздух пренебречь.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стол и блок\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-0.15) rectangle (3.8,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (0,-2.1) rectangle (0.15,0);\n  \\draw[thick, brandSecondary] (3.8,0) -- (0,0) -- (0,-2.1);\n  \\draw[thick] (0,0) -- (-0.25,0.05);\n  \\draw[thick, fill=gray!15] (-0.25,0.05) circle (0.15);\n  \\fill (-0.25,0.05) circle (1pt);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (1.2,0) rectangle (2.2,0.6);\n  \\node at (1.42,0.3) {$M$};\n  % нити и груз\n  \\draw[thick] (-0.25,0.2) -- (1.2,0.2);\n  \\draw[thick] (-0.4,0.05) -- (-0.4,-0.95);\n  \\draw[thick, fill=brandAccent!20] (-0.62,-1.4) rectangle (-0.18,-0.95);\n  \\node at (-0.85,-1.17) {$m$};\n  % силы на брусок\n  \\draw[Fvec] (2.2,0.3) -- ++(30:1.1) node[above] {$\\vec F$};\n  \\draw[dashed, thin] (2.2,0.3) -- (3.4,0.3);\n  \\draw (2.65,0.3) arc (0:30:0.45);\n  \\node at (2.85,0.42) {$\\alpha$};\n  \\draw[Fvec] (1.2,0.2) -- (0.55,0.2) node[above] {$\\vec T_1$};\n  \\draw[Fvec] (1.6,0) -- (0.95,0) node[below, yshift=-1pt] {$\\vec F_\\text{тр}$};\n  \\draw[Fvec] (1.5,0.6) -- (1.5,1.35) node[left] {$\\vec N$};\n  \\draw[Fvec] (1.7,0.3) -- (1.7,-0.7) node[right] {$M\\vec g$};\n  \\fill (1.7,0.3) circle (1pt);\n  \\draw[vvec] (1.8,1.6) -- (2.5,1.6) node[right] {$\\vec a_1$};\n  % силы на груз\n  \\draw[Fvec] (-0.4,-0.95) -- (-0.4,-0.4) node[left] {$\\vec T_2$};\n  \\draw[Fvec] (-0.4,-1.18) -- (-0.4,-1.95) node[left] {$m\\vec g$};\n  \\draw[vvec] (-1.35,-1.6) -- (-1.35,-1.0) node[left] {$\\vec a_2$};\n  % оси\n  \\draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (3.5,-1.5) node[below] {$x$};\n  \\draw[-{Stealth[scale=0.7]}] (2.8,-1.5) -- (2.8,-0.85) node[left] {$y$};\n  \\node[below left, inner sep=1pt, font=\\footnotesize] at (2.8,-1.5) {$0$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с поверхностью стола.\n\n2. Будем использовать второй закон Ньютона для материальных точек, так как брусок и груз движутся поступательно. Трением о воздух пренебрежём. Силы, действующие на тела, постоянны, движение бруска и груза равноускоренное, поэтому применимы формулы кинематики равноускоренного движения.\n\n3. Так как нить нерастяжима, ускорения бруска и груза равны по модулю: $|\\vec a_1| = |\\vec a_2| = a$ (1)\n\n4. Так как блок и нить невесомы, трения в блоке нет, то силы натяжения нити, действующие на брусок и груз, одинаковы: $T_1 = T_2 = T$ (2)\n\n\\textbf{Решение}\n\n1. На рисунке показаны силы, действующие на брусок, и силы, действующие на груз. Брусок движется от блока (вправо), груз поднимается.\n\n[[рис 1]]\n\nЗапишем второй закон Ньютона для бруска в проекциях на оси $Ox$ и $Oy$, для груза — в проекции на ось $Oy$. С учётом (1) и (2) получим:\n\n$Ma = F\\cos\\alpha - T - F_\\text{тр}$,\n\n$0 = N + F\\sin\\alpha - Mg$,\n\n$ma = T - mg$.\n\nУчитывая, что $F_\\text{тр} = \\mu N = \\mu(Mg - F\\sin\\alpha)$, и складывая первое и третье уравнения, найдём модуль ускорения каждого тела: $a = \\dfrac{F\\cos\\alpha - mg - \\mu(Mg - F\\sin\\alpha)}{M + m}$.\n\n2. Груз начинает движение из состояния покоя, поэтому $L = \\dfrac{at^2}{2}$, откуда $a = \\dfrac{2L}{t^2} = \\dfrac{2\\cdot 1}{2^2}\\,\\text{м/с}^2 = 0{,}5\\,\\text{м/с}^2$.\n\n3. Из выражения для ускорения получим: $\\mu = \\dfrac{F\\cos\\alpha - mg - (M + m)a}{Mg - F\\sin\\alpha} = \\dfrac{8\\cdot 0{,}866 - 0{,}5\\cdot 10 - 1{,}5\\cdot 0{,}5}{1\\cdot 10 - 8\\cdot 0{,}5} \\approx 0{,}2$.",
-  "check": "number",
-  "file": "01_mechanics/newton2_v14_n26.md",
-  "images": [
-   "assets/newton2_v14_n26_1.svg?v=6096d4d8"
-  ],
-  "solution_images": [
-   "assets/newton2_v14_n26_s1.svg?v=56946b9d"
-  ]
- },
- {
-  "id": "newton2_v14_n6",
-  "exam": "ЕГЭ",
-  "kim": 6,
-  "section": "Механика",
-  "theme": "ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА)",
-  "topic": "1.2.2",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": 14,
-  "answer": "11",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "din.tex",
-  "tikz": [],
-  "condition": "Космический аппарат, обращающийся вокруг Луны по круговой орбите, перешёл на другую круговую орбиту меньшего радиуса. Как изменились в результате этого перехода кинетическая энергия аппарата и его частота обращения вокруг Луны?\n\nДля каждой величины определите соответствующий характер изменения:\n1) увеличилась;\n2) уменьшилась;\n3) не изменилась.\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nКинетическая энергия & Частота обращения \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [],
-  "solution": "На круговой орбите сила тяготения Луны создаёт центростремительное ускорение: $G\\dfrac{Mm}{r^2} = \\dfrac{mv^2}{r}$, откуда $v^2 = \\dfrac{GM}{r}$. Радиус уменьшился — скорость выросла, и кинетическая энергия $\\dfrac{mv^2}{2}$ увеличилась (1).\n\nЧастота обращения $\\nu = \\dfrac{v}{2\\pi r}$: скорость растёт, а радиус уменьшается, поэтому частота увеличилась (1).",
-  "check": "seq",
-  "file": "01_mechanics/newton2_v14_n6.md",
-  "images": [],
-  "solution_images": []
  },
  {
   "id": "newton2_v16_n6",
@@ -24507,6 +24570,38 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v18_n24",
+  "exam": "ЕГЭ",
+  "kim": 24,
+  "section": "МКТ и термодинамика",
+  "theme": "КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА",
+  "topic": "2.6",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 18,
+  "answer": "30",
+  "unit": "%",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ",
+   "КПД_ЦИКЛА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \\coordinate (1) at (1.5,3.1);\n    \\coordinate (2) at (3.5,3.1);\n    \\coordinate (3) at (3.5,0.8);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.5 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] plot[domain=3.5:1.5, samples=40] (\\x, {6.14 / (\\x^1.67)});\n    \\fill[black] (1) circle (1.2pt) node[above left] {1};\n    \\fill[black] (2) circle (1.2pt) node[above right] {2};\n    \\fill[black] (3) circle (1.2pt) node[below right] {3};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "В качестве рабочего тела в тепловой машине используется идеальный одноатомный газ, который совершает циклический процесс, состоящий из изобарного нагревания (1–2), изохорного охлаждения (2–3) и адиабатного сжатия (3–1). Известно, что работа, совершённая газом в изобарном процессе, в $4$ раза больше работы, совершённой над газом при адиабатном сжатии. Определите КПД этой тепловой машины.",
+  "sol_tikz": [],
+  "solution": "Обозначим $A_{12}$ — работа газа в изобарном процессе, $A'$ — работа внешних сил над газом при адиабатном сжатии; по условию $A' = \\dfrac{A_{12}}{4}$.\n\nКПД цикла: $\\eta = \\dfrac{A}{Q_\\text{н}}$, где $A$ — работа газа за цикл, $Q_\\text{н}$ — количество теплоты, полученное газом от нагревателя.\n\nПроцесс 1–2 (изобарное нагревание): $A_{12} = p_1(V_2 - V_1) = \\nu R(T_2 - T_1)$, изменение внутренней энергии одноатомного газа $\\Delta U_{12} = \\dfrac{3}{2}\\nu R(T_2 - T_1) = \\dfrac{3}{2}A_{12}$. По первому закону термодинамики $Q_{12} = \\Delta U_{12} + A_{12} = \\dfrac{5}{2}A_{12} > 0$.\n\nПроцесс 2–3 (изохорное охлаждение): $A_{23} = 0$, $\\Delta U_{23} < 0$, значит, $Q_{23} = \\Delta U_{23} < 0$ — газ отдаёт теплоту.\n\nПроцесс 3–1 (адиабатный): $Q_{31} = 0$, работа газа $A_{31} = -A'$.\n\nЗначит, $Q_\\text{н} = Q_{12} = \\dfrac{5}{2}A_{12}$, а работа газа за цикл $A = A_{12} + A_{23} + A_{31} = A_{12} - \\dfrac{A_{12}}{4} = \\dfrac{3}{4}A_{12}$.\n\n$\\eta = \\dfrac{\\frac{3}{4}A_{12}}{\\frac{5}{2}A_{12}} = \\dfrac{3}{10} = 0{,}3 = 30\\,\\%$.",
+  "check": "number",
+  "file": "02_mkt/dem27_v18_n24.md",
+  "images": [
+   "assets/dem27_v18_n24_1.svg?v=f6b7684f"
+  ],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v1_n10",
   "exam": "ЕГЭ",
   "kim": 10,
@@ -26072,38 +26167,6 @@
   "check": "set",
   "file": "02_mkt/meth_gas_volume_temperature_n20.md",
   "images": [],
-  "solution_images": []
- },
- {
-  "id": "mkt_cyc_v24_adiabat_a12_4a31",
-  "exam": "ЕГЭ",
-  "kim": 24,
-  "section": "МКТ и термодинамика",
-  "theme": "КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА",
-  "topic": "2.6",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "30",
-  "unit": "%",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МКТ",
-   "КПД_ЦИКЛА"
-  ],
-  "source": "2td.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    % Оси координат\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,4.5) node[above] {$p$};\n    \n    % Координаты точек: 1=(1.5,3.5), 2=(3.5,3.5), 3=(3.5,1)\n    \\coordinate (1) at (1.5,3.1);\n    \\coordinate (2) at (3.5,3.1);\n    \\coordinate (3) at (3.5,0.8);\n    \n    % Процесс 1->2 (изобара)\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (1) -- (2.6,3.1);\n    \\draw[ultra thick, brandPrimary] (2.5,3.1) -- (2);\n    \n    % Процесс 2->3 (изохора)\n    \\draw[ultra thick, brandPrimary, ->, >=stealth] (2) -- (3.5,2.1);\n    \\draw[ultra thick, brandPrimary] (3.5,2.2) -- (3);\n    \n    % Процесс 3->1 (адиабата y = C/x^(5/3))\n    \\draw[ultra thick, brandPrimary, domain=1.5:3.5, samples=40] plot (\\x, {6.14 / (\\x^1.67)});\n    \\draw[brandPrimary, -{Stealth[scale=0.8, length=5pt, width=4pt]}, domain=2.2:3.5] plot (\\x, {6.14 / (\\x^1.67)});\n    \n    % Точки\n    \\fill[black] (1) circle (1.2pt) node[above left] {1};\n    \\fill[black] (2) circle (1.2pt) node[above right] {2};\n    \\fill[black] (3) circle (1.2pt) node[below right] {3};\n    \n    % Ноль на оси\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
-  ],
-  "condition": "В качестве рабочего тела в тепловой машине используется идеальный одноатомный газ, который совершает циклический процесс, состоящий из изобарного нагревания (1–2), изохорного охлаждения (2–3) и адиабатного сжатия (3–1). Известно, что работа, совершённая газом в изобарном процессе, в $4$ раза больше работы, совершённой над газом при адиабатном сжатии. Определите КПД этой тепловой машины.",
-  "sol_tikz": [],
-  "solution": "Обозначим $A_{12}$ — работа газа в изобарном процессе, $A'$ — работа внешних сил над газом при адиабатном сжатии; по условию $A' = \\dfrac{A_{12}}{4}$.\n\nКПД цикла: $\\eta = \\dfrac{A}{Q_\\text{н}}$, где $A$ — работа газа за цикл, $Q_\\text{н}$ — количество теплоты, полученное газом от нагревателя.\n\nПроцесс 1–2 (изобарное нагревание): $A_{12} = p_1(V_2 - V_1) = \\nu R(T_2 - T_1)$, изменение внутренней энергии одноатомного газа $\\Delta U_{12} = \\dfrac{3}{2}\\nu R(T_2 - T_1) = \\dfrac{3}{2}A_{12}$. По первому закону термодинамики $Q_{12} = \\Delta U_{12} + A_{12} = \\dfrac{5}{2}A_{12} > 0$.\n\nПроцесс 2–3 (изохорное охлаждение): $A_{23} = 0$, $\\Delta U_{23} < 0$, значит, $Q_{23} = \\Delta U_{23} < 0$ — газ отдаёт теплоту.\n\nПроцесс 3–1 (адиабатный): $Q_{31} = 0$, работа газа $A_{31} = -A'$.\n\nЗначит, $Q_\\text{н} = Q_{12} = \\dfrac{5}{2}A_{12}$, а работа газа за цикл $A = A_{12} + A_{23} + A_{31} = A_{12} - \\dfrac{A_{12}}{4} = \\dfrac{3}{4}A_{12}$.\n\n$\\eta = \\dfrac{\\frac{3}{4}A_{12}}{\\frac{5}{2}A_{12}} = \\dfrac{3}{10} = 0{,}3 = 30\\,\\%$.",
-  "check": "number",
-  "file": "02_mkt/mkt_cyc_v24_adiabat_a12_4a31.md",
-  "images": [
-   "assets/mkt_cyc_v24_adiabat_a12_4a31_1.svg?v=9a3d8cc7"
-  ],
   "solution_images": []
  },
  {
@@ -36892,6 +36955,75 @@
   ]
  },
  {
+  "id": "dem27_v18_n12",
+  "exam": "ЕГЭ",
+  "kim": 12,
+  "section": "Электродинамика",
+  "theme": "МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА",
+  "topic": "3.2.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 18,
+  "answer": "8",
+  "unit": "раз",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "МАГНЕТИЗМ",
+   "СИЛА_АМПЕРА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Прямолинейный проводник длиной $L$, по которому протекает ток $I$, помещён в однородное магнитное поле перпендикулярно линиям индукции $B$. Во сколько раз уменьшится сила Ампера, действующая на проводник, если его длину уменьшить в $4$ раза, а индукцию магнитного поля уменьшить в $2$ раза? (Сила тока, взаимное расположение проводника с током и линий индукции магнитного поля остаются неизменными.)",
+  "sol_tikz": [],
+  "solution": "Сила Ампера при проводнике, перпендикулярном линиям индукции: $F = BIL$.\n\nДлина уменьшилась в $4$ раза, индукция уменьшилась в $2$ раза, ток не изменился:\n\n$$\\frac{F_1}{F_2} = \\frac{BIL}{(B/2)\\cdot I\\cdot (L/4)} = 8.$$\n\nСила Ампера уменьшится в $8$ раз.",
+  "check": "number",
+  "file": "03_electrodynamics/dem27_v18_n12.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v18_n21",
+  "exam": "ЕГЭ",
+  "kim": 21,
+  "section": "Электродинамика",
+  "theme": "МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦА",
+  "topic": "3.2.1",
+  "level": "П",
+  "type": "качественная",
+  "variant": 18,
+  "answer": "Рамка повернётся против часовой стрелки и своей плоскостью встанет перпендикулярно оси магнита так, что контакт «+» окажется внизу",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ЭЛЕКТРОДИНАМИКА",
+   "МАГНЕТИЗМ",
+   "СИЛА_АМПЕРА",
+   "КАЧЕСТВЕННАЯ_ЗАДАЧА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.7, line join=round, every node/.style={font=\\small}]\n  % полосовой магнит в перспективе\n  % северный полюс (синий) обращён к рамке, южный дальний\n  \\fill[brandPrimary!25] (2.70,1.90) rectangle (4.05,3.10);\n  \\fill[brandPrimary!35] (2.70,3.10) -- (4.05,3.10) -- (3.50,3.65) -- (2.15,3.65) -- cycle;\n  \\draw[thick] (1.30,1.90) rectangle (4.05,3.10);\n  \\draw[thick] (1.30,3.10) -- (0.75,3.65) -- (3.50,3.65) -- (4.05,3.10);\n  \\draw[thick] (0.75,3.65) -- (0.75,2.45) -- (1.30,1.90);\n  \\draw[thick] (2.70,1.90) -- (2.70,3.10) -- (2.15,3.65);\n  \\node[font=\\large] at (2.00,2.50) {$S$};\n  \\node[font=\\large] at (3.375,2.50) {$N$};\n  % ось MO\n  \\draw[thin, dash dot] (4.60,4.48) -- (9.00,0.15);\n  \\node at (3.70,4.50) {$M$};\n  \\node at (7.90,0.20) {$O$};\n  % рамка с выводами\n  \\draw[thick] (7.45,1.18) -- (6.40,2.22) -- (5.60,2.22) -- (3.90,3.95) -- (6.40,3.95) -- (8.12,2.22) -- (7.30,2.22) -- (8.35,1.18);\n  \\node at (6.28,1.62) {$+$};\n  \\node at (8.60,1.68) {$-$};\n\\end{tikzpicture}"
+  ],
+  "condition": "Небольшую рамку с постоянным током удерживают неподвижно в поле полосового магнита (см. рисунок). Полярность подключения источника тока к выводам рамки показана на рисунке. Опишите движение рамки относительно неподвижной оси $MO$ после того, как рамку отпустят. Ответ поясните, указав, какие физические закономерности Вы использовали для объяснения. Считать, что рамка испытывает небольшое сопротивление движению со стороны воздуха. ЭДС индукции, возникающей в рамке, и колебаниями рамки пренебречь.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=10, in=200] (3.6,1.35);\n  \\draw[thick] (1,-0.3) to[out=-10, in=160] (3.6,-1.35);\n  \\draw[thick] (1,0.22) to[out=0, in=180] (3.6,0.5);\n  \\draw[thick] (1,-0.22) to[out=0, in=180] (3.6,-0.5);\n  % магнит в сечении: S слева (белый), N справа (голубой)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=brandPrimary!25] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (0.5,0) {$N$};\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\draw[thick, fill=white] (1.9,0) circle (0.17);\n  \\draw[thick] (1.9-0.12,0-0.12) -- (1.9+0.12,0+0.12) (1.9-0.12,0+0.12) -- (1.9+0.12,0-0.12);\n  \\draw[thick, fill=white] (3.0,0) circle (0.17); \\fill (3.0,0) circle (0.045);\n  \\draw[Fvec] (1.9,-0.17) -- (1.9,-1.0) node[left] {$\\vec F_{A1}$};\n  \\draw[Fvec] (3.0,0.17) -- (3.0,1.0) node[left] {$\\vec F_{A2}$};\n  \\node at (0.3,-1.85) {Рис. а};\n\\end{tikzpicture}",
+   "\\begin{tikzpicture}[scale=0.85, line join=round, every node/.style={font=\\small}]\n  % силовые линии слева (входят в S)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.45 with {\\arrow{Stealth}}}] (-3.4,0) -- (-1,0);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,-0.45) to[out=0, in=180] (-1,-0.22);\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.4 with {\\arrow{Stealth}}}] (-3.4,0.45) to[out=0, in=180] (-1,0.22);\n  \\draw[thick] (-1,0.3) to[out=170, in=-20] (-3.0,1.35);\n  \\draw[thick] (-1,-0.3) to[out=-170, in=20] (-3.0,-1.35);\n  % силовые линии справа (выходят из N)\n  \\draw[thick, postaction={decorate}, decoration={markings, mark=at position 0.93 with {\\arrow{Stealth}}}] (1,0) -- (4.0,0);\n  \\draw[thick] (1,0.3) to[out=15, in=210] (3.8,1.45);\n  \\draw[thick] (1,-0.3) to[out=-15, in=150] (3.8,-1.45);\n  % магнит в сечении: S слева (белый), N справа (голубой)\n  \\draw[thick, fill=white] (-1,-0.38) rectangle (0,0.38);\n  \\draw[thick, fill=brandPrimary!25] (0,-0.38) rectangle (1,0.38);\n  \\node[font=\\large] at (0.5,0) {$N$};\n  \\node[font=\\large] at (-0.5,0) {$S$};\n  \\coordinate (W2) at (2.75,0.87);\n  \\coordinate (W1) at (2.75,-0.87);\n  \\draw[thick, fill=white] (2.75,0.87) circle (0.17); \\fill (2.75,0.87) circle (0.045);\n  \\draw[thick, fill=white] (2.75,-0.87) circle (0.17);\n  \\draw[thick] (2.75-0.12,-0.87-0.12) -- (2.75+0.12,-0.87+0.12) (2.75-0.12,-0.87+0.12) -- (2.75+0.12,-0.87-0.12);\n  \\draw[Fvec] (2.68,1.03) -- (2.40,1.75) node[left] {$\\vec F_{A2}$};\n  \\draw[Fvec] (2.68,-1.03) -- (2.40,-1.75) node[left] {$\\vec F_{A1}$};\n  \\node at (0.3,-2.25) {Рис. б};\n\\end{tikzpicture}"
+  ],
+  "solution": "1. Рамка повернётся против часовой стрелки и своей плоскостью встанет перпендикулярно оси магнита так, что контакт «+» окажется внизу.\n\n2. Рассмотрим сечение рамки плоскостью рисунка.\n\nВ исходном положении в левом звене рамки ток направлен от нас, а в правом — к нам.\n\n[[рис 1]]\n\nНа левое звено рамки действует сила Ампера $\\vec F_{A1}$, направленная вниз, а на правое звено — сила Ампера $\\vec F_{A2}$, направленная вверх. Эти силы разворачивают рамку относительно неподвижной оси $MO$ против часовой стрелки (см. рисунок а).\n\n3. Под действием этих сил рамка поворачивается вокруг оси и благодаря сопротивлению воздуха устанавливается в положении равновесия перпендикулярно оси магнита так, что контакт «+» оказывается внизу. При этом силы Ампера $\\vec F_{A1}$ и $\\vec F_{A2}$ обеспечивают равновесие рамки относительно оси $MO$ (см. рисунок б).\n\n[[рис 2]]",
+  "check": "none",
+  "file": "03_electrodynamics/dem27_v18_n21.md",
+  "images": [
+   "assets/dem27_v18_n21_1.svg?v=28a84e8b"
+  ],
+  "solution_images": [
+   "assets/dem27_v18_n21_s1.svg?v=926f2004",
+   "assets/dem27_v18_n21_s2.svg?v=d87cacf0"
+  ]
+ },
+ {
   "id": "dem27_v1_n11",
   "exam": "ЕГЭ",
   "kim": 11,
@@ -42571,6 +42703,34 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v18_n13",
+  "exam": "ЕГЭ",
+  "kim": 13,
+  "section": "Оптика",
+  "theme": "",
+  "topic": "4.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 18,
+  "answer": "60",
+  "unit": "°",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "ОПТИКА",
+   "ОТРАЖЕНИЕ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Луч света падает на плоское зеркало. Угол отражения равен $30^\\circ$. Определите угол между падающим и отражённым лучами. Ответ выразите в градусах ($^\\circ$).",
+  "sol_tikz": [],
+  "solution": "По закону отражения угол падения равен углу отражения: $30^\\circ$. Угол между падающим и отражённым лучами равен их сумме:\n\n$$30^\\circ + 30^\\circ = 60^\\circ.$$",
+  "check": "number",
+  "file": "04_optics/dem27_v18_n13.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v7_n13",
   "exam": "ЕГЭ",
   "kim": 13,
@@ -42707,34 +42867,6 @@
   "solution": "По закону отражения угол падения равен углу отражения: $\\alpha = 25^\\circ$.\n\nУгол падения отсчитывается от перпендикуляра к зеркалу, поэтому угол между лучом и поверхностью зеркала:\n\n$$90^\\circ - 25^\\circ = 65^\\circ.$$",
   "check": "number",
   "file": "04_optics/geom_opt_mirror_refl_25_surface.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "geom_opt_mirror_refl_30_between",
-  "exam": "ЕГЭ",
-  "kim": 13,
-  "section": "Оптика",
-  "theme": "",
-  "topic": "4.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "60",
-  "unit": "°",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "ОПТИКА",
-   "ОТРАЖЕНИЕ"
-  ],
-  "source": "opt.tex",
-  "tikz": [],
-  "condition": "Луч света падает на плоское зеркало. Угол отражения равен $30^\\circ$. Определите угол между падающим и отражённым лучами. Ответ выразите в градусах ($^\\circ$).",
-  "sol_tikz": [],
-  "solution": "По закону отражения угол падения равен углу отражения: $30^\\circ$. Угол между падающим и отражённым лучами равен их сумме:\n\n$$30^\\circ + 30^\\circ = 60^\\circ.$$",
-  "check": "number",
-  "file": "04_optics/geom_opt_mirror_refl_30_between.md",
   "images": [],
   "solution_images": []
  },
@@ -45391,6 +45523,64 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v18_n16",
+  "exam": "ЕГЭ",
+  "kim": 16,
+  "section": "Квантовая физика",
+  "theme": "СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД",
+  "topic": "4.6",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 18,
+  "answer": "34",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ЯДЕРНАЯ_ФИЗИКА",
+   "ТАБЛИЦА_МЕНДЕЛЕЕВА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость изотопа в природе.\n\n\\begin{center}\n\\small\n\\begin{tabular}{|c|c||c|c|c|}\n\\hline\n\\multirow{2}{*}{2} & \\multirow{2}{*}{II} & \\textbf{Li} \\hfill 3 & \\textbf{Be} \\hfill 4 & \\textbf{B} \\hfill 5 \\\\\n & & литий $7_{93} \\quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \\quad 10_{20}$ \\\\ \\hline\n\\multirow{2}{*}{3} & \\multirow{2}{*}{III} & \\textbf{Na} \\hfill 11 & \\textbf{Mg} \\hfill 12 & \\textbf{Al} \\hfill 13 \\\\\n & & натрий $23_{100}$ & магний $24_{79} \\, 26_{11} \\, 25_{10}$ & алюминий $27_{100}$ \\\\ \\hline\n\\multirow{4}{*}{4} & \\multirow{2}{*}{IV} & \\textbf{K} \\hfill 19 & \\textbf{Ca} \\hfill 20 & \\textbf{Sc} \\hfill 21 \\\\\n & & калий $39_{93} \\quad 41_{6,7}$ & кальций $40_{97} \\quad 44_{2,1}$ & скандий $45_{100}$ \\\\ \\cline{2-5}\n & \\multirow{2}{*}{V} & \\textbf{Cu} \\hfill 29 & \\textbf{Zn} \\hfill 30 & \\textbf{Ga} \\hfill 31 \\\\\n & & медь $63_{69} \\quad 65_{31}$ & цинк $64_{49} \\, 66_{28} \\, 68_{19}$ & галлий $69_{60} \\quad 71_{40}$ \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\\smallskip\n\nЗапишите число нейтронов в ядре наиболее распространённого стабильного изотопа меди.",
+  "sol_tikz": [],
+  "solution": "У меди распространённость изотопа с массовым числом $63$ составляет $69\\%$, а изотопа $65$ — $31\\%$, поэтому наиболее распространён $^{63}_{29}\\text{Cu}$ (порядковый номер меди $29$).\n\nЧисло нейтронов равно разности массового числа и числа протонов:\n\n$$N = A - Z = 63 - 29 = 34.$$",
+  "check": "number",
+  "file": "05_quantum/dem27_v18_n16.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v18_n17",
+  "exam": "ЕГЭ",
+  "kim": 17,
+  "section": "Квантовая физика",
+  "theme": "СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД",
+  "topic": "4.6",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 18,
+  "answer": "31",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ЯДЕРНАЯ_ФИЗИКА",
+   "РАДИОАКТИВНЫЙ_РАСПАД"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Установите соответствие между видами радиоактивного распада и реакциями, описывающими этот распад.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\smallskip\n\\begin{tabular}{p{0.45\\textwidth}p{0.5\\textwidth}}\n\\textbf{ВИДЫ РАДИОАКТИВНОГО РАСПАДА} & \\textbf{РЕАКЦИИ} \\\\\nА) альфа-распад & 1) $^{11}_6\\text{C} \\to ^{11}_7\\text{N} + \\,^0_{-1}e + \\bar{\\nu}_e$ \\\\\nБ) электронный бета-распад & 2) $^6_3\\text{Li} + \\,^1_0 n \\to \\,^4_2\\text{He} + \\,^3_1\\text{H}$ \\\\\n& 3) $^{227}_{89}\\text{Ac} \\to ^{223}_{87}\\text{Fr} + \\,^4_2\\text{He}$ \\\\\n& 4) $^9_4\\text{Be} + \\,^2_1\\text{H} \\to ^{10}_5\\text{B} + \\,^1_0 n$\n\\end{tabular}",
+  "sol_tikz": [],
+  "solution": "При альфа-распаде ядро самопроизвольно испускает ядро гелия $^4_2\\text{He}$, массовое число уменьшается на $4$, заряд на $2$. Это реакция $^{227}_{89}\\text{Ac} \\to {}^{223}_{87}\\text{Fr} + {}^4_2\\text{He}$ (3).\n\nПри электронном бета-распаде ядро испускает электрон $^0_{-1}e$ и антинейтрино, заряд ядра растёт на $1$, массовое число не меняется. Это реакция 1 (1). Реакции 2 и 4 — не распады, а ядерные реакции при столкновении с частицей.",
+  "check": "seq",
+  "file": "05_quantum/dem27_v18_n17.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v1_n16",
   "exam": "ЕГЭ",
   "kim": 16,
@@ -46180,35 +46370,6 @@
   "solution_images": []
  },
  {
-  "id": "nuclear_decay_alpha_beta",
-  "exam": "ЕГЭ",
-  "kim": 17,
-  "section": "Квантовая физика",
-  "theme": "СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД",
-  "topic": "4.6",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "31",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ЯДЕРНАЯ_ФИЗИКА",
-   "РАДИОАКТИВНЫЙ_РАСПАД"
-  ],
-  "source": "nuc.tex",
-  "tikz": [],
-  "condition": "Установите соответствие между видами радиоактивного распада и реакциями, описывающими этот распад.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца и запишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\smallskip\n\\begin{tabular}{p{0.45\\textwidth}p{0.5\\textwidth}}\n\\textbf{ВИДЫ РАДИОАКТИВНОГО РАСПАДА} & \\textbf{РЕАКЦИИ} \\\\\nА) альфа-распад & 1) $^{11}_6\\text{C} \\to ^{11}_7\\text{N} + \\,^0_{-1}e + \\bar{\\nu}_e$ \\\\\nБ) электронный бета-распад & 2) $^6_3\\text{Li} + \\,^1_0 n \\to \\,^4_2\\text{He} + \\,^3_1\\text{H}$ \\\\\n& 3) $^{227}_{89}\\text{Ac} \\to ^{223}_{87}\\text{Fr} + \\,^4_2\\text{He}$ \\\\\n& 4) $^9_4\\text{Be} + \\,^2_1\\text{H} \\to ^{10}_5\\text{B} + \\,^1_0 n$\n\\end{tabular}",
-  "sol_tikz": [],
-  "solution": "При альфа-распаде ядро самопроизвольно испускает ядро гелия $^4_2\\text{He}$, массовое число уменьшается на $4$, заряд на $2$. Это реакция $^{227}_{89}\\text{Ac} \\to {}^{223}_{87}\\text{Fr} + {}^4_2\\text{He}$ (3).\n\nПри электронном бета-распаде ядро испускает электрон $^0_{-1}e$ и антинейтрино, заряд ядра растёт на $1$, массовое число не меняется. Это реакция 1 (1). Реакции 2 и 4 — не распады, а ядерные реакции при столкновении с частицей.",
-  "check": "seq",
-  "file": "05_quantum/nuclear_decay_alpha_beta.md",
-  "images": [],
-  "solution_images": []
- },
- {
   "id": "nuclear_decay_gold_mass",
   "exam": "ЕГЭ",
   "kim": 16,
@@ -46363,35 +46524,6 @@
   "images": [
    "assets/nuclear_half_life_mercury_graph_1.svg?v=6a05d225"
   ],
-  "solution_images": []
- },
- {
-  "id": "nuclear_mendeleev_table_copper",
-  "exam": "ЕГЭ",
-  "kim": 16,
-  "section": "Квантовая физика",
-  "theme": "СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. РАДИОАКТИВНЫЙ РАСПАД",
-  "topic": "4.6",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "34",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ЯДЕРНАЯ_ФИЗИКА",
-   "ТАБЛИЦА_МЕНДЕЛЕЕВА"
-  ],
-  "source": "nuc.tex",
-  "tikz": [],
-  "condition": "На рисунке представлен фрагмент Периодической системы элементов Д. И. Менделеева. Под названием каждого элемента приведены массовые числа его основных стабильных изотопов. При этом нижний индекс около массового числа указывает (в процентах) распространённость изотопа в природе.\n\n\\begin{center}\n\\small\n\\begin{tabular}{|c|c||c|c|c|}\n\\hline\n\\multirow{2}{*}{2} & \\multirow{2}{*}{II} & \\textbf{Li} \\hfill 3 & \\textbf{Be} \\hfill 4 & \\textbf{B} \\hfill 5 \\\\\n & & литий $7_{93} \\quad 6_7$ & бериллий $9_{100}$ & бор $11_{80} \\quad 10_{20}$ \\\\ \\hline\n\\multirow{2}{*}{3} & \\multirow{2}{*}{III} & \\textbf{Na} \\hfill 11 & \\textbf{Mg} \\hfill 12 & \\textbf{Al} \\hfill 13 \\\\\n & & натрий $23_{100}$ & магний $24_{79} \\, 26_{11} \\, 25_{10}$ & алюминий $27_{100}$ \\\\ \\hline\n\\multirow{4}{*}{4} & \\multirow{2}{*}{IV} & \\textbf{K} \\hfill 19 & \\textbf{Ca} \\hfill 20 & \\textbf{Sc} \\hfill 21 \\\\\n & & калий $39_{93} \\quad 41_{6,7}$ & кальций $40_{97} \\quad 44_{2,1}$ & скандий $45_{100}$ \\\\ \\cline{2-5}\n & \\multirow{2}{*}{V} & \\textbf{Cu} \\hfill 29 & \\textbf{Zn} \\hfill 30 & \\textbf{Ga} \\hfill 31 \\\\\n & & медь $63_{69} \\quad 65_{31}$ & цинк $64_{49} \\, 66_{28} \\, 68_{19}$ & галлий $69_{60} \\quad 71_{40}$ \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\\smallskip\n\nЗапишите число нейтронов в ядре наиболее распространённого стабильного изотопа меди.",
-  "sol_tikz": [],
-  "solution": "У меди распространённость изотопа с массовым числом $63$ составляет $69\\%$, а изотопа $65$ — $31\\%$, поэтому наиболее распространён $^{63}_{29}\\text{Cu}$ (порядковый номер меди $29$).\n\nЧисло нейтронов равно разности массового числа и числа протонов:\n\n$$N = A - Z = 63 - 29 = 34.$$",
-  "check": "number",
-  "file": "05_quantum/nuclear_mendeleev_table_copper.md",
-  "images": [],
   "solution_images": []
  },
  {
@@ -47800,6 +47932,37 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v18_n18",
+  "exam": "ЕГЭ",
+  "kim": 18,
+  "section": "Механика",
+  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ДОПОЛНИТЕЛЬНАЯ ВЫРЕЗКА)",
+  "topic": "4.7",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 18,
+  "answer": "35",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА",
+   "МКТ",
+   "ЭЛЕКТРОДИНАМИКА",
+   "ОПТИКА",
+   "КВАНТОВАЯ_ФИЗИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 18)",
+  "tikz": [],
+  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Модуль сил гравитационного взаимодействия двух материальных точек прямо пропорционален квадрату расстояния между ними.\\\\\n2) Давление насыщенного пара увеличивается с ростом абсолютной температуры пара и зависит от его объёма.\\\\\n3) В электростатическом поле работа силы, действующей на заряд со стороны поля, при перемещении заряда между двумя заданными точками не зависит от траектории.\\\\\n4) При переходе электромагнитной волны из оптически менее плотной в оптически более плотную среду длина волны остаётся неизменной.\\\\\n5) При распространении и взаимодействии света с веществом проявляются как волновые, так и его корпускулярные свойства.",
+  "sol_tikz": [],
+  "solution": "1) Неверно: по закону всемирного тяготения $F = G\\dfrac{m_1 m_2}{r^2}$ сила обратно пропорциональна квадрату расстояния.\n\n2) Неверно: давление насыщенного пара растёт с температурой, но от объёма не зависит: при сжатии часть пара конденсируется, а давление остаётся прежним.\n\n3) Верно: электростатическое поле потенциально, работа $A = q(\\varphi_1 - \\varphi_2)$ определяется только начальной и конечной точками.\n\n4) Неверно: частота не меняется, а скорость уменьшается, поэтому длина волны $\\lambda = \\dfrac{v}{\\nu}$ уменьшается.\n\n5) Верно: интерференция и дифракция показывают волновые свойства света, а фотоэффект — корпускулярные.",
+  "check": "set",
+  "file": "06_integrated/dem27_v18_n18.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v1_n18",
   "exam": "ЕГЭ",
   "kim": 18,
@@ -48380,37 +48543,6 @@
   "solution": "1) Неверно: перемещения за равные промежутки времени равны по модулю, но направлены по-разному, а перемещение — вектор.\n\n2) Верно: $\\overline{E}_\\text{к} = \\dfrac{3}{2}kT$.\n\n3) Неверно: электростатическое поле потенциально, работа по перемещению заряда $A = q(\\varphi_1 - \\varphi_2)$ не зависит от траектории, в том числе в неоднородном поле.\n\n4) Верно: частота задаётся источником и при переходе в другую среду не меняется, меняются скорость и длина волны.\n\n5) Неверно: при $\\beta^-$-распаде нейтрон превращается в протон, массовое число не меняется, а зарядовое увеличивается на $1$.",
   "check": "set",
   "file": "06_integrated/kim18_img20.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "kim18_img4",
-  "exam": "ЕГЭ",
-  "kim": 18,
-  "section": "Механика",
-  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ДОПОЛНИТЕЛЬНАЯ ВЫРЕЗКА)",
-  "topic": "4.7",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "35",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "МКТ",
-   "ЭЛЕКТРОДИНАМИКА",
-   "ОПТИКА",
-   "КВАНТОВАЯ_ФИЗИКА"
-  ],
-  "source": "kim18.tex",
-  "tikz": [],
-  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Модуль сил гравитационного взаимодействия двух материальных точек прямо пропорционален квадрату расстояния между ними.\\\\\n2) Давление насыщенного пара увеличивается с ростом абсолютной температуры пара и зависит от его объёма.\\\\\n3) В электростатическом поле работа силы, действующей на заряд со стороны поля, при перемещении заряда между двумя заданными точками не зависит от траектории.\\\\\n4) При переходе электромагнитной волны из оптически менее плотной в оптически более плотную среду длина волны остаётся неизменной.\\\\\n5) При распространении и взаимодействии света с веществом проявляются как волновые, так и его корпускулярные свойства.",
-  "sol_tikz": [],
-  "solution": "1) Неверно: по закону всемирного тяготения $F = G\\dfrac{m_1 m_2}{r^2}$ сила обратно пропорциональна квадрату расстояния.\n\n2) Неверно: давление насыщенного пара растёт с температурой, но от объёма не зависит: при сжатии часть пара конденсируется, а давление остаётся прежним.\n\n3) Верно: электростатическое поле потенциально, работа $A = q(\\varphi_1 - \\varphi_2)$ определяется только начальной и конечной точками.\n\n4) Неверно: частота не меняется, а скорость уменьшается, поэтому длина волны $\\lambda = \\dfrac{v}{\\nu}$ уменьшается.\n\n5) Верно: интерференция и дифракция показывают волновые свойства света, а фотоэффект — корпускулярные.",
-  "check": "set",
-  "file": "06_integrated/kim18_img4.md",
   "images": [],
   "solution_images": []
  },
