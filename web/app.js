@@ -36,6 +36,12 @@
     document.dispatchEvent(new CustomEvent('tab', { detail: t }));
   }
   window.setTab = setTab;
+
+  // «Написать автору» внизу страницы: в Телеграме открываем личные сообщения канала внутри Телеграма
+  document.getElementById('feedback').addEventListener('click', e => {
+    const t = window.Telegram && window.Telegram.WebApp;
+    if (t && t.initData && t.openTelegramLink) { e.preventDefault(); t.openTelegramLink(e.currentTarget.href); }
+  });
   $('tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
 
   const codeKey = c => String(c).split('.').map(n => n.padStart(3, '0')).join('.');
