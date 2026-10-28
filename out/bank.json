@@ -24621,7 +24621,7 @@
   ],
   "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 19)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.3,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.0) node[above] {$p$};\n    \\coordinate (1) at (1,2.2);\n    \\coordinate (2) at (3,2.2);\n    \\coordinate (3) at (1,1.1);\n    \\draw[dashed, brandSecondary!55] (0,1.1) -- (3,1.1);\n    \\draw[dashed, brandSecondary!55] (0,2.2) -- (1);\n    \\draw[dashed, brandSecondary!55] (1,0) -- (3);\n    \\draw[dashed, brandSecondary!55] (3,0) -- (3,1.1);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (3) -- (1);\n    \\fill[black] (1) circle (1.2pt) node[above] {1};\n    \\fill[black] (2) circle (1.2pt) node[above right] {2};\n    \\fill[black] (3) circle (1.2pt) node[below right] {3};\n    \\node[left] at (0,1.1) {$p_0$};\n    \\node[left] at (0,2.2) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\footnotesize}]\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.3,0) node[right] {$V$};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.0) node[above] {$p$};\n    \\coordinate (1) at (1,2.2);\n    \\coordinate (2) at (3,2.2);\n    \\coordinate (3) at (1,1.1);\n    \\draw[dashed, brandSecondary!55] (0,1.1) -- (3,1.1);\n    \\draw[dashed, brandSecondary!55] (0,2.2) -- (1);\n    \\draw[dashed, brandSecondary!55] (1,0) -- (3);\n    \\draw[dashed, brandSecondary!55] (3,0) -- (2);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (1) -- (2);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (2) -- (3);\n    \\draw[ultra thick, brandPrimary, postaction={decorate}, decoration={markings, mark=at position 0.55 with {\\arrow{Stealth[length=7pt, width=6pt]}}}] (3) -- (1);\n    \\fill[black] (1) circle (1.2pt) node[above] {1};\n    \\fill[black] (2) circle (1.2pt) node[above right] {2};\n    \\fill[black] (3) circle (1.2pt) node[below right] {3};\n    \\node[left] at (0,1.1) {$p_0$};\n    \\node[left] at (0,2.2) {$2p_0$};\n    \\node[below] at (1,0) {$V_0$};\n    \\node[below] at (3,0) {$3V_0$};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "Изменение состояния постоянной массы одноатомного идеального газа происходит по циклу, показанному на рисунке. При переходе из состояния 1 в состояние 2 газ совершает работу $A_{12} = 8$~кДж. Какое количество теплоты газ отдаёт за цикл холодильнику?",
   "sol_tikz": [],
@@ -24629,7 +24629,7 @@
   "check": "number",
   "file": "02_mkt/dem27_v19_n24.md",
   "images": [
-   "assets/dem27_v19_n24_1.svg?v=59e76d81"
+   "assets/dem27_v19_n24_1.svg?v=199784fe"
   ],
   "solution_images": []
  },
