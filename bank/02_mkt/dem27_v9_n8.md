@@ -1,5 +1,5 @@
 ---
-id: mkt_heat_v3_n8
+id: dem27_v9_n8
 exam: ЕГЭ
 kim: 8
 section: МКТ и термодинамика
@@ -7,13 +7,13 @@ theme: КОЛИЧЕСТВО ТЕПЛОТЫ. УДЕЛЬНАЯ ТЕПЛОЕМКО�
 topic: 2.4
 level: Б
 type: расчётная
-variant: 3
+variant: 9
 answer: "2000"
 unit: "кДж/кг"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕПЛОТА]
-source: cal.tex
+source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 9)
 ---
 
 ## Условие

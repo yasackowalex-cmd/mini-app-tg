@@ -1,5 +1,5 @@
 ---
-id: newton2_v3_n5
+id: dem27_v9_n5
 exam: ЕГЭ
 kim: 5
 section: Механика
@@ -7,13 +7,13 @@ theme: ВТОРОЙ ЗАКОН НЬЮТОНА (ДИНАМИКА И КРИВОЛ�
 topic: 1.2.2
 level: П
 type: соответствие/выбор
-variant: 3
+variant: 9
 answer: "134"
 unit: ""
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]
-source: din.tex
+source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 9)
 ---
 
 ## Условие

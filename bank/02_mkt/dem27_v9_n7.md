@@ -1,5 +1,5 @@
 ---
-id: mkt_v3_n7
+id: dem27_v9_n7
 exam: ЕГЭ
 kim: 7
 section: МКТ и термодинамика
@@ -7,13 +7,13 @@ theme: ОСНОВНОЕ УРАВНЕНИЕ МКТ. АБСОЛЮТНАЯ ТЕМП
 topic: 2.1
 level: Б
 type: расчётная
-variant: 3
+variant: 9
 answer: "900"
 unit: "К"
 has_image: false
 author_task: false
 tags: [МКТ]
-source: mkt.tex
+source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 9)
 ---
 
 ## Условие
