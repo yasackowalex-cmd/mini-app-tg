@@ -28,7 +28,9 @@ source: Демидова, ЕГЭ-2027, 30 вариантов (вариант 7)
 
 ```latex
 \begin{tikzpicture}[x=0.6cm, y=0.2cm, every node/.style={font=\small}]
-\foreach \i in {1,...,9} \draw[gray!50, thin] (\i,-9) -- (\i,9);
+\foreach \i in {0.5,1.5,...,8.5} \draw[gray!25, very thin] (\i,-9) -- (\i,9);
+  \foreach \j in {-7.5,-4.5,-1.5,1.5,4.5,7.5} \draw[gray!25, very thin] (0,\j) -- (9,\j);
+  \foreach \i in {1,...,9} \draw[gray!50, thin] (\i,-9) -- (\i,9);
   \foreach \j in {-9,-6,-3,3,6,9} \draw[gray!50, thin] (0,\j) -- (9,\j);
   \draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (10,0) node[below right] {$t$, с};
   \draw[-{Stealth[scale=0.8]}, thick] (0,-9) -- (0,11.8) node[left] {$v_x$, м/с};
