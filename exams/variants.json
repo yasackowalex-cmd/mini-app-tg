@@ -242,9 +242,9 @@
    "dem26_v15_n21",
    "elastic_v2_n22",
    "dem26_v9_n22",
-   "mkt_gas_v10_n24",
+   "dem27_v13_n24",
    "elem_ind_v19_n23",
-   "mechanics_v7_n26"
+   "dem27_v13_n26"
   ]
  },
  {
@@ -264,7 +264,7 @@
    "elem_ind_v9_n12",
    "geom_opt_mirror_inc_20_between",
    "elem_osc_v18_n14",
-   "elem_mag_v7_n15",
+   "dem27_v13_n15",
    "nuclear_mendeleev_table_zinc",
    "photo_intensity_inc_u_and_redline",
    "kim18_img3",
