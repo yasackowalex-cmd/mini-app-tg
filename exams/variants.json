@@ -58,7 +58,7 @@
    "dem26_v15_n23",
    "dem26_v6_n24",
    "elem_pot_v28_n25",
-   "statics_v13_n26"
+   "dem27_v11_n26"
   ]
  },
  {
@@ -67,7 +67,7 @@
    "dem26_v12_n1",
    "dem26_v4_n2",
    "dem26_v22_n3",
-   "oscillations_v5_n4",
+   "dem27_v11_n4",
    "dem26_v13_n5",
    "newton2_v16_n6",
    "dem26_v14_n7",
@@ -144,7 +144,7 @@
    "atomic_electrons_nitrogen",
    "photo_green_to_uv_freq_and_ek",
    "kim18_img11",
-   "meth_manometer_boyle_n19",
+   "dem27_v11_n19",
    "dem26_v19_n20",
    "dem26_v6_n21",
    "newton2_v30_n22",
@@ -200,7 +200,7 @@
    "dem26_v23_n10",
    "elem_ohm_v6_n11",
    "elem_ind_v21_n12",
-   "geom_opt_mirror_angle_15_between",
+   "dem27_v11_n13",
    "elem_ind_v13_n14",
    "dem26_v19_n15",
    "nuclear_reaction_lithium_alpha_mass",
@@ -269,7 +269,7 @@
    "photo_intensity_inc_u_and_redline",
    "kim18_img3",
    "dem26_v29_n19",
-   "meth_capacitor_distance_n20",
+   "dem27_v11_n20",
    "dem26_v3_n21",
    "dem26_v16_n22",
    "dem26_v27_n23",
