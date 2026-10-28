@@ -12406,6 +12406,97 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v29_n22",
+  "exam": "ЕГЭ",
+  "kim": 22,
+  "section": "Механика",
+  "theme": "ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)",
+  "topic": "1.3.1",
+  "level": "П",
+  "type": "расчётная (часть 2)",
+  "variant": 29,
+  "answer": "1",
+  "unit": "м/с",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [],
+  "condition": "Два пластилиновых шарика массами $3m$ и $m$, летящие навстречу друг другу с одинаковыми по модулю скоростями, при столкновении слипаются. Каким был модуль скорости каждого из шариков перед столкновением, если сразу после столкновения скорость шариков стала равной $0{,}5$~м/с? Временем взаимодействия шариков пренебречь.",
+  "sol_tikz": [],
+  "solution": "Обозначим $v$ — модуль скорости каждого шарика перед столкновением, $u = 0{,}5\\,\\text{м/с}$ — скорость слипшихся шариков. Ось $Ox$ направим по скорости шарика массой $3m$.\n\nВремя взаимодействия мало, поэтому выполняется закон сохранения импульса. В проекции на ось $Ox$: $3mv - mv = (3m + m)u$.\n\nОтсюда $2mv = 4mu$, $v = 2u = 2\\cdot 0{,}5 = 1\\,\\text{м/с}$.",
+  "check": "number",
+  "file": "01_mechanics/dem27_v29_n22.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v29_n26",
+  "exam": "ЕГЭ",
+  "kim": 26,
+  "section": "Механика",
+  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
+  "topic": "1.4.1",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 29,
+  "answer": "2,23",
+  "unit": "кг",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\small}]\n\\fill[pattern=north east lines, pattern color=brandSecondary!40] (-1,-0.2) rectangle (5.2,0);\n  \\draw[thick, brandSecondary] (-1,0) -- (5.2,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (3.9,2.6) rectangle (5.2,2.8);\n  \\draw[thick, brandSecondary] (3.9,2.6) -- (5.2,2.6);\n  \\draw[thick, fill=brandPrimary!8] (-0.5,0) rectangle (4.0,0.6);\n  \\coordinate (A) at (1.04,0.6);\n  \\coordinate (B) at (4.5,2.6);\n  \\draw[line width=2pt, brandSecondary] (A) -- (B);\n  \\draw[thick, fill=white] (B) circle (2pt);\n  \\draw (1.74,0.6) arc (0:30:0.7);\n  \\node at (1.95,0.78) {$\\alpha$};\n  \\node[above left] at (2.77,1.6) {$m$};\n  \\draw[-{Stealth[scale=0.8]}, thick] (3.7,0.95) -- (2.7,0.95) node[right, xshift=1.05cm] {$\\vec v = \\text{const}$};\n  \\draw[Fvec] (-0.5,0.3) -- (-1.3,0.3) node[above] {$\\vec F$};\n\\end{tikzpicture}"
+  ],
+  "condition": "Однородный тонкий стержень массой $m$ одним концом шарнирно прикреплён к потолку, а другим концом опирается на массивную горизонтальную доску, образуя с ней угол $\\alpha = 30^\\circ$. Под действием горизонтальной силы $\\vec{F}$ доска движется поступательно влево с постоянной скоростью (см. рисунок). Стержень при этом неподвижен.\n\n[[рис 1]]\n\nНайдите $m$, если $F = 2\\text{ Н}$, а коэффициент трения стержня по доске $\\mu = 0{,}2$. Сделайте рисунок с указанием сил, действующих на стержень и доску. Трением доски по опоре и трением в шарнире пренебречь. Обоснуйте применимость законов, используемых для решения задачи.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.1, font=\\small]\n  % опора\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-1,-0.2) rectangle (5.2,0);\n  \\draw[thick, brandSecondary] (-1,0) -- (5.2,0);\n  % потолок и шарнир\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (4.7,3.4) rectangle (5.6,3.55);\n  \\draw[thick, brandSecondary] (4.7,3.4) -- (5.6,3.4);\n  \\draw[thick, brandSecondary] (4.5,2.6) -- (5.15,3.4);\n  % доска\n  \\draw[thick, brandSecondary, fill=brandPrimary!8] (-0.5,0) rectangle (4.0,0.6);\n  \\draw[vvec] (1.6,-0.5) -- (0.5,-0.5) node[left] {$\\vec v$};\n  % стержень\n  \\coordinate (A) at (1.04,0.6);\n  \\coordinate (B) at (4.5,2.6);\n  \\draw[line width=2pt, brandSecondary] (A) -- (B);\n  \\draw[thick, fill=white] (B) circle (2pt);\n  \\draw (1.74,0.6) arc (0:30:0.7);\n  \\node at (1.95,0.78) {$\\alpha$};\n  % силы на стержень\n  \\coordinate (C) at (2.77,1.6);\n  \\draw[Fvec] (C) -- ++(0,-0.8) node[right, yshift=3pt] {$m\\vec g$};\n  \\draw[Fvec] (A) -- ++(0,0.9) node[above] {$\\vec N$};\n  \\draw[Fvec] (A) -- ++(-0.8,0) node[above, xshift=2pt] {$\\vec F_\\text{тр}$};\n  \\draw[Fvec] (B) -- ++(0.14,0.85) node[left] {$\\vec R$};\n  % силы на доску\n  \\draw[Fvec] (-0.5,0.3) -- (-1.3,0.3) node[above] {$\\vec F$};\n  \\draw[Fvec] (1.04,0.45) -- (1.84,0.45) node[right, inner sep=1pt] {$\\vec F_\\text{тр}'$};\n  \\draw[Fvec] (0.95,0.6) -- (0.95,0.05);\n  \\node[left, inner sep=1pt] at (0.95,0.18) {$\\vec N'$};\n  \\draw[Fvec] (3.2,0.3) -- (3.2,-0.6) node[below] {$M\\vec g$};\n  \\draw[Fvec] (3.6,0) -- (3.6,1.1) node[right] {$\\vec N_\\text{оп}$};\n\\end{tikzpicture}"
+  ],
+  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Доска движется поступательно, её можно считать материальной точкой; так как она движется равномерно и прямолинейно, по первому закону Ньютона векторная сумма сил, приложенных к доске, равна нулю. Стержень — твёрдое тело, находящееся в равновесии, поэтому для него равны нулю сумма сил и сумма моментов сил относительно любой оси, в частности относительно оси шарнира. Стержень однороден — сила тяжести приложена к его середине. Конец стержня скользит по доске, поэтому сила трения — сила трения скольжения $F_\\text{тр} = \\mu N$. Силы взаимодействия стержня и доски связаны третьим законом Ньютона.\n\n\\textbf{Решение.} Обозначим $L$ — длину стержня, $N$ — силу нормальной реакции доски, действующую на стержень, $F_\\text{тр}$ — силу трения, действующую на стержень. На стержень действуют $m\\vec g$, $\\vec N$ (вверх), $\\vec F_\\text{тр}$ и сила реакции шарнира $\\vec R$; на доску по горизонтали — $\\vec F$ (влево) и сила трения со стороны стержня $\\vec F_\\text{тр}'$ (вправо, против движения доски относительно стержня). Соответственно, на стержень сила трения действует влево. По вертикали на доску действуют сила тяжести $M\\vec g$, сила реакции опоры $\\vec N_\\text{оп}$ и сила давления стержня $\\vec N'$ (для решения они не нужны). Все силы показаны на рисунке.\n\n[[рис 1]]\n\nДля доски в проекции на горизонталь: $F - F_\\text{тр}' = 0$; по третьему закону Ньютона $F_\\text{тр} = F_\\text{тр}' = F$.\n\nСила трения скольжения: $F_\\text{тр} = \\mu N$, откуда $N = \\dfrac{F}{\\mu} = \\dfrac{2}{0{,}2}\\,\\text{Н} = 10\\,\\text{Н}$.\n\nПравило моментов для стержня относительно шарнира (момент силы реакции шарнира равен нулю). Плечи: у силы $\\vec N$ — $L\\cos\\alpha$, у силы трения — $L\\sin\\alpha$, у силы тяжести — $\\dfrac{L}{2}\\cos\\alpha$. Силы $\\vec N$ и $\\vec F_\\text{тр}$ поворачивают стержень в одну сторону, сила тяжести — в другую:\n$mg\\dfrac{L}{2}\\cos\\alpha = NL\\cos\\alpha + F_\\text{тр}L\\sin\\alpha$.\n\nОтсюда $m = \\dfrac{2(N + F_\\text{тр}\\,\\mathrm{tg}\\,\\alpha)}{g} = \\dfrac{2F}{g}\\left(\\dfrac{1}{\\mu} + \\mathrm{tg}\\,\\alpha\\right)$.\n\n$m = \\dfrac{2\\cdot 2}{10}\\cdot\\left(\\dfrac{1}{0{,}2} + 0{,}577\\right)\\,\\text{кг} \\approx 2{,}23\\,\\text{кг}$.",
+  "check": "number",
+  "file": "01_mechanics/dem27_v29_n26.md",
+  "images": [
+   "assets/dem27_v29_n26_1.svg?v=bc6091e0"
+  ],
+  "solution_images": [
+   "assets/dem27_v29_n26_s1.svg?v=77d31ce3"
+  ]
+ },
+ {
+  "id": "dem27_v29_n6",
+  "exam": "ЕГЭ",
+  "kim": 6,
+  "section": "Механика",
+  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
+  "topic": "1.4.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 29,
+  "answer": "13",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [],
+  "condition": "Деревянный шарик плавает в воде. Как изменятся глубина погружения шарика и масса вытесненной шариком жидкости, если он будет плавать в керосине?\n\nДля каждой величины определите соответствующий характер изменения:\n\\begin{enumerate}\n    \\item увеличится\n    \\item уменьшится\n    \\item не изменится\n\\end{enumerate}\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nГлубина погружения шарика & Масса вытесненной жидкости \\\\ \\hline\n& \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % керосин\n  \\begin{scope}[shift={(0,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {керосин};\n  \\draw[thick, fill=brandAccent!15] (0,1.78) circle (0.55);\n  \\fill (0,1.78) circle (1.2pt);\n  \\draw[Fvec] (-0.13,1.78) -- (-0.13,0.78) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,1.78) -- (0.13,2.78) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n  % вода\n  \\begin{scope}[shift={(3.4,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {вода};\n  \\draw[thick, fill=brandAccent!15] (0,2.00) circle (0.55);\n  \\fill (0,2.00) circle (1.2pt);\n  \\draw[Fvec] (-0.13,2.00) -- (-0.13,1.00) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,2.00) -- (0.13,3.00) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n\\end{tikzpicture}"
+  ],
+  "solution": "Шарик плавает и в воде, и в керосине, значит, в обоих случаях сила Архимеда равна силе тяжести: $\\rho_\\text{ж} g V_\\text{погр} = mg$. Отсюда масса вытесненной жидкости $\\rho_\\text{ж} V_\\text{погр} = m$ равна массе шарика и не меняется (3). Силы показаны на рисунке.\n\n[[рис 1]]\n\nПлотность керосина меньше плотности воды, поэтому, чтобы вытеснить ту же массу жидкости, шарик должен погрузиться на больший объём. Глубина погружения увеличится (1).",
+  "check": "seq",
+  "file": "01_mechanics/dem27_v29_n6.md",
+  "images": [],
+  "solution_images": [
+   "assets/dem27_v29_n6_s1.svg?v=3022c0e6"
+  ]
+ },
+ {
   "id": "dem27_v2_n2",
   "exam": "ЕГЭ",
   "kim": 2,
@@ -12521,6 +12612,62 @@
   "file": "01_mechanics/dem27_v2_n5.md",
   "images": [],
   "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n22",
+  "exam": "ЕГЭ",
+  "kim": 22,
+  "section": "Механика",
+  "theme": "ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)",
+  "topic": "1.3.1",
+  "level": "П",
+  "type": "расчётная (часть 2)",
+  "variant": 30,
+  "answer": "2",
+  "unit": "м/с",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [],
+  "condition": "Два пластилиновых шарика массами $3m$ и $m$, летящие навстречу друг другу с одинаковыми по модулю скоростями, при столкновении слипаются. Каким станет модуль скорости шариков сразу после столкновения, если перед столкновением модуль скорости каждого из шариков был равен $4$~м/с? Временем взаимодействия шариков пренебречь.",
+  "sol_tikz": [],
+  "solution": "Обозначим $v = 4\\,\\text{м/с}$ — модуль скорости каждого шарика перед столкновением, $u$ — скорость слипшихся шариков. Ось $Ox$ направим по скорости шарика массой $3m$.\n\nВремя взаимодействия мало, поэтому выполняется закон сохранения импульса. В проекции на ось $Ox$: $3mv - mv = (3m + m)u$.\n\nОтсюда $u = \\dfrac{2mv}{4m} = \\dfrac{v}{2} = \\dfrac{4}{2} = 2\\,\\text{м/с}$.",
+  "check": "number",
+  "file": "01_mechanics/dem27_v30_n22.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n6",
+  "exam": "ЕГЭ",
+  "kim": 6,
+  "section": "Механика",
+  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
+  "topic": "1.4.2",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 30,
+  "answer": "33",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [],
+  "condition": "Деревянный шарик плавает в керосине. Как изменятся сила тяжести и сила Архимеда, действующие на шарик, если он будет плавать в воде?\n\nДля каждой величины определите соответствующий характер изменения:\n\\begin{enumerate}\n    \\item увеличится\n    \\item уменьшится\n    \\item не изменится\n\\end{enumerate}\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nСила тяжести & Сила Архимеда \\\\ \\hline\n& \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % керосин\n  \\begin{scope}[shift={(0,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {керосин};\n  \\draw[thick, fill=brandAccent!15] (0,1.78) circle (0.55);\n  \\fill (0,1.78) circle (1.2pt);\n  \\draw[Fvec] (-0.13,1.78) -- (-0.13,0.78) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,1.78) -- (0.13,2.78) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n  % вода\n  \\begin{scope}[shift={(3.4,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {вода};\n  \\draw[thick, fill=brandAccent!15] (0,2.00) circle (0.55);\n  \\fill (0,2.00) circle (1.2pt);\n  \\draw[Fvec] (-0.13,2.00) -- (-0.13,1.00) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,2.00) -- (0.13,3.00) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n\\end{tikzpicture}"
+  ],
+  "solution": "Силы, действующие на плавающий шарик, показаны на рисунке.\n\n[[рис 1]]\n\nСила тяжести $mg$ зависит только от массы шарика, она не меняется (3).\n\nШарик плавает и в керосине, и в воде, значит, в обоих случаях сила Архимеда уравновешивает силу тяжести: $F_\\text{А} = mg$. Она тоже не меняется (3). В воде шарик просто меньше погружён, потому что плотность воды больше.",
+  "check": "seq",
+  "file": "01_mechanics/dem27_v30_n6.md",
+  "images": [],
+  "solution_images": [
+   "assets/dem27_v30_n6_s1.svg?v=3022c0e6"
+  ]
  },
  {
   "id": "dem27_v3_n2",
@@ -14285,64 +14432,6 @@
   "solution_images": []
  },
  {
-  "id": "fluid_ball_kerosene_to_water",
-  "exam": "ЕГЭ",
-  "kim": 6,
-  "section": "Механика",
-  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
-  "topic": "1.4.2",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "33",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [],
-  "source": "pres.tex",
-  "tikz": [],
-  "condition": "Деревянный шарик плавает в керосине. Как изменятся сила тяжести и сила Архимеда, действующие на шарик, если он будет плавать в воде?\n\nДля каждой величины определите соответствующий характер изменения:\n\\begin{enumerate}\n    \\item увеличивается\n    \\item уменьшится\n    \\item не изменится\n\\end{enumerate}\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nСила тяжести & Сила Архимеда \\\\ \\hline\n& \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % керосин\n  \\begin{scope}[shift={(0,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {керосин};\n  \\draw[thick, fill=brandAccent!15] (0,1.78) circle (0.55);\n  \\fill (0,1.78) circle (1.2pt);\n  \\draw[Fvec] (-0.13,1.78) -- (-0.13,0.78) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,1.78) -- (0.13,2.78) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n  % вода\n  \\begin{scope}[shift={(3.4,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {вода};\n  \\draw[thick, fill=brandAccent!15] (0,2.00) circle (0.55);\n  \\fill (0,2.00) circle (1.2pt);\n  \\draw[Fvec] (-0.13,2.00) -- (-0.13,1.00) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,2.00) -- (0.13,3.00) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n\\end{tikzpicture}"
-  ],
-  "solution": "Силы, действующие на плавающий шарик, показаны на рисунке.\n\n[[рис 1]]\n\nСила тяжести $mg$ зависит только от массы шарика, она не меняется (3).\n\nШарик плавает и в керосине, и в воде, значит, в обоих случаях сила Архимеда уравновешивает силу тяжести: $F_\\text{А} = mg$. Она тоже не меняется (3). В воде шарик просто меньше погружён, потому что плотность воды больше.",
-  "check": "seq",
-  "file": "01_mechanics/fluid_ball_kerosene_to_water.md",
-  "images": [],
-  "solution_images": [
-   "assets/fluid_ball_kerosene_to_water_s1.svg?v=3022c0e6"
-  ]
- },
- {
-  "id": "fluid_ball_water_to_kerosene",
-  "exam": "ЕГЭ",
-  "kim": 6,
-  "section": "Механика",
-  "theme": "ДАВЛЕНИЕ. СИЛА АРХИМЕДА",
-  "topic": "1.4.2",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "13",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [],
-  "source": "pres.tex",
-  "tikz": [],
-  "condition": "Деревянный шарик плавает в воде. Как изменятся глубина погружения шарика и масса вытесненной шариком жидкости, если он будет плавать в керосине?\n\nДля каждой величины определите соответствующий характер изменения:\n\\begin{enumerate}\n    \\item увеличится\n    \\item уменьшится\n    \\item не изменится\n\\end{enumerate}\n\nЗапишите в таблицу выбранные цифры для каждой физической величины. Цифры в ответе могут повторяться.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nГлубина погружения шарика & Масса вытесненной жидкости \\\\ \\hline\n& \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % керосин\n  \\begin{scope}[shift={(0,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {керосин};\n  \\draw[thick, fill=brandAccent!15] (0,1.78) circle (0.55);\n  \\fill (0,1.78) circle (1.2pt);\n  \\draw[Fvec] (-0.13,1.78) -- (-0.13,0.78) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,1.78) -- (0.13,2.78) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n  % вода\n  \\begin{scope}[shift={(3.4,0)}]\n  \\fill[brandPrimary!12] (-1.3,0) rectangle (1.3,2.0);\n  \\draw[brandPrimary!70] (-1.3,2.0) -- (1.3,2.0);\n  \\draw[very thick, brandSecondary] (-1.3,3.3) -- (-1.3,0) -- (1.3,0) -- (1.3,3.3);\n  \\node[below, brandSecondary] at (0,0) {вода};\n  \\draw[thick, fill=brandAccent!15] (0,2.00) circle (0.55);\n  \\fill (0,2.00) circle (1.2pt);\n  \\draw[Fvec] (-0.13,2.00) -- (-0.13,1.00) node[below] {$m\\vec g$};\n  \\draw[Fvec] (0.13,2.00) -- (0.13,3.00) node[above] {$\\vec F_\\text{А}$};\n  \\end{scope}\n\\end{tikzpicture}"
-  ],
-  "solution": "Шарик плавает и в воде, и в керосине, значит, в обоих случаях сила Архимеда равна силе тяжести: $\\rho_\\text{ж} g V_\\text{погр} = mg$. Отсюда масса вытесненной жидкости $\\rho_\\text{ж} V_\\text{погр} = m$ равна массе шарика и не меняется (3). Силы показаны на рисунке.\n\n[[рис 1]]\n\nПлотность керосина меньше плотности воды, поэтому, чтобы вытеснить ту же массу жидкости, шарик должен погрузиться на больший объём. Глубина погружения увеличится (1).",
-  "check": "seq",
-  "file": "01_mechanics/fluid_ball_water_to_kerosene.md",
-  "images": [],
-  "solution_images": [
-   "assets/fluid_ball_water_to_kerosene_s1.svg?v=3022c0e6"
-  ]
- },
- {
   "id": "gravity_v10_n6",
   "exam": "ЕГЭ",
   "kim": 6,
@@ -14819,41 +14908,6 @@
   ]
  },
  {
-  "id": "kim22_26_t21",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 11,
-  "answer": "2,23",
-  "unit": "кг",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "kim22,26.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[>=Stealth, scale=1.2, font=\\small]\n    % --- Потолок и опора стола со штриховкой ---\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (2,3) rectangle (5,3.2);\n    \\draw[thick, color=brandSecondary] (2,3) -- (5,3);\n    \n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (-1,-0.2) rectangle (5,0);\n    \\draw[thick, color=brandSecondary] (-1,0) -- (5,0);\n\n    % --- Шарнир на потолке ---\n    \\coordinate (O) at (4.5,3);\n    \\draw[thick, color=brandSecondary] (4.5,3) -- (4.3,2.6) -- (4.7,2.6) -- cycle;\n    \\fill[color=brandSecondary] (O) circle (1.5pt);\n\n    % --- Доска ---\n    \\draw[thick, fill=white, color=brandSecondary] (-0.5,0) rectangle (4.0,0.6);\n    \\draw[->, thick, color=brandSecondary] (3.5,0.9) -- (2.3,0.9) node[above, midway] {$\\vec{v} = \\text{const}$};\n\n    % --- Стержень ---\n    % Точные тригонометрические координаты для угла 30 градусов\n    \\coordinate (A) at (1.04, 0.6);\n    \\coordinate (B) at (4.5, 2.6);\n    \\draw[ultra thick, color=brandSecondary] (A) -- (B);\n    \\node[above, xshift=4pt] at (2.77, 1.6) {$m$};\n\n    % Обозначение угла альфа\n    \\draw[thin, color=brandSecondary] (1.74, 0.6) arc (0:30:0.7);\n    \\node[right, color=brandSecondary, xshift=1pt, yshift=4pt] at (1.74, 0.6) {$\\alpha$};\n\n    % --- ВЕКТОРЫ СИЛ (выделены brandPrimary) ---\n    % Силы, действующие на стержень\n    \\coordinate (Center) at (2.77, 1.6); % Центр масс стержня\n    \\draw[->, very thick, color=brandPrimary] (Center) -- ($(Center) + (0, -1.0)$) node[below] {$m\\vec{g}$};\n    \\draw[->, very thick, color=brandPrimary] (A) -- ($(A) + (0, 0.9)$) node[above left] {$\\vec{N}$};\n    \\draw[->, very thick, color=brandPrimary] (A) -- ($(A) + (-0.9, 0)$) node[left, yshift=3pt] {$\\vec{F}_{\\text{тр}}$};\n\n    % Силы, действующие на доску\n    \\draw[->, very thick, color=brandPrimary] (-0.5, 0.3) -- (-1.5, 0.3) node[left] {$\\vec{F}$};\n    \\draw[->, very thick, color=brandPrimary] (1.04, 0.6) -- ($(1.04, 0.6) + (0, -0.6)$) node[below] {$\\vec{N}'$};\n    \\draw[->, very thick, color=brandPrimary] (1.04, 0.6) -- ($(1.04, 0.6) + (0.8, 0)$) node[right, yshift=-4pt] {$\\vec{F}'_{\\text{тр}}$};\n\n\\end{tikzpicture}"
-  ],
-  "condition": "Однородный тонкий стержень массой $m$ одним концом шарнирно прикреплён к потолку, а другим концом опирается на массивную горизонтальную доску, образуя с ней угол $\\alpha = 30^\\circ$. Под действием горизонтальной силы $\\vec{F}$ доска движется поступательно влево с постоянной скоростью (см. рисунок). Стержень при этом неподвижен. Найдите $m$, если $F = 2\\text{ Н}$, а коэффициент трения стержня по доске $\\mu = 0{,}2$. Сделайте рисунок с указанием сил, действующих на стержень и доску. Трением доски по опоре и трением в шарнире пренебречь. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.1, font=\\small]\n  % опора\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-1,-0.2) rectangle (5.2,0);\n  \\draw[thick, brandSecondary] (-1,0) -- (5.2,0);\n  % потолок и шарнир\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (4.7,3.4) rectangle (5.6,3.55);\n  \\draw[thick, brandSecondary] (4.7,3.4) -- (5.6,3.4);\n  \\draw[thick, brandSecondary] (4.5,2.6) -- (5.15,3.4);\n  % доска\n  \\draw[thick, brandSecondary, fill=brandPrimary!8] (-0.5,0) rectangle (4.0,0.6);\n  \\draw[vvec] (1.6,-0.5) -- (0.5,-0.5) node[left] {$\\vec v$};\n  % стержень\n  \\coordinate (A) at (1.04,0.6);\n  \\coordinate (B) at (4.5,2.6);\n  \\draw[line width=2pt, brandSecondary] (A) -- (B);\n  \\draw[thick, fill=white] (B) circle (2pt);\n  \\draw (1.74,0.6) arc (0:30:0.7);\n  \\node at (1.95,0.78) {$\\alpha$};\n  % силы на стержень\n  \\coordinate (C) at (2.77,1.6);\n  \\draw[Fvec] (C) -- ++(0,-0.8) node[right, yshift=3pt] {$m\\vec g$};\n  \\draw[Fvec] (A) -- ++(0,0.9) node[above] {$\\vec N$};\n  \\draw[Fvec] (A) -- ++(-0.8,0) node[above, xshift=2pt] {$\\vec F_\\text{тр}$};\n  \\draw[Fvec] (B) -- ++(0.14,0.85) node[left] {$\\vec R$};\n  % силы на доску\n  \\draw[Fvec] (-0.5,0.3) -- (-1.3,0.3) node[above] {$\\vec F$};\n  \\draw[Fvec] (1.04,0.45) -- (1.84,0.45) node[right, inner sep=1pt] {$\\vec F_\\text{тр}'$};\n  \\draw[Fvec] (0.95,0.6) -- (0.95,0.05);\n  \\node[left, inner sep=1pt] at (0.95,0.18) {$\\vec N'$};\n  \\draw[Fvec] (3.2,0.3) -- (3.2,-0.6) node[below] {$M\\vec g$};\n  \\draw[Fvec] (3.6,0) -- (3.6,1.1) node[right] {$\\vec N_\\text{оп}$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Доска движется поступательно, её можно считать материальной точкой; так как она движется равномерно и прямолинейно, по первому закону Ньютона векторная сумма сил, приложенных к доске, равна нулю. Стержень — твёрдое тело, находящееся в равновесии, поэтому для него равны нулю сумма сил и сумма моментов сил относительно любой оси, в частности относительно оси шарнира. Стержень однороден — сила тяжести приложена к его середине. Конец стержня скользит по доске, поэтому сила трения — сила трения скольжения $F_\\text{тр} = \\mu N$. Силы взаимодействия стержня и доски связаны третьим законом Ньютона.\n\n\\textbf{Решение.} Обозначим $L$ — длину стержня, $N$ — силу нормальной реакции доски, действующую на стержень, $F_\\text{тр}$ — силу трения, действующую на стержень. На стержень действуют $m\\vec g$, $\\vec N$ (вверх), $\\vec F_\\text{тр}$ и сила реакции шарнира $\\vec R$; на доску по горизонтали — $\\vec F$ (влево) и сила трения со стороны стержня $\\vec F_\\text{тр}'$ (вправо, против движения доски относительно стержня). Соответственно, на стержень сила трения действует влево. По вертикали на доску действуют сила тяжести $M\\vec g$, сила реакции опоры $\\vec N_\\text{оп}$ и сила давления стержня $\\vec N'$ (для решения они не нужны). Все силы показаны на рисунке.\n\n[[рис 1]]\n\nДля доски в проекции на горизонталь: $F - F_\\text{тр}' = 0$; по третьему закону Ньютона $F_\\text{тр} = F_\\text{тр}' = F$.\n\nСила трения скольжения: $F_\\text{тр} = \\mu N$, откуда $N = \\dfrac{F}{\\mu} = \\dfrac{2}{0{,}2}\\,\\text{Н} = 10\\,\\text{Н}$.\n\nПравило моментов для стержня относительно шарнира (момент силы реакции шарнира равен нулю). Плечи: у силы $\\vec N$ — $L\\cos\\alpha$, у силы трения — $L\\sin\\alpha$, у силы тяжести — $\\dfrac{L}{2}\\cos\\alpha$. Силы $\\vec N$ и $\\vec F_\\text{тр}$ поворачивают стержень в одну сторону, сила тяжести — в другую:\n$mg\\dfrac{L}{2}\\cos\\alpha = NL\\cos\\alpha + F_\\text{тр}L\\sin\\alpha$.\n\nОтсюда $m = \\dfrac{2(N + F_\\text{тр}\\,\\mathrm{tg}\\,\\alpha)}{g} = \\dfrac{2F}{g}\\left(\\dfrac{1}{\\mu} + \\mathrm{tg}\\,\\alpha\\right)$.\n\n$m = \\dfrac{2\\cdot 2}{10}\\cdot\\left(\\dfrac{1}{0{,}2} + 0{,}577\\right)\\,\\text{кг} \\approx 2{,}23\\,\\text{кг}$.",
-  "check": "number",
-  "file": "01_mechanics/kim22_26_t21.md",
-  "images": [
-   "assets/kim22_26_t21_1.svg?v=84e2b065"
-  ],
-  "solution_images": [
-   "assets/kim22_26_t21_s1.svg?v=77d31ce3"
-  ]
- },
- {
   "id": "kim22_26_t22",
   "exam": "ЕГЭ",
   "kim": 26,
@@ -15229,60 +15283,6 @@
   "solution": "До удара шарик движется, а после удара прилипает к плите и останавливается, поэтому модуль импульса $p = mv$ уменьшается до нуля (2).\n\nУдар неупругий: шарик деформируется и нагревается, часть механической энергии переходит во внутреннюю, поэтому полная механическая энергия уменьшается (2).",
   "check": "seq",
   "file": "01_mechanics/momentum_v20_n6.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "momentum_v25_n22",
-  "exam": "ЕГЭ",
-  "kim": 22,
-  "section": "Механика",
-  "theme": "ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)",
-  "topic": "1.3.1",
-  "level": "П",
-  "type": "расчётная (часть 2)",
-  "variant": 25,
-  "answer": "1",
-  "unit": "м/с",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "imp.tex",
-  "tikz": [],
-  "condition": "Два пластилиновых шарика массами $3m$ и $m$, летящие навстречу друг другу с одинаковыми по модулю скоростями, при столкновении слипаются. Каким был модуль скорости каждого из шариков перед столкновением, если сразу после столкновения скорость шариков стала равной $0{,}5$~м/с? Временем взаимодействия шариков пренебречь.",
-  "sol_tikz": [],
-  "solution": "Обозначим $v$ — модуль скорости каждого шарика перед столкновением, $u = 0{,}5\\,\\text{м/с}$ — скорость слипшихся шариков. Ось $Ox$ направим по скорости шарика массой $3m$.\n\nВремя взаимодействия мало, поэтому выполняется закон сохранения импульса. В проекции на ось $Ox$: $3mv - mv = (3m + m)u$.\n\nОтсюда $2mv = 4mu$, $v = 2u = 2\\cdot 0{,}5 = 1\\,\\text{м/с}$.",
-  "check": "number",
-  "file": "01_mechanics/momentum_v25_n22.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "momentum_v26_n22",
-  "exam": "ЕГЭ",
-  "kim": 22,
-  "section": "Механика",
-  "theme": "ЗАКОН СОХРАНЕНИЯ ИМПУЛЬСА (ПОЛНЫЙ НАБОР ЧАСТИ 2)",
-  "topic": "1.3.1",
-  "level": "П",
-  "type": "расчётная (часть 2)",
-  "variant": 26,
-  "answer": "2",
-  "unit": "м/с",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "imp.tex",
-  "tikz": [],
-  "condition": "Два пластилиновых шарика массами $3m$ и $m$, летящие навстречу друг другу с одинаковыми по модулю скоростями, при столкновении слипаются. Каким станет модуль скорости шариков сразу после столкновения, если перед столкновением модуль скорости каждого из шариков был равен $4$~м/с? Временем взаимодействия шариков пренебречь.",
-  "sol_tikz": [],
-  "solution": "Обозначим $v = 4\\,\\text{м/с}$ — модуль скорости каждого шарика перед столкновением, $u$ — скорость слипшихся шариков. Ось $Ox$ направим по скорости шарика массой $3m$.\n\nВремя взаимодействия мало, поэтому выполняется закон сохранения импульса. В проекции на ось $Ox$: $3mv - mv = (3m + m)u$.\n\nОтсюда $u = \\dfrac{2mv}{4m} = \\dfrac{v}{2} = \\dfrac{4}{2} = 2\\,\\text{м/с}$.",
-  "check": "number",
-  "file": "01_mechanics/momentum_v26_n22.md",
   "images": [],
   "solution_images": []
  },
@@ -25338,6 +25338,39 @@
   "file": "02_mkt/dem27_v2_n9.md",
   "images": [
    "assets/dem27_v2_n9_1.svg?v=93c3f47c"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n8",
+  "exam": "ЕГЭ",
+  "kim": 8,
+  "section": "МКТ и термодинамика",
+  "theme": "КОЛИЧЕСТВО ТЕПЛОТЫ. УДЕЛЬНАЯ ТЕПЛОЕМКОСТЬ. ФАЗОВЫЕ ПЕРЕХОДЫ",
+  "topic": "2.4",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 30,
+  "answer": "800",
+  "unit": "Дж/(кг·К)",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МКТ",
+   "ТЕРМОДИНАМИКА",
+   "ГРАФИКИ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.1, every node/.style={font=\\small}]\n\\foreach \\x in {1,2,3,4} \\draw[gray!40, thin] (\\x,0) -- (\\x,2.8);\n  \\foreach \\y in {0.4,1.2,2.0,2.8} \\draw[gray!40, thin] (0,\\y) -- (4,\\y);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0) -- (5.3,0) node[below] {$Q$, кДж};\n  \\draw[thick] (0,0) -- (0,0.1) -- (-0.08,0.14) -- (0.08,0.2) -- (0,0.24);\n  \\draw[-{Stealth[scale=0.8]}, thick] (0,0.24) -- (0,3.3) node[left] {$T$, К};\n  \\node[below left] at (0,0) {$0$};\n  \\foreach \\q/\\x in {20/1,40/2,60/3,80/4} \\node[below] at (\\x,0) {$\\q$};\n  \\foreach \\t/\\y in {320/0.4,350/1.2,380/2.0,410/2.8} \\node[left] at (0,\\y) {$\\t$};\n  \\draw[very thick, brandPrimary] (0,0.4) -- (3.5,2.267);\n\\end{tikzpicture}"
+  ],
+  "condition": "На рисунке изображён график зависимости температуры тела от подводимого к нему количества теплоты. Масса тела равна $1{,}25$~кг. Чему равна удельная теплоёмкость вещества этого тела?\n\n[[рис 1]]",
+  "sol_tikz": [],
+  "solution": "По графику при подведении $Q = 60$~кДж температура выросла от $320$ до $380$~К, то есть на $\\Delta T = 60$~К. Из $Q = cm\\Delta T$:\n$$c = \\frac{Q}{m\\Delta T} = \\frac{60\\,000}{1{,}25\\cdot 60} = 800~\\text{Дж/(кг}\\cdot\\text{К)}.$$",
+  "check": "number",
+  "file": "02_mkt/dem27_v30_n8.md",
+  "images": [
+   "assets/dem27_v30_n8_1.svg?v=f8d156d1"
   ],
   "solution_images": []
  },
@@ -37934,6 +37967,35 @@
   ]
  },
  {
+  "id": "dem27_v29_n25",
+  "exam": "ЕГЭ",
+  "kim": 25,
+  "section": "Электродинамика",
+  "theme": "",
+  "topic": "3.2.2",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 29,
+  "answer": "59",
+  "unit": "мкДж",
+  "has_image": true,
+  "author_task": false,
+  "tags": [],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [
+   "\\begin{tikzpicture}[x=0.95cm, y=7cm, font=\\small, >=Stealth]\n  \\foreach \\t in {1,2,3,4,5}{\\draw[gray!35,thin] (\\t,-0.25) -- (\\t,0.35);}\n  \\foreach \\b in {-0.2,-0.1,0.1,0.2,0.3}{\\draw[gray!35,thin] (0,\\b) -- (5.6,\\b);}\n  \\draw[-{Stealth[scale=0.8]},thick] (0,0) -- (6.2,0) node[below right] {$t$, с};\n  \\draw[-{Stealth[scale=0.8]},thick] (0,-0.28) -- (0,0.40) node[above] {$B_n$, Тл};\n  \\draw[ultra thick,brandPrimary] (0,0.3) -- (5,-0.2);\n  \\foreach \\t in {1,2,4,5}{\\node[below,font=\\footnotesize] at (\\t,0) {\\t};}\n  \\node[below right,font=\\footnotesize] at (3,0) {3};\n  \\foreach \\b/\\lab in {0.3/{$0{,}3$},0.2/{$0{,}2$},0.1/{$0{,}1$},-0.1/{$-0{,}1$},-0.2/{$-0{,}2$}}{\n    \\node[left,font=\\footnotesize] at (0,\\b) {\\lab};}\n  \\node[below left,font=\\footnotesize] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Квадратная рамка из медного провода с площадью поперечного сечения\n$S_0=0{,}1$~мм$^2$ помещена в однородное поле электромагнита. На рисунке приведён график зависимости\nот времени $t$ для проекции $B_n$ вектора индукции этого поля на перпендикуляр к плоскости рамки.\nКакое количество теплоты выделяется в рамке за время $\\tau=4$~с? Длина стороны рамки $l=10$~см.\nУдельное сопротивление меди $\\rho=1{,}7\\cdot10^{-8}$~Ом$\\cdot$м.",
+  "sol_tikz": [],
+  "solution": "По графику индукция меняется линейно: от $0{,}3\\,\\text{Тл}$ при $t = 0$ до $-0{,}2\\,\\text{Тл}$ при $t = 5\\,\\text{с}$, т. е. скорость её изменения постоянна: $\\left|\\dfrac{\\Delta B_n}{\\Delta t}\\right| = \\dfrac{0{,}5}{5}\\,\\text{Тл/с} = 0{,}1\\,\\text{Тл/с}$.\n\nМагнитный поток через рамку $\\Phi = B_nl^2$. По закону электромагнитной индукции ЭДС индукции $\\mathcal{E} = \\left|\\dfrac{\\Delta\\Phi}{\\Delta t}\\right| = l^2\\left|\\dfrac{\\Delta B_n}{\\Delta t}\\right|$ — постоянна, поэтому постоянна и сила тока.\n\nСопротивление рамки (длина провода $4l$): $R = \\rho\\dfrac{4l}{S_0}$.\n\nПо закону Джоуля — Ленца количество теплоты $Q = \\dfrac{\\mathcal{E}^2}{R}\\tau = \\dfrac{l^4\\left(\\dfrac{\\Delta B_n}{\\Delta t}\\right)^2S_0\\tau}{4\\rho l} = \\dfrac{l^3S_0\\tau}{4\\rho}\\left(\\dfrac{\\Delta B_n}{\\Delta t}\\right)^2$.\n\n$\\mathcal{E} = 0{,}1^2\\cdot 0{,}1\\,\\text{В} = 10^{-3}\\,\\text{В}$, $R = \\dfrac{1{,}7\\cdot 10^{-8}\\cdot 0{,}4}{0{,}1\\cdot 10^{-6}}\\,\\text{Ом} = 0{,}068\\,\\text{Ом}$,\n\n$Q = \\dfrac{(10^{-3})^2\\cdot 4}{0{,}068}\\,\\text{Дж} \\approx 5{,}9\\cdot 10^{-5}\\,\\text{Дж} = 59\\,\\text{мкДж}$.",
+  "check": "number",
+  "file": "03_electrodynamics/dem27_v29_n25.md",
+  "images": [
+   "assets/dem27_v29_n25_1.svg?v=c592da6a"
+  ],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v2_n11",
   "exam": "ЕГЭ",
   "kim": 11,
@@ -42113,35 +42175,6 @@
   "solution_images": []
  },
  {
-  "id": "ind2_t5",
-  "exam": "ЕГЭ",
-  "kim": 25,
-  "section": "Электродинамика",
-  "theme": "",
-  "topic": "3.2.2",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": null,
-  "answer": "59",
-  "unit": "мкДж",
-  "has_image": true,
-  "author_task": false,
-  "tags": [],
-  "source": "ind2.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[x=0.95cm, y=7cm, font=\\small, >=Stealth]\n  \\foreach \\t in {1,2,3,4,5}{\\draw[gray!35,thin] (\\t,-0.25) -- (\\t,0.35);}\n  \\foreach \\b in {-0.2,-0.1,0.1,0.2,0.3}{\\draw[gray!35,thin] (0,\\b) -- (5.6,\\b);}\n  \\draw[-{Stealth[scale=0.8]},thick] (0,0) -- (6.2,0) node[below right] {$t$, с};\n  \\draw[-{Stealth[scale=0.8]},thick] (0,-0.28) -- (0,0.40) node[above] {$B_n$, Тл};\n  \\draw[ultra thick,brandPrimary] (0,0.3) -- (5,-0.2);\n  \\foreach \\t in {1,2,4,5}{\\node[below,font=\\footnotesize] at (\\t,0) {\\t};}\n  \\node[below right,font=\\footnotesize] at (3,0) {3};\n  \\foreach \\b/\\lab in {0.3/{$0{,}3$},0.2/{$0{,}2$},0.1/{$0{,}1$},-0.1/{$-0{,}1$},-0.2/{$-0{,}2$}}{\n    \\node[left,font=\\footnotesize] at (0,\\b) {\\lab};}\n  \\node[below left,font=\\footnotesize] at (0,0) {0};\n\\end{tikzpicture}"
-  ],
-  "condition": "Квадратная рамка из медного провода с площадью поперечного сечения\n$S_0=0{,}1$~мм$^2$ помещена в однородное поле электромагнита. На рисунке приведён график зависимости\nот времени $t$ для проекции $B_n$ вектора индукции этого поля на перпендикуляр к плоскости рамки.\nКакое количество теплоты выделяется в рамке за время $\\tau=4$~с? Длина стороны рамки $l=10$~см.\nУдельное сопротивление меди $\\rho=1{,}7\\cdot10^{-8}$~Ом$\\cdot$м.",
-  "sol_tikz": [],
-  "solution": "По графику индукция меняется линейно: от $0{,}3\\,\\text{Тл}$ при $t = 0$ до $-0{,}2\\,\\text{Тл}$ при $t = 5\\,\\text{с}$, т. е. скорость её изменения постоянна: $\\left|\\dfrac{\\Delta B_n}{\\Delta t}\\right| = \\dfrac{0{,}5}{5}\\,\\text{Тл/с} = 0{,}1\\,\\text{Тл/с}$.\n\nМагнитный поток через рамку $\\Phi = B_nl^2$. По закону электромагнитной индукции ЭДС индукции $\\mathcal{E} = \\left|\\dfrac{\\Delta\\Phi}{\\Delta t}\\right| = l^2\\left|\\dfrac{\\Delta B_n}{\\Delta t}\\right|$ — постоянна, поэтому постоянна и сила тока.\n\nСопротивление рамки (длина провода $4l$): $R = \\rho\\dfrac{4l}{S_0}$.\n\nПо закону Джоуля — Ленца количество теплоты $Q = \\dfrac{\\mathcal{E}^2}{R}\\tau = \\dfrac{l^4\\left(\\dfrac{\\Delta B_n}{\\Delta t}\\right)^2S_0\\tau}{4\\rho l} = \\dfrac{l^3S_0\\tau}{4\\rho}\\left(\\dfrac{\\Delta B_n}{\\Delta t}\\right)^2$.\n\n$\\mathcal{E} = 0{,}1^2\\cdot 0{,}1\\,\\text{В} = 10^{-3}\\,\\text{В}$, $R = \\dfrac{1{,}7\\cdot 10^{-8}\\cdot 0{,}4}{0{,}1\\cdot 10^{-6}}\\,\\text{Ом} = 0{,}068\\,\\text{Ом}$,\n\n$Q = \\dfrac{(10^{-3})^2\\cdot 4}{0{,}068}\\,\\text{Дж} \\approx 5{,}9\\cdot 10^{-5}\\,\\text{Дж} = 59\\,\\text{мкДж}$.",
-  "check": "number",
-  "file": "03_electrodynamics/ind2_t5.md",
-  "images": [
-   "assets/ind2_t5_1.svg?v=025371d0"
-  ],
-  "solution_images": []
- },
- {
   "id": "meth_ammeter_scale_n19",
   "exam": "ЕГЭ",
   "kim": 19,
@@ -43532,6 +43565,72 @@
   ]
  },
  {
+  "id": "dem27_v29_n13",
+  "exam": "ЕГЭ",
+  "kim": 13,
+  "section": "Оптика",
+  "theme": "",
+  "topic": "4.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 29,
+  "answer": "70",
+  "unit": "°",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ОПТИКА",
+   "ОТРАЖЕНИЕ",
+   "ЗЕРКАЛО_ПОВОРОТ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    % Поверхность горизонтальная и под углом 10 град\n    \\fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;\n    \\draw[thick, black] (1.0,0.8) -- (4.0,0.8);\n    \\draw[dashed, black, thick] (0.8,1.10) -- (4.2,0.50);\n    \\draw (3.8,0.8) arc (0:-10:1.3);\n    \\node[anchor=west] at (4.25,0.66) {$10^\\circ$};\n    \n    % Нормаль и лучи\n    \\draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.2,2.8);\n    \n    \\draw (2.5,1.8) arc (90:126:1.0);\n    \\node at (2.08,2.08) {$25^\\circ$};\n    \n    \\draw (2.02,1.44) arc (126.9:49.6:0.8);\n    \\node at (2.9,1.85) {$\\gamma$};\n    \n\\end{tikzpicture}"
+  ],
+  "condition": "Угол падения луча света на горизонтальное плоское зеркало равен $25^\\circ$. Каким будет угол $\\gamma$, образованный падающим и отражённым лучами, если повернуть зеркало на $10^\\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\\circ$).",
+  "sol_tikz": [],
+  "solution": "При повороте зеркала на $10^\\circ$ перпендикуляр к нему поворачивается на те же $10^\\circ$. На рисунке зеркало повёрнуто так, что нормаль отклоняется от падающего луча, поэтому угол падения увеличивается: $\\alpha = 25^\\circ + 10^\\circ = 35^\\circ$.\n\nУгол отражения равен углу падения, а угол между падающим и отражённым лучами — их сумма:\n\n$$\\gamma = 2\\alpha = 2\\cdot 35^\\circ = 70^\\circ.$$",
+  "check": "number",
+  "file": "04_optics/dem27_v29_n13.md",
+  "images": [
+   "assets/dem27_v29_n13_1.svg?v=8e8277f8"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n13",
+  "exam": "ЕГЭ",
+  "kim": 13,
+  "section": "Оптика",
+  "theme": "",
+  "topic": "4.1",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 30,
+  "answer": "40",
+  "unit": "°",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "ОПТИКА",
+   "ОТРАЖЕНИЕ",
+   "ЗЕРКАЛО_ПОВОРОТ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    % Поверхность горизонтальная и под углом 15 град\n    \\fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;\n    \\draw[thick, black] (1.0,0.8) -- (4.0,0.8);\n    \\draw[dashed, black, thick] (0.8,1.256) -- (4.2,0.344);\n    \\draw (3.8,0.8) arc (0:-15:1.3);\n    \\node[anchor=west] at (4.25,0.58) {$15^\\circ$};\n    \n    % Нормаль и лучи\n    \\draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.0,2.8);\n    \n    \\draw (2.5,1.8) arc (90:126:1.0);\n    \\node at (2.08,2.08) {$25^\\circ$};\n    \n    \\draw (2.5,1.4) arc (90:53:0.6);\n    \\node at (2.8,1.68) {$\\gamma$};\n    \n\\end{tikzpicture}"
+  ],
+  "condition": "Угол падения луча света на горизонтальное плоское зеркало равен $25^\\circ$. Каким будет угол отражения $\\gamma$, если повернуть зеркало на $15^\\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\\circ$).",
+  "sol_tikz": [],
+  "solution": "При повороте зеркала на $15^\\circ$ перпендикуляр к нему поворачивается на те же $15^\\circ$. По рисунку перпендикуляр отклоняется в сторону от падающего луча, поэтому новый угол падения\n\n$$\\alpha = 25^\\circ + 15^\\circ = 40^\\circ.$$\n\nУгол отражения равен углу падения: $\\gamma = 40^\\circ$.",
+  "check": "number",
+  "file": "04_optics/dem27_v30_n13.md",
+  "images": [
+   "assets/dem27_v30_n13_1.svg?v=376180c4"
+  ],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v7_n13",
   "exam": "ЕГЭ",
   "kim": 13,
@@ -43613,72 +43712,6 @@
   "check": "number",
   "file": "04_optics/dem27_v9_n13.md",
   "images": [],
-  "solution_images": []
- },
- {
-  "id": "geom_opt_mirror_rotation_gamma_between",
-  "exam": "ЕГЭ",
-  "kim": 13,
-  "section": "Оптика",
-  "theme": "",
-  "topic": "4.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "70",
-  "unit": "°",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "ОПТИКА",
-   "ОТРАЖЕНИЕ",
-   "ЗЕРКАЛО_ПОВОРОТ"
-  ],
-  "source": "opt.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    % Поверхность горизонтальная и под углом 10 град\n    \\fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;\n    \\draw[thick, black] (1.0,0.8) -- (4.0,0.8);\n    \\draw[dashed, black, thick] (0.8,1.10) -- (4.2,0.50);\n    \\draw (3.8,0.8) arc (0:-10:1.3);\n    \\node[anchor=west] at (4.25,0.66) {$10^\\circ$};\n    \n    % Нормаль и лучи\n    \\draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.2,2.8);\n    \n    \\draw (2.5,1.8) arc (90:126:1.0);\n    \\node at (2.08,2.08) {$25^\\circ$};\n    \n    \\draw (2.02,1.44) arc (126.9:49.6:0.8);\n    \\node at (2.9,1.85) {$\\gamma$};\n    \n\\end{tikzpicture}"
-  ],
-  "condition": "Угол падения луча света на горизонтальное плоское зеркало равен $25^\\circ$. Каким будет угол $\\gamma$, образованный падающим и отражённым лучами, если повернуть зеркало на $10^\\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\\circ$).",
-  "sol_tikz": [],
-  "solution": "При повороте зеркала на $10^\\circ$ перпендикуляр к нему поворачивается на те же $10^\\circ$. На рисунке зеркало повёрнуто так, что нормаль отклоняется от падающего луча, поэтому угол падения увеличивается: $\\alpha = 25^\\circ + 10^\\circ = 35^\\circ$.\n\nУгол отражения равен углу падения, а угол между падающим и отражённым лучами — их сумма:\n\n$$\\gamma = 2\\alpha = 2\\cdot 35^\\circ = 70^\\circ.$$",
-  "check": "number",
-  "file": "04_optics/geom_opt_mirror_rotation_gamma_between.md",
-  "images": [
-   "assets/geom_opt_mirror_rotation_gamma_between_1.svg?v=0991aa09"
-  ],
-  "solution_images": []
- },
- {
-  "id": "geom_opt_mirror_rotation_gamma_refl",
-  "exam": "ЕГЭ",
-  "kim": 13,
-  "section": "Оптика",
-  "theme": "",
-  "topic": "4.1",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "40",
-  "unit": "°",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "ОПТИКА",
-   "ОТРАЖЕНИЕ",
-   "ЗЕРКАЛО_ПОВОРОТ"
-  ],
-  "source": "opt.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    % Поверхность горизонтальная и под углом 15 град\n    \\fill[gray!30] (1.0,0.8) -- (4.0,0.8) -- (4.0,0.6) -- (1.0,0.6) -- cycle;\n    \\draw[thick, black] (1.0,0.8) -- (4.0,0.8);\n    \\draw[dashed, black, thick] (0.8,1.256) -- (4.2,0.344);\n    \\draw (3.8,0.8) arc (0:-15:1.3);\n    \\node[anchor=west] at (4.25,0.58) {$15^\\circ$};\n    \n    % Нормаль и лучи\n    \\draw[dashed, gray, thick] (2.5,0.8) -- (2.5,2.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (1.0,2.8) -- (2.5,0.8);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (2.5,0.8) -- (4.0,2.8);\n    \n    \\draw (2.5,1.8) arc (90:126:1.0);\n    \\node at (2.08,2.08) {$25^\\circ$};\n    \n    \\draw (2.5,1.4) arc (90:53:0.6);\n    \\node at (2.8,1.68) {$\\gamma$};\n    \n\\end{tikzpicture}"
-  ],
-  "condition": "Угол падения луча света на горизонтальное плоское зеркало равен $25^\\circ$. Каким будет угол отражения $\\gamma$, если повернуть зеркало на $15^\\circ$ так, как показано на рисунке? Ответ выразите в градусах ($^\\circ$).",
-  "sol_tikz": [],
-  "solution": "При повороте зеркала на $15^\\circ$ перпендикуляр к нему поворачивается на те же $15^\\circ$. По рисунку перпендикуляр отклоняется в сторону от падающего луча, поэтому новый угол падения\n\n$$\\alpha = 25^\\circ + 15^\\circ = 40^\\circ.$$\n\nУгол отражения равен углу падения: $\\gamma = 40^\\circ$.",
-  "check": "number",
-  "file": "04_optics/geom_opt_mirror_rotation_gamma_refl.md",
-  "images": [
-   "assets/geom_opt_mirror_rotation_gamma_refl_1.svg?v=06a6024b"
-  ],
   "solution_images": []
  },
  {
@@ -46715,6 +46748,72 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v29_n16",
+  "exam": "ЕГЭ",
+  "kim": 16,
+  "section": "Квантовая физика",
+  "theme": "ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА",
+  "topic": "4.6",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 29,
+  "answer": "1",
+  "unit": "мес.",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ЯДЕРНАЯ_ФИЗИКА",
+   "ПЕРИОД_ПОЛУРАСПАДА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,6);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (5.5,0) node[right] {$t$, мес.};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,6.5) node[above] {$m$, мг};\n    \n    \\draw[ultra thick, brandPrimary] plot[domain=0:4.8, samples=100] (\\x, {6*exp(-0.6931*\\x)});\n    \n    \\foreach \\x in {1,2,3,4}\n        \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {2,4,6}\n        \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "На рисунке показан график изменения массы находящегося в пробирке радиоактивного изотопа с течением времени. Определите период полураспада этого изотопа. Ответ выразите в месяцах.",
+  "sol_tikz": [],
+  "solution": "Период полураспада — время, за которое масса изотопа уменьшается вдвое.\n\nПо графику в начальный момент $m_0 = 6$~мг, а значение $3$~мг масса принимает при $t = 1$~мес. Ещё через месяц, при $t = 2$~мес., остаётся $1{,}5$~мг, что подтверждает результат. Значит, $T = 1$~мес.",
+  "check": "number",
+  "file": "05_quantum/dem27_v29_n16.md",
+  "images": [
+   "assets/dem27_v29_n16_1.svg?v=1cc616d5"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v29_n17",
+  "exam": "ЕГЭ",
+  "kim": 17,
+  "section": "Квантовая физика",
+  "theme": "ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА",
+  "topic": "4.5",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 29,
+  "answer": "21",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ФОТОЭФФЕКТ",
+   "ГРАФИКИ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    % График А\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] (1.0,0) -- (2.8,1.2);\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{А)}};\n\\begin{scope}[shift={(0,-3.5)}]\n    \n    % График Б\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[dashed, brandSecondary!55] (0,1.6) -| (0.5,0) (0,0.8) -| (1,0) (0,0.4) -| (2,0);\n    \\draw[ultra thick, brandPrimary] plot[domain=0.4:3.0, samples=100] (\\x, {0.8/\\x});\n    \n    \n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{Б)}};\n\\end{scope}\n\\end{tikzpicture}"
+  ],
+  "condition": "Установите соответствие между графиками, представленными на рисунках, и зависимостями, которые они могут выражать.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ЗАВИСИМОСТИ} \\\\ \\hline\n[[рис 1]] &\n1) зависимость энергии фотона от длины волны\n2) зависимость максимальной энергии фотоэлектронов от частоты света\n3) зависимость энергии фотона от частоты света\n4) зависимость силы фототока от напряжения между электродами при неизменной освещённости \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "sol_tikz": [],
+  "solution": "График А — прямая, которая начинается не из нуля, а с некоторого значения на горизонтальной оси. Так выглядит зависимость максимальной кинетической энергии фотоэлектронов от частоты: $E_\\text{к} = h\\nu - A_\\text{вых}$, при частоте ниже красной границы фотоэффекта нет (2).\n\nГрафик Б — гипербола: величина обратно пропорциональна аргументу (по пунктирам при увеличении аргумента вдвое значение уменьшается вдвое). Так энергия фотона зависит от длины волны: $E = \\dfrac{hc}{\\lambda}$ (1).",
+  "check": "seq",
+  "file": "05_quantum/dem27_v29_n17.md",
+  "images": [
+   "assets/dem27_v29_n17_1.svg?v=adfe5772"
+  ],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v2_n16",
   "exam": "ЕГЭ",
   "kim": 16,
@@ -46769,6 +46868,72 @@
   "check": "seq",
   "file": "05_quantum/dem27_v2_n17.md",
   "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n16",
+  "exam": "ЕГЭ",
+  "kim": 16,
+  "section": "Квантовая физика",
+  "theme": "ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА",
+  "topic": "4.6",
+  "level": "Б",
+  "type": "расчётная",
+  "variant": 30,
+  "answer": "20",
+  "unit": "мин",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ЯДЕРНАЯ_ФИЗИКА",
+   "ПЕРИОД_ПОЛУРАСПАДА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [
+   "\\begin{tikzpicture}[x=0.034cm, y=0.075cm, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=10, ystep=10, gray!30, thin] (0,0) grid (160,50);\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (172,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,58) node[above] {$N, 10^{18}$};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:160, samples=120] (\\x, {50*exp(-0.034657*\\x)});\n    \\foreach \\x in {50,100,150} \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {10,20,30,40,50} \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+  ],
+  "condition": "Дан график зависимости числа нераспавшихся ядер ртути $^{190}_{80}\\text{Hg}$ от времени. Чему равен период полураспада этого изотопа ртути? Ответ выразите в минутах.",
+  "sol_tikz": [],
+  "solution": "Период полураспада — время, за которое число нераспавшихся ядер уменьшается вдвое.\n\nОдна клетка по оси времени — $10$~мин. В начальный момент $N_0 = 50 \\cdot 10^{18}$, а значение $25 \\cdot 10^{18}$ достигается через две клетки, то есть через $20$~мин. Ещё через $20$~мин, при $t = 40$~мин, остаётся $12{,}5 \\cdot 10^{18}$ ядер, что подтверждает результат:\n\n$$T = 20~\\text{мин}.$$",
+  "check": "number",
+  "file": "05_quantum/dem27_v30_n16.md",
+  "images": [
+   "assets/dem27_v30_n16_1.svg?v=917eec25"
+  ],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n17",
+  "exam": "ЕГЭ",
+  "kim": 17,
+  "section": "Квантовая физика",
+  "theme": "ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА",
+  "topic": "4.5",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 30,
+  "answer": "34",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "КВАНТОВАЯ_ФИЗИКА",
+   "ФОТОЭФФЕКТ",
+   "ГРАФИКИ"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    % График А\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2.8,1.6);\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{А)}};\n\\begin{scope}[shift={(0,-3.5)}]\n    \n    % График Б (ВАХ)\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (-0.8,0) -- (3.3,0) node[right] {$x$};\n    \\draw[dashed, brandSecondary!55] (0,1.6) -- (1.7,1.6);\n    \\draw[ultra thick, brandPrimary] plot[domain=-0.8:2.8, samples=100] (\\x, {1.6/(1 + exp(-3.5*(\\x-0.5)))});\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{Б)}};\n\\end{scope}\n\\end{tikzpicture}"
+  ],
+  "condition": "Установите соответствие между графиками, представленными на рисунках, и зависимостями, которые они могут выражать.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ЗАВИСИМОСТИ} \\\\ \\hline\n[[рис 1]] &\n1) зависимость энергии фотона от его длины волны\n2) зависимость максимальной энергии фотоэлектронов от частоты света\n3) зависимость энергии фотона от частоты света\n4) зависимость силы фототока от напряжения между электродами при неизменной освещённости \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
+  "sol_tikz": [],
+  "solution": "А) Прямая, выходящая из начала координат, — прямая пропорциональность. Так зависит энергия фотона от частоты: $E = h\\nu$ (3). Максимальная энергия фотоэлектронов $h\\nu - A_\\text{вых}$ начинается не с нуля, а с красной границы, а $E = \\dfrac{hc}{\\lambda}$ — гипербола.\n\nБ) Кривая растёт, а затем выходит на постоянное значение. Так ведёт себя сила фототока при увеличении напряжения: все выбитые электроны доходят до анода, наступает ток насыщения (4).",
+  "check": "seq",
+  "file": "05_quantum/dem27_v30_n17.md",
+  "images": [
+   "assets/dem27_v30_n17_1.svg?v=f860f183"
+  ],
   "solution_images": []
  },
  {
@@ -47393,72 +47558,6 @@
   "solution_images": []
  },
  {
-  "id": "nuclear_half_life_mass_graph",
-  "exam": "ЕГЭ",
-  "kim": 16,
-  "section": "Квантовая физика",
-  "theme": "ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА",
-  "topic": "4.6",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "1,5",
-  "unit": "мес.",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ЯДЕРНАЯ_ФИЗИКА",
-   "ПЕРИОД_ПОЛУРАСПАДА"
-  ],
-  "source": "nuc.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (5,6);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (5.5,0) node[right] {$t$, мес.};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,6.5) node[above] {$m$, мг};\n    \n    \\draw[ultra thick, brandPrimary] plot[domain=0:4.8, samples=100] (\\x, {6*exp(-0.462*\\x)});\n    \n    \\foreach \\x in {1,2,3,4}\n        \\node[below] at (\\x,0) {\\x};\n    \\foreach \\y in {2,4,6}\n        \\node[left] at (0,\\y) {\\y};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
-  ],
-  "condition": "На рисунке показан график изменения массы находящегося в пробирке радиоактивного изотопа с течением времени. Определите период полураспада этого изотопа. Ответ выразите в месяцах.",
-  "sol_tikz": [],
-  "solution": "Период полураспада — время, за которое масса изотопа уменьшается вдвое.\n\nПо графику в начальный момент $m_0 = 6$~мг, а значение $3$~мг масса принимает при $t = 1{,}5$~мес. Значит, $T = 1{,}5$~мес.",
-  "check": "number",
-  "file": "05_quantum/nuclear_half_life_mass_graph.md",
-  "images": [
-   "assets/nuclear_half_life_mass_graph_1.svg?v=e2efdf99"
-  ],
-  "solution_images": []
- },
- {
-  "id": "nuclear_half_life_mercury_graph",
-  "exam": "ЕГЭ",
-  "kim": 16,
-  "section": "Квантовая физика",
-  "theme": "ФИЗИКА ЯДРА. РАДИОАКТИВНЫЙ РАСПАД. СТРОЕНИЕ АТОМА",
-  "topic": "4.6",
-  "level": "Б",
-  "type": "расчётная",
-  "variant": null,
-  "answer": "25",
-  "unit": "мин",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ЯДЕРНАЯ_ФИЗИКА",
-   "ПЕРИОД_ПОЛУРАСПАДА"
-  ],
-  "source": "nuc.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=0.8, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=0.5, ystep=1, gray!30, thin] (0,0) grid (6,5);\n    \n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (6.5,0) node[right] {$t$, мин};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,5.5) node[above] {$N, 10^{18}$};\n    \n    \\draw[ultra thick, brandPrimary] plot[domain=0:5.5, samples=100] (\\x, {5*exp(-0.6931*\\x)});\n    \n    \\node[below] at (2,0) {50};\n    \\node[below] at (4,0) {100};\n    \\node[below] at (6,0) {150};\n    \n    \\node[left] at (0,1) {10};\n    \\node[left] at (0,2) {20};\n    \\node[left] at (0,3) {30};\n    \\node[left] at (0,4) {40};\n    \\node[left] at (0,5) {50};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
-  ],
-  "condition": "Дан график зависимости числа нераспавшихся ядер ртути $^{190}_{80}\\text{Hg}$ от времени. Чему равен период полураспада этого изотопа ртути? Ответ выразите в минутах.",
-  "sol_tikz": [],
-  "solution": "Период полураспада — время, за которое число нераспавшихся ядер уменьшается вдвое.\n\nПо графику в начальный момент $N_0 = 50 \\cdot 10^{18}$, а значение $25 \\cdot 10^{18}$ достигается через одно деление шкалы времени, то есть через $25$~мин. Ещё через $25$~мин остаётся $12{,}5 \\cdot 10^{18}$ ядер, что подтверждает результат:\n\n$$T_{1/2} = 25~\\text{мин}.$$",
-  "check": "number",
-  "file": "05_quantum/nuclear_half_life_mercury_graph.md",
-  "images": [
-   "assets/nuclear_half_life_mercury_graph_1.svg?v=6a05d225"
-  ],
-  "solution_images": []
- },
- {
   "id": "nuclear_mendeleev_zinc_least_neutrons",
   "exam": "ЕГЭ",
   "kim": 16,
@@ -47543,72 +47642,6 @@
   "check": "seq",
   "file": "05_quantum/photo_blue_to_yellow_freq_and_work.md",
   "images": [],
-  "solution_images": []
- },
- {
-  "id": "photo_graphs_e_nu_i_u",
-  "exam": "ЕГЭ",
-  "kim": 17,
-  "section": "Квантовая физика",
-  "theme": "ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА",
-  "topic": "4.5",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "34",
-  "unit": "",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ФОТОЭФФЕКТ",
-   "ГРАФИКИ"
-  ],
-  "source": "fe.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    % График А\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] (0,0) -- (2.8,1.6);\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{А)}};\n\\begin{scope}[shift={(0,-3.5)}]\n    \n    % График Б (ВАХ)\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] plot[domain=0:2.8, samples=100] (\\x, {1.6/(1 + exp(-3*(\\x-1.0)))});\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{Б)}};\n\\end{scope}\n\\end{tikzpicture}"
-  ],
-  "condition": "Установите соответствие между графиками, представленными на рисунках, и зависимостями, которые они могут выражать.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ЗАВИСИМОСТИ} \\\\ \\hline\n[[рис 1]] &\n1) зависимость энергии фотона от его длины волны\n2) зависимость максимальной энергии фотоэлектронов от частоты света\n3) зависимость энергии фотона от частоты света\n4) зависимость силы фототока от напряжения между электродами при неизменной освещённости \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [],
-  "solution": "А) Прямая, выходящая из начала координат, — прямая пропорциональность. Так зависит энергия фотона от частоты: $E = h\\nu$ (3). Максимальная энергия фотоэлектронов $h\\nu - A_\\text{вых}$ начинается не с нуля, а с красной границы, а $E = \\dfrac{hc}{\\lambda}$ — гипербола.\n\nБ) Кривая растёт, а затем выходит на постоянное значение. Так ведёт себя сила фототока при увеличении напряжения: все выбитые электроны доходят до анода, наступает ток насыщения (4).",
-  "check": "seq",
-  "file": "05_quantum/photo_graphs_e_nu_i_u.md",
-  "images": [
-   "assets/photo_graphs_e_nu_i_u_1.svg?v=d8694391"
-  ],
-  "solution_images": []
- },
- {
-  "id": "photo_graphs_ek_nu_e_lambda",
-  "exam": "ЕГЭ",
-  "kim": 17,
-  "section": "Квантовая физика",
-  "theme": "ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМЕНТА",
-  "topic": "4.5",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "21",
-  "unit": "",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "КВАНТОВАЯ_ФИЗИКА",
-   "ФОТОЭФФЕКТ",
-   "ГРАФИКИ"
-  ],
-  "source": "fe.tex",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=0.9, every node/.style={font=\\footnotesize}]\n    \n    % График А\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] (1.0,0) -- (2.8,1.2);\n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{А)}};\n\\begin{scope}[shift={(0,-3.5)}]\n    \n    % График Б\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (0,2.3) node[above] {$y$};\n    \\draw[-{Stealth[scale=0.8]}, thick, black] (0,0) -- (3.3,0) node[right] {$x$};\n    \\draw[ultra thick, brandPrimary] plot[domain=0.4:3.0, samples=100] (\\x, {0.8/\\x});\n    \n    \n    \\node[below left] at (0,0) {0};\n    \\node[left] at (-0.2,1.8) {\\textbf{Б)}};\n\\end{scope}\n\\end{tikzpicture}"
-  ],
-  "condition": "Установите соответствие между графиками, представленными на рисунках, и зависимостями, которые они могут выражать.\n\nК каждой позиции первого столбца подберите соответствующую позицию из второго столбца.\n\n\\begin{center}\n\\begin{tabular}{|c|l|}\n\\hline\n\\textbf{ГРАФИКИ} & \\textbf{ЗАВИСИМОСТИ} \\\\ \\hline\n[[рис 1]] &\n1) зависимость энергии фотона от длины волны\n2) зависимость максимальной энергии фотоэлектронов от частоты света\n3) зависимость энергии фотона от частоты света\n4) зависимость силы фототока от напряжения между электродами при неизменной освещённости \\\\ \\hline\n\\end{tabular}\n\\end{center}\n\nЗапишите в таблицу выбранные цифры под соответствующими буквами.\n\n\\begin{center}\n\\begin{tabular}{|c|c|}\n\\hline\nА & Б \\\\ \\hline\n & \\\\ \\hline\n\\end{tabular}\n\\end{center}",
-  "sol_tikz": [],
-  "solution": "График А — прямая, которая начинается не из нуля, а с некоторого значения на горизонтальной оси. Так выглядит зависимость максимальной кинетической энергии фотоэлектронов от частоты: $E_\\text{к} = h\\nu - A_\\text{вых}$, при частоте ниже красной границы фотоэффекта нет (2).\n\nГрафик Б — гипербола: величина обратно пропорциональна аргументу (по пунктирам при увеличении аргумента вдвое значение уменьшается вдвое). Так энергия фотона зависит от длины волны: $E = \\dfrac{hc}{\\lambda}$ (1).",
-  "check": "seq",
-  "file": "05_quantum/photo_graphs_ek_nu_e_lambda.md",
-  "images": [
-   "assets/photo_graphs_ek_nu_e_lambda_1.svg?v=b086e7d1"
-  ],
   "solution_images": []
  },
  {
@@ -48934,6 +48967,37 @@
   "solution_images": []
  },
  {
+  "id": "dem27_v29_n18",
+  "exam": "ЕГЭ",
+  "kim": 18,
+  "section": "Механика",
+  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИЙ ПАКЕТ)",
+  "topic": "4.7",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 29,
+  "answer": "34",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА",
+   "МКТ",
+   "ЭЛЕКТРОДИНАМИКА",
+   "ОПТИКА",
+   "КВАНТОВАЯ_ФИЗИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 29)",
+  "tikz": [],
+  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Давление столба жидкости на дно сосуда обратно пропорционально её плотности.\\\\\n2) Удельная теплота плавления вещества показывает, какое количество теплоты необходимо сообщить 1 кг вещества, находящемуся при любой температуре, чтобы его расплавить.\\\\\n3) В процессе электризации трением два первоначально незаряженных тела приобретают разноимённые и одинаковые по модулю заряды.\\\\\n4) При переходе света из оптически более плотной среды в оптически менее плотную среду угол падения меньше угла преломления.\\\\\n5) При $\\alpha$-распаде ядра выполняется закон сохранения электрического заряда, но не выполняется закон сохранения импульса.",
+  "sol_tikz": [],
+  "solution": "1) Неверно: $p = \\rho g h$, давление прямо пропорционально плотности жидкости.\n\n2) Неверно: удельная теплота плавления относится к веществу, взятому при температуре плавления, а не при любой температуре.\n\n3) Верно: при электризации трением электроны переходят с одного тела на другое, и по закону сохранения заряда тела получают равные по модулю заряды противоположных знаков.\n\n4) Верно: по закону преломления $n_1\\sin\\alpha = n_2\\sin\\gamma$, при $n_1 > n_2$ получаем $\\gamma > \\alpha$.\n\n5) Неверно: при $\\alpha$-распаде выполняются оба закона — и сохранения заряда, и сохранения импульса.",
+  "check": "set",
+  "file": "06_integrated/dem27_v29_n18.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
   "id": "dem27_v2_n18",
   "exam": "ЕГЭ",
   "kim": 18,
@@ -48957,6 +49021,37 @@
   "solution": "1) Неверно: при равномерном прямолинейном движении скорость не меняется.\n\n2) Неверно: при кипении жидкость превращается в пар, её масса, а значит, и внутренняя энергия уменьшаются.\n\n3) Верно: $I = \\dfrac UR$.\n\n4) Неверно: рентгеновское излучение — электромагнитные волны, в вакууме они распространяются со скоростью света.\n\n5) Верно: $E = \\dfrac{hc}{\\lambda}$.",
   "check": "set",
   "file": "06_integrated/dem27_v2_n18.md",
+  "images": [],
+  "solution_images": []
+ },
+ {
+  "id": "dem27_v30_n18",
+  "exam": "ЕГЭ",
+  "kim": 18,
+  "section": "Механика",
+  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИЙ ПАКЕТ)",
+  "topic": "4.7",
+  "level": "Б",
+  "type": "соответствие/выбор",
+  "variant": 30,
+  "answer": "125",
+  "unit": "",
+  "has_image": false,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА",
+   "МКТ",
+   "ЭЛЕКТРОДИНАМИКА",
+   "ОПТИКА",
+   "КВАНТОВАЯ_ФИЗИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 30)",
+  "tikz": [],
+  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Давление столба жидкости на дно сосуда прямо пропорционально её плотности.\\\\\n2) Удельная теплота плавления вещества показывает, какое количество теплоты необходимо сообщить 1 кг вещества, находящемуся при температуре плавления, чтобы его расплавить.\\\\\n3) В процессе электризации трением два первоначально незаряженных тела приобретают разноимённые и различные по модулю заряды.\\\\\n4) При переходе света из оптически более плотной среды в оптически менее плотную среду угол падения больше угла преломления.\\\\\n5) При $\\alpha$-распаде ядра выполняются закон сохранения электрического заряда и закон сохранения импульса.",
+  "sol_tikz": [],
+  "solution": "1) Верно: $p = \\rho gh$, при той же высоте столба давление пропорционально плотности.\n\n2) Верно: это определение удельной теплоты плавления, $Q = \\lambda m$.\n\n3) Неверно: по закону сохранения заряда тела приобретают разноимённые, но равные по модулю заряды.\n\n4) Неверно: при переходе в оптически менее плотную среду луч отклоняется от перпендикуляра, угол преломления больше угла падения.\n\n5) Верно: при любом радиоактивном распаде выполняются законы сохранения заряда и импульса.",
+  "check": "set",
+  "file": "06_integrated/dem27_v30_n18.md",
   "images": [],
   "solution_images": []
  },
@@ -49149,68 +49244,6 @@
   "solution": "1) Неверно: $F_\\text{тр.max} = \\mu N$, сила трения покоя прямо пропорциональна силе нормального давления.\n\n2) Верно: при кристаллизации температура постоянна, а система отдаёт теплоту, поэтому её внутренняя энергия уменьшается.\n\n3) Неверно: в сверхпроводниках ток течёт без выделения теплоты.\n\n4) Верно: это правило Ленца.\n\n5) Неверно: при электронном $\\beta$-распаде нейтрон превращается в протон, зарядовое число увеличивается на $1$.",
   "check": "set",
   "file": "06_integrated/dem27_v9_n18.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "kim18_img15",
-  "exam": "ЕГЭ",
-  "kim": 18,
-  "section": "Механика",
-  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИЙ ПАКЕТ)",
-  "topic": "4.7",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "34",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "МКТ",
-   "ЭЛЕКТРОДИНАМИКА",
-   "ОПТИКА",
-   "КВАНТОВАЯ_ФИЗИКА"
-  ],
-  "source": "kim18.tex",
-  "tikz": [],
-  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Давление столба жидкости на дно сосуда обратно пропорционально её плотности.\\\\\n2) Удельная теплота плавления вещества показывает, какое количество теплоты необходимо сообщить 1 кг вещества, находящемуся при любой температуре, чтобы его расплавить.\\\\\n3) В процессе электризации трением два первоначально незаряженных тела приобретают разноимённые и одинаковые по модулю заряды.\\\\\n4) При переходе света из оптически более плотной среды в оптически менее плотную среду угол падения меньше угла преломления.\\\\\n5) При $\\alpha$-распаде ядра выполняется закон сохранения электрического заряда, но не выполняется закон сохранения импульса.",
-  "sol_tikz": [],
-  "solution": "1) Неверно: $p = \\rho g h$, давление прямо пропорционально плотности жидкости.\n\n2) Неверно: удельная теплота плавления относится к веществу, взятому при температуре плавления, а не при любой температуре.\n\n3) Верно: при электризации трением электроны переходят с одного тела на другое, и по закону сохранения заряда тела получают равные по модулю заряды противоположных знаков.\n\n4) Верно: по закону преломления $n_1\\sin\\alpha = n_2\\sin\\gamma$, при $n_1 > n_2$ получаем $\\gamma > \\alpha$.\n\n5) Неверно: при $\\alpha$-распаде выполняются оба закона — и сохранения заряда, и сохранения импульса.",
-  "check": "set",
-  "file": "06_integrated/kim18_img15.md",
-  "images": [],
-  "solution_images": []
- },
- {
-  "id": "kim18_img16",
-  "exam": "ЕГЭ",
-  "kim": 18,
-  "section": "Механика",
-  "theme": "ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИЙ ПАКЕТ)",
-  "topic": "4.7",
-  "level": "Б",
-  "type": "соответствие/выбор",
-  "variant": null,
-  "answer": "125",
-  "unit": "",
-  "has_image": false,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА",
-   "МКТ",
-   "ЭЛЕКТРОДИНАМИКА",
-   "ОПТИКА",
-   "КВАНТОВАЯ_ФИЗИКА"
-  ],
-  "source": "kim18.tex",
-  "tikz": [],
-  "condition": "Выберите все верные утверждения о физических явлениях, величинах и закономерностях. Запишите цифры, под которыми они указаны.\n\n1) Давление столба жидкости на дно сосуда прямо пропорционально её плотности.\\\\\n2) Удельная теплота плавления вещества показывает, какое количество теплоты необходимо сообщить 1 кг вещества, находящемуся при температуре плавления, чтобы его расплавить.\\\\\n3) В процессе электризации трением два первоначально незаряженных тела приобретают разноимённые и различные по модулю заряды.\\\\\n4) При переходе света из оптически более плотной среды в оптически менее плотную среду угол падения больше угла преломления.\\\\\n5) При $\\alpha$-распаде ядра выполняются закон сохранения электрического заряда и закон сохранения импульса.",
-  "sol_tikz": [],
-  "solution": "1) Верно: $p = \\rho gh$, при той же высоте столба давление пропорционально плотности.\n\n2) Верно: это определение удельной теплоты плавления, $Q = \\lambda m$.\n\n3) Неверно: по закону сохранения заряда тела приобретают разноимённые, но равные по модулю заряды.\n\n4) Неверно: при переходе в оптически менее плотную среду луч отклоняется от перпендикуляра, угол преломления больше угла падения.\n\n5) Верно: при любом радиоактивном распаде выполняются законы сохранения заряда и импульса.",
-  "check": "set",
-  "file": "06_integrated/kim18_img16.md",
   "images": [],
   "solution_images": []
  },
