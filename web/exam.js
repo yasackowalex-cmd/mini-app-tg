@@ -130,7 +130,7 @@
     const v = esc(exam.answers[t.id] || '');
     const ph = { number: 'число', pm: 'x ± Δx' }[t.check] || 'цифры';
     return `<div class="try"><label>Ответ: <input data-id="${esc(t.id)}" value="${v}" autocomplete="off"
-      inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}" placeholder="${ph}"></label>
+      inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}" placeholder="${ph}"></label>${t.check === 'number' ? window.taskRender.NEG_BTN : ''}
       ${t.unit ? `<span class="unit">${esc(t.unit)}</span>` : ''}</div>
       ${t.kim > 20 ? '<p class="muted small">Полное решение запишите на листе, сюда — только итоговый ответ.</p>' : ''}`;
   }

@@ -69,6 +69,7 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .try input.ok { border-color: #1E8E3E; background: #EEF8F0; }
 .try input.bad { border-color: #C5221F; background: #FDEDEC; }
 .unit { color: var(--text); }
+.btn.neg { padding: 6px 12px; font-size: 18px; line-height: 1; }
 .verdict { font-weight: 700; }
 .verdict.ok { color: #1E8E3E; }
 .verdict.bad { color: #C5221F; }

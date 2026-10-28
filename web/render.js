@@ -93,5 +93,18 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, lessonHwResult };
+  // На телефоне цифровая клавиатура (inputmode decimal) часто без минуса: рядом с полем кнопка «±»,
+  // она ставит или убирает минус в начале ответа. Обработчик один на страницу (банк, уроки, пробник).
+  const NEG_BTN = '<button class="btn neg" type="button" data-neg aria-label="Поставить или убрать минус">±</button>';
+  document.addEventListener('mousedown', e => { if (e.target.closest('[data-neg]')) e.preventDefault(); });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-neg]'), inp = b && b.closest('.try').querySelector('input');
+    if (!inp) return;
+    const v = inp.value.trim();
+    inp.value = /^[-−]/.test(v) ? v.slice(1) : '-' + v;
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.focus();
+  });
+
+  window.taskRender = { solutionHtml, NEG_BTN, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, lessonHwResult };
 })();
