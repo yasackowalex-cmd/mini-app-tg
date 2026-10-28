@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, NEG_BTN } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore } = window.taskRender;
 
   const PAGE = 20;
   const FILTERS = [
@@ -124,9 +124,8 @@
     const cond = conditionHtml(t);
     const figs = cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче" loading="lazy">`).join('');
     const form = t.check && t.check !== 'none' ? `<form class="try">
-        <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' ? 'decimal' : t.check === 'pm' ? 'text' : 'numeric'}"
+        <label>Ответ: <input name="a" autocomplete="off" inputmode="${t.check === 'number' || t.check === 'pm' ? 'text' : 'numeric'}"
           placeholder="${{number: 'число', pm: 'x ± Δx'}[t.check] || 'цифры'}" aria-label="Ваш ответ"></label>
-        ${t.check === 'number' ? NEG_BTN : ''}
         ${t.unit ? `<span class="unit">${t.unit}</span>` : ''}
         <button class="btn" type="submit">Проверить</button>
         <span class="verdict" role="status"></span>
