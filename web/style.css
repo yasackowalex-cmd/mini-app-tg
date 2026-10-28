@@ -309,3 +309,6 @@ p.cnt { white-space: normal; }
 .t-edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
 .t-edit input { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; flex: 1 1 8em; }
 .t-edit #te-grade { flex: 0 0 5em; }
+
+.foot { padding: 28px 16px 20px; text-align: center; font-size: 13px; }
+.foot a { color: var(--muted); text-decoration: none; }
