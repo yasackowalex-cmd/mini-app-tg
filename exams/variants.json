@@ -14,7 +14,7 @@
    "dem26_v20_n10",
    "elem_pot_v23_n11",
    "dem27_v12_n12",
-   "geom_opt_mirror_rotation_gamma_refl",
+   "dem27_v30_n13",
    "dem26_v22_n14",
    "dem26_v1_n15",
    "nuclear_decay_gold_mcmol",
@@ -49,7 +49,7 @@
    "dem26_v5_n14",
    "dem26_v26_n15",
    "dem27_v15_n16",
-   "photo_graphs_e_nu_i_u",
+   "dem27_v30_n17",
    "dem27_v22_n18",
    "dem26_v9_n19",
    "dem26_v16_n20",
@@ -89,7 +89,7 @@
    "mkt_gas_v15_n23",
    "dem26_v12_n24",
    "elem_osc_v1_n23",
-   "kim22_26_t21"
+   "dem27_v29_n26"
   ]
  },
  {
@@ -205,7 +205,7 @@
    "dem26_v19_n15",
    "dem27_v21_n16",
    "dem27_v19_n17",
-   "kim18_img15",
+   "dem27_v29_n18",
    "dem26_v17_n19",
    "dem26_v20_n20",
    "dem26_v26_n21",
