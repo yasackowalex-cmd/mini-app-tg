@@ -2277,7 +2277,7 @@
   "hw": [
    "dem26_v27_n8",
    "mkt_heat_v7_n8",
-   "mkt_heat_v3_n8",
+   "dem27_v9_n8",
    "dem26_v25_n8",
    "mkt_heat_v4_n8",
    "mkt_heat_v8_n8",
@@ -2690,7 +2690,7 @@
    "elem_mag_v9_n15",
    "elem_mag_v17_n15",
    "elem_mag_v18_n15",
-   "elem_mag_v3_n15",
+   "dem27_v9_n15",
    "dem26_v12_n23",
    "elem_mag_particle_charge_energy"
   ],
@@ -2845,7 +2845,7 @@
    "https://vkvideo.ru/video-228291300_456239088"
   ],
   "hw": [
-   "geom_opt_mirror_angle_34",
+   "dem27_v9_n13",
    "geom_opt_mirror_rotation_gamma_between",
    "dem24_v21_n13",
    "dem26_v19_n13",
