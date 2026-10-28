@@ -1,10 +1,11 @@
 // Кабинет учителя (вкладка видна только учителю из TEACHER_IDS). Данные — одним запросом action "teacher":
-// все ДЗ учителя, их ученики и по каждой паре «ДЗ — ученик» верно (ok) и неверно (bad) решённые задачи.
-// Три вида: «Домашние задания» (по месяцам, у каждого таблица учеников), «Ученики» (у каждого его ДЗ)
-// «Пробники» (итоги пробных вариантов ЕГЭ по ученикам, баллы в тестовых по шкале 2027)
-// «Прогресс» (готовность каждого ученика по 26 номерам КИМ и сводка по классу: где проваливаются)
-// и «Уроки» (ДЗ уроков по журналу ответов: по каждому уроку таблица учеников, у ученика — его уроки).
-// Фильтр по классу и поиск по названию ДЗ или фамилии работают в обоих видах.
+// ДЗ учителя и результаты по каждой паре «ДЗ — ученик», ученики, их журналы ответов и подсказок, итоги пробников.
+// Два вида:
+// «Ученики» — сводка по выбранным ученикам (какие номера КИМ и темы проваливаются) и список учеников;
+//   у раскрытого ученика всё о нём: готовность по 26 номерам, проблемные темы, все его ДЗ (от учителя и уроков),
+//   пробники, правка имени и «Мои ученики».
+// «Задания» — ДЗ учителя и ДЗ уроков одним списком, новые сверху; у каждого таблица учеников с отметками по задачам.
+// Фильтр по классу, «Мои / Остальные» и поиск (фамилия или название задания) общие для обоих видов.
 // «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
 (function () {
   'use strict';
@@ -33,7 +34,7 @@
     (window.lessonsLoad || fetch('out/lessons.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []))
       .then(L => { lessons = (L || []).filter(l => (l.hw || []).length); if (data) render(); });
   }
-  let data = null, loading = false, viewMode = 'progress', openId = null, confirmDel = null, who = null, editId = null;
+  let data = null, loading = false, viewMode = 'students', openId = null, confirmDel = null, who = null, editId = null, sumOpen = false;
   const BOT = 'physics_is_phun_bot';
 
   // ---- вкладка «Кабинет учителя» (сами вкладки переключает app.js) ----
@@ -165,94 +166,69 @@
 
   function bar(p) { return `<div class="bar"><span style="width:${p}%"></span></div>`; }
 
-  function hwDetail(hw, rows) {
-    const ids = hw.task_ids;
-    const table = rows.length ? `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${ids.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
-      rows.map(({ s, r }) => { const st = starsOf(r, ids.length); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
+  // таблица «ученики × задачи» для ДЗ учителя и ДЗ урока
+  function marksTable(ids, rows, note) {
+    if (!rows.length) return `<p class="muted small">${note}</p>`;
+    const n = ids.length;
+    return `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${ids.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
+      rows.map(({ s, r }) => { const st = starsOf(r, n); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
         (r.help || []).includes(t) ? '<td class="help" title="решена после подсказки или ответа">💡</td>'
         : (r.retry || []).includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
         : r.ok.includes(t) ? '<td class="ok" title="решена сам с первой попытки">✓</td>'
-        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${ids.length}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
+        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
       }</tbody></table></div>
-      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Учитываются ответы после выдачи ДЗ. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`
-      : '<p class="muted small">Ссылку ещё никто не открыл.</p>';
-    const del = confirmDel === hw.id
+      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`;
+  }
+
+  // ---- вид «Задания»: ДЗ учителя и ДЗ уроков одним списком ----
+  function taskItems(q) {
+    const studs = studentsShown(), qs = q ? studs.filter(s => norm(name(s)).includes(q)) : null;
+    const byQ = rows => !qs || !qs.length ? rows : rows.filter(x => qs.includes(x.s));
+    const okRow = x => whoOk(x.s);
+    const hws = data.homework.map(hw => ({ id: hw.id, hw, title: hw.title, ids: hw.task_ids, sub: `ДЗ от ${day(hw.created_at)}`,
+      rows: byQ(hwRows(hw).filter(okRow)), key: Date.parse(hw.created_at) / 1000 }));
+    const les = (lessons || []).map(L => {
+      const rows = byQ(studs.map(s => ({ s, r: lessonResult(s.tg_id, L) })).filter(x => touched(x.r)));
+      const last = Math.max(0, ...rows.map(x => { const set = new Set(L.hw), e = (data.logs[x.s.tg_id] || []).find(y => set.has(y[0])); return e ? e[2] : 0; }));
+      return { id: 'l' + L.topic, L, title: lessonName(L), ids: L.hw, sub: 'ДЗ урока', rows, key: last };
+    }).filter(x => x.rows.length);
+    return hws.concat(les)
+      .filter(x => !q || (qs && qs.length && x.rows.length) || norm(x.title).includes(q))
+      .sort((a, b) => b.key - a.key);
+  }
+  function renderTasks(q) {
+    const list = taskItems(q);
+    if (!list.length) return data.homework.length || (lessons || []).length
+      ? '<p class="status">Ничего не нашлось. Свои ДЗ задаются из подборки в банке кнопкой «Задать как ДЗ».</p>'
+      : '<p class="status">Заданий пока нет. Соберите подборку в банке и нажмите «Задать как ДЗ».</p>';
+    return `<ul class="t-list">${list.map(x => {
+      const n = x.ids.length, full = x.rows.filter(y => y.r.ok.length === n).length;
+      const avg = x.rows.length ? Math.round(x.rows.reduce((a, y) => a + pctOf(y.r.ok.length, n), 0) / x.rows.length) : 0;
+      const open = openId === x.id;
+      return `<li class="t-item${open ? ' open' : ''}" data-id="${esc(x.id)}">
+        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
+          <span class="t-title"><b>${esc(x.title)}</b> <span class="cnt">${x.sub} · задач ${n}</span></span>
+          <span class="cnt">${x.hw ? 'открыли' : 'решают'} ${x.rows.length} · сделали всё ${full} · в среднем ${avg}%</span>${bar(avg)}
+        </button>${open ? `<div class="t-detail">${marksTable(x.ids, x.rows, x.hw ? 'Ссылку ещё никто не открыл.' : 'Никто ещё не решал.')}${taskActions(x)}</div>` : ''}</li>`;
+    }).join('')}</ul>`;
+  }
+  function taskActions(x) {
+    if (x.L) return `<div class="hwa"><button class="btn" type="button" data-act="lesson-open">Открыть урок</button></div>`;
+    const del = confirmDel === x.hw.id
       ? `<button class="btn danger" type="button" data-act="del-yes">Точно удалить</button><button class="btn" type="button" data-act="del-no">Отмена</button>`
       : `<button class="btn danger-o" type="button" data-act="del">Удалить ДЗ</button>`;
-    return `<div class="t-detail">${table}<div class="hwa">
-      <button class="btn" type="button" data-act="open">Открыть задачи</button>
-      <button class="btn" type="button" data-act="share">Отправить ссылку</button>${del}</div></div>`;
+    return `<div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button>
+      <button class="btn" type="button" data-act="share">Отправить ссылку</button>${del}</div>`;
   }
 
-  function renderHw(q) {
-    const list = data.homework.filter(hw => {
-      if (!q) return true;
-      return norm(hw.title).includes(q) || hwRows(hw).some(x => norm(name(x.s)).includes(q));
-    });
-    if (!list.length) return '<p class="status">Ничего не нашлось.</p>';
-    let html = '', cur = '';
-    list.forEach(hw => {
-      const m = month(hw.created_at);
-      if (m !== cur) { if (cur) html += '</ul>'; html += `<h3 class="ph">${esc(m)}</h3><ul class="t-list">`; cur = m; }
-      const rows = hwRows(hw), n = hw.task_ids.length;
-      const full = rows.filter(x => x.r.ok.length === n).length;
-      const avg = rows.length ? Math.round(rows.reduce((a, x) => a + pctOf(x.r.ok.length, n), 0) / rows.length) : 0;
-      const open = openId === hw.id;
-      html += `<li class="t-item${open ? ' open' : ''}" data-id="${esc(hw.id)}">
-        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
-          <span class="t-title"><b>${esc(hw.title)}</b> <span class="cnt">${day(hw.created_at)} · задач ${n}</span></span>
-          <span class="cnt">открыли ${rows.length} · сделали всё ${full} · в среднем ${avg}%</span>${bar(avg)}
-        </button>${open ? hwDetail(hw, rows) : ''}</li>`;
-    });
-    return html + '</ul>';
-  }
-
-  function renderStudents(q) {
-    const g = $('t-grade').value;
-    const list = data.students
-      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
-      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
-    if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда откроют ДЗ или решат пробник.</p>';
-    if (!list.length) return emptyWho();
-    return `<ul class="t-list">${list.map(s => {
-      const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
-      // все ДЗ ученика: от учителя и уроков, которые он начинал
-      const rs = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
-        .map(hw => pctOf(data.results[hw.id][s.tg_id].ok.length, hw.task_ids.length))
-        .concat((lessons || []).map(L => lessonResult(s.tg_id, L)).map((r, k) => touched(r) ? pctOf(r.ok.length, lessons[k].hw.length) : -1).filter(p => p >= 0));
-      const avg = rs.length ? Math.round(rs.reduce((a, b) => a + b, 0) / rs.length) : 0;
-      const log = data.logs[s.tg_id] || [];
-      const open = openId === 's' + s.tg_id;
-      return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
-        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
-          <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">ДЗ ${rs.length} · в среднем ${avg}%${log.length ? ` · решал ${ago(log[0][2])}` : ''}${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(avg)}
-        </button>${open ? `<div class="t-detail">${studentWork(s)}${myBtn(s)}</div>` : ''}</li>`;
-    }).join('')}</ul>`;
-  }
-
-  // пробники: по ученику — последний и лучший результат, внутри — все его пробники
-  function renderExams(q) {
-    const g = $('t-grade').value, by = {};
-    data.exams.forEach(e => { (by[e.tg_id] ??= []).push(e); });
-    const list = Object.keys(by).map(id => data.byId[id] || { tg_id: id })
-      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
-      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
-    if (!data.exams.length) return '<p class="status">Пробников пока никто не решал. Ученики решают их в Телеграме кнопкой «Пробный вариант ЕГЭ».</p>';
-    if (!list.length) return emptyWho();
+  // пробники ученика, новые сверху
+  function studentExams(s) {
+    const es = data.exams.filter(e => String(e.tg_id) === String(s.tg_id));
+    if (!es.length) return '';
     const vn = e => variantOf[(e.task_ids || []).join()];
-    const row = e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
-      <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`;
-    return `<ul class="t-list">${list.map(s => {
-      const es = by[s.tg_id], last = es[0], best = Math.max(...es.map(e => e.score));
-      const open = openId === 'e' + s.tg_id;
-      return `<li class="t-item${open ? ' open' : ''}" data-id="e${esc(s.tg_id)}">
-        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
-          <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">пробников ${es.length} · последний ${testScore(last.score)} · лучший ${testScore(best)}</span>${bar(testScore(last.score))}
-        </button>${open ? `<div class="t-detail"><ul class="t-sub">${es.map(row).join('')}</ul>
-          <p class="muted small">тб — тестовые баллы, перв. — первичные (часть 1 + часть 2). Первую часть проверяет сайт, вторую ученик оценивает сам по решению из банка.</p></div>` : ''}</li>`;
-    }).join('')}</ul>`;
+    return `<h4 class="t-h">Пробники</h4><ul class="t-sub">${es.map(e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
+      <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`).join('')}</ul>
+      <p class="muted small">тб — тестовые баллы, перв. — первичные (часть 1 + часть 2). Вторую часть ученик оценивает сам по решению из банка.</p>`;
   }
 
   // ---- прогресс: те же правила освоения номера, что у ученика в «Моём прогрессе» (app.js) ----
@@ -294,16 +270,22 @@
     }).join('')}</div>`;
   }
 
-  function renderProgress(q) {
-    if (!window.bankStats) return '<p class="status">Загружаю банк задач…</p>';
+  // ученики под фильтрами класса и «Мои / Остальные»
+  function studentsShown() {
     const g = $('t-grade').value;
-    const list = data.students
-      .filter(s => whoOk(s) && (!g || s.grade === g) && (!q || norm(name(s)).includes(q)))
-      .map(s => ({ s, st: studentStats(s.tg_id) }))
-      .sort((a, b) => (a.s.grade || '').localeCompare(b.s.grade || '', 'ru', { numeric: true }) || name(a.s).localeCompare(name(b.s), 'ru'));
+    return data.students.filter(s => whoOk(s) && (!g || s.grade === g))
+      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
+  }
+
+  // ---- вид «Ученики»: сводка и все сведения об ученике в одной карточке ----
+  function renderStudents(q) {
+    if (!window.bankStats) return '<p class="status">Загружаю банк задач…</p>';
     if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда войдут в приложение через Телеграм.</p>';
-    if (!list.length) return emptyWho();
-    const active = list.filter(x => x.st.log.length);
+    const g = $('t-grade').value;
+    const all = studentsShown().map(s => ({ s, st: studentStats(s.tg_id) }));
+    const list = all.filter(x => !q || norm(name(x.s)).includes(q));
+    if (!all.length) return emptyWho();
+    const active = all.filter(x => x.st.log.length);
 
     // сводка по выбранным ученикам: по каждому номеру — сколько освоили и средняя доля верных
     // среди тех, кто его решал; номера, где верных меньше 60%, — красные
@@ -323,43 +305,41 @@
     }));
     const weakT = Object.entries(tp).filter(([, y]) => y.n >= 2 * WEAK_MIN && y.ok / y.n < WEAK_ACC)
       .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).slice(0, 8);
-    const summary = `<div class="t-sum">
-      <h3 class="ph">${g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики'}: решают ${active.length} из ${list.length}</h3>
+    const whom = g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики';
+    const summary = `<details class="t-sum" id="t-sum"${sumOpen ? ' open' : ''}>
+      <summary><b>Сводка: ${whom}</b> <span class="cnt">решают ${active.length} из ${all.length}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
       ${hard.length ? `<p><b>Хуже всего идут номера:</b> ${hard.map(c => `№ ${c.k} (${pc(c.acc)}%, освоили ${c.done} из ${c.tried})`).join(', ')}</p>` : ''}
       ${weakT.length ? `<p><b>Проблемные темы:</b></p><ul class="t-weak">${weakT.map(([t, y]) =>
         `<li>${esc(topicName(t))} <span class="cnt">верных ${pc(y.ok / y.n)}% из ${y.n} ответов, учеников ${y.who}</span></li>`).join('')}</ul>` : ''}`
       : '<p class="muted small">Пока никто из них не решал задачи в Телеграме.</p>'}
-      <p class="muted small">Считаются ответы, которые ученики дают в Телеграме: в банке, в ДЗ и в пробниках. Доля верных — по последним ${window.bankStats.KIM_WINDOW} ответам на номер.</p></div>`;
+      <p class="muted small">Считаются ответы, которые ученики дают в Телеграме: в банке, в ДЗ и в пробниках. Доля верных — по последним ${window.bankStats.KIM_WINDOW} ответам на номер.</p></details>`;
 
     const rows = list.map(({ s, st }) => {
-      const open = openId === 'p' + s.tg_id;
-      return `<li class="t-item${open ? ' open' : ''}" data-id="p${esc(s.tg_id)}">
+      const open = openId === 's' + s.tg_id;
+      const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
+      return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · задач ${st.solved} · ${ago(st.last)}` : 'ещё не решал'}</span>${bar(pctOf(st.done, KIMS.length))}
+          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
         </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks)}
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-          <p class="small">Прогноз: <b>${st.primary}</b> первичных из 45, это <b>${testScore(st.primary)}</b> тестовых.</p>
+          <p class="small">Прогноз: <b>${st.primary}</b> первичных из 45, это <b>${testScore(st.primary)}</b> тестовых. Решено разных задач: ${st.solved}.</p>
           ${st.weak.length ? `<p class="small"><b>Проблемные темы:</b></p><ul class="t-weak">${st.weak.map(([t, x]) =>
             `<li>${esc(topicName(t))} <span class="cnt">верных ${x.ok} из ${x.n}</span></li>`).join('')}</ul>` : '<p class="muted small">Проблемных тем нет.</p>'}`
-          : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}${myBtn(s)}</div>` : ''}</li>`;
+          : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
+          <h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
-    return summary + `<ul class="t-list">${rows}</ul>`;
+    return summary + (list.length ? `<ul class="t-list">${rows}</ul>` : '<p class="status">Ничего не нашлось.</p>');
   }
-  document.addEventListener('bank-ready', () => { if (viewMode === 'progress' && !$('teacher').hidden) render(); });
+  document.addEventListener('bank-ready', () => { if (viewMode === 'students' && !$('teacher').hidden) render(); });
 
   // ---- ДЗ уроков: считаем по журналу ответов и открытым подсказкам (все, без даты выдачи) ----
   // r: ok — решённые, из них help — после подсказки или ответа, retry — после неверного ответа; bad — только неверные
   const lessonResult = (id, L) => lessonHwResult(L.hw, data.logs[id] || [], data.rlogs[id] || []);
   const touched = r => r.ok.length + r.bad.length > 0;
   const lessonName = L => `Урок ${L.topic}. ${L.title}`;
-  function lessonStudents() {
-    const g = $('t-grade').value;
-    return data.students.filter(s => whoOk(s) && (!g || s.grade === g))
-      .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
-  }
   // отметки по задачам ДЗ одной строкой: номер задачи на цветном фоне, как в таблице ДЗ
   const markOf = (r, t) => (r.help || []).includes(t) ? ['help', '💡 после подсказки или ответа']
     : (r.retry || []).includes(t) ? ['retry', 'решена после ошибки'] : r.ok.includes(t) ? ['ok', 'решена с первой попытки']
@@ -391,49 +371,11 @@
     }).join('')}</ul>
     <p class="muted small"><b class="okc">зелёный</b> — с первой попытки, <b class="retryc">жёлтый</b> — после ошибки, 💡 — после подсказки, <b class="badc">красный</b> — только неверные ответы, серый — не решал.</p>`;
   }
-  function renderLessons(q) {
-    if (!lessons) return '<p class="status">Загружаю уроки…</p>';
-    const studs = lessonStudents();
-    if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда войдут в приложение через Телеграм.</p>';
-    if (!studs.length) return emptyWho();
-    const qs = q && studs.filter(s => norm(name(s)).includes(q));
-    const items = lessons.map(L => {
-      const all = studs.map(s => ({ s, r: lessonResult(s.tg_id, L) }));
-      const rows = all.filter(x => touched(x.r) && (!qs || !qs.length || qs.includes(x.s)));
-      return { L, rows, done: rows.filter(x => x.r.ok.length === L.hw.length).length };
-    }).filter(x => x.rows.length && (!q || (qs && qs.length) || norm(lessonName(x.L)).includes(q)));
-    if (!items.length) return '<p class="status">ДЗ уроков пока никто не решал.</p>';
-    return `<ul class="t-list">${items.map(({ L, rows, done }) => {
-      const id = 'l' + L.topic, open = openId === id, n = L.hw.length;
-      const avg = Math.round(rows.reduce((a, x) => a + pctOf(x.r.ok.length, n), 0) / rows.length);
-      const table = `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${L.hw.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
-        rows.map(({ s, r }) => { const st = starsOf(r, n); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${L.hw.map(t =>
-          r.help.includes(t) ? '<td class="help" title="решена после подсказки или показанного ответа">💡</td>'
-          : r.retry.includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
-          : r.ok.includes(t) ? '<td class="ok" title="решена с первой попытки">✓</td>'
-          : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
-      }</tbody></table></div>
-      <p class="muted small"><b class="okc">✓</b> с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Учитываются все ответы ученика на эти задачи в Телеграме: в уроке, в банке, в ДЗ и пробниках. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`;
-      return `<li class="t-item${open ? ' open' : ''}" data-id="${esc(id)}">
-        <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
-          <span class="t-title"><b>${esc(lessonName(L))}</b> <span class="cnt">задач ${n}</span></span>
-          <span class="cnt">решают ${rows.length} · решили всё ${done} · в среднем ${avg}%</span>${bar(avg)}
-        </button>${open ? `<div class="t-detail">${table}</div>` : ''}</li>`;
-    }).join('')}</ul>`;
-  }
-
   function render() {
     if (!data) return;
     document.querySelectorAll('#teacher [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === viewMode)));
     const q = norm($('t-q').value.trim());
-    if (viewMode === 'exams') { $('t-body').innerHTML = renderExams(q); return; }
-    if (viewMode === 'progress') { $('t-body').innerHTML = renderProgress(q); return; }
-    if (viewMode === 'lessons') { $('t-body').innerHTML = renderLessons(q); return; }
-    if (viewMode === 'hw' && !data.homework.length) {
-      $('t-body').innerHTML = '<p class="status">Заданных ДЗ пока нет. Соберите подборку в банке и нажмите «Задать как ДЗ».</p>';
-      return;
-    }
-    $('t-body').innerHTML = viewMode === 'hw' ? renderHw(q) : renderStudents(q);
+    $('t-body').innerHTML = viewMode === 'tasks' ? renderTasks(q) : renderStudents(q);
   }
 
   // из списка ДЗ ученика: урок открываем на вкладке «Уроки», ДЗ от учителя и задачи с ошибками — в банке
@@ -458,11 +400,14 @@
     });
   }
 
+  // сводка в «Учениках» остаётся раскрытой или свёрнутой между перерисовками
+  $('t-body').addEventListener('toggle', e => { if (e.target.id === 't-sum') sumOpen = e.target.open; }, true);
   $('t-body').addEventListener('click', e => {
     const b = e.target.closest('[data-act]');
     if (!b) return;
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
+    if (act === 'lesson-open') { location.hash = '#lesson=' + id.slice(1); return; }
     if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; editId = null; render(); return; }
     if (act === 'name-edit') { editId = id.slice(1); render(); return; }
     if (act === 'name-no') { editId = null; render(); return; }
