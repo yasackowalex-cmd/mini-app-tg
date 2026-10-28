@@ -19,7 +19,7 @@
    "dem26_v1_n15",
    "nuclear_decay_gold_mcmol",
    "atomic_levels_min_freq_max_energy",
-   "kim18_img6",
+   "dem27_v20_n18",
    "dem26_v10_n19",
    "dem26_v11_n20",
    "dem26_v29_n21",
@@ -141,7 +141,7 @@
    "optics_lens_point_source_2f_bottom",
    "elem_cap_v7_n14",
    "geom_opt_wave_air_glycerin",
-   "atomic_electrons_nitrogen",
+   "dem27_v20_n16",
    "photo_green_to_uv_freq_and_ek",
    "kim18_img11",
    "dem27_v11_n19",
@@ -182,7 +182,7 @@
    "dem26_v6_n23",
    "dem27_v14_n24",
    "dem26_v19_n25",
-   "momentum_v16_n26"
+   "dem27_v20_n26"
   ]
  },
  {
@@ -262,7 +262,7 @@
    "dem26_v3_n10",
    "elem_coulomb_v24_n11",
    "elem_ind_v9_n12",
-   "geom_opt_mirror_inc_20_between",
+   "dem27_v20_n13",
    "elem_osc_v18_n14",
    "dem27_v13_n15",
    "dem27_v17_n16",
@@ -273,7 +273,7 @@
    "dem26_v3_n21",
    "dem26_v16_n22",
    "dem26_v27_n23",
-   "mkt_cyc_v24_q_nagr_a12_5kj",
+   "dem27_v20_n24",
    "optics_lens_triangle_image_area",
    "mechanics_v9_n26_fixed"
   ]
