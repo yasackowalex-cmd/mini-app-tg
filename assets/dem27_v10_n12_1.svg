@@ -48,7 +48,6 @@
 <g transform='matrix(1 0 0 1 -7.7532 8.6553)'>
 <use x='-58.077391' y='32.465975' xlink:href='#g1-48'/>
 </g>
-<path d='M-58.078125-35.5664H43.9686V32.464844' stroke='#000' fill='none' stroke-width='.3985' stroke-miterlimit='10' stroke-dasharray='2.98883 2.98883'/>
 <path d='M-58.078125 32.464844L43.9686-35.5664' stroke='#06f' fill='none' stroke-width='1.59404' stroke-miterlimit='10'/>
 </g>
 </svg>
