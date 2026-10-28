@@ -37487,7 +37487,7 @@
   ],
   "source": "Демидова, ЕГЭ-2027, 30 вариантов (вариант 9)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t$, с};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$I$, А};\n    \n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,3);\n    \n    \\fill[black] (0,0) circle (1.2pt);\n    \\fill[black] (2,1.5) circle (1.2pt);\n    \\fill[black] (4,3) circle (1.2pt);\n    \n    \\draw[dashed, gray] (2,0) -- (2,1.5) -- (0,1.5);\n    \\draw[dashed, gray] (4,0) -- (4,3) -- (0,3);\n    \n    \\node[left] at (0,1) {2};\n    \\node[left] at (0,2) {4};\n    \\node[left] at (0,3) {6};\n    \n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1.0, every node/.style={font=\\footnotesize}]\n    \\draw[step=0.5, gray!15, very thin] (0,0) grid (4,3);\n    \\draw[xstep=1, ystep=1, gray!30, thin] (0,0) grid (4,3);\n    \n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4.5,0) node[right] {$t$, с};\n    \\draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.5) node[above] {$I$, А};\n    \n    \\draw[ultra thick, brandPrimary] (0,0) -- (4,3);\n    \n    \\fill[black] (0,0) circle (1.2pt);\n    \\fill[black] (2,1.5) circle (1.2pt);\n    \\fill[black] (4,3) circle (1.2pt);\n    \n    \n    \\node[left] at (0,1) {2};\n    \\node[left] at (0,2) {4};\n    \\node[left] at (0,3) {6};\n    \n    \\node[below] at (2,0) {2};\n    \\node[below] at (4,0) {4};\n    \\node[below left] at (0,0) {0};\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке представлен график зависимости силы тока от времени в катушке индуктивностью $0{,}6\\text{ мГн}$. На сколько увеличился магнитный поток, пронизывающий катушку, за первые $2\\text{ с}$? Ответ выразите в милливеберах (мВб).",
   "sol_tikz": [],
@@ -37495,7 +37495,7 @@
   "check": "number",
   "file": "03_electrodynamics/dem27_v9_n12.md",
   "images": [
-   "assets/dem27_v9_n12_1.svg?v=585fb1d5"
+   "assets/dem27_v9_n12_1.svg?v=c8f63b63"
   ],
   "solution_images": []
  },
