@@ -312,3 +312,7 @@ p.cnt { white-space: normal; }
 
 .foot { padding: 28px 16px 20px; text-align: center; font-size: 13px; }
 .foot a { color: var(--muted); text-decoration: none; }
+
+.t-sum > summary { cursor: pointer; padding: 8px 0; list-style-position: inside; }
+.t-sum[open] > summary { margin-bottom: 4px; }
+.t-h { font: 600 15px/1.2 Oswald, sans-serif; margin: 14px 0 4px; }

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=0c3cd92f">
+<link rel="stylesheet" href="web/style.css?v=2721df3f">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -49,16 +49,13 @@
   <section id="teacher" class="teacher" hidden>
     <div class="t-bar">
       <div class="seg">
-        <button type="button" data-view="progress" aria-pressed="true">Прогресс</button>
-        <button type="button" data-view="lessons" aria-pressed="false">Уроки</button>
-        <button type="button" data-view="hw" aria-pressed="false">Домашние задания</button>
-        <button type="button" data-view="students" aria-pressed="false">Ученики</button>
-        <button type="button" data-view="exams" aria-pressed="false">Пробники</button>
+        <button type="button" data-view="students" aria-pressed="true">Ученики</button>
+        <button type="button" data-view="tasks" aria-pressed="false">Задания</button>
       </div>
       <div class="t-filters">
         <select id="t-who" aria-label="Чьи ученики" hidden></select>
         <select id="t-grade" aria-label="Класс"></select>
-        <input id="t-q" type="search" placeholder="Поиск: ДЗ или фамилия" autocomplete="off">
+        <input id="t-q" type="search" placeholder="Поиск: фамилия или задание" autocomplete="off">
       </div>
     </div>
     <div id="t-invite" class="t-invite" hidden></div>
@@ -125,7 +122,7 @@
 <script src="web/lesson.js?v=6886c2b6"></script>
 <script src="web/app.js?v=37e60146"></script>
 <script src="web/hw.js?v=1e138146"></script>
-<script src="web/teacher.js?v=be6f9032"></script>
+<script src="web/teacher.js?v=0595c397"></script>
 <script defer src="web/tg.js?v=baaf659c"></script>
 </body>
 </html>
