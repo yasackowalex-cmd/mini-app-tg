@@ -316,3 +316,14 @@ p.cnt { white-space: normal; }
 .t-sum > summary { cursor: pointer; padding: 8px 0; list-style-position: inside; }
 .t-sum[open] > summary { margin-bottom: 4px; }
 .t-h { font: 600 15px/1.2 Oswald, sans-serif; margin: 14px 0 4px; }
+
+/* 2 часть: текстовый ответ, балл учителя */
+.try.p2 { align-items: flex-start; }
+.try.p2 textarea { font: inherit; width: 100%; min-height: 4.5em; padding: 7px 10px; border: 1px solid var(--line); border-bottom: 2px solid var(--muted); border-radius: 6px; resize: vertical; }
+.tgrade { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
+.tgrade.done { color: #1E8E3E; font-weight: 700; }
+.t-p2 li { display: flex; flex-direction: column; gap: 4px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.t-p2 .p2a { white-space: pre-wrap; background: var(--card); border-left: 3px solid var(--blue); padding: 4px 8px; font-size: 15px; }
+.t-p2 .btn[aria-pressed="true"] { background: var(--blue); color: #fff; }
+.hwr td.wait { background: #FFF4D6; color: #8A6100; }
+.waitc { color: #B45F00; }
