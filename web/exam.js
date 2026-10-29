@@ -258,6 +258,13 @@
     if (gb) {
       exam.self[art.dataset.id] = +gb.dataset.grade;
       save();
+      // ответ и самооценка — учителю на проверку (кабинет, «2 часть на проверку»)
+      const t = tasks().find(x => x.id === art.dataset.id);
+      if (window.tgApi && t) {
+        const a = String(exam.answers[t.id] || '').trim() || '—';
+        window.tgApi('p2_submit', { task_id: t.id, answer: a + ' (пробник)', max: KIM_POINTS[t.kim] })
+          .then(() => window.tgApi('p2_self', { task_id: t.id, score: +gb.dataset.grade }));
+      }
       record();
       const y = window.scrollY;
       renderResult();

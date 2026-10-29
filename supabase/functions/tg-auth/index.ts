@@ -18,6 +18,10 @@
 //   action "fav_set", task_id, on — добавить задачу в избранное (on: true) или убрать (on: false).
 //   action "join", code — ученик открыл личную ссылку учителя t.me/<бот>?startapp=t_<код>: он становится «его учеником»;
 //   action "my_set" (учитель), tg_id, on — отметить ученика своим или убрать из своих.
+//   action "p2_submit", task_id, answer, max — ответ на задачу 2 части или качественную (сбрасывает оценки);
+//   action "p2_self", task_id, score — самооценка ученика по решению; "p2_grade" (учитель), tg_id, task_id, score — балл учителя
+//     (он же пишется попыткой ученику: полный балл — верно, иначе неверно). В progress — p2: [[task_id, ответ, свой балл,
+//     балл учителя, максимум]], в teacher — p2: {tg_id: [...]} (без таблицы part2, миграция 008, — null).
 //   action "student_set" (учитель), tg_id, last_name, first_name, grade — исправить имя, фамилию и класс ученика.
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
@@ -161,7 +165,47 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     // открытые подсказки и ответы (для звёзд за ДЗ); без таблицы reveals — null
     const rv = await pages(() => db.from('reveals').select('task_id, kind, created_at').eq('tg_id', user.id).order('id', { ascending: false }));
     const reveals = rv.error ? null : (rv.data ?? []).map(r => [r.task_id, r.kind, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
-    return [200, { ok: true, tasks, log, fav, reveals }];
+    // ответы и баллы за 2 часть; без таблицы part2 (миграция 008) — null
+    const p2r = await pages(() => db.from('part2').select('task_id, answer, self_score, teacher_score, max_score').eq('tg_id', user.id));
+    const p2 = p2r.error ? null : (p2r.data ?? []).map((r: any) => [r.task_id, r.answer, r.self_score, r.teacher_score, r.max_score]);
+    return [200, { ok: true, tasks, log, fav, reveals, p2 }];
+  }
+
+  if (action === 'p2_submit') {
+    const task_id = String(body.task_id || '').slice(0, 100), answer = String(body.answer ?? '').trim().slice(0, 2000);
+    const max = Number(body.max);
+    if (!task_id || !answer || !Number.isInteger(max) || max < 1 || max > 4) return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('part2').upsert({ tg_id: user.id, task_id, answer, max_score: max, self_score: null,
+      teacher_score: null, checked_at: null, updated_at: new Date().toISOString() }, { onConflict: 'tg_id,task_id' });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+
+  if (action === 'p2_self') {
+    const task_id = String(body.task_id || '').slice(0, 100), score = Number(body.score);
+    if (!task_id || !Number.isInteger(score) || score < 0 || score > 4) return [400, { ok: false, error: 'bad request' }];
+    const { data, error } = await db.from('part2').update({ self_score: score }).eq('tg_id', user.id).eq('task_id', task_id)
+      .gte('max_score', score).select('task_id');
+    if (error) return [500, { ok: false, error: 'db' }];
+    if (!data || !data.length) return [404, { ok: false, error: 'not found' }];
+    return [200, { ok: true }];
+  }
+
+  if (action === 'p2_grade') {
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const tg_id = Number(body.tg_id), task_id = String(body.task_id || '').slice(0, 100), score = Number(body.score);
+    if (!Number.isSafeInteger(tg_id) || tg_id <= 0 || !task_id || !Number.isInteger(score) || score < 0 || score > 4) {
+      return [400, { ok: false, error: 'bad request' }];
+    }
+    const { data, error } = await db.from('part2').update({ teacher_score: score, checked_at: new Date().toISOString() })
+      .eq('tg_id', tg_id).eq('task_id', task_id).gte('max_score', score).select('max_score');
+    if (error) return [500, { ok: false, error: 'db' }];
+    if (!data || !data.length) return [404, { ok: false, error: 'not found' }];
+    // балл учителя — последняя попытка ученика по задаче: от неё считаются освоение номера и прогноз
+    const max = data[0].max_score;
+    const { error: e2 } = await db.from('attempts').insert({ tg_id, task_id, answer: `учитель: балл ${score} из ${max}`, correct: score === max });
+    if (e2) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
   }
 
   if (action === 'reveal') {
@@ -389,7 +433,16 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const { data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000);
     const mine = e6 ? null : (my ?? []).map((r: any) => Number(r.tg_id));
     const invite = secret ? await inviteCode(user.id, secret) : null;
-    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite }];
+    // ответы на 2 часть всех учеников; без таблицы part2 (миграция 008) — null
+    const pa = await pages(() => db.from('part2').select('tg_id, task_id, answer, self_score, teacher_score, max_score, updated_at')
+      .order('updated_at', { ascending: false }));
+    let p2: Record<string, any[]> | null = null;
+    if (!pa.error) {
+      p2 = {};
+      for (const r of pa.data ?? []) (p2[r.tg_id] ??= []).push([r.task_id, r.answer, r.self_score, r.teacher_score, r.max_score,
+        Math.floor(Date.parse(r.updated_at) / 1000) || 0]);
+    }
+    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite, p2 }];
   }
 
   return [400, { ok: false, error: 'action' }];

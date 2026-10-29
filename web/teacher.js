@@ -3,7 +3,8 @@
 // Два вида:
 // «Ученики» — сводка по выбранным ученикам (какие номера КИМ и темы проваливаются) и список учеников;
 //   у раскрытого ученика всё о нём: готовность по 26 номерам, проблемные темы, все его ДЗ (от учителя и уроков),
-//   пробники, правка имени и «Мои ученики».
+//   пробники, ответы на 2 часть с самооценкой и балл учителя («2 часть на проверку»), правка имени и «Мои ученики».
+//   Балл учителя важнее самооценки: в таблицах ДЗ задача с неполным баллом учителя — нерешённая.
 // «Задания» — ДЗ учителя и ДЗ уроков одним списком, новые сверху; у каждого таблица учеников с отметками по задачам.
 // Фильтр по классу, «Мои / Остальные» и поиск (фамилия или название задания) общие для обоих видов.
 // «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
@@ -60,6 +61,8 @@
       data.exams = r.exams || [];
       data.logs = r.logs || {};
       data.rlogs = r.rlogs || {};
+      // ответы на 2 часть: {tg_id: [[task_id, ответ, свой балл, балл учителя, максимум, время], ...]}; null — нет таблицы part2
+      data.p2 = r.p2 || null;
       // mine: null — таблицы своих учеников ещё нет, тогда показываем всех
       data.mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : null;
       if (who === null) who = data.mine && data.mine.size ? 'mine' : 'all';
@@ -159,12 +162,58 @@
   // ученики ДЗ (с учётом фильтра класса) и их результат
   function hwRows(hw) {
     const res = data.results[hw.id] || {}, g = $('t-grade').value;
-    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: res[id] }))
+    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: fixR(id, hw.task_ids, res[id]) }))
       .filter(x => !g || x.s.grade === g)
       .sort((a, b) => (a.s.grade || '').localeCompare(b.s.grade || '', 'ru', { numeric: true }) || name(a.s).localeCompare(name(b.s), 'ru'));
   }
 
   function bar(p) { return `<div class="bar"><span style="width:${p}%"></span></div>`; }
+
+  // ---- 2 часть: ответ ученика, его балл и балл учителя ----
+  const has = x => x !== null && x !== undefined;
+  const p2List = sid => (data.p2 && data.p2[sid]) || [];
+  const p2Get = (sid, t) => p2List(sid).find(e => e[0] === t);
+  // балл учителя важнее самооценки: полный — задача решена, неполный — нет
+  function fixR(sid, ids, r) {
+    const out = { ok: [...r.ok], bad: [...r.bad], retry: [...(r.retry || [])], help: [...(r.help || [])] };
+    ids.forEach(t => {
+      const e = p2Get(sid, t);
+      if (!e || !has(e[3])) return;
+      const drop = k => { out[k] = out[k].filter(x => x !== t); };
+      if (e[3] === e[4]) { drop('bad'); if (!out.ok.includes(t)) out.ok.push(t); }
+      else { drop('ok'); drop('retry'); drop('help'); if (!out.bad.includes(t)) out.bad.push(t); }
+    });
+    return out;
+  }
+  // клетка таблицы ДЗ для задачи 2 части: балл учителя или самооценка «?» до проверки
+  function p2Cell(sid, t) {
+    const e = p2Get(sid, t);
+    if (!e) return '';
+    if (has(e[3])) return `<td class="${e[3] === e[4] ? 'ok' : e[3] ? 'retry' : 'bad'}" title="балл учителя ${e[3]} из ${e[4]}">${e[3]}</td>`;
+    return `<td class="wait" title="${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки">${has(e[2]) ? e[2] : ''}?</td>`;
+  }
+  const kimOf = id => { const t = window.bankStats && window.bankStats.byId[id]; return t && t.kim ? `№ ${t.kim}` : 'задача урока'; };
+  function studentP2(s) {
+    const list = [...p2List(s.tg_id)].sort((a, b) => (has(a[3]) - has(b[3])) || b[5] - a[5]);
+    if (!list.length) return '';
+    const wait = list.filter(e => !has(e[3])).length;
+    return `<h4 class="t-h">2 часть на проверку${wait ? ` <span class="cnt">не проверено ${wait}</span>` : ''}</h4><ul class="t-sub t-p2">${list.map(([t, a, self, tch, max]) => `<li data-task="${esc(t)}">
+      <span><b>${kimOf(t)}</b> <span class="cnt">${esc(t)} · ${has(tch) ? `проверено: ${tch} из ${max}` : 'ждёт проверки'}</span></span>
+      <span class="p2a">${esc(a)}</span>
+      <span class="cnt">Самооценка: ${has(self) ? `<b>${self} из ${max}</b>` : 'не поставил'}</span>
+      <span class="hwa"><span class="cnt">Ваш балл:</span>${Array.from({ length: max + 1 }, (_, g) =>
+        `<button class="btn" type="button" data-act="p2g" data-score="${g}" aria-pressed="${tch === g}">${g}</button>`).join('')}
+        ${window.bankStats && window.bankStats.byId[t] ? '<button class="btn" type="button" data-act="p2-open">Задача</button>' : ''}</span></li>`).join('')}</ul>`;
+  }
+  function gradeP2(sid, task, score) {
+    window.tgApi('p2_grade', { tg_id: Number(sid), task_id: task, score }).then(r => {
+      if (!r) { const t = tg(); if (t && t.showAlert) t.showAlert('Не получилось сохранить балл. Если не помогает, обновите код функции в Supabase.'); return; }
+      const e = p2Get(sid, task);
+      if (e) e[3] = score;
+      (data.logs[sid] || (data.logs[sid] = [])).unshift([task, score === e[4] ? 1 : 0, Math.floor(Date.now() / 1000)]);
+      render();
+    });
+  }
 
   // таблица «ученики × задачи» для ДЗ учителя и ДЗ урока
   function marksTable(ids, rows, note) {
@@ -172,12 +221,12 @@
     const n = ids.length;
     return `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${ids.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
       rows.map(({ s, r }) => { const st = starsOf(r, n); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
-        (r.help || []).includes(t) ? '<td class="help" title="решена после подсказки или ответа">💡</td>'
+        p2Cell(s.tg_id, t) || ((r.help || []).includes(t) ? '<td class="help" title="решена после подсказки или ответа">💡</td>'
         : (r.retry || []).includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
         : r.ok.includes(t) ? '<td class="ok" title="решена сам с первой попытки">✓</td>'
-        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>').join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
+        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>')).join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
       }</tbody></table></div>
-      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`;
+      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды — когда решены все задачи: без подсказок 3, с подсказками не больше чем в трети задач 2, иначе 1.</p>`;
   }
 
   // ---- вид «Задания»: ДЗ учителя и ДЗ уроков одним списком ----
@@ -305,9 +354,10 @@
     }));
     const weakT = Object.entries(tp).filter(([, y]) => y.n >= 2 * WEAK_MIN && y.ok / y.n < WEAK_ACC)
       .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).slice(0, 8);
+    const waitAll = all.reduce((a, x) => a + p2List(x.s.tg_id).filter(e => !has(e[3])).length, 0);
     const whom = g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики';
     const summary = `<details class="t-sum" id="t-sum"${sumOpen ? ' open' : ''}>
-      <summary><b>Сводка: ${whom}</b> <span class="cnt">решают ${active.length} из ${all.length}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
+      <summary><b>Сводка: ${whom}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
       ${hard.length ? `<p><b>Хуже всего идут номера:</b> ${hard.map(c => `№ ${c.k} (${pc(c.acc)}%, освоили ${c.done} из ${c.tried})`).join(', ')}</p>` : ''}
@@ -319,17 +369,18 @@
     const rows = list.map(({ s, st }) => {
       const open = openId === 's' + s.tg_id;
       const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
+      const wait = p2List(s.tg_id).filter(e => !has(e[3])).length;
       return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${testScore(ex.score)}` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
+          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${testScore(ex.score)}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
         </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks)}
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
           <p class="small">Прогноз: <b>${st.primary}</b> первичных из 45, это <b>${testScore(st.primary)}</b> тестовых. Решено разных задач: ${st.solved}.</p>
           ${st.weak.length ? `<p class="small"><b>Проблемные темы:</b></p><ul class="t-weak">${st.weak.map(([t, x]) =>
             `<li>${esc(topicName(t))} <span class="cnt">верных ${x.ok} из ${x.n}</span></li>`).join('')}</ul>` : '<p class="muted small">Проблемных тем нет.</p>'}`
           : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
-          <h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
+          ${studentP2(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
     return summary + (list.length ? `<ul class="t-list">${rows}</ul>` : '<p class="status">Ничего не нашлось.</p>');
   }
@@ -337,7 +388,7 @@
 
   // ---- ДЗ уроков: считаем по журналу ответов и открытым подсказкам (все, без даты выдачи) ----
   // r: ok — решённые, из них help — после подсказки или ответа, retry — после неверного ответа; bad — только неверные
-  const lessonResult = (id, L) => lessonHwResult(L.hw, data.logs[id] || [], data.rlogs[id] || []);
+  const lessonResult = (id, L) => fixR(id, L.hw, lessonHwResult(L.hw, data.logs[id] || [], data.rlogs[id] || []));
   const touched = r => r.ok.length + r.bad.length > 0;
   const lessonName = L => `Урок ${L.topic}. ${L.title}`;
   // отметки по задачам ДЗ одной строкой: номер задачи на цветном фоне, как в таблице ДЗ
@@ -354,7 +405,7 @@
     const log = data.logs[s.tg_id] || [];
     const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
     const items = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
-      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: data.results[hw.id][s.tg_id],
+      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: fixR(s.tg_id, hw.task_ids, data.results[hw.id][s.tg_id]),
         last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
       .concat((lessons || []).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))
@@ -407,6 +458,8 @@
     if (!b) return;
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
+    if (act === 'p2g') { gradeP2(id.slice(1), b.closest('[data-task]').dataset.task, +b.dataset.score); return; }
+    if (act === 'p2-open') { const t = b.closest('[data-task]').dataset.task, s = data.byId[id.slice(1)] || {}; setTab('bank'); window.bankView.show(`${name(s)}: ${kimOf(t)}`, [t], true); return; }
     if (act === 'lesson-open') { location.hash = '#lesson=' + id.slice(1); return; }
     if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; editId = null; render(); return; }
     if (act === 'name-edit') { editId = id.slice(1); render(); return; }

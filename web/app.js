@@ -129,6 +129,10 @@
         ${t.unit ? `<span class="unit">${t.unit}</span>` : ''}
         <button class="btn" type="submit">Проверить</button>
         <span class="verdict" role="status"></span>
+      </form>` : selfMax(t) ? `<form class="try p2">
+        <textarea name="a" rows="3" maxlength="2000" placeholder="Ваш ответ: вывод и объяснение в 2–3 предложениях" aria-label="Ваш ответ"></textarea>
+        <button class="btn" type="submit">Сдать ответ</button>
+        <span class="verdict" role="status"></span>
       </form>` : '';
     // свои задачи урока (lesson.js) не в банке: в подборку и избранное их не положить
     const inBank = !!byId[t.id];
@@ -146,6 +150,7 @@
       <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml(t)}</div>
       ${selfMax(t) ? `<div class="grade" hidden><span>Сравните своё решение с разбором и поставьте себе балл:</span>${
         Array.from({ length: selfMax(t) + 1 }, (_, g) => `<button type="button" class="btn" data-grade="${g}" aria-pressed="false">${g}</button>`).join('')}</div>` : ''}
+      ${selfMax(t) ? '<p class="tgrade" hidden></p>' : ''}
       <div class="id">${t.id}</div>`;
     el.addEventListener('click', e => {
       if (e.target.closest('[data-pick]')) { togglePick(t.id); return; }
@@ -164,6 +169,12 @@
       e.preventDefault();
       const v = f.elements.a.value, out = f.querySelector('.verdict');
       if (!v.trim()) { out.textContent = ''; out.className = 'verdict'; return; }
+      if (selfMax(t)) submitP2(el, t, v);
+      if (f.classList.contains('p2')) {
+        out.textContent = 'Ответ сдан. Сравните его с решением и поставьте себе балл.';
+        out.className = 'verdict';
+        return;
+      }
       const ok = isRight(t, v);
       out.textContent = ok ? 'Верно!' : 'Неверно, попробуйте ещё раз';
       out.className = 'verdict ' + (ok ? 'ok' : 'bad');
@@ -175,6 +186,7 @@
     });
     markCard(el, t);
     markGrade(el, t);
+    markP2(el, t);
     el._task = t;
     if (inBank) { markPick(el, t); markFav(el, t); }
     return el;
@@ -185,12 +197,15 @@
   // себе балл (как в пробнике). Максимум — балл номера КИМ, у задач без номера 1. Полный балл считается
   // верным ответом, меньше — неверным: так оценка идёт в прогресс, ДЗ и кабинет учителя.
   // Кнопки появляются после проверки ответа или открытого разбора/ответа; поставленный балл помнит браузер.
+  // В Телеграме ответ и балл уходят на сервер (таблица part2): учитель видит их в кабинете и ставит свой балл,
+  // он показывается ученику под задачей.
   const selfMax = t => (t.kim >= 21 || !t.check || t.check === 'none') ? (KIM_POINTS[t.kim] || 1) : 0;
   const grades = (() => { try { return JSON.parse(localStorage.getItem('grades')) || {}; } catch (e) { return {}; } })();
   function showGrade(el) { const g = el.querySelector('.grade'); if (g) g.hidden = false; }
+  const p2Of = t => window.tgP2 && window.tgP2[t.id];
   function markGrade(el, t) {
-    const g = grades[t.id];
-    if (g === undefined) return;
+    const r = p2Of(t), g = r ? r.self : grades[t.id];
+    if (g === undefined || g === null) return;
     showGrade(el);
     el.querySelectorAll('[data-grade]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.grade) === g)));
   }
@@ -200,8 +215,41 @@
     grades[t.id] = g;
     try { localStorage.setItem('grades', JSON.stringify(grades)); } catch (e) { /* только до перезагрузки */ }
     saveAttempt(t, `балл ${g} из ${max}`, g === max);
+    if (window.tgApi && window.tgP2) {
+      // балл без сданного ответа: сдаём то, что в поле ответа (или прочерк), чтобы учитель видел задачу
+      const f = el.querySelector('form.try'), v = (f && f.elements.a.value.trim()) || '—';
+      (p2Of(t) ? Promise.resolve() : submitP2(el, t, v)).then(() => {
+        window.tgP2[t.id].self = g;
+        window.tgApi('p2_self', { task_id: t.id, score: g });
+        markGrade(el, t);
+        markP2(el, t);
+      });
+    }
     markGrade(el, t);
     markCard(el, t);
+  }
+  // сдать ответ: на сервер (в Телеграме), открыть решение (это не подсказка) и кнопки балла
+  function submitP2(el, t, v) {
+    const sol = el.querySelector('[data-part="solution"]'), b = el.querySelector('[data-show="solution"]');
+    if (sol) { sol.hidden = false; b.setAttribute('aria-expanded', 'true'); }
+    showGrade(el);
+    if (!window.tgApi || !window.tgP2) return Promise.resolve();
+    window.tgP2[t.id] = { a: v.trim().slice(0, 2000), self: null, teacher: null, max: selfMax(t) };
+    el.querySelectorAll('[data-grade]').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    markP2(el, t);
+    return window.tgApi('p2_submit', { task_id: t.id, answer: v, max: selfMax(t) });
+  }
+  // сданный ответ в поле и балл учителя под задачей
+  function markP2(el, t) {
+    const r = p2Of(t), box = el.querySelector('.tgrade');
+    if (!r || !box) return;
+    const f = el.querySelector('form.try');
+    if (f && !f.elements.a.value && r.a !== '—') f.elements.a.value = r.a;
+    box.hidden = false;
+    const has = x => x !== null && x !== undefined;
+    box.className = 'tgrade' + (has(r.teacher) ? ' done' : '');
+    box.textContent = has(r.teacher) ? `Учитель проверил: ${r.teacher} из ${r.max}`
+      : has(r.self) ? 'Ответ сдан, ждёт проверки учителем' : 'Ответ сдан: поставьте себе балл по решению';
   }
 
   // ---- Подборка: задачи для печати в PDF и для ДЗ ----
@@ -458,8 +506,8 @@
 
   function onProgress() {
     renderProgress();
-    document.querySelectorAll('#list article.task').forEach((el, i) => markCard(el, found[i]));
-    document.querySelectorAll('#lesson article.task').forEach(el => el._task && markCard(el, el._task));
+    document.querySelectorAll('#list article.task').forEach((el, i) => { markCard(el, found[i]); markGrade(el, found[i]); markP2(el, found[i]); });
+    document.querySelectorAll('#lesson article.task').forEach(el => el._task && (markCard(el, el._task), markGrade(el, el._task), markP2(el, el._task)));
     syncFav();
     renderMistakes();
   }

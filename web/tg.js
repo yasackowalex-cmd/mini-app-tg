@@ -46,6 +46,9 @@
     window.tgLog = Array.isArray(res.log) ? res.log : null;
     window.tgFav = Array.isArray(res.fav) ? res.fav : null;
     window.tgReveals = Array.isArray(res.reveals) ? res.reveals : [];
+    // ответы на 2 часть: {task_id: {a: ответ, self, teacher, max}}; null — сервер их не хранит (нет таблицы part2)
+    window.tgP2 = Array.isArray(res.p2)
+      ? Object.fromEntries(res.p2.map(([id, a, self, teacher, max]) => [id, { a, self, teacher, max }])) : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 
