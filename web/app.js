@@ -143,11 +143,11 @@
       ${form}
       <div class="actions">
         ${inBank ? '<button class="btn pick" type="button" data-pick></button>' : ''}
-        ${t.solution ? '<button class="btn hint" type="button" data-show="solution" aria-expanded="false">💡 Подсказка</button>' : ''}
+        ${t.hint ? '<button class="btn hint" type="button" data-show="hint" aria-expanded="false">💡 Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
-      ${t.solution ? `<div class="reveal cond" data-part="solution" hidden><b>Решение.</b> ${solutionHtml(t)}</div>` : ''}
-      <div class="reveal" data-part="answer" hidden><b>Ответ:</b> ${answerHtml(t)}</div>
+      ${t.hint ? `<div class="reveal cond" data-part="hint" hidden><b>Подсказка.</b> ${texToHtml(t.hint)}</div>` : ''}
+      <div class="reveal cond" data-part="answer" hidden>${t.solution ? `<b>Решение.</b> ${solutionHtml(t)}` : ''}<p><b>Ответ:</b> ${answerHtml(t)}</p></div>
       ${selfMax(t) ? `<div class="grade" hidden><span>Сравните своё решение с разбором и поставьте себе балл:</span>${
         Array.from({ length: selfMax(t) + 1 }, (_, g) => `<button type="button" class="btn" data-grade="${g}" aria-pressed="false">${g}</button>`).join('')}</div>` : ''}
       ${selfMax(t) ? '<p class="tgrade" hidden></p>' : ''}
@@ -162,7 +162,7 @@
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
       part.hidden = !part.hidden;
       b.setAttribute('aria-expanded', String(!part.hidden));
-      if (!part.hidden) { saveReveal(t, b.dataset.show === 'solution' ? 'hint' : 'answer'); showGrade(el); }
+      if (!part.hidden) { saveReveal(t, b.dataset.show); showGrade(el); }
     });
     const f = el.querySelector('form.try');
     if (f) f.addEventListener('submit', e => {
@@ -230,8 +230,8 @@
   }
   // сдать ответ: на сервер (в Телеграме), открыть решение (это не подсказка) и кнопки балла
   function submitP2(el, t, v) {
-    const sol = el.querySelector('[data-part="solution"]'), b = el.querySelector('[data-show="solution"]');
-    if (sol) { sol.hidden = false; b.setAttribute('aria-expanded', 'true'); }
+    const sol = el.querySelector('[data-part="answer"]'), b = el.querySelector('[data-show="answer"]');
+    sol.hidden = false; b.setAttribute('aria-expanded', 'true');
     showGrade(el);
     if (!window.tgApi || !window.tgP2) return Promise.resolve();
     window.tgP2[t.id] = { a: v.trim().slice(0, 2000), self: null, teacher: null, max: selfMax(t) };
