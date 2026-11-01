@@ -37,11 +37,10 @@
   function hwItem(hw) {
     const v = window.bankView, ids = hw.task_ids.filter(v.has);
     const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help);
-    const res = st ? `<span class="stars" title="Звёзды за ДЗ: 3 — всё сам, подсказки и показанные ответы стоят звезду">${starsText(st)}</span>`
-      : `решено ${r.ok} из ${ids.length}`;
+    const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
     return `<li class="hwi" data-id="${esc(hw.id)}">
       <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
-      ${st ? '' : `<p class="cnt">Реши все задачи, чтобы получить звёзды. Подсказки можно брать, но каждая может стоить звезду.</p>`}
+      ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : ''}
       <div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button></div>
     </li>`;
   }

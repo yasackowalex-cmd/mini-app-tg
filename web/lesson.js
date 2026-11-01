@@ -98,9 +98,8 @@
     const r = L && hwRes(L);
     if (el) {
       el.hidden = !r;
-      if (r) el.innerHTML = r.st
-        ? `<span class="stars" title="Звёзды за ДЗ: 3 — всё сам, подсказки и показанные ответы стоят звезду">${window.taskRender.starsText(r.st)}</span> Все задачи решены`
-        : `Решено ${r.ok} из ${r.n}. Реши все задачи, чтобы получить звёзды. Подсказки можно брать, но каждая может стоить звезду.`;
+      const T = window.taskRender;
+      if (r) el.innerHTML = `${r.st ? `<span class="stars" title="${T.STARS_RULE}">${T.starsText(r.st)}</span> ` : ''}${r.ok === r.n ? 'Все задачи решены' : `Решено ${r.ok} из ${r.n}. ${T.STARS_RULE}`}`;
     }
     if (list.length && !$('lessons-list').hidden) renderList();
   }
@@ -149,7 +148,7 @@
   // в списке уроков: звёзды за ДЗ или сколько решено
   function resText(L) {
     const r = hwRes(L);
-    return !r || !r.ok ? '' : r.st ? ` · <span class="stars">${window.taskRender.starsText(r.st)}</span>` : ` · решено ${r.ok}`;
+    return !r || !r.ok ? '' : ` · ${r.st ? `<span class="stars">${window.taskRender.starsText(r.st)}</span> ` : ''}решено ${r.ok}`;
   }
 
   function renderList() {

@@ -62,7 +62,10 @@
 
   // Звёзды за ДЗ (0–3): только когда решены все n задач. Ошибки звёзд не стоят, подсказки и показанные
   // ответы — стоят: без них 3, если они понадобились не больше чем в трети задач — 2, иначе 1.
-  const hwStars = (n, ok, help) => !n || ok < n ? 0 : !help ? 3 : help <= n / 3 ? 2 : 1;
+  // звёзды за ДЗ по доле решённого (сроков нет): задача, решённая после подсказки или показанного ответа, — половина;
+  // 3★ от 90%, 2★ от 60%, 1★ от 30%. Всё сам — 3, всё решено и подсказки не больше чем в трети задач — 2.
+  const STARS_RULE = 'Звёзды за ДЗ: 3 — от 90% решённого, 2 — от 60%, 1 — от 30%. Задача после подсказки или показанного ответа считается за половину.';
+  const hwStars = (n, ok, help) => { const p = n ? (ok - help / 2) / n : 0; return p >= 0.9 - 1e-9 ? 3 : p >= 0.6 - 1e-9 ? 2 : p >= 0.3 - 1e-9 ? 1 : 0; };
   const starsText = k => '★'.repeat(k) + '☆'.repeat(3 - k);
   // Итог по ДЗ урока (у урока нет даты выдачи — считаются все ответы): log — журнал ответов [id, 1|0, unix]
   // от новых к старым, rv — открытые подсказки и ответы [id, вид, unix]. ok — решённые верно, из них help —
@@ -93,5 +96,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, lessonHwResult };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, STARS_RULE, lessonHwResult };
 })();
