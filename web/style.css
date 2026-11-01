@@ -327,3 +327,19 @@ p.cnt { white-space: normal; }
 .t-p2 .btn[aria-pressed="true"] { background: var(--blue); color: #fff; }
 .hwr td.wait { background: #FFF4D6; color: #8A6100; }
 .waitc { color: #B45F00; }
+
+/* кабинет: вкладка «Проверка» */
+.seg .badge { background: #FF6B35; color: #fff; border-radius: 999px; font-size: 12px; padding: 0 7px; margin-left: 2px; }
+.q-st { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin: 0 0 12px; }
+.q-st > summary, .q-done > summary { list-style: none; padding: 12px 14px; display: flex; justify-content: space-between; gap: 8px; align-items: center; cursor: pointer; }
+.q-st > summary::-webkit-details-marker, .q-done > summary::-webkit-details-marker { display: none; }
+.q-done > summary { color: var(--muted); padding-left: 0; }
+.q-done .t-item { border-top: 1px solid var(--line); padding-top: 6px; }
+.q-hw { padding: 0 14px 6px; }
+.q-hw h4 { margin: 4px 0 8px; font-size: 15px; color: var(--muted); }
+.q-item { border-top: 1px solid var(--line); padding: 10px 0 12px; }
+.q-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
+.q-ans { background: #FFF8E6; border-radius: 8px; padding: 8px 10px; margin: 8px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.q-ans b { display: block; font-size: 13px; color: var(--muted); }
+.q-sol > summary { color: #0066FF; cursor: pointer; margin: 6px 0; }
+.q-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }

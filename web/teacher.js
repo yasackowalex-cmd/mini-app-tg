@@ -1,9 +1,10 @@
 // Кабинет учителя (вкладка видна только учителю из TEACHER_IDS). Данные — одним запросом action "teacher":
 // ДЗ учителя и результаты по каждой паре «ДЗ — ученик», ученики, их журналы ответов и подсказок, итоги пробников.
-// Два вида:
+// Три вида:
+// «Проверка» — ответы на 2 часть, ждущие балла учителя: ученик → ДЗ → задача (номер в ДЗ, условие, ответ, решение, балл).
 // «Ученики» — сводка по выбранным ученикам (какие номера КИМ и темы проваливаются) и список учеников;
 //   у раскрытого ученика всё о нём: готовность по 26 номерам, проблемные темы, все его ДЗ (от учителя и уроков),
-//   пробники, ответы на 2 часть с самооценкой и балл учителя («2 часть на проверку»), правка имени и «Мои ученики».
+//   пробники, сколько ответов 2 части ждёт проверки, правка имени и «Мои ученики».
 //   Балл учителя важнее самооценки: в таблицах ДЗ задача с неполным баллом учителя — нерешённая.
 // «Задания» — ДЗ учителя и ДЗ уроков одним списком, новые сверху; у каждого таблица учеников с отметками по задачам.
 // Фильтр по классу, «Мои / Остальные» и поиск (фамилия или название задания) общие для обоих видов.
@@ -35,7 +36,7 @@
     (window.lessonsLoad || fetch('out/lessons.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => []))
       .then(L => { lessons = (L || []).filter(l => (l.hw || []).length); if (data) render(); });
   }
-  let data = null, loading = false, viewMode = 'students', openId = null, confirmDel = null, who = null, editId = null, sumOpen = false;
+  let firstLoad = true, data = null, loading = false, viewMode = 'students', openId = null, confirmDel = null, who = null, editId = null, sumOpen = false;
   const BOT = 'physics_is_phun_bot';
 
   // ---- вкладка «Кабинет учителя» (сами вкладки переключает app.js) ----
@@ -66,6 +67,7 @@
       // mine: null — таблицы своих учеников ещё нет, тогда показываем всех
       data.mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : null;
       if (who === null) who = data.mine && data.mine.size ? 'mine' : 'all';
+      if (firstLoad) { firstLoad = false; if (data.p2 && studentsShown().some(x => waitOf(x.tg_id).length)) viewMode = 'check'; }
       fillGrades();
       fillWho();
       renderInvite();
@@ -192,18 +194,10 @@
     if (has(e[3])) return `<td class="${e[3] === e[4] ? 'ok' : e[3] ? 'retry' : 'bad'}" title="балл учителя ${e[3]} из ${e[4]}">${e[3]}</td>`;
     return `<td class="wait" title="${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки">${has(e[2]) ? e[2] : ''}?</td>`;
   }
-  const kimOf = id => { const t = window.bankStats && window.bankStats.byId[id]; return t && t.kim ? `№ ${t.kim}` : 'задача урока'; };
-  function studentP2(s) {
-    const list = [...p2List(s.tg_id)].sort((a, b) => (has(a[3]) - has(b[3])) || b[5] - a[5]);
-    if (!list.length) return '';
-    const wait = list.filter(e => !has(e[3])).length;
-    return `<h4 class="t-h">2 часть на проверку${wait ? ` <span class="cnt">не проверено ${wait}</span>` : ''}</h4><ul class="t-sub t-p2">${list.map(([t, a, self, tch, max]) => `<li data-task="${esc(t)}">
-      <span><b>${kimOf(t)}</b> <span class="cnt">${esc(t)} · ${has(tch) ? `проверено: ${tch} из ${max}` : 'ждёт проверки'}</span></span>
-      <span class="p2a">${esc(a)}</span>
-      <span class="cnt">Самооценка: ${has(self) ? `<b>${self} из ${max}</b>` : 'не поставил'}</span>
-      <span class="hwa"><span class="cnt">Ваш балл:</span>${Array.from({ length: max + 1 }, (_, g) =>
-        `<button class="btn" type="button" data-act="p2g" data-score="${g}" aria-pressed="${tch === g}">${g}</button>`).join('')}
-        ${window.bankStats && window.bankStats.byId[t] ? '<button class="btn" type="button" data-act="p2-open">Задача</button>' : ''}</span></li>`).join('')}</ul>`;
+  // в карточке ученика — только сколько ждёт проверки; проверка во вкладке «Проверка»
+  function p2Note(s) {
+    const w = waitOf(s.tg_id).length;
+    return w ? `<p class="small"><b class="waitc">2 часть: не проверено ${w}</b> <button class="btn" type="button" data-act="go-check">Проверить</button></p>` : '';
   }
   function gradeP2(sid, task, score) {
     window.tgApi('p2_grade', { tg_id: Number(sid), task_id: task, score }).then(r => {
@@ -213,6 +207,61 @@
       (data.logs[sid] || (data.logs[sid] = [])).unshift([task, score === e[4] ? 1 : 0, Math.floor(Date.now() / 1000)]);
       render();
     });
+  }
+
+  // ---- вид «Проверка»: ответы на 2 часть, которые ждут балла учителя ----
+  // ученик → его ДЗ (от учителя, урок или пробник) → задачи с номером в ДЗ, условием, ответом, решением и кнопками балла
+  const taskOf = id => (window.bankStats && window.bankStats.byId[id])
+    || (lessons || []).reduce((f, L) => f || (L.tasks || []).find(t => t.id === id), null);
+  const waitOf = sid => p2List(sid).filter(e => !has(e[3]));
+  const waitCount = () => !data ? 0 : studentsShown().reduce((a, s) => a + waitOf(s.tg_id).length, 0);
+  // куда относится ответ: последнее ДЗ учителя с этой задачей, иначе урок, иначе пробник или банк
+  function placeOf(sid, e) {
+    const t = e[0];
+    if (/\(пробник\)\s*$/.test(e[1])) return { key: 'exam', title: 'Пробник', ids: null };
+    const hw = data.homework.filter(h => h.task_ids.includes(t) && data.results[h.id] && data.results[h.id][sid])
+      .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0];
+    if (hw) return { key: 'h' + hw.id, title: `${hw.title} (ДЗ от ${day(hw.created_at)})`, ids: hw.task_ids };
+    const L = (lessons || []).find(x => x.hw.includes(t));
+    if (L) return { key: 'l' + L.topic, title: lessonName(L), ids: L.hw };
+    return { key: 'bank', title: 'Задачи из банка', ids: null };
+  }
+  const shortDate = ts => new Date(ts * 1000).toLocaleDateString('ru-RU', { day: 'numeric', month: 'numeric' });
+  const checkOpen = new Set(), shownSol = new Set();
+  let checkedOpen = false;
+  function checkItem(sid, e, place) {
+    const [t, a, self, tch, max, ts] = e, task = taskOf(t), R = window.taskRender;
+    const n = place.ids ? place.ids.indexOf(t) + 1 : 0;
+    const cond = task ? R.conditionHtml(task) : null, key = sid + '|' + t;
+    return `<div class="q-item" data-task="${esc(t)}">
+      <div class="q-head">${n ? `<span class="chip num">№ ${n} из ${place.ids.length}</span>` : ''}${task ? `<span class="chip kim">КИМ ${task.kim}</span>` : ''}<span class="cnt">сдано ${shortDate(ts)}</span></div>
+      ${cond ? `<div class="cond">${cond.html}</div>${cond.rest.length ? `<div class="figs">${cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('')}</div>` : ''}` : `<p class="muted small">Задачи ${esc(t)} больше нет в банке.</p>`}
+      <div class="q-ans"><b>Ответ ученика</b>${esc(a.replace(/\s*\(пробник\)\s*$/, '')) || '—'}</div>
+      ${task && task.solution ? `<details class="q-sol" data-key="${esc(key)}"${shownSol.has(key) ? ' open' : ''}><summary>Решение</summary><div class="cond">${R.solutionHtml(task)}</div></details>` : ''}
+      <div class="q-row"><span class="cnt">Сам поставил: ${has(self) ? `<b>${self} из ${max}</b>` : 'не поставил'}. Ваш балл:</span>${Array.from({ length: max + 1 }, (_, g) =>
+        `<button class="btn" type="button" data-act="p2g" data-score="${g}" aria-pressed="${tch === g}">${g}</button>`).join('')}</div></div>`;
+  }
+  function renderCheck(q) {
+    if (!data.p2) return '<p class="status">Проверка заработает, когда в Supabase будет выполнен 008_part2.sql и обновлён код функции.</p>';
+    const studs = studentsShown().filter(s => !q || norm(name(s)).includes(q));
+    const groups = studs.map(s => ({ s, list: waitOf(s.tg_id).sort((a, b) => a[5] - b[5]) })).filter(x => x.list.length);
+    // раскрыт хотя бы один ученик: проверили последнего у раскрытого — раскрывается следующий
+    if (groups.length && !groups.some(x => checkOpen.has(String(x.s.tg_id)))) checkOpen.add(String(groups[0].s.tg_id));
+    const body = groups.map(({ s, list }) => {
+      const sid = String(s.tg_id), parts = {};
+      list.forEach(e => { const pl = placeOf(sid, e); (parts[pl.key] || (parts[pl.key] = { pl, items: [] })).items.push(e); });
+      Object.values(parts).forEach(p => { if (p.pl.ids) p.items.sort((a, b) => p.pl.ids.indexOf(a[0]) - p.pl.ids.indexOf(b[0])); });
+      return `<details class="t-item q-st" data-id="s${esc(sid)}"${checkOpen.has(sid) ? ' open' : ''}>
+        <summary><b>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</b><span class="cnt">не проверено ${list.length}</span></summary>
+        ${Object.values(parts).map(p => `<div class="q-hw"><h4>${esc(p.pl.title)}</h4>${p.items.map(e => checkItem(sid, e, p.pl)).join('')}</div>`).join('')}</details>`;
+    }).join('');
+    // недавно проверенные: можно поправить балл
+    const done = studs.flatMap(s => p2List(s.tg_id).filter(e => has(e[3])).map(e => ({ s, e }))).sort((a, b) => b.e[5] - a.e[5]).slice(0, 20);
+    const doneHtml = done.length ? `<details class="q-done" id="q-done"${checkedOpen ? ' open' : ''}><summary>Проверенные (последние ${done.length})</summary>${done.map(({ s, e }) => {
+      const pl = placeOf(String(s.tg_id), e);
+      return `<div class="t-item" data-id="s${esc(s.tg_id)}"><p class="small"><b>${esc(name(s))}</b> · ${esc(pl.title)}</p>${checkItem(String(s.tg_id), e, pl)}</div>`;
+    }).join('')}</details>` : '';
+    return (body || '<p class="status">Всё проверено. Новые ответы на задачи 2 части появятся здесь, когда ученики их сдадут.</p>') + doneHtml;
   }
 
   // таблица «ученики × задачи» для ДЗ учителя и ДЗ урока
@@ -380,7 +429,7 @@
           ${st.weak.length ? `<p class="small"><b>Проблемные темы:</b></p><ul class="t-weak">${st.weak.map(([t, x]) =>
             `<li>${esc(topicName(t))} <span class="cnt">верных ${x.ok} из ${x.n}</span></li>`).join('')}</ul>` : '<p class="muted small">Проблемных тем нет.</p>'}`
           : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
-          ${studentP2(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
+          ${p2Note(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
     return summary + (list.length ? `<ul class="t-list">${rows}</ul>` : '<p class="status">Ничего не нашлось.</p>');
   }
@@ -426,7 +475,9 @@
     if (!data) return;
     document.querySelectorAll('#teacher [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === viewMode)));
     const q = norm($('t-q').value.trim());
-    $('t-body').innerHTML = viewMode === 'tasks' ? renderTasks(q) : renderStudents(q);
+    const nw = waitCount(), badge = document.querySelector('#teacher [data-view="check"] .badge');
+    if (badge) { badge.textContent = nw; badge.hidden = !nw; }
+    $('t-body').innerHTML = viewMode === 'tasks' ? renderTasks(q) : viewMode === 'check' ? renderCheck(q) : renderStudents(q);
   }
 
   // из списка ДЗ ученика: урок открываем на вкладке «Уроки», ДЗ от учителя и задачи с ошибками — в банке
@@ -452,14 +503,20 @@
   }
 
   // сводка в «Учениках» остаётся раскрытой или свёрнутой между перерисовками
-  $('t-body').addEventListener('toggle', e => { if (e.target.id === 't-sum') sumOpen = e.target.open; }, true);
+  $('t-body').addEventListener('toggle', e => {
+    const d = e.target;
+    if (d.id === 't-sum') sumOpen = d.open;
+    if (d.id === 'q-done') checkedOpen = d.open;
+    if (d.classList.contains('q-st')) { const sid = d.dataset.id.slice(1); if (d.open) checkOpen.add(sid); else checkOpen.delete(sid); }
+    if (d.classList.contains('q-sol')) { if (d.open) shownSol.add(d.dataset.key); else shownSol.delete(d.dataset.key); }
+  }, true);
   $('t-body').addEventListener('click', e => {
     const b = e.target.closest('[data-act]');
     if (!b) return;
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
     if (act === 'p2g') { gradeP2(id.slice(1), b.closest('[data-task]').dataset.task, +b.dataset.score); return; }
-    if (act === 'p2-open') { const t = b.closest('[data-task]').dataset.task, s = data.byId[id.slice(1)] || {}; setTab('bank'); window.bankView.show(`${name(s)}: ${kimOf(t)}`, [t], true); return; }
+    if (act === 'go-check') { viewMode = 'check'; checkOpen.add(id.slice(1)); openId = null; render(); return; }
     if (act === 'lesson-open') { location.hash = '#lesson=' + id.slice(1); return; }
     if (act === 'toggle') { openId = openId === id ? null : id; confirmDel = null; editId = null; render(); return; }
     if (act === 'name-edit') { editId = id.slice(1); render(); return; }
