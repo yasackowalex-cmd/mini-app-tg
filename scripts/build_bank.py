@@ -65,6 +65,8 @@ def parse_md(path):
     n = iter(range(1, len(meta['sol_tikz']) + 1))
     sol = re.sub(r'```latex\n.*?\n```', lambda _: f'[[рис {next(n)}]]', sol, flags=re.S)
     meta['solution'] = None if sol in ('', 'TODO') else sol
+    # подсказка: одна идея, с чего начать (без решения)
+    meta['hint'] = sections.get('Подсказка') or None
     meta['unit'] = meta.get('unit', '')
     meta['check'] = check_mode(meta)
     return meta

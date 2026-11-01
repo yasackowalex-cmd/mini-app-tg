@@ -37,11 +37,13 @@
     return out + s.slice(last);
   }
 
+  // дроби всегда крупные, как \dfrac (просьба владельца)
+  const FRAC = { '\\frac': '\\dfrac' };
   function renderMath(src, display) {
     try {
       // индекс без основы ($^A_Z X$, \,^7_3 Li) KaTeX не принимает: подставляем пустую основу
       src = src.replace(/^(\s*)([\^_])/, '$1{}$2').replace(/(\\[,;:!])(\s*)([\^_])/g, '$1$2{}$3');
-      return katex.renderToString(src, { displayMode: display, throwOnError: false, strict: 'ignore' });
+      return katex.renderToString(src, { displayMode: display, throwOnError: false, strict: 'ignore', macros: FRAC });
     } catch (e) {
       return '<code>' + esc(src) + '</code>';
     }

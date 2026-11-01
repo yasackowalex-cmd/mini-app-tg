@@ -17,7 +17,8 @@
 .tasks { padding-left: 1.6em; margin: 0; }
 .ptask { position: relative; padding: 12px 0; border-top: 1px solid var(--line); break-inside: avoid; }
 .ptask::marker { font: 600 18px Oswald, sans-serif; }
-.pmeta { float: right; display: flex; gap: 6px; margin-left: 8px; }
+.pmeta { margin: 6px 0 0; text-align: right; font-size: 12px; color: var(--muted); }
+.p2space { height: 9cm; border-bottom: 1px dashed var(--line); }
 .pid { font-size: 12px; color: var(--muted); }
 .pkim { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
 .ptask .rm { position: absolute; left: -3.2em; top: 10px; border: 0; background: none; color: #C5221F; font-size: 16px; cursor: pointer; }

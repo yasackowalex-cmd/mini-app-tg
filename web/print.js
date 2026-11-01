@@ -3,7 +3,7 @@
   'use strict';
   const { solutionHtml, conditionHtml, answerHtml, pick } = window.taskRender;
   const $ = id => document.getElementById(id);
-  const OPTS = ['name', 'kim', 'id', 'line', 'ans', 'sol'];
+  const OPTS = ['name', 'kim', 'id', 'line', 'space', 'ans', 'sol'];
   let byId = {}, ids = [];
 
   function readHash() {
@@ -32,16 +32,18 @@
     $('status').textContent = !tasks.length ? 'Подборка пуста. Добавьте задачи кнопкой «В подборку» в банке.'
       : missing ? `Не нашлось задач: ${missing} (возможно, их убрали из банка).` : '';
 
-    $('tasks').innerHTML = tasks.map(t => {
+    $('tasks').innerHTML = tasks.map((t, i) => {
       const c = conditionHtml(t);
       const figs = c.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('');
+      // подпись внизу задачи: номер в подборке, КИМ, номер на сайте
+      const meta = [`№ ${i + 1}`, opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
       return `<li class="ptask" data-id="${t.id}">
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
-        ${opt('kim') || opt('id') ? `<span class="pmeta">${opt('id') ? `<span class="pid">${t.id}</span>` : ''}${
-          opt('kim') ? `<span class="pkim">КИМ ${t.kim}</span>` : ''}</span>` : ''}
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ: ________________${t.unit ? ' ' + t.unit : ''}</p>` : ''}
+        ${opt('space') && t.kim >= 21 ? '<div class="p2space" aria-hidden="true"></div>' : ''}
+        <p class="pmeta">${meta}</p>
       </li>`;
     }).join('');
 
