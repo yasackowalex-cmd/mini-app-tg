@@ -19,7 +19,7 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, KIM_POINTS, hwStars, starsText, lessonHwResult } = window.taskRender;
+  const { testScore, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved } = window.taskRender;
   // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
   const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
   const KIMS = Object.keys(KIM_POINTS);
@@ -164,7 +164,7 @@
   // ученики ДЗ (с учётом фильтра класса) и их результат
   function hwRows(hw) {
     const res = data.results[hw.id] || {}, g = $('t-grade').value;
-    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: fixR(id, hw.task_ids, res[id]) }))
+    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: fixR(id, hw.task_ids, res[id], Date.parse(hw.created_at) / 1000) }))
       .filter(x => !g || x.s.grade === g)
       .sort((a, b) => (a.s.grade || '').localeCompare(b.s.grade || '', 'ru', { numeric: true }) || name(a.s).localeCompare(name(b.s), 'ru'));
   }
@@ -176,8 +176,10 @@
   const p2List = sid => (data.p2 && data.p2[sid]) || [];
   const p2Get = (sid, t) => p2List(sid).find(e => e[0] === t);
   // балл учителя важнее самооценки: полный — задача решена, неполный — нет
-  function fixR(sid, ids, r) {
+  function fixR(sid, ids, r, since) {
     const out = { ok: [...r.ok], bad: [...r.bad], retry: [...(r.retry || [])], help: [...(r.help || [])] };
+    // пересдача: задача, перерешанная без подсказки через RETRY_DAYS, уже не «с подсказкой» (сервер этого не знает)
+    if (since !== undefined && data.rlogs[sid]) out.help = out.help.filter(t => !cleanSolved(t, data.logs[sid] || [], data.rlogs[sid], since));
     ids.forEach(t => {
       const e = p2Get(sid, t);
       if (!e || !has(e[3])) return;
@@ -454,7 +456,7 @@
     const log = data.logs[s.tg_id] || [];
     const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
     const items = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
-      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: fixR(s.tg_id, hw.task_ids, data.results[hw.id][s.tg_id]),
+      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: fixR(s.tg_id, hw.task_ids, data.results[hw.id][s.tg_id], Date.parse(hw.created_at) / 1000),
         last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
       .concat((lessons || []).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))

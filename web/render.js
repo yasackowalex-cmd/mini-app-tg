@@ -64,7 +64,24 @@
   // ответы — стоят: без них 3, если они понадобились не больше чем в трети задач — 2, иначе 1.
   // звёзды за ДЗ по доле решённого (сроков нет): задача, решённая после подсказки или показанного ответа, — половина;
   // 3★ от 90%, 2★ от 60%, 1★ от 30%. Всё сам — 3, всё решено и подсказки не больше чем в трети задач — 2.
-  const STARS_RULE = 'Звёзды за ДЗ: 3 — от 90% решённого, 2 — от 60%, 1 — от 30%. Задача после подсказки или показанного ответа считается за половину.';
+  // Пересдача: задача с подсказкой засчитывается полностью, если её снова решили верно не раньше чем через
+  // RETRY_DAYS дней после последней подсказки или показанного ответа к ней (и без новых подсказок).
+  const RETRY_DAYS = 3, RETRY_SEC = RETRY_DAYS * 86400;
+  const STARS_RULE = `Звёзды за ДЗ: 3 — от 90% решённого, 2 — от 60%, 1 — от 30%. Задача после подсказки или показанного ответа считается за половину, но её можно перерешать через ${RETRY_DAYS} дня — тогда она засчитается полностью.`;
+  // подсказки и ответы к задаче t, открытые не раньше since, которые «мешают» верному ответу в момент ts
+  const helpBefore = (t, ts, rv, since) => (rv || []).some(r => r[0] === t && r[2] >= since && r[2] <= ts && ts - r[2] < RETRY_SEC);
+  // есть ли верный ответ на t (не раньше since) без подсказки в предыдущие RETRY_DAYS дней
+  const cleanSolved = (t, log, rv, since = 0) => (log || []).some(e => e[0] === t && e[1] && e[2] >= since && !helpBefore(t, e[2], rv, since));
+  // с какого момента (unix) можно перерешать задачу t: через RETRY_DAYS после последней подсказки
+  const retryAt = (t, rv, since = 0) => Math.max(0, ...(rv || []).filter(r => r[0] === t && r[2] >= since).map(r => r[2])) + RETRY_SEC;
+  // строка для ученика под звёздами: какие задачи с подсказкой и когда можно перерешать
+  function retryNote(help, rv, since = 0) {
+    if (!help.length) return '';
+    const now = Date.now() / 1000, at = Math.min(...help.map(t => retryAt(t, rv, since)));
+    const day = new Date(at * 1000).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    return `Задач с подсказкой: ${help.length}. ` + (at <= now ? 'Их уже можно перерешать без подсказки — тогда они засчитаются полностью.'
+      : `Перерешать их без подсказки можно с ${day} — тогда они засчитаются полностью.`);
+  }
   const hwStars = (n, ok, help) => { const p = n ? (ok - help / 2) / n : 0; return p >= 0.9 - 1e-9 ? 3 : p >= 0.6 - 1e-9 ? 2 : p >= 0.3 - 1e-9 ? 1 : 0; };
   const starsText = k => '★'.repeat(k) + '☆'.repeat(3 - k);
   // Итог по ДЗ урока (у урока нет даты выдачи — считаются все ответы): log — журнал ответов [id, 1|0, unix]
@@ -78,7 +95,7 @@
       if (c && !(t in firstOk)) firstOk[t] = ts;
     }
     const ok = ids.filter(t => t in firstOk);
-    const help = ok.filter(t => (rv || []).some(r => r[0] === t && r[2] <= firstOk[t]));
+    const help = ok.filter(t => (rv || []).some(r => r[0] === t && r[2] <= firstOk[t]) && !cleanSolved(t, log, rv));
     return { ok, help, retry: ok.filter(t => !first[t] && !help.includes(t)), bad: ids.filter(t => t in first && !(t in firstOk)) };
   }
 
@@ -96,5 +113,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, STARS_RULE, lessonHwResult };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS };
 })();

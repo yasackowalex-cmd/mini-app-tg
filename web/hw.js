@@ -5,7 +5,7 @@
   'use strict';
   const BOT = 'physics_is_phun_bot';
   const $ = id => document.getElementById(id);
-  const { pick, hwStars, starsText } = window.taskRender;
+  const { pick, hwStars, starsText, cleanSolved, retryNote } = window.taskRender;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const link = id => `https://t.me/${BOT}?startapp=hw_${id}`;
   const date = s => new Date(s).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
@@ -23,24 +23,27 @@
   // после подсказки или показанного ответа (они стоят звезду).
   function hwResult(hw, ids) {
     const since = Date.parse(hw.created_at) / 1000, log = window.tgLog || [], rv = window.tgReveals || [];
-    let ok = 0, help = 0;
+    let ok = 0;
+    const help = [];
     for (const id of ids) {
       let first = null;
       for (const e of log) if (e[0] === id && e[1] && e[2] >= since) first = e[2]; // журнал от новых к старым
       if (first === null) continue;
       ok++;
-      if (rv.some(r => r[0] === id && r[2] >= since && r[2] <= first)) help++;
+      // задача с подсказкой засчитывается полностью, если её перерешали позже без подсказки (см. RETRY_DAYS)
+      if (rv.some(r => r[0] === id && r[2] >= since && r[2] <= first) && !cleanSolved(id, log, rv, since)) help.push(id);
     }
-    return { ok, help };
+    return { ok, help, since, rv };
   }
 
   function hwItem(hw) {
     const v = window.bankView, ids = hw.task_ids.filter(v.has);
-    const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help);
+    const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help.length);
+    const note = st < 3 ? retryNote(r.help, r.rv, r.since) : '';
     const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
     return `<li class="hwi" data-id="${esc(hw.id)}">
       <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
-      ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : ''}
+      ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
       <div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button></div>
     </li>`;
   }
