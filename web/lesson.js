@@ -91,7 +91,8 @@
     if (!window.tgLog || !L.hw.length) return null;
     const { lessonHwResult, hwStars } = window.taskRender;
     const r = lessonHwResult(L.hw, window.tgLog, window.tgReveals || []);
-    return { ok: r.ok.length, n: L.hw.length, st: hwStars(L.hw.length, r.ok.length, r.help.length) };
+    const st = hwStars(L.hw.length, r.ok.length, r.help.length);
+    return { ok: r.ok.length, n: L.hw.length, st, note: st < 3 ? window.taskRender.retryNote(r.help, window.tgReveals || []) : '' };
   }
   function renderRes() {
     const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic), el = box.querySelector('.lhw-res');
@@ -99,7 +100,7 @@
     if (el) {
       el.hidden = !r;
       const T = window.taskRender;
-      if (r) el.innerHTML = `${r.st ? `<span class="stars" title="${T.STARS_RULE}">${T.starsText(r.st)}</span> ` : ''}${r.ok === r.n ? 'Все задачи решены' : `Решено ${r.ok} из ${r.n}. ${T.STARS_RULE}`}`;
+      if (r) el.innerHTML = `${r.st ? `<span class="stars" title="${T.STARS_RULE}">${T.starsText(r.st)}</span> ` : ''}${r.ok === r.n ? `Все задачи решены.${r.note ? ' ' + r.note : ''}` : `Решено ${r.ok} из ${r.n}. ${T.STARS_RULE}`}`;
     }
     if (list.length && !$('lessons-list').hidden) renderList();
   }
