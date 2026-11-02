@@ -7,13 +7,13 @@ theme:
 topic: 4.2
 level: Б
 type: расчётная
-variant: 
+variant: 12
 answer: "3"
 unit: ""
 has_image: true
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, ПОСТРОЕНИЕ_ИЗОБРАЖЕНИЙ]
-source: len.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 12)
 ---
 
 ## Условие

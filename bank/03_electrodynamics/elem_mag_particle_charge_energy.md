@@ -7,13 +7,13 @@ theme: МАГНИТНОЕ ПОЛЕ. СИЛА АМПЕРА. СИЛА ЛОРЕНЦ
 topic: 3.2.1
 level: П
 type: расчётная (часть 2)
-variant: 
+variant: 17
 answer: "8·10⁻¹⁹"
 unit: "Кл"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_ЛОРЕНЦА]
-source: mag.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 17)
 ---
 
 ## Условие

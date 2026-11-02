@@ -13,7 +13,7 @@ unit: "Гц"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА]
-source: kim04.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 5)
 ---
 
 ## Условие

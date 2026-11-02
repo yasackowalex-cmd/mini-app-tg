@@ -7,13 +7,13 @@ theme:
 topic: 4.2
 level: В
 type: расчётная (часть 2)
-variant: 
+variant: 9
 answer: "0,53"
 unit: "м"
 has_image: false
 author_task: false
 tags: [ОПТИКА, ЛИНЗЫ, РАСЧЕТНАЯ_ЗАДАЧА]
-source: len.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)
 ---
 
 ## Условие

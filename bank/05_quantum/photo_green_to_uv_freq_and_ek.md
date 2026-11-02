@@ -7,13 +7,13 @@ theme: ФОТОЭФФЕКТ. УРАВНЕНИЕ ЭЙНШТЕЙНА ДЛЯ ФОТ
 topic: 4.5
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 2
 answer: "11"
 unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ФОТОЭФФЕКТ, КИНЕТИЧЕСКАЯ_ЭНЕРГИЯ]
-source: fe.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)
 ---
 
 ## Условие

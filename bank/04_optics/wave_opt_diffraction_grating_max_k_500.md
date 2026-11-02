@@ -7,13 +7,13 @@ theme:
 topic: 4.3
 level: В
 type: расчётная (часть 2)
-variant: 
+variant: 30
 answer: "3"
 unit: ""
 has_image: false
 author_task: false
 tags: [ОПТИКА, ВОЛНОВАЯ_ОПТИКА, ДИФРАКЦИОННАЯ_РЕШЕТКА, ВНЕ_ЕГЭ_2027]
-source: dif.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 30)
 ---
 
 ## Условие

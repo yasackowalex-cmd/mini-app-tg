@@ -7,13 +7,13 @@ theme:
 topic: 3.2.2
 level: В
 type: расчётная (часть 2)
-variant: 
+variant: 19
 answer: "5"
 unit: "мкФ"
 has_image: true
 author_task: false
 tags: []
-source: ind2.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 19)
 ---
 
 ## Условие

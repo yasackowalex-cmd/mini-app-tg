@@ -7,13 +7,13 @@ theme: ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМ
 topic: 4.5
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 30
 answer: "12"
 unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ФОТОЭФФЕКТ, U_DEC_LAMBDA_EK]
-source: fe.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 30)
 ---
 
 ## Условие

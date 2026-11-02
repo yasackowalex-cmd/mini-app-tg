@@ -7,13 +7,13 @@ theme: МЕХАНИЧЕСКИЕ КОЛЕБАНИЯ И ВОЛНЫ
 topic: 1.5.2
 level: В
 type: расчётная (часть 2)
-variant: 25
+variant: 3
 answer: "50"
 unit: "дптр"
 has_image: true
 author_task: false
 tags: [МЕХАНИКА, ОПТИКА]
-source: osc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 3)
 ---
 
 ## Условие

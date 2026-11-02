@@ -7,13 +7,13 @@ theme: ФИЗИКА ЯДРА. СОСТАВ ЯДРА И ЯДЕРНЫЕ ПРЕВР
 topic: 4.6
 level: Б
 type: расчётная
-variant: 
+variant: 27
 answer: "30"
 unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, ТАБЛИЦА_МЕНДЕЛЕЕВА]
-source: nuc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 27)
 ---
 
 ## Условие

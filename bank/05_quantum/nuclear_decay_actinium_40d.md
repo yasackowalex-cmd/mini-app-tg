@@ -7,13 +7,13 @@ theme: РАДИОАКТИВНЫЙ РАСПАД. КВАНТОВЫЕ ПЕРЕХО�
 topic: 4.6
 level: Б
 type: расчётная
-variant: 
+variant: 2
 answer: "1,75"
 unit: "мг"
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, РАСПАД]
-source: nuc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)
 ---
 
 ## Условие

@@ -7,13 +7,13 @@ theme: ФОТОЭФФЕКТ. ГРАФИКИ И СВОЙСТВА ФОТОЭЛЕМ
 topic: 4.5
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 27
 answer: "23"
 unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ФОТОЭФФЕКТ, ЗЕЛЕНЫЙ_СИНИЙ_LAMBDA_REDLINE]
-source: fe.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 27)
 ---
 
 ## Условие

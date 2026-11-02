@@ -7,13 +7,13 @@ theme: ИНТЕГРИРОВАННЫЕ ЗАДАНИЯ №18 (ЗАВЕРШАЮЩИ
 topic: 4.7
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 30
 answer: "24"
 unit: ""
 has_image: false
 author_task: false
 tags: [МЕХАНИКА, МКТ, ЭЛЕКТРОДИНАМИКА, ОПТИКА, КВАНТОВАЯ_ФИЗИКА]
-source: kim18.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 30)
 ---
 
 ## Условие
