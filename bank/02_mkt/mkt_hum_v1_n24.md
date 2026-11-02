@@ -13,7 +13,7 @@ unit: "г"
 has_image: false
 author_task: false
 tags: [МКТ, ВЛАЖНОСТЬ]
-source: wet.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 1)
 ---
 
 ## Условие

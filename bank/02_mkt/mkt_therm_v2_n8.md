@@ -13,7 +13,7 @@ unit: "Дж"
 has_image: true
 author_task: false
 tags: [МКТ, ТЕРМОДИНАМИКА]
-source: 1td.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)
 ---
 
 ## Условие

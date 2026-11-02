@@ -13,7 +13,7 @@ unit: ""
 has_image: false
 author_task: false
 tags: [МЕХАНИКА]
-source: din.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)
 ---
 
 ## Условие

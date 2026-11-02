@@ -13,7 +13,7 @@ unit: "Ом"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ТОК, МОЩНОСТЬ, ДЖОУЛЬ_ЛЕНЦ]
-source: jou.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)
 ---
 
 ## Условие

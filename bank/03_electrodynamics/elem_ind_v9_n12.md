@@ -13,7 +13,7 @@ unit: "мВ"
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, ИНДУКЦИЯ]
-source: ind.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)
 ---
 
 ## Условие

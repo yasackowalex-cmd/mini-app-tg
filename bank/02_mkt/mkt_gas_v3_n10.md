@@ -7,13 +7,13 @@ theme: УРАВНЕНИЕ МЕНДЕЛЕЕВА-КЛАПЕЙРОНА. ОСНОВ�
 topic: 2.2
 level: Б
 type: соответствие/выбор
-variant: 3
+variant: 1
 answer: "21"
 unit: ""
 has_image: false
 author_task: false
 tags: [МКТ]
-source: ig.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 1)
 ---
 
 ## Условие

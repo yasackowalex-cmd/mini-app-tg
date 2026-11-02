@@ -7,13 +7,13 @@ theme: КПД ТЕПЛОВОЙ МАШИНЫ. КПД ЦИКЛА
 topic: 2.6
 level: В
 type: расчётная (часть 2)
-variant: 
+variant: 10
 answer: "0,92"
 unit: ""
 has_image: true
 author_task: false
 tags: [МКТ, КПД_ЦИКЛА]
-source: 2td.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 10)
 ---
 
 ## Условие

@@ -13,7 +13,7 @@ unit: "раз"
 has_image: true
 author_task: false
 tags: [МКТ]
-source: mkt.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 10)
 ---
 
 ## Условие

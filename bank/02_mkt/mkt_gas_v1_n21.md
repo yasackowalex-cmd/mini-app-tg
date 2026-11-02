@@ -13,7 +13,7 @@ unit: ""
 has_image: true
 author_task: false
 tags: [МКТ, ВНЕ_ЕГЭ_2027]
-source: ig.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 1)
 ---
 
 ## Условие

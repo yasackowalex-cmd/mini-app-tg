@@ -7,13 +7,13 @@ theme: ФИЗИКА ЯДРА. СОСТАВ ЯДРА И ЯДЕРНЫЕ ПРЕВР
 topic: 4.6
 level: Б
 type: расчётная
-variant: 
+variant: 29
 answer: "76"
 unit: ""
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, АЛЬФА_РАСПАД]
-source: nuc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 29)
 ---
 
 ## Условие

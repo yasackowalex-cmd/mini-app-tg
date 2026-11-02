@@ -13,7 +13,7 @@ unit: ""
 has_image: false
 author_task: false
 tags: [ЭЛЕКТРОДИНАМИКА, МАГНЕТИЗМ, СИЛА_ЛОРЕНЦА]
-source: mag.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)
 ---
 
 ## Условие

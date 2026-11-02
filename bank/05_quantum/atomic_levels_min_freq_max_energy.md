@@ -7,13 +7,13 @@ theme: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. КВАНТОВЫЕ 
 topic: 4.6
 level: Б
 type: соответствие/выбор
-variant: 
+variant: 10
 answer: "12"
 unit: ""
 has_image: true
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, АТОМНАЯ_ФИЗИКА, УРОВНИ_ЭНЕРГИИ]
-source: nuc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 10)
 ---
 
 ## Условие

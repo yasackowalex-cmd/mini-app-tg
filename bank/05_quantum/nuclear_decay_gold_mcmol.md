@@ -7,13 +7,13 @@ theme: СОСТАВ ЯДРА. ЯДЕРНЫЕ РЕАКЦИИ. КВАНТОВЫЕ 
 topic: 4.6
 level: Б
 type: расчётная
-variant: 
+variant: 9
 answer: "20"
 unit: "мкмоль"
 has_image: false
 author_task: false
 tags: [КВАНТОВАЯ_ФИЗИКА, ЯДЕРНАЯ_ФИЗИКА, РАСПАД]
-source: nuc.tex
+source: Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)
 ---
 
 ## Условие
