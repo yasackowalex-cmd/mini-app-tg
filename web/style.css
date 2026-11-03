@@ -343,3 +343,4 @@ p.cnt { white-space: normal; }
 .q-ans b { display: block; font-size: 13px; color: var(--muted); }
 .q-sol > summary { color: #0066FF; cursor: pointer; margin: 6px 0; }
 .q-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.hello.login-fail { color: #FFD9D0; font-size: 13px; line-height: 1.35; white-space: normal; }

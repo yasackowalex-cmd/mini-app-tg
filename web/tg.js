@@ -32,8 +32,25 @@
   // избранное с сервера в window.tgFav (null, если сервер его не хранит);
   // о загрузке app.js узнаёт по событию tg-progress.
   // Если сервер недоступен, банк работает как раньше, без сохранения.
-  api('login').then(res => {
-    if (!res) return null;
+  // Вход с разбором ошибки: если сервер не пустил, ученик видит, что делать, а код причины помогает учителю.
+  const login = () => fetch(AUTH_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ initData: tg.initData, action: 'login' }) })
+    .then(r => r.json().catch(() => ({})).then(b => (r.ok && b && b.ok ? b : { fail: (b && b.error) || 'http ' + r.status })))
+    .catch(() => ({ fail: 'network' }));
+  function loginFailed(code) {
+    if (!el) return;
+    const age = Math.round(Date.now() / 1000 - Number((tg.initDataUnsafe || {}).auth_date || 0));
+    const why = code === 'unauthorized'
+      ? 'Телеграм передал устаревшие данные входа. Закройте мини-приложение полностью (не сворачивая) и откройте его снова из бота. Если не поможет, обновите Телеграм.'
+      : code === 'network' ? 'Нет связи с сервером. Проверьте интернет и откройте приложение снова.'
+      : 'Сервер не ответил. Попробуйте открыть приложение позже.';
+    el.innerHTML = `Не получилось войти: ответы и ДЗ сейчас не сохраняются. ${why} <span class="small">(код: ${code}, ${tg.platform || '?'} ${tg.version || '?'}, вход ${age} с назад)</span>`;
+    el.classList.add('login-fail');
+    el.hidden = false;
+  }
+  // один повтор: первый запрос иногда не доходит (холодный старт функции, плохая сеть)
+  login().then(r => r.fail && r.fail !== 'unauthorized' ? login() : r).then(res => {
+    if (res.fail) { loginFailed(res.fail); return null; }
     window.tgUser = res.user;
     window.tgApi = api;
     window.tgTeacher = !!res.teacher;
