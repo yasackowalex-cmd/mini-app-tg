@@ -344,3 +344,5 @@ p.cnt { white-space: normal; }
 .q-sol > summary { color: #0066FF; cursor: pointer; margin: 6px 0; }
 .q-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .hello.login-fail { color: #FFD9D0; font-size: 13px; line-height: 1.35; white-space: normal; }
+/* подписи под именем ученика и у сводки длинные: переносим по строкам, чтобы не уходили за край телефона */
+.t-head > .cnt, .teacher summary > .cnt { white-space: normal; }
