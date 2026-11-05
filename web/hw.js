@@ -42,7 +42,7 @@
     const note = st < 3 ? retryNote(r.help, r.rv, r.since) : '';
     const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
     return `<li class="hwi" data-id="${esc(hw.id)}">
-      <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
+      <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
       ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
       <div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button></div>
     </li>`;

@@ -346,3 +346,4 @@ p.cnt { white-space: normal; }
 .hello.login-fail { color: #FFD9D0; font-size: 13px; line-height: 1.35; white-space: normal; }
 /* подписи под именем ученика и у сводки длинные: переносим по строкам, чтобы не уходили за край телефона */
 .t-head > .cnt, .teacher summary > .cnt { white-space: normal; }
+.cnt.wrap { white-space: normal; }
