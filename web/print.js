@@ -35,15 +35,15 @@
     $('tasks').innerHTML = tasks.map((t, i) => {
       const c = conditionHtml(t);
       const figs = c.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('');
-      // подпись внизу задачи: номер в подборке, КИМ, номер на сайте
-      const meta = [`№ ${i + 1}`, opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
+      // подпись внизу задачи: КИМ и номер на сайте (номер в подборке уже стоит у задачи)
+      const meta = [opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
       return `<li class="ptask" data-id="${t.id}">
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ: ________________${t.unit ? ' ' + t.unit : ''}</p>` : ''}
         ${opt('space') && t.kim >= 21 ? '<div class="p2space" aria-hidden="true"></div>' : ''}
-        <p class="pmeta">${meta}</p>
+        ${meta ? `<p class="pmeta">${meta}</p>` : ''}
       </li>`;
     }).join('');
 
