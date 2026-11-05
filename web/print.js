@@ -35,8 +35,8 @@
     $('tasks').innerHTML = tasks.map((t, i) => {
       const c = conditionHtml(t);
       const figs = c.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('');
-      // подпись внизу задачи: номер в подборке, КИМ, номер на сайте
-      const meta = [`№ ${i + 1}`, opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
+      // подпись внизу задачи: КИМ и номер на сайте (номер в подборке уже стоит у задачи)
+      const meta = [opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
       return `<li class="ptask" data-id="${t.id}">
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
         <div class="cond">${c.html}</div>
