@@ -43,7 +43,7 @@
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ: ________________${t.unit ? ' ' + t.unit : ''}</p>` : ''}
         ${opt('space') && t.kim >= 21 ? '<div class="p2space" aria-hidden="true"></div>' : ''}
-        <p class="pmeta">${meta}</p>
+        ${meta ? `<p class="pmeta">${meta}</p>` : ''}
       </li>`;
     }).join('');
 
