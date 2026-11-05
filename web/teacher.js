@@ -467,7 +467,7 @@
     return `<ul class="t-sub t-work">${items.map(({ L, title, sub, ids, r, last }, k) => {
       const n = ids.length, st = starsOf(r, n), errs = errIds(ids, r).filter(inBank);
       return `<li><span><b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
-        <span class="cnt ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length ? `, не решено ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
+        <span class="cnt wrap ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length ? `, не решено ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
         ${marks(ids, r)}
         <span class="hwa"><button class="btn" type="button" data-act="w-open" data-k="${k}">${L ? 'Открыть урок' : 'Открыть ДЗ'}</button>${errs.length ? `<button class="btn" type="button" data-act="w-err" data-k="${k}">Задачи с ошибками (${errs.length})</button>` : ''}</span></li>`;
     }).join('')}</ul>
