@@ -113,7 +113,10 @@
   function card(t) {
     const el = document.createElement('article');
     el.className = 'task lv-' + t.level;
+    // в ДЗ задачи пронумерованы по порядку, как у учителя
+    const num = view && view.title ? found.indexOf(t) + 1 : 0;
     const chips = [
+      num ? `<span class="chip num">№ ${num}</span>` : '',
       t.kim ? `<span class="chip kim">КИМ ${t.kim}</span>` : '',
       t.topic ? `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>` : '',
       `<span class="chip">${t.type}</span>`,
