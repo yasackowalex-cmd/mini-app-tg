@@ -3,7 +3,21 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore } = window.taskRender;
+  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2 } = window.taskRender;
+
+  // Экзамен, к которому готовится ученик (переключатель «ЕГЭ / ОГЭ» в шапке, решение владельца 05.11.2026):
+  // банк, номера КИМ, темы и прогресс показываются только по нему. Выбор помнит браузер; ссылка с #exam=ОГЭ его ставит.
+  const EXAMS = ['ЕГЭ', 'ОГЭ'];
+  const EXAM = (() => {
+    const h = new URLSearchParams(location.hash.slice(1)).get('exam');
+    let v = null;
+    try { v = localStorage.getItem('examKind'); } catch (e) { /* без хранилища — ЕГЭ */ }
+    if (EXAMS.includes(h)) { v = h; try { localStorage.setItem('examKind', h); } catch (e) { /* ничего */ } }
+    return EXAMS.includes(v) ? v : 'ЕГЭ';
+  })();
+  const OGE = EXAM === 'ОГЭ';
+  window.EXAM = EXAM;
+  const inExam = (t, ex) => t.exam === ex || t.exam === 'оба';
 
   const PAGE = 20;
   const FILTERS = [
@@ -12,13 +26,14 @@
     { key: 'kim', el: 'f-kim', all: 'Все номера' },
     { key: 'level', el: 'f-level', all: 'Любой' },
     { key: 'type', el: 'f-type', all: 'Любой' },
-    { key: 'exam', el: 'f-exam', all: 'Любой' },
   ];
-  const SECTION_ORDER = ['Механика', 'МКТ и термодинамика', 'Электродинамика', 'Оптика', 'Квантовая физика'];
+  const SECTION_ORDER = ['Механика', 'МКТ и термодинамика', 'Тепловые явления', 'Электродинамика', 'Электромагнитные явления', 'Оптика', 'Оптика и ядерная физика', 'Квантовая физика'];
   const LEVEL_NAME = { 'Б': 'базовый', 'П': 'повышенный', 'В': 'высокий' };
 
   const $ = id => document.getElementById(id);
-  let bank = [], topics = {}, found = [], shown = 0, byId = {};
+  let bank = [], all = [], topics = {}, topicsBy = { 'ЕГЭ': {}, 'ОГЭ': {} }, found = [], shown = 0, byId = {};
+  // название темы по экзамену задачи: коды тем ЕГЭ и ОГЭ совпадают (1.1.1), а темы разные
+  const topicName = t => (topicsBy[t.exam === 'ОГЭ' ? 'ОГЭ' : 'ЕГЭ'] || {})[t.topic] || '';
   // view — показ одного ДЗ ({title, ids}) или избранного ({fav: true, ids}) вместо фильтров банка; любой фильтр его снимает
   let view = null;
 
@@ -66,6 +81,7 @@
   function state() {
     const st = { q: $('q').value.trim() };
     FILTERS.forEach(f => { st[f.key] = $(f.el).value; });
+    if (OGE) st.exam = 'ОГЭ';
     return st;
   }
 
@@ -118,7 +134,7 @@
     const chips = [
       num ? `<span class="chip num">№ ${num}</span>` : '',
       t.kim ? `<span class="chip kim">КИМ ${t.kim}</span>` : '',
-      t.topic ? `<span class="chip">${t.topic} ${topics[t.topic] || ''}</span>` : '',
+      t.topic ? `<span class="chip">${t.topic} ${topicName(t)}</span>` : '',
       `<span class="chip">${t.type}</span>`,
       t.author_task ? '<span class="chip avt">авторская</span>' : '',
       view && view.err && view.ids.indexOf(t.id) >= view.err ? '<span class="chip sim">похожая</span>' : '',
@@ -202,7 +218,7 @@
   // Кнопки появляются после проверки ответа или открытого разбора/ответа; поставленный балл помнит браузер.
   // В Телеграме ответ и балл уходят на сервер (таблица part2): учитель видит их в кабинете и ставит свой балл,
   // он показывается ученику под задачей.
-  const selfMax = t => (t.kim >= 21 || !t.check || t.check === 'none') ? (KIM_POINTS[t.kim] || 1) : 0;
+  const selfMax = t => (isPart2(t) || !t.check || t.check === 'none') ? (pointsOf(t) || 1) : 0;
   const grades = (() => { try { return JSON.parse(localStorage.getItem('grades')) || {}; } catch (e) { return {}; } })();
   function showGrade(el) { const g = el.querySelector('.grade'); if (g) g.hidden = false; }
   const p2Of = t => window.tgP2 && window.tgP2[t.id];
@@ -401,12 +417,19 @@
   // «в работу», а если номер не решали KIM_STALE_DAYS дней, он просит повторения и не идёт в прогноз.
   // Звёзды — за 2× и 3× порога разных решённых задач, чтобы было куда расти после «освоен».
   // Прогноз первичного балла: сумма максимальных баллов освоенных номеров (KIM_POINTS в render.js, всего 45).
-  const KIM_NEED = k => KIM_MIN_SOLVED[+k >= 21 ? 2 : 1];   // порог по части экзамена
-  const KIM_MAX = 45, KIM_MIN_SOLVED = { 1: 10, 2: 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
+  // ОГЭ: те же правила, номера 1–22 (часть 2 — 17–22), всего 39 баллов, вместо тестового балла — отметка.
+  const KP = OGE ? OGE_POINTS : KIM_POINTS;
+  const KIM_NEED = (k, ex) => KIM_MIN_SOLVED[+k >= ((ex || EXAM) === 'ОГЭ' ? 17 : 21) ? 2 : 1];   // порог по части экзамена
+  const KIM_MAX = OGE ? 39 : 45, KIM_MIN_SOLVED = { 1: 10, 2: 7 }, KIM_MIN_ACC = 0.8, KIM_WINDOW = 10, KIM_STALE_DAYS = 21;
 
   // Ниже — решено задач по четырём разделам физики (оптика входит в электродинамику,
   // как в кодификаторе) и по темам внутри раздела. Доля верных ответов — отдельной строкой.
-  const PROGRESS_GROUPS = [
+  const PROGRESS_GROUPS = OGE ? [
+    { name: 'Механика', sections: ['Механика'] },
+    { name: 'Тепловые явления', sections: ['Тепловые явления'] },
+    { name: 'Электромагнитные явления', sections: ['Электромагнитные явления'] },
+    { name: 'Оптика и ядерная физика', sections: ['Оптика и ядерная физика'] },
+  ] : [
     { name: 'Механика', sections: ['Механика'] },
     { name: 'МКТ и термодинамика', sections: ['МКТ и термодинамика'] },
     { name: 'Электродинамика и оптика', sections: ['Электродинамика', 'Оптика'] },
@@ -422,11 +445,13 @@
   const balls = n => n % 10 === 1 && n % 100 !== 11 ? 'балл' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'балла' : 'баллов';
 
   // p — {task_id: {n, ok}}, log — журнал ответов [[task_id, 1|0, время]] от новых к старым или null
-  function kimStats(p, log) {
+  // ex — экзамен (по умолчанию выбранный); кабинет учителя считает по ЕГЭ
+  function kimStats(p, log, ex) {
+    ex = ex || EXAM;
     const st = {}, kimOf = {};
-    Object.keys(KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0, recent: [], last: 0 }; });
-    bank.forEach(t => {
-      if (!st[t.kim] || (t.tags || []).includes('ВНЕ_ЕГЭ_2027')) return;
+    Object.keys(ex === 'ОГЭ' ? OGE_POINTS : KIM_POINTS).forEach(k => { st[k] = { solved: 0, n: 0, ok: 0, recent: [], last: 0 }; });
+    all.forEach(t => {
+      if (!inExam(t, ex) || !st[t.kim] || (ex === 'ЕГЭ' && (t.tags || []).includes('ВНЕ_ЕГЭ_2027'))) return;
       kimOf[t.id] = t.kim;
       const r = p[t.id], s = st[t.kim];
       if (!r) return;
@@ -442,7 +467,7 @@
     });
     const now = Date.now() / 1000;
     Object.entries(st).forEach(([k, s]) => {
-      const need = KIM_NEED(k);
+      const need = KIM_NEED(k, ex);
       const acc = log ? s.recent.filter(Boolean).length / (s.recent.length || 1) : s.ok / (s.n || 1);
       s.acc = acc;
       s.stars = s.solved >= 3 * need ? 2 : s.solved >= 2 * need ? 1 : 0;
@@ -463,14 +488,14 @@
     Object.values(p).forEach(r => { n += r.n; ok += r.ok; });
     const solved = bank.filter(isSolved).length;
 
-    const ks = kimStats(p, window.tgLog), kims = Object.keys(KIM_POINTS);
+    const ks = kimStats(p, window.tgLog), kims = Object.keys(KP);
     const done = kims.filter(k => ks[k].state === 'done');
-    const score = done.reduce((a, k) => a + KIM_POINTS[k], 0);
+    const score = done.reduce((a, k) => a + KP[k], 0);
     const cells = kims.map(k => {
       const s = ks[k], hint = !s.n ? 'не начат'
         : `решено ${s.solved} разных задач (нужно ${KIM_NEED(k)}), верных ${Math.round(100 * s.acc)}%` +
           (s.state === 'stale' ? ', пора повторить' : s.state === 'done' ? ', освоен' : '');
-      return `<a class="kc ${s.state}" href="#kim=${k}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KIM_POINTS[k]} б</small>` +
+      return `<a class="kc ${s.state}" href="#kim=${k}${OGE ? '&exam=ОГЭ' : ''}" title="№ ${k}: ${hint}"><b>${k}</b><small>${KP[k]} б</small>` +
         (s.stars ? `<i class="stars">${'★'.repeat(s.stars)}</i>` : '') + `</a>`;
     }).join('');
 
@@ -484,7 +509,7 @@
       });
       const gs = tasks.filter(isSolved).length;
       const topicsHtml = [...byTopic.entries()].sort((x, y) => codeKey(x[0]) < codeKey(y[0]) ? -1 : 1).map(([code, r]) =>
-        `<li><a href="#topic=${encodeURIComponent(code)}">${code} ${topics[code] || ''}</a>
+        `<li><a href="#topic=${encodeURIComponent(code)}${OGE ? '&exam=ОГЭ' : ''}">${code} ${topics[code] || ''}</a>
           <span class="cnt">${r.solved} из ${r.total}</span>${bar(r.solved, r.total)}</li>`).join('');
       return `<details class="grp"><summary><span class="gname">${g.name}</span>
           <span class="cnt">${gs} из ${tasks.length} · ${pct(gs, tasks.length)}%</span>${bar(gs, tasks.length)}</summary>
@@ -492,14 +517,14 @@
     }).join('');
 
     $('progress-body').innerHTML = `
-      <h3 class="ph">Готовность к ЕГЭ</h3>
+      <h3 class="ph">Готовность к ${EXAM}</h3>
       <div class="total"><div class="big-num">${score}</div>
-        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах, это <b>${testScore(score)}</b> тестовых из 100</div></div>
+        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах, это ${OGE ? `отметка <b>«${ogeMark(score)}»</b>` : `<b>${testScore(score)}</b> тестовых из 100`}</div></div>
       ${bar(score, KIM_MAX, true)}
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
       <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED[1]} разных задач этого номера (в части 2, номера 21–26, ${KIM_MIN_SOLVED[2]}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
+      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED[1]} разных задач этого номера (в части 2, номера ${OGE ? '17–22' : '21–26'}, ${KIM_MIN_SOLVED[2]}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}
@@ -546,14 +571,18 @@
 
   async function init() {
     try {
-      const [b, tp] = await Promise.all([
+      const [b, tp, to] = await Promise.all([
         fetch('out/bank.json', { cache: 'no-cache' }).then(r => r.json()),
         fetch('out/topics.json', { cache: 'no-cache' }).then(r => r.json()),
+        fetch('out/topics_oge.json', { cache: 'no-cache' }).then(r => r.json()).catch(() => ({})),
       ]);
-      topics = tp;
-      bank = b.map(t => ({ ...t, kim: t.kim ?? '', _search: norm(t.condition + ' ' + t.id + ' ' + (t.theme || '')) }));
+      topicsBy = { 'ЕГЭ': tp, 'ОГЭ': to };
+      topics = topicsBy[EXAM];
+      // all — все задачи (ДЗ и избранное могут ссылаться на задачи другого экзамена), bank — выбранного экзамена
+      all = b.map(t => ({ ...t, kim: t.kim ?? '', _search: norm(t.condition + ' ' + t.id + ' ' + (t.theme || '')) }));
+      all.forEach(t => { byId[t.id] = t; });
+      bank = all.filter(t => inExam(t, EXAM));
       bank.sort((a, b) => codeKey(a.topic) < codeKey(b.topic) ? -1 : codeKey(a.topic) > codeKey(b.topic) ? 1 : (a.kim - b.kim) || (a.variant || 0) - (b.variant || 0));
-      bank.forEach(t => { byId[t.id] = t; });
     } catch (e) {
       $('status').textContent = 'Не удалось загрузить банк задач.';
       return;
@@ -585,6 +614,9 @@
     });
     $('more').addEventListener('click', showMore);
     window.addEventListener('hashchange', () => {
+      // ссылка на задачи другого экзамена (#exam=ОГЭ / #exam=ЕГЭ) переключает экзамен
+      const hx = new URLSearchParams(location.hash.slice(1)).get('exam');
+      if (EXAMS.includes(hx) && hx !== EXAM) { try { localStorage.setItem('examKind', hx); } catch (e) { /* ничего */ } location.reload(); return; }
       if (window.lessonView && window.lessonView.route()) return;
       setTab('bank');
       const h = readHash();
@@ -597,7 +629,8 @@
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
     // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
-    window.bankStats = { kimStats, topics, byId, KIM_MIN_SOLVED, KIM_NEED, KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
+    window.bankStats = { kimStats: (p, log) => kimStats(p, log, 'ЕГЭ'), topics: topicsBy['ЕГЭ'], byId, KIM_MIN_SOLVED,
+      KIM_NEED: k => KIM_NEED(k, 'ЕГЭ'), KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
     // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
     window.bankView = {
       show(title, ids, plain) { view = { title, ids, plain }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
@@ -625,6 +658,26 @@
     });
   }
 
+  // переключатель «ЕГЭ / ОГЭ»: выбор запоминается, страница открывается заново уже по другому экзамену
+  function setupExamSwitch() {
+    document.querySelectorAll('#exam-switch [data-exam]').forEach(b => {
+      b.setAttribute('aria-pressed', String(b.dataset.exam === EXAM));
+      b.addEventListener('click', () => {
+        if (b.dataset.exam === EXAM) return;
+        try { localStorage.setItem('examKind', b.dataset.exam); } catch (e) { /* ничего */ }
+        location.hash = b.dataset.exam === 'ОГЭ' ? 'exam=ОГЭ' : '';
+        location.reload();
+      });
+    });
+    $('exam-title').textContent = EXAM;
+    document.title = document.title.replace('ЕГЭ', EXAM);
+    // пробники и уроки пока только ЕГЭ: у ОГЭ появятся, когда в банке наберутся задачи
+    $('exams-top').hidden = OGE;
+    const lt = document.querySelector('#tabs [data-tab="lessons"]');
+    if (lt) lt.hidden = OGE;
+  }
+
+  setupExamSwitch();
   markExams();
   init();
 })();

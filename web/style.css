@@ -347,3 +347,10 @@ p.cnt { white-space: normal; }
 /* подписи под именем ученика и у сводки длинные: переносим по строкам, чтобы не уходили за край телефона */
 .t-head > .cnt, .teacher summary > .cnt { white-space: normal; }
 .cnt.wrap { white-space: normal; }
+
+/* переключатель «ЕГЭ / ОГЭ» в шапке: банк, темы и прогресс по выбранному экзамену */
+.top .head-text { flex: 1; min-width: 0; }
+.exam-switch { display: flex; border: 1px solid rgba(255,255,255,.35); border-radius: 8px; overflow: hidden; align-self: flex-start; flex-shrink: 0; }
+.exam-switch button { font: 600 15px/1 Oswald, sans-serif; letter-spacing: .04em; padding: 8px 12px; border: 0; background: transparent; color: #fff; cursor: pointer; }
+.exam-switch button[aria-pressed="true"] { background: var(--blue); }
+@media (max-width: 420px) { .exam-switch button { padding: 7px 9px; font-size: 14px; } .top h1 { font-size: 22px; } }

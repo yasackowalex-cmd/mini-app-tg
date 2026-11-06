@@ -248,6 +248,7 @@ def main():
     # без номера КИМ), остаётся своя задача ДЗ: lessons/tasks/<id>.md, в банк она не попадает.
     bank_path = os.path.join(ROOT, 'out', 'bank.json')
     full = json.load(open(bank_path, encoding='utf-8')) if os.path.exists(bank_path) else []
+    full = [b for b in full if b.get('exam', 'ЕГЭ') == 'ЕГЭ']   # уроки ЕГЭ: задачи ОГЭ с теми же кодами тем не брать
     bank = [b for b in full if b.get('topic') == topic]
     min_sim = 0.0
     if not bank:
