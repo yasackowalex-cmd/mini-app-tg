@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Сборка банка: папка bank/**/*.md → один bank.json для приложения.
+Задачи ОГЭ лежат в bank/oge/ (exam: ОГЭ, темы — topics_oge.csv).
 Картинки берутся из assets/ (их делает scripts/tikz_to_svg.py).
 Запуск: python -I scripts/build_bank.py [--bank bank] [--assets assets] [--out out/bank.json]
 """
@@ -176,6 +177,15 @@ def main():
         topics = {r['topic']: r['title'] for r in csv.DictReader(f)}
     with open(os.path.join(os.path.dirname(a.out), 'topics.json'), 'w', encoding='utf-8', newline='\n') as f:
         json.dump(topics, f, ensure_ascii=False, indent=1)
+    # темы курса ОГЭ (topics_oge.csv, коды из архива курса ОГЭ): коды пересекаются с ЕГЭ, поэтому отдельный файл
+    with open(os.path.join(ROOT, 'topics_oge.csv'), encoding='utf-8-sig', newline='') as f:
+        topics_oge = {r['topic']: r['title'] for r in csv.DictReader(f)}
+    with open(os.path.join(os.path.dirname(a.out), 'topics_oge.json'), 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(topics_oge, f, ensure_ascii=False, indent=1)
+    for t in tasks:
+        known = topics_oge if t.get('exam') == 'ОГЭ' else topics
+        if t.get('topic') not in (None, '', 'TODO') and t['topic'] not in known:
+            problems.append((t['file'], f"тема {t['topic']} не найдена в {'topics_oge.csv' if t.get('exam') == 'ОГЭ' else 'topics.csv'}"))
 
     # уроки по темам (lessons/<тема>.md, scripts/import_lesson.py): конспект, видео, задачи ДЗ из банка
     lessons = []

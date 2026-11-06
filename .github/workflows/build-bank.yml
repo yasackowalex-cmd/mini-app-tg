@@ -10,6 +10,7 @@ on:
       - 'bank/**'
       - 'scripts/**'
       - 'topics.csv'
+      - 'topics_oge.csv'
       - 'exams/**'
       - 'lessons/**'
       - 'web/**'

@@ -60,6 +60,15 @@
   const TEST_SCALE = [0, 5, 9, 14, 18, 23, 27, 32, 36, 39, 41, 43, 44, 46, 48, 49, 51, 53, 54, 56, 58, 59, 61, 62, 64, 65, 67, 68, 70, 71, 73, 74, 76, 77, 79, 80, 82, 84, 86, 88, 90, 92, 94, 96, 98, 100];
   const testScore = p => TEST_SCALE[Math.max(0, Math.min(45, Math.round(p)))];
 
+  // ОГЭ 2027 (спецификация ФИПИ): 22 задания, всего 39 первичных баллов; 17–22 — развёрнутый ответ.
+  const OGE_POINTS = { 1: 2, 2: 2, 3: 1, 4: 2, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 2, 13: 2,
+    14: 2, 15: 1, 16: 2, 17: 3, 18: 2, 19: 2, 20: 3, 21: 3, 22: 3 };
+  // Перевод первичного балла ОГЭ в отметку (шкала владельца 06.11.2026): 0–9 «2», 10–19 «3», 20–29 «4», 30–39 «5».
+  const ogeMark = p => p >= 30 ? 5 : p >= 20 ? 4 : p >= 10 ? 3 : 2;
+  // Баллы за номер и «вторая часть» с учётом экзамена задачи
+  const pointsOf = t => ((t && t.exam === 'ОГЭ') ? OGE_POINTS : KIM_POINTS)[t && t.kim];
+  const isPart2 = t => !!t && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21);
+
   // Звёзды за ДЗ (0–3): только когда решены все n задач. Ошибки звёзд не стоят, подсказки и показанные
   // ответы — стоят: без них 3, если они понадобились не больше чем в трети задач — 2, иначе 1.
   // звёзды за ДЗ по доле решённого (сроков нет): задача, решённая после подсказки или показанного ответа, — половина;
@@ -113,5 +122,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS };
 })();
