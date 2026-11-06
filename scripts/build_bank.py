@@ -83,7 +83,7 @@ def check_mode(t):
     a = str(t.get('answer', '')).strip()
     if re.fullmatch(r'\d+(?:[.,]\d+)?\s*±\s*\d+(?:[.,]\d+)?', a):
         return 'pm'
-    if str(t.get('kim')) == '20' and re.fullmatch(r'\d+', a):
+    if t.get('exam', 'ЕГЭ') != 'ОГЭ' and str(t.get('kim')) == '20' and re.fullmatch(r'\d+', a):
         return 'set'
     if t.get('type') == 'соответствие/выбор' and re.fullmatch(r'\d+', a):
         cond = t.get('condition', '')
