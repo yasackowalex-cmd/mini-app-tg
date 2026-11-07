@@ -49614,7 +49614,7 @@
   ],
   "source": "Камзеева, ОГЭ-2027, 30 вариантов (вариант 5)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=0.85, every node/.style={font=\\small}]\n  \\foreach \\x in {-4,...,2} \\draw[brandSecondary!40] (\\x,-2.2) -- (\\x,2.6);\n  \\draw[thick] (-4.5,0) -- (2.6,0);\n  \\draw[thick] (0,-2.2) -- (0,2.3);\n  \\draw[thick] (-0.15,2.45) -- (0,2.3) -- (0.15,2.45); \\draw[thick] (-0.15,-2.35) -- (0,-2.2) -- (0.15,-2.35);\n  \\draw[<->] (-1,2.75) -- (0,2.75) node[midway, above] {4 см};\n  \\draw[very thick, -{Stealth}] (-3.35,0) -- (-3.35,1.68);\n  \\node[below] at (-3.35,0) {A}; \\node[left] at (-3.35,1.68) {B};\n  \\node[below right] at (0,0) {O};\n  \\draw[thick, -{Stealth}] (-3.35,1.68) -- (-0.5,1.68); \\draw[thick] (-0.5,1.68) -- (0,1.68);\n  \\draw[thick, -{Stealth}] (0,1.68) -- (1.6,3.02);\n  \\draw[thick, dashed] (0,1.68) -- (-2,0);\n  \\draw[thick, -{Stealth}] (-3.35,1.68) -- (2.4,-1.204);\n  \\draw[very thick, -{Stealth}] (-1.25,0) -- (-1.25,0.627);\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=0.85, every node/.style={font=\\small}]\n  \\foreach \\x in {-3,...,2} \\draw[brandSecondary!40] (\\x,-2.2) -- (\\x,2.6);\n  \\draw[thick] (-3.5,0) -- (2.6,0);\n  \\draw[thick] (0,-2.2) -- (0,2.3);\n  \\draw[thick] (-0.15,2.45) -- (0,2.3) -- (0.15,2.45); \\draw[thick] (-0.15,-2.35) -- (0,-2.2) -- (0.15,-2.35);\n  \\draw[<->] (-1,2.75) -- (0,2.75) node[midway, above] {4 см};\n  \\draw[very thick, -{Stealth}] (-2,0) -- (-2,1.8);\n  \\node[below left] at (-2,0) {A}; \\node[left] at (-2,1.8) {B};\n  \\node[above right] at (0,0) {O};\n  \\draw[thick, -{Stealth}] (-2,1.8) -- (-0.5,1.8); \\draw[thick] (-0.5,1.8) -- (0,1.8);\n  \\draw[thick, -{Stealth}] (0,1.8) -- (1.6,3.24);\n  \\draw[thick, dashed] (0,1.8) -- (-2,0);\n  \\draw[thick, -{Stealth}] (-2,1.8) -- (2.3,-2.07);\n  \\draw[very thick, -{Stealth}] (-1,0) -- (-1,0.9);\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показаны оптический центр и оптическая ось рассеивающей линзы, а также дано построение изображения предмета AB в рассеивающей линзе. Чему равна оптическая сила линзы?\n\n[[рис 1]]",
   "sol_tikz": [],
@@ -49623,7 +49623,7 @@
   "check": "number",
   "file": "oge/04_optics_nuclear/kam27_v5_n10.md",
   "images": [
-   "assets/kam27_v5_n10_1.svg?v=f66358b2"
+   "assets/kam27_v5_n10_1.svg?v=bde5261d"
   ],
   "solution_images": []
  },
