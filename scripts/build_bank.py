@@ -87,7 +87,7 @@ def check_mode(t):
         return 'set'
     if t.get('type') == 'соответствие/выбор' and re.fullmatch(r'\d+', a):
         cond = t.get('condition', '')
-        if re.search(r'выбер|все выбранные цифры', cond, re.I) and not re.search(r'соответстви', cond, re.I):
+        if re.search(r'выбер|все выбранные цифры|запишите номера', cond, re.I) and not re.search(r'соответстви', cond, re.I):
             return 'set'
         return 'seq'
     if re.fullmatch(r'[-−]?\d+(?:[.,]\d+)?(?:·10[⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+)?', a):
