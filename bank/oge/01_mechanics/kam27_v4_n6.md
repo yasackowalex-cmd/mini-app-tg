@@ -29,7 +29,7 @@ source: Камзеева, ОГЭ-2027, 30 вариантов (вариант 4)
   \begin{scope}[shift={(0.0,0)}]
   \draw[thick] (0,-6) -- (0,104); \draw[thick] (-0.4,-6) -- (3.0,-6);
   \draw[thick] (0,96) -- (1.25,96) -- (1.25,92);
-  \draw[thick, fill=white] (1.75,-2) rectangle (2.75,108);
+  \draw[thick, fill=white] (1.75,-5) rectangle (2.75,108);
   \foreach \c in {0,2,...,100} \draw (1.75,\c) -- (1.86,\c);
   \foreach \c in {0,10,...,100} {\draw (1.75,\c) -- (1.95,\c); \node[right, inner sep=1pt] at (1.97,\c) {\c};}
   \node[above] at (2.25,108) {см};
@@ -40,7 +40,7 @@ source: Камзеева, ОГЭ-2027, 30 вариантов (вариант 4)
   \begin{scope}[shift={(4.14,0)}]
   \draw[thick] (0,-6) -- (0,104); \draw[thick] (-0.4,-6) -- (3.0,-6);
   \draw[thick] (0,96) -- (1.25,96) -- (1.25,92);
-  \draw[thick, fill=white] (1.75,-2) rectangle (2.75,108);
+  \draw[thick, fill=white] (1.75,-5) rectangle (2.75,108);
   \foreach \c in {0,2,...,100} \draw (1.75,\c) -- (1.86,\c);
   \foreach \c in {0,10,...,100} {\draw (1.75,\c) -- (1.95,\c); \node[right, inner sep=1pt] at (1.97,\c) {\c};}
   \node[above] at (2.25,108) {см};
