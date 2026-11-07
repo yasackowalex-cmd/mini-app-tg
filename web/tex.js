@@ -100,7 +100,19 @@
     while ((m = TAB.exec(s)) && guard++ < 50) {
       const body = m[2].replace(/\\(hline|toprule|midrule|bottomrule)/g, '').replace(/\\cline\{[^}]*\}/g, '');
       const rows = body.split(/\\\\(?:\[[^\]]*\])?/).map(r => r.trim()).filter(r => r.replace(/\s/g, '')); // пустая строка с & — клетки для ответа, её оставляем
-      const html = rows.map(r => '<tr>' + r.split('&amp;').map(c => {
+      // таблица соответствия «ЗАГОЛОВОК | ЗАГОЛОВОК», в клетках только «А) …» и «1) …»:
+      // два столбца-списка, на узком экране друг под другом (как в сборнике)
+      const cells = rows.map(r => r.split('&amp;').map(c => c.trim()));
+      const isHead = c => /^\\textbf\{[^{}]*\}$/.test(c);
+      const isItem = c => /^(?:[А-ЯA-Z]|\d+)\)\s/.test(c);
+      if (cells.length > 1 && cells.every(r => r.length === 2) && cells[0].every(isHead)
+          && cells.slice(1).every(r => r.every(c => !c || isItem(c)))) {
+        const col = k => `<div class="mcol"><div class="mh">${inline(cells[0][k])}</div>` +
+          cells.slice(1).map(r => r[k]).filter(Boolean).map(c => `<div class="mi">${inline(c)}</div>`).join('') + '</div>';
+        s = s.slice(0, m.index) + put(`<div class="match">${col(0)}${col(1)}</div>`, true) + s.slice(m.index + m[0].length);
+        continue;
+      }
+      const html =rows.map(r => '<tr>' + r.split('&amp;').map(c => {
         let span = '';
         c = replaceCmd(c, 'multicolumn', 3, a => { span = ` colspan="${parseInt(a[0], 10) || 1}"`; return a[2]; });
         c = replaceCmd(c, 'multirow', 3, a => a[2]);

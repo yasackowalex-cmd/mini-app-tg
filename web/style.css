@@ -73,6 +73,10 @@ select { font: inherit; font-size: 15px; padding: 7px 8px; border: 1px solid var
 .verdict.ok { color: #1E8E3E; }
 .verdict.bad { color: #C5221F; }
 .cond td.num { white-space: nowrap; }
+.match { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: .5em 0 .7em; }
+.match .mcol { flex: 1 1 200px; min-width: 0; }
+.match .mh { font-weight: 700; margin-bottom: .25em; overflow-wrap: normal; }
+.match .mi { margin: .2em 0; padding-left: 1.4em; text-indent: -1.4em; }
 .cond td:has(br) { text-align: left; }
 .top .hello { margin: 6px 0 0; color: #FF6B35; font-weight: 700; }
 .progress { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 16px 0 0; }
