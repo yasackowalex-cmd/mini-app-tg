@@ -147,16 +147,18 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
   }
 
   if (action === 'progress') {
-    const { data, error } = await pages(() => db.from('attempts').select('task_id, correct, created_at').eq('tg_id', user.id)
+    const { data, error } = await pages(() => db.from('attempts').select('task_id, correct, answer, created_at').eq('tg_id', user.id)
       .order('id', { ascending: false }));
     if (error) return [500, { ok: false, error: 'db' }];
     const tasks: Record<string, { n: number; ok: number }> = {};
-    const log: [string, number, number][] = [];
+    // у неверных ответов четвёртым элементом сам ответ: по нему сайт видит частично верные (1 балл из 2)
+    const log: ([string, number, number] | [string, number, number, string])[] = [];
     for (const r of data ?? []) {
       const t = (tasks[r.task_id] ??= { n: 0, ok: 0 });
       t.n++;
       if (r.correct) t.ok++;
-      log.push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+      const ts = Math.floor(Date.parse(r.created_at) / 1000) || 0;
+      log.push(r.correct ? [r.task_id, 1, ts] : [r.task_id, 0, ts, String(r.answer ?? '').slice(0, 40)]);
     }
     // избранное; если таблицы ещё нет (не выполнен favorites.sql), прогресс отдаётся без него
     const f = await pages(() => db.from('favorites').select('task_id').eq('tg_id', user.id)
@@ -385,11 +387,15 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade, last_seen_at').limit(5000);
     if (e3) return [500, { ok: false, error: 'db' }];
     const students = (us ?? []).filter((u: any) => !teachers.includes(Number(u.tg_id)));
-    const { data: all, error: e5 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct, created_at')
+    const { data: all, error: e5 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct, answer, created_at')
       .order('id', { ascending: false }));
     if (e5) return [500, { ok: false, error: 'db' }];
-    const logs: Record<string, [string, number, number][]> = {};
-    for (const r of all ?? []) (logs[r.tg_id] ??= []).push([r.task_id, r.correct ? 1 : 0, Math.floor(Date.parse(r.created_at) / 1000) || 0]);
+    // у неверных ответов четвёртым элементом сам ответ (частично верные в 1 части)
+    const logs: Record<string, any[][]> = {};
+    for (const r of all ?? []) {
+      const ts = Math.floor(Date.parse(r.created_at) / 1000) || 0;
+      (logs[r.tg_id] ??= []).push(r.correct ? [r.task_id, 1, ts] : [r.task_id, 0, ts, String(r.answer ?? '').slice(0, 40)]);
+    }
     // все открытые подсказки и ответы учеников — для ДЗ уроков; без таблицы reveals (миграция 007) — null
     const ra = await pages(() => db.from('reveals').select('tg_id, task_id, kind, created_at').order('id', { ascending: false }));
     let rlogs: Record<string, [string, string, number][]> | null = null;
