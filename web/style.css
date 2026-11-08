@@ -361,3 +361,5 @@ p.cnt { white-space: normal; }
 .hwr-st { padding: 8px 0; border-top: 1px solid var(--line); }
 .hwr-name { margin: 0; }
 .mks span.wait { color: #8A6100; background: #FFF4D6; }
+.mks span.part { color: #B35400; background: #FFE2C7; }
+.mks span.wait.part { color: #B35400; background: #FFE2C7; }
