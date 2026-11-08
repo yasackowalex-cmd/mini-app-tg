@@ -177,7 +177,7 @@
   const p2Get = (sid, t) => p2List(sid).find(e => e[0] === t);
   // балл учителя важнее самооценки: полный — задача решена, неполный — нет
   function fixR(sid, ids, r, since) {
-    const out = { ok: [...r.ok], bad: [...r.bad], retry: [...(r.retry || [])], help: [...(r.help || [])] };
+    const out = { ok: [...r.ok], bad: [...r.bad], retry: [...(r.retry || [])], help: [...(r.help || [])], part: [] };
     // пересдача: задача, перерешанная без подсказки через RETRY_DAYS, уже не «с подсказкой» (сервер этого не знает)
     if (since !== undefined && data.rlogs[sid]) out.help = out.help.filter(t => !cleanSolved(t, data.logs[sid] || [], data.rlogs[sid], since));
     ids.forEach(t => {
@@ -185,7 +185,7 @@
       if (!e || !has(e[3])) return;
       const drop = k => { out[k] = out[k].filter(x => x !== t); };
       if (e[3] === e[4]) { drop('bad'); if (!out.ok.includes(t)) out.ok.push(t); }
-      else { drop('ok'); drop('retry'); drop('help'); if (!out.bad.includes(t)) out.bad.push(t); }
+      else { drop('ok'); drop('retry'); drop('help'); if (!out.bad.includes(t)) out.bad.push(t); if (e[3] > 0) out.part.push(t); }
     });
     return out;
   }
@@ -266,8 +266,8 @@
     // клетка задачи: [класс, подсказка, значок после номера]; для 2 части — балл учителя или самооценка с «?»
     const cell = (sid, r, t) => {
       const e = p2Get(sid, t);
-      if (e && has(e[3])) return [e[3] === e[4] ? 'ok' : e[3] ? 'retry' : 'bad', `балл учителя ${e[3]} из ${e[4]}`, `: ${e[3]} б`];
-      if (e) return ['wait', `${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки`, `: ${has(e[2]) ? e[2] : ''}?`];
+      if (e && has(e[3])) return [e[3] === e[4] ? 'ok' : e[3] ? 'part' : 'bad', `балл учителя ${e[3]} из ${e[4]}`, `: ${e[3]} б`];
+      if (e) return [has(e[2]) && e[2] > 0 && e[2] < e[4] ? 'wait part' : 'wait', `${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки`, `: ${has(e[2]) ? e[2] : ''}?`];
       return (r.help || []).includes(t) ? ['help', 'решена после подсказки или ответа', '💡']
         : (r.retry || []).includes(t) ? ['retry', 'решена после ошибки', ' ✓']
         : r.ok.includes(t) ? ['ok', 'решена сам с первой попытки', ' ✓']
@@ -277,7 +277,7 @@
         <p class="hwr-name"><b>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</b> <span class="cnt wrap">${r.ok.length}/${n}${st ? ` <span class="stars">${starsText(st)}</span>` : ''}</span></p>
         <span class="mks">${ids.map((t, i) => { const [c, tt, x] = cell(s.tg_id, r, t);
           return `<span class="${c}" title="№ ${i + 1}: ${tt}">${i + 1}${x}</span>`; }).join('')}</span></div>`; }).join('')}</div>
-      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, серый номер — не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды по доле решённого: 3 от 90%, 2 от 60%, 1 от 30%; задача после подсказки или ответа считается за половину.</p>`;
+      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, оранжевый — решена частично (балл меньше полного), серый номер — не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды по доле решённого: 3 от 90%, 2 от 60%, 1 от 30%; задача после подсказки или ответа считается за половину.</p>`;
   }
 
   // ---- вид «Задания»: ДЗ учителя и ДЗ уроков одним списком ----
@@ -443,7 +443,8 @@
   const touched = r => r.ok.length + r.bad.length > 0;
   const lessonName = L => `Урок ${L.topic}. ${L.title}`;
   // отметки по задачам ДЗ одной строкой: номер задачи на цветном фоне, как в таблице ДЗ
-  const markOf = (r, t) => (r.help || []).includes(t) ? ['help', '💡 после подсказки или ответа']
+  const markOf = (r, t) => (r.part || []).includes(t) ? ['part', 'решена частично (балл учителя не полный)']
+    : (r.help || []).includes(t) ? ['help', '💡 после подсказки или ответа']
     : (r.retry || []).includes(t) ? ['retry', 'решена после ошибки'] : r.ok.includes(t) ? ['ok', 'решена с первой попытки']
     : r.bad.includes(t) ? ['bad', 'только неверные ответы'] : ['', 'не решал'];
   const marks = (ids, r) => `<span class="mks">${ids.map((t, i) => { const [c, tt] = markOf(r, t);
@@ -451,7 +452,7 @@
   // всё ДЗ ученика в одном списке (ДЗ от учителя и ДЗ уроков), сначала то, что он решал последним;
   // workOf[ученик] — тот же список для кнопок «Открыть» и «Задачи с ошибками»
   const workOf = {};
-  const errIds = (ids, r) => ids.filter(t => ['bad', 'retry', 'help'].includes(markOf(r, t)[0]));
+  const errIds = (ids, r) => ids.filter(t => ['bad', 'part', 'retry', 'help'].includes(markOf(r, t)[0]));
   function studentWork(s) {
     const log = data.logs[s.tg_id] || [];
     const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
@@ -467,11 +468,11 @@
     return `<ul class="t-sub t-work">${items.map(({ L, title, sub, ids, r, last }, k) => {
       const n = ids.length, st = starsOf(r, n), errs = errIds(ids, r).filter(inBank);
       return `<li><span><b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
-        <span class="cnt wrap ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length ? `, не решено ${r.bad.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
+        <span class="cnt wrap ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length - (r.part || []).length ? `, не решено ${r.bad.length - (r.part || []).length}` : ''}${(r.part || []).length ? `, частично ${r.part.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
         ${marks(ids, r)}
         <span class="hwa"><button class="btn" type="button" data-act="w-open" data-k="${k}">${L ? 'Открыть урок' : 'Открыть ДЗ'}</button>${errs.length ? `<button class="btn" type="button" data-act="w-err" data-k="${k}">Задачи с ошибками (${errs.length})</button>` : ''}</span></li>`;
     }).join('')}</ul>
-    <p class="muted small"><b class="okc">зелёный</b> — с первой попытки, <b class="retryc">жёлтый</b> — после ошибки, 💡 — после подсказки, <b class="badc">красный</b> — только неверные ответы, серый — не решал.</p>`;
+    <p class="muted small"><b class="okc">зелёный</b> — с первой попытки, <b class="retryc">жёлтый</b> — после ошибки, 💡 — после подсказки, <b class="badc">красный</b> — только неверные ответы, <b class="partc">оранжевый</b> — решена частично, серый — не решал.</p>`;
   }
   function render() {
     if (!data) return;
