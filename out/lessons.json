@@ -1630,8 +1630,8 @@
    "dem27_v30_n6",
    "dem27_v14_n6",
    "dem24_v28_n5",
-   "les143_n12",
-   "les143_n13",
+   "dem27_v23_n22",
+   "dem25_v29_n26",
    "dem26_v27_n26"
   ],
   "conspect": "\\subsection{Момент силы. Равновесие}\n\\textbf{Плечо силы} $d$ — длина перпендикуляра от оси вращения до линии действия силы. \\textbf{Момент силы:}\n\\[\nM=F\\cdot d\\quad[\\text{Н}\\cdot\\text{м}].\n\\]\n\n[[img assets/lesson_1_4_3_1.svg?v=cf6360f5]]\n\nТело в равновесии, когда выполнены \\emph{оба} условия:\n\\begin{itemize}\n  \\item \\textbf{поступательное:} $\\vec F_1+\\vec F_2+\\dots=0$ (сумма сил равна нулю);\n  \\item \\textbf{вращательное (правило моментов):} $M_{\\text{по час.}}=M_{\\text{против час.}}$; для рычага $F_1 d_1=F_2 d_2$.\n\\end{itemize}\n\n\\subsection{Блоки}\n\\textbf{Неподвижный:} меняет направление силы, выигрыша нет ($F=P$).\\\\\n\\textbf{Подвижный:} выигрыш в силе вдвое ($F=\\tfrac{P}{2}$), но не в работе. У подвижного блока груз проходит вдвое меньший путь, чем конец верёвки, поэтому $a_{\\text{груз}}=\\tfrac12 a_{\\text{конца}}$.\n\n\\subsection{Давление}\n\\[\n\\begin{gathered}\np=\\frac{F}{S}\\ [\\text{Па}];\\qquad p_{\\text{гидро}}=\\rho g h;\\\\\np_{\\text{полн}}=p_0+\\rho g h,\\quad p_0\\approx10^5~\\text{Па}.\n\\end{gathered}\n\\]\n\\textbf{Сообщающиеся сосуды:} $p_1=p_2\\Rightarrow \\rho_1 h_1=\\rho_2 h_2$.\\\\\n\\textbf{Гидравлический пресс:} $\\dfrac{F_1}{S_1}=\\dfrac{F_2}{S_2}$.\n\n\\subsection{Сила Архимеда}\n\\[\nF_A=\\rho_{\\text{ж}}\\,g\\,V_{\\text{погр}}\n\\]\n$V_{\\text{погр}}$ — объём \\emph{погружённой} части. Закон Архимеда: $F_A$ равна весу вытесненной жидкости.\\\\\n\\textbf{Условие плавания:} $F_A=mg$.\n\n\\subsection{Ловушки}\n1. Тело \\textbf{плавает} $\\Rightarrow F_A=mg$ (не $\\rho g V$ всего объёма!). Тело \\textbf{целиком погружено} (на дне, на нити) $\\Rightarrow F_A=\\rho_{\\text{ж}}gV$ всего объёма.\\\\\n2. Момент $=$ сила $\\times$ \\textbf{плечо} (перпендикуляр к линии действия), а не расстояние до точки приложения.\\\\\n3. Гидростатическое давление зависит только от глубины и плотности, но \\textbf{не от формы} сосуда и площади дна.\\\\\n4. Блок (любой) не даёт выигрыша в \\textbf{работе}: во сколько раз выигрыш в силе, во столько проигрыш в пути.\\\\\n5. Если $\\rho_{\\text{тела}}>\\rho_{\\text{ж}}$ — тело тонет; если $<$ — всплывает; если $=$ — плавает внутри.\\\\\n6. Натяжение нити для тела в жидкости: $T=mg-F_A$ (тело тяжелее вытесненной жидкости — висит на нити) или $T=F_A-mg$ (легче — привязано ко дну).\n\n\\subsection{Оформление заданий 22 и 26 (Часть 2)}\nТиповые обоснования:\n\\begin{itemize}\n  \\item система отсчёта, связанная с Землёй, инерциальна; тело рассматриваем в рамках модели абсолютно твёрдого тела (расстояние между любыми двумя точками не меняется со временем);\n  \\item записаны \\textbf{оба} условия равновесия: $\\vec F_1+\\vec F_2+\\dots=0$ и $M_{\\text{по час.}}=M_{\\text{против час.}}$ (относительно удобной оси);\n  \\item учтены все силы (тяжесть, реакция опоры/стенки, натяжение, сила Архимеда, трение);\n  \\item для гидростатики: сила Архимеда $F_A=\\rho_{\\text{ж}}gV_{\\text{погр}}$, условие плавания $F_A=mg$;\n  \\item ось моментов выбирают так, чтобы исключить неизвестную силу (например, реакцию шарнира).\n\\end{itemize}",
@@ -1692,70 +1692,6 @@
     "file": "lessons/tasks/les143_n7.md",
     "images": [],
     "solution_images": []
-   },
-   {
-    "id": "les143_n12",
-    "exam": "ЕГЭ",
-    "kim": 22,
-    "section": "Механика",
-    "theme": "",
-    "topic": "1.4.3",
-    "level": "П",
-    "type": "расчётная (часть 2)",
-    "variant": null,
-    "answer": "5",
-    "unit": "Н",
-    "has_image": false,
-    "author_task": false,
-    "tags": [
-     "МЕХАНИКА"
-    ],
-    "source": "ДЗ к уроку 1.4.3",
-    "tikz": [],
-    "condition": "Деревянный шар привязан нитью ко дну цилиндрического сосуда с площадью дна $S=100$~см$^2$. В сосуд налили воду так, что шар полностью погрузился, а нить натянулась силой $T$. Если нить перерезать, шар всплывёт, и уровень воды понизится на $h=5$~см. Найдите силу натяжения нити $T$. $(g=10\\,\\text{м/с}^2)$",
-    "sol_tikz": [],
-    "solution": "$S=100~\\text{см}^2=0{,}01~\\text{м}^2$, $h=5~\\text{см}=0{,}05~\\text{м}$.\n\nДо перерезания нити шар покоится. На него действуют сила тяжести $m\\vec g$ (вниз), сила натяжения нити $\\vec T$ (вниз) и сила Архимеда $\\vec F_A$ (вверх):\n\\[\nF_A=mg+T.\n\\]\nПосле всплытия шар плавает, сила Архимеда уравновешивает силу тяжести: $F_A'=mg$. Значит,\n\\[\nT=F_A-F_A'=\\rho_{\\text{в}}g\\,\\Delta V,\n\\]\nгде $\\Delta V$ — на сколько уменьшился объём погружённой части шара. На столько же уменьшился объём, занимаемый водой вместе с погружённой частью шара, поэтому уровень воды в сосуде опустился: $\\Delta V=Sh$.\n\\[\n\\begin{gathered}\nT=\\rho_{\\text{в}}gSh,\\\\\nT=1000\\cdot10\\cdot0{,}01\\cdot0{,}05=5~\\text{Н}.\n\\end{gathered}\n\\]",
-    "hint": "До перерезания $F_\\text{А}=mg+T$, после всплытия $F'_\\text{А}=mg$. Разность сил Архимеда — это вес воды объёмом $Sh$.",
-    "check": "number",
-    "file": "lessons/tasks/les143_n12.md",
-    "images": [],
-    "solution_images": []
-   },
-   {
-    "id": "les143_n13",
-    "exam": "ЕГЭ",
-    "kim": 22,
-    "section": "Механика",
-    "theme": "",
-    "topic": "1.4.3",
-    "level": "П",
-    "type": "расчётная (часть 2)",
-    "variant": null,
-    "answer": "4",
-    "unit": "кг",
-    "has_image": true,
-    "author_task": false,
-    "tags": [
-     "МЕХАНИКА"
-    ],
-    "source": "ДЗ к уроку 1.4.3",
-    "tikz": [
-     "\\begin{tikzpicture}[spring/.style={decorate,decoration={coil,aspect=0.5,segment length=1.1mm,amplitude=2.4mm,pre length=1.5mm,post length=1.5mm}},>=Stealth,scale=0.9,every node/.style={font=\\small}]\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,2.6) rectangle (4.6,2.75);\n  \\draw[thick] (-0.4,2.6) -- (4.6,2.6);\n  \\draw[thick,spring] (0.1,2.6) -- (0.1,1.0);\n  \\draw[thick,spring] (4.1,2.6) -- (4.1,1.0);\n  \\draw[line width=2.4pt] (0,1.0) -- (4.2,1.0);\n  \\draw[thick] (3.4,1.0) -- (3.4,0.55); \\draw[thick, fill=brandAccent!25] (3.2,0.15) rectangle (3.6,0.55); \\node at (3.4,0.35){$m$};\n  \\node[left] at (-0.2,1.8){$k$}; \\node[right] at (4.4,1.8){$3k$};\n  \\draw[thin] (4.1,0.95) -- (4.1,-0.1); \\draw[thin] (3.4,0.15) -- (3.4,-0.1);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (3.4,-0.05) -- (4.1,-0.05) node[midway, below] {$d$};\n  \\draw[thin] (0.1,0.95) -- (0.1,-0.6);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0.1,-0.55) -- (4.1,-0.55) node[midway, below] {$L$};\n\\end{tikzpicture}"
-    ],
-    "condition": "К двум вертикальным пружинам одинаковой длины подвесили однородный стержень массой $M=2$~кг и длиной $L=40$~см. Если подвесить груз на расстоянии $d=5$~см от правой пружины, стержень остаётся горизонтальным, а растяжения пружин одинаковы. Жёсткость левой пружины втрое меньше правой. Найдите массу $m$ груза. Сделайте рисунок с силами. $(g=10\\,\\text{м/с}^2)$\n\n[[рис 1]]",
-    "sol_tikz": [
-     "\\begin{tikzpicture}[spring/.style={decorate,decoration={coil,aspect=0.5,segment length=1.1mm,amplitude=2.4mm,pre length=1.5mm,post length=1.5mm}},>=Stealth,scale=0.9,every node/.style={font=\\small}]\n  \\fill[pattern=north east lines, pattern color=brandSecondary!50] (-0.4,2.6) rectangle (4.6,2.75);\n  \\draw[thick] (-0.4,2.6) -- (4.6,2.6);\n  \\draw[thick,spring] (0.1,2.6) -- (0.1,1.0);\n  \\draw[thick,spring] (4.1,2.6) -- (4.1,1.0);\n  \\draw[line width=2.4pt] (0,1.0) -- (4.2,1.0);\n  \\draw[thick] (3.4,1.0) -- (3.4,0.55); \\draw[thick, fill=brandAccent!25] (3.2,0.15) rectangle (3.6,0.55); \\node at (3.4,0.35){$m$};\n  \\node[left] at (-0.2,1.8){$k$}; \\node[right] at (4.4,1.8){$3k$};\n  \\draw[thin] (4.1,0.95) -- (4.1,-0.1); \\draw[thin] (3.4,0.15) -- (3.4,-0.1);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (3.4,-0.05) -- (4.1,-0.05) node[midway, below] {$d$};\n  \\draw[thin] (0.1,0.95) -- (0.1,-0.6);\n  \\draw[{Stealth[scale=0.6]}-{Stealth[scale=0.6]}] (0.1,-0.55) -- (4.1,-0.55) node[midway, below] {$L$};\n  \\draw[-{Stealth[scale=0.8]},very thick,brandPrimary] (0.35,1.0)--(0.35,1.8) node[right]{$\\vec F_1$};\n  \\draw[-{Stealth[scale=0.8]},very thick,brandPrimary] (3.85,1.0)--(3.85,2.1) node[left]{$\\vec F_2$};\n  \\draw[-{Stealth[scale=0.8]},very thick,brandAccent] (2.1,1.0)--(2.1,0.2) node[below]{$M\\vec g$};\n  \\draw[-{Stealth[scale=0.8]},very thick,brandAccent] (3.25,1.0)--(3.25,0.6) node[pos=1,left]{$m\\vec g$};\n\\end{tikzpicture}"
-    ],
-    "solution": "$L=0{,}4$~м, $d=0{,}05$~м, $k_2=3k_1$.\n\nНа стержень действуют сила тяжести $M\\vec g$ (в середине), сила натяжения нити груза, равная $mg$ (на расстоянии $d$ от правого конца), и силы упругости пружин $\\vec F_1$ и $\\vec F_2$ на концах.\n\n[[рис 1]]\n\nУдлинения пружин одинаковы, поэтому $F_1=kx$, $F_2=3kx=3F_1$. Условие равновесия для сил:\n\\[\nF_1+F_2=Mg+mg\\ \\Rightarrow\\ 4F_1=(M+m)g,\\quad F_2=\\frac34(M+m)g.\n\\]\nПравило моментов относительно левого конца стержня: $F_2$ вращает против часовой стрелки, $Mg$ и $mg$ — по часовой:\n\\[\nF_2L=Mg\\frac L2+mg(L-d).\n\\]\nПодставим $F_2$ и сократим на $g$:\n\\[\n\\begin{gathered}\n\\frac34(M+m)L=\\frac12ML+m(L-d),\\\\\n0{,}3(2+m)=0{,}4+0{,}35m,\\\\\n0{,}05m=0{,}2,\\quad m=4~\\text{кг}.\n\\end{gathered}\n\\]",
-    "hint": "Растяжения пружин одинаковы, значит, сила правой пружины втрое больше силы левой. Запишите равновесие сил и правило моментов.",
-    "check": "number",
-    "file": "lessons/tasks/les143_n13.md",
-    "images": [
-     "assets/les143_n13_1.svg?v=42a20147"
-    ],
-    "solution_images": [
-     "assets/les143_n13_s1.svg?v=719e9868"
-    ]
    }
   ]
  },
