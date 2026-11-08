@@ -189,13 +189,6 @@
     });
     return out;
   }
-  // клетка таблицы ДЗ для задачи 2 части: балл учителя или самооценка «?» до проверки
-  function p2Cell(sid, t) {
-    const e = p2Get(sid, t);
-    if (!e) return '';
-    if (has(e[3])) return `<td class="${e[3] === e[4] ? 'ok' : e[3] ? 'retry' : 'bad'}" title="балл учителя ${e[3]} из ${e[4]}">${e[3]}</td>`;
-    return `<td class="wait" title="${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки">${has(e[2]) ? e[2] : ''}?</td>`;
-  }
   // в карточке ученика — только сколько ждёт проверки; проверка во вкладке «Проверка»
   function p2Note(s) {
     const w = waitOf(s.tg_id).length;
@@ -266,18 +259,25 @@
     return (body || '<p class="status">Всё проверено. Новые ответы на задачи 2 части появятся здесь, когда ученики их сдадут.</p>') + doneHtml;
   }
 
-  // таблица «ученики × задачи» для ДЗ учителя и ДЗ урока
+  // ученики ДЗ и их отметки по задачам: клетки с номером задачи переносятся по строкам (на телефоне не уходят за край)
   function marksTable(ids, rows, note) {
     if (!rows.length) return `<p class="muted small">${note}</p>`;
     const n = ids.length;
-    return `<div class="tblwrap"><table class="hwr"><thead><tr><th>Ученик</th>${ids.map((_, i) => `<th>${i + 1}</th>`).join('')}<th>Итог</th></tr></thead><tbody>${
-      rows.map(({ s, r }) => { const st = starsOf(r, n); return `<tr><th>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</th>${ids.map(t =>
-        p2Cell(s.tg_id, t) || ((r.help || []).includes(t) ? '<td class="help" title="решена после подсказки или ответа">💡</td>'
-        : (r.retry || []).includes(t) ? '<td class="retry" title="решена после ошибки">✓</td>'
-        : r.ok.includes(t) ? '<td class="ok" title="решена сам с первой попытки">✓</td>'
-        : r.bad.includes(t) ? '<td class="bad" title="только неверные ответы">✗</td>' : '<td>·</td>')).join('')}<td class="sum">${r.ok.length}/${n}${st ? `<br><span class="stars">${starsText(st)}</span>` : ''}</td></tr>`; }).join('')
-      }</tbody></table></div>
-      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, · не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды по доле решённого: 3 от 90%, 2 от 60%, 1 от 30%; задача после подсказки или ответа считается за половину.</p>`;
+    // клетка задачи: [класс, подсказка, значок после номера]; для 2 части — балл учителя или самооценка с «?»
+    const cell = (sid, r, t) => {
+      const e = p2Get(sid, t);
+      if (e && has(e[3])) return [e[3] === e[4] ? 'ok' : e[3] ? 'retry' : 'bad', `балл учителя ${e[3]} из ${e[4]}`, `: ${e[3]} б`];
+      if (e) return ['wait', `${has(e[2]) ? `самооценка ${e[2]} из ${e[4]}, ` : ''}ждёт проверки`, `: ${has(e[2]) ? e[2] : ''}?`];
+      return (r.help || []).includes(t) ? ['help', 'решена после подсказки или ответа', '💡']
+        : (r.retry || []).includes(t) ? ['retry', 'решена после ошибки', ' ✓']
+        : r.ok.includes(t) ? ['ok', 'решена сам с первой попытки', ' ✓']
+        : r.bad.includes(t) ? ['bad', 'только неверные ответы', ' ✗'] : ['', 'не решал', ''];
+    };
+    return `<div class="hwr-list">${rows.map(({ s, r }) => { const st = starsOf(r, n); return `<div class="hwr-st">
+        <p class="hwr-name"><b>${esc(name(s))}${s.grade ? `, ${esc(s.grade)}` : ''}</b> <span class="cnt wrap">${r.ok.length}/${n}${st ? ` <span class="stars">${starsText(st)}</span>` : ''}</span></p>
+        <span class="mks">${ids.map((t, i) => { const [c, tt, x] = cell(s.tg_id, r, t);
+          return `<span class="${c}" title="№ ${i + 1}: ${tt}">${i + 1}${x}</span>`; }).join('')}</span></div>`; }).join('')}</div>
+      <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, серый номер — не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды по доле решённого: 3 от 90%, 2 от 60%, 1 от 30%; задача после подсказки или ответа считается за половину.</p>`;
   }
 
   // ---- вид «Задания»: ДЗ учителя и ДЗ уроков одним списком ----
