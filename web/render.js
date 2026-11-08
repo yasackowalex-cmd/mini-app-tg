@@ -53,6 +53,21 @@
   }
 
   // Максимальный первичный балл за номер КИМ (спецификация ЕГЭ 2027, всего 45).
+  // Частично верный ответ в задаче 1 части на 2 балла (критерии ЕГЭ: одна ошибка — 1 балл):
+  // соответствие и последовательность — неверна одна цифра; «выберите все верные» — одна цифра лишняя, пропущена или указана вместо верной (как в пробнике, exam.js points).
+  function isPartial(t, input) {
+    if (!t || !(t.kim <= 20) || KIM_POINTS[t.kim] !== 2 || isRight(t, input)) return false;
+    const a = digits(input), b = digits(t.answer || '');
+    if (!a || !b) return false;
+    if (t.check === 'set') {
+      const A = new Set(a), B = new Set(b);
+      if (A.size !== a.length) return false;
+      const extra = [...A].filter(x => !B.has(x)).length, miss = [...B].filter(x => !A.has(x)).length;
+      return extra + miss === 1 || (extra === 1 && miss === 1);
+    }
+    if (t.check !== 'seq' || a.length !== b.length) return false;
+    return [...a].filter((c, i) => c !== b[i]).length === 1;
+  }
   const KIM_POINTS = { 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 1, 8: 1, 9: 2, 10: 2, 11: 1, 12: 1, 13: 1,
     14: 2, 15: 2, 16: 1, 17: 2, 18: 2, 19: 1, 20: 1, 21: 3, 22: 2, 23: 2, 24: 3, 25: 3, 26: 4 };
 
@@ -122,5 +137,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS };
+  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
 })();

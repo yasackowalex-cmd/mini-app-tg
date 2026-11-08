@@ -178,6 +178,10 @@
   // балл учителя важнее самооценки: полный — задача решена, неполный — нет
   function fixR(sid, ids, r, since) {
     const out = { ok: [...r.ok], bad: [...r.bad], retry: [...(r.retry || [])], help: [...(r.help || [])], part: [] };
+    // 1 часть на 2 балла: нет верного ответа, но был ответ с одной ошибкой — «частично» (журнал с ответами — новая функция)
+    const task = window.bankStats && window.bankStats.byId, lg = data.logs[sid] || [];
+    out.bad.forEach(t => { if (!out.part.includes(t) && task && task[t] && lg.some(e => e[0] === t && !e[1] && e[3] && (since === undefined || e[2] >= since)
+      && window.taskRender.isPartial(task[t], e[3]))) out.part.push(t); });
     // пересдача: задача, перерешанная без подсказки через RETRY_DAYS, уже не «с подсказкой» (сервер этого не знает)
     if (since !== undefined && data.rlogs[sid]) out.help = out.help.filter(t => !cleanSolved(t, data.logs[sid] || [], data.rlogs[sid], since));
     ids.forEach(t => {

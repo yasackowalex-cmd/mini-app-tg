@@ -194,9 +194,9 @@
         out.className = 'verdict';
         return;
       }
-      const ok = isRight(t, v);
-      out.textContent = ok ? 'Верно!' : 'Неверно, попробуйте ещё раз';
-      out.className = 'verdict ' + (ok ? 'ok' : 'bad');
+      const ok = isRight(t, v), half = !ok && window.taskRender.isPartial(t, v);
+      out.textContent = ok ? 'Верно!' : half ? 'Почти: одна ошибка, на экзамене это 1 балл из 2. Попробуйте ещё раз' : 'Неверно, попробуйте ещё раз';
+      out.className = 'verdict ' + (ok ? 'ok' : half ? 'part' : 'bad');
       f.elements.a.classList.toggle('ok', ok);
       f.elements.a.classList.toggle('bad', !ok);
       saveAttempt(t, v, ok);
@@ -385,8 +385,10 @@
     // решённая задача, к которой не возвращались KIM_STALE_DAYS дней (по журналу ответов), просит повторения
     const last = p.ok && window.tgLog && window.tgLog.find(r => r[0] === t.id && r[1]);
     const stale = last && Date.now() / 1000 - last[2] > KIM_STALE_DAYS * 86400;
-    m.textContent = stale ? '↻ пора повторить' : p.ok ? '✓ решена' : 'пока не решена';
-    m.className = 'chip mark ' + (stale ? 'part' : p.ok ? 'ok' : 'bad');
+    // не решена, но был частично верный ответ (1 балл из 2) — отмечаем оранжевым
+    const half = !p.ok && window.tgLog && window.tgLog.some(r => r[0] === t.id && !r[1] && r[3] && window.taskRender.isPartial(t, r[3]));
+    m.textContent = stale ? '↻ пора повторить' : p.ok ? '✓ решена' : half ? '½ частично верно' : 'пока не решена';
+    m.className = 'chip mark ' + (stale || half ? 'part' : p.ok ? 'ok' : 'bad');
   }
 
   function saveAttempt(t, answer, correct) {
@@ -394,7 +396,7 @@
     const p = prog()[t.id] || (prog()[t.id] = { n: 0, ok: 0 });
     p.n++;
     if (correct) p.ok++;
-    if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000)]);
+    if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000), ...(correct ? [] : [answer])]);
     window.tgApi('attempt', { task_id: t.id, answer, correct });
     renderProgress();
     renderMistakes();
