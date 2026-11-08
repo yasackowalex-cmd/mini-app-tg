@@ -8489,6 +8489,42 @@
   "solution_images": []
  },
  {
+  "id": "dem26_v1_n26",
+  "exam": "ЕГЭ",
+  "kim": 26,
+  "section": "Механика",
+  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
+  "topic": "1.4.1",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 1,
+  "answer": "3,13",
+  "unit": "кг",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 1)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\footnotesize}]\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.2);\n    \\foreach \\y in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (0,\\y) -- (-0.12,\\y+0.12);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.2,0);\n    \\foreach \\x in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.12,-0.12);\n\n    % Координаты\n    \\coordinate (A) at (1.2,0.4);\n    \\coordinate (B) at (2.6,1.8);\n    \\coordinate (C) at (0,1.8);\n\n    % Шарнир А\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=3pt] {$A$};\n\n    % Стержень\n    \\begin{scope}[shift={(A)}, rotate=45]\n        \\draw[thick, fill=white] (0,-0.05) rectangle (1.98,0.05);\n    \\end{scope}\n    \\fill[black] (B) circle (1.5pt) node[above right] {$B$};\n\n    % Нить BC\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    % Угол альфа\n    \\draw[dashed, thin] (A) -- (2.2,0.4);\n    \\draw (1.6,0.4) arc (0:45:0.4);\n    \\node at (1.8,0.58) {$\\alpha$};\n\\end{tikzpicture}"
+  ],
+  "condition": "Тонкий однородный стержень $AB$ постоянного сечения шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$ (см. рисунок), угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите массу стержня $m$, если модуль силы $F$, с которой шарнир действует на стержень, равен $35$~Н. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,2.8);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (3.4,0);\n  \\draw[thick, brandSecondary] (0,2.8) -- (0,0) -- (3.4,0);\n  % шарнир и стержень\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.0,2.3);\n  \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n  \\draw[line width=3pt, brandPrimary!35] (A) -- (B);\n  \\draw[thick, fill=white] (A) circle (2pt);\n  \\node[left, xshift=-2pt] at (A) {$A$};\n  \\node[above right, inner sep=1pt] at (B) {$B$};\n  % нить\n  \\draw[thick] (0,2.3) -- (B);\n  \\node[above right, inner sep=1pt] at (0,2.3) {$C$};\n  % угол\n  \\draw[dashed, thin] (A) -- (2.1,0.5);\n  \\draw (1.65,0.5) arc (0:45:0.45);\n  \\node at (1.85,0.65) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.4,2.3) node[above] {$\\vec T$};\n  \\draw[Fvec] (2.1,1.4) -- (2.1,0.2) node[right] {$m\\vec g$};\n  \\fill (2.1,1.4) circle (1.2pt);\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.8,0.5);\n  \\node[below] at (1.75,0.5) {$F_x$};\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.2,1.7);\n  \\node[left] at (1.2,1.35) {$F_y$};\n  \\draw[dashed, thin, gray] (1.2,1.7) -- (1.8,1.7) -- (1.8,0.5);\n  \\draw[Fvec] (A) -- (1.8,1.7) node[above] {$\\vec F$};\n\\end{tikzpicture}"
+  ],
+  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень — твёрдое тело, находящееся в равновесии, поэтому векторная сумма действующих на него сил равна нулю и сумма моментов сил относительно любой оси (в частности, относительно оси шарнира $A$) равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесома, сила её натяжения направлена вдоль нити, т.е. горизонтально. Трения в шарнире нет, поэтому момент силы реакции шарнира относительно оси $A$ равен нулю.\n\n\\textbf{Решение.} На стержень действуют сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира. Обозначим $L$ — длину стержня, $F_x$, $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$.\n\nСилы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси $A$: $TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\mathrm{tg}\\,\\alpha} = \\dfrac{mg}{2}$ (так как $\\mathrm{tg}\\,45^\\circ = 1$).\n\nРавенство нулю суммы сил: по горизонтали $F_x = T = \\dfrac{mg}{2}$, по вертикали $F_y = mg$.\n\nМодуль силы шарнира: $F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{\\dfrac{1}{4} + 1} = \\dfrac{\\sqrt{5}}{2}mg$.\n\nОтсюда $m = \\dfrac{2F}{\\sqrt{5}g} = \\dfrac{2\\cdot 35}{2{,}236\\cdot 10}\\,\\text{кг} \\approx 3{,}13\\,\\text{кг}$.",
+  "hint": "Запишите правило моментов относительно шарнира $A$: так исключится неизвестная сила шарнира. Найдите натяжение нити, а силу шарнира — из равенства нулю суммы сил (по теореме Пифагора из составляющих).",
+  "check": "number",
+  "file": "01_mechanics/dem26_v1_n26.md",
+  "images": [
+   "assets/dem26_v1_n26_1.svg?v=21fc2c51"
+  ],
+  "solution_images": [
+   "assets/dem26_v1_n26_s1.svg?v=31864342"
+  ]
+ },
+ {
   "id": "dem26_v1_n3",
   "exam": "ЕГЭ",
   "kim": 3,
@@ -9812,6 +9848,42 @@
   "solution_images": []
  },
  {
+  "id": "dem26_v2_n26",
+  "exam": "ЕГЭ",
+  "kim": 26,
+  "section": "Механика",
+  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
+  "topic": "1.4.1",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 2,
+  "answer": "30,2",
+  "unit": "Н",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)",
+  "tikz": [
+   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\footnotesize}]\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.2);\n    \\foreach \\y in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (0,\\y) -- (-0.12,\\y+0.12);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.2,0);\n    \\foreach \\x in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.12,-0.12);\n\n    % Координаты\n    \\coordinate (A) at (1.2,0.4);\n    \\coordinate (B) at (2.6,1.8);\n    \\coordinate (C) at (0,1.8);\n\n    % Шарнир А\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=3pt] {$A$};\n\n    % Стержень\n    \\begin{scope}[shift={(A)}, rotate=45]\n        \\draw[thick, fill=white] (0,-0.05) rectangle (1.98,0.05);\n    \\end{scope}\n    \\fill[black] (B) circle (1.5pt) node[above right] {$B$};\n\n    % Нить BC\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    % Угол альфа\n    \\draw[dashed, thin] (A) -- (2.2,0.4);\n    \\draw (1.6,0.4) arc (0:45:0.4);\n    \\node at (1.8,0.58) {$\\alpha$};\n\\end{tikzpicture}"
+  ],
+  "condition": "Тонкий однородный стержень $AB$ постоянного сечения массой $2{,}7$~кг шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$ (см. рисунок), угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите модуль силы $F$, с которой шарнир действует на стержень. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,2.8);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (3.4,0);\n  \\draw[thick, brandSecondary] (0,2.8) -- (0,0) -- (3.4,0);\n  % шарнир и стержень\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.0,2.3);\n  \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n  \\draw[line width=3pt, brandPrimary!35] (A) -- (B);\n  \\draw[thick, fill=white] (A) circle (2pt);\n  \\node[left, xshift=-2pt] at (A) {$A$};\n  \\node[above right, inner sep=1pt] at (B) {$B$};\n  % нить\n  \\draw[thick] (0,2.3) -- (B);\n  \\node[above right, inner sep=1pt] at (0,2.3) {$C$};\n  % угол\n  \\draw[dashed, thin] (A) -- (2.1,0.5);\n  \\draw (1.65,0.5) arc (0:45:0.45);\n  \\node at (1.85,0.65) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.4,2.3) node[above] {$\\vec T$};\n  \\draw[Fvec] (2.1,1.4) -- (2.1,0.2) node[right] {$m\\vec g$};\n  \\fill (2.1,1.4) circle (1.2pt);\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.8,0.5);\n  \\node[below] at (1.75,0.5) {$F_x$};\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.2,1.7);\n  \\node[left] at (1.2,1.35) {$F_y$};\n  \\draw[dashed, thin, gray] (1.2,1.7) -- (1.8,1.7) -- (1.8,0.5);\n  \\draw[Fvec] (A) -- (1.8,1.7) node[above] {$\\vec F$};\n\\end{tikzpicture}"
+  ],
+  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень — твёрдое тело, находящееся в равновесии, поэтому векторная сумма действующих на него сил равна нулю и сумма моментов сил относительно любой оси (в частности, относительно оси шарнира $A$) равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесома, сила её натяжения направлена вдоль нити, т.е. горизонтально. Трения в шарнире нет, поэтому момент силы реакции шарнира относительно оси $A$ равен нулю.\n\n\\textbf{Решение.} На стержень действуют сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира. Обозначим $L$ — длину стержня, $F_x$, $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$.\n\nСилы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси $A$: $TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\mathrm{tg}\\,\\alpha} = \\dfrac{mg}{2}$ (так как $\\mathrm{tg}\\,45^\\circ = 1$).\n\nРавенство нулю суммы сил: по горизонтали $F_x = T = \\dfrac{mg}{2}$, по вертикали $F_y = mg$.\n\nМодуль силы шарнира: $F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{\\dfrac{1}{4} + 1} = \\dfrac{\\sqrt{5}}{2}mg$.\n\n$F = \\dfrac{2{,}236}{2}\\cdot 2{,}7\\cdot 10\\,\\text{Н} \\approx 30{,}2\\,\\text{Н}$.",
+  "hint": "Запишите правило моментов относительно шарнира $A$: так исключится неизвестная сила шарнира. Найдите натяжение нити, а силу шарнира — из равенства нулю суммы сил (по теореме Пифагора из составляющих).",
+  "check": "number",
+  "file": "01_mechanics/dem26_v2_n26.md",
+  "images": [
+   "assets/dem26_v2_n26_1.svg?v=21fc2c51"
+  ],
+  "solution_images": [
+   "assets/dem26_v2_n26_s1.svg?v=31864342"
+  ]
+ },
+ {
   "id": "dem26_v2_n3",
   "exam": "ЕГЭ",
   "kim": 3,
@@ -10996,6 +11068,42 @@
   "images": [],
   "solution_images": [
    "assets/dem26_v9_n2_s1.svg?v=3f36c504"
+  ]
+ },
+ {
+  "id": "dem26_v9_n26",
+  "exam": "ЕГЭ",
+  "kim": 26,
+  "section": "Механика",
+  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
+  "topic": "1.4.1",
+  "level": "В",
+  "type": "расчётная (часть 2)",
+  "variant": 9,
+  "answer": "3",
+  "unit": "",
+  "has_image": true,
+  "author_task": false,
+  "tags": [
+   "МЕХАНИКА"
+  ],
+  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)",
+  "tikz": [
+   "\\begin{tikzpicture}[>=Stealth, scale=1.2]\n    % --- Поверхность стола со штриховкой ---\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (0,-0.2) rectangle (4,0);\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (3.8,-1.2) rectangle (4,0);\n    \\draw[thick, color=brandSecondary] (0,0) -- (4,0) -- (4,-1.2);\n\n    % --- Брусок AB ---\n    \\draw[thick, fill=white, color=brandSecondary] (0.6,0) rectangle (4.6,0.2);\n    \\node[above left, inner sep=1pt, font=\\footnotesize] at (0.6,0.2) {$A$};\n    \\node[above right, inner sep=1pt, font=\\footnotesize] at (4.6,0.2) {$B$};\n    \\node[above, font=\\footnotesize] at (2.6,0.2) {$M$};\n\n    % --- Составной блок ---\n    \\coordinate (O) at (5.2, 2.2);\n    % Большой диск R\n    \\draw[thick, color=brandSecondary] (O) circle (1.2);\n    % Меньший диск r (левый край касается линии x = 4.6)\n    \\draw[thick, color=brandSecondary] (O) circle (0.6);\n    \\fill[color=brandSecondary] (O) circle (1.5pt);\n\n    % Подвес блока к потолку\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (4.8,3.5) rectangle (5.6,3.7);\n    \\draw[thick, color=brandSecondary] (4.8,3.5) -- (5.6,3.5);\n    \\draw[thick, color=brandSecondary] (4.9,2.2) -- (4.9,3.5) -- (5.5,3.5) -- (5.5,2.2);\n\n    % --- Нити ---\n    % Левая нить (от бруска к малому диску)\n    \\draw[thick, color=brandSecondary] (4.6,0.2) -- (4.6,2.2);\n    % Правая нить (от большого диска к грузу m)\n    \\draw[thick, color=brandSecondary] (6.4,2.2) -- (6.4,0.8);\n\n    % --- Груз m ---\n    \\draw[thick, fill=white, color=brandSecondary] (6.1,0.2) rectangle (6.7,0.8);\n    \\node[right] at (6.7,0.5) {$m$};\n\n    % --- Указатели радиусов (как на исходном рисунке) ---\n    \\draw[thin, <-] (4.95,2.5) -- (4.2,2.8) node[left, font=\\footnotesize] {$r$};\n    \\draw[thin, <-] (4.4,1.4) -- (3.9,1.1) node[left, font=\\footnotesize] {$R$};\n\n    % --- ВЕКТОРЫ СИЛ (выделены brandPrimary) ---\n    % На груз m\n    \\draw[->, very thick, color=brandPrimary] (6.4,0.5) -- (6.4,1.1) node[right] {$\\vec{T}_2$};\n    \\draw[->, very thick, color=brandPrimary] (6.4,0.5) -- (6.4,-0.2) node[right] {$m\\vec{g}$};\n\n    % На блок\n    \\draw[->, very thick, color=brandPrimary] (4.6,2.2) -- (4.6,1.6) node[left] {$\\vec{T}'_1$};\n    \\draw[->, very thick, color=brandPrimary] (6.4,2.2) -- (6.4,1.6) node[right] {$\\vec{T}'_2$};\n    \\draw[->, very thick, color=brandPrimary] (O) -- (5.2, 2.9) node[right] {$\\vec{F}_{\\text{оси}}$};\n\n    % На брусок\n    \\draw[->, very thick, color=brandPrimary] (4.6,0.2) -- (4.6,0.9) node[left] {$\\vec{T}_1$};\n    \\draw[->, very thick, color=brandPrimary] (2.6,0.1) -- (2.6,-0.5) node[right] {$M\\vec{g}$};\n    \\draw[->, very thick, color=brandPrimary] (2.0,0.0) -- (2.0,0.6) node[left] {$\\vec{N}$};\n\n\\end{tikzpicture}"
+  ],
+  "condition": "Однородный брусок $AB$ массой $M$ постоянного прямоугольного сечения лежит на гладкой горизонтальной поверхности стола, свешиваясь с него менее чем наполовину (см. рисунок). К правому концу бруска прикреплена невесомая нерастяжимая нить. Другой конец нити закреплён на меньшем из двух дисков невесомого составного блока. На большем диске этого блока закреплена другая невесомая нерастяжимая нить, на которой висит груз массой $m$. Диски скреплены друг с другом и образуют единое целое, $R = 12\\text{ см}$, $r = 8\\text{ см}$. Найдите минимальное значение отношения $\\frac{M}{m}$, при котором система тел остаётся неподвижной. Трением в оси блока пренебречь. Сделайте рисунок, на котором укажите все силы, действующие на брусок, груз и блок. Обоснуйте применимость законов, используемых для решения задачи.",
+  "sol_tikz": [
+   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.4,-0.15) rectangle (2.0,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (1.85,-0.9) rectangle (2.0,0);\n  \\draw[thick, brandSecondary] (-0.4,0) -- (2.0,0) -- (2.0,-0.9);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (0,0) rectangle (3.0,0.25);\n  \\node[left] at (0,0.15) {$A$};\n  \\node[below right, inner sep=1pt] at (3.0,0) {$B$};\n  % блок\n  \\coordinate (O) at (3.4,2.4);\n  \\draw[thick, gray] (3.4,2.4) -- (3.4,3.7);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (3.0,3.7) rectangle (3.8,3.85);\n  \\draw[thick, brandSecondary] (3.0,3.7) -- (3.8,3.7);\n  \\draw[thick, fill=gray!10] (O) circle (0.6);\n  \\draw[thick, fill=gray!25] (O) circle (0.4);\n  \\fill (O) circle (1.2pt);\n  \\draw[thin] (O) -- (3.0,2.4); \\node[above, font=\\footnotesize, inner sep=1pt] at (3.17,2.4) {$r$};\n  \\draw[thin] (O) -- (4.0,2.4); \\node[above, font=\\footnotesize, inner sep=1pt] at (3.72,2.4) {$R$};\n  % нити и груз\n  \\draw[thick] (3.0,0.25) -- (3.0,2.4);\n  \\draw[thick] (4.0,2.4) -- (4.0,0.6);\n  \\draw[thick, fill=brandAccent!20] (3.75,0.1) rectangle (4.25,0.6);\n  \\node[right] at (4.25,0.35) {$m$};\n  % силы на брусок\n  \\draw[Fvec] (3.0,0.25) -- (3.0,0.95) node[left] {$\\vec T_1$};\n  \\draw[Fvec] (1.5,0.12) -- (1.5,-0.7) node[below] {$M\\vec g$};\n  \\fill (1.5,0.12) circle (1pt);\n  \\draw[Fvec] (0.6,0) -- (0.6,0.75) node[above] {$\\vec N$};\n  % силы на блок\n  \\draw[Fvec] (3.0,2.4) -- (3.0,1.8) node[left] {$\\vec T_1'$};\n  \\draw[Fvec] (4.0,2.4) -- (4.0,1.85) node[right] {$\\vec T_2'$};\n  \\draw[Fvec] (O) -- (3.4,3.25) node[right] {$\\vec F_\\text{оси}$};\n  % силы на груз\n  \\draw[Fvec] (4.0,0.6) -- (4.0,1.15) node[right] {$\\vec T_2$};\n  \\draw[Fvec] (4.0,0.35) -- (4.0,-0.4) node[right] {$m\\vec g$};\n\\end{tikzpicture}"
+  ],
+  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с Землёй.\n\n2. Груз будем считать материальной точкой, брусок — твёрдым телом. Тела покоятся, поэтому для груза сумма действующих на него сил равна нулю, а для бруска равны нулю и сумма сил, и сумма моментов сил относительно любой оси.\n\n3. Так как нити невесомы, силы натяжения на концах каждой нити одинаковы по модулю: $T_1 = T_1'$, $T_2 = T_2'$ (1)\n\n4. Так как блок невесомый и трения в его оси нет, сумма моментов сил, действующих на блок, относительно его оси равна нулю (диски скреплены и образуют единое целое): $T_1'r = T_2'R$ (2)\n\n5. Стол гладкий, поэтому все силы, действующие на брусок, вертикальны.\n\n\\textbf{Решение}\n\n1. На груз действуют сила тяжести $m\\vec g$ и сила натяжения $\\vec T_2$; на блок — силы натяжения $\\vec T_1'$ (плечо $r$), $\\vec T_2'$ (плечо $R$) и сила со стороны оси $\\vec F_\\text{оси}$; на брусок — сила тяжести $M\\vec g$ (в середине бруска), сила натяжения $\\vec T_1$ (вверх, в точке $B$) и сила реакции стола $\\vec N$ (вверх). Силы показаны на рисунке.\n\n[[рис 1]]\n\nУсловие равновесия груза: $T_2 = mg$. С учётом (1) и (2) получим: $T_1 = T_1' = T_2'\\dfrac{R}{r} = mg\\dfrac{R}{r}$.\n\n2. Обозначим $L$ — длину бруска, $x$ — расстояние от конца $A$ до точки приложения равнодействующей сил реакции стола ($x \\ge 0$, точка лежит на опирающейся о стол части бруска). Правило моментов для бруска относительно оси, проходящей через точку $A$:\n$Nx + T_1L = Mg\\dfrac{L}{2}$.\n\nТак как $N \\ge 0$ и $x \\ge 0$, равновесие возможно только при $T_1L \\le Mg\\dfrac{L}{2}$, т. е. $T_1 \\le \\dfrac{Mg}{2}$; иначе брусок повернётся вокруг конца $A$ и его правый конец поднимется. (При $T_1 \\le \\dfrac{Mg}{2}$ из условия равновесия сил $N = Mg - T_1 > 0$ и $x = \\dfrac{L(Mg/2 - T_1)}{Mg - T_1} \\le \\dfrac{L}{2}$, т. е. точка приложения $\\vec N$ лежит над столом, ведь брусок свешивается менее чем наполовину.)\n\n3. Подставляя $T_1$: $mg\\dfrac{R}{r} \\le \\dfrac{Mg}{2}$, откуда $\\dfrac{M}{m} \\ge \\dfrac{2R}{r}$, и $\\left(\\dfrac{M}{m}\\right)_{\\min} = \\dfrac{2R}{r} = \\dfrac{2\\cdot 12}{8} = 3$.",
+  "hint": "Для блока: правило моментов $T\\cdot r=mg\\cdot R$, отсюда натяжение нити. Для бруска запишите правило моментов относительно края стола: брусок не опрокинется, пока момент его силы тяжести не меньше момента силы натяжения.",
+  "check": "number",
+  "file": "01_mechanics/dem26_v9_n26.md",
+  "images": [
+   "assets/dem26_v9_n26_1.svg?v=c2010c4e"
+  ],
+  "solution_images": [
+   "assets/dem26_v9_n26_s1.svg?v=6f1871a9"
   ]
  },
  {
@@ -14685,114 +14793,6 @@
   "file": "01_mechanics/kim22_26_t22.md",
   "images": [],
   "solution_images": []
- },
- {
-  "id": "mechanics_v1_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 1,
-  "answer": "3,13",
-  "unit": "кг",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 1)",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\footnotesize}]\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.2);\n    \\foreach \\y in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (0,\\y) -- (-0.12,\\y+0.12);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.2,0);\n    \\foreach \\x in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.12,-0.12);\n\n    % Координаты\n    \\coordinate (A) at (1.2,0.4);\n    \\coordinate (B) at (2.6,1.8);\n    \\coordinate (C) at (0,1.8);\n\n    % Шарнир А\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=3pt] {$A$};\n\n    % Стержень\n    \\begin{scope}[shift={(A)}, rotate=45]\n        \\draw[thick, fill=white] (0,-0.05) rectangle (1.98,0.05);\n    \\end{scope}\n    \\fill[black] (B) circle (1.5pt) node[above right] {$B$};\n\n    % Нить BC\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    % Угол альфа\n    \\draw[dashed, thin] (A) -- (2.2,0.4);\n    \\draw (1.6,0.4) arc (0:45:0.4);\n    \\node at (1.8,0.58) {$\\alpha$};\n\\end{tikzpicture}"
-  ],
-  "condition": "Тонкий однородный стержень $AB$ постоянного сечения шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$ (см. рисунок), угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите массу стержня $m$, если модуль силы $F$, с которой шарнир действует на стержень, равен $35$~Н. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,2.8);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (3.4,0);\n  \\draw[thick, brandSecondary] (0,2.8) -- (0,0) -- (3.4,0);\n  % шарнир и стержень\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.0,2.3);\n  \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n  \\draw[line width=3pt, brandPrimary!35] (A) -- (B);\n  \\draw[thick, fill=white] (A) circle (2pt);\n  \\node[left, xshift=-2pt] at (A) {$A$};\n  \\node[above right, inner sep=1pt] at (B) {$B$};\n  % нить\n  \\draw[thick] (0,2.3) -- (B);\n  \\node[above right, inner sep=1pt] at (0,2.3) {$C$};\n  % угол\n  \\draw[dashed, thin] (A) -- (2.1,0.5);\n  \\draw (1.65,0.5) arc (0:45:0.45);\n  \\node at (1.85,0.65) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.4,2.3) node[above] {$\\vec T$};\n  \\draw[Fvec] (2.1,1.4) -- (2.1,0.2) node[right] {$m\\vec g$};\n  \\fill (2.1,1.4) circle (1.2pt);\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.8,0.5);\n  \\node[below] at (1.75,0.5) {$F_x$};\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.2,1.7);\n  \\node[left] at (1.2,1.35) {$F_y$};\n  \\draw[dashed, thin, gray] (1.2,1.7) -- (1.8,1.7) -- (1.8,0.5);\n  \\draw[Fvec] (A) -- (1.8,1.7) node[above] {$\\vec F$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень — твёрдое тело, находящееся в равновесии, поэтому векторная сумма действующих на него сил равна нулю и сумма моментов сил относительно любой оси (в частности, относительно оси шарнира $A$) равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесома, сила её натяжения направлена вдоль нити, т.е. горизонтально. Трения в шарнире нет, поэтому момент силы реакции шарнира относительно оси $A$ равен нулю.\n\n\\textbf{Решение.} На стержень действуют сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира. Обозначим $L$ — длину стержня, $F_x$, $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$.\n\nСилы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси $A$: $TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\mathrm{tg}\\,\\alpha} = \\dfrac{mg}{2}$ (так как $\\mathrm{tg}\\,45^\\circ = 1$).\n\nРавенство нулю суммы сил: по горизонтали $F_x = T = \\dfrac{mg}{2}$, по вертикали $F_y = mg$.\n\nМодуль силы шарнира: $F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{\\dfrac{1}{4} + 1} = \\dfrac{\\sqrt{5}}{2}mg$.\n\nОтсюда $m = \\dfrac{2F}{\\sqrt{5}g} = \\dfrac{2\\cdot 35}{2{,}236\\cdot 10}\\,\\text{кг} \\approx 3{,}13\\,\\text{кг}$.",
-  "hint": "Запишите правило моментов относительно шарнира $A$: так исключится неизвестная сила шарнира. Найдите натяжение нити, а силу шарнира — из равенства нулю суммы сил (по теореме Пифагора из составляющих).",
-  "check": "number",
-  "file": "01_mechanics/mechanics_v1_n26.md",
-  "images": [
-   "assets/mechanics_v1_n26_1.svg?v=21fc2c51"
-  ],
-  "solution_images": [
-   "assets/mechanics_v1_n26_s1.svg?v=31864342"
-  ]
- },
- {
-  "id": "mechanics_v2_n26",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 2,
-  "answer": "30,2",
-  "unit": "Н",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 2)",
-  "tikz": [
-   "\\begin{tikzpicture}[scale=1.3, every node/.style={font=\\footnotesize}]\n    % Вертикальная стена\n    \\draw[thick] (0,0) -- (0,3.2);\n    \\foreach \\y in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (0,\\y) -- (-0.12,\\y+0.12);\n        \n    % Горизонтальный пол\n    \\draw[thick] (0,0) -- (3.2,0);\n    \\foreach \\x in {0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0}\n        \\draw[gray, thin] (\\x,0) -- (\\x-0.12,-0.12);\n\n    % Координаты\n    \\coordinate (A) at (1.2,0.4);\n    \\coordinate (B) at (2.6,1.8);\n    \\coordinate (C) at (0,1.8);\n\n    % Шарнир А\n    \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n    \\fill[black] (A) circle (1.5pt) node[left=3pt] {$A$};\n\n    % Стержень\n    \\begin{scope}[shift={(A)}, rotate=45]\n        \\draw[thick, fill=white] (0,-0.05) rectangle (1.98,0.05);\n    \\end{scope}\n    \\fill[black] (B) circle (1.5pt) node[above right] {$B$};\n\n    % Нить BC\n    \\draw[thick] (C) -- (B);\n    \\node[above right] at (C) {$C$};\n\n    % Угол альфа\n    \\draw[dashed, thin] (A) -- (2.2,0.4);\n    \\draw (1.6,0.4) arc (0:45:0.4);\n    \\node at (1.8,0.58) {$\\alpha$};\n\\end{tikzpicture}"
-  ],
-  "condition": "Тонкий однородный стержень $AB$ постоянного сечения массой $2{,}7$~кг шарнирно закреплён в точке $A$ и удерживается горизонтальной нитью $BC$ (см. рисунок), угол наклона стержня к горизонту $\\alpha = 45^{\\circ}$. Трение в шарнире пренебрежимо мало. Найдите модуль силы $F$, с которой шарнир действует на стержень. Сделайте рисунок, на котором укажите все силы, действующие на стержень. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стена и пол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,0) rectangle (0,2.8);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.15,-0.15) rectangle (3.4,0);\n  \\draw[thick, brandSecondary] (0,2.8) -- (0,0) -- (3.4,0);\n  % шарнир и стержень\n  \\coordinate (A) at (1.2,0.5);\n  \\coordinate (B) at (3.0,2.3);\n  \\draw[thick] (1.0,0) -- (A) -- (1.4,0);\n  \\draw[line width=3pt, brandPrimary!35] (A) -- (B);\n  \\draw[thick, fill=white] (A) circle (2pt);\n  \\node[left, xshift=-2pt] at (A) {$A$};\n  \\node[above right, inner sep=1pt] at (B) {$B$};\n  % нить\n  \\draw[thick] (0,2.3) -- (B);\n  \\node[above right, inner sep=1pt] at (0,2.3) {$C$};\n  % угол\n  \\draw[dashed, thin] (A) -- (2.1,0.5);\n  \\draw (1.65,0.5) arc (0:45:0.45);\n  \\node at (1.85,0.65) {$\\alpha$};\n  % силы\n  \\draw[Fvec] (B) -- (2.4,2.3) node[above] {$\\vec T$};\n  \\draw[Fvec] (2.1,1.4) -- (2.1,0.2) node[right] {$m\\vec g$};\n  \\fill (2.1,1.4) circle (1.2pt);\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.8,0.5);\n  \\node[below] at (1.75,0.5) {$F_x$};\n  \\draw[dashed, -{Stealth[scale=0.7]}, brandSecondary] (A) -- (1.2,1.7);\n  \\node[left] at (1.2,1.35) {$F_y$};\n  \\draw[dashed, thin, gray] (1.2,1.7) -- (1.8,1.7) -- (1.8,0.5);\n  \\draw[Fvec] (A) -- (1.8,1.7) node[above] {$\\vec F$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование.} Систему отсчёта, связанную с Землёй, считаем инерциальной. Стержень — твёрдое тело, находящееся в равновесии, поэтому векторная сумма действующих на него сил равна нулю и сумма моментов сил относительно любой оси (в частности, относительно оси шарнира $A$) равна нулю. Стержень однородный, поэтому сила тяжести приложена к его середине. Нить невесома, сила её натяжения направлена вдоль нити, т.е. горизонтально. Трения в шарнире нет, поэтому момент силы реакции шарнира относительно оси $A$ равен нулю.\n\n\\textbf{Решение.} На стержень действуют сила тяжести $m\\vec g$ (в середине стержня), сила натяжения нити $\\vec T$ (в точке $B$, горизонтально к стене) и сила $\\vec F$ со стороны шарнира. Обозначим $L$ — длину стержня, $F_x$, $F_y$ — горизонтальную и вертикальную составляющие силы $\\vec F$.\n\nСилы показаны на рисунке.\n\n[[рис 1]]\n\nПравило моментов относительно оси $A$: $TL\\sin\\alpha = mg\\dfrac{L}{2}\\cos\\alpha$, откуда $T = \\dfrac{mg}{2\\,\\mathrm{tg}\\,\\alpha} = \\dfrac{mg}{2}$ (так как $\\mathrm{tg}\\,45^\\circ = 1$).\n\nРавенство нулю суммы сил: по горизонтали $F_x = T = \\dfrac{mg}{2}$, по вертикали $F_y = mg$.\n\nМодуль силы шарнира: $F = \\sqrt{F_x^2 + F_y^2} = mg\\sqrt{\\dfrac{1}{4} + 1} = \\dfrac{\\sqrt{5}}{2}mg$.\n\n$F = \\dfrac{2{,}236}{2}\\cdot 2{,}7\\cdot 10\\,\\text{Н} \\approx 30{,}2\\,\\text{Н}$.",
-  "hint": "Запишите правило моментов относительно шарнира $A$: так исключится неизвестная сила шарнира. Найдите натяжение нити, а силу шарнира — из равенства нулю суммы сил (по теореме Пифагора из составляющих).",
-  "check": "number",
-  "file": "01_mechanics/mechanics_v2_n26.md",
-  "images": [
-   "assets/mechanics_v2_n26_1.svg?v=21fc2c51"
-  ],
-  "solution_images": [
-   "assets/mechanics_v2_n26_s1.svg?v=31864342"
-  ]
- },
- {
-  "id": "mechanics_v9_n26_fixed",
-  "exam": "ЕГЭ",
-  "kim": 26,
-  "section": "Механика",
-  "theme": "МЕХАНИКА (ВЫСОКИЙ УРОВЕНЬ СЛОЖНОСТИ)",
-  "topic": "1.4.1",
-  "level": "В",
-  "type": "расчётная (часть 2)",
-  "variant": 9,
-  "answer": "3",
-  "unit": "",
-  "has_image": true,
-  "author_task": false,
-  "tags": [
-   "МЕХАНИКА"
-  ],
-  "source": "Демидова, ЕГЭ-2026, 30 вариантов (вариант 9)",
-  "tikz": [
-   "\\begin{tikzpicture}[>=Stealth, scale=1.2]\n    % --- Поверхность стола со штриховкой ---\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (0,-0.2) rectangle (4,0);\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (3.8,-1.2) rectangle (4,0);\n    \\draw[thick, color=brandSecondary] (0,0) -- (4,0) -- (4,-1.2);\n\n    % --- Брусок AB ---\n    \\draw[thick, fill=white, color=brandSecondary] (0.6,0) rectangle (4.6,0.2);\n    \\node[above left, inner sep=1pt, font=\\footnotesize] at (0.6,0.2) {$A$};\n    \\node[above right, inner sep=1pt, font=\\footnotesize] at (4.6,0.2) {$B$};\n    \\node[above, font=\\footnotesize] at (2.6,0.2) {$M$};\n\n    % --- Составной блок ---\n    \\coordinate (O) at (5.2, 2.2);\n    % Большой диск R\n    \\draw[thick, color=brandSecondary] (O) circle (1.2);\n    % Меньший диск r (левый край касается линии x = 4.6)\n    \\draw[thick, color=brandSecondary] (O) circle (0.6);\n    \\fill[color=brandSecondary] (O) circle (1.5pt);\n\n    % Подвес блока к потолку\n    \\fill[pattern=north west lines, pattern color=brandSecondary!30] (4.8,3.5) rectangle (5.6,3.7);\n    \\draw[thick, color=brandSecondary] (4.8,3.5) -- (5.6,3.5);\n    \\draw[thick, color=brandSecondary] (4.9,2.2) -- (4.9,3.5) -- (5.5,3.5) -- (5.5,2.2);\n\n    % --- Нити ---\n    % Левая нить (от бруска к малому диску)\n    \\draw[thick, color=brandSecondary] (4.6,0.2) -- (4.6,2.2);\n    % Правая нить (от большого диска к грузу m)\n    \\draw[thick, color=brandSecondary] (6.4,2.2) -- (6.4,0.8);\n\n    % --- Груз m ---\n    \\draw[thick, fill=white, color=brandSecondary] (6.1,0.2) rectangle (6.7,0.8);\n    \\node[right] at (6.7,0.5) {$m$};\n\n    % --- Указатели радиусов (как на исходном рисунке) ---\n    \\draw[thin, <-] (4.95,2.5) -- (4.2,2.8) node[left, font=\\footnotesize] {$r$};\n    \\draw[thin, <-] (4.4,1.4) -- (3.9,1.1) node[left, font=\\footnotesize] {$R$};\n\n    % --- ВЕКТОРЫ СИЛ (выделены brandPrimary) ---\n    % На груз m\n    \\draw[->, very thick, color=brandPrimary] (6.4,0.5) -- (6.4,1.1) node[right] {$\\vec{T}_2$};\n    \\draw[->, very thick, color=brandPrimary] (6.4,0.5) -- (6.4,-0.2) node[right] {$m\\vec{g}$};\n\n    % На блок\n    \\draw[->, very thick, color=brandPrimary] (4.6,2.2) -- (4.6,1.6) node[left] {$\\vec{T}'_1$};\n    \\draw[->, very thick, color=brandPrimary] (6.4,2.2) -- (6.4,1.6) node[right] {$\\vec{T}'_2$};\n    \\draw[->, very thick, color=brandPrimary] (O) -- (5.2, 2.9) node[right] {$\\vec{F}_{\\text{оси}}$};\n\n    % На брусок\n    \\draw[->, very thick, color=brandPrimary] (4.6,0.2) -- (4.6,0.9) node[left] {$\\vec{T}_1$};\n    \\draw[->, very thick, color=brandPrimary] (2.6,0.1) -- (2.6,-0.5) node[right] {$M\\vec{g}$};\n    \\draw[->, very thick, color=brandPrimary] (2.0,0.0) -- (2.0,0.6) node[left] {$\\vec{N}$};\n\n\\end{tikzpicture}"
-  ],
-  "condition": "Однородный брусок $AB$ массой $M$ постоянного прямоугольного сечения лежит на гладкой горизонтальной поверхности стола, свешиваясь с него менее чем наполовину (см. рисунок). К правому концу бруска прикреплена невесомая нерастяжимая нить. Другой конец нити закреплён на меньшем из двух дисков невесомого составного блока. На большем диске этого блока закреплена другая невесомая нерастяжимая нить, на которой висит груз массой $m$. Диски скреплены друг с другом и образуют единое целое, $R = 12\\text{ см}$, $r = 8\\text{ см}$. Найдите минимальное значение отношения $\\frac{M}{m}$, при котором система тел остаётся неподвижной. Трением в оси блока пренебречь. Сделайте рисунок, на котором укажите все силы, действующие на брусок, груз и блок. Обоснуйте применимость законов, используемых для решения задачи.",
-  "sol_tikz": [
-   "\\begin{tikzpicture}[scale=1.0, font=\\small]\n  % стол\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (-0.4,-0.15) rectangle (2.0,0);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (1.85,-0.9) rectangle (2.0,0);\n  \\draw[thick, brandSecondary] (-0.4,0) -- (2.0,0) -- (2.0,-0.9);\n  % брусок\n  \\draw[thick, fill=brandPrimary!10] (0,0) rectangle (3.0,0.25);\n  \\node[left] at (0,0.15) {$A$};\n  \\node[below right, inner sep=1pt] at (3.0,0) {$B$};\n  % блок\n  \\coordinate (O) at (3.4,2.4);\n  \\draw[thick, gray] (3.4,2.4) -- (3.4,3.7);\n  \\fill[pattern=north east lines, pattern color=brandSecondary!40] (3.0,3.7) rectangle (3.8,3.85);\n  \\draw[thick, brandSecondary] (3.0,3.7) -- (3.8,3.7);\n  \\draw[thick, fill=gray!10] (O) circle (0.6);\n  \\draw[thick, fill=gray!25] (O) circle (0.4);\n  \\fill (O) circle (1.2pt);\n  \\draw[thin] (O) -- (3.0,2.4); \\node[above, font=\\footnotesize, inner sep=1pt] at (3.17,2.4) {$r$};\n  \\draw[thin] (O) -- (4.0,2.4); \\node[above, font=\\footnotesize, inner sep=1pt] at (3.72,2.4) {$R$};\n  % нити и груз\n  \\draw[thick] (3.0,0.25) -- (3.0,2.4);\n  \\draw[thick] (4.0,2.4) -- (4.0,0.6);\n  \\draw[thick, fill=brandAccent!20] (3.75,0.1) rectangle (4.25,0.6);\n  \\node[right] at (4.25,0.35) {$m$};\n  % силы на брусок\n  \\draw[Fvec] (3.0,0.25) -- (3.0,0.95) node[left] {$\\vec T_1$};\n  \\draw[Fvec] (1.5,0.12) -- (1.5,-0.7) node[below] {$M\\vec g$};\n  \\fill (1.5,0.12) circle (1pt);\n  \\draw[Fvec] (0.6,0) -- (0.6,0.75) node[above] {$\\vec N$};\n  % силы на блок\n  \\draw[Fvec] (3.0,2.4) -- (3.0,1.8) node[left] {$\\vec T_1'$};\n  \\draw[Fvec] (4.0,2.4) -- (4.0,1.85) node[right] {$\\vec T_2'$};\n  \\draw[Fvec] (O) -- (3.4,3.25) node[right] {$\\vec F_\\text{оси}$};\n  % силы на груз\n  \\draw[Fvec] (4.0,0.6) -- (4.0,1.15) node[right] {$\\vec T_2$};\n  \\draw[Fvec] (4.0,0.35) -- (4.0,-0.4) node[right] {$m\\vec g$};\n\\end{tikzpicture}"
-  ],
-  "solution": "\\textbf{Обоснование}\n\n1. Задачу будем решать в инерциальной системе отсчёта, связанной с Землёй.\n\n2. Груз будем считать материальной точкой, брусок — твёрдым телом. Тела покоятся, поэтому для груза сумма действующих на него сил равна нулю, а для бруска равны нулю и сумма сил, и сумма моментов сил относительно любой оси.\n\n3. Так как нити невесомы, силы натяжения на концах каждой нити одинаковы по модулю: $T_1 = T_1'$, $T_2 = T_2'$ (1)\n\n4. Так как блок невесомый и трения в его оси нет, сумма моментов сил, действующих на блок, относительно его оси равна нулю (диски скреплены и образуют единое целое): $T_1'r = T_2'R$ (2)\n\n5. Стол гладкий, поэтому все силы, действующие на брусок, вертикальны.\n\n\\textbf{Решение}\n\n1. На груз действуют сила тяжести $m\\vec g$ и сила натяжения $\\vec T_2$; на блок — силы натяжения $\\vec T_1'$ (плечо $r$), $\\vec T_2'$ (плечо $R$) и сила со стороны оси $\\vec F_\\text{оси}$; на брусок — сила тяжести $M\\vec g$ (в середине бруска), сила натяжения $\\vec T_1$ (вверх, в точке $B$) и сила реакции стола $\\vec N$ (вверх). Силы показаны на рисунке.\n\n[[рис 1]]\n\nУсловие равновесия груза: $T_2 = mg$. С учётом (1) и (2) получим: $T_1 = T_1' = T_2'\\dfrac{R}{r} = mg\\dfrac{R}{r}$.\n\n2. Обозначим $L$ — длину бруска, $x$ — расстояние от конца $A$ до точки приложения равнодействующей сил реакции стола ($x \\ge 0$, точка лежит на опирающейся о стол части бруска). Правило моментов для бруска относительно оси, проходящей через точку $A$:\n$Nx + T_1L = Mg\\dfrac{L}{2}$.\n\nТак как $N \\ge 0$ и $x \\ge 0$, равновесие возможно только при $T_1L \\le Mg\\dfrac{L}{2}$, т. е. $T_1 \\le \\dfrac{Mg}{2}$; иначе брусок повернётся вокруг конца $A$ и его правый конец поднимется. (При $T_1 \\le \\dfrac{Mg}{2}$ из условия равновесия сил $N = Mg - T_1 > 0$ и $x = \\dfrac{L(Mg/2 - T_1)}{Mg - T_1} \\le \\dfrac{L}{2}$, т. е. точка приложения $\\vec N$ лежит над столом, ведь брусок свешивается менее чем наполовину.)\n\n3. Подставляя $T_1$: $mg\\dfrac{R}{r} \\le \\dfrac{Mg}{2}$, откуда $\\dfrac{M}{m} \\ge \\dfrac{2R}{r}$, и $\\left(\\dfrac{M}{m}\\right)_{\\min} = \\dfrac{2R}{r} = \\dfrac{2\\cdot 12}{8} = 3$.",
-  "hint": "Для блока: правило моментов $T\\cdot r=mg\\cdot R$, отсюда натяжение нити. Для бруска запишите правило моментов относительно края стола: брусок не опрокинется, пока момент его силы тяжести не меньше момента силы натяжения.",
-  "check": "number",
-  "file": "01_mechanics/mechanics_v9_n26_fixed.md",
-  "images": [
-   "assets/mechanics_v9_n26_fixed_1.svg?v=be68a494"
-  ],
-  "solution_images": [
-   "assets/mechanics_v9_n26_fixed_s1.svg?v=90786cd1"
-  ]
  },
  {
   "id": "newton2_v10_n5",
