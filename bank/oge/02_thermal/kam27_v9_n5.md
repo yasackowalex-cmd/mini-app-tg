@@ -29,7 +29,21 @@ source: Камзеева, ОГЭ-2027, 30 вариантов (вариант 9)
 
 ## Рисунок (TikZ)
 
-
+```latex
+\begin{tikzpicture}[scale=1, every node/.style={font=\small}]
+  \draw[thick] (-3.0,0) -- (-3.0,1.6); \draw[thick] (3.0,0) -- (3.0,1.6);
+  \draw[line width=1.5pt] (-3.3,0) -- (-2.6,0); \draw[line width=1.5pt] (2.6,0) -- (3.3,0);
+  \draw[thick, fill=orange, fill opacity=0.4] (-3.0,1.3) rectangle (-0.05,1.42);
+  \draw[thick, fill=brandSecondary!55] (0.05,1.3) rectangle (3.0,1.42);
+  \node[above] at (-2.2,1.42) {Медь}; \node[above] at (2.2,1.42) {Сталь};
+  \foreach \x in {-2.6,-2.4,...,-1.8} {\draw[thick] (\x-0.07,1.26) -- (\x+0.07,1.26); \draw[thick] (\x,1.26) -- (\x,1.0);}
+  \foreach \x in {0.9,1.1,...,2.7} {\draw[thick] (\x-0.07,1.26) -- (\x+0.07,1.26); \draw[thick] (\x,1.26) -- (\x,1.0);}
+  \foreach \x/\y in {-1.4/0.85, -1.0/0.55, 0.8/0.75} {\draw[thick] (\x-0.07,\y) -- (\x+0.07,\y); \draw[thick] (\x,\y) -- (\x,\y-0.26);}
+  \draw[thick, fill=brandSecondary!80] (-0.45,0) rectangle (0.45,0.45);
+  \draw[thick, fill=brandSecondary!80] (-0.35,0.45) -- (-0.08,0.75) -- (0.08,0.75) -- (0.35,0.45) -- cycle;
+  \draw[thick, fill=brandPrimary!25] (0,0.75) .. controls (-0.18,0.95) and (-0.05,1.15) .. (0,1.28) .. controls (0.05,1.15) and (0.18,0.95) .. (0,0.75);
+\end{tikzpicture}
+```
 
 ## Подсказка
 
