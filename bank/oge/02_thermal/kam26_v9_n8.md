@@ -26,9 +26,10 @@ source: Камзеева, ОГЭ-2026, 30 вариантов (вариант 9)
 
 ```latex
 \begin{tikzpicture}[scale=1, every node/.style={font=\small}]
-  \draw[brandSecondary!35] (0.00,0.6) -- (0.00,2.4);
-  \draw[brandSecondary!35] (1.50,0.6) -- (1.50,2.4);
-  \draw[brandSecondary!35] (3.00,0.6) -- (3.00,2.4);
+  \draw[brandSecondary!35] (0.00,0) -- (0.00,2.4);
+  \draw[brandSecondary!35] (1.50,0) -- (1.50,2.4);
+  \draw[brandSecondary!35] (3.00,0) -- (3.00,2.4);
+  \draw[brandSecondary!35] (0,0.00) -- (3.0,0.00);
   \draw[brandSecondary!35] (0,0.60) -- (3.0,0.60);
   \draw[brandSecondary!35] (0,1.20) -- (3.0,1.20);
   \draw[brandSecondary!35] (0,1.80) -- (3.0,1.80);
