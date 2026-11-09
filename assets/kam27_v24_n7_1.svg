@@ -13,7 +13,7 @@
 <path d='M-61.95703-69.6089V-.7266' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M-69.60938 6.9258V-1.2383H-54.30078V6.9258Z' fill='#ff8000' fill-opacity='.4'/>
 <path d='M-69.60938 6.9258V-1.2383H-54.30078V6.9258Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
-<path d='M-33.8906 54.88672V14.0703H-10.9297V54.88672Z' fill='#bfffff'/>
+<path d='M-33.8906 54.88672V14.0703H-10.9297V54.88672Z' fill='#cce0ff'/>
 <path d='M-33.8906 54.88672V-51.7539' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M-10.9297 54.88672V-51.7539' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M-40.2695 57.949218V54.88672H-4.5547V57.949218Z' fill='#494c62'/>
@@ -61,7 +61,7 @@
 <use x='-63.231084' y='57.949149' xlink:href='#g0-236'/>
 <use x='-57.974308' y='57.949149' xlink:href='#g0-235'/>
 </g>
-<path d='M12.0273 54.88672V-6.3398H34.9883V54.88672Z' fill='#bfffff'/>
+<path d='M12.0273 54.88672V-6.3398H34.9883V54.88672Z' fill='#cce0ff'/>
 <path d='M24.7852 45.957V-67.0589' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M17.1328 54.12109V45.957H32.4375V54.12109Z' fill='#ff8000' fill-opacity='.4'/>
 <path d='M17.1328 54.12109V45.957H32.4375V54.12109Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
