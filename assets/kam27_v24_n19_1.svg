@@ -20,8 +20,8 @@
 <g transform='matrix(1 0 0 1 53.1259 -48.1414)'>
 <use x='-13.207749' y='16.277187' xlink:href='#g0-50'/>
 </g>
-<path d='M-68.4844 16.277343V-6.3984H-37.3008V16.277343Z' fill='#bfffff'/>
-<path d='M10.8867 16.277343V-6.3984H42.0703V16.277343Z' fill='#bfffff'/>
+<path d='M-68.4844 16.277343V-6.3984H-37.3008V16.277343Z' fill='#cce0ff'/>
+<path d='M10.8867 16.277343V-6.3984H42.0703V16.277343Z' fill='#cce0ff'/>
 <path d='M-68.4844-17.7383V16.277343H-37.3008V-17.7383' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M10.8867-17.7383V16.277343H42.0703V-17.7383' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 </g>
