@@ -46498,7 +46498,7 @@
   ],
   "source": "Камзеева, ОГЭ-2026, 30 вариантов (вариант 15)",
   "tikz": [
-   "\\begin{tikzpicture}[scale=1, every node/.style={font=\\small}]\n  \\draw[brandSecondary!35] (0.00,-1.08) -- (0.00,1.08);\n  \\draw[brandSecondary!35] (0.90,-1.08) -- (0.90,1.08);\n  \\draw[brandSecondary!35] (1.80,-1.08) -- (1.80,1.08);\n  \\draw[brandSecondary!35] (2.70,-1.08) -- (2.70,1.08);\n  \\draw[brandSecondary!35] (3.60,-1.08) -- (3.60,1.08);\n  \\draw[brandSecondary!35] (4.50,-1.08) -- (4.50,1.08);\n  \\draw[brandSecondary!35] (5.40,-1.08) -- (5.40,1.08);\n  \\draw[brandSecondary!35] (0,-1.08) -- (5.85,-1.08);\n  \\draw[brandSecondary!35] (0,-0.54) -- (5.85,-0.54);\n  \\draw[brandSecondary!35] (0,0.00) -- (5.85,0.00);\n  \\draw[brandSecondary!35] (0,0.54) -- (5.85,0.54);\n  \\draw[brandSecondary!35] (0,1.08) -- (5.85,1.08);\n  \\draw[thick, -{Stealth}] (0,0) -- (6.4,0) node[right] {$x$, см};\n  \\draw[thick, -{Stealth}] (0,-1.3) -- (0,1.5) node[left] {$y$, см};\n  \\foreach \\v/\\y in {6/1.08, 3/0.54, -3/-0.54, -6/-1.08} \\node[left] at (0,\\y) {$\\v$};\n  \\node[left] at (0,0.15) {0};\n  \\foreach \\v in {9,18,27,36,45,54} \\node[below right, inner sep=1pt, fill=white] at (\\v/10,0) {\\v};\n  \\draw[very thick, brandPrimary] plot[smooth, domain=0.45:5.85, samples=120] (\\x,{-1.08*sin(deg(pi*\\x/0.9))});\n\\end{tikzpicture}"
+   "\\begin{tikzpicture}[scale=1, every node/.style={font=\\small}]\n  \\draw[brandSecondary!35] (0.00,-1.08) -- (0.00,1.08);\n  \\draw[brandSecondary!35] (0.90,-1.08) -- (0.90,1.08);\n  \\draw[brandSecondary!35] (1.80,-1.08) -- (1.80,1.08);\n  \\draw[brandSecondary!35] (2.70,-1.08) -- (2.70,1.08);\n  \\draw[brandSecondary!35] (3.60,-1.08) -- (3.60,1.08);\n  \\draw[brandSecondary!35] (4.50,-1.08) -- (4.50,1.08);\n  \\draw[brandSecondary!35] (5.40,-1.08) -- (5.40,1.08);\n  \\draw[brandSecondary!35] (0,-1.08) -- (5.4,-1.08);\n  \\draw[brandSecondary!35] (0,-0.54) -- (5.4,-0.54);\n  \\draw[brandSecondary!35] (0,0.00) -- (5.4,0.00);\n  \\draw[brandSecondary!35] (0,0.54) -- (5.4,0.54);\n  \\draw[brandSecondary!35] (0,1.08) -- (5.4,1.08);\n  \\draw[thick, -{Stealth}] (0,0) -- (6.4,0) node[right] {$x$, см};\n  \\draw[thick, -{Stealth}] (0,-1.3) -- (0,1.5) node[left] {$y$, см};\n  \\foreach \\v/\\y in {6/1.08, 3/0.54, -3/-0.54, -6/-1.08} \\node[left] at (0,\\y) {$\\v$};\n  \\node[left] at (0,0.15) {0};\n  \\foreach \\v in {9,18,27,36,45,54} \\node[below right, inner sep=1pt, fill=white] at (\\v/10,0) {\\v};\n  \\draw[very thick, brandPrimary] plot[smooth, domain=0:5.4, samples=120] (\\x,{1.08*sin(deg(pi*\\x/0.9))});\n\\end{tikzpicture}"
   ],
   "condition": "На рисунке показан профиль волны. Какова длина волны?\n\n[[рис 1]]",
   "sol_tikz": [],
@@ -46507,7 +46507,7 @@
   "check": "number",
   "file": "oge/01_mechanics/kam26_v15_n7.md",
   "images": [
-   "assets/kam26_v15_n7_1.svg?v=602cbf97"
+   "assets/kam26_v15_n7_1.svg?v=7bb2cea4"
   ],
   "solution_images": []
  },
