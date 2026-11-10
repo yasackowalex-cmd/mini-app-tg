@@ -50,6 +50,11 @@
   document.addEventListener('tg-progress', showTabs);
   document.addEventListener('tg-hw', showTabs);
 
+  // код личной ссылки учителя — для ссылок на уроки (lesson.js); без загрузки всего кабинета, если он ещё не открыт
+  let invP = null;
+  window.teacherInvite = () => data ? Promise.resolve(data.invite)
+    : invP || (invP = window.tgApi ? window.tgApi('teacher').then(r => r && r.invite) : Promise.resolve(null));
+
   function load() {
     if (loading || !window.tgApi) return;
     loading = true;
