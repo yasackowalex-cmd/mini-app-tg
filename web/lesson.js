@@ -106,6 +106,49 @@
   }
   ['tg-progress', 'tg-attempt'].forEach(ev => document.addEventListener(ev, renderRes));
 
+  // учителю (в Телеграме): ссылка на урок для учеников. Кто откроет её, попадёт в «Мои ученики»
+  // и сразу увидит урок; как решают ДЗ урока, видно в кабинете («Задания» и у ученика).
+  const BOT = 'physics_is_phun_bot';
+  function renderTeach() {
+    const box = $('lesson'), el = box.querySelector('.lteach');
+    if (!el || !window.tgTeacher || el.dataset.done) return;
+    el.dataset.done = '1';
+    el.hidden = false;
+    el.innerHTML = `<span class="small">Задать ученикам: отправьте им ссылку на этот урок. Кто откроет её, попадёт в «Мои ученики», а как он решает ДЗ, будет видно в кабинете.</span>
+      <span class="hwa"><button class="btn" type="button" data-ls="share">Отправить ссылку</button>
+      <button class="btn" type="button" data-ls="copy">Скопировать</button></span>`;
+  }
+  document.addEventListener('tg-progress', renderTeach);
+  $('lesson').addEventListener('click', e => {
+    const b = e.target.closest('[data-ls]');
+    if (!b) return;
+    const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic);
+    if (!L) return;
+    const t = window.Telegram && window.Telegram.WebApp;
+    // в адресе Телеграма нельзя точки: 3.1.7 → 3-1-7
+    const linkOf = code => `https://t.me/${BOT}?startapp=l_${L.topic.replace(/\./g, '-')}${code ? '_' + code : ''}`;
+    const text = `ДЗ: урок ${L.topic}. ${L.title}`;
+    const copy = url => {
+      const done = () => { b.textContent = 'Скопировано'; setTimeout(() => { b.textContent = 'Скопировать'; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text + '\n' + url).then(done, () => prompt('Ссылка:', url));
+      else prompt('Ссылка:', url);
+    };
+    // окно «Поделиться» Телеграм открывает только сразу после нажатия, поэтому код учителя берём заранее
+    const go = code => {
+      const url = linkOf(code);
+      if (b.dataset.ls === 'share' && t && t.openTelegramLink)
+        t.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`);
+      else copy(url);
+    };
+    if (inviteCode !== undefined) { go(inviteCode); return; }
+    const label = b.textContent;
+    b.textContent = 'Секунду…';
+    getInvite().then(c => { b.textContent = label; go(c); });
+  });
+  let inviteCode;
+  const getInvite = () => (window.teacherInvite ? window.teacherInvite() : Promise.resolve(null)).then(c => (inviteCode = c || null));
+  document.addEventListener('tg-progress', () => { if (window.tgTeacher) getInvite(); });
+
   let list = [];
   function show(topic) {
     const box = $('lesson'), lst = $('lessons-list');
@@ -121,7 +164,7 @@
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
-      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><p class="lhw-res cnt" hidden></p><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
+      ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lteach" hidden></div><p class="lhw-res cnt" hidden></p><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
       ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.topic)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
@@ -130,6 +173,7 @@
       box.querySelector('.lvideo').innerHTML = frame(b.dataset.src);
     });
     renderRes();
+    renderTeach();
     if (L.hw.length) bankReady.then(() => {
       if (box.dataset.topic !== topic) return;
       const hw = box.querySelector('.lhw-list');
