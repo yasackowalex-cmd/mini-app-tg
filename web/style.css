@@ -367,3 +367,4 @@ p.cnt { white-space: normal; }
 .verdict.part { color: #B35400; }
 .lteach { margin: 0 0 10px; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; }
 .lteach .hwa { margin-top: 8px; }
+.btn.loading { opacity: .6; cursor: progress; }

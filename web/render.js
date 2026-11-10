@@ -2,6 +2,24 @@
 (function () {
   'use strict';
 
+  // Решения и подсказки лежат не в bank.json, а в out/sol/<экзамен>_<тема>.json (адрес — поле sol задачи):
+  // так первая загрузка сайта в несколько раз легче. loadSol(задачи) дописывает solution, hint и solution_images
+  // в сами объекты задач; каждый файл скачивается один раз. У своих задач урока решения уже на месте (sol нет).
+  const solFiles = {};
+  function loadSol(tasks) {
+    const need = (tasks || []).filter(t => t && t.sol && !t._sol);
+    const urls = [...new Set(need.map(t => t.sol))];
+    return Promise.all(urls.map(u => solFiles[u] || (solFiles[u] = fetch(u).then(r => r.json())
+      .catch(() => { delete solFiles[u]; return null; })))).then(parts => {
+      const m = Object.assign({}, ...parts.filter(Boolean));
+      need.forEach(t => { if (m[t.id]) { Object.assign(t, m[t.id]); t._sol = true; } });
+      return parts.every(Boolean);
+    });
+  }
+  // есть ли у задачи подсказка / решение (до загрузки решений — по флагам из bank.json)
+  const hasHint = t => !!(t.hint || t.has_hint);
+  const hasSol = t => !!(t.solution || t.has_sol);
+
   // решение; метка [[рис N]] — чертёж из «## Решение» (assets/<id>_sN.svg)
   function solutionHtml(t) {
     const imgs = t.solution_images || [];
@@ -137,5 +155,5 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
+  window.taskRender = { loadSol, hasHint, hasSol, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
 })();

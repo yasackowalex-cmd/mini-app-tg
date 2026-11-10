@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2 } = window.taskRender;
+  const { hasHint, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2 } = window.taskRender;
 
   // Экзамен, к которому готовится ученик (переключатель «ЕГЭ / ОГЭ» в шапке, решение владельца 05.11.2026):
   // банк, номера КИМ, темы и прогресс показываются только по нему. Выбор помнит браузер; ссылка с #exam=ОГЭ его ставит.
@@ -162,11 +162,11 @@
       ${form}
       <div class="actions">
         ${inBank ? '<button class="btn pick" type="button" data-pick></button>' : ''}
-        ${t.hint ? '<button class="btn hint" type="button" data-show="hint" aria-expanded="false">💡 Подсказка</button>' : ''}
+        ${hasHint(t) ? '<button class="btn hint" type="button" data-show="hint" aria-expanded="false">💡 Подсказка</button>' : ''}
         <button class="btn" type="button" data-show="answer" aria-expanded="false">Показать ответ</button>
       </div>
-      ${t.hint ? `<div class="reveal cond" data-part="hint" hidden><b>Подсказка.</b> ${texToHtml(t.hint)}</div>` : ''}
-      <div class="reveal cond" data-part="answer" hidden>${t.solution ? `<b>Решение.</b> ${solutionHtml(t)}` : ''}<p><b>Ответ:</b> ${answerHtml(t)}</p></div>
+      ${hasHint(t) ? '<div class="reveal cond" data-part="hint" hidden></div>' : ''}
+      <div class="reveal cond" data-part="answer" hidden></div>
       ${selfMax(t) ? `<div class="grade" hidden><span>Сравните своё решение с разбором и поставьте себе балл:</span>${
         Array.from({ length: selfMax(t) + 1 }, (_, g) => `<button type="button" class="btn" data-grade="${g}" aria-pressed="false">${g}</button>`).join('')}</div>` : ''}
       ${selfMax(t) ? '<p class="tgrade" hidden></p>' : ''}
@@ -179,9 +179,13 @@
       const b = e.target.closest('[data-show]');
       if (!b) return;
       const part = el.querySelector(`[data-part="${b.dataset.show}"]`);
-      part.hidden = !part.hidden;
-      b.setAttribute('aria-expanded', String(!part.hidden));
-      if (!part.hidden) { saveReveal(t, b.dataset.show); showGrade(el); }
+      if (!part.hidden) { part.hidden = true; b.setAttribute('aria-expanded', 'false'); return; }
+      fillParts(el, t).then(() => {
+        part.hidden = false;
+        b.setAttribute('aria-expanded', 'true');
+        saveReveal(t, b.dataset.show);
+        showGrade(el);
+      });
     });
     const f = el.querySelector('form.try');
     if (f) f.addEventListener('submit', e => {
@@ -248,9 +252,25 @@
     markCard(el, t);
   }
   // сдать ответ: на сервер (в Телеграме), открыть решение (это не подсказка) и кнопки балла
+  // подсказка и решение: при первом открытии догружаем файл решений этой темы (taskRender.loadSol)
+  function fillParts(el, t) {
+    if (el.dataset.filled) return Promise.resolve();
+    const b = el.querySelector('[data-show="answer"]');
+    if (t.sol && !t._sol) b.classList.add('loading');
+    return window.taskRender.loadSol([t]).then(() => {
+      b.classList.remove('loading');
+      el.dataset.filled = '1';
+      const h = el.querySelector('[data-part="hint"]');
+      if (h) h.innerHTML = t.hint ? `<b>Подсказка.</b> ${texToHtml(t.hint)}` : '<p class="muted">Не удалось загрузить подсказку. Проверьте интернет.</p>';
+      el.querySelector('[data-part="answer"]').innerHTML = (t.solution ? `<b>Решение.</b> ${solutionHtml(t)}`
+        : t.has_sol ? '<p class="muted">Не удалось загрузить решение. Проверьте интернет и нажмите ещё раз.</p>' : '') +
+        `<p><b>Ответ:</b> ${answerHtml(t)}</p>`;
+      if (t.sol && !t._sol) delete el.dataset.filled;   // не загрузилось — попробуем при следующем нажатии
+    });
+  }
   function submitP2(el, t, v) {
     const sol = el.querySelector('[data-part="answer"]'), b = el.querySelector('[data-show="answer"]');
-    sol.hidden = false; b.setAttribute('aria-expanded', 'true');
+    fillParts(el, t).then(() => { sol.hidden = false; b.setAttribute('aria-expanded', 'true'); });
     showGrade(el);
     if (!window.tgApi || !window.tgP2) return Promise.resolve();
     window.tgP2[t.id] = { a: v.trim().slice(0, 2000), self: null, teacher: null, max: selfMax(t) };
