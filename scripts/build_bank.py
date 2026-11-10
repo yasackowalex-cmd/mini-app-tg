@@ -16,6 +16,11 @@ REQUIRED = ('id', 'exam', 'kim', 'section', 'topic', 'level', 'type', 'answer')
 
 
 
+# поля задачи, которые сайт получает не сразу (out/sol/…) или не получает вовсе
+SOL_FIELDS = ('solution', 'hint', 'solution_images')
+DROP_FIELDS = ('tikz', 'sol_tikz', 'file')
+
+
 def versioned(assets_dir, path, rel=None):
     # rel: путь файла относительно assets_dir; по умолчанию только имя файла
     with open(os.path.join(assets_dir, rel or os.path.basename(path)), 'rb') as fh:
@@ -168,8 +173,39 @@ def main():
                     problems.append(('exams/variants.json', f"вариант {v['n']}: {tid} теперь КИМ {kims[tid]}, а стоит на №{i + 1}"))
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
+    out_dir = os.path.dirname(a.out)
+    # Сайт при открытии грузит только bank.json: условия, ответы, чертежи условий.
+    # Решения и подсказки — отдельными файлами out/sol/<экзамен>_<тема>.json, их сайт берёт при первом
+    # нажатии «Подсказка»/«Показать ответ» (поле sol у задачи — адрес этого файла с ?v=хеш).
+    # Исходники TikZ сайту не нужны (чертежи уже в assets/*.svg) и в bank.json не идут.
+    sol_dir = os.path.join(out_dir, 'sol')
+    os.makedirs(sol_dir, exist_ok=True)
+    for old in glob.glob(os.path.join(sol_dir, '*.json')):
+        os.remove(old)
+    shards = {}
+    for t in tasks:
+        part = {k: t[k] for k in SOL_FIELDS if t.get(k)}
+        if part:
+            ex = {'ЕГЭ': 'ege', 'ОГЭ': 'oge'}.get(t.get('exam'), 'both')
+            key = ex + '_' + (re.sub(r'[^0-9.]', '', str(t.get('topic') or '')) or 'x')
+            shards.setdefault(key, {})[t['id']] = part
+    sol_url = {}
+    for key, part in shards.items():
+        path = os.path.join(sol_dir, key + '.json')
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
+            json.dump(part, f, ensure_ascii=False, separators=(',', ':'))
+        for i in part:
+            sol_url[i] = versioned(sol_dir, 'out/sol/' + key + '.json', key + '.json')
+    lean = []
+    for t in tasks:
+        x = {k: v for k, v in t.items() if k not in DROP_FIELDS and k not in SOL_FIELDS}
+        if t['id'] in sol_url:
+            x['sol'] = sol_url[t['id']]
+            x['has_hint'] = bool(t.get('hint'))
+            x['has_sol'] = bool(t.get('solution'))
+        lean.append(x)
     with open(a.out, 'w', encoding='utf-8', newline='\n') as f:
-        json.dump(tasks, f, ensure_ascii=False, indent=1)
+        json.dump(lean, f, ensure_ascii=False, separators=(',', ':'))
 
     # справочник кодов тем для фильтра на странице банка
     import csv
@@ -189,6 +225,10 @@ def main():
 
     # уроки по темам (lessons/<тема>.md, scripts/import_lesson.py): конспект, видео, задачи ДЗ из банка
     lessons = []
+    les_dir = os.path.join(out_dir, 'lessons')
+    os.makedirs(les_dir, exist_ok=True)
+    for old in glob.glob(os.path.join(les_dir, '*.json')):
+        os.remove(old)
     by_id = {t['id'] for t in tasks}
     own = {}
     for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', 'tasks', '*.md'))):
@@ -217,12 +257,17 @@ def main():
         hw = [i for i in (L.get('hw') or []) if i in by_id or i in own]
         for i in set(L.get('hw') or []) - by_id - set(own):
             problems.append((rel, f'задачи ДЗ {i} нет ни в банке, ни в lessons/tasks'))
+        # конспект — отдельным файлом out/lessons/<тема>.json (грузится, когда урок открыли);
+        # в списке уроков out/lessons.json только адрес этого файла с ?v=хеш
+        with open(os.path.join(les_dir, L['topic'] + '.json'), 'w', encoding='utf-8', newline='\n') as fc:
+            json.dump({'conspect': text}, fc, ensure_ascii=False, separators=(',', ':'))
         lessons.append({'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
-                        'video': L.get('video') or [], 'hw': hw, 'conspect': text, 'label': L.get('label') or 'Конспект',
+                        'video': L.get('video') or [], 'hw': hw, 'label': L.get('label') or 'Конспект',
+                        'conspect_url': versioned(les_dir, 'out/lessons/' + L['topic'] + '.json', L['topic'] + '.json'),
                         # свои задачи урока (темы, где в банке мало задач): только в уроке, в банк не попадают
-                        'tasks': [own[i] for i in hw if i in own]})
-    with open(os.path.join(os.path.dirname(a.out), 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:
-        json.dump(lessons, f, ensure_ascii=False, indent=1)
+                        'tasks': [{k: v for k, v in own[i].items() if k not in DROP_FIELDS} for i in hw if i in own]})
+    with open(os.path.join(out_dir, 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(lessons, f, ensure_ascii=False, separators=(',', ':'))
 
     stamp_index()
     print(f"ЗАДАЧ В БАНКЕ: {len(tasks)}  →  {os.path.relpath(a.out, ROOT)}")

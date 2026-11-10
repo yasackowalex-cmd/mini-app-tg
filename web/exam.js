@@ -99,7 +99,7 @@
     clearInterval(timer);
     if (screen === 'start') renderStart();
     if (screen === 'run') renderRun();
-    if (screen === 'result') renderResult();
+    if (screen === 'result') { renderResult(); window.taskRender.loadSol(exam.ids.map(id => byId[id])).then(() => { if (!$('ex-result').hidden) renderResult(); }); }
     window.scrollTo(0, 0);
   }
 

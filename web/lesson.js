@@ -163,7 +163,7 @@
       <h2>Урок ${esc(L.topic)}. ${esc(L.title)}</h2>
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
-      <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${conspectHtml(L.conspect)}</div></details>
+      <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${L.conspect != null ? conspectHtml(L.conspect) : '<p class="status">Загружаю…</p>'}</div></details>
       ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lteach" hidden></div><p class="lhw-res cnt" hidden></p><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
       ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.topic)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
@@ -171,6 +171,13 @@
       if (!b) return;
       box.querySelectorAll('.lvsrc [data-src]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
       box.querySelector('.lvideo').innerHTML = frame(b.dataset.src);
+    });
+    // конспект — отдельный файл урока (out/lessons/<тема>.json), чтобы список уроков грузился быстро
+    if (L.conspect == null && L.conspect_url) fetch(L.conspect_url).then(r => r.json()).then(c => {
+      L.conspect = c.conspect || '';
+      if (box.dataset.topic === topic) box.querySelector('.lconspect .cond').innerHTML = conspectHtml(L.conspect);
+    }).catch(() => {
+      if (box.dataset.topic === topic) box.querySelector('.lconspect .cond').innerHTML = '<p class="status">Не удалось загрузить конспект. Проверьте интернет и откройте урок ещё раз.</p>';
     });
     renderRes();
     renderTeach();

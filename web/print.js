@@ -75,5 +75,7 @@
   fetch('out/bank.json', { cache: 'no-cache' }).then(r => r.json()).then(b => {
     b.forEach(t => { byId[t.id] = t; });
     render();
+    // решения для листа: догружаем файлы решений задач подборки и перерисовываем
+    window.taskRender.loadSol(ids.map(id => byId[id])).then(render);
   }).catch(() => { $('status').textContent = 'Не удалось загрузить банк задач. Обновите страницу.'; });
 })();

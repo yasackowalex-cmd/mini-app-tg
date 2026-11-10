@@ -241,7 +241,7 @@
       <div class="q-head">${n ? `<span class="chip num">№ ${n} из ${place.ids.length}</span>` : ''}${task ? `<span class="chip kim">КИМ ${task.kim}</span>` : ''}<span class="cnt">сдано ${shortDate(ts)}</span></div>
       ${cond ? `<div class="cond">${cond.html}</div>${cond.rest.length ? `<div class="figs">${cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('')}</div>` : ''}` : `<p class="muted small">Задачи ${esc(t)} больше нет в банке.</p>`}
       <div class="q-ans"><b>Ответ ученика</b>${esc(a.replace(/\s*\(пробник\)\s*$/, '')) || '—'}</div>
-      ${task && task.solution ? `<details class="q-sol" data-key="${esc(key)}"${shownSol.has(key) ? ' open' : ''}><summary>Решение</summary><div class="cond">${R.solutionHtml(task)}</div></details>` : ''}
+      ${task && R.hasSol(task) ? `<details class="q-sol" data-key="${esc(key)}" data-task="${esc(t)}"${shownSol.has(key) ? ' open' : ''}><summary>Решение</summary><div class="cond">${task.solution ? R.solutionHtml(task) : ''}</div></details>` : ''}
       <div class="q-row"><span class="cnt">Сам поставил: ${has(self) ? `<b>${self} из ${max}</b>` : 'не поставил'}. Ваш балл:</span>${Array.from({ length: max + 1 }, (_, g) =>
         `<button class="btn" type="button" data-act="p2g" data-score="${g}" aria-pressed="${tch === g}">${g}</button>`).join('')}</div></div>`;
   }
@@ -520,7 +520,14 @@
     if (d.id === 't-sum') sumOpen = d.open;
     if (d.id === 'q-done') checkedOpen = d.open;
     if (d.classList.contains('q-st')) { const sid = d.dataset.id.slice(1); if (d.open) checkOpen.add(sid); else checkOpen.delete(sid); }
-    if (d.classList.contains('q-sol')) { if (d.open) shownSol.add(d.dataset.key); else shownSol.delete(d.dataset.key); }
+    if (d.classList.contains('q-sol')) {
+      if (d.open) shownSol.add(d.dataset.key); else shownSol.delete(d.dataset.key);
+      // решение догружается при первом раскрытии (файлы решений, taskRender.loadSol)
+      const task = taskOf(d.dataset.task), box = d.querySelector('.cond');
+      if (d.open && task && !box.innerHTML) window.taskRender.loadSol([task]).then(() => {
+        box.innerHTML = task.solution ? window.taskRender.solutionHtml(task) : '<p class="muted small">Не удалось загрузить решение.</p>';
+      });
+    }
   }, true);
   $('t-body').addEventListener('click', e => {
     const b = e.target.closest('[data-act]');
