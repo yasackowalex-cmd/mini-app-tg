@@ -170,10 +170,15 @@
       ${selfMax(t) ? `<div class="grade" hidden><span>Сравните своё решение с разбором и поставьте себе балл:</span>${
         Array.from({ length: selfMax(t) + 1 }, (_, g) => `<button type="button" class="btn" data-grade="${g}" aria-pressed="false">${g}</button>`).join('')}</div>` : ''}
       ${selfMax(t) ? '<p class="tgrade" hidden></p>' : ''}
-      <div class="id">${t.id}</div>`;
+      <div class="id">${t.id}<button class="rep-btn" type="button" data-rep>⚠ Ошибка в задаче</button></div>
+      <form class="rep" hidden><textarea name="text" rows="2" maxlength="1000"
+        placeholder="Что не так: неверный ответ, опечатка, не виден рисунок…" aria-label="Что не так в задаче"></textarea>
+        <span class="hwa"><button class="btn" type="submit">Отправить учителю</button><button class="btn" type="button" data-rep>Отмена</button></span>
+        <span class="msg small"></span></form>`;
     el.addEventListener('click', e => {
       if (e.target.closest('[data-pick]')) { togglePick(t.id); return; }
       if (e.target.closest('[data-fav]')) { toggleFav(t.id); markFav(el, t); return; }
+      if (e.target.closest('[data-rep]')) { const r = el.querySelector('form.rep'); r.hidden = !r.hidden; if (!r.hidden) r.elements.text.focus(); return; }
       const g = e.target.closest('[data-grade]');
       if (g) { saveGrade(el, t, Number(g.dataset.grade)); return; }
       const b = e.target.closest('[data-show]');
@@ -185,6 +190,23 @@
         b.setAttribute('aria-expanded', 'true');
         saveReveal(t, b.dataset.show);
         showGrade(el);
+      });
+    });
+    // «⚠ Ошибка в задаче» (только в Телеграме): сообщение с последним ответом ученика уходит учителю в кабинет
+    const rf = el.querySelector('form.rep');
+    rf.addEventListener('submit', e => {
+      e.preventDefault();
+      const text = rf.elements.text.value.trim(), msg = rf.querySelector('.msg');
+      if (!text) { msg.textContent = 'Напишите, что не так.'; return; }
+      if (!window.tgApi) { msg.textContent = 'Отправить можно только из Телеграма, после входа.'; return; }
+      const inp = el.querySelector('form.try [name="a"]');
+      rf.querySelector('[type="submit"]').disabled = true;
+      window.tgApi('report', { task_id: t.id, text, answer: inp && inp.value.trim() ? inp.value.trim() : null }).then(r => {
+        rf.querySelector('[type="submit"]').disabled = false;
+        if (!r) { msg.textContent = 'Не получилось отправить. Попробуйте позже.'; return; }
+        rf.elements.text.value = '';
+        rf.hidden = true;
+        el.querySelector('.rep-btn').textContent = '✓ Сообщение отправлено учителю';
       });
     });
     const f = el.querySelector('form.try');
