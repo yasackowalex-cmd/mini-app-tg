@@ -23,6 +23,8 @@
 //     (он же пишется попыткой ученику: полный балл — верно, иначе неверно). В progress — p2: [[task_id, ответ, свой балл,
 //     балл учителя, максимум]], в teacher — p2: {tg_id: [...]} (без таблицы part2, миграция 008, — null).
 //   action "student_set" (учитель), tg_id, last_name, first_name, grade — исправить имя, фамилию и класс ученика.
+//   action "report", task_id, text, answer — ученик сообщает об ошибке в задаче (не больше 20 за сутки);
+//     "report_resolve" (учитель), id, on — отметить исправленным; в teacher — reports (без таблицы reports, миграция 009, — null).
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
@@ -214,6 +216,28 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const task_id = String(body.task_id || '').slice(0, 100);
     if (!task_id || !['hint', 'answer'].includes(body.kind)) return [400, { ok: false, error: 'bad request' }];
     const { error } = await db.from('reveals').insert({ tg_id: user.id, task_id, kind: body.kind });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+
+  // ---- Ошибка в задаче: ученик сообщает, учитель видит в кабинете и отмечает «Исправлено» ----
+  if (action === 'report') {
+    const task_id = String(body.task_id || '').slice(0, 100), text = String(body.text || '').trim().slice(0, 1000);
+    const answer = body.answer == null ? null : String(body.answer).slice(0, 200);
+    if (!task_id || !text) return [400, { ok: false, error: 'bad request' }];
+    // не больше 20 сообщений за сутки от одного ученика
+    const day = new Date(Date.now() - 86400000).toISOString();
+    const { count } = await db.from('reports').select('id', { count: 'exact', head: true }).eq('tg_id', user.id).gte('created_at', day);
+    if ((count ?? 0) >= 20) return [429, { ok: false, error: 'too many' }];
+    const { error } = await db.from('reports').insert({ tg_id: user.id, task_id, text, answer });
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+  if (action === 'report_resolve') {
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const id = Number(body.id);
+    if (!Number.isSafeInteger(id) || id <= 0 || typeof body.on !== 'boolean') return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('reports').update({ resolved_at: body.on ? new Date().toISOString() : null }).eq('id', id);
     if (error) return [500, { ok: false, error: 'db' }];
     return [200, { ok: true }];
   }
@@ -448,7 +472,13 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       for (const r of pa.data ?? []) (p2[r.tg_id] ??= []).push([r.task_id, r.answer, r.self_score, r.teacher_score, r.max_score,
         Math.floor(Date.parse(r.updated_at) / 1000) || 0]);
     }
-    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite, p2 }];
+    // сообщения об ошибках в задачах: все неисправленные и 50 последних исправленных; без таблицы reports (миграция 009) — null
+    const { data: rpOpen, error: e7 } = await db.from('reports').select('id, tg_id, task_id, text, answer, created_at, resolved_at')
+      .is('resolved_at', null).order('id', { ascending: false }).limit(1000);
+    const { data: rpDone } = e7 ? { data: null } : await db.from('reports').select('id, tg_id, task_id, text, answer, created_at, resolved_at')
+      .not('resolved_at', 'is', null).order('id', { ascending: false }).limit(50);
+    const reports = e7 ? null : [...(rpOpen ?? []), ...(rpDone ?? [])];
+    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite, p2, reports }];
   }
 
   return [400, { ok: false, error: 'action' }];

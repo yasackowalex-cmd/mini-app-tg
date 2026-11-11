@@ -368,3 +368,13 @@ p.cnt { white-space: normal; }
 .lteach { margin: 0 0 10px; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 10px; }
 .lteach .hwa { margin-top: 8px; }
 .btn.loading { opacity: .6; cursor: progress; }
+/* «⚠ Ошибка в задаче»: только в Телеграме (там есть вход и сервер) */
+.rep-btn { display: none; float: right; border: 0; background: none; padding: 0; font: inherit; font-size: 12px; color: var(--muted); cursor: pointer; text-decoration: underline dotted; }
+.in-tg .rep-btn { display: inline; }
+form.rep { margin-top: 8px; }
+form.rep textarea { width: 100%; box-sizing: border-box; font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 8px; }
+form.rep .msg { color: var(--muted); }
+.rp-item { padding: 12px; }
+.rp-item.done { opacity: .7; }
+.rp-text { margin: 6px 0; white-space: pre-wrap; }
+.rp-done { margin-top: 12px; }

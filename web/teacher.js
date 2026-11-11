@@ -7,6 +7,7 @@
 //   пробники, сколько ответов 2 части ждёт проверки, правка имени и «Мои ученики».
 //   Балл учителя важнее самооценки: в таблицах ДЗ задача с неполным баллом учителя — нерешённая.
 // «Задания» — ДЗ учителя и ДЗ уроков одним списком, новые сверху; у каждого таблица учеников с отметками по задачам.
+// «Ошибки» — сообщения учеников об ошибках в задачах (кнопка «⚠ Ошибка в задаче»), кнопка «Исправлено».
 // Фильтр по классу, «Мои / Остальные» и поиск (фамилия или название задания) общие для обоих видов.
 // «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
 (function () {
@@ -489,7 +490,42 @@
     const q = norm($('t-q').value.trim());
     const nw = waitCount(), badge = document.querySelector('#teacher [data-view="check"] .badge');
     if (badge) { badge.textContent = nw; badge.hidden = !nw; }
-    $('t-body').innerHTML = viewMode === 'tasks' ? renderTasks(q) : viewMode === 'check' ? renderCheck(q) : renderStudents(q);
+    const nr = (data.reports || []).filter(r => !r.resolved_at).length, rb = document.querySelector('#teacher [data-view="reports"] .badge');
+    if (rb) { rb.textContent = nr; rb.hidden = !nr; }
+    $('t-body').innerHTML = viewMode === 'tasks' ? renderTasks(q) : viewMode === 'check' ? renderCheck(q)
+      : viewMode === 'reports' ? renderReports(q) : renderStudents(q);
+  }
+
+  // ---- вид «Ошибки»: сообщения учеников об ошибках в задачах (кнопка «⚠ Ошибка в задаче» на карточке) ----
+  function reportItem(r) {
+    const s = data.byId[r.tg_id] || { tg_id: r.tg_id }, task = taskOf(r.task_id), R = window.taskRender;
+    const cond = task ? R.conditionHtml(task) : null;
+    return `<li class="t-item rp-item${r.resolved_at ? ' done' : ''}" data-id="r${r.id}">
+      <div class="q-head"><b>${esc(r.task_id)}</b>${task && task.kim ? ` <span class="chip kim">КИМ ${task.kim}</span>` : ''}
+        <span class="cnt">${esc(name(s))}${s.grade ? ', ' + esc(s.grade) : ''} · ${day(r.created_at)}</span></div>
+      <p class="rp-text">${esc(r.text)}</p>
+      <p class="cnt wrap">${r.answer ? `Ответ ученика: <b>${esc(r.answer)}</b> · ` : ''}${task ? `В банке: <b>${R.answerHtml(task)}</b>` : 'Задачи нет в банке.'}</p>
+      ${cond ? `<details><summary>Условие</summary><div class="cond">${cond.html}</div>${cond.rest.length ? `<div class="figs">${cond.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('')}</div>` : ''}</details>` : ''}
+      <div class="hwa">${task ? '<button class="btn" type="button" data-act="rp-open">Открыть в банке</button>' : ''}
+        <button class="btn" type="button" data-act="${r.resolved_at ? 'rp-undo' : 'rp-done'}">${r.resolved_at ? 'Вернуть в список' : '✓ Исправлено'}</button></div></li>`;
+  }
+  function renderReports(q) {
+    if (!data.reports) return '<p class="status">Сообщения об ошибках заработают, когда в Supabase будет выполнен 009_reports.sql и обновлён код функции.</p>';
+    const hit = r => !q || norm(name(data.byId[r.tg_id] || {})).includes(q) || norm(r.task_id).includes(q) || norm(r.text).includes(q);
+    const open = data.reports.filter(r => !r.resolved_at && hit(r)), done = data.reports.filter(r => r.resolved_at && hit(r));
+    return `${open.length ? `<ul class="t-list">${open.map(reportItem).join('')}</ul>`
+      : '<p class="status">Новых сообщений об ошибках нет. Ученики отправляют их кнопкой «⚠ Ошибка в задаче» под задачей.</p>'}
+      ${done.length ? `<details class="rp-done"><summary>Исправленные (${done.length})</summary><ul class="t-list">${done.map(reportItem).join('')}</ul></details>` : ''}
+      <p class="muted small">Перешлите текст ошибки в тред проекта, и задачу исправят в банке; потом нажмите «Исправлено».</p>`;
+  }
+  function resolveReport(id, on) {
+    const r = data.reports.find(x => String(x.id) === id);
+    if (!r) return;
+    window.tgApi('report_resolve', { id: r.id, on }).then(res => {
+      if (!res) { const t = tg(); if (t && t.showAlert) t.showAlert('Не получилось сохранить, попробуйте ещё раз.'); return; }
+      r.resolved_at = on ? new Date().toISOString() : null;
+      render();
+    });
   }
 
   // из списка ДЗ ученика: урок открываем на вкладке «Уроки», ДЗ от учителя и задачи с ошибками — в банке
@@ -534,6 +570,8 @@
     if (!b) return;
     const id = b.closest('.t-item').dataset.id, act = b.dataset.act;
     const hw = data.homework.find(x => x.id === id);
+    if (act === 'rp-done' || act === 'rp-undo') { resolveReport(id.slice(1), act === 'rp-done'); return; }
+    if (act === 'rp-open') { const r = data.reports.find(x => 'r' + x.id === id); setTab('bank'); window.bankView.show('Ошибка в задаче ' + r.task_id, [r.task_id], true); return; }
     if (act === 'p2g') { gradeP2(id.slice(1), b.closest('[data-task]').dataset.task, +b.dataset.score); return; }
     if (act === 'go-check') { viewMode = 'check'; checkOpen.add(id.slice(1)); openId = null; render(); return; }
     if (act === 'lesson-open') { location.hash = '#lesson=' + id.slice(1); return; }
