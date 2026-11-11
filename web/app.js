@@ -577,64 +577,95 @@
       <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}% (${ok} из ${n} попыток)` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
   }
 
-  // ---- «На сегодня» (только в Телеграме): несделанное ДЗ, повторение, слабый номер КИМ ----
+  // ---- «План на сегодня» (только в Телеграме) ----
+  // Не список всего несделанного (он демотивирует), а 5 задач на день: сначала из самого свежего ДЗ,
+  // потом повторение (последние ошибки, решённые давно) и новые задачи слабого номера КИМ.
+  // План собирается раз в день и хранится в браузере; после выполнения — «Ещё 5 задач».
+  // Под планом одна строка — самое свежее недоделанное ДЗ (ДЗ старше HW_FRESH_DAYS дней сюда не попадают).
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const PLAN_SIZE = 5, HW_FRESH_DAYS = 14;
   let lessonsList = null;
   if (window.lessonsLoad) window.lessonsLoad.then(L => { lessonsList = L || []; renderToday(); });
-  let todaySets = {};
-  function renderToday() {
-    const box = $('today'), log = window.tgLog, p = prog();
-    if (!log || !p || !bank.length) { box.hidden = true; return; }
-    const okSince = (id, since) => log.some(e => e[0] === id && e[1] && e[2] >= since);
-    const items = [];
-    todaySets = {};
-    // 1) ДЗ от учителя, где решено не всё (новые первыми), и начатые ДЗ уроков
+  const dayKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
+  const planStore = {
+    get() { try { return JSON.parse(localStorage.getItem('dayPlan')) || null; } catch (e) { return null; } },
+    set(v) { try { localStorage.setItem('dayPlan', JSON.stringify(v)); } catch (e) { /* без хранилища план соберётся заново */ } },
+  };
+  // самое свежее недоделанное ДЗ (от учителя или начатое ДЗ урока) не старше HW_FRESH_DAYS
+  function freshHw(log) {
+    const now = Date.now() / 1000, okSince = (id, since) => log.some(e => e[0] === id && e[1] && e[2] >= since), list = [];
     ((window.tgHw && window.tgHw.mine) || []).forEach(hw => {
-      // ДЗ, заданное из урока, открывает сам урок (там и свои задачи урока)
+      const since = Date.parse(hw.created_at) / 1000 || 0;
+      if (now - since > HW_FRESH_DAYS * 86400) return;
       const L = window.lessonByHw ? window.lessonByHw(hw.task_ids) : null;
-      const ids = L ? hw.task_ids : hw.task_ids.filter(id => byId[id]), since = Date.parse(hw.created_at) / 1000 || 0;
-      const left = ids.filter(id => !okSince(id, since)).length;
-      if (left) items.push({ k: 'hw' + hw.id, title: hw.title, ids: hw.task_ids, href: L ? '#lesson=' + L.topic : null,
-        text: `ДЗ «${esc(hw.title)}»: осталось ${left} из ${ids.length}`, btn: L ? 'Открыть урок' : 'Решать' });
+      const ids = L ? hw.task_ids : hw.task_ids.filter(id => byId[id]);
+      const left = ids.filter(id => !okSince(id, since));
+      if (left.length) list.push({ ts: since, teacher: 1, title: hw.title, ids: hw.task_ids, left, total: ids.length, L });
     });
-    // начатые и недоделанные ДЗ уроков: два последних по времени ответа
-    (lessonsList || []).map(L => {
+    (lessonsList || []).forEach(L => {
       const e = (L.hw || []).length && log.find(e => L.hw.includes(e[0]));
-      return e ? { L, ts: e[2], left: L.hw.filter(id => !log.some(e => e[0] === id && e[1])).length } : null;
-    }).filter(x => x && x.left && !items.some(it => it.href === '#lesson=' + x.L.topic)).sort((a, b) => b.ts - a.ts).slice(0, 2).forEach(({ L, left }) => {
-      items.push({ k: 'l' + L.topic, href: '#lesson=' + L.topic, text: `ДЗ урока ${esc(L.topic)} «${esc(L.title)}»: осталось ${left} из ${L.hw.length}`, btn: 'Открыть урок' });
+      if (!e || now - e[2] > HW_FRESH_DAYS * 86400 || list.some(x => x.L === L)) return;
+      const left = L.hw.filter(id => !log.some(x => x[0] === id && x[1]));
+      if (left.length) list.push({ ts: e[2], title: `Урок ${L.topic}. ${L.title}`, ids: L.hw, left, total: L.hw.length, L });
     });
-    // 2) повторение: последние ошибки, затем решённые давно (KIM_STALE_DAYS), всего до 5 задач
-    const last = {};
+    // ДЗ от учителя важнее начатого самим учеником урока
+    return list.sort((a, b) => (b.teacher || 0) - (a.teacher || 0) || b.ts - a.ts)[0] || null;
+  }
+  // n задач в план, кроме уже взятых (skip): ДЗ (до 3, если не всё из него), повторение, слабый номер
+  function planTasks(log, p, n, skip) {
+    const out = [], take = (ids, max) => { for (const id of ids) { if (out.length >= max) break; if (byId[id] && !skip.has(id) && !out.includes(id)) out.push(id); } };
+    const hw = freshHw(log);
+    if (hw) take(hw.left, Math.min(n, 3));
+    const last = {}, now = Date.now() / 1000;
     for (const e of log) if (!(e[0] in last)) last[e[0]] = e;
-    const now = Date.now() / 1000;
-    const wrong = Object.values(last).filter(e => !e[1] && byId[e[0]]).map(e => e[0]);
-    const stale = Object.values(last).filter(e => e[1] && byId[e[0]] && now - e[2] > KIM_STALE_DAYS * 86400)
-      .sort((a, b) => a[2] - b[2]).map(e => e[0]);
-    const rep = wrong.concat(stale).slice(0, 5);
-    if (rep.length) items.push({ k: 'rep', title: 'Повторение', ids: rep, plain: true,
-      text: `Повторить ${rep.length} ${rep.length === 1 ? 'задачу' : rep.length < 5 ? 'задачи' : 'задач'}: ${wrong.length ? 'где была ошибка' : ''}${wrong.length && stale.length ? ' и ' : ''}${stale.length ? 'решённые давно' : ''}`, btn: 'Повторить' });
-    // 3) слабый номер КИМ: в работе с худшей долей верных, иначе «пора повторить», иначе первый не начатый
+    const wrong = Object.values(last).filter(e => !e[1]).map(e => e[0]);
+    const stale = Object.values(last).filter(e => e[1] && now - e[2] > KIM_STALE_DAYS * 86400).sort((a, b) => a[2] - b[2]).map(e => e[0]);
+    take(wrong.concat(stale), n - 1);
+    if (hw) take(hw.left, n - 1);
     const ks = kimStats(p, log), kims = Object.keys(KP);
     const work = kims.filter(k => ks[k].state === 'work').sort((a, b) => ks[a].acc - ks[b].acc);
-    const k = work[0] || kims.find(k => ks[k].state === 'stale') || kims.find(k => ks[k].state === 'none');
-    if (k) {
-      const fresh = bank.filter(t => String(t.kim) === k && !p[t.id] && !(t.tags || []).includes('ВНЕ_ЕГЭ_2027'));
-      const ids = fresh.slice(0, 5).map(t => t.id);
-      const s = ks[k], why = s.state === 'work' ? `верных ${Math.round(100 * s.acc)}%, решено ${s.solved} из ${KIM_NEED(k)} нужных`
-        : s.state === 'stale' ? 'давно не решали' : 'ещё не начинали';
-      if (ids.length) items.push({ k: 'kim', title: `№ ${k}: новые задачи`, ids, plain: true, text: `Подтянуть № ${k} (${why})`, btn: `Решить ${ids.length}` });
+    const order = work.concat(kims.filter(k => ks[k].state === 'stale'), kims.filter(k => ks[k].state === 'none'));
+    for (const k of order) {
+      if (out.length >= n) break;
+      take(bank.filter(t => String(t.kim) === k && !p[t.id] && !(t.tags || []).includes('ВНЕ_ЕГЭ_2027')).map(t => t.id), n);
     }
-    box.hidden = !items.length;
-    items.forEach(it => { todaySets[it.k] = it; });
-    box.innerHTML = `<h3 class="ph">На сегодня</h3><ul class="tdl">${items.map(it =>
-      `<li><span>${it.text}</span>${it.href ? `<a class="btn" href="${it.href}">${it.btn}</a>` : `<button class="btn" type="button" data-today="${esc(it.k)}">${it.btn}</button>`}</li>`).join('')}</ul>`;
+    return out;
+  }
+  let todayView = null, todayHw = null;
+  function renderToday(more) {
+    const box = $('today'), log = window.tgLog, p = prog(), uid = window.tgUser && window.tgUser.id;
+    if (!log || !p || !bank.length) { box.hidden = true; return; }
+    // план собираем, когда известны ДЗ ученика и уроки: иначе в нём не будет задач из ДЗ
+    if (!window.tgHw || lessonsList === null) return;
+    let plan = planStore.get();
+    if (!plan || plan.day !== dayKey() || plan.uid !== uid || !Array.isArray(plan.ids)) {
+      plan = { day: dayKey(), uid, start: Math.floor(Date.now() / 1000) - 60, ids: planTasks(log, p, PLAN_SIZE, new Set()) };
+      planStore.set(plan);
+    }
+    if (more) { plan.ids = plan.ids.concat(planTasks(log, p, PLAN_SIZE, new Set(plan.ids))); planStore.set(plan); }
+    plan.ids = plan.ids.filter(id => byId[id]);
+    // задача плана сделана, если сегодня на неё дан верный ответ (или учитель/самооценка поставили полный балл)
+    const done = plan.ids.filter(id => log.some(e => e[0] === id && e[1] && e[2] >= plan.start)).length, n = plan.ids.length;
+    todayView = { title: 'План на сегодня', ids: plan.ids };
+    todayHw = freshHw(log);
+    const hwLine = todayHw ? `<p class="tdhw"><span>ДЗ «${esc(todayHw.title)}»: осталось ${todayHw.left.length} из ${todayHw.total}</span>${todayHw.L
+      ? `<a class="btn" href="#lesson=${esc(todayHw.L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-today="hw">Открыть ДЗ</button>'}</p>` : '';
+    if (!n && !hwLine) { box.hidden = true; return; }
+    box.hidden = false;
+    const all = n && done >= n;
+    box.innerHTML = `<h3 class="ph">План на сегодня</h3>${n ? `
+      <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
+        ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>
+      ${bar(done, n)}` : ''}${hwLine}`;
   }
   $('today').addEventListener('click', e => {
-    const b = e.target.closest('[data-today]'), it = b && todaySets[b.dataset.today];
-    if (it) window.bankView.show(it.title, it.ids, it.plain);
+    const b = e.target.closest('[data-today]');
+    if (!b) return;
+    if (b.dataset.today === 'plan' && todayView) window.bankView.show(todayView.title, todayView.ids, true);
+    if (b.dataset.today === 'more') { renderToday(true); window.bankView.show(todayView.title, todayView.ids, true); }
+    if (b.dataset.today === 'hw' && todayHw) window.bankView.show(todayHw.title, todayHw.ids);
   });
-  ['tg-hw', 'tg-attempt'].forEach(ev => document.addEventListener(ev, () => renderToday()));
+  ['tg-hw', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, () => renderToday()));
 
   function onProgress() {
     renderToday();

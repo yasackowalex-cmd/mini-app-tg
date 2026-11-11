@@ -378,13 +378,12 @@ form.rep .msg { color: var(--muted); }
 .rp-item.done { opacity: .7; }
 .rp-text { margin: 6px 0; white-space: pre-wrap; }
 .rp-done { margin-top: 12px; }
-/* «На сегодня»: несделанное ДЗ, повторение и слабый номер КИМ (только в Телеграме) */
+/* «План на сегодня»: 5 задач на день и одно свежее ДЗ (только в Телеграме) */
 .today { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 12px; padding: 10px 14px 12px; margin: 16px 0 0; }
 .today .ph { font: 600 15px/1.2 Oswald, sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 2px 0 6px; }
-.tdl { list-style: none; margin: 0; padding: 0; }
-.tdl li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
-.tdl li:first-child { border-top: 0; }
-.tdl li .btn { flex: none; }
+.tdp { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.tdhw { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 10px 0 0; padding-top: 8px; border-top: 1px solid var(--line); }
+.tdp .btn, .tdhw .btn { flex: none; }
 /* выбор учеников для ДЗ: группы целиком или по одному */
 .hw-who { flex: 1 1 100%; max-height: 45vh; overflow: auto; }
 .hw-who .wg { margin: 6px 0; }

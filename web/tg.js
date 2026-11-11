@@ -86,7 +86,8 @@
       window.tgHwOpen = o && o.hw ? o.hw.id : null;
       return api('hw_list');
     }).then(l => {
-      if (!l) return;
+      // ДЗ не загрузились — пустой список, чтобы «План на сегодня» собрался без них
+      if (!l) { if (!window.tgHw) { window.tgHw = { mine: [], given: [] }; document.dispatchEvent(new CustomEvent('tg-hw')); } return; }
       window.tgHw = { mine: l.mine || [], given: l.given || [] };
       document.dispatchEvent(new CustomEvent('tg-hw'));
     });
