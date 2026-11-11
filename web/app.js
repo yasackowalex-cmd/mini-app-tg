@@ -590,15 +590,18 @@
     todaySets = {};
     // 1) ДЗ от учителя, где решено не всё (новые первыми), и начатые ДЗ уроков
     ((window.tgHw && window.tgHw.mine) || []).forEach(hw => {
-      const ids = hw.task_ids.filter(id => byId[id]), since = Date.parse(hw.created_at) / 1000 || 0;
+      // ДЗ, заданное из урока, открывает сам урок (там и свои задачи урока)
+      const L = window.lessonByHw ? window.lessonByHw(hw.task_ids) : null;
+      const ids = L ? hw.task_ids : hw.task_ids.filter(id => byId[id]), since = Date.parse(hw.created_at) / 1000 || 0;
       const left = ids.filter(id => !okSince(id, since)).length;
-      if (left) items.push({ k: 'hw' + hw.id, title: hw.title, ids: hw.task_ids, text: `ДЗ «${esc(hw.title)}»: осталось ${left} из ${ids.length}`, btn: 'Решать' });
+      if (left) items.push({ k: 'hw' + hw.id, title: hw.title, ids: hw.task_ids, href: L ? '#lesson=' + L.topic : null,
+        text: `ДЗ «${esc(hw.title)}»: осталось ${left} из ${ids.length}`, btn: L ? 'Открыть урок' : 'Решать' });
     });
     // начатые и недоделанные ДЗ уроков: два последних по времени ответа
     (lessonsList || []).map(L => {
       const e = (L.hw || []).length && log.find(e => L.hw.includes(e[0]));
       return e ? { L, ts: e[2], left: L.hw.filter(id => !log.some(e => e[0] === id && e[1])).length } : null;
-    }).filter(x => x && x.left).sort((a, b) => b.ts - a.ts).slice(0, 2).forEach(({ L, left }) => {
+    }).filter(x => x && x.left && !items.some(it => it.href === '#lesson=' + x.L.topic)).sort((a, b) => b.ts - a.ts).slice(0, 2).forEach(({ L, left }) => {
       items.push({ k: 'l' + L.topic, href: '#lesson=' + L.topic, text: `ДЗ урока ${esc(L.topic)} «${esc(L.title)}»: осталось ${left} из ${L.hw.length}`, btn: 'Открыть урок' });
     });
     // 2) повторение: последние ошибки, затем решённые давно (KIM_STALE_DAYS), всего до 5 задач

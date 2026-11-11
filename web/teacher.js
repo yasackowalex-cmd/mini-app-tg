@@ -53,8 +53,17 @@
 
   // код личной ссылки учителя — для ссылок на уроки (lesson.js); без загрузки всего кабинета, если он ещё не открыт
   let invP = null;
-  window.teacherInvite = () => data ? Promise.resolve(data.invite)
-    : invP || (invP = window.tgApi ? window.tgApi('teacher').then(r => r && r.invite) : Promise.resolve(null));
+  const fetchT = () => invP || (invP = window.tgApi ? window.tgApi('teacher').then(r => { if (!r) invP = null; return r; }) : Promise.resolve(null));
+  window.teacherInvite = () => data ? Promise.resolve(data.invite) : fetchT().then(r => r && r.invite);
+  // для «Задать как ДЗ» (hw.js, lesson.js): свои ученики (если своих ещё нет — все) с группами
+  window.teacherRoster = () => (data ? Promise.resolve(data) : fetchT()).then(r => {
+    if (!r) return null;
+    const mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : r.mine instanceof Set ? r.mine : null;
+    const gr = r.groups || {};
+    const list = r.students.filter(s => !mine || !mine.size || mine.has(String(s.tg_id)))
+      .map(s => ({ tg_id: s.tg_id, name: name(s), grade: s.grade || '', grp: gr[s.tg_id] || '' }));
+    return { students: list, groups: r.groups !== null && r.groups !== undefined };
+  });
 
   function load() {
     if (loading || !window.tgApi) return;
@@ -72,6 +81,8 @@
       data.p2 = r.p2 || null;
       // mine: null — таблицы своих учеников ещё нет, тогда показываем всех
       data.mine = Array.isArray(r.mine) ? new Set(r.mine.map(String)) : null;
+      // группы своих учеников {tg_id: группа}; null — нет колонки grp (миграция 010)
+      data.groups = r.groups || null;
       if (who === null) who = data.mine && data.mine.size ? 'mine' : 'all';
       if (firstLoad) { firstLoad = false; if (data.p2 && studentsShown().some(x => waitOf(x.tg_id).length)) viewMode = 'check'; }
       fillGrades();
@@ -81,13 +92,15 @@
     });
   }
   // новое ДЗ задано — при следующем открытии вкладки данные загрузятся заново
-  document.addEventListener('hw-changed', () => { data = null; if (!$('teacher').hidden) load(); });
+  document.addEventListener('hw-changed', () => { data = null; invP = null; if (!$('teacher').hidden) load(); });
 
   function fillGrades() {
     const sel = $('t-grade'), cur = sel.value;
     const grades = [...new Set(data.students.map(s => s.grade).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
-    sel.innerHTML = '<option value="">Все классы</option>' + grades.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('');
-    sel.value = grades.includes(cur) ? cur : '';
+    const groups = [...new Set(Object.values(data.groups || {}))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true })).map(g => 'g:' + g);
+    sel.innerHTML = '<option value="">Все классы</option>' + grades.map(g => `<option value="${esc(g)}">${esc(g)}</option>`).join('') +
+      (groups.length ? `<optgroup label="Группы">${groups.map(g => `<option value="${esc(g)}">${esc(g.slice(2))}</option>`).join('')}</optgroup>` : '');
+    sel.value = grades.includes(cur) || groups.includes(cur) ? cur : '';
   }
 
   // ---- свои ученики и остальные ----
@@ -149,9 +162,26 @@
   }
   function myBtnMine(s) {
     if (!data.mine) return '';
-    return isMine(s)
+    // группа для групповых занятий: по ней удобно задавать ДЗ сразу нескольким ученикам
+    const names = [...new Set(Object.values(data.groups || {}))].sort((a, b) => a.localeCompare(b, 'ru', { numeric: true }));
+    const grp = data.groups ? `<p class="hwa t-grp"><label>Группа <input data-grp list="t-grp-list" maxlength="40" placeholder="например, «Группа ср 18:00»"
+        value="${esc(data.groups[s.tg_id] || '')}"></label><button class="btn" type="button" data-act="grp-save">Сохранить</button>
+        <datalist id="t-grp-list">${names.map(g => `<option value="${esc(g)}">`).join('')}</datalist></p>` : '';
+    return grp + (isMine(s)
       ? `<p class="hwa"><span class="cnt">Ваш ученик</span> <button class="btn" type="button" data-act="my-off">Убрать из моих</button></p>`
-      : `<p class="hwa"><button class="btn" type="button" data-act="my-on">Добавить в мои ученики</button></p>`;
+      : `<p class="hwa"><button class="btn" type="button" data-act="my-on">Добавить в мои ученики</button></p>`);
+  }
+  function saveGroup(tgId, el) {
+    const grp = el.value.trim();
+    window.tgApi('my_group', { tg_id: Number(tgId), grp }).then(r => {
+      if (!r) { const t = tg(); if (t && t.showAlert) t.showAlert('Не получилось сохранить, попробуйте ещё раз.'); return; }
+      if (grp) data.groups[tgId] = grp; else delete data.groups[tgId];
+      data.mine.add(String(tgId));
+      invP = null;
+      fillGrades();
+      fillWho();
+      render();
+    });
   }
   function setMine(tgId, on) {
     window.tgApi('my_set', { tg_id: Number(tgId), on }).then(r => {
@@ -383,7 +413,9 @@
   // ученики под фильтрами класса и «Мои / Остальные»
   function studentsShown() {
     const g = $('t-grade').value;
-    return data.students.filter(s => whoOk(s) && (!g || s.grade === g))
+    // фильтр: класс ученика или группа учителя («g:<группа>»)
+    const inG = s => !g || (g.startsWith('g:') ? (data.groups || {})[s.tg_id] === g.slice(2) : s.grade === g);
+    return data.students.filter(s => whoOk(s) && inG(s))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
   }
 
@@ -579,6 +611,7 @@
     if (act === 'name-edit') { editId = id.slice(1); render(); return; }
     if (act === 'name-no') { editId = null; render(); return; }
     if (act === 'name-save') { saveName(id.slice(1)); return; }
+    if (act === 'grp-save') { saveGroup(id.slice(1), b.closest('.t-grp').querySelector('[data-grp]')); return; }
     if (act === 'my-on' || act === 'my-off') { setMine(id.slice(1), act === 'my-on'); return; }
     if (act === 'w-open' || act === 'w-err') { openWork(id.slice(1), +b.dataset.k, act === 'w-err'); return; }
     if (!hw) return;

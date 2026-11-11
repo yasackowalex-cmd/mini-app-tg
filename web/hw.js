@@ -36,15 +36,54 @@
     return { ok, help, since, rv };
   }
 
+  // ---- выбор учеников для ДЗ (учитель): группы целиком или по одному; используется и в уроке (lesson.js) ----
+  // picker(box) рисует список и возвращает { ids() } — выбранные Telegram id.
+  function picker(box) {
+    let studs = [];
+    box.innerHTML = '<p class="small">Загружаю учеников…</p>';
+    (window.teacherRoster ? window.teacherRoster() : Promise.resolve(null)).then(r => {
+      if (!r || !r.students.length) { box.innerHTML = '<p class="small">Учеников пока нет: ДЗ получат те, кто откроет ссылку.</p>'; return; }
+      studs = r.students;
+      // группы учителя, а у кого группы нет — по школьному классу
+      const by = new Map();
+      studs.forEach(s => {
+        const g = s.grp || (s.grade ? `${s.grade} (без группы)` : 'Без группы');
+        if (!by.has(g)) by.set(g, []);
+        by.get(g).push(s);
+      });
+      const keys = [...by.keys()].sort((a, b) => /без группы/i.test(a) - /без группы/i.test(b) || a.localeCompare(b, 'ru', { numeric: true }));
+      box.innerHTML = `<p class="small">Кому задать (можно никого не отмечать — тогда только ссылка):</p>${keys.map((g, i) => {
+        const list = by.get(g).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+        return `<div class="wg"><label class="wgh"><input type="checkbox" data-g="${i}"> <b>${esc(g)}</b> <span class="small">(${list.length})</span></label>
+          <div class="wl">${list.map(s => `<label><input type="checkbox" data-s="${esc(s.tg_id)}" data-gi="${i}"> ${esc(s.name)}${s.grp && s.grade ? ` <span class="small">${esc(s.grade)}</span>` : ''}</label>`).join('')}</div></div>`;
+      }).join('')}${r.groups ? '' : '<p class="small">Группы появятся, когда в Supabase будет выполнен 010_groups.sql и обновлена функция.</p>'}`;
+    });
+    box.onchange = e => {
+      const c = e.target;
+      if (c.dataset.g !== undefined) box.querySelectorAll(`[data-gi="${c.dataset.g}"]`).forEach(x => { x.checked = c.checked; });
+      // галочка группы: все отмечены — стоит, часть — «частично»
+      box.querySelectorAll('[data-g]').forEach(g => {
+        const m = [...box.querySelectorAll(`[data-gi="${g.dataset.g}"]`)], n = m.filter(x => x.checked).length;
+        g.checked = n === m.length; g.indeterminate = n > 0 && n < m.length;
+      });
+    };
+    return { ids: () => [...new Set([...box.querySelectorAll('[data-s]:checked')].map(x => Number(x.dataset.s)))] };
+  }
+  window.hwPicker = picker;
+
+  // ДЗ, составленное из ДЗ урока (задано из урока): у ученика открывается сам урок
+  const lessonOf = hw => window.lessonByHw ? window.lessonByHw(hw.task_ids) : null;
+
   function hwItem(hw) {
-    const v = window.bankView, ids = hw.task_ids.filter(v.has);
+    const v = window.bankView, L = lessonOf(hw), own = id => L && (L.tasks || []).some(t => t.id === id);
+    const ids = hw.task_ids.filter(id => v.has(id) || own(id));
     const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help.length);
     const note = st < 3 ? retryNote(r.help, r.rv, r.since) : '';
     const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
     return `<li class="hwi" data-id="${esc(hw.id)}">
       <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
       ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
-      <div class="hwa"><button class="btn" type="button" data-act="open">Открыть задачи</button></div>
+      <div class="hwa">${L ? `<a class="btn" href="#lesson=${esc(L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-act="open">Открыть задачи</button>'}</div>
     </li>`;
   }
 
@@ -74,10 +113,11 @@
     if (hw && b.dataset.act === 'open') window.bankView.show(hw.title, hw.task_ids);
   });
 
+  let formPick = null;
   $('hw-new').addEventListener('click', () => {
     const f = $('hw-form');
     f.hidden = !f.hidden;
-    if (!f.hidden) { f.elements.title.focus(); f.scrollIntoView({ block: 'end' }); }
+    if (!f.hidden) { formPick = picker(f.querySelector('.hw-who')); f.elements.title.focus(); f.scrollIntoView({ block: 'end' }); }
   });
   $('hw-form').addEventListener('submit', e => {
     e.preventDefault();
@@ -86,7 +126,8 @@
     if (ids.length > 60) { msg.textContent = `В одном ДЗ не больше 60 задач, сейчас ${ids.length}.`; return; }
     f.querySelector('button').disabled = true;
     msg.textContent = 'Создаю…';
-    window.tgApi('hw_create', { title: f.elements.title.value.trim(), task_ids: ids }).then(r => {
+    const who = formPick ? formPick.ids() : [];
+    window.tgApi('hw_create', { title: f.elements.title.value.trim(), task_ids: ids, tg_ids: who }).then(r => {
       f.querySelector('button').disabled = false;
       if (!r) { msg.textContent = 'Не получилось, попробуйте ещё раз.'; return; }
       msg.textContent = '';
@@ -94,12 +135,14 @@
       f.hidden = true;
       pick.set([]);
       document.dispatchEvent(new CustomEvent('pick-changed'));
-      share({ ...r.hw, created_at: new Date().toISOString() });
+      // ученики отмечены — ДЗ уже у них, ссылку отправлять не нужно; иначе — окно «Поделиться» со ссылкой
+      if (who.length) { const t = tg(), m = `ДЗ задано: ${r.assigned ?? who.length} уч. Оно уже у них во вкладке «Задачи».`; if (t && t.showAlert) t.showAlert(m); }
+      else share({ ...r.hw, created_at: new Date().toISOString() });
       window.tgReloadHw();
       document.dispatchEvent(new CustomEvent('hw-changed'));
     });
   });
 
   window.hwShare = share;
-  ['tg-hw', 'bank-ready', 'tg-progress', 'tg-attempt'].forEach(ev => document.addEventListener(ev, render));
+  ['tg-hw', 'bank-ready', 'tg-progress', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, render));
 })();

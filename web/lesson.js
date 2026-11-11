@@ -114,9 +114,12 @@
     if (!el || !window.tgTeacher || el.dataset.done) return;
     el.dataset.done = '1';
     el.hidden = false;
-    el.innerHTML = `<span class="small">Задать ученикам: отправьте им ссылку на этот урок. Кто откроет её, попадёт в «Мои ученики», а как он решает ДЗ, будет видно в кабинете.</span>
-      <span class="hwa"><button class="btn" type="button" data-ls="share">Отправить ссылку</button>
-      <button class="btn" type="button" data-ls="copy">Скопировать</button></span>`;
+    el.innerHTML = `<span class="small">Задать ученикам: отметьте учеников или группу — ДЗ урока сразу появится у них. Или отправьте ссылку на урок: кто откроет её, попадёт в «Мои ученики».</span>
+      <span class="hwa"><button class="btn solid" type="button" data-ls="assign">Задать ученикам</button>
+      <button class="btn" type="button" data-ls="share">Отправить ссылку</button>
+      <button class="btn" type="button" data-ls="copy">Скопировать</button></span>
+      <div class="lassign" hidden><div class="hw-who"></div>
+        <span class="hwa"><button class="btn solid" type="button" data-ls="go">Задать</button></span><span class="msg small"></span></div>`;
   }
   document.addEventListener('tg-progress', renderTeach);
   $('lesson').addEventListener('click', e => {
@@ -124,6 +127,28 @@
     if (!b) return;
     const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic);
     if (!L) return;
+    // задать ДЗ урока выбранным ученикам: ДЗ из задач урока, у ученика оно открывает урок
+    const as = box.querySelector('.lassign');
+    if (b.dataset.ls === 'assign') {
+      as.hidden = !as.hidden;
+      if (!as.hidden && window.hwPicker) lessonPick = window.hwPicker(as.querySelector('.hw-who'));
+      return;
+    }
+    if (b.dataset.ls === 'go') {
+      const who = lessonPick ? lessonPick.ids() : [], msg = as.querySelector('.msg');
+      if (!who.length) { msg.textContent = 'Отметьте хотя бы одного ученика.'; return; }
+      b.disabled = true;
+      msg.textContent = 'Задаю…';
+      window.tgApi('hw_create', { title: `Урок ${L.topic}. ${L.title}`, task_ids: L.hw, tg_ids: who }).then(r => {
+        b.disabled = false;
+        if (!r) { msg.textContent = 'Не получилось, попробуйте ещё раз.'; return; }
+        msg.textContent = `Задано: ${r.assigned ?? who.length} уч. ДЗ уже у них, а результаты — в кабинете.`;
+        as.querySelectorAll('[data-s]:checked, [data-g]:checked').forEach(x => { x.checked = false; x.indeterminate = false; });
+        if (window.tgReloadHw) window.tgReloadHw();
+        document.dispatchEvent(new CustomEvent('hw-changed'));
+      });
+      return;
+    }
     const t = window.Telegram && window.Telegram.WebApp;
     // в адресе Телеграма нельзя точки: 3.1.7 → 3-1-7
     const linkOf = code => `https://t.me/${BOT}?startapp=l_${L.topic.replace(/\./g, '-')}${code ? '_' + code : ''}`;
@@ -145,9 +170,15 @@
     b.textContent = 'Секунду…';
     getInvite().then(c => { b.textContent = label; go(c); });
   });
-  let inviteCode;
+  let inviteCode, lessonPick = null;
   const getInvite = () => (window.teacherInvite ? window.teacherInvite() : Promise.resolve(null)).then(c => (inviteCode = c || null));
   document.addEventListener('tg-progress', () => { if (window.tgTeacher) getInvite(); });
+
+  // для hw.js и «На сегодня»: ДЗ, заданное из урока (тот же набор задач), — урок
+  window.lessonByHw = ids => {
+    const key = [...ids].sort().join();
+    return list.find(L => L.hw.length && [...L.hw].sort().join() === key) || null;
+  };
 
   let list = [];
   function show(topic) {
@@ -219,7 +250,7 @@
     return true;
   }
 
-  load.then(l => { list = l; renderList(); });
+  load.then(l => { list = l; renderList(); document.dispatchEvent(new CustomEvent('lessons-ready')); });
   // нажали вкладку «Уроки» — в адрес #lessons (или открытый урок), чтобы ссылку можно было отправить
   document.addEventListener('tab', e => {
     if (e.detail !== 'lessons') return;
