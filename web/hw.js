@@ -83,7 +83,7 @@
     return `<li class="hwi" data-id="${esc(hw.id)}">
       <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
       ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
-      <div class="hwa">${L ? `<a class="btn" href="#lesson=${esc(L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-act="open">Открыть задачи</button>'}</div>
+      <div class="hwa">${L ? `<a class="btn" href="#lesson=${esc(L.id || L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-act="open">Открыть задачи</button>'}</div>
     </li>`;
   }
 

@@ -258,7 +258,7 @@
       .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))[0];
     if (hw) return { key: 'h' + hw.id, title: `${hw.title} (ДЗ от ${day(hw.created_at)})`, ids: hw.task_ids };
     const L = (lessons || []).find(x => x.hw.includes(t));
-    if (L) return { key: 'l' + L.topic, title: lessonName(L), ids: L.hw };
+    if (L) return { key: 'l' + (L.id || L.topic), title: lessonName(L), ids: L.hw };
     return { key: 'bank', title: 'Задачи из банка', ids: null };
   }
   const shortDate = ts => new Date(ts * 1000).toLocaleDateString('ru-RU', { day: 'numeric', month: 'numeric' });
@@ -330,7 +330,7 @@
     const les = (lessons || []).map(L => {
       const rows = byQ(studs.map(s => ({ s, r: lessonResult(s.tg_id, L) })).filter(x => touched(x.r)));
       const last = Math.max(0, ...rows.map(x => { const set = new Set(L.hw), e = (data.logs[x.s.tg_id] || []).find(y => set.has(y[0])); return e ? e[2] : 0; }));
-      return { id: 'l' + L.topic, L, title: lessonName(L), ids: L.hw, sub: 'ДЗ урока', rows, key: last };
+      return { id: 'l' + (L.id || L.topic), L, title: lessonName(L), ids: L.hw, sub: 'ДЗ урока', rows, key: last };
     }).filter(x => x.rows.length);
     return hws.concat(les)
       .filter(x => !q || (qs && qs.length && x.rows.length) || norm(x.title).includes(q))
@@ -483,7 +483,7 @@
   // r: ok — решённые, из них help — после подсказки или ответа, retry — после неверного ответа; bad — только неверные
   const lessonResult = (id, L) => fixR(id, L.hw, lessonHwResult(L.hw, data.logs[id] || [], data.rlogs[id] || []));
   const touched = r => r.ok.length + r.bad.length > 0;
-  const lessonName = L => `Урок ${L.topic}. ${L.title}`;
+  const lessonName = L => window.lessonName ? window.lessonName(L) : `Урок ${L.topic}. ${L.title}`;
   // отметки по задачам ДЗ одной строкой: номер задачи на цветном фоне, как в таблице ДЗ
   const markOf = (r, t) => (r.part || []).includes(t) ? ['part', 'решена частично (балл учителя не полный)']
     : (r.help || []).includes(t) ? ['help', '💡 после подсказки или ответа']
@@ -564,7 +564,7 @@
   function openWork(sid, k, onlyErr) {
     const it = (workOf[sid] || [])[k];
     if (!it) return;
-    if (!onlyErr && it.L) { location.hash = '#lesson=' + it.L.topic; return; }
+    if (!onlyErr && it.L) { location.hash = '#lesson=' + (it.L.id || it.L.topic); return; }
     const s = data.byId[sid] || {}, ids = onlyErr ? errIds(it.ids, it.r).filter(id => window.bankStats.byId[id]) : it.ids;
     setTab('bank');
     if (onlyErr) window.bankView.show(`✗ ${name(s)}, ошибки в «${it.title}»`, ids, true);

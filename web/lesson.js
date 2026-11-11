@@ -1,5 +1,7 @@
 // Уроки по темам курса (out/lessons.json, собирает build_bank.py из lessons/<тема>.md) — вкладка «Уроки».
-// Адрес #lessons — список уроков, #lesson=<тема> — урок: видео, конспект и задачи ДЗ.
+// Адрес #lessons — список уроков, #lesson=<id> — урок: видео, конспект и задачи ДЗ.
+// id урока ЕГЭ — код темы (3.1.7), урока ОГЭ — «oge-<тема>» (коды тем ОГЭ те же, что у ЕГЭ).
+// В списке — уроки выбранного экзамена (window.EXAM); урок другого экзамена по ссылке переключает экзамен.
 // ДЗ собрано из задач банка; в темах, где их мало, — свои задачи урока (lessons/tasks, в банк не входят).
 // Карточки задач те же, что в банке (их делает app.js), ответы так же идут в прогресс.
 // Конспект написан в LaTeX, как условия задач: рамки defbox/notebox/warningbox/solutionbox,
@@ -95,7 +97,7 @@
     return { ok: r.ok.length, n: L.hw.length, st, note: st < 3 ? window.taskRender.retryNote(r.help, window.tgReveals || []) : '' };
   }
   function renderRes() {
-    const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic), el = box.querySelector('.lhw-res');
+    const box = $('lesson'), L = list.find(x => x.id === box.dataset.topic), el = box.querySelector('.lhw-res');
     const r = L && hwRes(L);
     if (el) {
       el.hidden = !r;
@@ -125,7 +127,7 @@
   $('lesson').addEventListener('click', e => {
     const b = e.target.closest('[data-ls]');
     if (!b) return;
-    const box = $('lesson'), L = list.find(x => x.topic === box.dataset.topic);
+    const box = $('lesson'), L = list.find(x => x.id === box.dataset.topic);
     if (!L) return;
     // задать ДЗ урока выбранным ученикам: ДЗ из задач урока, у ученика оно открывает урок
     const as = box.querySelector('.lassign');
@@ -139,7 +141,7 @@
       if (!who.length) { msg.textContent = 'Отметьте хотя бы одного ученика.'; return; }
       b.disabled = true;
       msg.textContent = 'Задаю…';
-      window.tgApi('hw_create', { title: `Урок ${L.topic}. ${L.title}`, task_ids: L.hw, tg_ids: who }).then(r => {
+      window.tgApi('hw_create', { title: lessonName(L), task_ids: L.hw, tg_ids: who }).then(r => {
         b.disabled = false;
         if (!r) { msg.textContent = 'Не получилось, попробуйте ещё раз.'; return; }
         msg.textContent = `Задано: ${r.assigned ?? who.length} уч. ДЗ уже у них, а результаты — в кабинете.`;
@@ -151,8 +153,8 @@
     }
     const t = window.Telegram && window.Telegram.WebApp;
     // в адресе Телеграма нельзя точки: 3.1.7 → 3-1-7
-    const linkOf = code => `https://t.me/${BOT}?startapp=l_${L.topic.replace(/\./g, '-')}${code ? '_' + code : ''}`;
-    const text = `ДЗ: урок ${L.topic}. ${L.title}`;
+    const linkOf = code => `https://t.me/${BOT}?startapp=l_${L.id.replace(/\./g, '-')}${code ? '_' + code : ''}`;
+    const text = `ДЗ: ${lessonName(L).replace(/^У/, 'у')}`;
     const copy = url => {
       const done = () => { b.textContent = 'Скопировано'; setTimeout(() => { b.textContent = 'Скопировать'; }, 1500); };
       if (navigator.clipboard) navigator.clipboard.writeText(text + '\n' + url).then(done, () => prompt('Ссылка:', url));
@@ -175,28 +177,32 @@
   document.addEventListener('tg-progress', () => { if (window.tgTeacher) getInvite(); });
 
   // для hw.js и «На сегодня»: ДЗ, заданное из урока (тот же набор задач), — урок
+  // «Урок 1.1.2. …», у ОГЭ — «Урок ОГЭ 1.1.2. …» (учитель видит ДЗ обоих экзаменов вместе)
+  const lessonName = L => `Урок ${L.exam === 'ОГЭ' ? 'ОГЭ ' : ''}${L.topic}. ${L.title}`;
+  window.lessonName = lessonName;
   window.lessonByHw = ids => {
     const key = [...ids].sort().join();
     return list.find(L => L.hw.length && [...L.hw].sort().join() === key) || null;
   };
 
-  let list = [];
+  // list — все уроки (ДЗ уроков ищут по нему), mine — уроки выбранного экзамена (список, «Предыдущий/Следующий»)
+  let list = [], mine = [];
   function show(topic) {
     const box = $('lesson'), lst = $('lessons-list');
-    const L = topic && list.find(x => x.topic === topic);
+    const L = topic && list.find(x => x.id === topic);
     lst.hidden = !!L;
     box.hidden = !L;
     if (!L) { box.innerHTML = ''; box.dataset.topic = ''; return; }
     if (box.dataset.topic === topic) return;
     box.dataset.topic = topic;
-    const i = list.indexOf(L), prev = list[i - 1], next = list[i + 1];
+    const i = mine.indexOf(L), prev = i < 0 ? null : mine[i - 1], next = i < 0 ? null : mine[i + 1];
     box.innerHTML = `<p class="lback"><a href="#lessons">← Все уроки</a></p>
       <h2>Урок ${esc(L.topic)}. ${esc(L.title)}</h2>
       ${L.keywords ? `<p class="lkw">${window.texToHtml(L.keywords).replace(/^<p>|<\/p>$/g, '')}</p>` : ''}
       ${videoHtml(L.video)}
       <details class="lconspect" open><summary>${esc(L.label || 'Конспект')}</summary><div class="cond">${L.conspect != null ? conspectHtml(L.conspect) : '<p class="status">Загружаю…</p>'}</div></details>
       ${L.hw.length ? `<h3 class="lhw" id="lesson-hw">Домашнее задание</h3><div class="lteach" hidden></div><p class="lhw-res cnt" hidden></p><div class="lhw-list"><p class="status">Загружаю задачи…</p></div>` : ''}
-      ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.topic)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.topic)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
+      ${prev || next ? `<p class="lnext">${prev ? `<a class="btn" href="#lesson=${esc(prev.id)}">← Предыдущий<small>${esc(prev.topic)} ${esc(prev.title)}</small></a>` : '<span></span>'}${next ? `<a class="btn nx" href="#lesson=${esc(next.id)}">Следующий →<small>${esc(next.topic)} ${esc(next.title)}</small></a>` : '<span></span>'}</p>` : ''}`;
     box.querySelector('.lvsrc')?.addEventListener('click', e => {
       const b = e.target.closest('[data-src]');
       if (!b) return;
@@ -235,8 +241,8 @@
   }
 
   function renderList() {
-    $('lessons-list').innerHTML = list.length ? `<h2>Уроки по темам</h2>
-      <div class="lpick">${list.map(L => `<a class="lbtn" href="#lesson=${esc(L.topic)}"><b>${esc(L.topic)}</b> ${esc(L.title)}
+    $('lessons-list').innerHTML = mine.length ? `<h2>Уроки по темам</h2>
+      <div class="lpick">${mine.map(L => `<a class="lbtn" href="#lesson=${esc(L.id)}"><b>${esc(L.topic)}</b> ${esc(L.title)}
         <small>${L.video.length ? 'видео · ' : ''}${esc((L.label || 'Конспект').toLowerCase())}${L.hw.length ? ` · ДЗ: ${L.hw.length} ${tasksWord(L.hw.length)}` : ''}${resText(L)}</small></a>`).join('')}</div>`
       : '<p class="status">Уроков пока нет.</p>';
   }
@@ -245,12 +251,21 @@
   function route() {
     const h = location.hash.slice(1), topic = new URLSearchParams(h).get('lesson');
     if (!topic && h !== 'lessons') return false;
+    // урок другого экзамена (ссылка на урок ОГЭ, а выбран ЕГЭ, или наоборот) — переключаем экзамен
+    const ex = topic && /^oge-/.test(topic) ? 'ОГЭ' : topic ? 'ЕГЭ' : null;
+    if (ex && window.EXAM && ex !== window.EXAM) {
+      try { localStorage.setItem('examKind', ex); location.reload(); return true; } catch (e) { /* без хранилища — откроем как есть */ }
+    }
     window.setTab('lessons');
     load.then(() => { show(topic); window.scrollTo(0, 0); });
     return true;
   }
 
-  load.then(l => { list = l; renderList(); document.dispatchEvent(new CustomEvent('lessons-ready')); });
+  load.then(l => {
+    list = l || [];
+    list.forEach(L => { L.id = L.id || L.topic; L.exam = L.exam || 'ЕГЭ'; });   // старый lessons.json — без id и exam
+    mine = list.filter(L => L.exam === (window.EXAM || 'ЕГЭ'));
+    renderList(); document.dispatchEvent(new CustomEvent('lessons-ready')); });
   // нажали вкладку «Уроки» — в адрес #lessons (или открытый урок), чтобы ссылку можно было отправить
   document.addEventListener('tab', e => {
     if (e.detail !== 'lessons') return;
