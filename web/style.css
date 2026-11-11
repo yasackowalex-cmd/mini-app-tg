@@ -385,3 +385,12 @@ form.rep .msg { color: var(--muted); }
 .tdl li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
 .tdl li:first-child { border-top: 0; }
 .tdl li .btn { flex: none; }
+/* выбор учеников для ДЗ: группы целиком или по одному */
+.hw-who { flex: 1 1 100%; max-height: 45vh; overflow: auto; }
+.hw-who .wg { margin: 6px 0; }
+.hw-who .wl { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 4px 0 0 24px; }
+.hw-who label { cursor: pointer; }
+.hw-form .hw-who { color: #fff; }
+.lassign { margin-top: 10px; }
+.lassign .msg { display: block; margin-top: 6px; color: var(--muted); }
+.t-grp input { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; margin-left: 6px; }

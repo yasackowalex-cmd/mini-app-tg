@@ -23,6 +23,8 @@
 //     (он же пишется попыткой ученику: полный балл — верно, иначе неверно). В progress — p2: [[task_id, ответ, свой балл,
 //     балл учителя, максимум]], в teacher — p2: {tg_id: [...]} (без таблицы part2, миграция 008, — null).
 //   action "student_set" (учитель), tg_id, last_name, first_name, grade — исправить имя, фамилию и класс ученика.
+//   action "hw_create" принимает и tg_ids — ученики, которым ДЗ задано сразу (без ссылки), в ответе assigned — сколько;
+//   action "my_group" (учитель), tg_id, grp — группа ученика (миграция 010), в teacher — groups: {tg_id: группа};
 //   action "report", task_id, text, answer — ученик сообщает об ошибке в задаче (не больше 20 за сутки);
 //     "report_resolve" (учитель), id, on — отметить исправленным; в teacher — reports (без таблицы reports, миграция 009, — null).
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
@@ -258,10 +260,24 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const title = String(body.title ?? '').trim().slice(0, 100) || 'Домашнее задание';
     const task_ids = cleanIds(body.task_ids);
     if (!task_ids) return [400, { ok: false, error: 'bad request' }];
+    // tg_ids — ученики, которым ДЗ задано сразу (без ссылки); только существующие ученики
+    const want = Array.isArray(body.tg_ids) ? [...new Set(body.tg_ids.map(Number))].filter(n => Number.isSafeInteger(n) && n > 0) : [];
+    if (want.length > 300) return [400, { ok: false, error: 'bad request' }];
     const id = hwCode();
     const { error } = await db.from('homework').insert({ id, title, task_ids, teacher_id: user.id });
     if (error) return [500, { ok: false, error: 'db' }];
-    return [200, { ok: true, hw: { id, title, task_ids } }];
+    let assigned = 0;
+    if (want.length) {
+      const { data: us, error: e2 } = await db.from('users').select('tg_id').in('tg_id', want);
+      if (e2) return [500, { ok: false, error: 'db' }];
+      const rows = (us ?? []).map((u: any) => ({ hw_id: id, tg_id: Number(u.tg_id) }));
+      if (rows.length) {
+        const { error: e3 } = await db.from('homework_students').upsert(rows, { onConflict: 'hw_id,tg_id', ignoreDuplicates: true });
+        if (e3) return [500, { ok: false, error: 'db' }];
+      }
+      assigned = rows.length;
+    }
+    return [200, { ok: true, hw: { id, title, task_ids }, assigned }];
   }
 
   if (action === 'hw_open') {
@@ -288,6 +304,16 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     return [404, { ok: false, error: 'not found' }];
   }
 
+  if (action === 'my_group') {
+    // группа ученика у этого учителя (пустая — без группы); ученик с группой — «свой»
+    if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
+    const tg_id = Number(body.tg_id), grp = String(body.grp ?? '').trim().slice(0, 40) || null;
+    if (!Number.isSafeInteger(tg_id) || tg_id <= 0) return [400, { ok: false, error: 'bad request' }];
+    if (!await addMine(db, user.id, tg_id, 'manual')) return [500, { ok: false, error: 'db' }];
+    const { error } = await db.from('my_students').update({ grp }).eq('teacher_id', user.id).eq('tg_id', tg_id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
   if (action === 'my_set') {
     if (!isTeacher) return [403, { ok: false, error: 'forbidden' }];
     const tg_id = Number(body.tg_id);
@@ -460,8 +486,15 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       };
     }
     // свои ученики; без таблицы my_students (миграция 006 не выполнена) — null, и кабинет показывает всех
-    const { data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000);
+    // группы своих учеников {tg_id: группа}; без колонки grp (миграция 010) — null
+    let { data: my, error: e6 } = await db.from('my_students').select('tg_id, grp').eq('teacher_id', user.id).limit(5000);
+    let groups: Record<string, string> | null = {};
+    if (e6) {
+      groups = null;
+      ({ data: my, error: e6 } = await db.from('my_students').select('tg_id').eq('teacher_id', user.id).limit(5000));
+    }
     const mine = e6 ? null : (my ?? []).map((r: any) => Number(r.tg_id));
+    if (groups && !e6) for (const r of my ?? []) if (r.grp) groups[r.tg_id] = r.grp;
     const invite = secret ? await inviteCode(user.id, secret) : null;
     // ответы на 2 часть всех учеников; без таблицы part2 (миграция 008) — null
     const pa = await pages(() => db.from('part2').select('tg_id, task_id, answer, self_score, teacher_score, max_score, updated_at')
@@ -478,7 +511,7 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const { data: rpDone } = e7 ? { data: null } : await db.from('reports').select('id, tg_id, task_id, text, answer, created_at, resolved_at')
       .not('resolved_at', 'is', null).order('id', { ascending: false }).limit(50);
     const reports = e7 ? null : [...(rpOpen ?? []), ...(rpDone ?? [])];
-    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, invite, p2, reports }];
+    return [200, { ok: true, homework, students, results, exams, logs, rlogs, mine, groups, invite, p2, reports }];
   }
 
   return [400, { ok: false, error: 'action' }];
