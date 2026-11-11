@@ -9,9 +9,9 @@
   document.documentElement.classList.add('in-tg');
   tg.ready();
   tg.expand();
-  // ссылка учителя на урок (t.me/<бот>?startapp=l_3-1-7_<код>) сразу открывает урок
-  const lsp = ((tg.initDataUnsafe || {}).start_param || '').match(/^l_(\d+(?:-\d+)*)(?:_[a-f0-9]{12})?$/);
-  if (lsp) location.hash = '#lesson=' + lsp[1].replace(/-/g, '.');
+  // ссылка учителя на урок (t.me/<бот>?startapp=l_3-1-7_<код>, урок ОГЭ — l_oge-1-1-2_<код>) сразу открывает урок
+  const lsp = ((tg.initDataUnsafe || {}).start_param || '').match(/^l_((?:oge-)?)(\d+(?:-\d+)*)(?:_[a-f0-9]{12})?$/);
+  if (lsp) location.hash = '#lesson=' + lsp[1] + lsp[2].replace(/-/g, '.');
   // Тёмную тему Телеграма не берём: чертежи нарисованы чёрным по белому.
   if (tg.setHeaderColor) tg.setHeaderColor('#1B1F3B');
   if (tg.setBackgroundColor) tg.setBackgroundColor('#F4F5F8');
@@ -80,7 +80,7 @@
     // личная ссылка учителя t.me/<бот>?startapp=t_<код>: ученик попадает в его «Мои ученики»
     if (sp && /^t_[a-f0-9]{12}$/.test(sp)) api('join', { code: sp.slice(2) });
     // ссылка учителя на урок t.me/<бот>?startapp=l_3-1-7_<код>: ученик попадает в «Мои ученики» и открывает урок
-    const ls = sp && sp.match(/^l_(\d+(?:-\d+)*)(?:_([a-f0-9]{12}))?$/);
+    const ls = sp && sp.match(/^l_((?:oge-)?\d+(?:-\d+)*)(?:_([a-f0-9]{12}))?$/);
     if (ls && ls[2]) api('join', { code: ls[2] });
     (hwId ? api('hw_open', { id: hwId }) : Promise.resolve(null)).then(o => {
       window.tgHwOpen = o && o.hw ? o.hw.id : null;

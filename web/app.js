@@ -585,7 +585,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const PLAN_SIZE = 5, HW_FRESH_DAYS = 14;
   let lessonsList = null;
-  if (window.lessonsLoad) window.lessonsLoad.then(L => { lessonsList = L || []; renderToday(); });
+  if (window.lessonsLoad) window.lessonsLoad.then(L => { lessonsList = (L || []).filter(x => (x.exam || 'ЕГЭ') === EXAM); renderToday(); });
   const dayKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
   const planStore = {
     get() { try { return JSON.parse(localStorage.getItem('dayPlan')) || null; } catch (e) { return null; } },
@@ -607,7 +607,7 @@
       const e = (L.hw || []).length && log.find(e => L.hw.includes(e[0]));
       if (!e || now - e[2] > HW_FRESH_DAYS * 86400 || list.some(x => x.L === L)) return;
       const left = L.hw.filter(id => !log.some(x => x[0] === id && x[1]));
-      if (left.length) list.push({ ts: e[2], title: `Урок ${L.topic}. ${L.title}`, ids: L.hw, left, total: L.hw.length, L });
+      if (left.length) list.push({ ts: e[2], title: window.lessonName ? window.lessonName(L) : `Урок ${L.topic}. ${L.title}`, ids: L.hw, left, total: L.hw.length, L });
     });
     const ord = L => (lessonsList || []).indexOf(L);
     return list.sort((a, b) => (!!a.L - !!b.L) || (a.L ? ord(a.L) - ord(b.L) : b.ts - a.ts));
@@ -651,7 +651,7 @@
     todayView = { title: 'План на сегодня', ids: plan.ids };
     todayHw = freshHws(log).slice(0, HW_LINES);
     const hwLine = todayHw.map((h, i) => `<p class="tdhw"><span>ДЗ «${esc(h.title)}»: осталось ${h.left.length} из ${h.total}</span>${h.L
-      ? `<a class="btn" href="#lesson=${esc(h.L.topic)}">Открыть урок</a>` : `<button class="btn" type="button" data-today="hw" data-i="${i}">Открыть ДЗ</button>`}</p>`).join('');
+      ? `<a class="btn" href="#lesson=${esc(h.L.id || h.L.topic)}">Открыть урок</a>` : `<button class="btn" type="button" data-today="hw" data-i="${i}">Открыть ДЗ</button>`}</p>`).join('');
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;

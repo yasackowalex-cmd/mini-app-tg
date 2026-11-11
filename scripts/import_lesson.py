@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+r"""
 Перенос урока из исходников Александра (папка темы: <код>_chapter.tex — конспект, <код>_hw.tex — ДЗ)
 в сайт:
   lessons/<тема>.md                — конспект: шапка (тема, название, ключевые слова, видео, задачи ДЗ),
@@ -10,6 +10,10 @@
 автоматически, печатается в отчёт — его надо дописать руками (answer в шапке задачи).
 Запуск: python -I scripts/import_lesson.py <папка темы> [--force]
 Лекции (_pres.tex) не переносятся: они для учителя.
+Курс ОГЭ (архив ОГЭ_ФИЗИКА.zip: <тема>_<имя>_chapter.tex, _homework.tex, _lecture.tex — лекция не переносится):
+  python -I scripts/import_lesson.py --oge <папка темы> → lessons/oge/<тема>.md, задачи ДЗ — из банка ОГЭ,
+  номер задания в ДЗ — \source{задание N}, ответы — \section*{Ответы} (\item[\textbf{N.}] …),
+  своих задач нет: что не нашлось в банке ОГЭ, подбирается вручную (отчёт).
 """
 import re, os, sys, glob, json, argparse
 
@@ -233,11 +237,112 @@ def pick_from_bank(t, bank, used, min_sim=0.0):
     return max(cand, key=score)
 
 
+# ---------- курс ОГЭ ----------
+def task_type_oge(task):
+    k = task['kim'] or 0
+    if k in (20, 21, 22): return 'расчётная (часть 2)'
+    if k in (18, 19): return 'качественная'
+    if k == 17: return 'экспериментальная'
+    if k in (1, 2, 3, 4, 5, 12, 13, 14, 15, 16): return 'соответствие/выбор'
+    if re.search(r'выбер|соответстви|как измен', task['text'], re.I): return 'соответствие/выбор'
+    return 'расчётная'
+
+
+def import_hw_oge(path):
+    """ДЗ курса ОГЭ: задачи taskbasic/medium/advanced с \\source{задание N | авторская},
+    ответы — список \\item[\\textbf{N.}] после \\section*{Ответы}."""
+    src = clean(body_of(open(path, encoding='utf-8').read()))
+    head, _, ans = src.partition('\\section*{Ответы}')
+    tasks = []
+    for m in TASK_RE.finditer(head):
+        t = m.group(2).strip()
+        n = re.match(r'\\textbf\{(\d+)\.\}\s*', t)
+        num = int(n.group(1)) if n else len(tasks) + 1
+        if n: t = t[n.end():]
+        k = re.search(r'\\source\{задание\s*(\d+)\}', t)
+        avt = bool(re.search(r'\\source\{авторская\}', t))
+        t = re.sub(r'\s*\\source\{[^}]*\}', '', t).strip()
+        t = re.sub(r'^\\centering\s*', '', t, flags=re.M)
+        tasks.append({'n': num, 'kim': int(k.group(1)) if k else None, 'avt': avt, 'text': t})
+    sols = {}
+    ans = re.sub(r'\\textbf\{(Базовый|Повышенный|Продвинутый)\.?\}', '', ans)
+    ans = re.sub(r'\\(begin|end)\{enumerate\}', '', ans)
+    parts = re.split(r'\\item\[\\textbf\{(\d+)\.\}\]', ans)
+    for i in range(1, len(parts) - 1, 2):
+        sols[int(parts[i])] = (re.sub(r'\n{3,}', '\n\n', parts[i + 1]).strip(), False)
+    return tasks, sols
+
+
+def main_oge(a):
+    src = os.path.normpath(a.src)
+    topic = os.path.basename(src)
+    report, hw_ids, used = [], [], set()
+    bank_path = os.path.join(ROOT, 'out', 'bank.json')
+    full = json.load(open(bank_path, encoding='utf-8')) if os.path.exists(bank_path) else []
+    full = [b for b in full if b.get('exam') == 'ОГЭ']
+    bank = [b for b in full if b.get('topic') == topic]
+    hw = glob.glob(os.path.join(src, '*_homework.tex'))
+    if hw:
+        tasks, sols = import_hw_oge(hw[0])
+        for t in tasks:
+            cand = [b for b in bank if b['id'] not in used and t['kim'] and b.get('kim') == t['kim']
+                    and b.get('type') == task_type_oge(t)]
+            if cand:
+                w = words(t['text'])
+                b = max(cand, key=lambda b: len(w & words(b.get('condition', ''))) / (len(w | words(b.get('condition', ''))) or 1))
+                used.add(b['id']); hw_ids.append(b['id'])
+                report.append(f"№{t['n']} (задание {t['kim']}) → из банка {b['id']}")
+                continue
+            # своих задач уроков не делаем (правило владельца 2026-11-08): задачу без пары в банке
+            # подбирают вручную из банка ОГЭ (другая тема или номер) или не берут
+            report.append(f"№{t['n']} ({'задание ' + str(t['kim']) if t['kim'] else 'авторская'}) → в банке пары нет, подобрать вручную")
+
+    ch = glob.glob(os.path.join(src, '*_chapter.tex'))
+    out = os.path.join(ROOT, 'lessons', 'oge', topic + '.md')
+    if ch and (a.force or not os.path.exists(out)):
+        old = open(out, encoding='utf-8').read() if os.path.exists(out) else ''
+        video = re.search(r'^video: (.*)$', old, re.M)
+        body = clean(body_of(open(ch[0], encoding='utf-8').read()))
+        title, kw = '', ''
+        m = re.search(r'\\begin\{center\}(.*?)\\end\{center\}', body, re.S)
+        if m and 'Глава' in m.group(1):
+            t = re.search(r'Глава\s+[\d.]+\.?\s*(.*?)\s*(?:\}|\\\\|\n)', m.group(1))
+            title = t.group(1).strip() if t else ''
+            kw = m.group(1).split('\\\\', 1)[1] if '\\\\' in m.group(1) else ''
+            kw = re.sub(r'\s+', ' ', kw).strip()
+            body = body[:m.start()] + body[m.end():]
+        body, pics = tikz_blocks(body, 'рис')
+        code = 'oge-' + topic.replace('.', '_')
+        files = re.findall(r'\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}', body)
+        body = re.sub(r'(?:\\begin\{center\}\s*)?\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}(?:\s*\\end\{center\})?',
+                      lambda m: f'\n[[файл {code}_{os.path.basename(m.group(1))}]]\n', body)
+        for f in files:
+            p = os.path.join(src, f)
+            if os.path.exists(p):
+                import shutil
+                os.makedirs(os.path.join(ROOT, 'assets', 'lessons'), exist_ok=True)
+                shutil.copy(p, os.path.join(ROOT, 'assets', 'lessons', f'{code}_{os.path.basename(f)}'))
+            else:
+                report.append(f'конспект: нет файла {f}')
+        body = re.sub(r'\n{3,}', '\n\n', body).strip()
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        head = [('topic', topic), ('title', f'"{title}"'), ('keywords', f'"{kw}"'),
+                ('video', video.group(1) if video else '[]'), ('hw', '[' + ', '.join(hw_ids) + ']')]
+        md = '---\n' + '\n'.join(f'{k}: {v}' for k, v in head) + '\n---\n\n## Конспект\n\n' + body + '\n'
+        if pics: md += '\n## Рисунок (TikZ)\n\n' + latex_blocks(pics) + '\n'
+        open(out, 'w', encoding='utf-8', newline='\n').write(md)
+    print(f'ОГЭ {topic}: задач ДЗ {len(hw_ids)}, конспект {"есть" if ch else "нет"}')
+    for r in report: print('  ' + r)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('src', help='папка темы, например …/1.1.3')
     ap.add_argument('--force', action='store_true', help='перезаписать существующие файлы')
+    ap.add_argument('--oge', action='store_true', help='тема курса ОГЭ (lessons/oge/)')
     a = ap.parse_args()
+    if a.oge:
+        return main_oge(a)
     topic = os.path.basename(os.path.normpath(a.src))
     code = topic.replace('.', '_')
     folder, section, tag = section_of(topic)

@@ -89,11 +89,13 @@ def main():
             pics[f"{t['id']}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
         for i, src in enumerate(t['sol_tikz'], 1):  # чертежи в решении
             pics[f"{t['id']}_s{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
-    # чертежи конспектов уроков: lessons/<тема>.md → lesson_<тема через _>_<n>.svg
-    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md'))):
+    # чертежи конспектов уроков: lessons/<тема>.md → lesson_<тема через _>_<n>.svg,
+    # уроки ОГЭ lessons/oge/<тема>.md → lesson_oge-<тема через _>_<n>.svg
+    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md')) + glob.glob(os.path.join(ROOT, 'lessons', 'oge', '*.md'))):
         t = parse_md(f)
+        pre = 'oge-' if os.path.basename(os.path.dirname(f)) == 'oge' else ''
         for i, src in enumerate(t['tikz'], 1):
-            pics[f"lesson_{t['topic'].replace('.', '_')}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
+            pics[f"lesson_{pre}{t['topic'].replace('.', '_')}_{i}.svg"] = (src, hashlib.sha1((preamble + src).encode('utf-8')).hexdigest())
 
     todo = [n for n, (src, h) in pics.items()
             if (not a.only or n.startswith(a.only + '_'))

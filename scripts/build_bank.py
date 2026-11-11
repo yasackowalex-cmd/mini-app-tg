@@ -239,10 +239,15 @@ def main():
             problems.append((rel, f"id {t['id']} уже занят"))
         attach_images(t, rel, a.assets, problems)
         own[t['id']] = t
-    for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md'))):
+    # уроки ЕГЭ — lessons/<тема>.md, уроки ОГЭ — lessons/oge/<тема>.md (коды тем пересекаются,
+    # поэтому у урока ОГЭ id «oge-<тема>»: по нему адрес #lesson=…, файл конспекта и чертежи)
+    les_files = [(f, 'ЕГЭ') for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', '*.md')))] + \
+                [(f, 'ОГЭ') for f in sorted(glob.glob(os.path.join(ROOT, 'lessons', 'oge', '*.md')))]
+    for f, exam in les_files:
         rel = os.path.relpath(f, ROOT)
         L = parse_md(f)
-        code = L['topic'].replace('.', '_')
+        lid = L['topic'] if exam == 'ЕГЭ' else 'oge-' + L['topic']
+        code = lid.replace('.', '_')
         raw = open(f, encoding='utf-8').read()
         m = re.search(r'## Конспект\n(.*?)(?=\n## |\Z)', raw, re.S)
 
@@ -259,11 +264,11 @@ def main():
             problems.append((rel, f'задачи ДЗ {i} нет ни в банке, ни в lessons/tasks'))
         # конспект — отдельным файлом out/lessons/<тема>.json (грузится, когда урок открыли);
         # в списке уроков out/lessons.json только адрес этого файла с ?v=хеш
-        with open(os.path.join(les_dir, L['topic'] + '.json'), 'w', encoding='utf-8', newline='\n') as fc:
+        with open(os.path.join(les_dir, lid + '.json'), 'w', encoding='utf-8', newline='\n') as fc:
             json.dump({'conspect': text}, fc, ensure_ascii=False, separators=(',', ':'))
-        lessons.append({'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
+        lessons.append({'id': lid, 'exam': exam, 'topic': L['topic'], 'title': L.get('title', ''), 'keywords': L.get('keywords', ''),
                         'video': L.get('video') or [], 'hw': hw, 'label': L.get('label') or 'Конспект',
-                        'conspect_url': versioned(les_dir, 'out/lessons/' + L['topic'] + '.json', L['topic'] + '.json'),
+                        'conspect_url': versioned(les_dir, 'out/lessons/' + lid + '.json', lid + '.json'),
                         # свои задачи урока (темы, где в банке мало задач): только в уроке, в банк не попадают
                         'tasks': [{k: v for k, v in own[i].items() if k not in DROP_FIELDS} for i in hw if i in own]})
     with open(os.path.join(out_dir, 'lessons.json'), 'w', encoding='utf-8', newline='\n') as f:
