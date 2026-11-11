@@ -581,7 +581,7 @@
   // Не список всего несделанного (он демотивирует), а 5 задач на день: сначала из самого свежего ДЗ,
   // потом повторение (последние ошибки, решённые давно) и новые задачи слабого номера КИМ.
   // План собирается раз в день и хранится в браузере; после выполнения — «Ещё 5 задач».
-  // Под планом одна строка — самое свежее недоделанное ДЗ (ДЗ старше HW_FRESH_DAYS дней сюда не попадают).
+  // Под планом две строки — недоделанные ДЗ (ДЗ уроков в порядке курса; старше HW_FRESH_DAYS дней сюда не попадают).
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const PLAN_SIZE = 5, HW_FRESH_DAYS = 14;
   let lessonsList = null;
@@ -591,8 +591,9 @@
     get() { try { return JSON.parse(localStorage.getItem('dayPlan')) || null; } catch (e) { return null; } },
     set(v) { try { localStorage.setItem('dayPlan', JSON.stringify(v)); } catch (e) { /* без хранилища план соберётся заново */ } },
   };
-  // самое свежее недоделанное ДЗ (от учителя или начатое ДЗ урока) не старше HW_FRESH_DAYS
-  function freshHw(log) {
+  // недоделанные ДЗ не старше HW_FRESH_DAYS: сначала ДЗ от учителя (новые первыми),
+  // потом ДЗ уроков (заданные учителем и начатые учеником) в порядке уроков курса
+  function freshHws(log) {
     const now = Date.now() / 1000, okSince = (id, since) => log.some(e => e[0] === id && e[1] && e[2] >= since), list = [];
     ((window.tgHw && window.tgHw.mine) || []).forEach(hw => {
       const since = Date.parse(hw.created_at) / 1000 || 0;
@@ -608,20 +609,21 @@
       const left = L.hw.filter(id => !log.some(x => x[0] === id && x[1]));
       if (left.length) list.push({ ts: e[2], title: `Урок ${L.topic}. ${L.title}`, ids: L.hw, left, total: L.hw.length, L });
     });
-    // ДЗ от учителя важнее начатого самим учеником урока
-    return list.sort((a, b) => (b.teacher || 0) - (a.teacher || 0) || b.ts - a.ts)[0] || null;
+    const ord = L => (lessonsList || []).indexOf(L);
+    return list.sort((a, b) => (!!a.L - !!b.L) || (a.L ? ord(a.L) - ord(b.L) : b.ts - a.ts));
   }
+  const HW_LINES = 2;
   // n задач в план, кроме уже взятых (skip): ДЗ (до 3, если не всё из него), повторение, слабый номер
   function planTasks(log, p, n, skip) {
     const out = [], take = (ids, max) => { for (const id of ids) { if (out.length >= max) break; if (byId[id] && !skip.has(id) && !out.includes(id)) out.push(id); } };
-    const hw = freshHw(log);
-    if (hw) take(hw.left, Math.min(n, 3));
+    const hws = freshHws(log).slice(0, HW_LINES), hwLeft = hws.flatMap(h => h.left);
+    take(hwLeft, Math.min(n, 3));
     const last = {}, now = Date.now() / 1000;
     for (const e of log) if (!(e[0] in last)) last[e[0]] = e;
     const wrong = Object.values(last).filter(e => !e[1]).map(e => e[0]);
     const stale = Object.values(last).filter(e => e[1] && now - e[2] > KIM_STALE_DAYS * 86400).sort((a, b) => a[2] - b[2]).map(e => e[0]);
     take(wrong.concat(stale), n - 1);
-    if (hw) take(hw.left, n - 1);
+    take(hwLeft, n - 1);
     const ks = kimStats(p, log), kims = Object.keys(KP);
     const work = kims.filter(k => ks[k].state === 'work').sort((a, b) => ks[a].acc - ks[b].acc);
     const order = work.concat(kims.filter(k => ks[k].state === 'stale'), kims.filter(k => ks[k].state === 'none'));
@@ -631,7 +633,7 @@
     }
     return out;
   }
-  let todayView = null, todayHw = null;
+  let todayView = null, todayHw = [];
   function renderToday(more) {
     const box = $('today'), log = window.tgLog, p = prog(), uid = window.tgUser && window.tgUser.id;
     if (!log || !p || !bank.length) { box.hidden = true; return; }
@@ -647,9 +649,9 @@
     // задача плана сделана, если сегодня на неё дан верный ответ (или учитель/самооценка поставили полный балл)
     const done = plan.ids.filter(id => log.some(e => e[0] === id && e[1] && e[2] >= plan.start)).length, n = plan.ids.length;
     todayView = { title: 'План на сегодня', ids: plan.ids };
-    todayHw = freshHw(log);
-    const hwLine = todayHw ? `<p class="tdhw"><span>ДЗ «${esc(todayHw.title)}»: осталось ${todayHw.left.length} из ${todayHw.total}</span>${todayHw.L
-      ? `<a class="btn" href="#lesson=${esc(todayHw.L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-today="hw">Открыть ДЗ</button>'}</p>` : '';
+    todayHw = freshHws(log).slice(0, HW_LINES);
+    const hwLine = todayHw.map((h, i) => `<p class="tdhw"><span>ДЗ «${esc(h.title)}»: осталось ${h.left.length} из ${h.total}</span>${h.L
+      ? `<a class="btn" href="#lesson=${esc(h.L.topic)}">Открыть урок</a>` : `<button class="btn" type="button" data-today="hw" data-i="${i}">Открыть ДЗ</button>`}</p>`).join('');
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;
@@ -663,7 +665,8 @@
     if (!b) return;
     if (b.dataset.today === 'plan' && todayView) window.bankView.show(todayView.title, todayView.ids, true);
     if (b.dataset.today === 'more') { renderToday(true); window.bankView.show(todayView.title, todayView.ids, true); }
-    if (b.dataset.today === 'hw' && todayHw) window.bankView.show(todayHw.title, todayHw.ids);
+    const h = b.dataset.today === 'hw' && todayHw[+b.dataset.i];
+    if (h) window.bankView.show(h.title, h.ids);
   });
   ['tg-hw', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, () => renderToday()));
 
