@@ -6,7 +6,7 @@
 //   у раскрытого ученика всё о нём: готовность по 26 номерам, проблемные темы, все его ДЗ (от учителя и уроков),
 //   пробники, сколько ответов 2 части ждёт проверки, правка имени и «Мои ученики».
 //   Балл учителя важнее самооценки: в таблицах ДЗ задача с неполным баллом учителя — нерешённая.
-// «Задания» — ДЗ учителя и ДЗ уроков одним списком, новые сверху; у каждого таблица учеников с отметками по задачам.
+// «Задания» — ДЗ учителя (новые сверху), потом ДЗ уроков в порядке курса; у каждого таблица учеников с отметками по задачам.
 // «Ошибки» — сообщения учеников об ошибках в задачах (кнопка «⚠ Ошибка в задаче»), кнопка «Исправлено».
 // Фильтр по классу, «Мои / Остальные» и поиск (фамилия или название задания) общие для обоих видов.
 // «Мои ученики» — открывшие личную ссылку учителя или его ДЗ либо отмеченные вручную; остальные — в «Остальных».
@@ -320,6 +320,11 @@
       <p class="muted small"><b class="okc">✓</b> сам с первой попытки, <b class="retryc">✓</b> после ошибки, 💡 после подсказки или показанного ответа, ✗ только неверные ответы, оранжевый — решена частично (балл меньше полного), серый номер — не решал. У задач 2 части — балл учителя, а до проверки самооценка ученика со знаком «?». Звёзды по доле решённого: 3 от 90%, 2 от 60%, 1 от 30%; задача после подсказки или ответа считается за половину.</p>`;
   }
 
+  // порядок ДЗ: сначала обычные ДЗ (новые первыми), потом ДЗ уроков (и заданные из урока) в порядке курса
+  const lessonIdx = x => { const L = x.L || (x.hw && window.lessonByHw ? window.lessonByHw(x.hw.task_ids) : null);
+    return L ? (lessons || []).findIndex(y => y.topic === L.topic) : -1; };
+  const byLessonOrder = (a, b) => { const i = lessonIdx(a), j = lessonIdx(b);
+    return (i >= 0) - (j >= 0) || (i >= 0 ? i - j : b.key - a.key); };
   // ---- вид «Задания»: ДЗ учителя и ДЗ уроков одним списком ----
   function taskItems(q) {
     const studs = studentsShown(), qs = q ? studs.filter(s => norm(name(s)).includes(q)) : null;
@@ -334,7 +339,7 @@
     }).filter(x => x.rows.length);
     return hws.concat(les)
       .filter(x => !q || (qs && qs.length && x.rows.length) || norm(x.title).includes(q))
-      .sort((a, b) => b.key - a.key);
+      .sort(byLessonOrder);
   }
   function renderTasks(q) {
     const list = taskItems(q);
@@ -439,25 +444,14 @@
     const grid = `<div class="kgrid">${cls.map(c => `<span class="kc ${!c.tried ? 'none' : c.acc < WEAK_ACC ? 'bad' : c.acc < 0.8 ? 'mid' : 'good'}"
       title="№ ${c.k}: решали ${c.tried}, освоили ${c.done}, верных в среднем ${pc(c.acc)}%"><b>${c.k}</b><small>${c.tried ? pc(c.acc) + '%' : '—'}</small></span>`).join('')}</div>`;
     const hard = cls.filter(c => c.tried).sort((a, b) => a.acc - b.acc).slice(0, 5).filter(c => c.acc < 0.8);
-    // проблемные темы по всем выбранным ученикам вместе
-    const tp = {};
-    active.forEach(x => Object.entries(x.st.tp).forEach(([t, r]) => {
-      const y = tp[t] || (tp[t] = { n: 0, ok: 0, who: 0 });
-      y.n += r.n; y.ok += r.ok; y.who++;
-    }));
-    const weakT = Object.entries(tp).filter(([, y]) => y.n >= 2 * WEAK_MIN && y.ok / y.n < WEAK_ACC)
-      .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).slice(0, 8);
     const waitAll = all.reduce((a, x) => a + p2List(x.s.tg_id).filter(e => !has(e[3])).length, 0);
     const whom = g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики';
     const summary = `<details class="t-sum" id="t-sum"${sumOpen ? ' open' : ''}>
       <summary><b>Сводка: ${whom}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
-      ${hard.length ? `<p><b>Хуже всего идут номера:</b> ${hard.map(c => `№ ${c.k} (${pc(c.acc)}%, освоили ${c.done} из ${c.tried})`).join(', ')}</p>` : ''}
-      ${weakT.length ? `<p><b>Проблемные темы:</b></p><ul class="t-weak">${weakT.map(([t, y]) =>
-        `<li>${esc(topicName(t))} <span class="cnt">верных ${pc(y.ok / y.n)}% из ${y.n} ответов, учеников ${y.who}</span></li>`).join('')}</ul>` : ''}`
-      : '<p class="muted small">Пока никто из них не решал задачи в Телеграме.</p>'}
-      <p class="muted small">Считаются ответы, которые ученики дают в Телеграме: в банке, в ДЗ и в пробниках. Доля верных — по последним ${window.bankStats.KIM_WINDOW} ответам на номер.</p></details>`;
+`
+      : '<p class="muted small">Пока никто из них не решал задачи в Телеграме.</p>'}</details>`;
 
     const rows = list.map(({ s, st }) => {
       const open = openId === 's' + s.tg_id;
@@ -469,9 +463,7 @@
           <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${testScore(ex.score)}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
         </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks)}
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-          <p class="small">Прогноз: <b>${st.primary}</b> первичных из 45, это <b>${testScore(st.primary)}</b> тестовых. Решено разных задач: ${st.solved}.</p>
-          ${st.weak.length ? `<p class="small"><b>Проблемные темы:</b></p><ul class="t-weak">${st.weak.map(([t, x]) =>
-            `<li>${esc(topicName(t))} <span class="cnt">верных ${x.ok} из ${x.n}</span></li>`).join('')}</ul>` : '<p class="muted small">Проблемных тем нет.</p>'}`
+          <p class="small">Прогноз: <b>${st.primary} из 45 / ${testScore(st.primary)} из 100</b></p>`
           : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
           ${p2Note(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
@@ -491,7 +483,7 @@
     : r.bad.includes(t) ? ['bad', 'только неверные ответы'] : ['', 'не решал'];
   const marks = (ids, r) => `<span class="mks">${ids.map((t, i) => { const [c, tt] = markOf(r, t);
     return `<span class="${c}" title="№ ${i + 1}: ${tt}">${i + 1}${c === 'help' ? '💡' : ''}</span>`; }).join('')}</span>`;
-  // всё ДЗ ученика в одном списке (ДЗ от учителя и ДЗ уроков), сначала то, что он решал последним;
+  // всё ДЗ ученика в одном списке: обычные ДЗ (новые первыми), потом ДЗ уроков в порядке курса;
   // workOf[ученик] — тот же список для кнопок «Открыть» и «Задачи с ошибками»
   const workOf = {};
   const errIds = (ids, r) => ids.filter(t => ['bad', 'part', 'retry', 'help'].includes(markOf(r, t)[0]));
@@ -503,7 +495,7 @@
         last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
       .concat((lessons || []).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))
-      .sort((a, b) => b.key - a.key);
+      .sort(byLessonOrder);
     workOf[s.tg_id] = items;
     if (!items.length) return '<p class="muted small">ДЗ ещё не решал.</p>';
     const inBank = id => window.bankStats && window.bankStats.byId[id];
