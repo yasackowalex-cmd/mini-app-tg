@@ -563,18 +563,16 @@
 
     $('progress-body').innerHTML = `
       <h3 class="ph">Готовность к ${EXAM}</h3>
-      <div class="total"><div class="big-num">${score}</div>
-        <div>из ${KIM_MAX} первичных баллов можно набрать на освоенных номерах, это ${OGE ? `отметка <b>«${ogeMark(score)}»</b>` : `<b>${testScore(score)}</b> тестовых из 100`}</div></div>
+      <div class="total"><div class="big-num">${score} из ${KIM_MAX} / ${OGE ? `«${ogeMark(score)}»` : `${testScore(score)} из 100`}</div></div>
       ${bar(score, KIM_MAX, true)}
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
       <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-      <p class="muted small">Номер освоен, когда верно решены ${KIM_MIN_SOLVED[1]} разных задач этого номера (в части 2, номера ${OGE ? '17–22' : '21–26'}, ${KIM_MIN_SOLVED[2]}) и из последних ${KIM_WINDOW} ответов по нему верных не меньше ${Math.round(100 * KIM_MIN_ACC)}%. Ошибки возвращают номер в работу, а если не решать его ${KIM_STALE_DAYS} день, он попросит повторения. Звёзды — за вдвое и втрое больше решённых задач. Нажмите на номер, чтобы открыть его задачи.</p>
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}
       ${groups}
-      <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}% (${ok} из ${n} попыток)` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
+      <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}%` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
   }
 
   // ---- «План на сегодня» (только в Телеграме) ----
