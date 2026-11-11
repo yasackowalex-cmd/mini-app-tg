@@ -577,7 +577,64 @@
       <p class="muted">${n ? `Верных ответов: ${pct(ok, n)}% (${ok} из ${n} попыток)` : 'Решайте задачи и нажимайте «Проверить», здесь будет ваш прогресс.'}</p>`;
   }
 
+  // ---- «На сегодня» (только в Телеграме): несделанное ДЗ, повторение, слабый номер КИМ ----
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let lessonsList = null;
+  if (window.lessonsLoad) window.lessonsLoad.then(L => { lessonsList = L || []; renderToday(); });
+  let todaySets = {};
+  function renderToday() {
+    const box = $('today'), log = window.tgLog, p = prog();
+    if (!log || !p || !bank.length) { box.hidden = true; return; }
+    const okSince = (id, since) => log.some(e => e[0] === id && e[1] && e[2] >= since);
+    const items = [];
+    todaySets = {};
+    // 1) ДЗ от учителя, где решено не всё (новые первыми), и начатые ДЗ уроков
+    ((window.tgHw && window.tgHw.mine) || []).forEach(hw => {
+      const ids = hw.task_ids.filter(id => byId[id]), since = Date.parse(hw.created_at) / 1000 || 0;
+      const left = ids.filter(id => !okSince(id, since)).length;
+      if (left) items.push({ k: 'hw' + hw.id, title: hw.title, ids: hw.task_ids, text: `ДЗ «${esc(hw.title)}»: осталось ${left} из ${ids.length}`, btn: 'Решать' });
+    });
+    // начатые и недоделанные ДЗ уроков: два последних по времени ответа
+    (lessonsList || []).map(L => {
+      const e = (L.hw || []).length && log.find(e => L.hw.includes(e[0]));
+      return e ? { L, ts: e[2], left: L.hw.filter(id => !log.some(e => e[0] === id && e[1])).length } : null;
+    }).filter(x => x && x.left).sort((a, b) => b.ts - a.ts).slice(0, 2).forEach(({ L, left }) => {
+      items.push({ k: 'l' + L.topic, href: '#lesson=' + L.topic, text: `ДЗ урока ${esc(L.topic)} «${esc(L.title)}»: осталось ${left} из ${L.hw.length}`, btn: 'Открыть урок' });
+    });
+    // 2) повторение: последние ошибки, затем решённые давно (KIM_STALE_DAYS), всего до 5 задач
+    const last = {};
+    for (const e of log) if (!(e[0] in last)) last[e[0]] = e;
+    const now = Date.now() / 1000;
+    const wrong = Object.values(last).filter(e => !e[1] && byId[e[0]]).map(e => e[0]);
+    const stale = Object.values(last).filter(e => e[1] && byId[e[0]] && now - e[2] > KIM_STALE_DAYS * 86400)
+      .sort((a, b) => a[2] - b[2]).map(e => e[0]);
+    const rep = wrong.concat(stale).slice(0, 5);
+    if (rep.length) items.push({ k: 'rep', title: 'Повторение', ids: rep, plain: true,
+      text: `Повторить ${rep.length} ${rep.length === 1 ? 'задачу' : rep.length < 5 ? 'задачи' : 'задач'}: ${wrong.length ? 'где была ошибка' : ''}${wrong.length && stale.length ? ' и ' : ''}${stale.length ? 'решённые давно' : ''}`, btn: 'Повторить' });
+    // 3) слабый номер КИМ: в работе с худшей долей верных, иначе «пора повторить», иначе первый не начатый
+    const ks = kimStats(p, log), kims = Object.keys(KP);
+    const work = kims.filter(k => ks[k].state === 'work').sort((a, b) => ks[a].acc - ks[b].acc);
+    const k = work[0] || kims.find(k => ks[k].state === 'stale') || kims.find(k => ks[k].state === 'none');
+    if (k) {
+      const fresh = bank.filter(t => String(t.kim) === k && !p[t.id] && !(t.tags || []).includes('ВНЕ_ЕГЭ_2027'));
+      const ids = fresh.slice(0, 5).map(t => t.id);
+      const s = ks[k], why = s.state === 'work' ? `верных ${Math.round(100 * s.acc)}%, решено ${s.solved} из ${KIM_NEED(k)} нужных`
+        : s.state === 'stale' ? 'давно не решали' : 'ещё не начинали';
+      if (ids.length) items.push({ k: 'kim', title: `№ ${k}: новые задачи`, ids, plain: true, text: `Подтянуть № ${k} (${why})`, btn: `Решить ${ids.length}` });
+    }
+    box.hidden = !items.length;
+    items.forEach(it => { todaySets[it.k] = it; });
+    box.innerHTML = `<h3 class="ph">На сегодня</h3><ul class="tdl">${items.map(it =>
+      `<li><span>${it.text}</span>${it.href ? `<a class="btn" href="${it.href}">${it.btn}</a>` : `<button class="btn" type="button" data-today="${esc(it.k)}">${it.btn}</button>`}</li>`).join('')}</ul>`;
+  }
+  $('today').addEventListener('click', e => {
+    const b = e.target.closest('[data-today]'), it = b && todaySets[b.dataset.today];
+    if (it) window.bankView.show(it.title, it.ids, it.plain);
+  });
+  ['tg-hw', 'tg-attempt'].forEach(ev => document.addEventListener(ev, () => renderToday()));
+
   function onProgress() {
+    renderToday();
     renderProgress();
     document.querySelectorAll('#list article.task').forEach((el, i) => { markCard(el, found[i]); markGrade(el, found[i]); markP2(el, found[i]); });
     document.querySelectorAll('#lesson article.task').forEach(el => el._task && (markCard(el, el._task), markGrade(el, el._task), markP2(el, el._task)));
