@@ -808,10 +808,8 @@
     });
     $('exam-title').textContent = EXAM;
     document.title = document.title.replace('ЕГЭ', EXAM);
-    // пробники и уроки пока только ЕГЭ: у ОГЭ появятся, когда в банке наберутся задачи
+    // пробники пока только ЕГЭ; уроки есть у обоих экзаменов
     $('exams-top').hidden = OGE;
-    const lt = document.querySelector('#tabs [data-tab="lessons"]');
-    if (lt) lt.hidden = OGE;
   }
 
   setupExamSwitch();
