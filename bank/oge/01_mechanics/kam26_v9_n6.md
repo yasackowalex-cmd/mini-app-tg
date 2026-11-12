@@ -27,9 +27,9 @@ source: Камзеева, ОГЭ-2026, 30 вариантов (вариант 9)
 ```latex
 \begin{tikzpicture}[scale=1, every node/.style={font=\small}]
   \draw[thick, dashed] plot[domain=0:5.2, samples=60] (\x,{1.6*(1-((\x-2.6)/2.6)^2)});
-  \fill (0,0) circle (1.6pt);
+  \fill (0,0) circle (1.2pt);
   \draw[thick, -{Stealth}] (0,0) -- (0.5,0.62) node[left] {$\vec v_0$};
-  \fill (2.6,1.6) circle (1.6pt); \node[below left] at (2.6,1.6) {$A$};
+  \fill (2.6,1.6) circle (1.2pt); \node[below left] at (2.6,1.6) {$A$};
   \draw[thick, -{Stealth}] (2.6,1.6) -- (2.6,2.45) node[left] {1};
   \draw[thick, -{Stealth}] (2.6,1.6) -- (3.05,2.3) node[right] {2};
   \draw[thick, -{Stealth}] (2.6,1.6) -- (3.45,1.6) node[right] {3};

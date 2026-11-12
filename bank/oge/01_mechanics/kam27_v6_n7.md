@@ -36,7 +36,7 @@ source: Камзеева, ОГЭ-2027, 30 вариантов (вариант 6)
   \foreach \y in {80,160} \node[left] at (0,\y) {\y};
   \node[below left] at (0,0) {0};
   \draw[very thick, brandPrimary, domain=0:3.4, samples=120, smooth] plot (\x, {80*(1-cos(180*\x))});
-  \fill (4/3,120) circle (1.6pt) node[right=3pt] {A};
+  \fill (4/3,120) circle (1.2pt) node[right=3pt] {A};
 \end{tikzpicture}
 ```
 
