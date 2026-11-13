@@ -20,15 +20,18 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved } = window.taskRender;
+  const { testScore, ogeMark, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved } = window.taskRender;
   // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
   const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
   const KIMS = Object.keys(KIM_POINTS);
 
   // постоянные пробные варианты: номер варианта узнаём по составу задач
   let variantOf = {};
-  fetch('exams/variants.json', { cache: 'no-cache' }).then(r => r.json())
-    .then(vs => { variantOf = Object.fromEntries(vs.map(v => [v.ids.join(), v.n])); }).catch(() => {});
+  ['exams/variants.json', 'exams/variants_oge.json'].forEach(f => fetch(f, { cache: 'no-cache' }).then(r => r.json())
+    .then(vs => { vs.forEach(v => { variantOf[v.ids.join()] = v.n; }); }).catch(() => {}));
+  // пробник ОГЭ узнаём по числу заданий (22); его итог — отметка, а не тестовый балл
+  const isOgeExam = e => (e.task_ids || []).length === 22;
+  const examRes = e => isOgeExam(e) ? `ОГЭ «${ogeMark(e.score)}»` : `${testScore(e.score)}`;
   // уроки (для ДЗ уроков): грузит lesson.js
   let lessons = null, lessonsAsked = false;
   function loadLessons() {
@@ -372,7 +375,7 @@
     if (!es.length) return '';
     const vn = e => variantOf[(e.task_ids || []).join()];
     return `<h4 class="t-h">Пробники</h4><ul class="t-sub">${es.map(e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
-      <span class="cnt"><b>${testScore(e.score)}</b> тб · ${e.score} перв. (${e.p1} + ${e.p2})</span>${bar(testScore(e.score))}</li>`).join('')}</ul>
+      <span class="cnt">${isOgeExam(e) ? `ОГЭ, отметка <b>${ogeMark(e.score)}</b> · ${e.score} из 39` : `<b>${testScore(e.score)}</b> тб · ${e.score} перв.`} (${e.p1} + ${e.p2})</span>${bar(isOgeExam(e) ? Math.round(e.score / 39 * 100) : testScore(e.score))}</li>`).join('')}</ul>
       <p class="muted small">тб — тестовые баллы, перв. — первичные (часть 1 + часть 2). Вторую часть ученик оценивает сам по решению из банка.</p>`;
   }
 
@@ -462,7 +465,7 @@
       return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${testScore(ex.score)}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
+          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${examRes(ex)}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
         </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks)}
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
           <p class="small">Прогноз: <b>${st.primary} из 45 / ${testScore(st.primary)} из 100</b></p>`

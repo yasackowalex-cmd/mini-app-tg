@@ -797,15 +797,15 @@
   // пробные варианты наверху: решённые (история пробников в этом браузере, exam.js) отмечены лучшим тестовым баллом
   function markExams() {
     let hist = [];
-    try { hist = JSON.parse(localStorage.getItem('exams')) || []; } catch (e) { return; }
+    try { hist = JSON.parse(localStorage.getItem(OGE ? 'exams_oge' : 'exams')) || []; } catch (e) { return; }
     const best = {};
     hist.forEach(e => { if (e.n) best[e.n] = Math.max(best[e.n] ?? 0, e.score); });
     document.querySelectorAll('#exams-top [data-v]').forEach(a => {
       const b = best[a.dataset.v];
       if (b === undefined) return;
       a.classList.add('done');
-      a.title = `решён: ${testScore(b)} тестовых`;
-      a.insertAdjacentHTML('beforeend', `<small>${testScore(b)}</small>`);
+      a.title = OGE ? `решён: отметка ${ogeMark(b)}` : `решён: ${testScore(b)} тестовых`;
+      a.insertAdjacentHTML('beforeend', `<small>${OGE ? `«${ogeMark(b)}»` : testScore(b)}</small>`);
     });
   }
 
@@ -822,8 +822,13 @@
     });
     $('exam-title').textContent = EXAM;
     document.title = document.title.replace('ЕГЭ', EXAM);
-    // пробники пока только ЕГЭ; уроки есть у обоих экзаменов
-    $('exams-top').hidden = OGE;
+    // пробники ОГЭ — та же страница exam.html с #oge в адресе
+    if (OGE) {
+      const box = $('exams-top');
+      box.setAttribute('aria-label', 'Пробные варианты ОГЭ');
+      box.querySelector('h2').textContent = 'Пробные варианты ОГЭ';
+      box.querySelectorAll('a.vbtn').forEach(a => { a.href = a.getAttribute('href').replace('#', '#oge&'); });
+    }
   }
 
   setupExamSwitch();

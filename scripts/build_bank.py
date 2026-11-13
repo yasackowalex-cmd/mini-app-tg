@@ -162,15 +162,17 @@ def main():
             problems.append((str(i), f'id повторяется {n} раз'))
 
     # постоянные пробные варианты (exams/variants.json, scripts/make_variants.py): задачи должны быть в банке и стоять на своём номере
-    vpath = os.path.join(ROOT, 'exams', 'variants.json')
-    if os.path.exists(vpath):
+    for vname in ('variants.json', 'variants_oge.json'):
+        vpath = os.path.join(ROOT, 'exams', vname)
+        if not os.path.exists(vpath):
+            continue
         kims = {t['id']: t.get('kim') for t in tasks}
         for v in json.load(open(vpath, encoding='utf-8')):
             for i, tid in enumerate(v['ids']):
                 if tid not in kims:
-                    problems.append(('exams/variants.json', f"вариант {v['n']}: задачи {tid} нет в банке, заменить другой задачей №{i + 1}"))
+                    problems.append(('exams/' + vname, f"вариант {v['n']}: задачи {tid} нет в банке, заменить другой задачей №{i + 1}"))
                 elif str(kims[tid]) != str(i + 1):
-                    problems.append(('exams/variants.json', f"вариант {v['n']}: {tid} теперь КИМ {kims[tid]}, а стоит на №{i + 1}"))
+                    problems.append(('exams/' + vname, f"вариант {v['n']}: {tid} теперь КИМ {kims[tid]}, а стоит на №{i + 1}"))
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     out_dir = os.path.dirname(a.out)

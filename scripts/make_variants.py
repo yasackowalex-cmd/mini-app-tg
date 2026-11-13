@@ -1,7 +1,8 @@
 """Собирает 10 постоянных пробных вариантов ЕГЭ (exams/variants.json): по задаче на каждый номер КИМ 1–26,
+(с ключом --exam ОГЭ — варианты ОГЭ, exams/variants_oge.json, номера 1–22, вторая часть 20–22),
 задачи в вариантах не повторяются. В каждом номере берутся задачи разных тем, а распределение по вариантам
 подбирается так, чтобы в варианте было побольше разных тем и во второй части (22–26) были разные разделы.
-Запуск: python3 scripts/make_variants.py [--seed N]. Повторный запуск с тем же зерном и банком даёт те же варианты."""
+Запуск: python3 scripts/make_variants.py [--seed N] [--exam ОГЭ]. Повторный запуск с тем же зерном и банком даёт те же варианты."""
 import argparse, collections, json, os, random
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,20 +12,23 @@ N = 10
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--seed', type=int, default=2027)
+    ap.add_argument('--exam', default='ЕГЭ', choices=['ЕГЭ', 'ОГЭ'])
     a = ap.parse_args()
+    oge = a.exam == 'ОГЭ'
+    last, p2 = (22, 19) if oge else (26, 21)  # последний номер и индекс первой расчётной задачи второй части
     rnd = random.Random(a.seed)
     bank = json.load(open(os.path.join(ROOT, 'out', 'bank.json'), encoding='utf-8'))
     pool = collections.defaultdict(list)
     for t in bank:
-        if t['exam'] == 'ЕГЭ' and 'ВНЕ_ЕГЭ_2027' not in (t.get('tags') or []):
+        if t['exam'] == a.exam and 'ВНЕ_ЕГЭ_2027' not in (t.get('tags') or []):
             pool[int(t['kim'])].append(t)
 
     # в каждом номере — N задач по кругу из разных тем
     picked = {}
-    for k in range(1, 27):
+    for k in range(1, last + 1):
         by = collections.defaultdict(list)
         for t in sorted(pool[k], key=lambda t: t['id']):
-            by[t['topic']].append(t)
+            by[t['section'] if oge and k > p2 else t['topic']].append(t)  # в расчётных задачах ОГЭ чередуем разделы
         groups = list(by.values())
         rnd.shuffle(groups)
         for g in groups:
@@ -41,23 +45,23 @@ def main():
     def score(vs):
         s = 0
         for v in vs:
-            s += len({t['topic'] for t in v}) + 3 * len({t['section'] for t in v[21:26]})
+            s += len({t['topic'] for t in v}) + (8 if oge else 3) * len({t['section'] for t in v[p2:last]})
         return s
 
     best, best_s = None, -1
-    for _ in range(3000):
+    for _ in range(30000 if oge else 3000):
         cols = {k: rnd.sample(picked[k], N) for k in picked}
-        vs = [[cols[k][i] for k in range(1, 27)] for i in range(N)]
+        vs = [[cols[k][i] for k in range(1, last + 1)] for i in range(N)]
         s = score(vs)
         if s > best_s:
             best, best_s = vs, s
     data = [{'n': i + 1, 'ids': [t['id'] for t in v]} for i, v in enumerate(best)]
-    path = os.path.join(ROOT, 'exams', 'variants.json')
+    path = os.path.join(ROOT, 'exams', 'variants_oge.json' if oge else 'variants.json')
     with open(path, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
         f.write('\n')
     for i, v in enumerate(best):
-        print(i + 1, len({t['topic'] for t in v}), [t['section'][:4] for t in v[21:26]])
+        print(i + 1, len({t['topic'] for t in v}), [t['section'][:4] for t in v[p2:last]])
 
 
 if __name__ == '__main__':
