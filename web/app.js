@@ -37,7 +37,7 @@
   // view — показ одного ДЗ ({title, ids}) или избранного ({fav: true, ids}) вместо фильтров банка; любой фильтр его снимает
   let view = null;
 
-  // ---- вкладки «Задачи» / «Уроки» / «Кабинет учителя» (последняя только у учителя, её открывает teacher.js) ----
+  // ---- вкладки «Задачи» / «Уроки» / «Прогресс» (только в Телеграме) / «Кабинет учителя» (только у учителя, её открывает teacher.js) ----
   let tab = 'bank';
   function setTab(t) {
     if (t === tab) return;
@@ -45,6 +45,7 @@
     document.querySelectorAll('#tabs [data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === t)));
     $('bank-area').hidden = t !== 'bank';
     $('lessons-area').hidden = t !== 'lessons';
+    $('progress-area').hidden = t !== 'progress';
     $('teacher').hidden = t !== 'teacher';
     document.documentElement.classList.toggle('teacher-mode', t === 'teacher');
     if (t === 'bank' && bank.length) writeHash(state());
@@ -525,6 +526,7 @@
 
   function renderProgress() {
     const box = $('progress');
+    document.querySelector('#tabs [data-tab="progress"]').hidden = !prog();
     if (!prog()) { box.hidden = true; return; }
     box.hidden = false;
     const p = prog();
@@ -637,9 +639,12 @@
     if (!log || !p || !bank.length) { box.hidden = true; return; }
     // план собираем, когда известны ДЗ ученика и уроки: иначе в нём не будет задач из ДЗ
     if (!window.tgHw || lessonsList === null) return;
+    const daily = window.achView ? window.achView.dailyInfo() : null;
     let plan = planStore.get();
     if (!plan || plan.day !== dayKey() || plan.uid !== uid || !Array.isArray(plan.ids)) {
-      plan = { day: dayKey(), uid, start: Math.floor(Date.now() / 1000) - 60, ids: planTasks(log, p, PLAN_SIZE, new Set()) };
+      // первая задача плана — задача дня, одна на всех учеников (ach.js); остальные личные
+      const d = daily && !daily.ok ? [daily.id] : [];
+      plan = { day: dayKey(), uid, start: Math.floor(Date.now() / 1000) - 60, ids: d.concat(planTasks(log, p, PLAN_SIZE - d.length, new Set(d))) };
       planStore.set(plan);
     }
     if (more) { plan.ids = plan.ids.concat(planTasks(log, p, PLAN_SIZE, new Set(plan.ids))); planStore.set(plan); }
@@ -653,12 +658,13 @@
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;
-    box.innerHTML = `<h3 class="ph">План на сегодня</h3>${n ? `
+    box.innerHTML = `${window.achView ? window.achView.miniStreak() : ''}<h3 class="ph">План на сегодня</h3>${n ? `
       <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
         ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>
-      ${bar(done, n)}` : ''}${hwLine}`;
+      ${bar(done, n)}${daily && daily.ok && plan.ids.includes(daily.id) ? `<p class="tdd">⭐ <b class="okc">Задача дня решена ✓</b> ${daily.stat}</p>` : ''}` : ''}${hwLine}`;
   }
   $('today').addEventListener('click', e => {
+    if (e.target.closest('.mini-st')) { setTab('progress'); return; }
     const b = e.target.closest('[data-today]');
     if (!b) return;
     if (b.dataset.today === 'plan' && todayView) window.bankView.show(todayView.title, todayView.ids, true);
@@ -666,7 +672,7 @@
     const h = b.dataset.today === 'hw' && todayHw[+b.dataset.i];
     if (h) window.bankView.show(h.title, h.ids);
   });
-  ['tg-hw', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, () => renderToday()));
+  ['tg-hw', 'tg-attempt', 'lessons-ready', 'daily-stat'].forEach(ev => document.addEventListener(ev, () => renderToday()));
 
   function onProgress() {
     renderToday();
@@ -772,7 +778,7 @@
       const p = prog(), log = window.tgLog;
       if (!p || !log) return null;
       const ks = kimStats(p, log);
-      return { exam: EXAM, p, log, rv: window.tgReveals || [], byId, lessons: allLessons,
+      return { exam: EXAM, p, log, rv: window.tgReveals || [], byId, bank, lessons: allLessons,
         kimDone: Object.keys(KP).filter(k => ks[k].state === 'done').length,
         groups: PROGRESS_GROUPS.map((g, i) => {
           const ts = bank.filter(t => g.sections.includes(t.section));

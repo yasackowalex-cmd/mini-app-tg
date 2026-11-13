@@ -31,6 +31,10 @@
 //   action "nick_new" — другой псевдоним для рейтинга; action "rating" — общий рейтинг без ФИО, по псевдонимам:
 //     week — разные задачи, решённые верно за 7 дней, all — число достижений; учителя в рейтинг не входят.
 //     В progress — ach: [id, ...] (без миграции 011 — null), nick и exams: [[unix, первичный балл, вторая часть оценена]].
+//   action "daily", task_id — задача дня: сколько учеников решали её сегодня (по Москве) и сколько верно с первой попытки;
+//   action "remind_set", on — включить или выключить напоминания бота о серии (миграция 012; в progress — remind, без неё null).
+//   Напоминания: запрос {"cron": "<секрет CRON_SECRET>"} без initData (его шлёт расписание в базе, notes/supabase/remind.sql)
+//     рассылает от бота сообщение тем, у кого идёт серия дней, а сегодня задач ещё не решено.
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
@@ -183,7 +187,10 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const ach = me_e ? null : (me?.ach ?? []), nick = me_e ? null : (me?.nick ?? null);
     const { data: exr, error: ex_e } = await db.from('exams').select('finished_at, score, graded').eq('tg_id', user.id).limit(1000);
     const exams = ex_e ? null : (exr ?? []).map((r: any) => [Math.floor(Date.parse(r.finished_at) / 1000) || 0, r.score, r.graded]);
-    return [200, { ok: true, tasks, log, fav, reveals, p2, ach, nick, exams }];
+    // напоминания бота о серии (миграция 012); без неё — null, и сайт выключатель не показывает
+    const { data: rm, error: rm_e } = await db.from('users').select('remind').eq('tg_id', user.id).maybeSingle();
+    const remind = rm_e ? null : rm?.remind !== false;
+    return [200, { ok: true, tasks, log, fav, reveals, p2, ach, nick, exams, remind }];
   }
 
   if (action === 'p2_submit') {
@@ -437,6 +444,27 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     return [200, { ok: true, ach }];
   }
 
+  if (action === 'remind_set') {
+    if (typeof body.on !== 'boolean') return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('users').update({ remind: body.on }).eq('tg_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, remind: body.on }];
+  }
+
+  if (action === 'daily') {
+    // задачу дня выбирает сайт (одна на всех по дате); здесь только сколько учеников решали её сегодня по Москве
+    // и у скольких первый сегодняшний ответ верный
+    const task_id = String(body.task_id || '').slice(0, 100);
+    if (!task_id) return [400, { ok: false, error: 'bad request' }];
+    const since = new Date(mskDay(Date.now() / 1000) * 86400e3 - MSK * 1000).toISOString();
+    const { data, error } = await pages(() => db.from('attempts').select('id, tg_id, correct').eq('task_id', task_id)
+      .gte('created_at', since).order('id', { ascending: true }));
+    if (error) return [500, { ok: false, error: 'db' }];
+    const first = new Map<string, boolean>();
+    for (const r of data ?? []) if (!teachers.includes(Number(r.tg_id)) && !first.has(String(r.tg_id))) first.set(String(r.tg_id), !!r.correct);
+    return [200, { ok: true, n: first.size, right: [...first.values()].filter(Boolean).length }];
+  }
+
   if (action === 'nick_new') {
     const nick = await newNick(db, user.id);
     return nick ? [200, { ok: true, nick }] : [500, { ok: false, error: 'db' }];
@@ -595,6 +623,50 @@ async function newNick(db: any, tg_id: number): Promise<string | null> {
   return null;
 }
 
+// ---- Напоминания бота о серии ----
+// День считаем по Москве. Серия — дни подряд с верно решённой задачей; один пропущенный день её не обрывает,
+// если прошлый такой пропуск был не меньше 7 дней назад (то же правило, что на сайте, web/ach.js).
+const MSK = 3 * 3600;
+const mskDay = (ts: number) => Math.floor((ts + MSK) / 86400);
+export function streakOf(days: number[], today: number): { cur: number; today: boolean } {
+  const ds = [...new Set(days)].sort((a, b) => a - b);
+  let cur = 0, prev: number | null = null, skip = -1e9;
+  for (const d of ds) {
+    if (prev !== null && d - prev === 1) cur++;
+    else if (prev !== null && d - prev === 2 && d - 1 - skip >= 7) { cur++; skip = d - 1; }
+    else { cur = 1; skip = -1e9; }
+    prev = d;
+  }
+  const alive = prev !== null && (today - prev <= 1 || (today - prev === 2 && today - 1 - skip >= 7));
+  return { cur: alive ? cur : 0, today: prev === today };
+}
+const daysWord = (n: number) => n % 10 === 1 && n % 100 !== 11 ? 'день' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'дня' : 'дней';
+const APP_URL = ORIGIN + '/mini-app-tg/';
+// send(tg_id, текст) отправляет сообщение от бота; возвращает число отправленных
+export async function remind(db: any, teachers: number[], send: (id: number, text: string) => Promise<boolean>, now = Date.now() / 1000): Promise<[number, unknown]> {
+  const { data: us, error } = await db.from('users').select('tg_id, remind').limit(5000);
+  if (error) return [500, { ok: false, error: 'db' }];
+  const since = new Date((now - 60 * 86400) * 1000).toISOString();
+  const { data: at, error: e2 } = await pages(() => db.from('attempts').select('id, tg_id, created_at').eq('correct', true)
+    .gte('created_at', since).order('id', { ascending: true }));
+  if (e2) return [500, { ok: false, error: 'db' }];
+  const days: Record<string, number[]> = {};
+  for (const r of at ?? []) (days[r.tg_id] ??= []).push(mskDay(Date.parse(r.created_at) / 1000));
+  const today = mskDay(now);
+  let sent = 0, due = 0;
+  for (const u of us ?? []) {
+    if (u.remind === false || teachers.includes(Number(u.tg_id))) continue;
+    const s = streakOf(days[u.tg_id] ?? [], today);
+    if (!s.cur || s.today) continue;
+    due++;
+    const text = s.cur >= 2
+      ? `🔥 Серия ${s.cur} ${daysWord(s.cur)} подряд! Сегодня ещё нет решённой задачи. Решите одну, и серия продолжится.`
+      : '🔥 Серия началась. Решите сегодня хотя бы одну задачу, чтобы её продолжить.';
+    if (await send(Number(u.tg_id), text)) sent++;
+  }
+  return [200, { ok: true, due, sent }];
+}
+
 // Ученик становится «своим» для учителя. Повторная запись ничего не меняет (источник остаётся первым).
 async function addMine(db: any, teacher_id: number, tg_id: number, source: string): Promise<boolean> {
   const { error } = await db.from('my_students').upsert({ teacher_id, tg_id, source },
@@ -613,6 +685,21 @@ if (D) D.serve(async (req: Request) => {
     body = await req.json();
   } catch {
     return json({ ok: false, error: 'bad request' }, 400);
+  }
+  // расписание в базе (напоминания о серии): вместо initData — секрет CRON_SECRET
+  if (body?.cron) {
+    const key = D.env.get('CRON_SECRET') ?? '', token = D.env.get('BOT_TOKEN') ?? '';
+    if (!key || key.length < 16 || body.cron !== key) return json({ ok: false, error: 'unauthorized' }, 401);
+    const { createClient } = await import('npm:@supabase/supabase-js@2');
+    const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+    const teachers = String(D.env.get('TEACHER_IDS') ?? '').split(',').map(Number).filter(Boolean);
+    // кнопка под сообщением открывает приложение; кто не запускал бота или заблокировал его — пропускаем
+    const send = (id: number, text: string) => fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: id, text, reply_markup: { inline_keyboard: [[{ text: 'Решить задачу', web_app: { url: APP_URL } }]] } }),
+    }).then(r => r.ok).catch(() => false);
+    const [status, res] = await remind(db, teachers, send);
+    return json(res, status);
   }
   const user = await verifyInitData(String(body?.initData || ''), D.env.get('BOT_TOKEN') ?? '');
   if (!user) return json({ ok: false, error: 'unauthorized' }, 401);
