@@ -582,8 +582,8 @@
   // Под планом две строки — недоделанные ДЗ (ДЗ уроков в порядке курса; старше HW_FRESH_DAYS дней сюда не попадают).
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const PLAN_SIZE = 5, HW_FRESH_DAYS = 14;
-  let lessonsList = null;
-  if (window.lessonsLoad) window.lessonsLoad.then(L => { lessonsList = (L || []).filter(x => (x.exam || 'ЕГЭ') === EXAM); renderToday(); });
+  let lessonsList = null, allLessons = [];
+  if (window.lessonsLoad) window.lessonsLoad.then(L => { allLessons = L || []; lessonsList = allLessons.filter(x => (x.exam || 'ЕГЭ') === EXAM); renderToday(); });
   const dayKey = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
   const planStore = {
     get() { try { return JSON.parse(localStorage.getItem('dayPlan')) || null; } catch (e) { return null; } },
@@ -765,6 +765,20 @@
     apply();
     document.addEventListener('tg-progress', onProgress);
     if (prog()) onProgress();
+    // для ach.js: данные для достижений по выбранному экзамену
+    const ACH_ICONS = OGE ? ['💡', '⚙️', '🌡️', '⚡', '🔭'] : ['⚙️', '🌡️', '⚡', '⚛️'];
+    const ACH_TITLES = OGE ? ['Знаток понятий', 'Механик', 'Теплотехник', 'Электрик', 'Оптик'] : ['Механик', 'Термодинамик', 'Электрик', 'Квантовик'];
+    window.achCtx = () => {
+      const p = prog(), log = window.tgLog;
+      if (!p || !log) return null;
+      const ks = kimStats(p, log);
+      return { exam: EXAM, p, log, rv: window.tgReveals || [], byId, lessons: allLessons,
+        kimDone: Object.keys(KP).filter(k => ks[k].state === 'done').length,
+        groups: PROGRESS_GROUPS.map((g, i) => {
+          const ts = bank.filter(t => g.sections.includes(t.section));
+          return { name: g.name, title: ACH_TITLES[i], icon: ACH_ICONS[i], total: ts.length, solved: ts.filter(t => p[t.id] && p[t.id].ok > 0).length };
+        }) };
+    };
     // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
     window.bankStats = { kimStats: (p, log) => kimStats(p, log, 'ЕГЭ'), topics: topicsBy['ЕГЭ'], byId, KIM_MIN_SOLVED,
       KIM_NEED: k => KIM_NEED(k, 'ЕГЭ'), KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };

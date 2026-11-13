@@ -69,6 +69,10 @@
     // ответы на 2 часть: {task_id: {a: ответ, self, teacher, max}}; null — сервер их не хранит (нет таблицы part2)
     window.tgP2 = Array.isArray(res.p2)
       ? Object.fromEntries(res.p2.map(([id, a, self, teacher, max]) => [id, { a, self, teacher, max }])) : null;
+    // достижения, сохранённые на сервере (null — сервер их не хранит, миграция 011), псевдоним в рейтинге и итоги пробников
+    window.tgAch = Array.isArray(res.ach) ? res.ach : null;
+    window.tgNick = res.nick || null;
+    window.tgExams = Array.isArray(res.exams) ? res.exams : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 

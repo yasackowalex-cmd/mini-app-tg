@@ -424,6 +424,8 @@
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
   }
 
+  // достижения ученика (число полученных ступеней, сохранённых сервером) и его псевдоним в общем рейтинге
+  const achNote = s => !Array.isArray(s.ach) ? '' : `<p class="small">🏅 Достижений: <b>${s.ach.length}</b>${s.nick ? ` · в рейтинге: «${esc(s.nick)}»` : ''}</p>`;
   // ---- вид «Ученики»: сводка и все сведения об ученике в одной карточке ----
   function renderStudents(q) {
     if (!window.bankStats) return '<p class="status">Загружаю банк задач…</p>';
@@ -465,7 +467,7 @@
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
           <p class="small">Прогноз: <b>${st.primary} из 45 / ${testScore(st.primary)} из 100</b></p>`
           : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
-          ${p2Note(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
+          ${achNote(s)}${p2Note(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
     return summary + (list.length ? `<ul class="t-list">${rows}</ul>` : '<p class="status">Ничего не нашлось.</p>');
   }
