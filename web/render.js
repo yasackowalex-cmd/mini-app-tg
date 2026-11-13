@@ -21,12 +21,37 @@
   const hasSol = t => !!(t.solution || t.has_sol);
 
   // решение; метка [[рис N]] — чертёж из «## Решение» (assets/<id>_sN.svg)
+  // «Дано: …. Найти ….» в начале решения (часть 2 ОГЭ) → столбец слева за вертикальной чертой
+  function splitTop(s, re) {
+    const out = []; let cur = '', math = false;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] === '$' && s[i - 1] !== '\\') math = !math;
+      const m = !math && re.exec(s.slice(i));
+      if (m) { out.push(cur); cur = ''; i += m[0].length - 1; } else cur += s[i];
+    }
+    out.push(cur);
+    return out.map(x => x.trim()).filter(Boolean);
+  }
+  function givenParts(sol) {
+    const m = /^\s*Дано:\s*([\s\S]*?)(?:\n\s*\n|$)/.exec(sol || '');
+    if (!m) return null;
+    let par = m[1].trim(), find = '';
+    const f = /\.?\s*Найти:?\s*([\s\S]*?)\.?\s*$/.exec(par);
+    if (f) { find = f[1]; par = par.slice(0, f.index); }
+    return { items: splitTop(par.replace(/\.\s*$/, ''), /^[,;]\s+/), find: splitTop(find, /^(?:,\s+|\s+и\s+)/), rest: sol.slice(m[0].length) };
+  }
   function solutionHtml(t) {
     const imgs = t.solution_images || [];
-    return texToHtml(t.solution).replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
+    const figs = h => h.replace(/(?:<p>\s*)?\[\[рис (\d+)\]\](?:\s*<\/p>)?/g, (m, n) => {
       const src = imgs[n - 1];
       return src ? `<div class="figs"><img src="${src}" alt="Рисунок к решению" loading="lazy"></div>` : '';
     });
+    const g = givenParts(t.solution);
+    if (!g) return figs(texToHtml(t.solution));
+    const line = x => `<div${x.replace(/\$[^$]*\$/g, '').length < 14 ? ' class="nw"' : ''}>${texToHtml(x).replace(/^<p>|<\/p>$/g, '')}</div>`;
+    return `<div class="given"><div class="given-l"><i>Дано:</i>${g.items.map(line).join('')}` +
+      (g.find.length ? `<div class="given-q">${g.find.map(x => line(x + ' — ?')).join('')}</div>` : '') +
+      `</div><div class="given-r">${figs(texToHtml(g.rest))}</div></div>`;
   }
 
   // условие; метка [[рис N]] ставит N-й рисунок задачи в это место, остальные рисунки идут после условия
