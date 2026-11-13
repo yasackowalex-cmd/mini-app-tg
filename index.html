@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=ee4fd9fb">
+<link rel="stylesheet" href="web/style.css?v=8dde100b">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -42,6 +42,7 @@
   <nav id="tabs" class="tabs">
     <button type="button" data-tab="bank" aria-pressed="true">Задачи</button>
     <button type="button" data-tab="lessons" aria-pressed="false">Уроки</button>
+    <button type="button" data-tab="progress" aria-pressed="false" hidden>Прогресс</button>
     <button type="button" data-tab="teacher" aria-pressed="false" hidden>Кабинет учителя</button>
   </nav>
 
@@ -68,10 +69,23 @@
     <div id="t-body"><p class="status">Загружаю…</p></div>
   </section>
 
-  <div id="bank-area">
+  <!-- вкладка «Прогресс» (только в Телеграме): серия, задания недели, готовность к экзамену, достижения и рейтинг -->
+  <div id="progress-area" hidden>
   <section id="streak" class="streak" hidden aria-label="Серия дней"></section>
-  <section id="today" class="today" hidden aria-label="На сегодня"></section>
   <section id="quests" class="today quests" hidden aria-label="Задания недели"></section>
+  <details id="progress" class="progress" open hidden>
+    <summary>Мой прогресс</summary>
+    <div id="progress-body"></div>
+  </details>
+
+  <details id="ach" class="progress ach" open hidden>
+    <summary>Достижения <span id="ach-count" class="cnt"></span></summary>
+    <div id="ach-body"></div>
+  </details>
+  </div>
+
+  <div id="bank-area">
+  <section id="today" class="today" hidden aria-label="На сегодня"></section>
   <section id="exams-top" class="exams-top" aria-label="Пробные варианты ЕГЭ">
     <h2>Пробные варианты ЕГЭ</h2>
     <div class="vpick"><a class="vbtn" href="exam.html#v=1" data-v="1"><b>1</b></a><a class="vbtn" href="exam.html#v=2" data-v="2"><b>2</b></a><a class="vbtn" href="exam.html#v=3" data-v="3"><b>3</b></a><a class="vbtn" href="exam.html#v=4" data-v="4"><b>4</b></a><a class="vbtn" href="exam.html#v=5" data-v="5"><b>5</b></a><a class="vbtn" href="exam.html#v=6" data-v="6"><b>6</b></a><a class="vbtn" href="exam.html#v=7" data-v="7"><b>7</b></a><a class="vbtn" href="exam.html#v=8" data-v="8"><b>8</b></a><a class="vbtn" href="exam.html#v=9" data-v="9"><b>9</b></a><a class="vbtn" href="exam.html#v=10" data-v="10"><b>10</b></a><a class="vbtn rnd" href="exam.html#new"><b>?</b><small>случайный</small></a></div>
@@ -79,16 +93,6 @@
   <details id="hw" class="progress hw" hidden>
     <summary>Домашние задания</summary>
     <div id="hw-body"></div>
-  </details>
-
-  <details id="progress" class="progress" hidden>
-    <summary>Мой прогресс</summary>
-    <div id="progress-body"></div>
-  </details>
-
-  <details id="ach" class="progress ach" hidden>
-    <summary>Достижения <span id="ach-count" class="cnt"></span></summary>
-    <div id="ach-body"></div>
   </details>
 
   <section class="filters" aria-label="Фильтры">
@@ -134,8 +138,8 @@
 <script src="web/tex.js?v=056d8ea6"></script>
 <script src="web/render.js?v=fd8bdc9e"></script>
 <script src="web/lesson.js?v=1eb7cdc2"></script>
-<script src="web/app.js?v=5cff8e1b"></script>
-<script src="web/ach.js?v=fc4706b0"></script>
+<script src="web/app.js?v=a94088d4"></script>
+<script src="web/ach.js?v=3a75f14c"></script>
 <script src="web/hw.js?v=9a86f799"></script>
 <script src="web/teacher.js?v=a07501aa"></script>
 <script defer src="web/tg.js?v=27863e5f"></script>

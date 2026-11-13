@@ -259,7 +259,7 @@
     requestAnimationFrame(() => el.classList.add('on'));
     try { window.Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch (e) { /* не в Телеграме */ }
     const close = () => { el.classList.remove('on'); setTimeout(() => { el.hidden = true; toastOn = false; showToast(); }, 300); };
-    el.onclick = () => { clearTimeout(el._t); close(); const a = $('ach'); if (a) { a.open = true; a.scrollIntoView({ behavior: 'smooth' }); } };
+    el.onclick = () => { clearTimeout(el._t); close(); const a = $('ach'); if (a) { if (window.setTab) window.setTab('progress'); a.open = true; a.scrollIntoView({ behavior: 'smooth' }); } };
     el._t = setTimeout(close, 4500);
   }
 
@@ -281,6 +281,15 @@
       : s.cur ? 'Решите сегодня задачу, чтобы серия не прервалась.' : 'Решите сегодня задачу, чтобы начать серию.';
     el.innerHTML = `<div class="st-n${s.today ? ' on' : ''}" title="Серия: дни подряд с решённой задачей"><span>🔥</span><b>${s.cur}</b></div>
       <div class="st-b"><div class="st-t"><b>${s.cur ? `Серия: ${days(s.cur)}` : 'Серия дней'}</b> <span class="muted">${text}</span></div><div class="st-w">${dots}</div></div>`;
+  }
+
+  // серия одной строкой в «Плане на сегодня»: огонёк, число дней и неделя кружками с днями недели; нажатие открывает «Прогресс»
+  function miniStreak() {
+    const x = window.achCtx && window.achCtx();
+    if (!x) return '';
+    const s = streaks(x.log), mon = s.todayN - ((new Date().getDay() + 6) % 7);
+    return `<button type="button" class="mini-st${s.today ? ' on' : ''}" title="Серия: дни подряд с решённой задачей. Открыть «Прогресс»"><span class="ms-f">🔥</span><b>${days(s.cur)}</b>
+      <span class="ms-w">${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((n, i) => `<i class="${s.days.has(mon + i) ? 'y' : mon + i === s.todayN ? 'now' : ''}">${n}</i>`).join('')}</span></button>`;
   }
 
   function render() {
@@ -358,5 +367,5 @@
   document.addEventListener('toggle', e => { if (e.target.id === 'ach' && e.target.open) loadRating(); }, true);
   ['tg-progress', 'tg-attempt', 'lessons-ready', 'bank-ready'].forEach(ev => document.addEventListener(ev, () => { if (window.tgLog) render(); }));
   if (window.lessonsLoad) window.lessonsLoad.then(() => { if (window.tgLog) render(); });
-  window.achView = { render, compute, streaks, history, dailyInfo };
+  window.achView = { render, compute, streaks, history, dailyInfo, miniStreak };
 })();

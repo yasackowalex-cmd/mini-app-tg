@@ -37,7 +37,7 @@
   // view — показ одного ДЗ ({title, ids}) или избранного ({fav: true, ids}) вместо фильтров банка; любой фильтр его снимает
   let view = null;
 
-  // ---- вкладки «Задачи» / «Уроки» / «Кабинет учителя» (последняя только у учителя, её открывает teacher.js) ----
+  // ---- вкладки «Задачи» / «Уроки» / «Прогресс» (только в Телеграме) / «Кабинет учителя» (только у учителя, её открывает teacher.js) ----
   let tab = 'bank';
   function setTab(t) {
     if (t === tab) return;
@@ -45,6 +45,7 @@
     document.querySelectorAll('#tabs [data-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === t)));
     $('bank-area').hidden = t !== 'bank';
     $('lessons-area').hidden = t !== 'lessons';
+    $('progress-area').hidden = t !== 'progress';
     $('teacher').hidden = t !== 'teacher';
     document.documentElement.classList.toggle('teacher-mode', t === 'teacher');
     if (t === 'bank' && bank.length) writeHash(state());
@@ -525,6 +526,7 @@
 
   function renderProgress() {
     const box = $('progress');
+    document.querySelector('#tabs [data-tab="progress"]').hidden = !prog();
     if (!prog()) { box.hidden = true; return; }
     box.hidden = false;
     const p = prog();
@@ -656,12 +658,13 @@
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;
-    box.innerHTML = `<h3 class="ph">План на сегодня</h3>${n ? `
+    box.innerHTML = `${window.achView ? window.achView.miniStreak() : ''}<h3 class="ph">План на сегодня</h3>${n ? `
       <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
         ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>
-      ${bar(done, n)}${daily && plan.ids.includes(daily.id) ? `<p class="tdd">⭐ ${daily.ok ? '<b class="okc">Задача дня решена ✓</b>' : `Первая в плане — <b>задача дня</b> (№ ${daily.kim}), одна на всех учеников.${daily.tried ? ' Пока неверно, попробуйте ещё.' : ''}`} ${daily.stat}</p>` : ''}` : ''}${hwLine}`;
+      ${bar(done, n)}${daily && daily.ok && plan.ids.includes(daily.id) ? `<p class="tdd">⭐ <b class="okc">Задача дня решена ✓</b> ${daily.stat}</p>` : ''}` : ''}${hwLine}`;
   }
   $('today').addEventListener('click', e => {
+    if (e.target.closest('.mini-st')) { setTab('progress'); return; }
     const b = e.target.closest('[data-today]');
     if (!b) return;
     if (b.dataset.today === 'plan' && todayView) window.bankView.show(todayView.title, todayView.ids, true);
