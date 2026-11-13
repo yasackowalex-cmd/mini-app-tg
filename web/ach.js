@@ -73,6 +73,8 @@
       { key: 'p2', icon: '✍️', name: 'Вторая часть', tiers: [1, 10, 30], val: c.p2,
         desc: n => `Решить на полный балл ${tasksN(n)} второй части.` },
     );
+    list.push({ key: 'week', icon: '📅', name: 'Задания недели', tiers: [1, 4, 12], val: c.weeks,
+      desc: n => `Выполнить все задания недели ${n} ${plural(n, 'раз', 'раза', 'раз')}.` });
     if (!oge) list.push(
       { key: 'exam', icon: '📝', name: 'Пробники', tiers: [1, 5, 10], val: c.exams,
         desc: n => `Решить ${n} ${plural(n, 'пробный вариант', 'пробных варианта', 'пробных вариантов')} ЕГЭ.` },
@@ -81,6 +83,116 @@
     );
     return list;
   }
+
+  // ---- задача дня ----
+  // Одна задача на всех учеников экзамена: по дате (московской) выбирается задача первой части с автопроверкой.
+  // Выбор — наименьший хеш от «день:id», поэтому он почти не меняется, когда в банк добавляют задачи.
+  const mskDay = ts => Math.floor((ts + 3 * 3600) / 86400);
+  const fnv = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const dailyCache = {};
+  function dailyId(x, day) {
+    const key = x.exam + day;
+    if (key in dailyCache) return dailyCache[key];
+    const T = window.taskRender;
+    let best = null, bh = Infinity;
+    x.bank.forEach(t => {
+      if (!t.answer || T.isPart2(t) || (t.tags || []).includes('ВНЕ_ЕГЭ_2027')) return;
+      const h = fnv(day + ':' + t.id);
+      if (h < bh) { bh = h; best = t.id; }
+    });
+    return (dailyCache[key] = best);
+  }
+  // решена ли задача дня в свой день (верный ответ в тот же московский день)
+  const dailySolved = (x, day) => { const id = dailyId(x, day); return !!id && x.log.some(e => e[0] === id && e[1] && mskDay(e[2]) === day); };
+
+  // ---- задания недели ----
+  // Три задания на неделю (пн–вс): «реши 20 задач» всегда, ещё два меняются от недели к неделе.
+  // Считаются по журналу ответов за эту неделю; награда — достижение «Задания недели».
+  const monOf = d => d - ((d + 3) % 7);   // день 0 (1 января 1970) — четверг
+  const QUESTS = {
+    solve: { goal: 20, name: 'Решить 20 задач' },
+    days: { goal: 5, name: 'Заниматься 5 дней' },
+    fix: { goal: 5, name: 'Исправить 5 ошибок' },
+    p2: { goal: 3, name: 'Решить 3 задачи второй части' },
+    daily: { goal: 3, name: 'Решить 3 задачи дня' },
+    first: { goal: 10, name: 'Решить 10 новых задач с первой попытки' },
+  };
+  const ROT = ['days', 'fix', 'p2', 'daily', 'first'];
+  const weekSet = mon => { const i = Math.floor(mon / 7) % ROT.length; return ['solve', ROT[i], ROT[(i + 2) % ROT.length]]; };
+  function weekQuests(x, mon) {
+    const T = window.taskRender, { log, byId } = x;
+    const solved = new Set(), daysOk = new Set(), wrong = new Set(), fixed = new Set(), p2 = new Set(), seen = new Set();
+    let first = 0;
+    for (let i = log.length - 1; i >= 0; i--) {
+      const [t, ok, ts] = log[i], d = dayOf(ts), inW = d >= mon && d < mon + 7;
+      if (d >= mon + 7) break;
+      if (inW && !seen.has(t) && ok) first++;
+      seen.add(t);
+      if (!ok) { wrong.add(t); continue; }
+      if (!inW) continue;
+      solved.add(t); daysOk.add(d);
+      if (wrong.has(t)) fixed.add(t);
+      if (T.isPart2(byId[t])) p2.add(t);
+    }
+    // задачи дня этой недели (дни московские; для недели берём те же номера дней)
+    let daily = 0;
+    for (let d = mon; d < mon + 7; d++) if (dailySolved(x, d)) daily++;
+    const val = { solve: solved.size, days: daysOk.size, fix: fixed.size, p2: p2.size, daily, first };
+    return weekSet(mon).map(k => ({ key: k, ...QUESTS[k], v: Math.min(val[k], QUESTS[k].goal), done: val[k] >= QUESTS[k].goal }));
+  }
+  // сколько недель закрыто целиком; прошедшие недели не меняются, поэтому считаются один раз
+  const weekCache = {};
+  function weeksDone(x) {
+    if (!x.log.length) return 0;
+    const cur = monOf(dayOf(Date.now() / 1000)), start = monOf(dayOf(x.log[x.log.length - 1][2]));
+    let n = 0;
+    for (let m = start; m <= cur; m += 7) {
+      const k = x.exam + m;
+      const done = m < cur && k in weekCache ? weekCache[k] : weekQuests(x, m).every(q => q.done);
+      if (m < cur) weekCache[k] = done;
+      if (done) n++;
+    }
+    return n;
+  }
+
+  // Задача дня входит в «План на сегодня» первой задачей (app.js): здесь — что о ней показать.
+  // Долю решивших спрашиваем у сервера после своего ответа, чтобы не подсказывать сложность заранее.
+  let dailyStat = null, dailyAsked = '';
+  function dailyInfo() {
+    const x = window.achCtx && window.achCtx();
+    if (!x) return null;
+    const today = mskDay(Date.now() / 1000), id = dailyId(x, today);
+    if (!id) return null;
+    const tried = x.log.some(e => e[0] === id && mskDay(e[2]) === today), ok = dailySolved(x, today);
+    if (tried && window.tgApi && dailyAsked !== id + today) {
+      dailyAsked = id + today;
+      window.tgApi('daily', { task_id: id }).then(r => { if (r && r.n) { dailyStat = { id, n: r.n, right: r.right }; document.dispatchEvent(new CustomEvent('daily-stat')); } });
+    }
+    const st = tried && dailyStat && dailyStat.id === id && dailyStat.n >= 3 ? dailyStat : null;
+    return { id, kim: x.byId[id].kim, tried, ok,
+      stat: st ? `Сегодня её решали ${st.n} ${plural(st.n, 'ученик', 'ученика', 'учеников')}, верно с первой попытки — ${Math.round(100 * st.right / st.n)}%.` : '' };
+  }
+
+  // блок «Задания недели» под «Планом на сегодня»
+  function renderQuests(x) {
+    const el = $('quests');
+    if (!el) return;
+    el.hidden = false;
+    const qs = weekQuests(x, monOf(dayOf(Date.now() / 1000))), all = qs.every(q => q.done);
+    const left = 7 - ((new Date().getDay() + 6) % 7);
+    el.innerHTML = `<h3 class="ph qh">Задания недели <span class="cnt">${all ? '' : `осталось ${days(left)}`}</span></h3>
+      ${all ? '<p class="small"><b class="okc">Все задания недели выполнены ✓</b> Новые появятся в понедельник.</p>' : ''}
+      <ul class="qlist">${qs.map(q => `<li class="${q.done ? 'done' : ''}"><span class="qn">${q.done ? '✓ ' : ''}${q.name}</span><span class="cnt">${q.v} / ${q.goal}</span><div class="bar"><span style="width:${100 * q.v / q.goal}%"></span></div></li>`).join('')}</ul>
+      ${window.tgRemind === null || window.tgRemind === undefined ? '' : `<p class="muted small qr">🔔 Напоминания бота о серии ${window.tgRemind ? 'включены' : 'выключены'}. <button type="button" class="link" data-q="remind">${window.tgRemind ? 'Выключить' : 'Включить'}</button></p>`}`;
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('#quests [data-q]');
+    if (!b) return;
+    if (b.dataset.q === 'remind' && window.tgApi) {
+      b.disabled = true;
+      window.tgApi('remind_set', { on: !window.tgRemind }).then(r => { if (r) window.tgRemind = !!r.remind; renderQuests(window.achCtx()); });
+    }
+  });
 
   function compute() {
     const x = window.achCtx && window.achCtx();
@@ -99,7 +211,7 @@
       exam: x.exam, streak: streaks(log), solved: solvedIds.length, kimDone: x.kimDone, groups: x.groups,
       fixed: h.fixed, selfRun: h.selfRun, hw3,
       p2: solvedIds.filter(id => T.isPart2(byId[id])).length,
-      exams: ex.length, bestScore: ex.length ? Math.max(...ex.map(e => T.testScore(e[1]))) : 0,
+      weeks: weeksDone(x), exams: ex.length, bestScore: ex.length ? Math.max(...ex.map(e => T.testScore(e[1]))) : 0,
     };
     const list = defs(c).map(d => {
       const level = d.tiers.filter(t => d.val >= t).length;
@@ -147,7 +259,7 @@
     requestAnimationFrame(() => el.classList.add('on'));
     try { window.Telegram.WebApp.HapticFeedback.notificationOccurred('success'); } catch (e) { /* не в Телеграме */ }
     const close = () => { el.classList.remove('on'); setTimeout(() => { el.hidden = true; toastOn = false; showToast(); }, 300); };
-    el.onclick = () => { clearTimeout(el._t); close(); const a = $('ach'); if (a) { a.open = true; a.scrollIntoView({ behavior: 'smooth' }); } };
+    el.onclick = () => { clearTimeout(el._t); close(); const a = $('ach'); if (a) { if (window.setTab) window.setTab('progress'); a.open = true; a.scrollIntoView({ behavior: 'smooth' }); } };
     el._t = setTimeout(close, 4500);
   }
 
@@ -171,6 +283,15 @@
       <div class="st-b"><div class="st-t"><b>${s.cur ? `Серия: ${days(s.cur)}` : 'Серия дней'}</b> <span class="muted">${text}</span></div><div class="st-w">${dots}</div></div>`;
   }
 
+  // серия одной строкой в «Плане на сегодня»: огонёк, число дней и неделя кружками с днями недели; нажатие открывает «Прогресс»
+  function miniStreak() {
+    const x = window.achCtx && window.achCtx();
+    if (!x) return '';
+    const s = streaks(x.log), mon = s.todayN - ((new Date().getDay() + 6) % 7);
+    return `<button type="button" class="mini-st${s.today ? ' on' : ''}" title="Серия: дни подряд с решённой задачей. Открыть «Прогресс»"><span class="ms-f">🔥</span><b>${days(s.cur)}</b>
+      <span class="ms-w">${['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((n, i) => `<i class="${s.days.has(mon + i) ? 'y' : mon + i === s.todayN ? 'now' : ''}">${n}</i>`).join('')}</span></button>`;
+  }
+
   function render() {
     const box = $('ach');
     if (!box) return;
@@ -178,6 +299,7 @@
     if (!last) { box.hidden = true; return; }
     box.hidden = false;
     renderStreak(last.c.streak);
+    renderQuests(window.achCtx());
     const have = all();
     // полученные ступени, сохранённые раньше (например, номер КИМ освоен, а теперь просит повторения), тоже считаются
     last.list.forEach(d => { const saved = d.tiers.filter((t, i) => have.has(`${d.key}-${i + 1}`)).length; if (saved > d.level) d.level = saved, d.next = d.tiers[saved]; });
@@ -245,5 +367,5 @@
   document.addEventListener('toggle', e => { if (e.target.id === 'ach' && e.target.open) loadRating(); }, true);
   ['tg-progress', 'tg-attempt', 'lessons-ready', 'bank-ready'].forEach(ev => document.addEventListener(ev, () => { if (window.tgLog) render(); }));
   if (window.lessonsLoad) window.lessonsLoad.then(() => { if (window.tgLog) render(); });
-  window.achView = { render, compute, streaks, history };
+  window.achView = { render, compute, streaks, history, dailyInfo, miniStreak };
 })();

@@ -458,3 +458,27 @@ form.rep .msg { color: var(--muted); }
 .sd.now i { border-color: var(--orange); border-style: dashed; }
 .sd.now { color: var(--text); font-weight: 700; }
 @media print { .streak { display: none !important; } }
+/* задача дня и задания недели */
+.quests { border-left-color: var(--orange); }
+.quests .qh { margin-top: 2px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.quests .qh .cnt { text-transform: none; letter-spacing: 0; font: 400 14px/1.2 "PT Sans", sans-serif; }
+.quests .small { font-size: 14px; margin: 6px 0 0; }
+.qlist { list-style: none; margin: 4px 0 0; padding: 0; }
+.qlist li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: baseline; padding: 6px 0; font-size: 15px; }
+.qlist li .bar { grid-column: 1 / -1; }
+.qlist li.done .qn { color: #1E8E3E; font-weight: 700; }
+.qlist li.done .bar span { background: #1E8E3E; }
+.quests .qr { margin-top: 8px; }
+@media print { .quests { display: none !important; } }
+.tdd { font-size: 14px; color: var(--muted); margin: 8px 0 0; }
+/* серия одной строкой в «Плане на сегодня» */
+.mini-st { display: flex; align-items: center; gap: 8px; width: 100%; margin: 0 0 10px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; cursor: pointer; text-align: left; }
+.mini-st .ms-f { font-size: 20px; filter: grayscale(1); opacity: .6; }
+.mini-st b { font: 600 18px/1 Oswald, sans-serif; white-space: nowrap; }
+.mini-st.on .ms-f { filter: none; opacity: 1; }
+.mini-st.on b { color: var(--orange); }
+.ms-w { display: flex; gap: 4px; margin-left: auto; }
+.ms-w i { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); font: 700 11px/1 "PT Sans", sans-serif; font-style: normal; color: var(--muted); }
+.ms-w i.y { background: var(--orange); border-color: var(--orange); color: #fff; }
+.ms-w i.now { border-color: var(--orange); border-style: dashed; color: var(--text); }
+#progress-area > :first-child { margin-top: 12px; }
