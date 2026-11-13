@@ -393,3 +393,11 @@ form.rep .msg { color: var(--muted); }
 .lassign { margin-top: 10px; }
 .lassign .msg { display: block; margin-top: 6px; color: var(--muted); }
 .t-grp input { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; margin-left: 6px; }
+
+/* «Дано» слева за вертикальной чертой (решения части 2 ОГЭ); решение обтекает столбец */
+.given { display: flow-root; margin-top: 6px; }
+.given-l { float: left; max-width: 62%; margin: 0 10px 6px 0; padding-right: 8px; border-right: 1.5px solid #1B1F3B; }
+.given-l > div { margin: 3px 0; }
+.given-l > .nw { white-space: nowrap; }
+.given-q { border-top: 1.5px solid #1B1F3B; margin: 6px -8px 0 0 !important; padding: 4px 8px 0 0; }
+.given-r > :first-child { margin-top: 0; }
