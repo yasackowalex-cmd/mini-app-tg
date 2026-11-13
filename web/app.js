@@ -637,9 +637,12 @@
     if (!log || !p || !bank.length) { box.hidden = true; return; }
     // план собираем, когда известны ДЗ ученика и уроки: иначе в нём не будет задач из ДЗ
     if (!window.tgHw || lessonsList === null) return;
+    const daily = window.achView ? window.achView.dailyInfo() : null;
     let plan = planStore.get();
     if (!plan || plan.day !== dayKey() || plan.uid !== uid || !Array.isArray(plan.ids)) {
-      plan = { day: dayKey(), uid, start: Math.floor(Date.now() / 1000) - 60, ids: planTasks(log, p, PLAN_SIZE, new Set()) };
+      // первая задача плана — задача дня, одна на всех учеников (ach.js); остальные личные
+      const d = daily && !daily.ok ? [daily.id] : [];
+      plan = { day: dayKey(), uid, start: Math.floor(Date.now() / 1000) - 60, ids: d.concat(planTasks(log, p, PLAN_SIZE - d.length, new Set(d))) };
       planStore.set(plan);
     }
     if (more) { plan.ids = plan.ids.concat(planTasks(log, p, PLAN_SIZE, new Set(plan.ids))); planStore.set(plan); }
@@ -656,7 +659,7 @@
     box.innerHTML = `<h3 class="ph">План на сегодня</h3>${n ? `
       <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
         ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>
-      ${bar(done, n)}` : ''}${hwLine}`;
+      ${bar(done, n)}${daily && plan.ids.includes(daily.id) ? `<p class="tdd">⭐ ${daily.ok ? '<b class="okc">Задача дня решена ✓</b>' : `Первая в плане — <b>задача дня</b> (№ ${daily.kim}), одна на всех учеников.${daily.tried ? ' Пока неверно, попробуйте ещё.' : ''}`} ${daily.stat}</p>` : ''}` : ''}${hwLine}`;
   }
   $('today').addEventListener('click', e => {
     const b = e.target.closest('[data-today]');
@@ -666,7 +669,7 @@
     const h = b.dataset.today === 'hw' && todayHw[+b.dataset.i];
     if (h) window.bankView.show(h.title, h.ids);
   });
-  ['tg-hw', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, () => renderToday()));
+  ['tg-hw', 'tg-attempt', 'lessons-ready', 'daily-stat'].forEach(ev => document.addEventListener(ev, () => renderToday()));
 
   function onProgress() {
     renderToday();

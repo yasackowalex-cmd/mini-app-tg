@@ -155,36 +155,39 @@
     return n;
   }
 
-  // блок «Задача дня» и «Задания недели» под «Планом на сегодня»
+  // Задача дня входит в «План на сегодня» первой задачей (app.js): здесь — что о ней показать.
+  // Долю решивших спрашиваем у сервера после своего ответа, чтобы не подсказывать сложность заранее.
   let dailyStat = null, dailyAsked = '';
+  function dailyInfo() {
+    const x = window.achCtx && window.achCtx();
+    if (!x) return null;
+    const today = mskDay(Date.now() / 1000), id = dailyId(x, today);
+    if (!id) return null;
+    const tried = x.log.some(e => e[0] === id && mskDay(e[2]) === today), ok = dailySolved(x, today);
+    if (tried && window.tgApi && dailyAsked !== id + today) {
+      dailyAsked = id + today;
+      window.tgApi('daily', { task_id: id }).then(r => { if (r && r.n) { dailyStat = { id, n: r.n, right: r.right }; document.dispatchEvent(new CustomEvent('daily-stat')); } });
+    }
+    const st = tried && dailyStat && dailyStat.id === id && dailyStat.n >= 3 ? dailyStat : null;
+    return { id, kim: x.byId[id].kim, tried, ok,
+      stat: st ? `Сегодня её решали ${st.n} ${plural(st.n, 'ученик', 'ученика', 'учеников')}, верно с первой попытки — ${Math.round(100 * st.right / st.n)}%.` : '' };
+  }
+
+  // блок «Задания недели» под «Планом на сегодня»
   function renderQuests(x) {
     const el = $('quests');
     if (!el) return;
     el.hidden = false;
-    const today = mskDay(Date.now() / 1000), id = dailyId(x, today), t = id && x.byId[id];
-    const tried = id && x.log.some(e => e[0] === id && mskDay(e[2]) === today), ok = dailySolved(x, today);
-    // доля решивших — после своего ответа, чтобы не подсказывать сложность заранее
-    if (tried && window.tgApi && dailyAsked !== id + today) {
-      dailyAsked = id + today;
-      window.tgApi('daily', { task_id: id }).then(r => { if (r && r.n) { dailyStat = { id, n: r.n, right: r.right }; renderQuests(window.achCtx()); } });
-    }
-    const stat = tried && dailyStat && dailyStat.id === id && dailyStat.n >= 3
-      ? `<p class="muted small">Сегодня её решали ${dailyStat.n} ${plural(dailyStat.n, 'ученик', 'ученика', 'учеников')}, верно с первой попытки — ${Math.round(100 * dailyStat.right / dailyStat.n)}%.</p>` : '';
-    const dailyHtml = !t ? '' : `<h3 class="ph">Задача дня</h3>
-      <div class="tdp"><span class="cnt wrap">${ok ? '<b class="okc">Решена ✓</b> Новая появится завтра.' : `Одна задача на всех: № ${t.kim} ${x.exam}${tried ? '. Пока неверно, попробуйте ещё.' : ''}`}</span>
-        <button class="btn${ok ? '' : ' solid'}" type="button" data-q="daily">${ok ? 'Открыть' : 'Решать'}</button></div>${stat}`;
     const qs = weekQuests(x, monOf(dayOf(Date.now() / 1000))), all = qs.every(q => q.done);
     const left = 7 - ((new Date().getDay() + 6) % 7);
-    el.innerHTML = `${dailyHtml}<h3 class="ph qh">Задания недели <span class="cnt">${all ? '' : `осталось ${days(left)}`}</span></h3>
+    el.innerHTML = `<h3 class="ph qh">Задания недели <span class="cnt">${all ? '' : `осталось ${days(left)}`}</span></h3>
       ${all ? '<p class="small"><b class="okc">Все задания недели выполнены ✓</b> Новые появятся в понедельник.</p>' : ''}
       <ul class="qlist">${qs.map(q => `<li class="${q.done ? 'done' : ''}"><span class="qn">${q.done ? '✓ ' : ''}${q.name}</span><span class="cnt">${q.v} / ${q.goal}</span><div class="bar"><span style="width:${100 * q.v / q.goal}%"></span></div></li>`).join('')}</ul>
       ${window.tgRemind === null || window.tgRemind === undefined ? '' : `<p class="muted small qr">🔔 Напоминания бота о серии ${window.tgRemind ? 'включены' : 'выключены'}. <button type="button" class="link" data-q="remind">${window.tgRemind ? 'Выключить' : 'Включить'}</button></p>`}`;
-    el._daily = id;
   }
   document.addEventListener('click', e => {
     const b = e.target.closest('#quests [data-q]');
     if (!b) return;
-    if (b.dataset.q === 'daily' && window.bankView && $('quests')._daily) window.bankView.show('Задача дня', [$('quests')._daily], true);
     if (b.dataset.q === 'remind' && window.tgApi) {
       b.disabled = true;
       window.tgApi('remind_set', { on: !window.tgRemind }).then(r => { if (r) window.tgRemind = !!r.remind; renderQuests(window.achCtx()); });
@@ -355,5 +358,5 @@
   document.addEventListener('toggle', e => { if (e.target.id === 'ach' && e.target.open) loadRating(); }, true);
   ['tg-progress', 'tg-attempt', 'lessons-ready', 'bank-ready'].forEach(ev => document.addEventListener(ev, () => { if (window.tgLog) render(); }));
   if (window.lessonsLoad) window.lessonsLoad.then(() => { if (window.tgLog) render(); });
-  window.achView = { render, compute, streaks, history };
+  window.achView = { render, compute, streaks, history, dailyInfo };
 })();

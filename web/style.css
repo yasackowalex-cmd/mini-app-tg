@@ -458,7 +458,7 @@ form.rep .msg { color: var(--muted); }
 @media print { .streak { display: none !important; } }
 /* задача дня и задания недели */
 .quests { border-left-color: var(--orange); }
-.quests .qh { margin-top: 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.quests .qh { margin-top: 2px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .quests .qh .cnt { text-transform: none; letter-spacing: 0; font: 400 14px/1.2 "PT Sans", sans-serif; }
 .quests .small { font-size: 14px; margin: 6px 0 0; }
 .qlist { list-style: none; margin: 4px 0 0; padding: 0; }
@@ -468,4 +468,4 @@ form.rep .msg { color: var(--muted); }
 .qlist li.done .bar span { background: #1E8E3E; }
 .quests .qr { margin-top: 8px; }
 @media print { .quests { display: none !important; } }
-.quests .tdp .cnt { flex: 1; text-align: left; }
+.tdd { font-size: 14px; color: var(--muted); margin: 8px 0 0; }
