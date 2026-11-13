@@ -73,6 +73,8 @@
     window.tgAch = Array.isArray(res.ach) ? res.ach : null;
     window.tgNick = res.nick || null;
     window.tgExams = Array.isArray(res.exams) ? res.exams : null;
+    // напоминания бота о серии: true/false, null — сервер их не умеет (миграция 012)
+    window.tgRemind = typeof res.remind === 'boolean' ? res.remind : null;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 

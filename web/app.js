@@ -772,7 +772,7 @@
       const p = prog(), log = window.tgLog;
       if (!p || !log) return null;
       const ks = kimStats(p, log);
-      return { exam: EXAM, p, log, rv: window.tgReveals || [], byId, lessons: allLessons,
+      return { exam: EXAM, p, log, rv: window.tgReveals || [], byId, bank, lessons: allLessons,
         kimDone: Object.keys(KP).filter(k => ks[k].state === 'done').length,
         groups: PROGRESS_GROUPS.map((g, i) => {
           const ts = bank.filter(t => g.sections.includes(t.section));
