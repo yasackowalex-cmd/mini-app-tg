@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=92674224">
+<link rel="stylesheet" href="web/style.css?v=008a9109">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -84,6 +84,11 @@
     <div id="progress-body"></div>
   </details>
 
+  <details id="ach" class="progress ach" hidden>
+    <summary>Достижения <span id="ach-count" class="cnt"></span></summary>
+    <div id="ach-body"></div>
+  </details>
+
   <section class="filters" aria-label="Фильтры">
     <input id="q" type="search" placeholder="Поиск по тексту условия" autocomplete="off">
     <div class="selects">
@@ -127,9 +132,11 @@
 <script src="web/tex.js?v=056d8ea6"></script>
 <script src="web/render.js?v=fd8bdc9e"></script>
 <script src="web/lesson.js?v=1eb7cdc2"></script>
-<script src="web/app.js?v=3e82ffae"></script>
+<script src="web/app.js?v=46a87898"></script>
+<script src="web/ach.js?v=20fed534"></script>
 <script src="web/hw.js?v=9a86f799"></script>
-<script src="web/teacher.js?v=df16f62d"></script>
-<script defer src="web/tg.js?v=3bc5768b"></script>
+<script src="web/teacher.js?v=a07501aa"></script>
+<script defer src="web/tg.js?v=7621f3b8"></script>
+<div id="ach-toast" class="ach-toast" role="status" hidden></div>
 </body>
 </html>

@@ -27,6 +27,10 @@
 //   action "my_group" (учитель), tg_id, grp — группа ученика (миграция 010), в teacher — groups: {tg_id: группа};
 //   action "report", task_id, text, answer — ученик сообщает об ошибке в задаче (не больше 20 за сутки);
 //     "report_resolve" (учитель), id, on — отметить исправленным; в teacher — reports (без таблицы reports, миграция 009, — null).
+//   action "ach_sync", ids — достижения ученика (считает сайт по журналу), сервер добавляет новые к сохранённым (миграция 011);
+//   action "nick_new" — другой псевдоним для рейтинга; action "rating" — общий рейтинг без ФИО, по псевдонимам:
+//     week — разные задачи, решённые верно за 7 дней, all — число достижений; учителя в рейтинг не входят.
+//     В progress — ach: [id, ...] (без миграции 011 — null), nick и exams: [[unix, первичный балл, вторая часть оценена]].
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
 // Без верной подписи initData — 401.
 // Секрет BOT_TOKEN задаётся в панели Supabase (Edge Functions → Secrets).
@@ -174,7 +178,12 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     // ответы и баллы за 2 часть; без таблицы part2 (миграция 008) — null
     const p2r = await pages(() => db.from('part2').select('task_id, answer, self_score, teacher_score, max_score').eq('tg_id', user.id));
     const p2 = p2r.error ? null : (p2r.data ?? []).map((r: any) => [r.task_id, r.answer, r.self_score, r.teacher_score, r.max_score]);
-    return [200, { ok: true, tasks, log, fav, reveals, p2 }];
+    // достижения и псевдоним (миграция 011; без неё — null) и итоги пробников (для достижений за пробники)
+    const { data: me, error: me_e } = await db.from('users').select('ach, nick').eq('tg_id', user.id).maybeSingle();
+    const ach = me_e ? null : (me?.ach ?? []), nick = me_e ? null : (me?.nick ?? null);
+    const { data: exr, error: ex_e } = await db.from('exams').select('finished_at, score, graded').eq('tg_id', user.id).limit(1000);
+    const exams = ex_e ? null : (exr ?? []).map((r: any) => [Math.floor(Date.parse(r.finished_at) / 1000) || 0, r.score, r.graded]);
+    return [200, { ok: true, tasks, log, fav, reveals, p2, ach, nick, exams }];
   }
 
   if (action === 'p2_submit') {
@@ -415,6 +424,54 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     return [200, { ok: true }];
   }
 
+  if (action === 'ach_sync') {
+    // достижения не отнимаются: новые добавляются к сохранённым
+    const ids = Array.isArray(body.ids) && body.ids.length <= 300 && body.ids.every((x: unknown) => typeof x === 'string' && /^[a-z0-9-]{1,40}$/.test(x))
+      ? body.ids as string[] : null;
+    if (!ids) return [400, { ok: false, error: 'bad request' }];
+    const { data: me, error } = await db.from('users').select('ach').eq('tg_id', user.id).maybeSingle();
+    if (error) return [500, { ok: false, error: 'db' }];
+    const ach = [...new Set([...(me?.ach ?? []), ...ids])].slice(0, 500);
+    const { error: e2 } = await db.from('users').update({ ach }).eq('tg_id', user.id);
+    if (e2) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true, ach }];
+  }
+
+  if (action === 'nick_new') {
+    const nick = await newNick(db, user.id);
+    return nick ? [200, { ok: true, nick }] : [500, { ok: false, error: 'db' }];
+  }
+
+  if (action === 'rating') {
+    // общий рейтинг без ФИО: только псевдонимы; у кого псевдонима ещё нет, получает его при первом показе в рейтинге
+    const { data: us, error } = await db.from('users').select('tg_id, nick, ach').limit(5000);
+    if (error) return [500, { ok: false, error: 'db' }];
+    const people = (us ?? []).filter((u: any) => !teachers.includes(Number(u.tg_id)));
+    const since = new Date(Date.now() - 7 * 86400e3).toISOString();
+    const { data: at, error: e2 } = await pages(() => db.from('attempts').select('id, tg_id, task_id').eq('correct', true)
+      .gte('created_at', since).order('id', { ascending: true }));
+    if (e2) return [500, { ok: false, error: 'db' }];
+    const week: Record<string, Set<string>> = {};
+    for (const r of at ?? []) (week[r.tg_id] ??= new Set()).add(r.task_id);
+    const TOP = 30;
+    const table = async (val: (u: any) => number) => {
+      const rows = people.map((u: any) => ({ u, v: val(u) })).filter(x => x.v > 0)
+        .sort((a, b) => b.v - a.v || Number(a.u.tg_id) - Number(b.u.tg_id));
+      // место с учётом равных: у равных одно место
+      let place = 0, prev = -1;
+      rows.forEach((x: any, i) => { if (x.v !== prev) { place = i + 1; prev = x.v; } x.place = place; });
+      const meI = rows.findIndex(x => Number(x.u.tg_id) === user.id);
+      const shown = rows.slice(0, TOP).concat(meI >= TOP ? [rows[meI]] : []);
+      for (const x of shown) if (!x.u.nick) x.u.nick = await newNick(db, Number(x.u.tg_id));
+      return shown.map((x: any) => [x.place, x.u.nick || 'Ученик', x.v, Number(x.u.tg_id) === user.id ? 1 : 0]);
+    };
+    const weekT = await table(u => (week[u.tg_id] ?? new Set()).size);
+    const allT = await table(u => (u.ach ?? []).length);
+    const meU = people.find((u: any) => Number(u.tg_id) === user.id);
+    const nick = meU ? (meU.nick || await newNick(db, user.id)) : null;
+    return [200, { ok: true, week: weekT, all: allT, nick, total: people.length }];
+  }
+
   if (action === 'teacher') {
     // кабинет учителя одним запросом: его ДЗ, ученики этих ДЗ и по каждой паре «ДЗ — ученик»
     // верно решённые (ok) и решённые только неверно (bad) задачи, ответы после выдачи ДЗ
@@ -434,7 +491,9 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     }
     const sids = [...new Set(links.map((r: any) => r.tg_id))];
     // все ученики (кроме учителей) и все их ответы — для вида «Прогресс»
-    const { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade, last_seen_at').limit(5000);
+    // псевдоним и достижения (миграция 011); без них — прежний список
+    let { data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade, last_seen_at, nick, ach').limit(5000);
+    if (e3) ({ data: us, error: e3 } = await db.from('users').select('tg_id, first_name, last_name, grade, last_seen_at').limit(5000));
     if (e3) return [500, { ok: false, error: 'db' }];
     const students = (us ?? []).filter((u: any) => !teachers.includes(Number(u.tg_id)));
     const { data: all, error: e5 } = await pages(() => db.from('attempts').select('tg_id, task_id, correct, answer, created_at')
@@ -515,6 +574,25 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
   }
 
   return [400, { ok: false, error: 'action' }];
+}
+
+// Псевдоним для рейтинга из физических слов («Упругий фотон»): ФИО в рейтинге не показываем.
+// Псевдоним уникален (индекс в миграции 011); если все попытки заняты, добавляем число.
+const NICK_ADJ = ['Упругий', 'Быстрый', 'Заряженный', 'Свободный', 'Тяжёлый', 'Лёгкий', 'Яркий', 'Тёплый', 'Холодный', 'Звонкий',
+  'Квантовый', 'Магнитный', 'Стремительный', 'Упорный', 'Смелый', 'Точный', 'Хитрый', 'Сверхпроводящий', 'Возбуждённый',
+  'Невесомый', 'Идеальный', 'Резонансный', 'Устойчивый', 'Сияющий', 'Космический', 'Мощный', 'Звёздный', 'Неутомимый',
+  'Электрический', 'Тепловой', 'Спокойный', 'Отважный'];
+const NICK_NOUN = ['фотон', 'нейтрон', 'протон', 'электрон', 'кварк', 'мюон', 'бозон', 'глюон', 'позитрон', 'ион', 'атом',
+  'магнит', 'резистор', 'конденсатор', 'маятник', 'импульс', 'вектор', 'рычаг', 'поршень', 'луч', 'кристалл', 'лазер',
+  'квант', 'спутник', 'диод', 'транзистор', 'гироскоп', 'камертон', 'термометр', 'барометр', 'генератор', 'трансформатор'];
+async function newNick(db: any, tg_id: number): Promise<string | null> {
+  const r = () => crypto.getRandomValues(new Uint32Array(1))[0];
+  for (let i = 0; i < 12; i++) {
+    const nick = NICK_ADJ[r() % NICK_ADJ.length] + ' ' + NICK_NOUN[r() % NICK_NOUN.length] + (i >= 6 ? ' ' + (r() % 90 + 10) : '');
+    const { error } = await db.from('users').update({ nick }).eq('tg_id', tg_id);
+    if (!error) return nick;
+  }
+  return null;
 }
 
 // Ученик становится «своим» для учителя. Повторная запись ничего не меняет (источник остаётся первым).
