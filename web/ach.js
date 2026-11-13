@@ -27,7 +27,7 @@
     }
     const today = dayOf(Date.now() / 1000);
     const alive = prev !== null && (today - prev <= 1 || (today - prev === 2 && today - 1 - skip >= 7));
-    return { best, cur: alive ? cur : 0, today: prev === today };
+    return { best, cur: alive ? cur : 0, today: prev === today, days: new Set(ds), todayN: today };
   }
   // Исправленные ошибки: задачи, в которых сначала был неверный ответ, а потом верный.
   // «Сам»: лучшая серия новых задач подряд, решённых верно с первой попытки без подсказки к ней.
@@ -154,12 +154,30 @@
   // ---- блок «Достижения» ----
   // цвет значка по ступени: бронза, серебро, золото (у последней ступени всегда золото)
   const tierClass = (lvl, n) => !lvl ? 0 : lvl >= n ? 3 : n <= 3 ? lvl : Math.min(3, Math.ceil(3 * lvl / n));
+  // Полоска серии наверху экрана: огонёк с числом дней и текущая неделя кружочками (пн–вс).
+  // Закрашен день, когда решена хотя бы одна задача; сегодняшний обведён, пока задача не решена.
+  function renderStreak(s) {
+    const el = $('streak');
+    if (!el) return;
+    el.hidden = false;
+    const mon = s.todayN - ((new Date().getDay() + 6) % 7);
+    const dots = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((n, i) => {
+      const d = mon + i, cls = s.days.has(d) ? 'y' : d === s.todayN ? 'now' : d < s.todayN ? 'miss' : '';
+      return `<span class="sd ${cls}"><i>${s.days.has(d) ? '✓' : ''}</i>${n}</span>`;
+    }).join('');
+    const text = s.today ? 'Сегодня засчитано. Так держать!'
+      : s.cur ? 'Решите сегодня задачу, чтобы серия не прервалась.' : 'Решите сегодня задачу, чтобы начать серию.';
+    el.innerHTML = `<div class="st-n${s.today ? ' on' : ''}" title="Серия: дни подряд с решённой задачей"><span>🔥</span><b>${s.cur}</b></div>
+      <div class="st-b"><div class="st-t"><b>${s.cur ? `Серия: ${days(s.cur)}` : 'Серия дней'}</b> <span class="muted">${text}</span></div><div class="st-w">${dots}</div></div>`;
+  }
+
   function render() {
     const box = $('ach');
     if (!box) return;
     last = compute();
     if (!last) { box.hidden = true; return; }
     box.hidden = false;
+    renderStreak(last.c.streak);
     const have = all();
     // полученные ступени, сохранённые раньше (например, номер КИМ освоен, а теперь просит повторения), тоже считаются
     last.list.forEach(d => { const saved = d.tiers.filter((t, i) => have.has(`${d.key}-${i + 1}`)).length; if (saved > d.level) d.level = saved, d.next = d.tiers[saved]; });
