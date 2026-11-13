@@ -227,6 +227,8 @@ a.btn { text-decoration: none; display: inline-block; }
 .vbtn.rnd small { font-size: 11px; }
 .ex-card.resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: #FFF5EE; border-color: #FFD2BC; }
 .ex-end.actions { justify-content: center; }
+/* блок выбора варианта на странице пробника — тёмно-синий, как на главной */
+.ex-card.pick { background: var(--dark); border-color: var(--dark); color: #fff; }
 .exams-top { background: var(--dark); color: #fff; border-radius: 12px; padding: 12px 14px 14px; margin: 16px 0 0; }
 .exams-top h2 { margin: 0 0 4px; font: 600 18px/1.2 Oswald, sans-serif; letter-spacing: .02em; }
 .exams-top .vpick { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
