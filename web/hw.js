@@ -79,12 +79,13 @@
     const ids = hw.task_ids.filter(id => v.has(id) || own(id));
     const r = hwResult(hw, ids), st = hwStars(ids.length, r.ok, r.help.length);
     const note = st < 3 ? retryNote(r.help, r.rv, r.since) : '';
+    const done = ids.length > 0 && r.ok >= ids.length;
     const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
-    return `<li class="hwi" data-id="${esc(hw.id)}">
+    return { done, html: `<li class="hwi" data-id="${esc(hw.id)}">
       <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
       ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
       <div class="hwa">${L ? `<a class="btn" href="#lesson=${esc(L.id || L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-act="open">Открыть задачи</button>'}</div>
-    </li>`;
+    </li>` };
   }
 
   function render() {
@@ -96,7 +97,13 @@
     const box = $('hw');
     // заданные учителем ДЗ живут во вкладке «Кабинет учителя» (teacher.js), здесь — только ДЗ ученика
     box.hidden = !h.mine.length;
-    $('hw-body').innerHTML = h.mine.length ? `<ul class="hwl">${h.mine.map(hwItem).join('')}</ul>` : '';
+    // выполненные ДЗ (решены все задачи) убираем в свёрнутый список «Выполненные», чтобы не загромождали экран
+    const items = h.mine.map(hwItem), todo = items.filter(x => !x.done), done = items.filter(x => x.done);
+    const wasOpen = !!document.querySelector('#hw-body .hw-done[open]');
+    $('hw-sum').textContent = todo.length ? `Домашние задания (${todo.length})` : 'Домашние задания';
+    $('hw-body').innerHTML = !h.mine.length ? '' :
+      (todo.length ? `<ul class="hwl">${todo.map(x => x.html).join('')}</ul>` : '<p class="cnt">Все домашние задания выполнены.</p>') +
+      (done.length ? `<details class="hw-done"${wasOpen ? ' open' : ''}><summary>Выполненные (${done.length})</summary><ul class="hwl">${done.map(x => x.html).join('')}</ul></details>` : '');
     // открыли по ссылке на ДЗ — сразу показываем его задачи
     if (!opened && window.tgHwOpen) {
       opened = true;
