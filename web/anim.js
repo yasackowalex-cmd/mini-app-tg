@@ -142,8 +142,9 @@
       if (!playing) return;
       if (!btn.isConnected) { playing = false; return; }   // урок закрыли
       t += (ms - last) / 1000 * speed; last = ms;
-      if (loop) t %= T;
-      else if (t >= T) { t = T; playing = false; btn.textContent = '↻ Сначала'; }
+      const TT = typeof T === 'function' ? T() : T;
+      if (loop) t %= TT;
+      else if (t >= TT) { t = TT; playing = false; btn.textContent = '↻ Сначала'; }
       onT(t);
       if (playing) requestAnimationFrame(step);
     };
@@ -151,7 +152,7 @@
     const pause = () => { playing = false; btn.textContent = '▶ Дальше'; };
     btn.addEventListener('click', () => {
       if (playing) return pause();
-      if (t >= T) t = 0;
+      if (t >= (typeof T === 'function' ? T() : T)) t = 0;
       play();
     });
     return { t: () => t, set: v => { t = v; onT(t); }, play, pause, playing: () => playing };
@@ -387,7 +388,248 @@
     }
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle };
+  // переключатель вариантов (упругий / неупругий и т. п.)
+  function seg(box, opts, value, onPick) {
+    const d = document.createElement('div');
+    d.className = 'seg an-seg';
+    d.innerHTML = opts.map(([v, l]) => `<button type="button" data-v="${v}" aria-pressed="${v === value}">${l}</button>`).join('');
+    box.appendChild(d);
+    d.addEventListener('click', e => {
+      const b = e.target.closest('[data-v]');
+      if (!b) return;
+      d.querySelectorAll('[data-v]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      onPick(b.dataset.v);
+    });
+  }
+  // пружина витками: одинаковое число витков при любой длине (как в рисунках уроков)
+  function coilD(x1, x2, y, r = 9, n = 9) {
+    const lead = 8, len = x2 - x1 - 2 * lead, p = len / (n + 0.5);
+    let d = `M${x1} ${y}H${x1 + lead}`;
+    for (let i = 0; i <= n * 24; i++) {
+      const t = i / 24, a = t * 2 * Math.PI;
+      d += `L${x1 + lead + p * t + p / 2 * (1 - Math.cos(a)) * .5} ${y - r * Math.sin(a)}`;
+    }
+    return d + `L${x2 - lead} ${y}H${x2}`;
+  }
+  // подпись силы у конца стрелки
+  const forceLabel = (parent, color) => text(parent, 0, 0, '', 'an-lb', 'middle', color);
+  const putLabel = (t, x, y, ux, uy, s) => set(t, { x: x + ux * 12, y: y + uy * 12 + 4 }).textContent = s;
+
+  // ---- 1.2.4: брусок на наклонной, m = 1 кг, g = 10 м/с². Силы: mg, N, F_тр; покоится или скользит ----
+  function incline(el) {
+    const G = 10, M = 1, K = 6;            // K — пикселей на ньютон
+    const F = frame(el, [['an-g', 340, 250, 'Брусок на наклонной плоскости и силы, действующие на него']]);
+    const [g] = F.svgs;
+    const S = 250, BX = 326, BY = 236;    // длина наклона, нижний правый угол
+    let al = 30, mu = 0.4;
+    const hill = svg('path', { fill: '#E8F1FF', stroke: C.dark, 'stroke-width': 1.3 }, g);
+    const arc = svg('path', { fill: 'none', stroke: C.dark }, g);
+    const alT = text(g, 0, 0, 'α', 'an-ax', 'middle');
+    const block = svg('g', {}, g);
+    svg('rect', { x: -20, y: -24, width: 40, height: 24, rx: 2, fill: C.dark }, block);
+    const aG = arrow(g, C.dark), aN = arrow(g, C.blue), aF = arrow(g, C.orange), aA = arrow(g, C.green);
+    const lG = forceLabel(g, C.dark), lN = forceLabel(g, C.blue), lF = forceLabel(g, C.orange), lA = forceLabel(g, C.green);
+    let st;   // { slide, a, f }
+    const state = () => {
+      const r = al * Math.PI / 180, down = M * G * Math.sin(r), N = M * G * Math.cos(r), fmax = mu * N;
+      return down > fmax + 1e-9 ? { slide: true, a: down / M - fmax / M, f: fmax, N, r } : { slide: false, a: 0, f: down, N, r };
+    };
+    function draw(t) {
+      const { r } = st, c = Math.cos(r), s = Math.sin(r), dx = c, dy = s, nx = s, ny = -c;
+      const TX = BX - S * c, TY = BY - S * s;          // вершина наклона
+      hill.setAttribute('d', `M${TX} ${TY}L${BX} ${BY}L${TX} ${BY}Z`);
+      arc.setAttribute('d', `M${BX - 34} ${BY}A34 34 0 0 1 ${BX - 34 * c} ${BY - 34 * s}`);
+      set(alT, { x: BX - 46 * Math.cos(r / 2), y: BY - 46 * Math.sin(r / 2) + 4 }).textContent = al >= 8 ? 'α' : '';
+      // путь вдоль наклона: от четверти длины до 70%, скользит с ускорением a (масштаб: 1 м = 25 px)
+      const p0 = S * 0.25, p = Math.min(S * 0.7, p0 + (st.slide ? st.a * t * t / 2 * 25 : 0));
+      const px = TX + dx * p, py = TY + dy * p;
+      block.setAttribute('transform', `translate(${px} ${py}) rotate(${al})`);
+      const cx = px + nx * 12, cy = py + ny * 12;   // центр бруска
+      const mg = M * G * K, N = st.N * K, f = st.f * K;
+      aG.setAttribute('d', arrowD(cx, cy, cx, cy + mg)); putLabel(lG, cx, cy + mg, 0, 1, 'mg');
+      aN.setAttribute('d', arrowD(cx, cy, cx + nx * N, cy + ny * N)); putLabel(lN, cx + nx * N, cy + ny * N, nx, ny, 'N');
+      // трение — вдоль поверхности, от нижней грани бруска
+      const fx = px - dx * 20, fy = py - dy * 20;
+      aF.setAttribute('d', arrowD(fx, fy, fx - dx * f, fy - dy * f)); putLabel(lF, fx - dx * f, fy - dy * f, -dx * 1.4, -dy * 1.4 + .5, f > 2 ? 'Fтр' : '');
+      const aa = st.a * K * 1.4;
+      // ускорение — над бруском, вдоль наклона
+      const ax0 = px + nx * 36 + dx * 22, ay0 = py + ny * 36 + dy * 22;
+      aA.setAttribute('d', st.slide ? arrowD(ax0, ay0, ax0 + dx * aa, ay0 + dy * aa) : '');
+      putLabel(lA, ax0 + dx * aa, ay0 + dy * aa, dx, dy, st.slide ? 'a' : '');
+      // по высоте — только сам наклон и стрелки (при малом угле сверху не остаётся пустоты)
+      const top = Math.max(0, Math.min(TY, cy - N - 10) - 24);
+      g.setAttribute('viewBox', `0 ${top} 340 ${276 - top}`);   // снизу место под подпись mg
+    }
+    const tl = timeline(F.btn, 6, 1, draw);
+    const upd = () => {
+      st = state();
+      const tg = Math.tan(st.r);
+      F.f.innerHTML = st.slide
+        ? `<span>${math(`\\operatorname{tg}\\alpha=${tx(tg)}>\\mu`)}</span><span>${math(`a=g(\\sin\\alpha-\\mu\\cos\\alpha)=${tx(st.a, 1)}~\\text{м/с}^2`)}</span>`
+        : `<span>${math(`\\operatorname{tg}\\alpha=${tx(tg)}\\le\\mu`)}</span><span>${math(`F_{\\text{тр}}=mg\\sin\\alpha=${tx(st.f, 1)}~\\text{Н}`)}</span>`;
+      F.now.innerHTML = st.slide ? '<b class="an-down">скользит вниз</b>, трение скольжения μN' : '<b class="an-up">покоится</b>, трение покоя равно mg sin α';
+      tl.set(0);
+    };
+    slider(F.ctl, { label: '\\alpha', min: 0, max: 60, step: 1, value: al, unit: '°' }, val => { al = val; upd(); }).init();
+    slider(F.ctl, { label: '\\mu', min: 0, max: 1, step: 0.05, value: mu, unit: '' }, val => { mu = val; upd(); }).init();
+  }
+
+  // ---- 1.2.4: закон Гука. Пружина, брусок, сила упругости и график F(Δx) ----
+  function spring(el) {
+    const F = frame(el, [['an-car', 340, 90, 'Пружина и сила упругости'], ['an-g', 340, 200, 'График силы упругости от деформации']], false);
+    const [sp, g] = F.svgs;
+    const WALL = 20, L0 = 150, KPX = 6, Y0 = 52;   // 1 см деформации = 6 px
+    let k = 100, dx = 4;
+    svg('rect', { x: WALL - 8, y: 14, width: 8, height: 66, fill: C.muted }, sp);
+    svg('line', { x1: WALL, x2: 330, y1: 78, y2: 78, stroke: C.dark, 'stroke-width': 1.3 }, sp);
+    const eq = svg('line', { x1: WALL + L0, x2: WALL + L0, y1: 22, y2: 82, stroke: C.muted, 'stroke-dasharray': '3 3' }, sp);
+    text(sp, WALL + L0, 18, 'Δx = 0', 'an-tk', 'middle');
+    const coil = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 1.5 }, sp);
+    const blk = svg('rect', { y: Y0 - 18, width: 40, height: 36, rx: 3, fill: C.dark }, sp);
+    const aF = arrow(sp, C.orange), lF = forceLabel(sp, C.orange);
+    const A = axes(g, { L: 34, R: 326, T: 10, B: 186 }, { xl: 'Δx, см', yl: 'F, Н' });
+    A.set([-10, 10, 1, 5], [0, 20, 2, 5]);
+    const ln = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A.dyn);
+    const dot = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    const upd = () => {
+      const x2 = WALL + L0 + dx * KPX, f = k * Math.abs(dx) / 100;
+      coil.setAttribute('d', coilD(WALL, x2, Y0));
+      set(blk, { x: x2 });
+      const bx = x2 + 20, len = -Math.sign(dx) * f * 4;
+      aF.setAttribute('d', arrowD(bx, Y0 - 26, bx + len, Y0 - 26));
+      putLabel(lF, bx + len, Y0 - 26, Math.sign(len), 0, f > 0.1 ? 'Fупр' : '');
+      ln.setAttribute('d', `M${A.X(-10)} ${A.Y(k / 10)}L${A.X(0)} ${A.Y(0)}L${A.X(10)} ${A.Y(k / 10)}`);
+      set(dot, { cx: A.X(dx), cy: A.Y(f) });
+      F.f.innerHTML = math(`F_{\\text{упр}}=k\\,|\\Delta x|=${k}\\cdot${tx(Math.abs(dx) / 100)}=${tx(f, 1)}~\\text{Н}`);
+      F.now.innerHTML = dx > 0 ? 'растяжение: сила упругости тянет брусок к стене' : dx < 0 ? 'сжатие: сила упругости толкает брусок от стены' : 'пружина не деформирована, силы нет';
+    };
+    slider(F.ctl, { label: 'k', min: 20, max: 200, step: 10, value: k, unit: 'Н/м' }, val => { k = val; upd(); }).init();
+    slider(F.ctl, { label: '\\Delta x', min: -10, max: 10, step: 1, value: dx, unit: 'см' }, val => { dx = val; upd(); }).init();
+  }
+
+  // ---- 1.3.1: удар двух тележек. Упругий и неупругий, импульс до и после ----
+  function collide(el) {
+    const F = frame(el, [['an-car', 340, 80, 'Удар двух тележек']]);
+    const [sv] = F.svgs;
+    const W = 1.6;   // тележка 1,6 м
+    let PX = 16, lo = 0;   // масштаб и левый край кадра: весь путь тележек помещается в 340 px
+    let m1 = 2, m2 = 1, v1 = 4, v2 = -2, mode = 'el';
+    svg('line', { x1: 0, x2: 340, y1: 66, y2: 66, stroke: C.dark, 'stroke-width': 1.3 }, sv);
+    const cart = (col) => {
+      const gg = svg('g', {}, sv);
+      const r = svg('rect', { y: 40, height: 20, rx: 3, fill: col }, gg);
+      const w1 = svg('circle', { cy: 62.5, r: 3.5, fill: C.muted }, gg), w2 = svg('circle', { cy: 62.5, r: 3.5, fill: C.muted }, gg);
+      const m = text(gg, 0, 55, '', 'an-lb', 'middle', '#fff');
+      return { gg, r, w1, w2, m, a: arrow(sv, C.blue), l: text(sv, 0, 0, '', 'an-lb', 'middle', C.blue) };
+    };
+    const c1 = cart(C.blue), c2 = cart(C.orange);
+    const out = () => {
+      if (mode === 'in') { const u = (m1 * v1 + m2 * v2) / (m1 + m2); return [u, u]; }
+      return [((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2), ((m2 - m1) * v2 + 2 * m1 * v1) / (m1 + m2)];
+    };
+    const gap = 5;   // расстояние между тележками в начале, м
+    const tc = () => v1 > v2 ? gap / (v1 - v2) : Infinity;
+    const T = () => Math.min(tc(), 6) + 3;
+    function pos(t) {
+      const a0 = 3, b0 = a0 + W + gap, t1 = tc();
+      if (t <= t1) return [a0 + v1 * t, b0 + v2 * t, v1, v2, false];
+      const [u1, u2] = out(), a1 = a0 + v1 * t1, b1 = b0 + v2 * t1;
+      return [a1 + u1 * (t - t1), b1 + u2 * (t - t1), u1, u2, true];
+    }
+    function place(c, x, w, m, v) {
+      const x0 = 10 + (x - lo) * PX, ww = w * PX;
+      set(c.r, { x: x0, width: ww }); set(c.w1, { cx: x0 + ww * .25 }); set(c.w2, { cx: x0 + ww * .75 });
+      set(c.m, { x: x0 + ww / 2 }).textContent = m + ' кг';
+      const cx = x0 + ww / 2, len = v * 7;
+      c.a.setAttribute('d', arrowD(cx, 30, cx + len, 30));
+      set(c.l, { x: cx + len + (len > 0 ? 8 : -8), y: 34 }).textContent = Math.abs(len) >= 2 ? fmt(v) : '';
+    }
+    function draw(t) {
+      const [a, b, va, vb, after] = pos(t);
+      place(c1, a, W, m1, va); place(c2, b, W, m2, vb);
+      F.now.innerHTML = after ? '<b>после удара</b>' : v1 > v2 ? 'до удара' : 'первая тележка не догонит вторую';
+    }
+    const tl = timeline(F.btn, T, 1.2, draw);
+    const upd = () => {
+      let a = Infinity, b = -Infinity;
+      for (let i = 0; i <= 60; i++) { const q = pos(T() * i / 60); a = Math.min(a, q[0], q[1]); b = Math.max(b, q[0] + W, q[1] + W); }
+      lo = a; PX = Math.min(24, 320 / (b - a));
+      const [u1, u2] = out(), p0 = m1 * v1 + m2 * v2, p1 = m1 * u1 + m2 * u2;
+      const E0 = (m1 * v1 * v1 + m2 * v2 * v2) / 2, E1 = (m1 * u1 * u1 + m2 * u2 * u2) / 2;
+      F.f.innerHTML = `<span>${math(`p_{\\text{до}}=${tx(p0, 1)},\\ p_{\\text{после}}=${tx(p1, 1)}~\\text{кг}\\cdot\\text{м/с}`)}</span>` +
+        `<span>${math(`E_{\\text{к до}}=${tx(E0, 1)},\\ E_{\\text{к после}}=${tx(E1, 1)}~\\text{Дж}`)}</span>`;
+      tl.set(0);
+    };
+    seg(F.ctl, [['el', 'Упругий'], ['in', 'Неупругий']], mode, v => { mode = v; upd(); });
+    F.ctl.appendChild(document.createElement('span'));
+    slider(F.ctl, { label: 'm_1', min: 1, max: 5, step: 1, value: m1, unit: 'кг' }, val => { m1 = val; upd(); }).init();
+    slider(F.ctl, { label: 'm_2', min: 1, max: 5, step: 1, value: m2, unit: 'кг' }, val => { m2 = val; upd(); }).init();
+    slider(F.ctl, { label: 'v_{1x}', min: -4, max: 6, step: 1, value: v1, unit: 'м/с' }, val => { v1 = val; upd(); }).init();
+    slider(F.ctl, { label: 'v_{2x}', min: -6, max: 4, step: 1, value: v2, unit: 'м/с' }, val => { v2 = val; upd(); }).init();
+  }
+
+  // ---- 1.3.3: шарик в ложбине y = 0,2x², m = 1 кг. Столбики Eк, Eп и E; трение уменьшает E ----
+  function energy(el) {
+    const G = 10, M = 1, CF = 0.2, XM = 5;
+    const F = frame(el, [['an-g', 340, 190, 'Шарик в ложбине и столбики энергии']]);
+    const [g] = F.svgs;
+    const KX = 22, OX = 120, OY = 160;    // 1 м = 22 px, дно ложбины
+    const sx = x => OX + x * KX, sy = y => OY - y * KX;
+    let d = '';
+    for (let i = 0; i <= 60; i++) { const x = -XM + 2 * XM * i / 60; d += (i ? 'L' : 'M') + sx(x) + ' ' + sy(CF * x * x); }
+    svg('path', { d: d + `L${sx(XM)} ${OY + 14}L${sx(-XM)} ${OY + 14}Z`, fill: '#E8F1FF', stroke: 'none' }, g);
+    svg('path', { d, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, g);
+    const lvl = svg('line', { x1: sx(-XM), x2: sx(XM), stroke: C.muted, 'stroke-dasharray': '4 3' }, g);
+    const ball = svg('circle', { r: 7, fill: C.dark }, g);
+    // столбики
+    const BX = 256, BW = 20, BH = 140, BB = 168, EMAX = M * G * 5;
+    const bar = (i, col, lab) => {
+      text(g, BX + i * 26 + BW / 2, BB + 14, lab, 'an-lb', 'middle', col);
+      svg('rect', { x: BX + i * 26, y: BB - BH, width: BW, height: BH, fill: 'none', stroke: C.line }, g);
+      return svg('rect', { x: BX + i * 26, width: BW, fill: col }, g);
+    };
+    const bK = bar(0, C.blue, 'Eк'), bP = bar(1, C.orange, 'Eп'), bE = bar(2, C.dark, 'E');
+    const setBar = (b, e) => set(b, { y: BB - BH * e / EMAX, height: BH * e / EMAX });
+    let h0 = 4, ftr = 0, x, E, dir, last;
+    const reset = () => { x = -Math.sqrt(h0 / CF); E = M * G * h0; dir = 1; last = 0; };
+    function draw() {
+      const h = CF * x * x, Ep = M * G * h, Ek = Math.max(0, E - Ep);
+      const r = 7, slope = 2 * CF * x, nrm = Math.hypot(1, slope);
+      set(ball, { cx: sx(x) - slope / nrm * r, cy: sy(h) - r / nrm });   // центр шарика — по нормали к ложбине
+      setBar(bK, Ek); setBar(bP, Ep); setBar(bE, E);
+      F.now.innerHTML = `Eк = ${fmt(Ek)} Дж, Eп = ${fmt(Ep)} Дж, E = ${fmt(E)} Дж`;
+    }
+    // шаг по 1 мс: скорость вдоль ложбины из энергии, у края — разворот, трение отнимает F·Δs
+    function stepTo(t) {
+      const n = Math.min(4000, Math.round((t - last) * 1000));
+      for (let i = 0; i < n; i++) {
+        const dt = 0.001, slope = 2 * CF * x, k = Math.hypot(1, slope);
+        const ek = E - M * G * CF * x * x;
+        let v = Math.sqrt(Math.max(0, 2 * ek / M));
+        if (v < 0.05) {   // точка поворота или покой на дне
+          if (Math.abs(x) < 0.02 && E < 0.01) { E = 0; break; }
+          dir = slope > 0 ? -1 : slope < 0 ? 1 : dir; v = 0.05;
+        }
+        const ds = v * dt, nx = x + dir * ds / k;
+        if (M * G * CF * nx * nx > E - ftr * ds) { dir = -dir; continue; }
+        x = nx; E = Math.max(0, E - ftr * ds);
+      }
+      last = t;
+      draw();
+    }
+    const tl = timeline(F.btn, 30, 1, t => { if (t < last) reset(); stepTo(t); });
+    const upd = () => {
+      reset();
+      set(lvl, { y1: sy(h0), y2: sy(h0) });
+      F.f.innerHTML = math(ftr ? `E_2-E_1=A_{\\text{тр}}<0` : `E=E_{\\text{к}}+E_{\\text{п}}=mgh_0=${tx(M * G * h0, 1)}~\\text{Дж}`);
+      if (tl) tl.set(0);
+      draw();
+    };
+    slider(F.ctl, { label: 'h_0', min: 1, max: 5, step: 0.5, value: h0, unit: 'м' }, val => { h0 = val; upd(); }).init();
+    slider(F.ctl, { label: 'F_{\\text{тр}}', min: 0, max: 2, step: 0.25, value: ftr, unit: 'Н' }, val => { ftr = val; upd(); }).init();
+  }
+
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
