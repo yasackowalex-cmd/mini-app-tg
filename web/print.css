@@ -53,7 +53,7 @@
      обычный блок .runhead (ссылка на ТГ кликабельна в PDF), на остальных — поля страницы;
      текст слева (ЕГЭ/ОГЭ) print.js вписывает в #rh-style. Внизу номер страницы. */
   @page { size: A4; margin: 22mm 18mm 18mm;
-    @top-right { content: "Саня дай сотку"; vertical-align: bottom; padding-bottom: 2pt; margin-bottom: 6mm; border-bottom: .4pt solid #000; font: italic 10pt "CMU Serif", serif; }
+    @top-right { content: "САНЯ ДАЙ СОТКУ"; vertical-align: bottom; padding-bottom: 2pt; margin-bottom: 6mm; border-bottom: .4pt solid #000; font: italic 10pt "CMU Serif", serif; }
     @bottom-center { content: counter(page); font: 10pt "CMU Serif", serif; } }
   @page :first { margin-top: 13mm; @top-left { content: none; border: 0; } @top-right { content: none; border: 0; } }
   body { background: #fff; }
