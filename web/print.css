@@ -28,7 +28,12 @@
 .ptask .cond p { margin: 0 0 .5em; }
 .ptask .figs, .psol .figs { justify-content: center; margin: 2mm 0; }
 .pmeta { margin: 2mm 0 0; text-align: right; font-size: 9pt; font-style: italic; color: #555; }
-.p2space { height: 9cm; border-bottom: .4pt dashed #888; }
+/* место под решение второй части: тетрадная клетка 5 мм; у КИМ 25–26 больше места */
+.p2space { height: 9cm; margin-top: 2mm; border: .5pt solid #9AA3B5;
+  background-image: linear-gradient(to right, #C9CFDB .5pt, transparent .5pt), linear-gradient(to bottom, #C9CFDB .5pt, transparent .5pt);
+  background-size: 5mm 5mm; background-position: -.5pt -.5pt;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.p2space.big { height: 15cm; }
 .pid { font-size: 9pt; color: #555; }
 .ptask .rm { position: absolute; left: -9mm; top: 0; border: 0; background: none; color: #C5221F; font-size: 16px; cursor: pointer; }
 .ans-line { margin: 2mm 0 0; }
@@ -63,3 +68,8 @@
   .answers { break-before: page; }
   .figs img { max-height: 70mm; }
 }
+/* задача второй части с клеткой может быть выше страницы: условие и клетка не рвутся каждое,
+   но клетка переходит на следующую страницу целиком */
+.ptask:has(.p2space) { break-inside: auto; }
+.ptask:has(.p2space) .cond, .p2space { break-inside: avoid; }
+.ptask:has(.p2space) .pmeta { break-before: avoid; }

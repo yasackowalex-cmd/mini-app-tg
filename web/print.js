@@ -48,7 +48,7 @@
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ:<span class="fill"></span>${t.unit ? t.unit : ''}</p>` : ''}
-        ${opt('space') && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21) ? '<div class="p2space" aria-hidden="true"></div>' : ''}
+        ${opt('space') && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21) ? `<div class="p2space${t.exam !== 'ОГЭ' && t.kim >= 25 ? ' big' : ''}" aria-hidden="true"></div>` : ''}
         ${meta ? `<p class="pmeta">${meta}</p>` : ''}
       </li>`;
     }).join('');
