@@ -435,12 +435,14 @@
   }
 
   function saveAttempt(t, answer, correct) {
-    if (!window.tgApi || !prog()) return;
+    // в Телеграме ответ идёт через очередь (tg.js): сохранится, даже если вход ещё не закончился или нет сети
+    if (!window.tgQueue) return;
+    window.tgQueue('attempt', { task_id: t.id, answer, correct });
+    if (!prog()) return;   // прогресс ещё грузится: ответ добавится к нему из очереди
     const p = prog()[t.id] || (prog()[t.id] = { n: 0, ok: 0 });
     p.n++;
     if (correct) p.ok++;
     if (window.tgLog) window.tgLog.unshift([t.id, correct ? 1 : 0, Math.floor(Date.now() / 1000), ...(correct ? [] : [answer])]);
-    window.tgApi('attempt', { task_id: t.id, answer, correct });
     renderProgress();
     renderMistakes();
     document.dispatchEvent(new CustomEvent('tg-attempt'));
@@ -450,10 +452,10 @@
   // Одна запись на задачу и вид за время работы страницы.
   const revealed = new Set();
   function saveReveal(t, kind) {
-    if (!window.tgApi || revealed.has(kind + t.id)) return;
+    if (!window.tgQueue || revealed.has(kind + t.id)) return;
     revealed.add(kind + t.id);
-    (window.tgReveals || (window.tgReveals = [])).unshift([t.id, kind, Math.floor(Date.now() / 1000)]);
-    window.tgApi('reveal', { task_id: t.id, kind });
+    window.tgQueue('reveal', { task_id: t.id, kind });
+    if (window.tgProgress) (window.tgReveals || (window.tgReveals = [])).unshift([t.id, kind, Math.floor(Date.now() / 1000)]);
   }
 
   // Готовность к ЕГЭ по номерам КИМ. Номер освоен, когда верно решено не меньше KIM_MIN_SOLVED

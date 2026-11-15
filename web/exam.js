@@ -178,9 +178,9 @@
     exam.finished = Date.now();
     save();
     // ответы идут в прогресс ученика (только в Телеграме), пустые не отправляем
-    if (window.tgApi) tasks().forEach(t => {
+    if (window.tgQueue) tasks().forEach(t => {
       const a = String(exam.answers[t.id] || '').trim();
-      if (a && t.check !== 'none' && t.answer) window.tgApi('attempt', { task_id: t.id, answer: a, correct: isRight(t, a) });
+      if (a && t.check !== 'none' && t.answer) window.tgQueue('attempt', { task_id: t.id, answer: a, correct: isRight(t, a) });
     });
     record();
     show('result');
