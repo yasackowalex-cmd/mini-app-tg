@@ -68,8 +68,9 @@
   .answers { break-before: page; }
   .figs img { max-height: 70mm; }
 }
-/* задача второй части с клеткой может быть выше страницы: условие и клетка не рвутся каждое,
-   но клетка переходит на следующую страницу целиком */
+/* задача второй части с клеткой: условие не рвётся, клетка идёт сразу за ним
+   и продолжается на следующей странице (рамка у каждой части своя) */
 .ptask:has(.p2space) { break-inside: auto; }
-.ptask:has(.p2space) .cond, .p2space { break-inside: avoid; }
-.ptask:has(.p2space) .pmeta { break-before: avoid; }
+.ptask:has(.p2space) .cond { break-inside: avoid; }
+.p2space { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.ptask:has(.p2space) .pmeta { break-after: avoid; }
