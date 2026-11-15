@@ -49,11 +49,27 @@
       '\n\n' + put(`<h3 class="lsec${sub ? ' sub' : ''}">${window.texToHtml(t).replace(/^<p>|<\/p>$/g, '')}</h3>`) + '\n\n');
     // картинки: [[img адрес]]
     s = s.replace(/\[\[img ([^\]]+)\]\]/g, (m, src) => '\n\n' + put(`<div class="lfig"><img src="${esc(src)}" alt="Рисунок" loading="lazy"></div>`) + '\n\n');
+    // интерактивная анимация: [[anim имя]] (web/anim.js)
+    s = s.replace(/\[\[anim ([\w-]+)\]\]/g, (m, name) => '\n\n' + put(`<div class="lanim" data-anim="${esc(name)}"></div>`) + '\n\n');
     let html = window.texToHtml(s);
     html = html.replace(/<p>\s*(@@\d+@@\s*)+<\/p>/g, p => p.replace(/<\/?p>/g, ''));
     let prev;
     do { prev = html; html = html.replace(/@@(\d+)@@/g, (x, n) => slots[+n]); } while (html !== prev);
     return html;
+  }
+
+  // анимации (web/anim.js) грузим, только если в конспекте они есть; адрес с ?v=хеш — в <template id="anim-src"> index.html
+  let animLoad = null;
+  function mountAnims(root) {
+    if (!root.querySelector('.lanim')) return;
+    if (!animLoad) animLoad = new Promise((ok, no) => {
+      const tpl = document.getElementById('anim-src'), src = tpl && tpl.content.querySelector('script')?.getAttribute('src');
+      const sc = document.createElement('script');
+      sc.src = src || 'web/anim.js';
+      sc.onload = ok; sc.onerror = () => { animLoad = null; no(); };
+      document.head.appendChild(sc);
+    });
+    animLoad.then(() => window.lessonAnims.mount(root)).catch(() => {});
   }
 
   // ---- видео: YouTube и VK встраиваются плеером, остальное — ссылкой ----
@@ -212,10 +228,11 @@
     // конспект — отдельный файл урока (out/lessons/<тема>.json), чтобы список уроков грузился быстро
     if (L.conspect == null && L.conspect_url) fetch(L.conspect_url).then(r => r.json()).then(c => {
       L.conspect = c.conspect || '';
-      if (box.dataset.topic === topic) box.querySelector('.lconspect .cond').innerHTML = conspectHtml(L.conspect);
+      if (box.dataset.topic === topic) { box.querySelector('.lconspect .cond').innerHTML = conspectHtml(L.conspect); mountAnims(box); }
     }).catch(() => {
       if (box.dataset.topic === topic) box.querySelector('.lconspect .cond').innerHTML = '<p class="status">Не удалось загрузить конспект. Проверьте интернет и откройте урок ещё раз.</p>';
     });
+    mountAnims(box);
     renderRes();
     renderTeach();
     if (L.hw.length) bankReady.then(() => {
