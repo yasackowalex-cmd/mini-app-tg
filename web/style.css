@@ -482,3 +482,7 @@ form.rep .msg { color: var(--muted); }
 .ms-w i.y { background: var(--orange); border-color: var(--orange); color: #fff; }
 .ms-w i.now { border-color: var(--orange); border-style: dashed; color: var(--text); }
 #progress-area > :first-child { margin-top: 12px; }
+/* выполненные ДЗ ученика: свёрнутый список под текущими */
+.hw-done { margin: 10px 0 0; }
+.hw-done > summary { cursor: pointer; color: var(--muted); font-size: 15px; padding: 4px 0; }
+.hw-done .hwl { opacity: .85; }
