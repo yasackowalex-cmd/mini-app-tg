@@ -502,3 +502,5 @@ form.rep .msg { color: var(--muted); }
 .an-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
 .an-play { min-width: 7.5em; }
 .an-up { color: var(--blue); } .an-down { color: var(--orange); } .an-eq { color: var(--dark); }
+.an-f { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; }
+.an-c1 { color: var(--blue); } .an-c2 { color: var(--orange); }
