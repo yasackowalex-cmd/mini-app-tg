@@ -16,16 +16,16 @@
 <path d='M-38.3281-25V-47.6758H-9.9805V-25Z' fill='#ffdacc'/>
 <path d='M-38.3281-25V-47.6758H-9.9805V-25Z' stroke='#000' fill='none' stroke-width='.79701' stroke-miterlimit='10'/>
 <path d='M-22.96094-36.3359C-22.96094-36.9961-23.496094-37.5313-24.15625-37.5313C-24.816407-37.5313-25.35156-36.9961-25.35156-36.3359C-25.35156-35.6758-24.816407-35.1406-24.15625-35.1406C-23.496094-35.1406-22.96094-35.6758-22.96094-36.3359Z'/>
-<path d='M-21.32031-36.3359V-60.6523' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-25.15238-58.22265C-22.8516-58.77734-21.765666-60.00781-21.320354-61.249998C-20.875041-60.00781-19.7891-58.77734-17.48832-58.22265' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>
-<g fill='#06f' transform='matrix(1 0 0 1 6.7524 -69.8587)'>
+<path d='M-24.15625-36.3359V-60.6523' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-27.98438-58.22265C-25.6875-58.77734-24.601563-60.00781-24.15625-61.249998C-23.707032-60.00781-22.62109-58.77734-20.32422-58.22265' stroke='#06f' fill='none' stroke-width='1.19553' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>
+<g fill='#06f' transform='matrix(1 0 0 1 3.9175 -69.8587)'>
 <use x='-22.798341' y='9.586016' xlink:href='#g1-126'/>
 <use x='-24.154872' y='11.85251' xlink:href='#g1-70'/>
 <use x='-18.270722' y='12.848805' xlink:href='#g0-65'/>
 </g>
-<path d='M-26.98828-36.3359V-12.0195' stroke='#000' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
-<path d='M-23.16012-14.45315C-25.45699-13.89847-26.542928-12.66409-26.988241-11.421905C-27.43746-12.66409-28.5234-13.89847-30.82027-14.45315' stroke='#000' fill='none' stroke-width='1.19553' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>
-<g transform='matrix(1 0 0 1 -19.5872 -20.34125)'>
+<path d='M-24.15625-36.3359V-12.0195' stroke='#000' fill='none' stroke-width='1.19553' stroke-miterlimit='10'/>
+<path d='M-20.32422-14.45315C-22.62109-13.89847-23.707032-12.66409-24.15625-11.421905C-24.601563-12.66409-25.6875-13.89847-27.98438-14.45315' stroke='#000' fill='none' stroke-width='1.19553' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>
+<g transform='matrix(1 0 0 1 3.9175 -20.34125)'>
 <use x='-24.154872' y='11.85251' xlink:href='#g1-109'/>
 <use x='-16.415552' y='11.85251' xlink:href='#g1-126'/>
 <use x='-16.036054' y='11.85251' xlink:href='#g1-103'/>
