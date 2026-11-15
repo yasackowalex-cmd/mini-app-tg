@@ -29,6 +29,11 @@
     document.title = ($('title').value || 'Подборка задач') + ' · Саня дай сотку';
     $('h-title').textContent = $('title').value;
     $('h-name').hidden = !opt('name');
+    // колонтитул слева: ЕГЭ или ОГЭ (если в подборке оба — оба через косую черту)
+    const exams = [...new Set(tasks.map(t => t.exam))].sort();
+    const exam = exams.length ? exams.join(' / ') : 'ЕГЭ';
+    $('rh-exam').textContent = exam;
+    $('rh-style').textContent = `@media print { @page { @top-left { content: "${exam}"; vertical-align: bottom; padding-bottom: 2pt; margin-bottom: 6mm; border-bottom: .4pt solid #000; font: italic 10pt "CMU Serif", serif; } } @page :first { @top-left { content: none; border: 0; } } }`;
     $('status').textContent = !tasks.length ? 'Подборка пуста. Добавьте задачи кнопкой «В подборку» в банке.'
       : missing ? `Не нашлось задач: ${missing} (возможно, их убрали из банка).` : '';
 
@@ -38,10 +43,11 @@
       // подпись внизу задачи: КИМ и номер на сайте (номер в подборке уже стоит у задачи)
       const meta = [opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
       return `<li class="ptask" data-id="${t.id}">
+        <span class="pnum">${i + 1}</span>
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
-        ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ: ________________${t.unit ? ' ' + t.unit : ''}</p>` : ''}
+        ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ:<span class="fill"></span>${t.unit ? t.unit : ''}</p>` : ''}
         ${opt('space') && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21) ? '<div class="p2space" aria-hidden="true"></div>' : ''}
         ${meta ? `<p class="pmeta">${meta}</p>` : ''}
       </li>`;
