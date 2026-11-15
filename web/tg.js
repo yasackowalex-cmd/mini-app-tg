@@ -30,6 +30,43 @@
       .then(res => res && res.ok ? res : null)
       .catch(() => null);
 
+  // Очередь ответов и подсказок (attempt, reveal): запись сначала ложится в localStorage, потом уходит
+  // на сервер. Если сети нет, вход ещё не завершён или сервер не ответил, запись остаётся и уходит
+  // при следующей возможности (повтор раз в 20 с, при возврате в приложение, при следующем открытии).
+  // Раньше ответ, данный до окончания входа или при обрыве связи, терялся молча.
+  const uid = (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.id) || 0;
+  const QKEY = 'tgOutbox:' + uid;
+  const qGet = () => { try { const v = JSON.parse(localStorage.getItem(QKEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+  const qSet = v => { try { localStorage.setItem(QKEY, JSON.stringify(v.slice(-500))); } catch (e) { /* хранилище недоступно */ } };
+  let mem = qGet(), flushing = false, stale = false, timer = null, ready = false;   // ready: прогресс загружен (иначе ответ мог бы посчитаться дважды)
+  const send = (action, extra) => fetch(AUTH_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ initData: tg.initData, action, ...extra }) })
+    .then(r => r.status).catch(() => 0);
+  function flush() {
+    if (flushing || stale || !ready || !window.tgApi || !mem.length) return;
+    flushing = true;
+    const it = mem[0];
+    send(it.a, it.p).then(st => {
+      flushing = false;
+      // 2xx — записано; 400 — запись испорчена, повторять бесполезно
+      if ((st >= 200 && st < 300) || st === 400) { mem = mem.filter(x => x !== it); qSet(mem); flush(); return; }
+      // 401: данные входа Телеграма устарели (приложение долго было открыто) — нужен перезапуск
+      if (st === 401) { stale = true; staleNote(); return; }
+      if (!timer) timer = setTimeout(() => { timer = null; flush(); }, 20000);
+    });
+  }
+  function staleNote() {
+    if (!el) return;
+    el.innerHTML = 'Ответы сейчас не сохраняются: Телеграм передал устаревшие данные входа. Закройте мини-приложение полностью и откройте снова из бота — решённые задачи сохранятся.';
+    el.classList.add('login-fail');
+    el.hidden = false;
+  }
+  window.tgQueue = (a, p) => { mem.push({ a, p, t: Math.floor(Date.now() / 1000) }); qSet(mem); flush(); };
+  // ещё не отправленные записи: при загрузке прогресса их добавляем к ответу сервера
+  window.tgPending = () => mem.slice();
+  window.addEventListener('online', flush);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) flush(); });
+
   // Вход: проверенный ученик в window.tgUser, его попытки в window.tgProgress
   // ({task_id: {n, ok}}) и журнал ответов в window.tgLog ([task_id, 1|0, время], новые первыми),
   // избранное с сервера в window.tgFav (null, если сервер его не хранит);
@@ -61,11 +98,27 @@
     loadHomework();
     return api('progress');
   }).then(res => {
-    if (!res) return;
+    // прогресс не загрузился — очередь всё равно отправляем (считать дважды нечего)
+    if (!res) { if (window.tgApi) { ready = true; flush(); } return; }
     window.tgProgress = res.tasks || {};
     window.tgLog = Array.isArray(res.log) ? res.log : null;
     window.tgFav = Array.isArray(res.fav) ? res.fav : null;
     window.tgReveals = Array.isArray(res.reveals) ? res.reveals : [];
+    // ответы и подсказки, которые ещё в очереди (не дошли до сервера), — как будто уже записаны
+    for (const it of mem) {
+      const id = it.p && it.p.task_id;
+      if (!id) continue;
+      if (it.a === 'attempt') {
+        const p = window.tgProgress[id] || (window.tgProgress[id] = { n: 0, ok: 0 });
+        p.n++;
+        if (it.p.correct) p.ok++;
+        if (window.tgLog) window.tgLog.unshift(it.p.correct ? [id, 1, it.t] : [id, 0, it.t, String(it.p.answer || '').slice(0, 40)]);
+      } else if (it.a === 'reveal') window.tgReveals.unshift([id, it.p.kind, it.t]);
+    }
+    if (window.tgLog) window.tgLog.sort((x, y) => y[2] - x[2]);
+    window.tgReveals.sort((x, y) => y[2] - x[2]);
+    ready = true;
+    flush();
     // ответы на 2 часть: {task_id: {a: ответ, self, teacher, max}}; null — сервер их не хранит (нет таблицы part2)
     window.tgP2 = Array.isArray(res.p2)
       ? Object.fromEntries(res.p2.map(([id, a, self, teacher, max]) => [id, { a, self, teacher, max }])) : null;
