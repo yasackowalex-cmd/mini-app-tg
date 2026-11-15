@@ -486,3 +486,19 @@ form.rep .msg { color: var(--muted); }
 .hw-done { margin: 10px 0 0; }
 .hw-done > summary { cursor: pointer; color: var(--muted); font-size: 15px; padding: 4px 0; }
 .hw-done .hwl { opacity: .85; }
+
+/* интерактивные анимации в уроках (web/anim.js) */
+.lanim { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 12px 0; }
+.an-ctl { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+@media (max-width: 480px) { .an-ctl { grid-template-columns: 1fr; } }
+.an-sl { display: flex; flex-direction: column; font-size: 15px; }
+.an-sl b { color: var(--blue); }
+.an-sl input { width: 100%; height: 30px; margin: 0; accent-color: var(--blue); touch-action: pan-y; }
+.an-f { text-align: center; margin: 6px 0 2px; font-size: 18px; }
+.an-g, .an-car { display: block; width: 100%; height: auto; user-select: none; }
+.an-tk { font: 11px "PT Sans", sans-serif; fill: var(--muted); }
+.an-ax { font: italic 12px "PT Sans", sans-serif; fill: var(--dark); }
+.an-lb { font: 600 12px "PT Sans", sans-serif; }
+.an-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.an-play { min-width: 7.5em; }
+.an-up { color: var(--blue); } .an-down { color: var(--orange); } .an-eq { color: var(--dark); }
