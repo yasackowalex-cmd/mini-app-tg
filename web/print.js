@@ -42,14 +42,17 @@
       const figs = c.rest.map(src => `<img src="${src}" alt="Рисунок к задаче">`).join('');
       // подпись внизу задачи: КИМ и номер на сайте (номер в подборке уже стоит у задачи)
       const meta = [opt('kim') ? `КИМ ${t.kim}` : '', opt('id') ? t.id : ''].filter(Boolean).join(' · ');
+      // у задачи с клеткой подпись стоит над клеткой, чтобы не оторваться от неё на новую страницу
+      const space = opt('space') && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21);
+      const metaHtml = meta ? `<p class="pmeta">${meta}</p>` : '';
       return `<li class="ptask" data-id="${t.id}">
         <span class="pnum">${i + 1}</span>
         <button class="rm" type="button" title="Убрать из подборки" aria-label="Убрать из подборки">✕</button>
         <div class="cond">${c.html}</div>
         ${figs ? `<div class="figs">${figs}</div>` : ''}
         ${opt('line') && t.kim <= 20 ? `<p class="ans-line">Ответ:<span class="fill"></span>${t.unit ? t.unit : ''}</p>` : ''}
-        ${opt('space') && (t.exam === 'ОГЭ' ? t.kim >= 17 : t.kim >= 21) ? `<div class="p2space${t.exam !== 'ОГЭ' && t.kim >= 25 ? ' big' : ''}" aria-hidden="true"></div>` : ''}
-        ${meta ? `<p class="pmeta">${meta}</p>` : ''}
+        ${space ? '' : metaHtml}
+        ${space ? `${metaHtml}<div class="p2space${t.exam !== 'ОГЭ' && t.kim >= 25 ? ' big' : ''}" aria-hidden="true"></div>` : ''}
       </li>`;
     }).join('');
 
