@@ -1126,7 +1126,12 @@
       P = { x: nx, y: ny }; moveCp();
     });
     seg(F.ctl, [['r', 'N справа'], ['l', 'N слева']], 'r', v => { nRight = v === 'r'; draw(); });
-    F.now.textContent = 'перетащите магнитную стрелку: её северный (синий) конец показывает направление линий';
+    // легенда — сама стрелка с подписями полюсов
+    F.now.innerHTML = `<svg viewBox="0 0 96 22" width="96" height="22" aria-label="магнитная стрелка: синий конец — N, белый — S">
+      <text x="6" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">S</text>
+      <path d="M48 6L18 11L48 16z" fill="#fff" stroke="${C.muted}"/><path d="M48 6L78 11L48 16z" fill="${C.blue}"/>
+      <circle cx="48" cy="11" r="1.8" fill="${C.dark}"/>
+      <text x="90" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">N</text></svg>`;
     draw();
   }
 
