@@ -1394,20 +1394,22 @@
     function drawLines() {
       fl.textContent = '';
       const [[nx], [sx]] = poles();
-      [-4, -3, -2, -1, 1, 2, 3, 4].forEach(k => [1, -1].forEach(side => {
-        // линия выходит из N под углом к оси и идёт, пока не войдёт в S или не уйдёт за рисунок
-        const a = side > 0 ? k * 0.36 : Math.PI - k * 0.36;
-        let x = nx + 9 * Math.cos(a), y = RY + 9 * Math.sin(a), d = `M${x} ${y}`, mid = null;
-        if ((nx > sx) !== (Math.cos(a) > 0)) return;   // только «наружу» от магнита
+      // линии выходят из N и входят в S; ушедшие за рисунок дорисовываем от S назад — линии у обоих полюсов
+      const trace = (px, sg, k) => {
+        const out = px > 50 ? 1 : -1, a = (out > 0 ? 0 : Math.PI) + out * k * 0.3;
+        let x = px + 9 * Math.cos(a), y = RY + 9 * Math.sin(a), d = `M${x} ${y}`, pts = [], closed = false;
         for (let i = 0; i < 700; i++) {
           const [bx, by] = Bm(x, y), m = Math.hypot(bx, by) || 1;
-          x += 2 * bx / m; y += 2 * by / m; d += `L${x.toFixed(1)} ${y.toFixed(1)}`;
-          if (i === 22) mid = [x, y, bx / m, by / m];
-          if (Math.hypot(x - sx, y - RY) < 8 || y < -60 || y > 200 || x < -300 || x > 420) break;
+          x += sg * 2 * bx / m; y += sg * 2 * by / m; d += `L${x.toFixed(1)} ${y.toFixed(1)}`; pts.push([x, y, bx / m, by / m]);
+          if (Math.hypot(x - (sg > 0 ? sx : nx), y - RY) < 8) { closed = true; break; }
+          if (y < -60 || y > 200 || x < -300 || x > 420) break;
         }
+        if (sg < 0 && closed) return;   // эта линия уже нарисована от N
         svg('path', { d, fill: 'none', stroke: C.blue, 'stroke-opacity': .3, 'stroke-width': 1.1 }, fl);
-        if (mid) svg('path', { d: arrowD(mid[0] - mid[2] * 4, mid[1] - mid[3] * 4, mid[0] + mid[2] * 2, mid[1] + mid[3] * 2), ...ARROW, stroke: C.blue, 'stroke-opacity': .75 }, fl);
-      }));
+        const q = pts[Math.min(22, pts.length - 1)];
+        if (q && !(q[0] > 0 && q[0] < 100 && Math.abs(q[1] - RY) < 16)) svg('path', { d: arrowD(q[0] - q[2] * 4, q[1] - q[3] * 4, q[0] + q[2] * 2, q[1] + q[3] * 2), ...ARROW, stroke: C.blue, 'stroke-opacity': .75 }, fl);
+      };
+      for (let k = -4; k <= 4; k++) if (k) { trace(nx, 1, k); trace(sx, -1, k); }
     }
     const xOf = t => 10 + 48 * (1 - Math.cos(2 * Math.PI * t / 4));   // левый край магнита: подходит и уходит, период 4 с
     const flux = x => { const d = RX - (x + 100); return 1 / (1 + (d / 40) ** 2); };   // условный поток через кольцо
