@@ -406,7 +406,13 @@
   }
   // подпись силы у конца стрелки
   const forceLabel = (parent, color) => text(parent, 0, 0, '', 'an-lb', 'middle', color);
-  const putLabel = (t, x, y, ux, uy, s) => set(t, { x: x + ux * 12, y: y + uy * 12 + 4 }).textContent = s;
+  // подпись силы; «F_A», «F_тр» — с нижним индексом после «_»
+  const putLabel = (t, x, y, ux, uy, s) => {
+    set(t, { x: x + ux * 12, y: y + uy * 12 + 4 });
+    const [main, sub] = s.split('_');
+    t.textContent = main;
+    if (sub) { const ts = svg('tspan', { 'baseline-shift': 'sub', 'font-size': '9px' }, t); ts.textContent = sub; }
+  };
 
   // ---- 1.2.4: брусок на наклонной, m = 1 кг, g = 10 м/с². Силы: mg, N, F_тр; покоится или скользит ----
   function incline(el) {
@@ -443,7 +449,7 @@
       aN.setAttribute('d', arrowD(cx, cy, cx + nx * N, cy + ny * N)); putLabel(lN, cx + nx * N, cy + ny * N, nx, ny, 'N');
       // трение — вдоль поверхности, от нижней грани бруска
       const fx = px - dx * 20, fy = py - dy * 20;
-      aF.setAttribute('d', arrowD(fx, fy, fx - dx * f, fy - dy * f)); putLabel(lF, fx - dx * f, fy - dy * f, -dx * 1.4, -dy * 1.4 + .5, f > 2 ? 'Fтр' : '');
+      aF.setAttribute('d', arrowD(fx, fy, fx - dx * f, fy - dy * f)); putLabel(lF, fx - dx * f, fy - dy * f, -dx * 1.4, -dy * 1.4 + .5, f > 2 ? 'F_тр' : '');
       const aa = st.a * K * 1.4;
       // ускорение — над бруском, вдоль наклона
       const ax0 = px + nx * 36 + dx * 22, ay0 = py + ny * 36 + dy * 22;
@@ -490,7 +496,7 @@
       set(blk, { x: x2 });
       const bx = x2 + 20, len = -Math.sign(dx) * f * 4;
       aF.setAttribute('d', arrowD(bx, Y0 - 26, bx + len, Y0 - 26));
-      putLabel(lF, bx + len, Y0 - 26, Math.sign(len), 0, f > 0.1 ? 'Fупр' : '');
+      putLabel(lF, bx + len, Y0 - 26, Math.sign(len), 0, f > 0.1 ? 'F_упр' : '');
       ln.setAttribute('d', `M${A.X(-10)} ${A.Y(k / 10)}L${A.X(0)} ${A.Y(0)}L${A.X(10)} ${A.Y(k / 10)}`);
       set(dot, { cx: A.X(dx), cy: A.Y(f) });
       F.f.innerHTML = math(`F_{\\text{упр}}=k\\,|\\Delta x|=${k}\\cdot${tx(Math.abs(dx) / 100)}=${tx(f, 1)}~\\text{Н}`);
@@ -710,7 +716,7 @@
       const cx = 170, cy = y + A / 2, G_ = mg(), FA = fa(), onBottom = y + A >= BOT - 0.5, N = onBottom ? Math.max(0, G_ - FA) : 0;
       // mg и F_A на одной линии — из центра бруска
       aG.setAttribute('d', arrowD(cx, cy, cx, cy + G_ * K)); putLabel(lG, cx, cy + G_ * K, 1.8, 0.2, 'mg');
-      aA.setAttribute('d', arrowD(cx, cy, cx, cy - FA * K)); putLabel(lA, cx, cy - FA * K, 1.8, 0.2, FA > 0.2 ? 'FA' : '');
+      aA.setAttribute('d', arrowD(cx, cy, cx, cy - FA * K)); putLabel(lA, cx, cy - FA * K, 1.8, 0.2, FA > 0.2 ? 'F_A' : '');
       const top = Math.min(0, cy - FA * K - 12), bot = Math.max(214, cy + G_ * K + 14);   // длинные стрелки помещаются целиком
       g.setAttribute('viewBox', `0 ${top} 340 ${bot - top}`);
       aN.setAttribute('d', N > 0.2 ? arrowD(cx + 40, BOT, cx + 40, BOT - N * K) : ''); putLabel(lN, cx + 40, BOT - N * K, 1, -0.5, N > 0.2 ? 'N' : '');
@@ -823,8 +829,15 @@
 
   // ---- 1.5.2: математический маятник. T = 2π√(ℓ/g): от длины и g зависит, от массы — нет ----
   function pendulum(el) {
-    const F = frame(el, [['an-g', 340, 214, 'Математический маятник']]);
-    const [g] = F.svgs;
+    const TW = 8, XM = 60;   // окно графика 8 с, x до ±60 см
+    const F = frame(el, [['an-g', 340, 214, 'Математический маятник'], ['an-g2', 340, 170, 'График смещения груза от времени']]);
+    const [g, gr] = F.svgs;
+    const A_ = axes(gr, { L: 34, R: 326, T: 10, B: 160 }, { xl: 't, с', yl: 'x, см' });
+    A_.set([0, TW, 1, 2], [-XM, XM, 10, 20]);
+    const curve = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A_.dyn);
+    const dot = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A_.dyn);
+    const per = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 1.4 }, A_.top);
+    const perT = text(A_.top, 0, 0, 'T', 'an-lb', 'middle', C.orange);
     const PX = 170, PY = 14, KL = 90, A0 = 15 * Math.PI / 180;   // 1 м нити = 90 px, амплитуда 15°
     svg('rect', { x: PX - 40, y: PY - 8, width: 80, height: 8, fill: C.muted }, g);
     const vert = svg('line', { x1: PX, x2: PX, y1: PY, stroke: C.muted, 'stroke-dasharray': '3 3' }, g);
@@ -836,14 +849,24 @@
       const L = l * KL, th = A0 * Math.cos(2 * Math.PI * t / T), bx = PX + L * Math.sin(th), by = PY + L * Math.cos(th);
       set(thread, { x2: bx, y2: by });
       set(ball, { cx: bx, cy: by, r: 6 + m * 8 });
+      // смещение груза по горизонтали x = ℓ sin θ, см
+      const xs = s => l * 100 * Math.sin(A0 * Math.cos(2 * Math.PI * s / T)), tt = t % TW;
+      let d = '';
+      for (let i = 0; i <= 240 * tt / TW; i++) { const s = TW * i / 240; d += (i ? 'L' : 'M') + A_.X(s) + ' ' + A_.Y(xs(t - tt + s)); }
+      curve.setAttribute('d', d);
+      set(dot, { cx: A_.X(tt), cy: A_.Y(xs(t)) });
     }
     const tl = timeline(F.btn, 1e9, 1, draw, true);
     const upd = () => {
       T = 2 * Math.PI * Math.sqrt(l / gv);
       const L = l * KL;
       set(vert, { y2: PY + L + 14 });
+      g.setAttribute('viewBox', `0 0 340 ${PY + L + 34}`);   // высота рисунка — по длине нити
       arc.setAttribute('d', `M${PX - L * Math.sin(A0)} ${PY + L * Math.cos(A0)}A${L} ${L} 0 0 0 ${PX + L * Math.sin(A0)} ${PY + L * Math.cos(A0)}`);
       F.f.innerHTML = math(`T=2\\pi\\sqrt{\\dfrac{\\ell}{g}}=${tx(T, 2)}~\\text{с}`);
+      const y = A_.Y(-XM) - 8;
+      per.setAttribute('d', T < TW ? `M${A_.X(0)} ${y}H${A_.X(T)}M${A_.X(0)} ${y - 4}v8M${A_.X(T)} ${y - 4}v8` : '');
+      set(perT, { x: A_.X(Math.min(T, TW) / 2), y: y - 6 }).textContent = T < TW ? 'T' : '';
       F.now.textContent = 'масса груза на период не влияет';
       draw(tl.t());
     };
