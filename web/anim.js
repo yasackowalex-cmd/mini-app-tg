@@ -1306,7 +1306,212 @@
     autoplay(el, tl, F.btn);
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc };
+  // подпись с нижним индексом: sub('n', '1') → n₁ (для textContent-узлов svg)
+  const subT = (t, a, b, rest = '') => { t.innerHTML = `${a}<tspan baseline-shift="sub" font-size="9">${b}</tspan>${rest}`; return t; };
+  const DEG = Math.PI / 180;
+  // дуга угла с центром (cx, cy) радиуса r между направлениями a1 и a2 (углы от оси x, по часовой на экране)
+  const arcD = (cx, cy, r, a1, a2) => {
+    const p = a => [cx + r * Math.cos(a), cy + r * Math.sin(a)], [x1, y1] = p(a1), [x2, y2] = p(a2);
+    return `M${x1} ${y1}A${r} ${r} 0 0 ${a2 > a1 ? 1 : 0} ${x2} ${y2}`;
+  };
+
+  // ---- 4.1: преломление и полное внутреннее отражение. Угол падения α, показатели n₁ (сверху) и n₂ (снизу) ----
+  function refract(el) {
+    const W = 340, H = 220, OX = 170, OY = 110, R = 100;
+    const F = frame(el, [['an-g', W, H, 'Преломление и отражение луча на границе двух сред']], false);
+    const [g] = F.svgs;
+    const m1 = svg('rect', { x: 0, y: 0, width: W, height: OY, fill: C.blue }, g), m2 = svg('rect', { x: 0, y: OY, width: W, height: H - OY, fill: C.blue }, g);
+    svg('line', { x1: 0, x2: W, y1: OY, y2: OY, stroke: C.dark, 'stroke-width': 1.3 }, g);
+    svg('line', { x1: OX, x2: OX, y1: 6, y2: H - 6, stroke: C.muted, 'stroke-dasharray': '4 3' }, g);
+    const n1T = text(g, 10, 20, '', 'an-lb', 'start', C.dark), n2T = text(g, 10, H - 10, '', 'an-lb', 'start', C.dark);
+    const ray = () => ({ l: svg('line', { stroke: C.orange, 'stroke-linecap': 'round' }, g), a: svg('path', { ...ARROW, stroke: C.orange }, g) });
+    const rin = ray(), rre = ray(), rout = ray();
+    const aA = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 1.2 }, g), aB = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 1.2 }, g);
+    const aT = text(g, 0, 0, 'α', 'an-ax', 'middle'), bT = text(g, 0, 0, 'β', 'an-ax', 'middle');
+    // луч из (x1,y1) в (x2,y2) со стрелкой посередине
+    const put = (r, x1, y1, x2, y2, w, op) => {
+      set(r.l, { x1, y1, x2, y2, 'stroke-width': w, 'stroke-opacity': op });
+      const mx = x1 + (x2 - x1) * .55, my = y1 + (y2 - y1) * .55, L = Math.hypot(x2 - x1, y2 - y1) || 1;
+      r.a.setAttribute('d', w ? arrowD(mx - (x2 - x1) / L * 8, my - (y2 - y1) / L * 8, mx, my) : '');
+      set(r.a, { 'stroke-opacity': op, 'stroke-width': Math.max(1.7, w * .8) });
+    };
+    let al = 30, n1 = 1.5, n2 = 1;
+    const upd = () => {
+      set(m1, { 'fill-opacity': .05 + (n1 - 1) * .3 }); set(m2, { 'fill-opacity': .05 + (n2 - 1) * .3 });
+      subT(n1T, 'n', '1', ` = ${fmt(n1, 2)}`); subT(n2T, 'n', '2', ` = ${fmt(n2, 2)}`);
+      const a = al * DEG, sb = n1 * Math.sin(a) / n2, tir = sb > 1, b = tir ? 0 : Math.asin(sb);
+      // α — от перпендикуляра вверх, β — от перпендикуляра вниз
+      put(rin, OX - R * Math.sin(a), OY - R * Math.cos(a), OX, OY, 2.4, 1);
+      put(rre, OX, OY, OX + R * Math.sin(a), OY - R * Math.cos(a), tir ? 2.4 : 1.4, tir ? 1 : .4);
+      put(rout, OX, OY, OX + R * Math.sin(b), OY + R * Math.cos(b), tir ? 0 : 2.4, tir ? 0 : 1);
+      aA.setAttribute('d', al > 2 ? arcD(OX, OY, 30, -Math.PI / 2 - a, -Math.PI / 2) : '');
+      set(aT, { x: OX - 42 * Math.sin(a / 2), y: OY - 42 * Math.cos(a / 2) + 4 }).textContent = al > 2 ? 'α' : '';
+      aB.setAttribute('d', !tir && b > 2 * DEG ? arcD(OX, OY, 30, Math.PI / 2 - b, Math.PI / 2) : '');
+      set(bT, { x: OX + 42 * Math.sin(b / 2), y: OY + 42 * Math.cos(b / 2) + 4 }).textContent = !tir && b > 2 * DEG ? 'β' : '';
+      const crit = n1 > n2 ? Math.asin(n2 / n1) / DEG : null;
+      F.f.innerHTML = tir
+        ? `<span>${math(`\\sin\\alpha>\\dfrac{n_2}{n_1}`)}</span>`
+        : `<span>${math(`n_1\\sin\\alpha=n_2\\sin\\beta,\\quad \\beta=${tx(b / DEG, 1)}^\\circ`)}</span>`;
+      F.now.innerHTML = tir ? `<b class="an-down">полное внутреннее отражение</b>: α больше предельного угла α<sub>пр</sub> = ${fmt(crit, 1)}°`
+        : crit != null ? `из оптически более плотной среды: β > α; при α > ${fmt(crit, 1)}° луч не выйдет`
+        : n1 < n2 ? 'в оптически более плотную среду: луч прижимается к перпендикуляру, β < α'
+        : 'одинаковые среды: луч не преломляется';
+    };
+    slider(F.ctl, { label: '\\alpha', min: 0, max: 85, step: 1, value: al, unit: '°' }, v => { al = v; upd(); }).init();
+    slider(F.ctl, { label: 'n_1', min: 1, max: 2, step: 0.05, value: n1, unit: '' }, v => { n1 = v; upd(); }).init();
+    slider(F.ctl, { label: 'n_2', min: 1, max: 2, step: 0.05, value: n2, unit: '' }, v => { n2 = v; upd(); }).init();
+  }
+
+  // ---- 4.2: тонкая линза. Расстояние до предмета d и фокусное расстояние F, ход трёх лучей и изображение ----
+  function lens(el) {
+    const W = 340, H = 200, X0 = 170, Y0 = 100, S = 13, h = 2;   // S — пикселей на сантиметр, h — высота предмета, см
+    const F = frame(el, [['an-g', W, H, 'Ход лучей в тонкой линзе']], false);
+    const [g] = F.svgs;
+    const px = x => X0 + x * S, py = y => Y0 - y * S;
+    const cid = 'an-clip' + (++uid);
+    svg('clipPath', { id: cid }, svg('defs', {}, g)).appendChild(svg('rect', { x: 0, y: 0, width: W, height: H }));
+    svg('line', { x1: 4, x2: W - 4, y1: Y0, y2: Y0, stroke: C.dark, 'stroke-width': 1.2 }, g);
+    const marks = svg('g', {}, g), lensG = svg('g', {}, g);
+    const rays = svg('g', { 'clip-path': `url(#${cid})` }, g);
+    const obj = svg('path', { ...ARROW, stroke: C.orange, 'stroke-width': 2.6 }, g);
+    const img = svg('path', { ...ARROW, stroke: C.blue, 'stroke-width': 2.6 }, g);
+    let conv = true, d = 7, Fm = 4;
+    const line = (x1, y1, x2, y2, dash) => svg('line', { x1: px(x1), y1: py(y1), x2: px(x2), y2: py(y2), stroke: dash ? C.muted : C.dark, 'stroke-width': dash ? 1.1 : 1.4, 'stroke-dasharray': dash ? '4 3' : 'none' }, rays);
+    const upd = () => {
+      const Fs = conv ? Fm : -Fm;   // фокусное расстояние со знаком
+      // линза: собирающая — стрелки наружу, рассеивающая — внутрь
+      const LT = py(6), LB = py(-6), k = conv ? -1 : 1;
+      lensG.innerHTML = '';
+      svg('path', { d: `M${X0} ${LT}V${LB}M${X0 - 6} ${LT - k * 7}L${X0} ${LT}L${X0 + 6} ${LT - k * 7}M${X0 - 6} ${LB + k * 7}L${X0} ${LB}L${X0 + 6} ${LB + k * 7}`, ...ARROW, stroke: C.blue, 'stroke-width': 2 }, lensG);
+      marks.innerHTML = '';
+      [-2, -1, 1, 2].forEach(m => {
+        const x = px(m * Fm);
+        svg('circle', { cx: x, cy: Y0, r: Math.abs(m) === 1 ? 3 : 2, fill: C.dark }, marks);
+        text(marks, x, Y0 + 15, (Math.abs(m) === 2 ? '2' : '') + 'F', 'an-ax', 'middle');
+      });
+      rays.innerHTML = '';
+      set(obj, { d: arrowD(px(-d), Y0, px(-d), py(h)) });
+      const inf = Math.abs(d - Fs) < 1e-6, f = inf ? Infinity : d * Fs / (d - Fs), yi = inf ? 0 : -h * f / d, virt = f < 0;
+      const FAR = 30;
+      // 1) параллельно оси → через фокус (у рассеивающей — продолжение через фокус слева)
+      line(-d, h, 0, h);
+      line(0, h, FAR, h * (1 - FAR / Fs));
+      if (!conv) line(0, h, Fs, 0, true);
+      else if (virt) line(0, h, f, yi, true);
+      // 2) через оптический центр — не преломляется
+      line(-d, h, FAR, -h * FAR / d);
+      if (virt) line(0, 0, f, yi, true);
+      // 3) через передний фокус (у рассеивающей — направлен в задний фокус) → параллельно оси
+      if (!inf) {
+        const y3 = -h * Fs / (d - Fs);
+        if (Math.abs(y3) < 7.5) {
+          line(-d, h, 0, y3); line(0, y3, FAR, y3);
+          if (virt) line(0, y3, f, y3, true);
+          if (conv && d < Fs) line(-Fs, 0, -d, h, true);
+          if (!conv) line(0, y3, -Fs, 0, true);
+        }
+      }
+      const Gm = Math.abs(f) / d, onScreen = !inf && Math.abs(px(f) - X0) < X0 - 4 && Math.abs(yi) < 7.5;
+      set(img, { d: onScreen ? arrowD(px(f), Y0, px(f), py(yi)) : '', 'stroke-dasharray': virt ? '5 3' : 'none' });
+      if (inf) {
+        F.f.innerHTML = `<span>${math('d=F')}</span>`;
+        F.now.textContent = 'изображения нет: лучи после линзы идут параллельно';
+        return;
+      }
+      const sF = conv ? '' : '-', sf = virt ? '-' : '+';
+      F.f.innerHTML = `<span>${math(`${sF}\\dfrac{1}{F}=\\dfrac{1}{d}${sf}\\dfrac{1}{f}`)}</span><span>${math(`f=${tx(Math.abs(f), 1)}~\\text{см},\\ \\Gamma=\\dfrac{f}{d}=${tx(Gm, 2)}`)}</span>`;
+      const size = Math.abs(Gm - 1) < 0.01 ? 'равное' : Gm > 1 ? 'увеличенное' : 'уменьшенное';
+      F.now.innerHTML = `изображение <b class="${virt ? 'an-eq' : 'an-up'}">${virt ? 'мнимое' : 'действительное'}</b>, ${virt ? 'прямое' : 'перевёрнутое'}, ${size}` + (onScreen ? '' : ' (за краем рисунка)');
+    };
+    seg(F.ctl, [['c', 'Собирающая'], ['d', 'Рассеивающая']], 'c', v => { conv = v === 'c'; upd(); });
+    slider(F.ctl, { label: 'd', min: 1, max: 12, step: 0.5, value: d, unit: 'см' }, v => { d = v; upd(); }).init();
+    slider(F.ctl, { label: 'F', min: 2, max: 6, step: 0.5, value: Fm, unit: 'см' }, v => { Fm = v; upd(); }).init();
+  }
+
+  // ---- 4.5: фотоэффект. Частота света ν, интенсивность, напряжение U между катодом и анодом; металл катода ----
+  function photo(el) {
+    const HP = 4.14e-15;   // постоянная Планка, эВ·с
+    const F = frame(el, [['an-car', 340, 150, 'Фотоэлемент: катод, анод, источник и амперметр'], ['an-g', 340, 160, 'Вольт-амперная характеристика']]);
+    const [sc, g] = F.svgs;
+    const KX = 90, AX = 250, TY = 30, BY = 96;
+    svg('rect', { x: 50, y: 14, width: 240, height: 96, rx: 40, fill: '#F4F8FF', stroke: C.muted, 'stroke-width': 1.2 }, sc);   // стеклянный баллон
+    svg('rect', { x: KX - 6, y: TY, width: 6, height: BY - TY, fill: C.dark }, sc);
+    svg('rect', { x: AX, y: TY, width: 6, height: BY - TY, fill: C.dark }, sc);
+    text(sc, KX - 3, TY - 4, 'К', 'an-lb', 'middle', C.dark); text(sc, AX + 3, TY - 6, 'А', 'an-lb', 'middle', C.dark);
+    // цепь: катод и анод — вниз, источник и амперметр внизу
+    svg('path', { d: `M${KX - 3} ${BY}V136H150M190 136H${AX + 3}V${BY}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.5 }, sc);
+    const bat = svg('g', {}, sc);
+    svg('circle', { cx: 225, cy: 136, r: 10, fill: '#fff', stroke: C.dark, 'stroke-width': 1.5 }, sc);
+    text(sc, 225, 140, 'A', 'an-lb', 'middle', C.dark);
+    const iT = text(sc, 225, 120, '', 'an-lb', 'middle', C.blue), uT = text(sc, 170, 124, '', 'an-lb', 'middle', C.dark);
+    const light = svg('g', {}, sc), elG = svg('g', {}, sc);
+    const A = axes(g, { L: 40, R: 326, T: 12, B: 140 }, { xl: 'U, В', yl: 'I, мкА' });
+    A.set([-5, 3, 1, 1], [0, 5, 1, 1]);
+    const curve = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A.dyn);
+    const pt = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    const uzT = text(A.top, 0, 0, '', 'an-lb', 'middle', C.orange);
+    const METALS = { cs: ['цезий', 1.9], na: ['натрий', 2.3], zn: ['цинк', 4.2] };
+    let metal = 'na', nu = 8, inten = 3, U = 1;
+    let Ek = 0, Isat = 0, es = [], acc = 0, last = 0;
+    const cur = u => Ek <= 0 ? 0 : u >= 0 ? Isat : Math.max(0, Isat * (1 + u / Ek));
+    // цвет света по частоте (×10¹⁴ Гц): 4 — красный … 7,5 — фиолетовый, выше — ультрафиолет
+    const hue = v => v < 4 ? '#B71C1C' : v > 7.6 ? '#7B1FA2' : `hsl(${Math.round(270 * (v - 4) / 3.6)}, 85%, 45%)`;
+    function upd() {
+      const Aout = METALS[metal][1], hv = HP * nu * 1e14;
+      Ek = hv - Aout; Isat = inten;
+      // источник: длинная тонкая пластина — «+». U > 0 — «+» у анода (справа), U < 0 — у катода
+      bat.innerHTML = '';
+      svg('rect', { x: 150, y: 128, width: 40, height: 16, fill: '#fff' }, bat);
+      const lx = U >= 0 ? 175 : 165, sx = U >= 0 ? 165 : 175;
+      svg('line', { x1: lx, x2: lx, y1: 126, y2: 146, stroke: C.dark, 'stroke-width': 1.5 }, bat);
+      svg('line', { x1: sx, x2: sx, y1: 131, y2: 141, stroke: C.dark, 'stroke-width': 4 }, bat);
+      svg('line', { x1: 150, x2: sx, y1: 136, y2: 136, stroke: C.dark, 'stroke-width': 1.5 }, bat);
+      svg('line', { x1: lx, x2: 190, y1: 136, y2: 136, stroke: C.dark, 'stroke-width': 1.5 }, bat);
+      uT.textContent = `U = ${fmt(U, 1)} В`;
+      // свет: волнистые стрелки к катоду, их число — интенсивность
+      light.innerHTML = '';
+      for (let i = 0; i < inten; i++) {
+        const y0 = 6 + i * 10, x0 = 16, x1 = KX - 9, y1 = 40 + i * 10, n = 6, L = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / L, uy = (y1 - y0) / L;
+        let dd = `M${x0} ${y0}`;
+        for (let k = 1; k <= 28; k++) { const s = L * k / 28, w = 2.2 * Math.sin(k / 28 * n * 2 * Math.PI); dd += `L${x0 + ux * s - uy * w} ${y0 + uy * s + ux * w}`; }
+        svg('path', { d: dd, fill: 'none', stroke: hue(nu), 'stroke-width': 1.5 }, light);
+        svg('path', { d: arrowD(x1 - ux * 6, y1 - uy * 6, x1, y1), ...ARROW, stroke: hue(nu) }, light);
+      }
+      let dc = '';
+      for (let k = 0; k <= 80; k++) { const u = -5 + 8 * k / 80; dc += (k ? 'L' : 'M') + A.X(u) + ' ' + A.Y(cur(u)); }
+      curve.setAttribute('d', dc);
+      set(pt, { cx: A.X(U), cy: A.Y(cur(U)) });
+      set(uzT, { x: A.X(-Ek) - 16, y: A.Y(0) - 8 }).textContent = Ek > 0 && Ek < 5 ? '−Uз' : '';
+      iT.textContent = `${fmt(cur(U), 1)} мкА`;
+      F.f.innerHTML = Ek > 0
+        ? `<span>${math(`h\\nu=A_{\\text{вых}}+E_{K\\,max}`)}</span><span>${math(`${tx(hv, 2)}=${tx(Aout, 1)}+${tx(Ek, 2)}~\\text{эВ},\\ U_{\\text{з}}=${tx(Ek, 2)}~\\text{В}`)}</span>`
+        : `<span>${math(`h\\nu=${tx(hv, 2)}~\\text{эВ}<A_{\\text{вых}}=${tx(Aout, 1)}~\\text{эВ}`)}</span>`;
+      F.now.innerHTML = Ek <= 0 ? `<b class="an-down">фотоэффекта нет</b>: частота ниже красной границы ν<sub>min</sub> = ${fmt(Aout / HP / 1e14, 1)}·10¹⁴ Гц`
+        : U >= 0 ? 'все выбитые электроны доходят до анода — ток насыщения'
+        : -U >= Ek ? '<b class="an-down">тока нет</b>: поле останавливает даже самые быстрые электроны'
+        : 'тормозящее поле: до анода долетают только быстрые электроны';
+    }
+    // электроны: энергия при вылете от 0 до E_K max; поле U ускоряет (U > 0) или тормозит (U < 0)
+    const tl = timeline(F.btn, 1e9, 1, t => {
+      const dt = Math.min(0.05, t - last); last = t;
+      if (Ek > 0) { acc += dt * inten * 5; while (acc >= 1) { acc -= 1; es.push({ E: Ek * Math.random(), s: 0, dir: 1, y: TY + 6 + Math.random() * (BY - TY - 12), c: svg('circle', { r: 3, fill: C.blue }, elG) }); } }
+      es = es.filter(e => {
+        const KE = e.E + U * e.s;
+        if (e.dir > 0 && KE <= 0) e.dir = -1;
+        e.s += e.dir * dt * (0.25 + 0.55 * Math.sqrt(Math.max(KE, 0)));
+        if (e.s >= 1 || e.s < 0) { e.c.remove(); return false; }
+        set(e.c, { cx: KX + 4 + (AX - KX - 8) * e.s, cy: e.y });
+        return true;
+      });
+    }, true);
+    seg(F.ctl, Object.entries(METALS).map(([k, [n, a]]) => [k, `${n[0].toUpperCase() + n.slice(1)} ${fmt(a, 1)} эВ`]), metal, v => { metal = v; upd(); });
+    slider(F.ctl, { label: '\\nu', min: 4, max: 15, step: 0.5, value: nu, unit: '·10¹⁴ Гц' }, v => { nu = v; upd(); }).init();
+    slider(F.ctl, { label: '\\text{интенсивность}', min: 1, max: 5, step: 1, value: inten, unit: '' }, v => { inten = v; upd(); }).init();
+    slider(F.ctl, { label: 'U', min: -4, max: 3, step: 0.1, value: U, unit: 'В' }, v => { U = v; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
