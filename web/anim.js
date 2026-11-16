@@ -1067,6 +1067,105 @@
     handle.addEventListener('pointercancel', () => { on = false; });
   }
 
+  // картинка магнитной стрелки с подписями полюсов (вместо пояснения словами)
+  const needleLegend = () => `<svg viewBox="0 0 96 22" width="96" height="22" aria-label="магнитная стрелка: синий конец — N, белый — S">
+      <text x="6" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">S</text>
+      <path d="M48 6L18 11L48 16z" fill="#fff" stroke="${C.muted}"/><path d="M48 6L78 11L48 16z" fill="${C.blue}"/>
+      <circle cx="48" cy="11" r="1.8" fill="${C.dark}"/>
+      <text x="90" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">N</text></svg>`;
+  // магнитная стрелка в кружке, которую можно таскать: compass(g, W, H, P0, B, forbid) → move()
+  function compass(g, W, H, P0, B, forbid = () => false) {
+    const cp = svg('g', {}, g);
+    svg('circle', { r: 15, fill: '#fff', 'fill-opacity': .85, stroke: C.muted, 'stroke-width': 1.2 }, cp);
+    const needle = svg('g', {}, cp);
+    svg('path', { d: 'M0 -3.8L13 0L0 3.8z', fill: C.blue }, needle);
+    svg('path', { d: 'M0 -3.8L-13 0L0 3.8z', fill: '#fff', stroke: C.muted, 'stroke-width': 1 }, needle);
+    svg('circle', { r: 1.8, fill: C.dark }, cp);
+    const hit = svg('circle', { r: 24, fill: 'transparent' }, cp);
+    let P = P0;
+    const move = () => { const [bx, by] = B(P.x, P.y); cp.setAttribute('transform', `translate(${P.x} ${P.y})`); needle.setAttribute('transform', `rotate(${Math.atan2(by, bx) * 180 / Math.PI})`); };
+    draggable(g, hit, (x, y) => { const nx = Math.max(16, Math.min(W - 16, x)), ny = Math.max(16, Math.min(H - 16, y)); if (forbid(nx, ny)) return; P = { x: nx, y: ny }; move(); });
+    return move;
+  }
+
+  // ---- 3.2.1: поле соленоида. Ток можно пустить в другую сторону — поле и полюса меняются местами ----
+  function solenoid(el) {
+    const W = 340, H = 240, CX = 170, CY = 112, R = 30, X0 = 115, X1 = 225, N = 6, A = 0.28 * R;   // A — наклон витков (перспектива)
+    const F = frame(el, [['an-g', W, H, 'Магнитное поле катушки с током']], false);
+    const [g] = F.svgs;
+    svg('rect', { width: W, height: H, fill: '#fff' }, g);
+    const back = svg('g', {}, g), lines = svg('g', {}, g), front = svg('g', {}, g), labs = svg('g', {}, g);
+    const p = (X1 - X0) / N;
+    // витки: x = X0 + p·t/2π + A·cos t, y = CY − R·sin t; передняя половина (cos t > 0) жирная, задняя бледная
+    const pt = t => [X0 + p * t / (2 * Math.PI) + A * Math.cos(t), CY - R * Math.sin(t)];
+    for (let k = 0; k < N; k++) {
+      const half = (a, b, grp, st) => { let d = ''; for (let i = 0; i <= 24; i++) { const [x, y] = pt(2 * Math.PI * k + a + (b - a) * i / 24); d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); } svg('path', { d, fill: 'none', ...st }, grp); };
+      half(Math.PI / 2, 3 * Math.PI / 2, back, { stroke: C.muted, 'stroke-opacity': .45, 'stroke-width': 1.6 });
+      half(-Math.PI / 2, Math.PI / 2, front, { stroke: C.dark, 'stroke-width': 2.4 });
+    }
+    // выводы катушки
+    const [sx0, sy0] = pt(-Math.PI / 2), [sx1, sy1] = pt(2 * Math.PI * N - Math.PI / 2);
+    svg('path', { d: `M${sx0} ${sy0}V${CY + R + 28}M${sx1} ${sy1}V${CY + R + 28}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, front);
+    const tL = text(labs, sx0, CY + R + 44, '', 'an-lb', 'middle', C.dark), tR = text(labs, sx1, CY + R + 44, '', 'an-lb', 'middle', C.dark);
+    const nL = text(labs, X0 - 22, CY - R - 8, '', 'an-lb', 'middle', C.dark), nR = text(labs, X1 + 22, CY - R - 8, '', 'an-lb', 'middle', C.dark);
+    const curA = [svg('path', { ...ARROW, stroke: C.orange, 'stroke-width': 2 }, labs), svg('path', { ...ARROW, stroke: C.orange, 'stroke-width': 2 }, labs)];
+    let dir = 1;   // 1 — «+» слева: ток по передним половинам витков идёт вверх
+    // поле снаружи — как у полосового магнита: «полюса» распределены по торцам; внутри катушки поле однородное, от S к N
+    const ends = () => dir > 0 ? [X0, X1] : [X1, X0];   // [торец N, торец S]: при dir = 1 поле внутри влево, N слева
+    const B = (x, y) => {
+      const [xn, xs] = ends();
+      if (x > X0 && x < X1 && Math.abs(y - CY) < R) return [xn < xs ? -1 : 1, 0];
+      return Bp(x, y);
+    };
+    const Bp = (x, y) => {   // поле двух «полюсов» — по нему рисуем линии снаружи
+      const [xn, xs] = ends();
+      let bx = 0, by = 0;
+      [[xn - Math.sign(xn - CX) * 22, 1], [xs - Math.sign(xs - CX) * 22, -1]].forEach(([px, q]) => { const dx = x - px, dy = y - CY, r3 = Math.hypot(dx, dy) ** 3 || 1; bx += q * dx / r3; by += q * dy / r3; });
+      return [bx, by];
+    };
+    const move = compass(g, W, H, { x: 290, y: 40 }, B);
+    function draw() {
+      lines.textContent = '';
+      const [xn, xs] = ends(), out = xn < xs ? -1 : 1;
+      const ar = (x, y, ux, uy) => svg('path', { d: arrowD(x - ux * 5, y - uy * 5, x + ux * 2, y + uy * 2), ...ARROW, stroke: C.blue }, lines);
+      const st = { fill: 'none', stroke: C.blue, 'stroke-opacity': .45, 'stroke-width': 1.2 };
+      // внутри: параллельные прямые от S-торца к N-торцу
+      [-0.7, -0.35, 0, 0.35, 0.7].forEach(f => {
+        const y0 = CY + f * R;
+        svg('path', { d: `M${xs} ${y0}L${xn} ${y0}`, ...st }, lines);
+        if (Math.abs(f) === 0.35) ar(CX, y0, out, 0);
+      });
+      // снаружи: линии выходят из N-торца и входят в S-торец; ушедшие за рисунок дорисовываем от S назад
+      const trace = (px, sg, k) => {
+        // «полюс» сидит внутри катушки в 22 px от торца; часть линии внутри катушки не рисуем — там прямые
+        const side = px === xn ? out : -out, a = (side > 0 ? 0 : Math.PI) + side * k * 0.22, p0 = px - side * 22;
+        let x = p0 + 6 * Math.cos(a), y = CY + 6 * Math.sin(a), pts = [], closed = false;
+        for (let i = 0; i < 900; i++) {
+          const [bx, by] = Bp(x, y), m = Math.hypot(bx, by) || 1;
+          x += sg * 2 * bx / m; y += sg * 2 * by / m;
+          const inside = x > X0 && x < X1 && Math.abs(y - CY) < R;
+          if (!inside) pts.push([x, y]);
+          if (inside && pts.length) { closed = true; break; }
+          if (y < -10 || y > H + 10 || x < -10 || x > W + 10) break;
+        }
+        if (sg < 0 && closed) return;
+        svg('path', { d: pts.map(([qx, qy], i) => (i ? 'L' : 'M') + qx.toFixed(1) + ' ' + qy.toFixed(1)).join(''), ...st }, lines);
+        const vis = pts.filter(([qx, qy]) => qx > 10 && qx < W - 10 && qy > 10 && qy < H - 10 && !(qx > X0 - 4 && qx < X1 + 4 && Math.abs(qy - CY) < R + 4));
+        if (vis.length > 10) { const i = Math.floor(vis.length / 2), [mx, my] = vis[i], [bx, by] = B(mx, my), m = Math.hypot(bx, by) || 1; ar(mx, my, bx / m, by / m); }
+      };
+      for (let k = -5; k <= 5; k++) { trace(xn, 1, k); trace(xs, -1, k); }
+      // направление тока на передних половинах двух витков
+      [1, N - 2].forEach((k, i) => { const [x, y] = pt(2 * Math.PI * k); curA[i].setAttribute('d', arrowD(x + 7, y + dir * 9, x + 7, y - dir * 9)); });
+      tL.textContent = dir > 0 ? '+' : '−'; tR.textContent = dir > 0 ? '−' : '+';
+      // внутри поле направлено влево при dir = 1: линии выходят из левого торца — там N
+      nL.textContent = dir > 0 ? 'N' : 'S'; nR.textContent = dir > 0 ? 'S' : 'N';
+      move();
+    }
+    seg(F.ctl, [['1', '«+» слева'], ['-1', '«+» справа']], '1', v => { dir = +v; draw(); });
+    F.now.innerHTML = needleLegend();
+    draw();
+  }
+
   // ---- 3.2.1: линии поля полосового магнита и магнитная стрелка, которую можно перетаскивать ----
   function magnet(el) {
     const W = 340, H = 230, MX = 170, MY = 115, ML = 130, MH = 30;
@@ -1126,12 +1225,7 @@
       P = { x: nx, y: ny }; moveCp();
     });
     seg(F.ctl, [['r', 'N справа'], ['l', 'N слева']], 'r', v => { nRight = v === 'r'; draw(); });
-    // легенда — сама стрелка с подписями полюсов
-    F.now.innerHTML = `<svg viewBox="0 0 96 22" width="96" height="22" aria-label="магнитная стрелка: синий конец — N, белый — S">
-      <text x="6" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">S</text>
-      <path d="M48 6L18 11L48 16z" fill="#fff" stroke="${C.muted}"/><path d="M48 6L78 11L48 16z" fill="${C.blue}"/>
-      <circle cx="48" cy="11" r="1.8" fill="${C.dark}"/>
-      <text x="90" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">N</text></svg>`;
+    F.now.innerHTML = needleLegend();   // легенда — сама стрелка с подписями полюсов
     draw();
   }
 
@@ -1623,7 +1717,7 @@
     autoplay(el, tl, F.btn);
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo, magnet };
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo, magnet, solenoid };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
