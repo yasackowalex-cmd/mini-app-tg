@@ -877,7 +877,183 @@
     autoplay(el, tl, F.btn);
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum };
+  // три маленьких графика в одном svg: p–V, p–T, V–T
+  function triAxes(g, specs) {
+    return specs.map(([xl, yl, xr, yr], i) => {
+      const A = axes(g, { L: 24 + i * 112, R: 104 + i * 112, T: 18, B: 112 }, { xl, yl });
+      A.set([0, xr, xr / 4, xr * 2], [0, yr, yr / 4, yr * 2]);   // сетка без чисел: важна форма линии
+      return A;
+    });
+  }
+  // линия процесса по точкам [[x, y], …] в осях A
+  const polyD = (A, pts) => pts.map(([x, y], i) => (i ? 'L' : 'M') + A.X(x) + ' ' + A.Y(y)).join('');
+
+  // ---- 2.2: изопроцессы. Цилиндр с поршнем и молекулами, процесс сразу на трёх графиках ----
+  function iso(el) {
+    const P0 = 100, V0 = 1, T0 = 300;   // кПа, л, К — начальное состояние
+    const F = frame(el, [['an-car', 340, 150, 'Газ в цилиндре под поршнем'], ['an-g', 340, 132, 'Процесс на графиках p–V, p–T и V–T']]);
+    const [cy, g] = F.svgs;
+    // цилиндр: дно y = 140, высота газа ∝ V (1 л = 40 px)
+    const CX = 120, CW = 100, BOT = 140, KV = 40;
+    svg('path', { d: `M${CX} 10V${BOT}H${CX + CW}V10`, fill: 'none', stroke: C.dark, 'stroke-width': 2 }, cy);
+    const gas = svg('rect', { x: CX + 1, width: CW - 2, fill: C.blue, 'fill-opacity': .08 }, cy);
+    const pist = svg('rect', { x: CX + 1, width: CW - 2, height: 8, fill: C.muted }, cy);
+    const rod = svg('line', { x1: CX + CW / 2, x2: CX + CW / 2, y1: 0, stroke: C.muted, 'stroke-width': 4 }, cy);
+    const mol = Array.from({ length: 26 }, () => ({ x: Math.random(), y: Math.random(), a: Math.random() * 2 * Math.PI, c: svg('circle', { r: 2.6, fill: C.blue }, cy) }));
+    const info = text(cy, CX + CW + 16, 60, '', 'an-lb', 'start', C.dark), info2 = text(cy, CX + CW + 16, 78, '', 'an-lb', 'start', C.dark), info3 = text(cy, CX + CW + 16, 96, '', 'an-lb', 'start', C.dark);
+    const flame = text(cy, CX + CW / 2, BOT + 0, '', 'an-lb', 'middle', C.orange);
+    const [Apv, Apt, Avt] = triAxes(g, [['V', 'p', 4, 220], ['T', 'p', 650, 220], ['T', 'V', 650, 4]]);
+    const mk = A => ({ full: svg('path', { fill: 'none', stroke: C.blue, 'stroke-opacity': .25, 'stroke-width': 2 }, A.dyn),
+      zero: svg('path', { fill: 'none', stroke: C.muted, 'stroke-dasharray': '3 3' }, A.dyn),
+      dot: svg('circle', { r: 4, fill: C.orange }, A.dyn) });
+    const G3 = [mk(Apv), mk(Apt), mk(Avt)];
+    let kind = 'T', s = 1;   // s — значение ползунка: V для изотермы, T для изобары и изохоры
+    const state = (k, v) => k === 'T' ? { V: v, T: T0, p: P0 * V0 / v } : k === 'p' ? { T: v, p: P0, V: V0 * v / T0 } : { T: v, V: V0, p: P0 * v / T0 };
+    const range = k => k === 'T' ? [0.5, 3] : [150, 600];
+    let st = state('T', 1), last = 0;
+    function drawGas(t) {
+      const top = BOT - st.V * KV, h = BOT - top - 8, dt = Math.min(0.05, t - last), sp = 0.35 * Math.sqrt(st.T / T0);
+      last = t;
+      set(gas, { y: top + 8, height: h }); set(pist, { y: top }); set(rod, { y2: top });
+      mol.forEach(m => {
+        m.x += Math.cos(m.a) * sp * dt * 3; m.y += Math.sin(m.a) * sp * dt * 3 * 40 / Math.max(20, h);
+        if (m.x < 0 || m.x > 1) { m.a = Math.PI - m.a; m.x = Math.max(0, Math.min(1, m.x)); }
+        if (m.y < 0 || m.y > 1) { m.a = -m.a; m.y = Math.max(0, Math.min(1, m.y)); }
+        set(m.c, { cx: CX + 5 + m.x * (CW - 10), cy: top + 12 + m.y * (h - 8) });
+      });
+    }
+    function upd() {
+      st = state(kind, s);
+      const [a, b] = range(kind), pts = [];
+      for (let i = 0; i <= 40; i++) pts.push(state(kind, a + (b - a) * i / 40));
+      const xy = [[q => [q.V, q.p], Apv], [q => [q.T, q.p], Apt], [q => [q.T, q.V], Avt]];
+      xy.forEach(([f, A], i) => {
+        G3[i].full.setAttribute('d', polyD(A, pts.map(f)));
+        set(G3[i].dot, { cx: A.X(f(st)[0]), cy: A.Y(f(st)[1]) });
+        // прямая через начало координат — пунктиром до нуля
+        const [x0, y0] = f(pts[0]), through0 = (kind === 'p' && i === 2) || (kind === 'V' && i === 1);
+        G3[i].zero.setAttribute('d', through0 ? `M${A.X(0)} ${A.Y(0)}L${A.X(x0)} ${A.Y(y0)}` : '');
+      });
+      info.textContent = `p = ${fmt(st.p)} кПа`; info2.textContent = `V = ${fmt(st.V, 2)} л`; info3.textContent = `T = ${fmt(st.T, 0)} К`;
+      F.f.innerHTML = math(kind === 'T' ? 'T=\\text{const},\\quad pV=\\text{const}' : kind === 'p' ? 'p=\\text{const},\\quad \\dfrac{V}{T}=\\text{const}' : 'V=\\text{const},\\quad \\dfrac{p}{T}=\\text{const}');
+      F.now.textContent = kind === 'T' ? 'изотерма: на p–V гипербола' : kind === 'p' ? 'изобара: на V–T прямая через 0' : 'изохора: на p–T прямая через 0';
+    }
+    const tl = timeline(F.btn, 1e9, 1, drawGas, true);
+    let sl;
+    const mkSlider = () => {
+      const old = F.ctl.querySelector('.an-sl'); if (old) old.remove();
+      const [a, b] = range(kind);
+      s = kind === 'T' ? 1 : 300;
+      sl = kind === 'T' ? slider(F.ctl, { label: 'V', min: a, max: b, step: 0.1, value: s, unit: 'л' }, v => { s = v; upd(); })
+        : slider(F.ctl, { label: 'T', min: a, max: b, step: 10, value: s, unit: 'К' }, v => { s = v; upd(); });
+      sl.init();
+    };
+    seg(F.ctl, [['T', 'Изотерма'], ['p', 'Изобара'], ['V', 'Изохора']], kind, v => { kind = v; mkSlider(); });
+    mkSlider();
+    autoplay(el, tl, F.btn);
+  }
+
+  // ---- 2.5: работа газа = площадь под графиком p(V) ----
+  function work(el) {
+    const F = frame(el, [['an-g', 340, 210, 'Работа газа на графике p–V']]);
+    const [g] = F.svgs;
+    const A = axes(g, { L: 40, R: 326, T: 10, B: 186 }, { xl: 'V, л', yl: 'p, кПа' });
+    A.set([0, 6, 1, 1], [0, 300, 50, 100]);
+    const area = svg('polygon', { 'fill-opacity': .2 }, A.dyn);
+    const line = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 2.4 }, A.dyn);
+    const dir = arrow(A.dyn, C.dark);
+    const d1 = svg('circle', { r: 4.5, fill: C.dark }, A.dyn), d2 = svg('circle', { r: 4.5, fill: C.dark }, A.dyn);
+    const t1 = text(A.top, 0, 0, '1', 'an-lb', 'middle', C.dark), t2 = text(A.top, 0, 0, '2', 'an-lb', 'middle', C.dark);
+    const cur = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    let kind = 'p', V1 = 1, V2 = 4, p1 = 200, p2 = 100, sP2;
+    const P2 = () => kind === 'p' ? p1 : p2;
+    const pAt = V => p1 + (P2() - p1) * (V - V1) / ((V2 - V1) || 1);
+    function draw(f) {   // f — доля пройденного пути 0…1
+      const Vc = V1 + (V2 - V1) * f, pc = pAt(Vc);
+      area.setAttribute('points', `${A.X(V1)},${A.Y(0)} ${A.X(V1)},${A.Y(p1)} ${A.X(Vc)},${A.Y(pc)} ${A.X(Vc)},${A.Y(0)}`);
+      area.setAttribute('fill', V2 >= V1 ? C.blue : C.orange);
+      set(cur, { cx: A.X(Vc), cy: A.Y(pc) });
+      const W = (p1 + pc) / 2 * (Vc - V1);   // кПа·л = Дж
+      F.now.innerHTML = `A = ${fmt(W, 0)} Дж — ` + (V2 > V1 ? '<b class="an-up">расширение, A &gt; 0</b>' : V2 < V1 ? '<b class="an-down">сжатие, A &lt; 0</b>' : 'объём не меняется, A = 0');
+    }
+    const tl = timeline(F.btn, 1, 0.4, draw);
+    const upd = () => {
+      if (sP2) sP2.querySelector('input').disabled = kind === 'p';
+      line.setAttribute('d', `M${A.X(V1)} ${A.Y(p1)}L${A.X(V2)} ${A.Y(P2())}`);
+      const mx = (V1 + V2) / 2, my = (p1 + P2()) / 2, len = Math.hypot(A.X(V2) - A.X(V1), A.Y(P2()) - A.Y(p1));
+      const ux = (A.X(V2) - A.X(V1)) / (len || 1), uy = (A.Y(P2()) - A.Y(p1)) / (len || 1);
+      dir.setAttribute('d', len > 30 ? arrowD(A.X(mx) - ux * 8, A.Y(my) - uy * 8, A.X(mx) + ux * 8, A.Y(my) + uy * 8) : '');
+      set(d1, { cx: A.X(V1), cy: A.Y(p1) }); set(d2, { cx: A.X(V2), cy: A.Y(P2()) });
+      set(t1, { x: A.X(V1), y: A.Y(p1) - 9 }); set(t2, { x: A.X(V2), y: A.Y(P2()) - 9 });
+      const W = (p1 + P2()) / 2 * (V2 - V1);
+      F.f.innerHTML = math(kind === 'p' ? `A=p\\,\\Delta V=${p1}\\cdot${tx(V2 - V1, 1)}=${tx(W, 0)}~\\text{Дж}`
+        : `A=\\dfrac{p_1+p_2}{2}\\,\\Delta V=${tx(W, 0)}~\\text{Дж}`);
+      tl.set(1);
+    };
+    seg(F.ctl, [['p', 'Изобара'], ['lin', 'Прямая']], kind, v => { kind = v; upd(); });
+    F.ctl.appendChild(document.createElement('span'));
+    slider(F.ctl, { label: 'V_1', min: 1, max: 5, step: 0.5, value: V1, unit: 'л' }, v => { V1 = v; upd(); }).init();
+    slider(F.ctl, { label: 'V_2', min: 1, max: 5, step: 0.5, value: V2, unit: 'л' }, v => { V2 = v; upd(); }).init();
+    slider(F.ctl, { label: 'p_1', min: 50, max: 300, step: 25, value: p1, unit: 'кПа' }, v => { p1 = v; upd(); }).init();
+    slider(F.ctl, { label: 'p_2', min: 50, max: 300, step: 25, value: p2, unit: 'кПа' }, v => { p2 = v; upd(); }).init();
+    sP2 = F.ctl.querySelectorAll('.an-sl')[3];
+    upd();
+  }
+
+  // ---- 2.6: цикл из двух изохор и двух изобар (одноатомный газ). Работа = площадь, η = A/Q₁ ----
+  function cycle(el) {
+    const F = frame(el, [['an-g', 340, 210, 'Цикл на графике p–V']]);
+    const [g] = F.svgs;
+    const A = axes(g, { L: 40, R: 326, T: 10, B: 186 }, { xl: 'V, л', yl: 'p, кПа' });
+    A.set([0, 6, 1, 1], [0, 400, 50, 100]);
+    const area = svg('polygon', { fill: C.blue, 'fill-opacity': .15 }, A.dyn);
+    const segs = [0, 1, 2, 3].map(() => svg('line', { 'stroke-width': 2.8, 'stroke-linecap': 'round' }, A.dyn));
+    const arrs = [0, 1, 2, 3].map(() => svg('path', { ...ARROW, stroke: C.dark }, A.dyn));
+    const lbl = [1, 2, 3, 4].map(i => text(A.top, 0, 0, String(i), 'an-lb', 'middle', C.dark));
+    const cur = svg('circle', { r: 5.5, fill: C.dark, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    const P1 = 100, V1 = 1;
+    let p2 = 300, V3 = 4, cw = true, pts, Q;
+    function geom() {
+      // 1(V1,P1) → 2(V1,p2) → 3(V3,p2) → 4(V3,P1); против часовой — обратный обход
+      const base = [[V1, P1], [V1, p2], [V3, p2], [V3, P1]];
+      pts = cw ? base : [base[0], base[3], base[2], base[1]];
+      // теплота на участках: изохора Q = 3/2·VΔp, изобара Q = 5/2·pΔV (кПа·л = Дж)
+      Q = pts.map((a, i) => { const b = pts[(i + 1) % 4]; return a[0] === b[0] ? 1.5 * a[0] * (b[1] - a[1]) : 2.5 * a[1] * (b[0] - a[0]); });
+    }
+    function draw(t) {   // t — 0…4, номер участка и доля
+      const i = Math.floor(t) % 4, f = t - Math.floor(t), a = pts[i], b = pts[(i + 1) % 4];
+      set(cur, { cx: A.X(a[0] + (b[0] - a[0]) * f), cy: A.Y(a[1] + (b[1] - a[1]) * f) });
+      segs.forEach((s, k) => s.setAttribute('stroke-opacity', k === i ? 1 : .55));
+    }
+    const tl = timeline(F.btn, 4, 0.8, draw, true);
+    const upd = () => {
+      geom();
+      area.setAttribute('points', pts.map(([v, p]) => `${A.X(v)},${A.Y(p)}`).join(' '));
+      area.setAttribute('fill', cw ? C.blue : C.orange);
+      pts.forEach((a, i) => {
+        const b = pts[(i + 1) % 4];
+        set(segs[i], { x1: A.X(a[0]), y1: A.Y(a[1]), x2: A.X(b[0]), y2: A.Y(b[1]), stroke: Q[i] > 0 ? C.orange : C.blue });
+        const mx = (A.X(a[0]) + A.X(b[0])) / 2, my = (A.Y(a[1]) + A.Y(b[1])) / 2, len = Math.hypot(A.X(b[0]) - A.X(a[0]), A.Y(b[1]) - A.Y(a[1]));
+        const ux = (A.X(b[0]) - A.X(a[0])) / len, uy = (A.Y(b[1]) - A.Y(a[1])) / len;
+        arrs[i].setAttribute('d', arrowD(mx - ux * 7, my - uy * 7, mx + ux * 7, my + uy * 7));
+      });
+      // номера состояний по исходной нумерации 1→2→3→4
+      [[V1, P1], [V1, p2], [V3, p2], [V3, P1]].forEach(([v, p], i) => set(lbl[i], { x: A.X(v) + (i < 2 ? -9 : 9), y: A.Y(p) + (i === 1 || i === 2 ? -6 : 14) }));
+      const W = (p2 - P1) * (V3 - V1), Q1 = Q.filter(q => q > 0).reduce((s, q) => s + q, 0), Q2 = -Q.filter(q => q < 0).reduce((s, q) => s + q, 0);
+      F.f.innerHTML = cw
+        ? `<span>${math(`A=${tx(W, 0)}~\\text{Дж}`)}</span><span>${math(`Q_1=${tx(Q1, 0)}~\\text{Дж}`)}</span><span>${math(`|Q_2|=${tx(Q2, 0)}~\\text{Дж}`)}</span><span>${math(`\\eta=\\dfrac{A}{Q_1}=${tx(W / Q1 * 100, 0)}\\%`)}</span>`
+        : `<span>${math(`A=-${tx(W, 0)}~\\text{Дж}`)}</span><span>работу совершают над газом</span>`;
+      F.now.innerHTML = '<span class="an-down">оранжевые</span> участки — газ получает теплоту, <span class="an-up">синие</span> — отдаёт';
+      draw(tl.t());
+    };
+    seg(F.ctl, [['cw', 'По часовой'], ['ccw', 'Против часовой']], 'cw', v => { cw = v === 'cw'; upd(); });
+    F.ctl.appendChild(document.createElement('span'));
+    slider(F.ctl, { label: 'p_2', min: 150, max: 400, step: 25, value: p2, unit: 'кПа' }, v => { p2 = v; upd(); }).init();
+    slider(F.ctl, { label: 'V_3', min: 2, max: 6, step: 0.5, value: V3, unit: 'л' }, v => { V3 = v; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
