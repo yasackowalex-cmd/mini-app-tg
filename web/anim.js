@@ -1451,8 +1451,8 @@
 
   // ---- 3.2.3: колебательный контур. Заряд конденсатора, ток катушки, энергии W_э и W_м ----
   function lc(el) {
-    const F = frame(el, [['an-car', 340, 150, 'Колебательный контур'], ['an-g', 340, 162, 'Графики заряда и силы тока']]);
-    const [sc, g] = F.svgs;
+    const F = frame(el, [['an-car', 340, 150, 'Колебательный контур'], ['an-g', 340, 162, 'Графики заряда и силы тока'], ['an-g2', 340, 162, 'Графики энергии электрического и магнитного поля']]);
+    const [sc, g, ge] = F.svgs;
     const L0 = 60, R0 = 220, T0 = 20, B0 = 130, CY = 75;
     svg('path', { d: `M${L0} ${CY - 8}V${T0}H${R0}V40M${R0} 110V${B0}H${L0}V${CY + 8}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, sc);
     // конденсатор: две пластины, цвет — знак и величина заряда
@@ -1479,15 +1479,28 @@
     const qL = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 2.2 }, A.dyn), iL = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.2 }, A.dyn);
     const cur = svg('line', { stroke: C.muted, 'stroke-dasharray': '3 3', y1: 24, y2: 140 }, A.dyn);
     text(A.top, 36, 14, 'q', 'an-lb', 'start', C.orange); text(A.top, 46, 14, ',', 'an-lb', 'start', C.dark); text(A.top, 52, 14, 'i', 'an-lb', 'start', C.blue);
+    // график энергий: Wэ = W·cos², Wм = W·sin², сумма W постоянна
+    const E = axes(ge, { L: 30, R: 326, T: 24, B: 140 }, { xl: '', yl: '' });
+    E.set([0, TM, 5, 1e3], [0, 1.2, 0.25, 9]);
+    [10, 20, 30].forEach(v => text(E.top, E.X(v), 154, String(v), 'an-tk', 'middle'));
+    text(E.top, 326, 154, 't, мс', 'an-ax', 'end');
+    const weL = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 2.2 }, E.dyn), wmL = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.2 }, E.dyn);
+    svg('line', { x1: E.X(0), x2: E.X(TM), y1: E.Y(1), y2: E.Y(1), stroke: C.dark, 'stroke-width': 1.6, 'stroke-dasharray': '6 4' }, E.dyn);
+    text(E.top, 24, E.Y(1) + 4, 'W', 'an-lb', 'end', C.dark);
+    const curE = svg('line', { stroke: C.muted, 'stroke-dasharray': '3 3', y1: 24, y2: 140 }, E.dyn);
+    subT(text(E.top, 36, 14, '', 'an-lb', 'start', C.orange), 'W', 'э'); subT(text(E.top, 62, 14, '', 'an-lb', 'start', C.blue), 'W', 'м');
     let Lm = 40, Cm = 40;   // мГн, мкФ
     let Tms = 1;
     const curves = () => {   // графики за 40 мс: чем больше период, тем реже волны
       let dq = '', di = '';
       for (let k = 0; k <= 600; k++) { const s = TM * k / 600, ph = 2 * Math.PI * s / Tms; dq += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(Math.cos(ph)); di += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(-Math.sin(ph)); }
       qL.setAttribute('d', dq); iL.setAttribute('d', di);
+      let de = '', dm = '';
+      for (let k = 0; k <= 600; k++) { const s = TM * k / 600, ph = 2 * Math.PI * s / Tms; de += (k ? 'L' : 'M') + E.X(s) + ' ' + E.Y(Math.cos(ph) ** 2); dm += (k ? 'L' : 'M') + E.X(s) + ' ' + E.Y(Math.sin(ph) ** 2); }
+      weL.setAttribute('d', de); wmL.setAttribute('d', dm);
     };
-    function draw(t) {   // t — время в периодах
-      const ph = 2 * Math.PI * t, q = Math.cos(ph), i = -Math.sin(ph);
+    function draw(t) {   // t — время модели, мс
+      const ph = 2 * Math.PI * t / Tms, q = Math.cos(ph), i = -Math.sin(ph);
       const c1 = q > 0 ? C.orange : C.blue, c2 = q > 0 ? C.blue : C.orange, op = 0.25 + 0.75 * Math.abs(q);
       set(pl1, { fill: c1, 'fill-opacity': op }); set(pl2, { fill: c2, 'fill-opacity': op });
       s1.textContent = Math.abs(q) > .15 ? (q > 0 ? '+' : '−') : ''; s2.textContent = Math.abs(q) > .15 ? (q > 0 ? '−' : '+') : '';
@@ -1498,15 +1511,16 @@
       // ток по верхнему проводу: i = q' < 0 (верхняя пластина «+» разряжается) — вправо
       curA.setAttribute('d', Math.abs(i) > .1 ? arrowD(140 + Math.sign(i) * 14 * Math.abs(i), T0, 140 - Math.sign(i) * 14 * Math.abs(i), T0) : '');
       set(wE, { y: BB - BH * q * q, height: BH * q * q }); set(wM, { y: BB - BH * i * i, height: BH * i * i });
-      const tc = (t * Tms) % TM;   // t — в периодах
-      set(cur, { x1: A.X(tc), x2: A.X(tc) });
+      const tc = t % TM;
+      set(cur, { x1: A.X(tc), x2: A.X(tc) }); set(curE, { x1: E.X(tc), x2: E.X(tc) });
     }
-    const tl = timeline(F.btn, 1e9, 1 / 3, draw, true);   // один период — 3 секунды на экране
+    const SLOW = 300;   // замедление: 1 мс колебаний — 0,3 с на экране, поэтому период на экране зависит от L и C
+    const tl = timeline(F.btn, 1e9, 1000 / SLOW, draw, true);
     const upd = () => {
       const T = 2 * Math.PI * Math.sqrt(Lm * 1e-3 * Cm * 1e-6) * 1000;   // мс
       Tms = T; curves();
       F.f.innerHTML = math(`T=2\\pi\\sqrt{LC}=${tx(T, 2)}~\\text{мс}`);
-      F.now.textContent = 'показано замедленно: один период — 3 с';
+      F.now.textContent = `замедлено в ${SLOW} раз: период на экране ${fmt(T * SLOW / 1000, 1)} с`;
       draw(tl.t());
     };
     slider(F.ctl, { label: 'L', min: 10, max: 100, step: 10, value: Lm, unit: 'мГн' }, v => { Lm = v; upd(); }).init();
