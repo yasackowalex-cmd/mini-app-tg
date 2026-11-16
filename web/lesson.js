@@ -160,7 +160,7 @@
       window.tgApi('hw_create', { title: lessonName(L), task_ids: L.hw, tg_ids: who }).then(r => {
         b.disabled = false;
         if (!r) { msg.textContent = 'Не получилось, попробуйте ещё раз.'; return; }
-        msg.textContent = `Задано: ${r.assigned ?? who.length} уч. ДЗ уже у них, а результаты — в кабинете.`;
+        msg.textContent = `Задано: ${r.assigned ?? who.length} уч. ДЗ уже у них, а результаты — в кабинете.${window.hwNotified ? window.hwNotified(r) : ''}`;
         as.querySelectorAll('[data-s]:checked, [data-g]:checked').forEach(x => { x.checked = false; x.indeterminate = false; });
         if (window.tgReloadHw) window.tgReloadHw();
         document.dispatchEvent(new CustomEvent('hw-changed'));
@@ -282,7 +282,7 @@
     list = l || [];
     list.forEach(L => { L.id = L.id || L.topic; L.exam = L.exam || 'ЕГЭ'; });   // старый lessons.json — без id и exam
     mine = list.filter(L => L.exam === (window.EXAM || 'ЕГЭ'));
-    renderList(); document.dispatchEvent(new CustomEvent('lessons-ready')); });
+    renderList(); window.lessonsLoaded = true; document.dispatchEvent(new CustomEvent('lessons-ready')); });
   // нажали вкладку «Уроки» — в адрес #lessons (или открытый урок), чтобы ссылку можно было отправить
   document.addEventListener('tab', e => {
     if (e.detail !== 'lessons') return;
