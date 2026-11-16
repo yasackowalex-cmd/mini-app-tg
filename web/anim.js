@@ -88,8 +88,11 @@
       const zy = y0 <= 0 && y1 >= 0 ? A.Y(0) : B, zx = x0 <= 0 && x1 >= 0 ? A.X(0) : L;
       for (let x = Math.ceil(x0 / xs) * xs; x <= x1 + eps; x += xs) svg('line', { x1: A.X(x), x2: A.X(x), y1: T, y2: B, stroke: C.grid }, grid);
       for (let y = Math.ceil(y0 / ys) * ys; y <= y1 + eps; y += ys) svg('line', { x1: L, x2: R, y1: A.Y(y), y2: A.Y(y), stroke: C.grid }, grid);
-      svg('line', { x1: L, x2: R, y1: zy, y2: zy, stroke: C.dark, 'stroke-width': 1.3 }, grid);
-      svg('line', { x1: zx, x2: zx, y1: T, y2: B, stroke: C.dark, 'stroke-width': 1.3 }, grid);
+      // оси со стрелками на концах
+      svg('line', { x1: L, x2: R + 7, y1: zy, y2: zy, stroke: C.dark, 'stroke-width': 1.3 }, grid);
+      svg('line', { x1: zx, x2: zx, y1: T - 7, y2: B, stroke: C.dark, 'stroke-width': 1.3 }, grid);
+      svg('path', { d: `M${R + 9} ${zy}l-8 -3.5v7z`, fill: C.dark }, grid);
+      svg('path', { d: `M${zx} ${T - 9}l-3.5 8h7z`, fill: C.dark }, grid);
       for (let x = Math.ceil(x0 / xls) * xls; x <= x1 + eps; x += xls)
         if (Math.abs(x) > eps) text(grid, A.X(x), zy + 14, fmt(x), 'an-tk', 'middle');
       for (let y = Math.ceil(y0 / yls) * yls; y <= y1 + eps; y += yls)
@@ -879,9 +882,9 @@
 
   // три маленьких графика в одном svg: p–V, p–T, V–T
   function triAxes(g, specs) {
-    return specs.map(([xl, yl, xr, yr], i) => {
-      const A = axes(g, { L: 24 + i * 112, R: 104 + i * 112, T: 18, B: 112 }, { xl, yl });
-      A.set([0, xr, xr / 4, xr * 2], [0, yr, yr / 4, yr * 2]);   // сетка без чисел: важна форма линии
+    return specs.map(([xl, yl, xr, yr, xs = xr / 4, ys = yr / 4], i) => {
+      const A = axes(g, { L: 24 + i * 112, R: 100 + i * 112, T: 18, B: 112 }, { xl, yl });
+      A.set([0, xr, xs, xr * 2], [0, yr, ys, yr * 2]);   // сетка без чисел: важна форма линии
       return A;
     });
   }
@@ -902,7 +905,7 @@
     const mol = Array.from({ length: 26 }, () => ({ x: Math.random(), y: Math.random(), a: Math.random() * 2 * Math.PI, c: svg('circle', { r: 2.6, fill: C.blue }, cy) }));
     const info = text(cy, CX + CW + 16, 60, '', 'an-lb', 'start', C.dark), info2 = text(cy, CX + CW + 16, 78, '', 'an-lb', 'start', C.dark), info3 = text(cy, CX + CW + 16, 96, '', 'an-lb', 'start', C.dark);
     const flame = text(cy, CX + CW / 2, BOT + 0, '', 'an-lb', 'middle', C.orange);
-    const [Apv, Apt, Avt] = triAxes(g, [['V', 'p', 4, 220], ['T', 'p', 650, 220], ['T', 'V', 650, 4]]);
+    const [Apv, Apt, Avt] = triAxes(g, [['V', 'p', 3.5, 250, 0.5, 50], ['T', 'p', 750, 250, 150, 50], ['T', 'V', 750, 3.5, 150, 0.5]]);   // шаг сетки — по значениям состояний: линии идут по узлам
     const mk = A => ({ full: svg('path', { fill: 'none', stroke: C.blue, 'stroke-opacity': .25, 'stroke-width': 2 }, A.dyn),
       zero: svg('path', { fill: 'none', stroke: C.muted, 'stroke-dasharray': '3 3' }, A.dyn),
       dot: svg('circle', { r: 4, fill: C.orange }, A.dyn) });
@@ -1200,6 +1203,8 @@
     const [g] = F.svgs;
     const RX = 250, RY = 66, RR = 46, OB = 0.3;   // кольцо: центр, радиус, наклон перспективы
     // кольцо в плоскости, перпендикулярной оси x; ближняя к нам половина — справа (сплошная), дальняя — пунктир
+    // линии поля магнита (едут вместе с магнитом) — под кольцом
+    const fl = svg('g', {}, g);
     const ring = (from, to) => { let d = ''; for (let i = 0; i <= 40; i++) { const f = from + (to - from) * i / 40; d += (i ? 'L' : 'M') + (RX + RR * OB * Math.sin(f)) + ' ' + (RY - RR * Math.cos(f)); } return d; };
     svg('path', { d: ring(Math.PI, 2 * Math.PI), fill: 'none', stroke: C.muted, 'stroke-width': 3, 'stroke-dasharray': '4 3' }, g);
     const bIn = svg('g', {}, g);
@@ -1213,12 +1218,42 @@
     const bE = arrow(g, C.blue), bET = text(g, 0, 0, '', 'an-lb', 'start', C.blue);
     const bI = arrow(g, C.orange), bIT = text(g, 0, 0, '', 'an-lb', 'start', C.orange);
     const vA = arrow(g, C.green), vT = text(g, 0, 0, 'v', 'an-lb', 'middle', C.green);
+    // магнитная стрелка: синяя половина — северный конец, показывает направление поля
+    const CPX = 150, CPY = 20;
+    svg('circle', { cx: CPX, cy: CPY, r: 15, fill: '#fff', stroke: C.muted, 'stroke-width': 1.2 }, g);
+    const needle = svg('g', {}, g);
+    svg('path', { d: 'M0 -3.5L12 0L0 3.5z', fill: C.blue }, needle);
+    svg('path', { d: 'M0 -3.5L-12 0L0 3.5z', fill: '#fff', stroke: C.muted, 'stroke-width': 1 }, needle);
+    svg('circle', { cx: CPX, cy: CPY, r: 1.8, fill: C.dark }, g);
     let northFirst = true;   // к кольцу обращён северный полюс
+    // поле магнита — как от двух «полюсов» у его концов (в координатах магнита: x от 0 до 100)
+    const poles = () => northFirst ? [[92, 1], [8, -1]] : [[8, 1], [92, -1]];
+    const Bm = (x, y) => { let bx = 0, by = 0; poles().forEach(([px, q]) => { const dx = x - px, dy = y - RY, r3 = Math.hypot(dx, dy) ** 3 || 1; bx += q * dx / r3; by += q * dy / r3; }); return [bx, by]; };
+    function drawLines() {
+      fl.textContent = '';
+      const [[nx], [sx]] = poles();
+      [-4, -3, -2, -1, 1, 2, 3, 4].forEach(k => [1, -1].forEach(side => {
+        // линия выходит из N под углом к оси и идёт, пока не войдёт в S или не уйдёт за рисунок
+        const a = side > 0 ? k * 0.36 : Math.PI - k * 0.36;
+        let x = nx + 9 * Math.cos(a), y = RY + 9 * Math.sin(a), d = `M${x} ${y}`, mid = null;
+        if ((nx > sx) !== (Math.cos(a) > 0)) return;   // только «наружу» от магнита
+        for (let i = 0; i < 700; i++) {
+          const [bx, by] = Bm(x, y), m = Math.hypot(bx, by) || 1;
+          x += 2 * bx / m; y += 2 * by / m; d += `L${x.toFixed(1)} ${y.toFixed(1)}`;
+          if (i === 22) mid = [x, y, bx / m, by / m];
+          if (Math.hypot(x - sx, y - RY) < 8 || y < -60 || y > 200 || x < -300 || x > 420) break;
+        }
+        svg('path', { d, fill: 'none', stroke: C.blue, 'stroke-opacity': .3, 'stroke-width': 1.1 }, fl);
+        if (mid) svg('path', { d: arrowD(mid[0] - mid[2] * 4, mid[1] - mid[3] * 4, mid[0] + mid[2] * 2, mid[1] + mid[3] * 2), ...ARROW, stroke: C.blue, 'stroke-opacity': .75 }, fl);
+      }));
+    }
     const xOf = t => 10 + 48 * (1 - Math.cos(2 * Math.PI * t / 4));   // левый край магнита: подходит и уходит, период 4 с
     const flux = x => { const d = RX - (x + 100); return 1 / (1 + (d / 40) ** 2); };   // условный поток через кольцо
     function draw(t) {
       const x = xOf(t), v = (xOf(t + 0.01) - x) / 0.01;
-      mag.setAttribute('transform', `translate(${x} 0)`);
+      mag.setAttribute('transform', `translate(${x} 0)`); fl.setAttribute('transform', `translate(${x} 0)`);
+      const [cbx, cby] = Bm(CPX - x, CPY);
+      needle.setAttribute('transform', `translate(${CPX} ${CPY}) rotate(${Math.atan2(cby, cbx) * 180 / Math.PI})`);
       // правый край магнита — полюс, обращённый к кольцу
       set(nS, { x: northFirst ? 50 : 0, fill: '#BFD9FF' }); set(sS, { x: northFirst ? 0 : 50, fill: '#fff' });
       set(nT, { x: northFirst ? 75 : 25 }); set(sT, { x: northFirst ? 25 : 75 });
@@ -1245,14 +1280,14 @@
         : 'магнит удаляется: поток убывает, B<sub>инд</sub> по B — кольцо притягивает магнит';
     }
     const tl = timeline(F.btn, 1e9, 1, draw, true);
-    seg(F.ctl, [['N', 'К кольцу N'], ['S', 'К кольцу S']], 'N', v => { northFirst = v === 'N'; draw(tl.t()); });
-    draw(0);
+    seg(F.ctl, [['N', 'К кольцу N'], ['S', 'К кольцу S']], 'N', v => { northFirst = v === 'N'; drawLines(); draw(tl.t()); });
+    drawLines(); draw(0);
     autoplay(el, tl, F.btn);
   }
 
   // ---- 3.2.3: колебательный контур. Заряд конденсатора, ток катушки, энергии W_э и W_м ----
   function lc(el) {
-    const F = frame(el, [['an-car', 340, 150, 'Колебательный контур'], ['an-g', 340, 150, 'Графики заряда и силы тока']]);
+    const F = frame(el, [['an-car', 340, 150, 'Колебательный контур'], ['an-g', 340, 162, 'Графики заряда и силы тока']]);
     const [sc, g] = F.svgs;
     const L0 = 60, R0 = 220, T0 = 20, B0 = 130, CY = 75;
     svg('path', { d: `M${L0} ${CY - 8}V${T0}H${R0}V40M${R0} 110V${B0}H${L0}V${CY + 8}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, sc);
@@ -1271,15 +1306,22 @@
     const bar = (i, col, lab) => { svg('rect', { x: BX + i * 30, y: BB - BH, width: 22, height: BH, fill: 'none', stroke: C.line }, sc); text(sc, BX + i * 30 + 11, BB + 14, lab, 'an-lb', 'middle', col); return svg('rect', { x: BX + i * 30, width: 22, fill: col }, sc); };
     const wE = bar(0, C.orange, 'Wэ'), wM = bar(1, C.blue, 'Wм');
     const curA = arrow(sc, C.orange);
-    const A = axes(g, { L: 30, R: 326, T: 24, B: 140 }, { xl: 't', yl: '' });
-    A.set([0, 2, 0.25, 9], [-1.2, 1.2, 0.5, 9]);
+    const TM = 40;   // мс на графике
+    const A = axes(g, { L: 30, R: 326, T: 24, B: 140 }, { xl: '', yl: '' });
+    A.set([0, TM, 5, 1e3], [-1.2, 1.2, 0.5, 9]);
+    // подписи времени — под полем графика, чтобы не налезали на кривые
+    [10, 20, 30].forEach(v => text(A.top, A.X(v), 154, String(v), 'an-tk', 'middle'));
+    text(A.top, 326, 154, 't, мс', 'an-ax', 'end');
     const qL = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 2.2 }, A.dyn), iL = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.2 }, A.dyn);
     const cur = svg('line', { stroke: C.muted, 'stroke-dasharray': '3 3', y1: 24, y2: 140 }, A.dyn);
-    text(A.top, 290, 14, 'q', 'an-lb', 'start', C.orange); text(A.top, 306, 14, 'i', 'an-lb', 'start', C.blue);
+    text(A.top, 36, 14, 'q', 'an-lb', 'start', C.orange); text(A.top, 46, 14, ',', 'an-lb', 'start', C.dark); text(A.top, 52, 14, 'i', 'an-lb', 'start', C.blue);
     let Lm = 40, Cm = 40;   // мГн, мкФ
-    let dq = '', di = '';
-    for (let k = 0; k <= 200; k++) { const s = 2 * k / 200; dq += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(Math.cos(2 * Math.PI * s)); di += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(-Math.sin(2 * Math.PI * s)); }
-    qL.setAttribute('d', dq); iL.setAttribute('d', di);
+    let Tms = 1;
+    const curves = () => {   // графики за 40 мс: чем больше период, тем реже волны
+      let dq = '', di = '';
+      for (let k = 0; k <= 600; k++) { const s = TM * k / 600, ph = 2 * Math.PI * s / Tms; dq += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(Math.cos(ph)); di += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(-Math.sin(ph)); }
+      qL.setAttribute('d', dq); iL.setAttribute('d', di);
+    };
     function draw(t) {   // t — время в периодах
       const ph = 2 * Math.PI * t, q = Math.cos(ph), i = -Math.sin(ph);
       const c1 = q > 0 ? C.orange : C.blue, c2 = q > 0 ? C.blue : C.orange, op = 0.25 + 0.75 * Math.abs(q);
@@ -1292,11 +1334,13 @@
       // ток по верхнему проводу: i = q' < 0 (верхняя пластина «+» разряжается) — вправо
       curA.setAttribute('d', Math.abs(i) > .1 ? arrowD(140 + Math.sign(i) * 14 * Math.abs(i), T0, 140 - Math.sign(i) * 14 * Math.abs(i), T0) : '');
       set(wE, { y: BB - BH * q * q, height: BH * q * q }); set(wM, { y: BB - BH * i * i, height: BH * i * i });
-      set(cur, { x1: A.X(t % 2), x2: A.X(t % 2) });
+      const tc = (t * Tms) % TM;   // t — в периодах
+      set(cur, { x1: A.X(tc), x2: A.X(tc) });
     }
     const tl = timeline(F.btn, 1e9, 1 / 3, draw, true);   // один период — 3 секунды на экране
     const upd = () => {
       const T = 2 * Math.PI * Math.sqrt(Lm * 1e-3 * Cm * 1e-6) * 1000;   // мс
+      Tms = T; curves();
       F.f.innerHTML = math(`T=2\\pi\\sqrt{LC}=${tx(T, 2)}~\\text{мс}`);
       F.now.textContent = 'показано замедленно: один период — 3 с';
       draw(tl.t());
