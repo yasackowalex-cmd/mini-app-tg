@@ -1470,11 +1470,11 @@
     const bar = (i, col, lab) => { svg('rect', { x: BX + i * 30, y: BB - BH, width: 22, height: BH, fill: 'none', stroke: C.line }, sc); text(sc, BX + i * 30 + 11, BB + 14, lab, 'an-lb', 'middle', col); return svg('rect', { x: BX + i * 30, width: 22, fill: col }, sc); };
     const wE = bar(0, C.orange, 'Wэ'), wM = bar(1, C.blue, 'Wм');
     const curA = arrow(sc, C.orange);
-    const TM = 40;   // мс на графике
+    const TM = 25;   // мс на графике
     const A = axes(g, { L: 30, R: 326, T: 24, B: 140 }, { xl: '', yl: '' });
     A.set([0, TM, 5, 1e3], [-1.2, 1.2, 0.5, 9]);
     // подписи времени — под полем графика, чтобы не налезали на кривые
-    [10, 20, 30].forEach(v => text(A.top, A.X(v), 154, String(v), 'an-tk', 'middle'));
+    [5, 10, 15, 20].forEach(v => text(A.top, A.X(v), 154, String(v), 'an-tk', 'middle'));
     text(A.top, 326, 154, 't, мс', 'an-ax', 'end');
     const qL = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 2.2 }, A.dyn), iL = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.2 }, A.dyn);
     const cur = svg('line', { stroke: C.muted, 'stroke-dasharray': '3 3', y1: 24, y2: 140 }, A.dyn);
@@ -1482,7 +1482,7 @@
     // график энергий: Wэ = W·cos², Wм = W·sin², сумма W постоянна
     const E = axes(ge, { L: 30, R: 326, T: 24, B: 140 }, { xl: '', yl: '' });
     E.set([0, TM, 5, 1e3], [0, 1.2, 0.25, 9]);
-    [10, 20, 30].forEach(v => text(E.top, E.X(v), 154, String(v), 'an-tk', 'middle'));
+    [5, 10, 15, 20].forEach(v => text(E.top, E.X(v), 154, String(v), 'an-tk', 'middle'));
     text(E.top, 326, 154, 't, мс', 'an-ax', 'end');
     const weL = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 2.2 }, E.dyn), wmL = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.2 }, E.dyn);
     svg('line', { x1: E.X(0), x2: E.X(TM), y1: E.Y(1), y2: E.Y(1), stroke: C.dark, 'stroke-width': 1.6, 'stroke-dasharray': '6 4' }, E.dyn);
@@ -1491,7 +1491,7 @@
     subT(text(E.top, 36, 14, '', 'an-lb', 'start', C.orange), 'W', 'э'); subT(text(E.top, 62, 14, '', 'an-lb', 'start', C.blue), 'W', 'м');
     let Lm = 40, Cm = 40;   // мГн, мкФ
     let Tms = 1;
-    const curves = () => {   // графики за 40 мс: чем больше период, тем реже волны
+    const curves = () => {   // графики за 25 мс: чем больше период, тем реже волны
       let dq = '', di = '';
       for (let k = 0; k <= 600; k++) { const s = TM * k / 600, ph = 2 * Math.PI * s / Tms; dq += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(Math.cos(ph)); di += (k ? 'L' : 'M') + A.X(s) + ' ' + A.Y(-Math.sin(ph)); }
       qL.setAttribute('d', dq); iL.setAttribute('d', di);
