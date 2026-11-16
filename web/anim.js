@@ -378,14 +378,7 @@
     const tl = timeline(F.btn, 1e9, 1, t => { phi += (t - last) * v / R; last = t; draw(); }, true);
     slider(F.ctl, { label: 'v', min: 1, max: 3, step: 0.5, value: v, unit: 'м/с' }, val => { v = val; upd(); }).init();
     slider(F.ctl, { label: 'R', min: 1, max: 2, step: 0.25, value: R, unit: 'м' }, val => { R = val; upd(); }).init();
-    if ('IntersectionObserver' in window) {
-      let auto = true;
-      new IntersectionObserver(es => es.forEach(e => {
-        if (e.isIntersecting && auto && !tl.playing()) tl.play();
-        else if (!e.isIntersecting && tl.playing()) tl.pause();
-      })).observe(el);
-      F.btn.addEventListener('click', () => { auto = tl.playing(); });
-    }
+    autoplay(el, tl, F.btn);
   }
 
   // переключатель вариантов (упругий / неупругий и т. п.)
@@ -413,7 +406,13 @@
   }
   // подпись силы у конца стрелки
   const forceLabel = (parent, color) => text(parent, 0, 0, '', 'an-lb', 'middle', color);
-  const putLabel = (t, x, y, ux, uy, s) => set(t, { x: x + ux * 12, y: y + uy * 12 + 4 }).textContent = s;
+  // подпись силы; «F_A», «F_тр» — с нижним индексом после «_»
+  const putLabel = (t, x, y, ux, uy, s) => {
+    set(t, { x: x + ux * 12, y: y + uy * 12 + 4 });
+    const [main, sub] = s.split('_');
+    t.textContent = main;
+    if (sub) { const ts = svg('tspan', { 'baseline-shift': 'sub', 'font-size': '9px' }, t); ts.textContent = sub; }
+  };
 
   // ---- 1.2.4: брусок на наклонной, m = 1 кг, g = 10 м/с². Силы: mg, N, F_тр; покоится или скользит ----
   function incline(el) {
@@ -450,7 +449,7 @@
       aN.setAttribute('d', arrowD(cx, cy, cx + nx * N, cy + ny * N)); putLabel(lN, cx + nx * N, cy + ny * N, nx, ny, 'N');
       // трение — вдоль поверхности, от нижней грани бруска
       const fx = px - dx * 20, fy = py - dy * 20;
-      aF.setAttribute('d', arrowD(fx, fy, fx - dx * f, fy - dy * f)); putLabel(lF, fx - dx * f, fy - dy * f, -dx * 1.4, -dy * 1.4 + .5, f > 2 ? 'Fтр' : '');
+      aF.setAttribute('d', arrowD(fx, fy, fx - dx * f, fy - dy * f)); putLabel(lF, fx - dx * f, fy - dy * f, -dx * 1.4, -dy * 1.4 + .5, f > 2 ? 'F_тр' : '');
       const aa = st.a * K * 1.4;
       // ускорение — над бруском, вдоль наклона
       const ax0 = px + nx * 36 + dx * 22, ay0 = py + ny * 36 + dy * 22;
@@ -497,7 +496,7 @@
       set(blk, { x: x2 });
       const bx = x2 + 20, len = -Math.sign(dx) * f * 4;
       aF.setAttribute('d', arrowD(bx, Y0 - 26, bx + len, Y0 - 26));
-      putLabel(lF, bx + len, Y0 - 26, Math.sign(len), 0, f > 0.1 ? 'Fупр' : '');
+      putLabel(lF, bx + len, Y0 - 26, Math.sign(len), 0, f > 0.1 ? 'F_упр' : '');
       ln.setAttribute('d', `M${A.X(-10)} ${A.Y(k / 10)}L${A.X(0)} ${A.Y(0)}L${A.X(10)} ${A.Y(k / 10)}`);
       set(dot, { cx: A.X(dx), cy: A.Y(f) });
       F.f.innerHTML = math(`F_{\\text{упр}}=k\\,|\\Delta x|=${k}\\cdot${tx(Math.abs(dx) / 100)}=${tx(f, 1)}~\\text{Н}`);
@@ -629,7 +628,256 @@
     slider(F.ctl, { label: 'F_{\\text{тр}}', min: 0, max: 2, step: 0.25, value: ftr, unit: 'Н' }, val => { ftr = val; upd(); }).init();
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy };
+  // анимация идёт сама, пока она на экране (ушла с экрана — пауза; нажали «Пауза» — больше сама не запускается)
+  function autoplay(el, tl, btn) {
+    if (!('IntersectionObserver' in window)) return;
+    let auto = true;
+    new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && auto && !tl.playing()) tl.play();
+      else if (!e.isIntersecting && tl.playing()) tl.pause();
+    })).observe(el);
+    btn.addEventListener('click', () => { auto = tl.playing(); });
+  }
+  // плавно подводит значение к цели (для рычага и тела в жидкости)
+  function easeLoop(el, step) {
+    let raf = 0, last = 0;
+    const tick = ms => {
+      const dt = Math.min(0.05, (ms - last) / 1000); last = ms;
+      if (!el.isConnected) return;
+      raf = step(dt) ? requestAnimationFrame(tick) : 0;
+    };
+    return () => { if (!raf) raf = requestAnimationFrame(ms => { last = ms; tick(ms); }); };
+  }
+
+  // ---- 1.4.1: рычаг. Грузы m₁, m₂ на плечах l₁, l₂ (деление = 10 см), g = 10 м/с² ----
+  function lever(el) {
+    const G = 10, DIV = 28, PX = 170, PY = 44;
+    const F = frame(el, [['an-g', 340, 176, 'Рычаг с двумя грузами']], false);
+    const [g] = F.svgs;
+    svg('path', { d: `M${PX} ${PY}l-14 26h28z`, fill: C.muted }, g);
+    svg('line', { x1: PX - 40, x2: PX + 40, y1: PY + 26, y2: PY + 26, stroke: C.dark, 'stroke-width': 1.5 }, g);
+    const beam = svg('g', {}, g);
+    svg('rect', { x: PX - 5.5 * DIV, y: PY - 4, width: 11 * DIV, height: 8, rx: 2, fill: C.dark }, beam);
+    for (let i = -5; i <= 5; i++) if (i) svg('line', { x1: PX + i * DIV, x2: PX + i * DIV, y1: PY - 4, y2: PY + 4, stroke: '#fff', 'stroke-width': 1 }, beam);
+    svg('circle', { cx: PX, cy: PY, r: 3.5, fill: '#fff' }, beam);
+    const load = col => {
+      const s = svg('line', { stroke: C.dark }, g), b = svg('rect', { width: 26, height: 26, rx: 3, fill: col }, g);
+      const t = text(g, 0, 0, '', 'an-lb', 'middle', '#fff'), a = arrow(g, C.dark), l = forceLabel(g, C.dark);
+      return { s, b, t, a, l };
+    };
+    const L1 = load(C.blue), L2 = load(C.orange);
+    let m1 = 2, l1 = 4, m2 = 4, l2 = 2, ang = 0, target = 0;
+    function place(Ld, m, d) {
+      const r = ang * Math.PI / 180, ax = PX + d * DIV * Math.cos(r), ay = PY + d * DIV * Math.sin(r);
+      const by = ay + 36;
+      set(Ld.s, { x1: ax, y1: ay + 4, x2: ax, y2: by });
+      set(Ld.b, { x: ax - 13, y: by });
+      set(Ld.t, { x: ax, y: by + 17 }).textContent = m;
+      const len = m * G * 1.6;
+      Ld.a.setAttribute('d', arrowD(ax, by + 26, ax, by + 26 + len));
+      set(Ld.l, { x: ax + 6, y: by + 22 + len, 'text-anchor': 'start' }).textContent = `${m * G} Н`;
+    }
+    function draw() {
+      beam.setAttribute('transform', `rotate(${ang} ${PX} ${PY})`);
+      place(L1, m1, -l1); place(L2, m2, l2);
+    }
+    const go = easeLoop(el, dt => { ang += (target - ang) * Math.min(1, dt * 4); draw(); return Math.abs(target - ang) > 0.05; });
+    const upd = () => {
+      const Ma = m1 * G * l1 / 10, Mc = m2 * G * l2 / 10;   // плечо: деление = 0,1 м
+      target = Math.abs(Ma - Mc) < 1e-9 ? 0 : Mc > Ma ? 12 : -12;
+      F.f.innerHTML = `<span class="an-c1">${math(`M_{\\text{против час.}}=m_1gl_1=${tx(Ma)}~\\text{Н}\\cdot\\text{м}`)}</span>` +
+        `<span class="an-c2">${math(`M_{\\text{по час.}}=m_2gl_2=${tx(Mc)}~\\text{Н}\\cdot\\text{м}`)}</span>`;
+      F.now.innerHTML = (!target ? '<b class="an-up">равновесие</b>' : target > 0 ? 'поворачивается по часовой стрелке' : 'поворачивается против часовой стрелки') + ' · деление = 10 см';
+      go();
+    };
+    slider(F.ctl, { label: 'm_1', min: 1, max: 5, step: 1, value: m1, unit: 'кг' }, val => { m1 = val; upd(); }).init();
+    slider(F.ctl, { label: 'm_2', min: 1, max: 5, step: 1, value: m2, unit: 'кг' }, val => { m2 = val; upd(); }).init();
+    slider(F.ctl, { label: 'l_1', min: 1, max: 5, step: 1, value: l1, unit: 'дел.' }, val => { l1 = val; upd(); }).init();
+    slider(F.ctl, { label: 'l_2', min: 1, max: 5, step: 1, value: l2, unit: 'дел.' }, val => { l2 = val; upd(); }).init();
+    draw();
+  }
+
+  // ---- 1.4.2: тело объёмом 1 дм³ в жидкости. mg и F_A = ρж g Vпогр; плавает, тонет или висит внутри ----
+  function buoy(el) {
+    const G = 10, V = 0.001, A = 60, LV = 64, BOT = 206, XL = 80, XR = 260, K = 8;   // A — сторона кубика (1 дм), K — px на ньютон
+    const F = frame(el, [['an-g', 340, 214, 'Тело в сосуде с жидкостью и силы, действующие на него']], false);
+    const [g] = F.svgs;
+    // брусок полупрозрачный оранжевый, жидкость полупрозрачная поверх него — видно погружённую часть
+    const blk = svg('rect', { x: 170 - A / 2, width: A, height: A, rx: 2, fill: C.orange, 'fill-opacity': .55, stroke: C.orange }, g);
+    svg('rect', { x: XL, y: LV, width: XR - XL, height: BOT - LV, fill: C.blue, 'fill-opacity': .22 }, g);
+    svg('path', { d: `M${XL} 20V${BOT}H${XR}V20`, fill: 'none', stroke: C.dark, 'stroke-width': 2 }, g);
+    const aG = arrow(g, C.dark), aA = arrow(g, C.blue), aN = arrow(g, C.green);
+    const lG = forceLabel(g, C.dark), lA = forceLabel(g, C.blue), lN = forceLabel(g, C.green);
+    let rb = 600, rl = 1000, y = LV - A, target = 0;   // y — верх кубика
+    const mg = () => rb * V * G;
+    const fa = () => rl * G * V * Math.max(0, Math.min(1, (y + A - LV) / A));
+    function draw() {
+      set(blk, { y });
+      const cx = 170, cy = y + A / 2, G_ = mg(), FA = fa(), onBottom = y + A >= BOT - 0.5, N = onBottom ? Math.max(0, G_ - FA) : 0;
+      // mg и F_A на одной линии — из центра бруска
+      aG.setAttribute('d', arrowD(cx, cy, cx, cy + G_ * K)); putLabel(lG, cx, cy + G_ * K, 1.8, 0.2, 'mg');
+      aA.setAttribute('d', arrowD(cx, cy, cx, cy - FA * K)); putLabel(lA, cx, cy - FA * K, 1.8, 0.2, FA > 0.2 ? 'F_A' : '');
+      const top = Math.min(0, cy - FA * K - 12), bot = Math.max(214, cy + G_ * K + 14);   // длинные стрелки помещаются целиком
+      g.setAttribute('viewBox', `0 ${top} 340 ${bot - top}`);
+      aN.setAttribute('d', N > 0.2 ? arrowD(cx + 40, BOT, cx + 40, BOT - N * K) : ''); putLabel(lN, cx + 40, BOT - N * K, 1, -0.5, N > 0.2 ? 'N' : '');
+      F.now.innerHTML = `mg = ${fmt(G_)} Н, F<sub>A</sub> = ${fmt(FA)} Н${N > 0.2 ? `, N = ${fmt(N)} Н` : ''}`;
+    }
+    const go = easeLoop(el, dt => { y += (target - y) * Math.min(1, dt * 2.5); draw(); return Math.abs(target - y) > 0.2; });
+    const upd = () => {
+      // где тело остановится: плавает (F_A = mg), висит внутри, лежит на дне
+      target = rb < rl ? LV + A * rb / rl - A : rb > rl ? BOT - A : (LV + BOT) / 2 - A / 2;
+      F.f.innerHTML = '<span>' + (rb < rl ? `${math('\\rho_{\\text{т}}<\\rho_{\\text{ж}}')} — <b class="an-up">плавает на поверхности</b>, ${math('F_A=mg')}`
+        : rb > rl ? `${math('\\rho_{\\text{т}}>\\rho_{\\text{ж}}')} — <b class="an-down">тонет</b>, ${math('F_A<mg')}`
+        : `${math('\\rho_{\\text{т}}=\\rho_{\\text{ж}}')} — <b>плавает внутри</b>, ${math('F_A=mg')}`) + '</span>';
+      go();
+    };
+    slider(F.ctl, { label: '\\rho_{\\text{т}}', min: 200, max: 2000, step: 100, value: rb, unit: 'кг/м³' }, val => { rb = val; y = Math.min(y, LV - A * 0.3); upd(); }).init();
+    slider(F.ctl, { label: '\\rho_{\\text{ж}}', min: 700, max: 1300, step: 100, value: rl, unit: 'кг/м³' }, val => { rl = val; upd(); }).init();
+    draw();
+  }
+
+  // ---- 1.5.1: пружинный маятник x = A cos ωt и график x(t) ----
+  function osc(el) {
+    const TW = 4, XM = 10;
+    const F = frame(el, [['an-car', 340, 70, 'Пружинный маятник'], ['an-g', 340, 170, 'График координаты от времени']]);
+    const [sp, g] = F.svgs;
+    const EQ = 190, KX = 6, Y0 = 36;   // положение равновесия и 1 см = 6 px
+    svg('rect', { x: 12, y: 8, width: 8, height: 50, fill: C.muted }, sp);
+    svg('line', { x1: 20, x2: 330, y1: 58, y2: 58, stroke: C.dark, 'stroke-width': 1.3 }, sp);
+    svg('line', { x1: EQ + 18, x2: EQ + 18, y1: 4, y2: 62, stroke: C.muted, 'stroke-dasharray': '3 3' }, sp);
+    const coil = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 1.5 }, sp);
+    const blk = svg('rect', { y: Y0 - 18, width: 36, height: 36, rx: 3, fill: C.dark }, sp);
+    const A_ = axes(g, { L: 34, R: 326, T: 10, B: 160 }, { xl: 't, с', yl: 'x, см' });
+    A_.set([0, TW, 0.5, 1], [-XM, XM, 2, 5]);
+    const curve = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A_.dyn);
+    const dot = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A_.dyn);
+    const per = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 1.4 }, A_.top);
+    const perT = text(A_.top, 0, 0, 'T', 'an-lb', 'middle', C.orange);
+    let m = 0.4, k = 40, A = 6, T = 0;
+    const x = t => A * Math.cos(2 * Math.PI * t / T);
+    function draw(t) {
+      const tt = t % TW, xx = x(t);
+      coil.setAttribute('d', coilD(20, EQ + xx * KX, Y0, 8, 8));
+      set(blk, { x: EQ + xx * KX });
+      let d = '';
+      for (let i = 0; i <= 200 * tt / TW; i++) { const s = TW * i / 200; d += (i ? 'L' : 'M') + A_.X(s) + ' ' + A_.Y(x(t - tt + s)); }
+      curve.setAttribute('d', d);
+      set(dot, { cx: A_.X(tt), cy: A_.Y(xx) });
+    }
+    const tl = timeline(F.btn, 1e9, 1, draw, true);
+    const upd = () => {
+      T = 2 * Math.PI * Math.sqrt(m / k);
+      F.f.innerHTML = math(`T=2\\pi\\sqrt{\\dfrac{m}{k}}=${tx(T, 2)}~\\text{с}`);
+      // отрезок длиной в период на графике (от первого максимума)
+      const y = A_.Y(-XM) - 8;
+      per.setAttribute('d', T < TW ? `M${A_.X(0)} ${y}H${A_.X(T)}M${A_.X(0)} ${y - 4}v8M${A_.X(T)} ${y - 4}v8` : '');
+      set(perT, { x: A_.X(Math.min(T, TW) / 2), y: y - 6 }).textContent = T < TW ? 'T' : '';
+      F.now.textContent = 'период не зависит от амплитуды';
+      draw(tl.t());
+    };
+    slider(F.ctl, { label: 'm', min: 0.1, max: 1, step: 0.1, value: m, unit: 'кг' }, val => { m = val; upd(); }).init();
+    slider(F.ctl, { label: 'k', min: 10, max: 100, step: 10, value: k, unit: 'Н/м' }, val => { k = val; upd(); }).init();
+    slider(F.ctl, { label: 'A', min: 2, max: 8, step: 1, value: A, unit: 'см' }, val => { A = val; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  // ---- 1.5.2: бегущая поперечная волна y = A sin 2π(νt − x/λ). Поплавок качается на месте ----
+  function wave(el) {
+    const XM = 10, KX = 30, Y0 = 70, AP = 32;   // 1 м = 30 px, амплитуда 32 px
+    const F = frame(el, [['an-g', 340, 130, 'Бегущая поперечная волна']]);
+    const [g] = F.svgs;
+    const sx = x => 20 + x * KX;
+    svg('line', { x1: sx(0), x2: sx(XM), y1: Y0, y2: Y0, stroke: C.line }, g);
+    svg('path', { d: `M${sx(XM) + 8} ${Y0}l-7 -4v8z`, fill: C.muted }, g);
+    const line = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2 }, g);
+    const dots = [];
+    for (let x = 0; x <= XM + 1e-9; x += 0.5) dots.push([x, svg('circle', { r: 2.6, fill: C.blue }, g)]);
+    const XF = 5;
+    svg('line', { x1: sx(XF), x2: sx(XF), y1: Y0 - AP - 6, y2: Y0 + AP + 6, stroke: C.orange, 'stroke-dasharray': '2 3' }, g);
+    const flo = svg('circle', { r: 6, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, g);
+    const lam = svg('path', { fill: 'none', stroke: C.dark, 'stroke-width': 1.2 }, g), lamT = text(g, 0, 0, 'λ', 'an-lb', 'middle', C.dark);
+    const vA = arrow(g, C.green), vT = text(g, 0, 0, 'v', 'an-lb', 'start', C.green);
+    let la = 3, nu = 0.5;
+    const yOf = (x, t) => Y0 - AP * Math.sin(2 * Math.PI * (nu * t - x / la));
+    function draw(t) {
+      let d = '';
+      for (let i = 0; i <= 200; i++) { const x = XM * i / 200; d += (i ? 'L' : 'M') + sx(x) + ' ' + yOf(x, t); }
+      line.setAttribute('d', d);
+      dots.forEach(([x, c]) => set(c, { cx: sx(x), cy: yOf(x, t) }));
+      set(flo, { cx: sx(XF), cy: yOf(XF, t) });
+      // λ — между двумя соседними гребнями, гребень едет вправо со скоростью v
+      let xc = la * (nu * t - 0.25);
+      xc -= Math.floor((xc - 0.3) / la) * la;
+      const yT = Y0 - AP - 12;
+      if (xc + la <= XM) {
+        lam.setAttribute('d', `M${sx(xc)} ${yT}H${sx(xc + la)}M${sx(xc)} ${yT - 4}v8M${sx(xc + la)} ${yT - 4}v8`);
+        set(lamT, { x: sx(xc + la / 2), y: yT - 5 }).textContent = 'λ';
+      } else { lam.setAttribute('d', ''); lamT.textContent = ''; }
+      vA.setAttribute('d', arrowD(sx(xc) - 14, Y0 + AP + 16, sx(xc) + 14, Y0 + AP + 16));
+      set(vT, { x: sx(xc) + 17, y: Y0 + AP + 20 });
+    }
+    const tl = timeline(F.btn, 1e9, 1, draw, true);
+    const upd = () => {
+      F.f.innerHTML = `<span>${math(`T=\\dfrac{1}{\\nu}=${tx(1 / nu, 1)}~\\text{с}`)}</span><span>${math(`v=\\lambda\\nu=${tx(la * nu, 2)}~\\text{м/с}`)}</span>`;
+      F.now.innerHTML = '<span class="an-down">поплавок</span> качается вверх-вниз и остаётся на месте';
+      draw(tl.t());
+    };
+    slider(F.ctl, { label: '\\lambda', min: 1, max: 5, step: 0.5, value: la, unit: 'м' }, val => { la = val; upd(); }).init();
+    slider(F.ctl, { label: '\\nu', min: 0.2, max: 1, step: 0.1, value: nu, unit: 'Гц' }, val => { nu = val; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  // ---- 1.5.2: математический маятник. T = 2π√(ℓ/g): от длины и g зависит, от массы — нет ----
+  function pendulum(el) {
+    const TW = 8, XM = 60;   // окно графика 8 с, x до ±60 см
+    const F = frame(el, [['an-g', 340, 214, 'Математический маятник'], ['an-g2', 340, 170, 'График смещения груза от времени']]);
+    const [g, gr] = F.svgs;
+    const A_ = axes(gr, { L: 34, R: 326, T: 10, B: 160 }, { xl: 't, с', yl: 'x, см' });
+    A_.set([0, TW, 1, 2], [-XM, XM, 10, 20]);
+    const curve = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A_.dyn);
+    const dot = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A_.dyn);
+    const per = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 1.4 }, A_.top);
+    const perT = text(A_.top, 0, 0, 'T', 'an-lb', 'middle', C.orange);
+    const PX = 170, PY = 14, KL = 90, A0 = 15 * Math.PI / 180;   // 1 м нити = 90 px, амплитуда 15°
+    svg('rect', { x: PX - 40, y: PY - 8, width: 80, height: 8, fill: C.muted }, g);
+    const vert = svg('line', { x1: PX, x2: PX, y1: PY, stroke: C.muted, 'stroke-dasharray': '3 3' }, g);
+    const arc = svg('path', { fill: 'none', stroke: C.line, 'stroke-width': 1.5 }, g);
+    const thread = svg('line', { x1: PX, y1: PY, stroke: C.dark, 'stroke-width': 1.3 }, g);
+    const ball = svg('circle', { fill: C.orange }, g);
+    let l = 1, m = 0.3, gv = 9.8, T = 0;
+    function draw(t) {
+      const L = l * KL, th = A0 * Math.cos(2 * Math.PI * t / T), bx = PX + L * Math.sin(th), by = PY + L * Math.cos(th);
+      set(thread, { x2: bx, y2: by });
+      set(ball, { cx: bx, cy: by, r: 6 + m * 8 });
+      // смещение груза по горизонтали x = ℓ sin θ, см
+      const xs = s => l * 100 * Math.sin(A0 * Math.cos(2 * Math.PI * s / T)), tt = t % TW;
+      let d = '';
+      for (let i = 0; i <= 240 * tt / TW; i++) { const s = TW * i / 240; d += (i ? 'L' : 'M') + A_.X(s) + ' ' + A_.Y(xs(t - tt + s)); }
+      curve.setAttribute('d', d);
+      set(dot, { cx: A_.X(tt), cy: A_.Y(xs(t)) });
+    }
+    const tl = timeline(F.btn, 1e9, 1, draw, true);
+    const upd = () => {
+      T = 2 * Math.PI * Math.sqrt(l / gv);
+      const L = l * KL;
+      set(vert, { y2: PY + L + 14 });
+      g.setAttribute('viewBox', `0 0 340 ${PY + L + 34}`);   // высота рисунка — по длине нити
+      arc.setAttribute('d', `M${PX - L * Math.sin(A0)} ${PY + L * Math.cos(A0)}A${L} ${L} 0 0 0 ${PX + L * Math.sin(A0)} ${PY + L * Math.cos(A0)}`);
+      F.f.innerHTML = math(`T=2\\pi\\sqrt{\\dfrac{\\ell}{g}}=${tx(T, 2)}~\\text{с}`);
+      const y = A_.Y(-XM) - 8;
+      per.setAttribute('d', T < TW ? `M${A_.X(0)} ${y}H${A_.X(T)}M${A_.X(0)} ${y - 4}v8M${A_.X(T)} ${y - 4}v8` : '');
+      set(perT, { x: A_.X(Math.min(T, TW) / 2), y: y - 6 }).textContent = T < TW ? 'T' : '';
+      F.now.textContent = 'масса груза на период не влияет';
+      draw(tl.t());
+    };
+    seg(F.ctl, [['9.8', 'Земля'], ['1.6', 'Луна']], '9.8', v => { gv = +v; upd(); });
+    F.ctl.appendChild(document.createElement('span'));
+    slider(F.ctl, { label: '\\ell', min: 0.25, max: 2, step: 0.25, value: l, unit: 'м' }, val => { l = val; upd(); }).init();
+    slider(F.ctl, { label: 'm', min: 0.1, max: 1, step: 0.1, value: m, unit: 'кг' }, val => { m = val; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
