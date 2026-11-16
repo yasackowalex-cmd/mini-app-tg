@@ -24,6 +24,8 @@
 //     балл учителя, максимум]], в teacher — p2: {tg_id: [...]} (без таблицы part2, миграция 008, — null).
 //   action "student_set" (учитель), tg_id, last_name, first_name, grade — исправить имя, фамилию и класс ученика.
 //   action "hw_create" принимает и tg_ids — ученики, которым ДЗ задано сразу (без ссылки), в ответе assigned — сколько;
+//     им бот присылает сообщение с кнопкой «Открыть ДЗ» (t.me/<бот>?startapp=hw_<код>), notified — скольким дошло
+//     (бот может писать только тем, кто его запускал и не заблокировал);
 //   action "my_group" (учитель), tg_id, grp — группа ученика (миграция 010), в teacher — groups: {tg_id: группа};
 //   action "report", task_id, text, answer — ученик сообщает об ошибке в задаче (не больше 20 за сутки);
 //     "report_resolve" (учитель), id, on — отметить исправленным; в teacher — reports (без таблицы reports, миграция 009, — null).
@@ -121,7 +123,9 @@ async function pages(make: () => any, max = 200000): Promise<{ data: any[] | nul
 }
 
 // teachers — Telegram id учителей из секрета TEACHER_IDS (через запятую); secret — BOT_TOKEN, ключ для кодов ссылок.
-export async function route(body: any, user: TgUser, db: any, teachers: number[] = [], secret = ''): Promise<[number, unknown]> {
+// send — отправка сообщения от бота (в тестах её нет: тогда уведомлений о ДЗ не шлём).
+export type Send = (id: number, text: string, button: { text: string; url?: string; web_app?: { url: string } }) => Promise<boolean>;
+export async function route(body: any, user: TgUser, db: any, teachers: number[] = [], secret = '', send?: Send): Promise<[number, unknown]> {
   const action = body.action || 'login';
   const isTeacher = teachers.includes(user.id);
 
@@ -298,6 +302,13 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
         if (e3) return [500, { ok: false, error: 'db' }];
       }
       assigned = rows.length;
+      // уведомление в боте с кнопкой, которая открывает это ДЗ; notified — сколько сообщений дошло
+      if (send && rows.length) {
+        const text = `📚 Новое домашнее задание: «${title}», задач: ${task_ids.length}.`;
+        const btn = { text: 'Открыть ДЗ', url: `https://t.me/${BOT}?startapp=hw_${id}` };
+        const notified = await sendAll(rows.map((r: any) => r.tg_id), to => send(to, text, btn));
+        return [200, { ok: true, hw: { id, title, task_ids }, assigned, notified }];
+      }
     }
     return [200, { ok: true, hw: { id, title, task_ids }, assigned }];
   }
@@ -664,6 +675,7 @@ export function streakOf(days: number[], today: number): { cur: number; today: b
 }
 const daysWord = (n: number) => n % 10 === 1 && n % 100 !== 11 ? 'день' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'дня' : 'дней';
 const APP_URL = ORIGIN + '/mini-app-tg/';
+const BOT = 'physics_is_phun_bot';
 // send(tg_id, текст) отправляет сообщение от бота; возвращает число отправленных
 export async function remind(db: any, teachers: number[], send: (id: number, text: string) => Promise<boolean>, now = Date.now() / 1000): Promise<[number, unknown]> {
   const { data: us, error } = await db.from('users').select('tg_id, remind').limit(5000);
@@ -688,6 +700,24 @@ export async function remind(db: any, teachers: number[], send: (id: number, tex
   }
   return [200, { ok: true, due, sent }];
 }
+
+// Рассылка пачками по 20 (Телеграм пропускает около 30 сообщений в секунду); ответ — сколько сообщений дошло.
+export async function sendAll(ids: number[], one: (id: number) => Promise<boolean>): Promise<number> {
+  let ok = 0;
+  for (let i = 0; i < ids.length; i += 20) {
+    const res = await Promise.all(ids.slice(i, i + 20).map(id => one(id).catch(() => false)));
+    ok += res.filter(Boolean).length;
+    if (i + 20 < ids.length) await new Promise(r => setTimeout(r, 1000));
+  }
+  return ok;
+}
+
+// Сообщение от бота с одной кнопкой под ним. Кто не запускал бота или заблокировал его, Телеграм отвечает 403 — тогда false.
+const botSend = (token: string): Send => (id, text, button) => !token ? Promise.resolve(false) :
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: id, text, reply_markup: { inline_keyboard: [[button]] } }),
+  }).then(r => r.ok).catch(() => false);
 
 // Ученик становится «своим» для учителя. Повторная запись ничего не меняет (источник остаётся первым).
 async function addMine(db: any, teacher_id: number, tg_id: number, source: string): Promise<boolean> {
@@ -716,10 +746,8 @@ if (D) D.serve(async (req: Request) => {
     const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
     const teachers = String(D.env.get('TEACHER_IDS') ?? '').split(',').map(Number).filter(Boolean);
     // кнопка под сообщением открывает приложение; кто не запускал бота или заблокировал его — пропускаем
-    const send = (id: number, text: string) => fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: id, text, reply_markup: { inline_keyboard: [[{ text: 'Решить задачу', web_app: { url: APP_URL } }]] } }),
-    }).then(r => r.ok).catch(() => false);
+    const bs = botSend(token);
+    const send = (id: number, text: string) => bs(id, text, { text: 'Решить задачу', web_app: { url: APP_URL } });
     const [status, res] = await remind(db, teachers, send);
     return json(res, status);
   }
@@ -729,6 +757,6 @@ if (D) D.serve(async (req: Request) => {
   const { createClient } = await import('npm:@supabase/supabase-js@2');
   const db = createClient(D.env.get('SUPABASE_URL')!, D.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
   const teachers = String(D.env.get('TEACHER_IDS') ?? '').split(',').map(Number).filter(Boolean);
-  const [status, res] = await route(body, user, db, teachers, D.env.get('BOT_TOKEN') ?? '');
+  const [status, res] = await route(body, user, db, teachers, D.env.get('BOT_TOKEN') ?? '', botSend(D.env.get('BOT_TOKEN') ?? ''));
   return json(res, status);
 });
