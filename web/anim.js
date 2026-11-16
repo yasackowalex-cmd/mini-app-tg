@@ -1067,6 +1067,74 @@
     handle.addEventListener('pointercancel', () => { on = false; });
   }
 
+  // ---- 3.2.1: линии поля полосового магнита и магнитная стрелка, которую можно перетаскивать ----
+  function magnet(el) {
+    const W = 340, H = 230, MX = 170, MY = 115, ML = 130, MH = 30;
+    const F = frame(el, [['an-g', W, H, 'Линии магнитного поля полосового магнита и магнитная стрелка']], false);
+    const [g] = F.svgs;
+    svg('rect', { width: W, height: H, fill: '#fff' }, g);
+    const lines = svg('g', {}, g);
+    const mag = svg('g', {}, g);
+    const cp = svg('g', {}, g);
+    svg('circle', { r: 15, fill: '#fff', stroke: C.muted, 'stroke-width': 1.2 }, cp);
+    const needle = svg('g', {}, cp);
+    svg('path', { d: 'M0 -3.8L13 0L0 3.8z', fill: C.blue }, needle);
+    svg('path', { d: 'M0 -3.8L-13 0L0 3.8z', fill: '#fff', stroke: C.muted, 'stroke-width': 1 }, needle);
+    svg('circle', { r: 1.8, fill: C.dark }, cp);
+    const hit = svg('circle', { r: 24, fill: 'transparent' }, cp);
+    let nRight = true, P = { x: 250, y: 50 };
+    const poles = () => nRight ? [[MX + ML / 2 - 10, 1], [MX - ML / 2 + 10, -1]] : [[MX - ML / 2 + 10, 1], [MX + ML / 2 - 10, -1]];
+    const B = (x, y) => { let bx = 0, by = 0; poles().forEach(([px, q]) => { const dx = x - px, dy = y - MY, r3 = Math.hypot(dx, dy) ** 3 || 1; bx += q * dx / r3; by += q * dy / r3; }); return [bx, by]; };
+    function draw() {
+      mag.innerHTML = ''; lines.innerHTML = '';
+      const [[nx], [sx]] = poles();
+      // магнит: северная половина голубая с буквой N
+      [[nx, 'N', '#BFD9FF'], [sx, 'S', '#fff']].forEach(([px, l, col]) => {
+        const x0 = px > MX ? MX : MX - ML / 2;
+        svg('rect', { x: x0, y: MY - MH / 2, width: ML / 2, height: MH, fill: col }, mag);
+        text(mag, x0 + ML / 4, MY + 5, l, 'an-lb', 'middle', C.dark);
+      });
+      svg('rect', { x: MX - ML / 2, y: MY - MH / 2, width: ML, height: MH, fill: 'none', stroke: C.dark, 'stroke-width': 1.3 }, mag);
+      // линии выходят из N и входят в S; те, что уходят за рисунок, дорисовываем от S назад — картина симметрична
+      const trace = (px, sgn, k) => {
+        const a = (px > MX ? 0 : Math.PI) + (px > MX ? 1 : -1) * k * 0.28;
+        let x = px + 11 * Math.cos(a), y = MY + 11 * Math.sin(a), d = `M${x} ${y}`, pts = [], closed = false;
+        for (let i = 0; i < 900; i++) {
+          const [bx, by] = B(x, y), m = Math.hypot(bx, by) || 1;
+          x += sgn * 2 * bx / m; y += sgn * 2 * by / m; d += `L${x.toFixed(1)} ${y.toFixed(1)}`; pts.push([x, y, bx / m, by / m]);
+          const other = sgn > 0 ? sx : nx;
+          if (Math.hypot(x - other, y - MY) < 9) { closed = true; break; }
+          if (y < -10 || y > H + 10 || x < -10 || x > W + 10) break;
+        }
+        if (sgn < 0 && closed) return;   // эта линия уже нарисована от N
+        svg('path', { d, fill: 'none', stroke: C.blue, 'stroke-opacity': .4, 'stroke-width': 1.2 }, lines);
+        // стрелка на линии — в её видимой части, примерно посередине
+        const vis = pts.filter(([qx, qy]) => qx > 8 && qx < W - 8 && qy > 8 && qy < H - 8 && !(Math.abs(qx - MX) < ML / 2 + 4 && Math.abs(qy - MY) < MH / 2 + 4));
+        if (vis.length > 10) { const [mx, my, ux, uy] = vis[Math.floor(vis.length / 2)]; svg('path', { d: arrowD(mx - ux * 5, my - uy * 5, mx + ux * 2, my + uy * 2), ...ARROW, stroke: C.blue }, lines); }
+      };
+      for (let k = -5; k <= 5; k++) { trace(nx, 1, k); trace(sx, -1, k); }
+      moveCp();
+    }
+    function moveCp() {
+      const [bx, by] = B(P.x, P.y);
+      cp.setAttribute('transform', `translate(${P.x} ${P.y})`);
+      needle.setAttribute('transform', `rotate(${Math.atan2(by, bx) * 180 / Math.PI})`);
+    }
+    draggable(g, hit, (x, y) => {
+      const nx = Math.max(16, Math.min(W - 16, x)), ny = Math.max(16, Math.min(H - 16, y));
+      if (Math.abs(nx - MX) < ML / 2 + 16 && Math.abs(ny - MY) < MH / 2 + 16) return;   // на магнит не кладём
+      P = { x: nx, y: ny }; moveCp();
+    });
+    seg(F.ctl, [['r', 'N справа'], ['l', 'N слева']], 'r', v => { nRight = v === 'r'; draw(); });
+    // легенда — сама стрелка с подписями полюсов
+    F.now.innerHTML = `<svg viewBox="0 0 96 22" width="96" height="22" aria-label="магнитная стрелка: синий конец — N, белый — S">
+      <text x="6" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">S</text>
+      <path d="M48 6L18 11L48 16z" fill="#fff" stroke="${C.muted}"/><path d="M48 6L78 11L48 16z" fill="${C.blue}"/>
+      <circle cx="48" cy="11" r="1.8" fill="${C.dark}"/>
+      <text x="90" y="15" class="an-lb" text-anchor="middle" fill="${C.dark}">N</text></svg>`;
+    draw();
+  }
+
   // ---- 3.1.1: поле двух зарядов. Силовые линии, пробная точка с E₁, E₂ и E = E₁ + E₂ ----
   function field(el) {
     const W = 340, H = 230, Q = [{ x: 105, y: 115 }, { x: 235, y: 115 }];
@@ -1555,7 +1623,7 @@
     autoplay(el, tl, F.btn);
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo };
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo, magnet };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
