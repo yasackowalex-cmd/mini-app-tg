@@ -1733,7 +1733,253 @@
     autoplay(el, tl, F.btn);
   }
 
-  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo, magnet, solenoid };
+  // ======== Анимации уроков ОГЭ ========
+  // точки, бегущие по ломаной (ток в проводах): pathDots(svg, [[x,y],…], n) → (ds) сдвигает точки на ds пикселей
+  function pathDots(parent, pts, n, color = C.orange) {
+    const seg_ = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1])), total = seg_.reduce((a, b) => a + b, 0);
+    const at = s => { s = ((s % total) + total) % total; for (let i = 0; i < seg_.length; i++) { if (s <= seg_[i]) { const f = s / (seg_[i] || 1); return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f]; } s -= seg_[i]; } return pts[0]; };
+    const dots = Array.from({ length: n }, (_, i) => ({ s: i * total / n, c: svg('circle', { r: 2.6, fill: color }, parent) }));
+    const move = ds => dots.forEach(d => { d.s += ds; const [x, y] = at(d.s); set(d.c, { cx: x, cy: y }); });
+    move(0);
+    return move;
+  }
+  // источник тока на схеме: длинная тонкая пластина «+», короткая толстая «−» (вертикальный провод x, середина y)
+  function battery(parent, x, y, label) {
+    svg('rect', { x: x - 14, y: y - 10, width: 28, height: 20, fill: '#fff' }, parent);
+    svg('line', { x1: x - 14, x2: x + 14, y1: y - 5, y2: y - 5, stroke: C.dark, 'stroke-width': 1.6 }, parent);
+    svg('line', { x1: x - 7, x2: x + 7, y1: y + 6, y2: y + 6, stroke: C.dark, 'stroke-width': 4 }, parent);
+    text(parent, x + 18, y - 3, '+', 'an-lb', 'start', C.dark);
+    if (label) text(parent, x - 18, y + 5, label, 'an-ax', 'end');
+  }
+  const meterAt = (parent, x, y, s) => { svg('circle', { cx: x, cy: y, r: 13, fill: '#fff', stroke: C.dark, 'stroke-width': 1.6 }, parent); text(parent, x, y + 5, s, 'an-lb', 'middle', C.dark); };
+  const resistorAt = (parent, x, y, w = 44) => svg('rect', { x: x - w / 2, y: y - 7, width: w, height: 14, fill: '#fff', stroke: C.dark, 'stroke-width': 1.6 }, parent);
+
+  // ---- ОГЭ 2.2: график нагревания льда: нагревание льда, плавление, нагревание воды, кипение ----
+  function heat(el) {
+    const CL = 2100, CW = 4200, LAM = 3.4e5, LV = 2.3e6, T0 = -20;
+    const F = frame(el, [['an-car', 340, 130, 'Сосуд со льдом на нагревателе и термометр'], ['an-g', 340, 200, 'График зависимости температуры от времени']]);
+    const [sc, g] = F.svgs;
+    // сосуд, нагреватель, термометр
+    const BX = 110, BW = 110, BT = 14, BB = 104;
+    svg('rect', { x: BX - 8, y: BB + 4, width: BW + 16, height: 10, rx: 3, fill: C.orange }, sc);
+    const water = svg('rect', { x: BX + 2, width: BW - 4, fill: C.blue, 'fill-opacity': .25 }, sc);
+    const ice = svg('g', {}, sc), bub = svg('g', {}, sc), steam = svg('g', {}, sc);
+    svg('path', { d: `M${BX} ${BT}V${BB}H${BX + BW}V${BT}`, fill: 'none', stroke: C.dark, 'stroke-width': 2 }, sc);
+    const TX = 268, TT = 12, TB = 104;
+    svg('rect', { x: TX - 5, y: TT, width: 10, height: TB - TT, rx: 5, fill: '#fff', stroke: C.dark, 'stroke-width': 1.3 }, sc);
+    svg('circle', { cx: TX, cy: TB + 6, r: 8, fill: C.orange }, sc);
+    const merc = svg('rect', { x: TX - 2.5, width: 5, fill: C.orange }, sc);
+    const tT = text(sc, TX + 14, 60, '', 'an-lb', 'start', C.dark);
+    const A = axes(g, { L: 40, R: 326, T: 12, B: 178 }, { xl: 'τ, мин', yl: 't, °C' });
+    A.set([0, 40, 2.5, 5], [-30, 120, 10, 20]);
+    const full = svg('path', { fill: 'none', stroke: C.blue, 'stroke-opacity': .25, 'stroke-width': 2.4 }, A.dyn);
+    const done = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.6 }, A.dyn);
+    const pt = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    const phT = [0, 1, 2, 3].map(() => text(A.top, 0, 0, '', 'an-tk', 'middle', C.muted));
+    let m = 1, P = 2;   // кг, кВт
+    let Q = [], tb = [];
+    const calc = () => {
+      Q = [0, CL * m * (0 - T0), LAM * m, CW * m * 100, LV * m];
+      let s = 0; tb = Q.map(q => (s += q) / (P * 1000) / 60);   // границы участков, мин
+    };
+    const Tof = t => t <= tb[1] ? T0 + (t / tb[1]) * (0 - T0) : t <= tb[2] ? 0 : t <= tb[3] ? 100 * (t - tb[2]) / (tb[3] - tb[2]) : 100;
+    const phase = t => t < tb[1] ? 0 : t < tb[2] ? 1 : t < tb[3] ? 2 : 3;
+    const curveTo = t => { let d = `M${A.X(0)} ${A.Y(T0)}`; for (let i = 1; i <= 4; i++) { const ti = Math.min(t, tb[i]); d += `L${A.X(ti)} ${A.Y(Tof(ti))}`; if (t <= tb[i]) break; } return d; };
+    const names = ['нагревание льда', 'плавление', 'нагревание воды', 'кипение'];
+    function draw(t) {
+      t = Math.min(t, tb[4]);
+      const T = Tof(t), ph = phase(t);
+      done.setAttribute('d', curveTo(t)); set(pt, { cx: A.X(t), cy: A.Y(T) });
+      // что в сосуде: доля льда, уровень воды (при кипении вода выкипает)
+      const iceF = ph === 0 ? 1 : ph === 1 ? 1 - (t - tb[1]) / (tb[2] - tb[1]) : 0;
+      const evap = ph === 3 ? (t - tb[3]) / (tb[4] - tb[3]) : 0;
+      const lvl = (ph === 0 ? 0 : (1 - iceF) * 70) * (1 - evap * 0.8);
+      set(water, { y: BB - lvl, height: lvl });
+      ice.textContent = '';
+      const nIce = Math.round(iceF * 8);
+      for (let i = 0; i < nIce; i++) svg('rect', { x: BX + 8 + (i % 4) * 25, y: BB - 22 - Math.floor(i / 4) * 22 - (ph === 1 ? lvl * 0.3 : 0), width: 20, height: 18, rx: 3, fill: '#DDEBFF', stroke: C.blue, 'stroke-width': 1.2 }, ice);
+      bub.textContent = ''; steam.textContent = '';
+      if (ph === 3 && lvl > 6) for (let i = 0; i < 7; i++) { const k = (t * 3 + i * 0.37) % 1; svg('circle', { cx: BX + 14 + i * 13, cy: BB - 3 - k * (lvl - 6), r: 2.5, fill: '#fff', stroke: C.blue, 'stroke-width': 1 }, bub); }
+      if (ph === 3) for (let i = 0; i < 4; i++) { const k = (t * 1.5 + i * 0.25) % 1; svg('circle', { cx: BX + 25 + i * 20 + 6 * Math.sin(k * 6), cy: BT - k * 14 + 6, r: 4 + k * 3, fill: C.muted, 'fill-opacity': .25 * (1 - k) }, steam); }
+      const h = (T + 30) / 150 * (TB - TT);
+      set(merc, { y: TB - h, height: h + 4 });
+      tT.textContent = `${fmt(T, 0)} °C`;
+      const eq = [`Q_1=c_{\\text{л}}m\\Delta t=${tx(Q[1] / 1000, 0)}~\\text{кДж}`, `Q_2=\\lambda m=${tx(Q[2] / 1000, 0)}~\\text{кДж}`,
+        `Q_3=c_{\\text{в}}m\\Delta t=${tx(Q[3] / 1000, 0)}~\\text{кДж}`, `Q_4=Lm=${tx(Q[4] / 1000, 0)}~\\text{кДж}`][ph];
+      F.f.innerHTML = math(eq);
+      F.now.innerHTML = `<b class="${ph === 1 || ph === 3 ? 'an-eq' : 'an-up'}">${names[ph]}</b>` + (ph === 1 || ph === 3 ? ': температура не меняется' : '');
+    }
+    const upd = () => {
+      calc();
+      let d = `M${A.X(0)} ${A.Y(T0)}`; for (let i = 1; i <= 4; i++) d += `L${A.X(tb[i])} ${A.Y(Tof(tb[i]))}`;
+      full.setAttribute('d', d);
+      // подписи участков 1–4 над графиком
+      phT.forEach((tt, i) => { const xm = (tb[i] + tb[i + 1]) / 2, ym = Tof(xm); set(tt, { x: A.X(Math.min(xm, 39)), y: A.Y(ym) - 8 }).textContent = A.X(tb[i + 1]) - A.X(tb[i]) > 10 ? String(i + 1) : ''; });
+      draw(tl.t());
+    };
+    const tl = timeline(F.btn, () => tb[4], 4, draw);
+    slider(F.ctl, { label: 'm', min: 0.5, max: 1, step: 0.25, value: m, unit: 'кг' }, v => { m = v; upd(); }).init();
+    slider(F.ctl, { label: 'P', min: 1.5, max: 3, step: 0.5, value: P, unit: 'кВт' }, v => { P = v; upd(); }).init();
+  }
+
+  // ---- ОГЭ 3.1.2: закон Ома для участка цепи. Напряжение U и сопротивление R, график I(U) ----
+  function ohmU(el) {
+    const F = frame(el, [['an-car', 340, 160, 'Схема: источник, амперметр, резистор и вольтметр'], ['an-g', 340, 180, 'Зависимость силы тока от напряжения']]);
+    const [sc, g] = F.svgs;
+    const L = 40, R_ = 300, T = 28, B = 108;
+    svg('path', { d: `M${L} ${T}H${R_}V${B}H${L}V${T}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, sc);
+    const dots = pathDots(sc, [[L, 60], [L, T], [R_, T], [R_, B], [L, B], [L, 80]], 18);
+    battery(sc, L, 70, 'U');
+    meterAt(sc, 170, T, 'A');
+    resistorAt(sc, 170, B);
+    text(sc, 170, B + 4, 'R', 'an-lb', 'middle', C.dark);
+    svg('path', { d: `M120 ${B}V144H157M183 144H220V${B}`, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, sc);
+    svg('circle', { cx: 120, cy: B, r: 2.5, fill: C.dark }, sc); svg('circle', { cx: 220, cy: B, r: 2.5, fill: C.dark }, sc);
+    meterAt(sc, 170, 144, 'V');
+    const aT = text(sc, 190, T - 16, '', 'an-lb', 'start', C.blue), vT = text(sc, 190, 160, '', 'an-lb', 'start', C.blue);
+    const A = axes(g, { L: 38, R: 326, T: 12, B: 160 }, { xl: 'U, В', yl: 'I, А' });
+    A.set([0, 12, 1, 2], [0, 6, 0.5, 1]);
+    const ln = svg('line', { stroke: C.blue, 'stroke-width': 2.4 }, A.dyn);
+    const pt = svg('circle', { r: 5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    let U = 6, R = 4, I = 0, last = 0;
+    const tl = timeline(F.btn, 1e9, 1, t => { const dt = t - last; last = t; dots(I * 14 * dt); }, true);
+    const upd = () => {
+      I = U / R;
+      set(ln, { x1: A.X(0), y1: A.Y(0), x2: A.X(12), y2: A.Y(12 / R) });
+      set(pt, { cx: A.X(U), cy: A.Y(I) });
+      aT.textContent = `${fmt(I, 2)} А`; vT.textContent = `${fmt(U, 1)} В`;
+      F.f.innerHTML = math(`I=\\dfrac{U}{R}=\\dfrac{${tx(U, 1)}}{${tx(R, 1)}}=${tx(I, 2)}~\\text{А}`);
+    };
+    slider(F.ctl, { label: 'U', min: 0, max: 12, step: 0.5, value: U, unit: 'В' }, v => { U = v; upd(); }).init();
+    slider(F.ctl, { label: 'R', min: 2, max: 12, step: 1, value: R, unit: 'Ом' }, v => { R = v; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  // ---- ОГЭ 3.1.3: последовательное и параллельное соединение двух резисторов, U = 12 В ----
+  function circuit(el) {
+    const U = 12;
+    const F = frame(el, [['an-car', 340, 170, 'Два резистора, соединённые последовательно или параллельно']]);
+    const [sc] = F.svgs;
+    const g = svg('g', {}, sc);
+    let par = false, R1 = 4, R2 = 2, I1 = 0, I2 = 0, I = 0, last = 0, movers = [];
+    const wire = d => svg('path', { d, fill: 'none', stroke: C.dark, 'stroke-width': 1.6 }, g);
+    const lab = (x, y, a, b, rest, col = C.dark, anchor = 'middle') => subT(text(g, x, y, '', 'an-lb', anchor, col), a, b, rest);
+    function build() {
+      g.textContent = ''; movers = [];
+      const L = 30, Rr = 310, T = 30, B = 140;
+      if (!par) {
+        wire(`M${L} ${T}H${Rr}V${B}H${L}V${T}`);
+        movers.push([pathDots(g, [[L, 72], [L, T], [Rr, T], [Rr, B], [L, B], [L, 98]], 22), () => I]);
+        resistorAt(g, 120, T); resistorAt(g, 230, T);
+        lab(120, T + 4, 'R', '1', ''); lab(230, T + 4, 'R', '2', '');
+      } else {
+        wire(`M${L} ${T}H${Rr}V${B}H${L}V${T}M100 ${T}V85H240V${T}`);
+        movers.push([pathDots(g, [[L, 72], [L, T], [100, T]], 4), () => I], [pathDots(g, [[240, T], [Rr, T], [Rr, B], [L, B], [L, 98]], 14), () => I]);
+        movers.push([pathDots(g, [[100, T], [240, T]], 6), () => I1], [pathDots(g, [[100, T], [100, 85], [240, 85], [240, T]], 10), () => I2]);
+        svg('circle', { cx: 100, cy: T, r: 2.5, fill: C.dark }, g); svg('circle', { cx: 240, cy: T, r: 2.5, fill: C.dark }, g);
+        resistorAt(g, 170, T); resistorAt(g, 170, 85);
+        lab(170, T + 4, 'R', '1', ''); lab(170, 89, 'R', '2', '');
+      }
+      battery(g, L, 85, 'U');
+      meterAt(g, 170, B, 'A');
+      g.appendChild(info);
+    }
+    const info = svg('g', {});
+    function upd() {
+      const Rt = par ? R1 * R2 / (R1 + R2) : R1 + R2;
+      I = U / Rt; I1 = par ? U / R1 : I; I2 = par ? U / R2 : I;
+      const U1 = I1 * R1, U2 = I2 * R2;
+      build();
+      info.textContent = '';
+      const put = (x, y, a, b, rest) => subT(text(info, x, y, '', 'an-tk', 'middle', C.blue), a, b, rest);
+      if (!par) { put(120, 16, 'I', '1', ` = ${fmt(I1, 2)} А, U₁ = ${fmt(U1, 1)} В`); put(230, 58, 'I', '2', ` = ${fmt(I2, 2)} А, U₂ = ${fmt(U2, 1)} В`); }
+      else { put(170, 16, 'I', '1', ` = ${fmt(I1, 2)} А, U₁ = ${fmt(U1, 1)} В`); put(170, 112, 'I', '2', ` = ${fmt(I2, 2)} А, U₂ = ${fmt(U2, 1)} В`); }
+      text(info, 192, 160, `I = ${fmt(I, 2)} А`, 'an-lb', 'start', C.blue);
+      F.f.innerHTML = par
+        ? `<span>${math(`\\dfrac{1}{R}=\\dfrac{1}{R_1}+\\dfrac{1}{R_2},\\ R=${tx(Rt, 2)}~\\text{Ом}`)}</span><span>${math(`I=I_1+I_2=${tx(I, 2)}~\\text{А},\\ U_1=U_2=U`)}</span>`
+        : `<span>${math(`R=R_1+R_2=${tx(Rt, 1)}~\\text{Ом}`)}</span><span>${math(`I=I_1=I_2=${tx(I, 2)}~\\text{А},\\ U=U_1+U_2`)}</span>`;
+      F.now.textContent = 'U = 12 В';
+    }
+    const tl = timeline(F.btn, 1e9, 1, t => { const dt = t - last; last = t; movers.forEach(([mv, cur]) => mv(cur() * 8 * dt)); }, true);
+    seg(F.ctl, [['s', 'Последовательно'], ['p', 'Параллельно']], 's', v => { par = v === 'p'; upd(); });
+    slider(F.ctl, { label: 'R_1', min: 1, max: 10, step: 1, value: R1, unit: 'Ом' }, v => { R1 = v; upd(); }).init();
+    slider(F.ctl, { label: 'R_2', min: 1, max: 10, step: 1, value: R2, unit: 'Ом' }, v => { R2 = v; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  // ---- ОГЭ 3.1.1: закон Кулона. Заряды q₁, q₂ и расстояние r; силы равны по модулю и противоположны ----
+  function coulomb(el) {
+    const W = 340, H = 110, CY = 60, PX = 40;   // PX — пикселей на сантиметр
+    const F = frame(el, [['an-g', W, H, 'Два заряда и силы их взаимодействия']], false);
+    const [g] = F.svgs;
+    svg('line', { x1: 10, x2: W - 10, y1: CY, y2: CY, stroke: C.line }, g);
+    const dim = svg('path', { fill: 'none', stroke: C.muted, 'stroke-width': 1 }, g), dimT = text(g, 0, 0, '', 'an-ax', 'middle');
+    const fa = [arrow(g, C.orange), arrow(g, C.orange)], fl = [forceLabel(g, C.orange), forceLabel(g, C.orange)];
+    const ch = [0, 1].map(() => ({ c: svg('circle', { r: 14, stroke: '#fff', 'stroke-width': 2 }, g), t: text(g, 0, 0, '', 'an-lb', 'middle', '#fff') }));
+    let q1 = 2, q2 = -1, r = 3;
+    const upd = () => {
+      const x1 = W / 2 - r * PX / 2, x2 = W / 2 + r * PX / 2;
+      [[q1, x1], [q2, x2]].forEach(([q, x], i) => { set(ch[i].c, { cx: x, cy: CY, fill: q > 0 ? C.orange : q < 0 ? C.blue : C.line }); set(ch[i].t, { x, y: CY + 5 }).textContent = q > 0 ? '+' : q < 0 ? '−' : '0'; });
+      const Fn = 9e9 * Math.abs(q1 * q2) * 1e-18 / (r * 1e-2) ** 2;   // Н
+      const rep = q1 * q2 > 0, len = Math.min(rep ? 100 : (x2 - x1) / 2 - 20, Fn * 1e6 * 2.5);   // 2,5 пикселя на микроньютон; при притяжении стрелки не сходятся
+      // сила на первый заряд: от второго при отталкивании, к нему при притяжении; на второй — противоположно
+      const s = rep ? -1 : 1;
+      fa[0].setAttribute('d', Fn ? arrowD(x1 + s * 14, CY, x1 + s * (len + 14), CY) : '');
+      fa[1].setAttribute('d', Fn ? arrowD(x2 - s * 14, CY, x2 - s * (len + 14), CY) : '');
+      putLabel(fl[0], x1 + s * (len / 2 + 14), CY - 22, 0, 0, Fn ? 'F_12' : '');
+      putLabel(fl[1], x2 - s * (len / 2 + 14), CY - 22, 0, 0, Fn ? 'F_21' : '');
+      dim.setAttribute('d', `M${x1} ${CY + 24}V${CY + 34}M${x2} ${CY + 24}V${CY + 34}M${x1} ${CY + 30}H${x2}`);
+      set(dimT, { x: W / 2, y: CY + 46 }).textContent = `r = ${fmt(r, 1)} см`;
+      F.f.innerHTML = math(`F=k\\dfrac{|q_1|\\cdot|q_2|}{r^2}=${tx(Fn * 1e6, 1)}~\\text{мкН}`);
+      F.now.innerHTML = !Fn ? 'один заряд равен нулю — силы нет' : rep ? '<b class="an-up">одноимённые — отталкиваются</b>' : '<b class="an-down">разноимённые — притягиваются</b>';
+    };
+    slider(F.ctl, { label: 'q_1', min: -4, max: 4, step: 1, value: q1, unit: 'нКл' }, v => { q1 = v; upd(); }).init();
+    slider(F.ctl, { label: 'q_2', min: -4, max: 4, step: 1, value: q2, unit: 'нКл' }, v => { q2 = v; upd(); }).init();
+    slider(F.ctl, { label: 'r', min: 1, max: 6, step: 0.5, value: r, unit: 'см' }, v => { r = v; upd(); }).init();
+  }
+
+  // ---- ОГЭ 4.3: радиоактивный распад, 100 ядер; за период полураспада распадается половина ----
+  function decay(el) {
+    const N0 = 100, TM = 12;
+    const F = frame(el, [['an-car', 340, 90, 'Сто радиоактивных ядер'], ['an-g', 340, 180, 'Число нераспавшихся ядер от времени']]);
+    const [sc, g] = F.svgs;
+    const u = Array.from({ length: N0 }, () => Math.random());
+    const nuc = u.map((_, i) => svg('circle', { cx: 26 + (i % 20) * 15, cy: 14 + Math.floor(i / 20) * 15, r: 5.5 }, sc));
+    const A = axes(g, { L: 38, R: 326, T: 12, B: 160 }, { xl: 't, сут', yl: 'N' });
+    A.set([0, TM, 1, 2], [0, 100, 12.5, 25]);
+    const guide = svg('path', { fill: 'none', stroke: C.muted, 'stroke-dasharray': '3 3' }, A.dyn);
+    const curve = svg('path', { fill: 'none', stroke: C.blue, 'stroke-width': 2.4 }, A.dyn);
+    const real = svg('path', { fill: 'none', stroke: C.orange, 'stroke-width': 1.6 }, A.dyn);
+    const pt = svg('circle', { r: 4.5, fill: C.orange, stroke: '#fff', 'stroke-width': 1.5 }, A.dyn);
+    let Th = 2;
+    const tDec = () => u.map(v => -Th * Math.log2(v));   // момент распада каждого ядра
+    let td = tDec();
+    function draw(t) {
+      let n = 0, d = '';
+      td.forEach((ti, i) => { const alive = ti > t; if (alive) n++; set(nuc[i], { fill: alive ? C.orange : C.line }); });
+      // фактическое число ядер — ступеньками
+      const steps = td.filter(ti => ti <= t).sort((a, b) => a - b);
+      let cnt = N0; d = `M${A.X(0)} ${A.Y(N0)}`;
+      steps.forEach(ti => { d += `H${A.X(ti)}V${A.Y(--cnt)}`; });
+      d += `H${A.X(t)}`;
+      real.setAttribute('d', d); set(pt, { cx: A.X(t), cy: A.Y(n) });
+      F.now.innerHTML = `t = ${fmt(t, 1)} сут, осталось <b class="an-up">${n}</b> ядер из ${N0}`;
+    }
+    const tl = timeline(F.btn, TM, 1.5, draw);
+    const upd = () => {
+      td = tDec();
+      let d = ''; for (let k = 0; k <= 120; k++) { const t = TM * k / 120; d += (k ? 'L' : 'M') + A.X(t) + ' ' + A.Y(N0 * 2 ** (-t / Th)); }
+      curve.setAttribute('d', d);
+      let gd = ''; for (let k = 1; k <= 3 && k * Th <= TM; k++) { const y = N0 / 2 ** k; gd += `M${A.X(0)} ${A.Y(y)}H${A.X(k * Th)}V${A.Y(0)}`; }
+      guide.setAttribute('d', gd);
+      F.f.innerHTML = math(`N=N_0\\cdot2^{-t/T},\\quad T=${tx(Th, 1)}~\\text{сут}`);
+      draw(tl.t());
+    };
+    slider(F.ctl, { label: 'T', min: 1, max: 4, step: 0.5, value: Th, unit: 'сут' }, v => { Th = v; upd(); }).init();
+    autoplay(el, tl, F.btn);
+  }
+
+  const ANIMS = { vt, xt, meet, throw: throwA, circle, incline, spring, collide, energy, lever, buoy, osc, wave, pendulum, iso, work, cycle, field, ohm, lenz, lc, refract, lens, photo, magnet, solenoid, heat, ohmU, circuit, coulomb, decay };
   window.lessonAnims = {
     mount(root) {
       root.querySelectorAll('.lanim[data-anim]:not([data-done])').forEach(el => {
