@@ -201,9 +201,12 @@
   }
 
   // ученики ДЗ (с учётом фильтра класса) и их результат
+  const lessonOfHw = hw => (window.lessonByHw ? window.lessonByHw(hw.task_ids) : null);
   function hwRows(hw) {
     const res = data.results[hw.id] || {}, g = $('t-grade').value;
-    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: fixR(id, hw.task_ids, res[id], Date.parse(hw.created_at) / 1000) }))
+    // ДЗ, заданное из урока, считаем как ДЗ урока: по всем ответам, прогресс общий с уроком
+    const L = lessonOfHw(hw);
+    return Object.keys(res).map(id => ({ s: data.byId[id] || { tg_id: id }, r: L ? lessonResult(id, L) : fixR(id, hw.task_ids, res[id], Date.parse(hw.created_at) / 1000) }))
       .filter(x => !g || x.s.grade === g)
       .sort((a, b) => (a.s.grade || '').localeCompare(b.s.grade || '', 'ru', { numeric: true }) || name(a.s).localeCompare(name(b.s), 'ru'));
   }
@@ -495,10 +498,17 @@
   function studentWork(s) {
     const log = data.logs[s.tg_id] || [];
     const lastOf = ids => { const set = new Set(ids), e = log.find(x => set.has(x[0])); return e ? e[2] : 0; };
+    // ДЗ, заданное учителем из урока, и ДЗ этого урока — одна строка (прогресс по всем ответам, как у урока);
+    // если урок задавали несколько раз, остаётся последняя выдача
+    const seen = new Set();
     const items = data.homework.filter(hw => data.results[hw.id] && data.results[hw.id][s.tg_id])
-      .map(hw => ({ hw, title: hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: hw.task_ids, r: fixR(s.tg_id, hw.task_ids, data.results[hw.id][s.tg_id], Date.parse(hw.created_at) / 1000),
-        last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), Date.parse(hw.created_at) / 1000) }))
-      .concat((lessons || []).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
+      .map(hw => { const L = lessonOfHw(hw), at = Date.parse(hw.created_at) / 1000;
+        return { hw, L, title: L ? lessonName(L) : hw.title, sub: `ДЗ от ${day(hw.created_at)}`, ids: L ? L.hw : hw.task_ids,
+          r: L ? lessonResult(s.tg_id, L) : fixR(s.tg_id, hw.task_ids, data.results[hw.id][s.tg_id], at),
+          last: lastOf(hw.task_ids), key: Math.max(lastOf(hw.task_ids), at), at }; })
+      .sort((a, b) => b.at - a.at)
+      .filter(x => !x.L || (!seen.has(x.L.id || x.L.topic) && seen.add(x.L.id || x.L.topic)))
+      .concat((lessons || []).filter(L => !seen.has(L.id || L.topic)).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))
       .sort(byLessonOrder);
     workOf[s.tg_id] = items;
