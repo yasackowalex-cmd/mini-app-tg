@@ -1972,7 +1972,7 @@
       curve.setAttribute('d', d);
       let gd = ''; for (let k = 1; k <= 3 && k * Th <= TM; k++) { const y = N0 / 2 ** k; gd += `M${A.X(0)} ${A.Y(y)}H${A.X(k * Th)}V${A.Y(0)}`; }
       guide.setAttribute('d', gd);
-      F.f.innerHTML = math(`N=N_0\\cdot2^{-t/T},\\quad T=${tx(Th, 1)}~\\text{сут}`);
+      F.f.innerHTML = /oge-/.test(location.hash) ? `каждые ${fmt(Th, 1)} сут: 100 → 50 → 25 → 12,5` : math(`N=N_0\\cdot2^{-t/T},\\quad T=${tx(Th, 1)}~\\text{сут}`);
       draw(tl.t());
     };
     slider(F.ctl, { label: 'T', min: 1, max: 4, step: 0.5, value: Th, unit: 'сут' }, v => { Th = v; upd(); }).init();
