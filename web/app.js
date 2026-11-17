@@ -602,7 +602,8 @@
       if (now - since > HW_FRESH_DAYS * 86400) return;
       const L = window.lessonByHw ? window.lessonByHw(hw.task_ids) : null;
       const ids = L ? hw.task_ids : hw.task_ids.filter(id => byId[id]);
-      const left = ids.filter(id => !okSince(id, since));
+      // ДЗ из урока — общий прогресс с уроком: считаются все верные ответы, и до выдачи
+      const left = ids.filter(id => !okSince(id, L ? 0 : since));
       if (left.length) list.push({ ts: since, teacher: 1, title: hw.title, ids: hw.task_ids, left, total: ids.length, L });
     });
     (lessonsList || []).forEach(L => {
