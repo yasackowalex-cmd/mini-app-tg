@@ -168,6 +168,44 @@
 
   const answerHtml = t => t.answer ? texToHtml(t.answer).replace(/^<p>|<\/p>$/g, '') + (t.unit ? ' ' + t.unit : '') : 'нет в банке';
 
+  // ---- Пробники: динамика баллов (ученик в «Прогрессе» и учитель в кабинете) ----
+  // list — [{ts (unix, с), score (первичный), graded, p1, p2, v (номер варианта или 0)}], новые первыми.
+  // ЕГЭ меряем тестовым баллом (из 100), ОГЭ — первичным (из 39) с отметкой.
+  const examVal = (e, oge) => oge ? e.score : testScore(e.score);
+  const examRes = (e, oge) => oge ? `«${ogeMark(e.score)}» · ${e.score} из 39` : `${testScore(e.score)} из 100`;
+  const ddmm = ts => { const d = new Date(ts * 1000); return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`; };
+  const signed = d => d > 0 ? `+${d}` : d < 0 ? `−${-d}` : '±0';
+  function examTrend(list, oge) {
+    if (!list || !list.length) return '';
+    const last = list[0], prev = list[1];
+    const best = list.reduce((a, e) => examVal(e, oge) > examVal(a, oge) ? e : a, last);
+    const d = prev ? examVal(last, oge) - examVal(prev, oge) : 0;
+    const head = `<p class="ex-sum">Пробников: <b>${list.length}</b> · последний <b>${examRes(last, oge)}</b>${prev
+      ? ` <span class="${d > 0 ? 'okc' : d < 0 ? 'badc' : 'cnt'}">${signed(d)}</span>` : ''}${list.length > 1 ? ` · лучший <b>${examRes(best, oge)}</b>` : ''}</p>`;
+    if (list.length < 2) return head;
+    // линия по последним 12 пробникам, слева старые; горизонтали — границы отметок ОГЭ или 40/60/80 тестовых
+    const pts = list.slice(0, 12).reverse(), MAX = oge ? 39 : 100, W = 320, H = 130, L = 18, R = 24, T = 16, B = 18;
+    const x = i => L + (pts.length === 1 ? 0 : i * (W - L - R) / (pts.length - 1));
+    const y = v => T + (H - T - B) * (1 - v / MAX);
+    const lines = (oge ? [[10, '«3»'], [20, '«4»'], [30, '«5»']] : [[40, '40'], [60, '60'], [80, '80']])
+      .map(([v, t]) => `<line x1="${L}" x2="${W - R + 4}" y1="${y(v)}" y2="${y(v)}" class="g"/><text x="${W}" y="${y(v) + 4}" text-anchor="end" class="gl">${t}</text>`).join('');
+    const path = pts.map((e, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(examVal(e, oge)).toFixed(1)}`).join(' ');
+    const dots = pts.map((e, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(examVal(e, oge)).toFixed(1)}" r="3.5"/>` +
+      `<text x="${x(i).toFixed(1)}" y="${(y(examVal(e, oge)) - 7).toFixed(1)}" text-anchor="middle" class="v">${examVal(e, oge)}</text>` +
+      `<text x="${x(i).toFixed(1)}" y="${H - 3}" text-anchor="middle" class="dt">${ddmm(e.ts)}</text>`).join('');
+    return head + `<svg class="ex-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Баллы за пробники">${lines}<path d="${path}"/>${dots}</svg>`;
+  }
+  // строки истории пробников: дата, вариант, итог, части
+  const examRows = (list, oge) => `<ul class="ex-hist">${list.map(e => `<li><span>${ddmm(e.ts)}${e.v ? `, вариант ${e.v}` : ', случайный'}${e.graded === false ? ' <span class="cnt">2 часть не оценена</span>' : ''}</span>
+    <span class="cnt"><b>${examRes(e, oge)}</b>${Number.isInteger(e.p1) && Number.isInteger(e.p2) ? ` (${e.p1} + ${e.p2})` : ''}</span></li>`).join('')}</ul>`;
+
+  // номер постоянного варианта по составу задач (exams/variants*.json грузятся один раз, по требованию)
+  const variantMap = {};
+  let variantsLoad = null;
+  const loadVariants = () => variantsLoad || (variantsLoad = Promise.all(['exams/variants.json', 'exams/variants_oge.json'].map(f =>
+    fetch(f, { cache: 'no-cache' }).then(r => r.json()).then(vs => vs.forEach(v => { variantMap[v.ids.join()] = v.n; })).catch(() => {}))));
+  const variantNo = ids => (ids && variantMap[ids.join()]) || 0;
+
   // Списки задач в браузере: id в порядке добавления. Если хранилище недоступно, список живёт до перезагрузки.
   //   pick — подборка: что решаем или печатаем сейчас (печать и ДЗ);
   //   fav  — избранное ученика (звёздочка): задачи, к которым он хочет вернуться позже.
@@ -180,5 +218,6 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { loadSol, hasHint, hasSol, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
+  window.taskRender = { loadSol, hasHint, hasSol, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial,
+    examTrend, examRows, loadVariants, variantNo };
 })();

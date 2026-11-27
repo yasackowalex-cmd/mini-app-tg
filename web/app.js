@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  const { hasHint, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2 } = window.taskRender;
+  const { hasHint, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, examTrend, examRows, loadVariants, variantNo } = window.taskRender;
 
   // Экзамен, к которому готовится ученик (переключатель «ЕГЭ / ОГЭ» в шапке, решение владельца 05.11.2026):
   // банк, номера КИМ, темы и прогресс показываются только по нему. Выбор помнит браузер; ссылка с #exam=ОГЭ его ставит.
@@ -493,7 +493,7 @@
   const balls = n => n % 10 === 1 && n % 100 !== 11 ? 'балл' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'балла' : 'баллов';
 
   // p — {task_id: {n, ok}}, log — журнал ответов [[task_id, 1|0, время]] от новых к старым или null
-  // ex — экзамен (по умолчанию выбранный); кабинет учителя считает по ЕГЭ
+  // ex — экзамен (по умолчанию выбранный); кабинет учителя передаёт экзамен ученика
   function kimStats(p, log, ex) {
     ex = ex || EXAM;
     const st = {}, kimOf = {};
@@ -525,6 +525,26 @@
     });
     return st;
   }
+
+  // Пробники ученика по выбранному экзамену, новые первыми: итоги с сервера (видны с любого устройства)
+  // и история в этом браузере (exam.js). Пробник ОГЭ — 22 задания. Старая функция на сервере не отдаёт
+  // состав задач: такие итоги узнаём по истории в браузере, неузнанные считаем пробниками ЕГЭ.
+  function examHistory() {
+    const loc = k => { try { return JSON.parse(localStorage.getItem(k)) || []; } catch (e) { return []; } };
+    const known = new Map(), out = new Map();
+    [['exams', 'ЕГЭ'], ['exams_oge', 'ОГЭ']].forEach(([k, ex]) => loc(k).forEach(e => {
+      const ts = Math.floor(e.date / 1000), x = { ts, score: e.score, p1: e.p1, p2: e.score - e.p1, graded: e.graded, v: e.n || variantNo(e.ids), ex };
+      known.set(ts, x);
+      if (ex === EXAM) out.set(ts, x);
+    }));
+    (window.tgExams || []).forEach(([ts, score, graded, p1, p2, ids]) => {
+      const k = known.get(ts), ex = ids && ids.length ? (ids.length === 22 ? 'ОГЭ' : 'ЕГЭ') : k ? k.ex : 'ЕГЭ';
+      if (ex !== EXAM) return;
+      out.set(ts, { ts, score, graded, p1: p1 ?? (k && k.p1), p2: p2 ?? (k && k.p2), v: (ids && ids.length ? variantNo(ids) : 0) || (k && k.v) || 0 });
+    });
+    return [...out.values()].sort((a, b) => b.ts - a.ts);
+  }
+  let variantsAsked = false;
 
   function renderProgress() {
     const box = $('progress');
@@ -565,6 +585,11 @@
         <ul class="tlist">${topicsHtml}</ul></details>`;
     }).join('');
 
+    // номера вариантов узнаём по exams/variants*.json — после загрузки рисуем ещё раз
+    if (!variantsAsked) { variantsAsked = true; loadVariants().then(renderProgress); }
+    const exs = examHistory();
+    const exHtml = exs.length ? `<h3 class="ph">Пробники</h3>${examTrend(exs, OGE)}
+      <details class="ex-more"><summary>История (${exs.length})</summary>${examRows(exs, OGE)}</details>` : '';
     $('progress-body').innerHTML = `
       <h3 class="ph">Готовность к ${EXAM}</h3>
       <div class="total"><div class="big-num">${score} из ${KIM_MAX} / ${OGE ? `«${ogeMark(score)}»` : `${testScore(score)} из 100`}</div></div>
@@ -572,6 +597,7 @@
       <div class="cnt">Освоено номеров: <b>${done.length}</b> из ${kims.length}</div>
       <div class="kgrid">${cells}</div>
       <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
+      ${exHtml}
       <h3 class="ph">Банк задач</h3>
       <div class="cnt">Решено <b>${solved}</b> из ${bank.length} задач · ${pct(solved, bank.length)}%</div>
       ${bar(solved, bank.length)}
@@ -789,8 +815,9 @@
         }) };
     };
     // для teacher.js: готовность ученика по номерам КИМ тем же правилом, что в «Моём прогрессе»
-    window.bankStats = { kimStats: (p, log) => kimStats(p, log, 'ЕГЭ'), topics: topicsBy['ЕГЭ'], byId, KIM_MIN_SOLVED,
-      KIM_NEED: k => KIM_NEED(k, 'ЕГЭ'), KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
+    // ex — экзамен ученика ('ЕГЭ' или 'ОГЭ', у 9 класса — ОГЭ), по умолчанию ЕГЭ
+    window.bankStats = { kimStats: (p, log, ex) => kimStats(p, log, ex || 'ЕГЭ'), topics: topicsBy['ЕГЭ'], topicsBy, byId, KIM_MIN_SOLVED,
+      KIM_NEED: (k, ex) => KIM_NEED(k, ex || 'ЕГЭ'), KIM_MIN_ACC, KIM_WINDOW, KIM_STALE_DAYS };
     // для hw.js: показать задачи ДЗ списком и узнать, решена ли задача
     window.bankView = {
       show(title, ids, plain) { view = { title, ids, plain }; apply(); $('viewbar').scrollIntoView({ behavior: 'smooth' }); },
