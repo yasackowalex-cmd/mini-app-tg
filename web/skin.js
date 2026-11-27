@@ -140,7 +140,7 @@
     let win, text;
     if (a[0] === a[1] && a[1] === a[2]) { win = a[0] === star ? 300 : 50; text = a[0] === star ? 'ДЖЕКПОТ! Три звезды' : 'Три одинаковых'; }
     else if (a[0] === a[1] || a[1] === a[2] || a[0] === a[2]) { win = 10; text = 'Две одинаковых'; }
-    else { win = 4; text = 'Утешительный приз'; }
+    else { win = 0; text = 'В этот раз мимо'; }
     return { a, win, text };
   }
   const plan = () => window.todayPlan || null;
@@ -168,8 +168,8 @@
     const today = dayNow(), done = !boss() && spunToday(), res = done ? spinOf(today) : lastSpin, cases = boss() ? '∞' : casesLeft();
     const shown = res ? res.a : [5, 5, 5];
     const p = plan();
-    const line = done ? `<b class="slot-res">${res.text}: +${res.win} ✦</b><span class="slot-sub">Следующая крутка — завтра</span>`
-      : boss() ? (res ? `<b class="slot-res">${res.text}: +${res.win} ✦</b>` : '') + '<span class="slot-sub">Учителю — без ограничений</span>'
+    const line = done ? `<b class="slot-res">${res.text}${res.win ? `: +${res.win} ✦` : ''}</b><span class="slot-sub">Следующая крутка — завтра</span>`
+      : boss() ? (res ? `<b class="slot-res">${res.text}${res.win ? `: +${res.win} ✦` : ''}</b>` : '') + '<span class="slot-sub">Учителю — без ограничений</span>'
       : canSpin() ? '<span class="slot-sub">План на сегодня выполнен — можно крутить</span>'
       : `<span class="slot-sub">Крутка откроется, когда будет выполнен план на сегодня${p && p.n ? ` (${p.done} из ${p.n})` : ''}</span>`;
     el.innerHTML = `<div class="rw-head"><h3 class="ph">Награды</h3><span class="rw-wal" title="Кейсы и осколки">📦 ${cases} · ✦ ${st.sh}</span></div>
