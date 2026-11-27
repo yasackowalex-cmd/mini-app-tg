@@ -180,5 +180,26 @@
   }
   const pick = idList('pick'), fav = idList('fav');
 
-  window.taskRender = { loadSol, hasHint, hasSol, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
+  // Экзамен ДЗ (решение владельца 27.11.2026: ДЗ ОГЭ и ЕГЭ разделены): у ДЗ из урока — экзамен урока,
+  // иначе — экзамен большинства его задач в банке; null — пока не узнать (банк не загружен).
+  function hwExam(ids) {
+    const L = window.lessonByHw && window.lessonByHw(ids);
+    if (L) return L.exam || 'ЕГЭ';
+    const v = window.bankView;
+    if (!v) return null;
+    const n = examCounts(ids);
+    return n['ОГЭ'] > n['ЕГЭ'] ? 'ОГЭ' : n['ЕГЭ'] ? 'ЕГЭ' : null;
+  }
+  // сколько в подборке задач ЕГЭ и ОГЭ (задачи «оба» не считаются)
+  function examCounts(ids) {
+    const n = { 'ЕГЭ': 0, 'ОГЭ': 0 }, v = window.bankView;
+    if (v) ids.forEach(id => { const t = v.task(id); if (t && t.exam in n) n[t.exam]++; });
+    return n;
+  }
+  // метка экзамена на карточке ДЗ: ЕГЭ синяя, ОГЭ зелёная
+  const examBadge = ex => ex ? `<span class="exb ${ex === 'ОГЭ' ? 'o' : 'e'}">${ex}</span>` : '';
+  // экзамен ученика по классу из анкеты: 9 класс — ОГЭ, остальные — ЕГЭ
+  const gradeExam = g => /^\s*9(?!\d)/.test(g || '') ? 'ОГЭ' : 'ЕГЭ';
+
+  window.taskRender = { hwExam, examCounts, examBadge, gradeExam, loadSol, hasHint, hasSol, solutionHtml, conditionHtml, answerHtml, isRight, pick, fav, KIM_POINTS, testScore, OGE_POINTS, ogeMark, pointsOf, isPart2, hwStars, starsText, STARS_RULE, lessonHwResult, cleanSolved, retryAt, retryNote, RETRY_DAYS, isPartial };
 })();

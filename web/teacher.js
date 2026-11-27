@@ -20,7 +20,13 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, ogeMark, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved } = window.taskRender;
+  const { testScore, ogeMark, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved, hwExam, examBadge, gradeExam } = window.taskRender;
+  // фильтр «ЕГЭ и ОГЭ / Только ЕГЭ / Только ОГЭ» (запоминается): ученики по классу (9 — ОГЭ), ДЗ по задачам или уроку
+  const exSel = () => $('t-exam').value;
+  const lessonExam = L => L.exam || 'ЕГЭ';
+  const itemExam = x => x.L ? lessonExam(x.L) : hwExam(x.ids);
+  const exOk = ex => !exSel() || !ex || ex === exSel();
+  const exCls = ex => ex === 'ОГЭ' ? 'ex-o' : 'ex-e';
   // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
   const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
   const KIMS = Object.keys(KIM_POINTS);
@@ -344,6 +350,7 @@
       return { id: 'l' + (L.id || L.topic), L, title: lessonName(L), ids: L.hw, sub: 'ДЗ урока', rows, key: last };
     }).filter(x => x.rows.length);
     return hws.concat(les)
+      .map(x => ({ ...x, ex: itemExam(x) })).filter(x => exOk(x.ex))
       .filter(x => !q || (qs && qs.length && x.rows.length) || norm(x.title).includes(q))
       .sort(byLessonOrder);
   }
@@ -356,9 +363,9 @@
       const n = x.ids.length, full = x.rows.filter(y => y.r.ok.length === n).length;
       const avg = x.rows.length ? Math.round(x.rows.reduce((a, y) => a + pctOf(y.r.ok.length, n), 0) / x.rows.length) : 0;
       const open = openId === x.id;
-      return `<li class="t-item${open ? ' open' : ''}" data-id="${esc(x.id)}">
+      return `<li class="t-item ${exCls(x.ex)}${open ? ' open' : ''}" data-id="${esc(x.id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
-          <span class="t-title"><b>${esc(x.title)}</b> <span class="cnt">${x.sub} · задач ${n}</span></span>
+          <span class="t-title">${examBadge(x.ex)} <b>${esc(x.title)}</b> <span class="cnt">${x.sub} · задач ${n}</span></span>
           <span class="cnt">${x.hw ? 'открыли' : 'решают'} ${x.rows.length} · сделали всё ${full} · в среднем ${avg}%</span>${bar(avg)}
         </button>${open ? `<div class="t-detail">${marksTable(x.ids, x.rows, x.hw ? 'Ссылку ещё никто не открыл.' : 'Никто ещё не решал.')}${taskActions(x)}</div>` : ''}</li>`;
     }).join('')}</ul>`;
@@ -426,7 +433,8 @@
     const g = $('t-grade').value;
     // фильтр: класс ученика или группа учителя («g:<группа>»)
     const inG = s => !g || (g.startsWith('g:') ? (data.groups || {})[s.tg_id] === g.slice(2) : s.grade === g);
-    return data.students.filter(s => whoOk(s) && inG(s))
+    const inEx = s => !exSel() || !s.grade || gradeExam(s.grade) === exSel();
+    return data.students.filter(s => whoOk(s) && inG(s) && inEx(s))
       .sort((a, b) => (a.grade || '').localeCompare(b.grade || '', 'ru', { numeric: true }) || name(a).localeCompare(name(b), 'ru'));
   }
 
@@ -454,8 +462,9 @@
     const hard = cls.filter(c => c.tried).sort((a, b) => a.acc - b.acc).slice(0, 5).filter(c => c.acc < 0.8);
     const waitAll = all.reduce((a, x) => a + p2List(x.s.tg_id).filter(e => !has(e[3])).length, 0);
     const whom = g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики';
+    const whomEx = exSel() ? `${g ? whom : whom === 'Все ученики' ? 'Ученики' : whom} ${exSel()}` : whom;
     const summary = `<details class="t-sum" id="t-sum"${sumOpen ? ' open' : ''}>
-      <summary><b>Сводка: ${whom}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
+      <summary><b>Сводка: ${whomEx}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
 `
@@ -510,13 +519,14 @@
       .filter(x => !x.L || (!seen.has(x.L.id || x.L.topic) && seen.add(x.L.id || x.L.topic)))
       .concat((lessons || []).filter(L => !seen.has(L.id || L.topic)).map(L => ({ L, title: lessonName(L), sub: 'ДЗ урока', ids: L.hw, r: lessonResult(s.tg_id, L), last: lastOf(L.hw), key: lastOf(L.hw) }))
         .filter(x => touched(x.r)))
-      .sort(byLessonOrder);
+      .sort(byLessonOrder)
+      .map(x => ({ ...x, ex: itemExam(x) })).filter(x => exOk(x.ex));
     workOf[s.tg_id] = items;
     if (!items.length) return '<p class="muted small">ДЗ ещё не решал.</p>';
     const inBank = id => window.bankStats && window.bankStats.byId[id];
-    return `<ul class="t-sub t-work">${items.map(({ L, title, sub, ids, r, last }, k) => {
+    return `<ul class="t-sub t-work">${items.map(({ L, title, sub, ids, r, last, ex }, k) => {
       const n = ids.length, st = starsOf(r, n), errs = errIds(ids, r).filter(inBank);
-      return `<li><span><b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
+      return `<li class="${exCls(ex)}"><span>${examBadge(ex)} <b>${esc(title)}</b> <span class="cnt">${sub}${last ? ` · решал ${ago(last)}` : ''}</span></span>
         <span class="cnt wrap ${r.ok.length === n ? 'okc' : ''}">${st ? `<span class="stars">${starsText(st)}</span> ` : ''}решено ${r.ok.length} из ${n}${r.bad.length - (r.part || []).length ? `, не решено ${r.bad.length - (r.part || []).length}` : ''}${(r.part || []).length ? `, частично ${r.part.length}` : ''}${(r.help || []).length ? `, с подсказкой ${r.help.length}` : ''}</span>
         ${marks(ids, r)}
         <span class="hwa"><button class="btn" type="button" data-act="w-open" data-k="${k}">${L ? 'Открыть урок' : 'Открыть ДЗ'}</button>${errs.length ? `<button class="btn" type="button" data-act="w-err" data-k="${k}">Задачи с ошибками (${errs.length})</button>` : ''}</span></li>`;
@@ -632,6 +642,8 @@
     viewMode = b.dataset.view; openId = null; confirmDel = null; render();
   }));
   $('t-grade').addEventListener('change', render);
+  try { const v = localStorage.getItem('tExam'); if (v === 'ЕГЭ' || v === 'ОГЭ') $('t-exam').value = v; } catch (e) { /* по умолчанию оба */ }
+  $('t-exam').addEventListener('change', () => { try { localStorage.setItem('tExam', exSel()); } catch (e) { /* только до перезагрузки */ } openId = null; render(); });
   $('t-who').addEventListener('change', () => { who = $('t-who').value; openId = null; render(); });
   $('t-q').addEventListener('input', render);
 })();

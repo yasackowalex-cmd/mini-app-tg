@@ -630,6 +630,21 @@ body.sk-lock { overflow: hidden; }
 .fx-sp { width: 7px; height: 7px; border-radius: 50%; background: #FFD54A; box-shadow: 0 0 8px #FFD54A; }
 .fx-flash { position: absolute; inset: 0; background: var(--blue); opacity: 0; }
 .fx-bolt { font-size: 40px; font-style: normal; line-height: 1; }
+
+/* Экзамен ДЗ (ЕГЭ синий, ОГЭ зелёный): метка на карточке ДЗ, полоса слева, строка «Есть ДЗ по ОГЭ» */
+:root { --ege-c: #0066FF; --oge-c: #0E9F6E; }
+.exb { display: inline-block; font: 600 12px/1 Oswald, sans-serif; letter-spacing: .05em; padding: 3px 6px 4px; border-radius: 5px; color: #fff; vertical-align: 2px; background: var(--ege-c); }
+.exb.o { background: var(--oge-c); }
+.hwi.ex-e, .hwi.ex-o, .t-work li.ex-e, .t-work li.ex-o { border-left: 4px solid var(--ege-c); padding-left: 10px; }
+.hwi.ex-o, .t-work li.ex-o { border-left-color: var(--oge-c); }
+.t-item.ex-o > .t-head, .t-item.ex-e > .t-head { padding-left: 12px; box-shadow: inset 4px 0 0 var(--ege-c); }
+.t-item.ex-o > .t-head { box-shadow: inset 4px 0 0 var(--oge-c); }
+.hw-away { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0 0; padding: 8px 10px; border-radius: 8px; font-size: 15px;
+  background: var(--chip); }
+.hw-form .hw-ex { flex: 1 0 100%; margin: 0; color: #fff; display: flex; flex-direction: column; gap: 4px; }
+.hw-form .hw-mix { color: #FFE08A; }
+.wg-far { margin-top: 6px; }
+.wg-far > summary { cursor: pointer; }
 /* свой фон ученика (skin.js): фото под карточками, затемнение ползунком */
 html[data-bg="custom"] { --bg: #10121F; --card: #1B1E36; --line: #33375E; --dark: #0A0B16; --chip: #2C3160; }
 html[data-bg="custom"] body { background: linear-gradient(rgba(0, 0, 0, var(--photo-dim, .45)), rgba(0, 0, 0, var(--photo-dim, .45))), var(--photo, none) center / cover no-repeat fixed, var(--bg); }
