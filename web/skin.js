@@ -71,7 +71,9 @@
   // до входа через Телеграм — оформление этого устройства (только надетое), после — состояние ученика
   let st = clean({ e: ls.get('skinEq') || {} });
   let uid = null;
-  const owns = id => byId[id] && (byId[id].r < 0 || st.inv.includes(id));
+  // учитель (TEACHER_IDS): без ограничений — всё оформление открыто, автомат и кейсы сколько угодно
+  const boss = () => !!window.tgTeacher;
+  const owns = id => byId[id] && (byId[id].r < 0 || boss() || st.inv.includes(id));
   const game = () => !!(uid && window.tgApi && window.achView);
 
   // ---- оформление страницы ----
@@ -143,10 +145,10 @@
   }
   const plan = () => window.todayPlan || null;
   const spunToday = () => st.s.includes(dayNow());
-  const canSpin = () => game() && !spunToday() && !!(plan() && plan().all);
+  const canSpin = () => game() && (boss() || (!spunToday() && !!(plan() && plan().all)));
 
   // ---- кейсы ----
-  const casesLeft = () => game() ? Math.max(0, window.achView.earnedCount() - st.o) : 0;
+  const casesLeft = () => !game() ? 0 : boss() ? 99 : Math.max(0, window.achView.earnedCount() - st.o);
   function caseOf(n) {
     const r = rng(uid + ':case:' + n), rar = pickRar(r()), pool = PAID.filter(x => x.r === rar);
     return pool[Math.floor(r() * pool.length)];
@@ -163,10 +165,11 @@
     if (!game() || !window.tgLog) { el.hidden = true; return; }
     el.hidden = false;
     if (spinning) return;
-    const today = dayNow(), done = spunToday(), res = done ? spinOf(today) : lastSpin, cases = casesLeft();
+    const today = dayNow(), done = !boss() && spunToday(), res = done ? spinOf(today) : lastSpin, cases = boss() ? '∞' : casesLeft();
     const shown = res ? res.a : [5, 5, 5];
     const p = plan();
     const line = done ? `<b class="slot-res">${res.text}: +${res.win} ✦</b><span class="slot-sub">Следующая крутка — завтра</span>`
+      : boss() ? (res ? `<b class="slot-res">${res.text}: +${res.win} ✦</b>` : '') + '<span class="slot-sub">Учителю — без ограничений</span>'
       : canSpin() ? '<span class="slot-sub">План на сегодня выполнен — можно крутить</span>'
       : `<span class="slot-sub">Крутка откроется, когда будет выполнен план на сегодня${p && p.n ? ` (${p.done} из ${p.n})` : ''}</span>`;
     el.innerHTML = `<div class="rw-head"><h3 class="ph">Награды</h3><span class="rw-wal" title="Кейсы и осколки">📦 ${cases} · ✦ ${st.sh}</span></div>
@@ -174,16 +177,17 @@
         <div class="slot-line">${line}</div>
         ${canSpin() ? '<button type="button" class="btn slot-go" data-rw="spin">Крутить</button>' : ''}</div>
       <div class="rw-case"><span class="rw-box">📦</span><span class="rw-ct"><b>Кейсы за достижения: ${cases}</b><small class="muted">Кейс — за каждую новую ступень достижения</small></span>
-        <button type="button" class="btn solid" data-rw="case"${cases ? '' : ' disabled'}>Открыть</button></div>
+        <button type="button" class="btn solid" data-rw="case"${casesLeft() ? '' : ' disabled'}>Открыть</button></div>
       <button type="button" class="btn rw-skin" data-rw="skin">🎨 Оформление <small>${owned()} из ${ITEMS.length}</small></button>`;
   }
   const owned = () => ITEMS.filter(x => owns(x.id)).length;
 
   function spin() {
     if (!canSpin() || spinning) return;
-    const today = dayNow(), res = spinOf(today);
+    const today = dayNow(), res = boss() ? spinOf('t' + Date.now()) : spinOf(today);
     spinning = true;
-    st.s.push(today); st.s = st.s.slice(-400); st.sh += res.win; lastSpin = res;
+    if (!boss()) { st.s.push(today); st.s = st.s.slice(-400); }
+    st.sh += res.win; lastSpin = res;
     save();
     const el = $('rewards');
     const go = el.querySelector('[data-rw="spin"]'); if (go) go.remove();
