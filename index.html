@@ -8,8 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=13f7067e">
+<link rel="stylesheet" href="web/style.css?v=715575cb">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="web/skin.js?v=7b3c1a56"></script>
 </head>
 <body>
 <header class="top">
@@ -20,6 +21,7 @@
       <h1>Банк задач <span id="exam-title">ЕГЭ</span> по физике</h1>
       <p id="hello" class="hello" hidden></p>
     </div>
+    <button id="skin-open" class="skin-open" type="button" aria-label="Оформление" title="Оформление">🎨</button>
     <div id="exam-switch" class="exam-switch" role="group" aria-label="Экзамен">
       <button type="button" data-exam="ЕГЭ" aria-pressed="true">ЕГЭ</button>
       <button type="button" data-exam="ОГЭ" aria-pressed="false">ОГЭ</button>
@@ -73,6 +75,7 @@
   <div id="progress-area" hidden>
   <section id="streak" class="streak" hidden aria-label="Серия дней"></section>
   <section id="quests" class="today quests" hidden aria-label="Задания недели"></section>
+  <section id="rewards" class="today rewards" hidden aria-label="Награды"></section>
   <details id="progress" class="progress" open hidden>
     <summary>Мой прогресс</summary>
     <div id="progress-body"></div>
@@ -140,11 +143,11 @@
 <!-- анимации уроков: lesson.js подгружает web/anim.js, только когда они есть в уроке (адрес с хешем ставит build_bank.py) -->
 <template id="anim-src"><script src="web/anim.js?v=e526f823"></script></template>
 <script src="web/lesson.js?v=1c880bfa"></script>
-<script src="web/app.js?v=3f64494c"></script>
-<script src="web/ach.js?v=3a75f14c"></script>
+<script src="web/app.js?v=a919a3ea"></script>
+<script src="web/ach.js?v=6f40f4bf"></script>
 <script src="web/hw.js?v=049ecc19"></script>
 <script src="web/teacher.js?v=d7e80e44"></script>
-<script defer src="web/tg.js?v=0610a0e1"></script>
+<script defer src="web/tg.js?v=518ce852"></script>
 <div id="ach-toast" class="ach-toast" role="status" hidden></div>
 </body>
 </html>
