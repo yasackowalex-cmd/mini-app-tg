@@ -227,6 +227,7 @@
       f.elements.a.classList.toggle('ok', ok);
       f.elements.a.classList.toggle('bad', !ok);
       saveAttempt(t, v, ok);
+      if (ok && window.skinFx) window.skinFx(out);   // эффект верного ответа из оформления ученика (skin.js)
       markCard(el, t);
       showGrade(el);
     });
@@ -661,6 +662,10 @@
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;
+    // для skin.js: крутка «Автомата дня» открывается, когда план выполнен (и остаётся, если потом взяли «Ещё 5 задач»)
+    if (all && !plan.full) { plan.full = true; planStore.set(plan); }
+    window.todayPlan = { done, n, all: !!(all || plan.full) };
+    document.dispatchEvent(new CustomEvent('today-plan'));
     box.innerHTML = `${window.achView ? window.achView.miniStreak() : ''}<h3 class="ph">План на сегодня</h3>${n ? `
       <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
         ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>

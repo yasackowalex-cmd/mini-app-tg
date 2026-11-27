@@ -346,8 +346,8 @@
   function rateHtml() {
     if (!rating || rating.fail) return '<p class="muted small">Рейтинг пока недоступен. Попробуйте позже.</p>';
     const rows = rating[rt] || [], unit = rt === 'week' ? n => tasksN(n).replace('задачу', 'задача') : n => `${n} ${plural(n, 'достижение', 'достижения', 'достижений')}`;
-    const me = rows.find(r => r[3]);
-    const list = rows.length ? `<ol class="rt">${rows.map((r, i) => `${i && r[0] - rows[i - 1][0] > 1 && i === rows.length - 1 && r[3] ? '<li class="gap">…</li>' : ''}<li class="${r[3] ? 'me' : ''}"><span class="pl">${r[0]}</span><span class="nk">${esc(r[1])}${r[3] ? ' (вы)' : ''}</span><span class="v">${unit(r[2])}</span></li>`).join('')}</ol>`
+    const me = rows.find(r => r[3]), sv = window.skinView;   // значок и рамка ника — оформление ученика (skin.js)
+    const list = rows.length ? `<ol class="rt">${rows.map((r, i) => `${i && r[0] - rows[i - 1][0] > 1 && i === rows.length - 1 && r[3] ? '<li class="gap">…</li>' : ''}<li class="${r[3] ? 'me' : ''}"><span class="pl">${r[0]}</span><span class="nk ${sv ? sv.frame(r[5]) : ''}">${sv && sv.badge(r[4]) ? `<i class="rb">${sv.badge(r[4])}</i>` : ''}${esc(r[1])}${r[3] ? ' (вы)' : ''}</span><span class="v">${unit(r[2])}</span></li>`).join('')}</ol>`
       : `<p class="muted small">${rt === 'week' ? 'За эту неделю ещё никто не решал задачи.' : 'Достижений пока ни у кого нет.'}</p>`;
     const meLine = me ? '' : `<p class="small">${rt === 'week' ? 'Решите задачу, чтобы попасть в рейтинг недели.' : 'Получите первое достижение, чтобы попасть в рейтинг.'}</p>`;
     const rule = rt === 'week' ? 'За неделю — разные задачи, решённые верно за последние 7 дней.' : 'За всё время — число полученных ступеней достижений.';
@@ -367,5 +367,10 @@
   document.addEventListener('toggle', e => { if (e.target.id === 'ach' && e.target.open) loadRating(); }, true);
   ['tg-progress', 'tg-attempt', 'lessons-ready', 'bank-ready'].forEach(ev => document.addEventListener(ev, () => { if (window.tgLog) render(); }));
   if (window.lessonsLoad) window.lessonsLoad.then(() => { if (window.tgLog) render(); });
-  window.achView = { render, compute, streaks, history, dailyInfo, miniStreak };
+  // для skin.js: сколько ступеней получено всего (за каждую — кейс)
+  function earnedCount() {
+    if (!last && window.tgLog) last = compute();
+    return all().size;
+  }
+  window.achView = { render, compute, streaks, history, dailyInfo, miniStreak, earnedCount };
 })();
