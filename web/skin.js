@@ -34,6 +34,8 @@
     I('bg-notebook', 'bg', 'Тетрадь', 0, 'light'), I('bg-mm', 'bg', 'Миллиметровка', 1, 'light'), I('bg-midnight', 'bg', 'Полночь', 1, 'dark'),
     I('bg-formulas', 'bg', 'Формулы', 2, 'light'), I('bg-neon', 'bg', 'Неон', 2, 'dark'),
     I('bg-space', 'bg', 'Космос', 3, 'dark'), I('bg-aurora', 'bg', 'Северное сияние', 3, 'dark'),
+    // своя картинка ученика: хранится только в этом браузере (на сервер фото не уходят), см. «свой фон» ниже
+    I('bg-custom', 'bg', 'Свой фон', 3, 'dark'),
 
     I('eff-none', 'eff', 'Без эффекта', -1, '○'), I('eff-confetti', 'eff', 'Конфетти', -1, '🎉'),
     I('eff-sparks', 'eff', 'Искры', 1, '✨'), I('eff-bolt', 'eff', 'Молния', 2, '⚡'), I('eff-salute', 'eff', 'Салют', 3, '🎆'),
@@ -87,8 +89,40 @@
     root.dataset.bg = e.bg.slice(3);
     if (byId[e.bg].v === 'dark') root.dataset.dark = ''; else delete root.dataset.dark;
     root.dataset.fire = e.fire.slice(5);
+    photoApply();
     tgColors();
   }
+  // ---- свой фон: фото из галереи, уменьшенное до 1280 px, хранится только в браузере (localStorage) ----
+  const photo = { get: () => { try { return localStorage.getItem('skinPhoto') || ''; } catch (e) { return ''; } },
+    dim: () => { const d = ls.get('skinPhotoDim'); return typeof d === 'number' ? d : 0.45; } };
+  function photoApply() {
+    const u = st.e.bg === 'bg-custom' ? photo.get() : '';
+    if (u) { root.style.setProperty('--photo', `url("${u}")`); root.style.setProperty('--photo-dim', String(photo.dim())); }
+    else { root.style.removeProperty('--photo'); }
+  }
+  function photoPick() {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      const img = new Image(), url = URL.createObjectURL(f);
+      img.onload = () => {
+        const k = Math.min(1, 1280 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        let data = c.toDataURL('image/jpeg', 0.8);
+        try { localStorage.setItem('skinPhoto', data); }
+        catch (e) { data = c.toDataURL('image/jpeg', 0.55); try { localStorage.setItem('skinPhoto', data); } catch (e2) { alertBox('Картинка слишком большая, выберите другую.'); return; } }
+        st.e.bg = 'bg-custom'; apply(); save(); if ($('skin-modal') && !$('skin-modal').hidden) openSkin();
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); alertBox('Не получилось открыть картинку.'); };
+      img.src = url;
+    };
+    inp.click();
+  }
+  const alertBox = t => { const m = $('skin-modal'), p = m && m.querySelector('.sk-pmsg'); if (p) p.textContent = t; };
   // цвет шапки и фона самого Телеграма — под оформление
   function tgColors() {
     const tg = window.Telegram && window.Telegram.WebApp;
@@ -230,6 +264,7 @@
   // плитка предмета
   function icon(it) {
     if (it.cat === 'acc') return `<i class="sk-sw" style="background:${it.v[1] || it.v[0]}"></i>`;
+    if (it.id === 'bg-custom') { const u = photo.get(); return u ? `<i class="sk-bg" style="background:url(&quot;${u}&quot;) center/cover"></i>` : '<i class="sk-em">🖼️</i>'; }
     if (it.cat === 'bg') return `<i class="sk-bg sk-bg-${it.id.slice(3)}"></i>`;
     if (it.cat === 'frame') return `<i class="sk-fr rf-${it.id.slice(6)}">🙂</i>`;
     if (it.cat === 'fire') return `<i class="sk-em fi-${it.id.slice(5)}">${it.v}</i>`;
@@ -284,7 +319,8 @@
         if (!g) return tile(it, ' lock', 'disabled') + '<small>🔒</small></button>';
         const ask = buyAsk === it.id, enough = st.sh >= PRICE[it.r];
         return tile(it, ' lock' + (ask ? ' ask' : ''), `data-sk="buy" data-id="${it.id}"`) + `<small>${ask ? (enough ? `Забрать за ✦ ${PRICE[it.r]}?` : `Нужно ✦ ${PRICE[it.r]}`) : `✦ ${PRICE[it.r]}`}</small></button>`;
-      }).join('')}</div></div>`).join('')}
+      }).join('')}</div>${c === 'bg' && owns('bg-custom') ? `<div class="sk-photo"><button type="button" class="btn" data-sk="photo">🖼️ ${photo.get() ? 'Другое фото' : 'Выбрать фото'}</button>
+        ${photo.get() && st.e.bg === 'bg-custom' ? `<label class="small">Затемнение <input type="range" min="0" max="0.85" step="0.05" value="${photo.dim()}" data-sk-dim></label>` : ''}<span class="sk-pmsg small"></span></div>` : ''}</div>`).join('')}
       ${g ? '' : '<p class="muted small">Остальное оформление — награды за учёбу в приложении в Телеграме.</p>'}</div>`);
   }
 
@@ -301,6 +337,9 @@
     if (!b) return;
     const it = byId[b.dataset.id], k = b.dataset.sk;
     if (k === 'again') { casing = false; openCase(); return; }
+    if (k === 'photo') { photoPick(); return; }
+    // «Свой фон» без выбранного фото: сначала выбрать фото
+    if (k === 'eq' && it && it.id === 'bg-custom' && !photo.get()) { photoPick(); return; }
     if (k === 'eq' && it && owns(it.id)) {
       st.e[it.cat] = it.id; apply(); save();
       if (it.cat === 'eff' && it.id !== 'eff-none') fx(b, it.id);
@@ -313,6 +352,10 @@
       st.sh -= PRICE[it.r]; st.inv.push(it.id); st.e[it.cat] = it.id; buyAsk = null;
       apply(); save(); haptic('success'); openSkin();
     }
+  });
+  document.addEventListener('input', e => {
+    if (!e.target.matches('#skin-modal [data-sk-dim]')) return;
+    ls.set('skinPhotoDim', +e.target.value); photoApply();
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('skin-modal') && !$('skin-modal').hidden) close(); });
 
