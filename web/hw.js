@@ -127,11 +127,13 @@
       (todo.length ? `<ul class="hwl">${todo.map(x => x.html).join('')}</ul>` : `<p class="cnt">Все домашние задания ${EXAM} выполнены.</p>`) +
       (done.length ? `<details class="hw-done"${wasOpen ? ' open' : ''}><summary>Выполненные (${done.length})</summary><ul class="hwl">${done.map(x => x.html).join('')}</ul></details>` : '')) +
       (away.length ? `<p class="hw-away"><span>${examBadge(other)} Есть невыполненные ДЗ по ${other}: ${away.length}</span><button class="btn" type="button" data-act="exam" data-ex="${other}">Перейти в ${other}</button></p>` : '');
-    // открыли по ссылке на ДЗ — сразу показываем его задачи
-    if (!opened && window.tgHwOpen) {
+    // открыли по ссылке на ДЗ (или кнопкой из уведомления бота) — сразу показываем его задачи,
+    // а ДЗ, заданное из урока, — сам урок; ждём список уроков, иначе урок по ДЗ не узнать
+    if (!opened && window.tgHwOpen && window.lessonsLoaded) {
       opened = true;
-      const hw = h.mine.find(x => x.id === window.tgHwOpen);
-      if (hw) { box.open = true; v.show(hw.title, hw.task_ids); }
+      const hw = h.mine.find(x => x.id === window.tgHwOpen), L = hw && lessonOf(hw);
+      if (L) location.hash = '#lesson=' + (L.id || L.topic);
+      else if (hw) { box.open = true; v.show(hw.title, hw.task_ids); }
     }
   }
 
@@ -174,7 +176,7 @@
       pick.set([]);
       document.dispatchEvent(new CustomEvent('pick-changed'));
       // ученики отмечены — ДЗ уже у них, ссылку отправлять не нужно; иначе — окно «Поделиться» со ссылкой
-      if (who.length) { const t = tg(), m = `ДЗ задано: ${r.assigned ?? who.length} уч. Оно уже у них во вкладке «Задачи».`; if (t && t.showAlert) t.showAlert(m); }
+      if (who.length) { const t = tg(), m = `ДЗ задано: ${r.assigned ?? who.length} уч. Оно уже у них во вкладке «Задачи».${notified(r)}`; if (t && t.showAlert) t.showAlert(m); }
       else share({ ...r.hw, created_at: new Date().toISOString() });
       window.tgReloadHw();
       document.dispatchEvent(new CustomEvent('hw-changed'));
@@ -183,6 +185,12 @@
 
   // подборку меняют при открытой форме — метка экзамена и предупреждение пересчитываются
   document.addEventListener('pick-changed', () => { if (!$('hw-form').hidden) formExam(); });
+
+  // сколько учеников получили сообщение от бота о новом ДЗ (бот пишет только тем, кто его запускал)
+  const notified = r => typeof r.notified !== 'number' ? '' : r.notified >= (r.assigned || 0)
+    ? ' Бот прислал им уведомление.'
+    : ` Уведомление от бота получили ${r.notified} из ${r.assigned}: остальные не запускали бота или выключили его.`;
+  window.hwNotified = notified;
 
   window.hwShare = share;
   ['tg-hw', 'bank-ready', 'tg-progress', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, render));
