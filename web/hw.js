@@ -5,7 +5,7 @@
   'use strict';
   const BOT = 'physics_is_phun_bot';
   const $ = id => document.getElementById(id);
-  const { pick, hwStars, starsText, cleanSolved, retryNote } = window.taskRender;
+  const { pick, hwStars, starsText, cleanSolved, retryNote, hwExam, examCounts, examBadge, gradeExam } = window.taskRender;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const link = id => `https://t.me/${BOT}?startapp=hw_${id}`;
   const date = s => new Date(s).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
@@ -37,8 +37,9 @@
   }
 
   // ---- выбор учеников для ДЗ (учитель): группы целиком или по одному; используется и в уроке (lesson.js) ----
-  // picker(box) рисует список и возвращает { ids() } — выбранные Telegram id.
-  function picker(box) {
+  // picker(box, exam) рисует список и возвращает { ids() } — выбранные Telegram id.
+  // exam — экзамен ДЗ: ученики другого экзамена (по классу: 9 — ОГЭ) свёрнуты в конце списка.
+  function picker(box, exam) {
     let studs = [];
     box.innerHTML = '<p class="small">Загружаю учеников…</p>';
     (window.teacherRoster ? window.teacherRoster() : Promise.resolve(null)).then(r => {
@@ -52,11 +53,17 @@
         by.get(g).push(s);
       });
       const keys = [...by.keys()].sort((a, b) => /без группы/i.test(a) - /без группы/i.test(b) || a.localeCompare(b, 'ru', { numeric: true }));
-      box.innerHTML = `<p class="small">Кому задать (можно никого не отмечать — тогда только ссылка):</p>${keys.map((g, i) => {
+      // группа «другого экзамена»: все её ученики с классом другого экзамена
+      const away = g => !!exam && by.get(g).every(s => s.grade && gradeExam(s.grade) !== exam);
+      const grpHtml = (g, i) => {
         const list = by.get(g).sort((a, b) => a.name.localeCompare(b.name, 'ru'));
         return `<div class="wg"><label class="wgh"><input type="checkbox" data-g="${i}"> <b>${esc(g)}</b> <span class="small">(${list.length})</span></label>
-          <div class="wl">${list.map(s => `<label><input type="checkbox" data-s="${esc(s.tg_id)}" data-gi="${i}"> ${esc(s.name)}${s.grp && s.grade ? ` <span class="small">${esc(s.grade)}</span>` : ''}</label>`).join('')}</div></div>`;
-      }).join('')}${r.groups ? '' : '<p class="small">Группы появятся, когда в Supabase будет выполнен 010_groups.sql и обновлена функция.</p>'}`;
+          <div class="wl">${list.map(s => `<label><input type="checkbox" data-s="${esc(s.tg_id)}" data-gi="${i}"> ${esc(s.name)}${s.grp && s.grade ? ` <span class="small">${esc(s.grade)}</span>` : ''}${exam && s.grade && gradeExam(s.grade) !== exam ? ` ${examBadge(gradeExam(s.grade))}` : ''}</label>`).join('')}</div></div>`;
+      };
+      const here = keys.map((g, i) => [g, i]).filter(([g]) => !away(g)), far = keys.map((g, i) => [g, i]).filter(([g]) => away(g));
+      const other = exam === 'ОГЭ' ? 'ЕГЭ' : 'ОГЭ';
+      box.innerHTML = `<p class="small">Кому задать (можно никого не отмечать — тогда только ссылка):</p>${here.map(([g, i]) => grpHtml(g, i)).join('')}${
+        far.length ? `<details class="wg-far"><summary class="small">Ученики ${other} (${far.reduce((a, [g]) => a + by.get(g).length, 0)})</summary>${far.map(([g, i]) => grpHtml(g, i)).join('')}</details>` : ''}${r.groups ? '' : '<p class="small">Группы появятся, когда в Supabase будет выполнен 010_groups.sql и обновлена функция.</p>'}`;
     });
     box.onchange = e => {
       const c = e.target;
@@ -81,8 +88,9 @@
     const note = st < 3 ? retryNote(r.help, r.rv, r.since) : '';
     const done = ids.length > 0 && r.ok >= ids.length;
     const res = `${st ? `<span class="stars" title="${window.taskRender.STARS_RULE}">${starsText(st)}</span> ` : ''}решено ${r.ok} из ${ids.length}`;
-    return { done, html: `<li class="hwi" data-id="${esc(hw.id)}">
-      <div class="hwt"><b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
+    const ex = hwExam(hw.task_ids);
+    return { done, ex, html: `<li class="hwi${ex ? ` ex-${ex === 'ОГЭ' ? 'o' : 'e'}` : ''}" data-id="${esc(hw.id)}">
+      <div class="hwt">${examBadge(ex)} <b>${esc(hw.title)}</b> <span class="cnt wrap">${date(hw.created_at)} · задач ${ids.length} · ${res}</span></div>
       ${r.ok < ids.length ? `<p class="cnt">${window.taskRender.STARS_RULE}</p>` : note ? `<p class="cnt">${note}</p>` : ''}
       <div class="hwa">${L ? `<a class="btn" href="#lesson=${esc(L.id || L.topic)}">Открыть урок</a>` : '<button class="btn" type="button" data-act="open">Открыть задачи</button>'}</div>
     </li>` };
@@ -94,16 +102,31 @@
     $('hw-new').hidden = !teacher;
     const h = window.tgHw, v = window.bankView;
     if (!h || !v) return;
-    const box = $('hw');
-    // заданные учителем ДЗ живут во вкладке «Кабинет учителя» (teacher.js), здесь — только ДЗ ученика
-    box.hidden = !h.mine.length;
+    const box = $('hw'), EXAM = window.EXAM || 'ЕГЭ';
+    // открыли по ссылке ДЗ другого экзамена — открываем приложение заново по его экзамену (как ссылки на уроки)
+    if (!opened && window.tgHwOpen) {
+      const hw = h.mine.find(x => x.id === window.tgHwOpen), ex = hw && hwExam(hw.task_ids);
+      let tried = null;
+      try { tried = sessionStorage.getItem('hwExamSwitch'); } catch (e) { tried = hw && hw.id; }
+      if (ex && ex !== EXAM && tried !== hw.id && window.switchExam) {
+        try { sessionStorage.setItem('hwExamSwitch', hw.id); } catch (e) { /* без хранилища не переключаем повторно */ }
+        window.switchExam(ex);
+        return;
+      }
+    }
+    // заданные учителем ДЗ живут во вкладке «Кабинет учителя» (teacher.js), здесь — только ДЗ ученика,
+    // и только выбранного экзамена; про ДЗ другого экзамена — строка с кнопкой «Перейти»
+    const all = h.mine.map(hwItem), items = all.filter(x => !x.ex || x.ex === EXAM), away = all.filter(x => x.ex && x.ex !== EXAM && !x.done);
+    const other = EXAM === 'ОГЭ' ? 'ЕГЭ' : 'ОГЭ';
+    box.hidden = !items.length && !away.length;
     // выполненные ДЗ (решены все задачи) убираем в свёрнутый список «Выполненные», чтобы не загромождали экран
-    const items = h.mine.map(hwItem), todo = items.filter(x => !x.done), done = items.filter(x => x.done);
+    const todo = items.filter(x => !x.done), done = items.filter(x => x.done);
     const wasOpen = !!document.querySelector('#hw-body .hw-done[open]');
-    $('hw-sum').textContent = todo.length ? `Домашние задания (${todo.length})` : 'Домашние задания';
-    $('hw-body').innerHTML = !h.mine.length ? '' :
-      (todo.length ? `<ul class="hwl">${todo.map(x => x.html).join('')}</ul>` : '<p class="cnt">Все домашние задания выполнены.</p>') +
-      (done.length ? `<details class="hw-done"${wasOpen ? ' open' : ''}><summary>Выполненные (${done.length})</summary><ul class="hwl">${done.map(x => x.html).join('')}</ul></details>` : '');
+    $('hw-sum').textContent = todo.length ? `Домашние задания ${EXAM} (${todo.length})` : `Домашние задания ${EXAM}`;
+    $('hw-body').innerHTML = (!items.length ? '' :
+      (todo.length ? `<ul class="hwl">${todo.map(x => x.html).join('')}</ul>` : `<p class="cnt">Все домашние задания ${EXAM} выполнены.</p>`) +
+      (done.length ? `<details class="hw-done"${wasOpen ? ' open' : ''}><summary>Выполненные (${done.length})</summary><ul class="hwl">${done.map(x => x.html).join('')}</ul></details>` : '')) +
+      (away.length ? `<p class="hw-away"><span>${examBadge(other)} Есть невыполненные ДЗ по ${other}: ${away.length}</span><button class="btn" type="button" data-act="exam" data-ex="${other}">Перейти в ${other}</button></p>` : '');
     // открыли по ссылке на ДЗ — сразу показываем его задачи
     if (!opened && window.tgHwOpen) {
       opened = true;
@@ -115,6 +138,7 @@
   $('hw-body').addEventListener('click', e => {
     const b = e.target.closest('[data-act]');
     if (!b) return;
+    if (b.dataset.act === 'exam') { window.switchExam(b.dataset.ex); return; }
     const id = b.closest('.hwi').dataset.id;
     const hw = window.tgHw.mine.find(x => x.id === id);
     if (hw && b.dataset.act === 'open') window.bankView.show(hw.title, hw.task_ids);
@@ -124,8 +148,15 @@
   $('hw-new').addEventListener('click', () => {
     const f = $('hw-form');
     f.hidden = !f.hidden;
-    if (!f.hidden) { formPick = picker(f.querySelector('.hw-who')); f.elements.title.focus(); f.scrollIntoView({ block: 'end' }); }
+    if (!f.hidden) { formPick = picker(f.querySelector('.hw-who'), formExam()); f.elements.title.focus(); f.scrollIntoView({ block: 'end' }); }
   });
+  // экзамен подборки для формы «Задать как ДЗ»: метка в форме и предупреждение, если в подборке задачи обоих экзаменов
+  function formExam() {
+    const n = examCounts(pick.get()), ex = n['ОГЭ'] > n['ЕГЭ'] ? 'ОГЭ' : 'ЕГЭ', box = $('hw-form').querySelector('.hw-ex');
+    if (box) box.innerHTML = `<span>Задаётся ДЗ ${examBadge(ex)}</span>` + (n['ОГЭ'] && n['ЕГЭ']
+      ? `<span class="hw-mix">В подборке задачи обоих экзаменов: ЕГЭ ${n['ЕГЭ']}, ОГЭ ${n['ОГЭ']}. Ученикам понятнее ДЗ одного экзамена: уберите лишние задачи или задайте их отдельным ДЗ.</span>` : '');
+    return ex;
+  }
   $('hw-form').addEventListener('submit', e => {
     e.preventDefault();
     const f = e.currentTarget, msg = f.querySelector('.msg'), ids = pick.get();
@@ -149,6 +180,9 @@
       document.dispatchEvent(new CustomEvent('hw-changed'));
     });
   });
+
+  // подборку меняют при открытой форме — метка экзамена и предупреждение пересчитываются
+  document.addEventListener('pick-changed', () => { if (!$('hw-form').hidden) formExam(); });
 
   window.hwShare = share;
   ['tg-hw', 'bank-ready', 'tg-progress', 'tg-attempt', 'lessons-ready'].forEach(ev => document.addEventListener(ev, render));

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=7cbdd175">
+<link rel="stylesheet" href="web/style.css?v=273b72df">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="web/skin.js?v=b47af5ef"></script>
 </head>
@@ -62,6 +62,7 @@
         <button type="button" data-view="reports" aria-pressed="false">Ошибки <span class="badge" hidden></span></button>
       </div>
       <div class="t-filters">
+        <select id="t-exam" aria-label="Экзамен"><option value="">ЕГЭ и ОГЭ</option><option value="ЕГЭ">Только ЕГЭ</option><option value="ОГЭ">Только ОГЭ</option></select>
         <select id="t-who" aria-label="Чьи ученики" hidden></select>
         <select id="t-grade" aria-label="Класс"></select>
         <input id="t-q" type="search" placeholder="Поиск: фамилия или задание" autocomplete="off">
@@ -130,6 +131,7 @@
     <button id="hw-new" type="button" class="btn solid orange" hidden>Задать как ДЗ</button>
   </div>
   <form id="hw-form" class="wrap hw-form" hidden>
+    <p class="hw-ex small"></p>
     <input name="title" maxlength="100" placeholder="Название, например «ДЗ к 22 октября»" autocomplete="off">
     <div class="hw-who"></div>
     <button class="btn solid" type="submit">Задать</button>
@@ -139,14 +141,14 @@
 
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=056d8ea6"></script>
-<script src="web/render.js?v=fd8bdc9e"></script>
+<script src="web/render.js?v=8bb114db"></script>
 <!-- анимации уроков: lesson.js подгружает web/anim.js, только когда они есть в уроке (адрес с хешем ставит build_bank.py) -->
 <template id="anim-src"><script src="web/anim.js?v=e526f823"></script></template>
-<script src="web/lesson.js?v=1c880bfa"></script>
-<script src="web/app.js?v=a919a3ea"></script>
+<script src="web/lesson.js?v=31237da4"></script>
+<script src="web/app.js?v=a6376e5e"></script>
 <script src="web/ach.js?v=6f40f4bf"></script>
-<script src="web/hw.js?v=049ecc19"></script>
-<script src="web/teacher.js?v=d7e80e44"></script>
+<script src="web/hw.js?v=0b8d00fe"></script>
+<script src="web/teacher.js?v=7f98cdc7"></script>
 <script defer src="web/tg.js?v=518ce852"></script>
 <div id="ach-toast" class="ach-toast" role="status" hidden></div>
 </body>
