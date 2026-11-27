@@ -645,3 +645,11 @@ body.sk-lock { overflow: hidden; }
 .hw-form .hw-mix { color: #FFE08A; }
 .wg-far { margin-top: 6px; }
 .wg-far > summary { cursor: pointer; }
+/* свой фон ученика (skin.js): фото под карточками, затемнение ползунком */
+html[data-bg="custom"] { --bg: #10121F; --card: #1B1E36; --line: #33375E; --dark: #0A0B16; --chip: #2C3160; }
+html[data-bg="custom"] body { background: linear-gradient(rgba(0, 0, 0, var(--photo-dim, .45)), rgba(0, 0, 0, var(--photo-dim, .45))), var(--photo, none) center / cover no-repeat fixed, var(--bg); }
+html[data-bg="custom"] .top { background: rgba(5, 6, 14, .55); }
+.sk-photo { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.sk-photo label { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+.sk-photo input[type="range"] { width: 120px; accent-color: var(--blue); }
+.sk-pmsg { color: var(--badc); }
