@@ -27,7 +27,7 @@ source: Открытый банк заданий ФИПИ, ЕГЭ (задани�
 
 ```latex
 \begin{tikzpicture}[x=0.75cm, y=0.6cm, every node/.style={font=\footnotesize}]
-    \draw[gray!30, thin] (-2,0) grid (2,3);
+    \draw[step=0.5, gray!30, thin] (-2,0) grid (2.5,3);
     \draw[-{Stealth[scale=0.8]}, black, thick] (-2.6,0) -- (3,0) node[right] {$t, \text{ с}$};
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (0,3.7) node[above] {$x, \text{ м}$};
     \foreach \t in {-2,-1,1,2} \node[below] at (\t,0) {$\t$};
