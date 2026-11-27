@@ -12,9 +12,10 @@
   // ссылка учителя на урок (t.me/<бот>?startapp=l_3-1-7_<код>, урок ОГЭ — l_oge-1-1-2_<код>) сразу открывает урок
   const lsp = ((tg.initDataUnsafe || {}).start_param || '').match(/^l_((?:oge-)?)(\d+(?:-\d+)*)(?:_[a-f0-9]{12})?$/);
   if (lsp) location.hash = '#lesson=' + lsp[1] + lsp[2].replace(/-/g, '.');
-  // Тёмную тему Телеграма не берём: чертежи нарисованы чёрным по белому.
-  if (tg.setHeaderColor) tg.setHeaderColor('#1B1F3B');
-  if (tg.setBackgroundColor) tg.setBackgroundColor('#F4F5F8');
+  // Тёмную тему Телеграма не берём: чертежи нарисованы чёрным по белому. Цвета шапки — из оформления ученика (skin.js).
+  const cs = getComputedStyle(document.documentElement);
+  if (tg.setHeaderColor) tg.setHeaderColor(cs.getPropertyValue('--dark').trim() || '#1B1F3B');
+  if (tg.setBackgroundColor) tg.setBackgroundColor(cs.getPropertyValue('--bg').trim() || '#F4F5F8');
   // Имя из initDataUnsafe не проверено подписью; годится только для приветствия.
   const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
   const el = document.getElementById('hello');
@@ -129,6 +130,8 @@
     window.tgExams = Array.isArray(res.exams) ? res.exams : null;
     // напоминания бота о серии: true/false, null — сервер их не умеет (миграция 012)
     window.tgRemind = typeof res.remind === 'boolean' ? res.remind : null;
+    // оформление и награды ученика (skin.js): объект, null — ещё ничего нет, undefined — сервер их не хранит (миграция 013)
+    window.tgSkin = 'skin' in res ? res.skin : undefined;
     document.dispatchEvent(new CustomEvent('tg-progress'));
   });
 
@@ -158,12 +161,11 @@
     document.dispatchEvent(new CustomEvent('tg-hw'));
   });
 
-  // Ученик 8–9 класса (класс в анкете меньше 10) готовится к ОГЭ: если он сам ещё не выбирал экзамен
+  // Ученик 9 класса готовится к ОГЭ: если он сам ещё не выбирал экзамен
   // переключателем, сайт открывается в режиме ОГЭ (банк, прогресс по 22 заданиям, пробники ОГЭ).
   // true — страница перезагружается уже в режиме ОГЭ.
   function ogeByGrade(grade) {
-    const m = String(grade || '').match(/\d+/);
-    if (!m || +m[0] >= 10) return false;
+    if (!/^\s*9(?!\d)/.test(grade || '')) return false;   // то же правило, что gradeExam в render.js
     try {
       if (localStorage.getItem('examKind')) return false;
       localStorage.setItem('examKind', 'ОГЭ');

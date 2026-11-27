@@ -17,6 +17,12 @@
   })();
   const OGE = EXAM === 'ОГЭ';
   window.EXAM = EXAM;
+  // открыть приложение заново по другому экзамену (переключатель, ДЗ другого экзамена)
+  window.switchExam = ex => {
+    try { localStorage.setItem('examKind', ex); } catch (e) { /* без хранилища — по адресу */ }
+    history.replaceState(null, '', location.pathname + location.search + (ex === 'ОГЭ' ? '#exam=ОГЭ' : ''));
+    location.reload();
+  };
   const inExam = (t, ex) => t.exam === ex || t.exam === 'оба';
 
   const PAGE = 20;
@@ -227,6 +233,7 @@
       f.elements.a.classList.toggle('ok', ok);
       f.elements.a.classList.toggle('bad', !ok);
       saveAttempt(t, v, ok);
+      if (ok && window.skinFx) window.skinFx(out);   // эффект верного ответа из оформления ученика (skin.js)
       markCard(el, t);
       showGrade(el);
     });
@@ -626,6 +633,9 @@
     ((window.tgHw && window.tgHw.mine) || []).forEach(hw => {
       const since = Date.parse(hw.created_at) / 1000 || 0;
       if (now - since > HW_FRESH_DAYS * 86400) return;
+      // в плане только ДЗ выбранного экзамена
+      const ex = window.taskRender.hwExam(hw.task_ids);
+      if (ex && ex !== EXAM) return;
       const L = window.lessonByHw ? window.lessonByHw(hw.task_ids) : null;
       const ids = L ? hw.task_ids : hw.task_ids.filter(id => byId[id]);
       // ДЗ из урока — общий прогресс с уроком: считаются все верные ответы, и до выдачи
@@ -682,11 +692,15 @@
     const done = plan.ids.filter(id => log.some(e => e[0] === id && e[1] && e[2] >= plan.start)).length, n = plan.ids.length;
     todayView = { title: 'План на сегодня', ids: plan.ids };
     todayHw = freshHws(log).slice(0, HW_LINES);
-    const hwLine = todayHw.map((h, i) => `<p class="tdhw"><span>ДЗ «${esc(h.title)}»: осталось ${h.left.length} из ${h.total}</span>${h.L
+    const hwLine = todayHw.map((h, i) => `<p class="tdhw"><span>${window.taskRender.examBadge(EXAM)} ДЗ «${esc(h.title)}»: осталось ${h.left.length} из ${h.total}</span>${h.L
       ? `<a class="btn" href="#lesson=${esc(h.L.id || h.L.topic)}">Открыть урок</a>` : `<button class="btn" type="button" data-today="hw" data-i="${i}">Открыть ДЗ</button>`}</p>`).join('');
     if (!n && !hwLine) { box.hidden = true; return; }
     box.hidden = false;
     const all = n && done >= n;
+    // для skin.js: крутка «Автомата дня» открывается, когда план выполнен (и остаётся, если потом взяли «Ещё 5 задач»)
+    if (all && !plan.full) { plan.full = true; planStore.set(plan); }
+    window.todayPlan = { done, n, all: !!(all || plan.full) };
+    document.dispatchEvent(new CustomEvent('today-plan'));
     box.innerHTML = `${window.achView ? window.achView.miniStreak() : ''}<h3 class="ph">План на сегодня</h3>${n ? `
       <div class="tdp"><span class="cnt">${all ? '<b class="okc">План на сегодня выполнен ✓</b>' : `Сделано <b>${done}</b> из ${n}`}</span>
         ${all ? '<button class="btn" type="button" data-today="more">Ещё 5 задач</button>' : '<button class="btn solid" type="button" data-today="plan">Решать</button>'}</div>
@@ -851,9 +865,7 @@
       b.setAttribute('aria-pressed', String(b.dataset.exam === EXAM));
       b.addEventListener('click', () => {
         if (b.dataset.exam === EXAM) return;
-        try { localStorage.setItem('examKind', b.dataset.exam); } catch (e) { /* ничего */ }
-        location.hash = b.dataset.exam === 'ОГЭ' ? 'exam=ОГЭ' : '';
-        location.reload();
+        window.switchExam(b.dataset.exam);
       });
     });
     $('exam-title').textContent = EXAM;

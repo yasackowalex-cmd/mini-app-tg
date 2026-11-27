@@ -33,6 +33,8 @@
 //     В progress — ach: [id, ...] (без миграции 011 — null), nick и exams: [[unix, первичный балл, вторая часть оценена, часть 1, часть 2, [task_id…]]] (новые первыми).
 //   action "daily", task_id — задача дня: сколько учеников решали её сегодня (по Москве) и сколько верно с первой попытки;
 //   action "remind_set", on — включить или выключить напоминания бота о серии (миграция 012; в progress — remind, без неё null).
+//   action "skin_set", skin — оформление и награды ученика (считает сайт, web/skin.js; миграция 013). В progress — skin
+//     (без миграции 013 ключа skin в ответе нет), в рейтинге у строки пятым и шестым элементами — значок и рамка ника.
 //   Напоминания: запрос {"cron": "<секрет CRON_SECRET>"} без initData (его шлёт расписание в базе, notes/supabase/remind.sql)
 //     рассылает от бота сообщение тем, у кого идёт серия дней, а сегодня задач ещё не решено.
 //   Своим ученик становится и когда открывает ДЗ учителя. В кабинете (action "teacher") — mine: [tg_id] и invite: код ссылки.
@@ -193,7 +195,11 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     // напоминания бота о серии (миграция 012); без неё — null, и сайт выключатель не показывает
     const { data: rm, error: rm_e } = await db.from('users').select('remind').eq('tg_id', user.id).maybeSingle();
     const remind = rm_e ? null : rm?.remind !== false;
-    return [200, { ok: true, tasks, log, fav, reveals, p2, ach, nick, exams, remind }];
+    // оформление и награды (миграция 013); без неё ключа skin в ответе нет, и сайт хранит их только в браузере
+    const { data: sk, error: sk_e } = await db.from('users').select('skin').eq('tg_id', user.id).maybeSingle();
+    const out: Record<string, unknown> = { ok: true, tasks, log, fav, reveals, p2, ach, nick, exams, remind };
+    if (!sk_e) out.skin = sk?.skin ?? null;
+    return [200, out];
   }
 
   if (action === 'p2_submit') {
@@ -447,6 +453,14 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     return [200, { ok: true, ach }];
   }
 
+  if (action === 'skin_set') {
+    const skin = body.skin;
+    if (!skin || typeof skin !== 'object' || Array.isArray(skin) || JSON.stringify(skin).length > 8000) return [400, { ok: false, error: 'bad request' }];
+    const { error } = await db.from('users').update({ skin }).eq('tg_id', user.id);
+    if (error) return [500, { ok: false, error: 'db' }];
+    return [200, { ok: true }];
+  }
+
   if (action === 'remind_set') {
     if (typeof body.on !== 'boolean') return [400, { ok: false, error: 'bad request' }];
     const { error } = await db.from('users').update({ remind: body.on }).eq('tg_id', user.id);
@@ -485,6 +499,10 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     const week: Record<string, Set<string>> = {};
     for (const r of at ?? []) (week[r.tg_id] ??= new Set()).add(r.task_id);
     const TOP = 30;
+    // значок и рамка ника (миграция 013); без неё строки рейтинга без них
+    const skins: Record<string, any> = {};
+    const sk = await db.from('users').select('tg_id, skin').not('skin', 'is', null).limit(5000);
+    if (!sk.error) for (const u of sk.data ?? []) skins[u.tg_id] = (u.skin as any)?.e ?? {};
     const table = async (val: (u: any) => number) => {
       const rows = people.map((u: any) => ({ u, v: val(u) })).filter(x => x.v > 0)
         .sort((a, b) => b.v - a.v || Number(a.u.tg_id) - Number(b.u.tg_id));
@@ -494,7 +512,11 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
       const meI = rows.findIndex(x => Number(x.u.tg_id) === user.id);
       const shown = rows.slice(0, TOP).concat(meI >= TOP ? [rows[meI]] : []);
       for (const x of shown) if (!x.u.nick) x.u.nick = await newNick(db, Number(x.u.tg_id));
-      return shown.map((x: any) => [x.place, x.u.nick || 'Ученик', x.v, Number(x.u.tg_id) === user.id ? 1 : 0]);
+      return shown.map((x: any) => {
+        const e = skins[x.u.tg_id] || {};
+        return [x.place, x.u.nick || 'Ученик', x.v, Number(x.u.tg_id) === user.id ? 1 : 0,
+          typeof e.badge === 'string' ? e.badge.slice(0, 40) : null, typeof e.frame === 'string' ? e.frame.slice(0, 40) : null];
+      });
     };
     const weekT = await table(u => (week[u.tg_id] ?? new Set()).size);
     const allT = await table(u => (u.ach ?? []).length);

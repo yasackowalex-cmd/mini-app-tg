@@ -8,8 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap">
 <link rel="stylesheet" href="web/katex/katex.min.css?v=260143a6">
-<link rel="stylesheet" href="web/style.css?v=77a1c189">
+<link rel="stylesheet" href="web/style.css?v=c8a793a9">
 <script defer src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="web/skin.js?v=2b13dc07"></script>
 </head>
 <body>
 <header class="top">
@@ -20,6 +21,7 @@
       <h1>Банк задач <span id="exam-title">ЕГЭ</span> по физике</h1>
       <p id="hello" class="hello" hidden></p>
     </div>
+    <button id="skin-open" class="skin-open" type="button" aria-label="Оформление" title="Оформление">🎨</button>
     <div id="exam-switch" class="exam-switch" role="group" aria-label="Экзамен">
       <button type="button" data-exam="ЕГЭ" aria-pressed="true">ЕГЭ</button>
       <button type="button" data-exam="ОГЭ" aria-pressed="false">ОГЭ</button>
@@ -60,6 +62,7 @@
         <button type="button" data-view="reports" aria-pressed="false">Ошибки <span class="badge" hidden></span></button>
       </div>
       <div class="t-filters">
+        <select id="t-exam" aria-label="Экзамен"><option value="">ЕГЭ и ОГЭ</option><option value="ЕГЭ">Только ЕГЭ</option><option value="ОГЭ">Только ОГЭ</option></select>
         <select id="t-who" aria-label="Чьи ученики" hidden></select>
         <select id="t-grade" aria-label="Класс"></select>
         <input id="t-q" type="search" placeholder="Поиск: фамилия или задание" autocomplete="off">
@@ -73,6 +76,7 @@
   <div id="progress-area" hidden>
   <section id="streak" class="streak" hidden aria-label="Серия дней"></section>
   <section id="quests" class="today quests" hidden aria-label="Задания недели"></section>
+  <section id="rewards" class="today rewards" hidden aria-label="Награды"></section>
   <details id="progress" class="progress" open hidden>
     <summary>Мой прогресс</summary>
     <div id="progress-body"></div>
@@ -127,6 +131,7 @@
     <button id="hw-new" type="button" class="btn solid orange" hidden>Задать как ДЗ</button>
   </div>
   <form id="hw-form" class="wrap hw-form" hidden>
+    <p class="hw-ex small"></p>
     <input name="title" maxlength="100" placeholder="Название, например «ДЗ к 22 октября»" autocomplete="off">
     <div class="hw-who"></div>
     <button class="btn solid" type="submit">Задать</button>
@@ -136,15 +141,15 @@
 
 <script src="web/katex/katex.min.js?v=a43bf9e2"></script>
 <script src="web/tex.js?v=056d8ea6"></script>
-<script src="web/render.js?v=9f16314d"></script>
+<script src="web/render.js?v=b3c59483"></script>
 <!-- анимации уроков: lesson.js подгружает web/anim.js, только когда они есть в уроке (адрес с хешем ставит build_bank.py) -->
 <template id="anim-src"><script src="web/anim.js?v=e526f823"></script></template>
-<script src="web/lesson.js?v=1c880bfa"></script>
-<script src="web/app.js?v=719874d1"></script>
-<script src="web/ach.js?v=3a75f14c"></script>
-<script src="web/hw.js?v=049ecc19"></script>
-<script src="web/teacher.js?v=5e6913c3"></script>
-<script defer src="web/tg.js?v=4a7c20c6"></script>
+<script src="web/lesson.js?v=31237da4"></script>
+<script src="web/app.js?v=23838882"></script>
+<script src="web/ach.js?v=6f40f4bf"></script>
+<script src="web/hw.js?v=0b8d00fe"></script>
+<script src="web/teacher.js?v=5be05185"></script>
+<script defer src="web/tg.js?v=e50430ce"></script>
 <div id="ach-toast" class="ach-toast" role="status" hidden></div>
 </body>
 </html>

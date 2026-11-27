@@ -149,7 +149,7 @@
     const as = box.querySelector('.lassign');
     if (b.dataset.ls === 'assign') {
       as.hidden = !as.hidden;
-      if (!as.hidden && window.hwPicker) lessonPick = window.hwPicker(as.querySelector('.hw-who'));
+      if (!as.hidden && window.hwPicker) lessonPick = window.hwPicker(as.querySelector('.hw-who'), L.exam || 'ЕГЭ');
       return;
     }
     if (b.dataset.ls === 'go') {
