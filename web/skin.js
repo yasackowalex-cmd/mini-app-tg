@@ -287,8 +287,7 @@
     for (let i = 0; i < WIN + 5; i++) { const pool = PAID.filter(x => x.r === pickRar(Math.random())); strip.push(i === WIN ? it : pool[Math.floor(Math.random() * pool.length)]); }
     const m = modal(`<div class="sk-top"><b>Кейс за достижения</b><button type="button" class="sk-x" data-sk="close" aria-label="Закрыть">✕</button></div>
       <div class="cs-strip"><div class="cs-ln">${strip.map(x => `<div class="sk-it r${x.r}">${icon(x)}<span class="sk-n">${esc(x.name)}</span></div>`).join('')}</div></div>
-      <div class="cs-res"></div>
-      <p class="muted small cs-odds">Шансы: обычное ${ODDS[0]}%, редкое ${ODDS[1]}%, эпическое ${ODDS[2]}%, легендарное ${ODDS[3]}%. Повтор — осколки ✦.</p>`);
+      <div class="cs-res"></div>`);
     const ln = m.querySelector('.cs-ln'), box = m.querySelector('.cs-strip');
     const shift = WIN * W + W / 2 - box.clientWidth / 2 + (Math.random() - 0.5) * (W - 24);
     requestAnimationFrame(() => requestAnimationFrame(() => {
