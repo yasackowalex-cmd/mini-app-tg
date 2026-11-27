@@ -96,6 +96,7 @@
     window.tgApi = api;
     window.tgTeacher = !!res.teacher;
     if (res.profile && !res.profile.last_name) askProfile();
+    if (res.profile && ogeByGrade(res.profile.grade)) return null;
     loadHomework();
     return api('progress');
   }).then(res => {
@@ -160,6 +161,20 @@
     document.dispatchEvent(new CustomEvent('tg-hw'));
   });
 
+  // Ученик 9 класса готовится к ОГЭ: если он сам ещё не выбирал экзамен
+  // переключателем, сайт открывается в режиме ОГЭ (банк, прогресс по 22 заданиям, пробники ОГЭ).
+  // true — страница перезагружается уже в режиме ОГЭ.
+  function ogeByGrade(grade) {
+    if (!/^\s*9(?!\d)/.test(grade || '')) return false;   // то же правило, что gradeExam в render.js
+    try {
+      if (localStorage.getItem('examKind')) return false;
+      localStorage.setItem('examKind', 'ОГЭ');
+    } catch (e) { return false; }
+    if (window.EXAM === 'ОГЭ') return false;
+    location.reload();
+    return true;
+  }
+
   // Анкета при первом входе: фамилия и класс, чтобы учитель видел, кто решает ДЗ.
   function askProfile() {
     const f = document.getElementById('profile');
@@ -175,6 +190,7 @@
         f.elements.save.disabled = false;
         if (!res) { msg.textContent = 'Не получилось сохранить, попробуйте ещё раз.'; return; }
         f.hidden = true;
+        ogeByGrade(grade);
       });
     });
   }

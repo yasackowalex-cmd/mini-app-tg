@@ -32,7 +32,7 @@
 //   action "ach_sync", ids — достижения ученика (считает сайт по журналу), сервер добавляет новые к сохранённым (миграция 011);
 //   action "nick_new" — другой псевдоним для рейтинга; action "rating" — общий рейтинг без ФИО, по псевдонимам:
 //     week — разные задачи, решённые верно за 7 дней, all — число достижений; учителя в рейтинг не входят.
-//     В progress — ach: [id, ...] (без миграции 011 — null), nick и exams: [[unix, первичный балл, вторая часть оценена]].
+//     В progress — ach: [id, ...] (без миграции 011 — null), nick и exams: [[unix, первичный балл, вторая часть оценена, часть 1, часть 2, [task_id…]]] (новые первыми).
 //   action "daily", task_id — задача дня: сколько учеников решали её сегодня (по Москве) и сколько верно с первой попытки;
 //   action "remind_set", on — включить или выключить напоминания бота о серии (миграция 012; в progress — remind, без неё null).
 //   action "skin_set", skin — оформление и награды ученика (считает сайт, web/skin.js; миграция 013). В progress — skin
@@ -191,8 +191,11 @@ export async function route(body: any, user: TgUser, db: any, teachers: number[]
     // достижения и псевдоним (миграция 011; без неё — null) и итоги пробников (для достижений за пробники)
     const { data: me, error: me_e } = await db.from('users').select('ach, nick').eq('tg_id', user.id).maybeSingle();
     const ach = me_e ? null : (me?.ach ?? []), nick = me_e ? null : (me?.nick ?? null);
-    const { data: exr, error: ex_e } = await db.from('exams').select('finished_at, score, graded').eq('tg_id', user.id).limit(1000);
-    const exams = ex_e ? null : (exr ?? []).map((r: any) => [Math.floor(Date.parse(r.finished_at) / 1000) || 0, r.score, r.graded]);
+    const { data: exr, error: ex_e } = await db.from('exams').select('finished_at, score, graded, p1, p2, task_ids').eq('tg_id', user.id)
+      .order('finished_at', { ascending: false }).limit(1000);
+    // состав задач нужен сайту, чтобы отличить пробник ОГЭ (22 задания) от ЕГЭ и узнать номер варианта
+    const exams = ex_e ? null : (exr ?? []).map((r: any) => [Math.floor(Date.parse(r.finished_at) / 1000) || 0, r.score, r.graded,
+      r.p1, r.p2, r.task_ids ?? []]);
     // напоминания бота о серии (миграция 012); без неё — null, и сайт выключатель не показывает
     const { data: rm, error: rm_e } = await db.from('users').select('remind').eq('tg_id', user.id).maybeSingle();
     const remind = rm_e ? null : rm?.remind !== false;

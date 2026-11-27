@@ -20,7 +20,7 @@
   const pctOf = (a, b) => b ? Math.round(100 * a / b) : 0;
   const name = s => [s.last_name, s.first_name].filter(Boolean).join(' ') || 'Без имени';
   const tg = () => window.Telegram && window.Telegram.WebApp;
-  const { testScore, ogeMark, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved, hwExam, examBadge, gradeExam } = window.taskRender;
+  const { testScore, ogeMark, KIM_POINTS, hwStars, starsText, lessonHwResult, cleanSolved, hwExam, examBadge, gradeExam, OGE_POINTS, examTrend } = window.taskRender;
   // фильтр «ЕГЭ и ОГЭ / Только ЕГЭ / Только ОГЭ» (запоминается): ученики по классу (9 — ОГЭ), ДЗ по задачам или уроку
   const exSel = () => $('t-exam').value;
   const lessonExam = L => L.exam || 'ЕГЭ';
@@ -29,7 +29,19 @@
   const exCls = ex => ex === 'ОГЭ' ? 'ex-o' : 'ex-e';
   // звёзды ученика за ДЗ (help есть у результатов, только когда функция уже обновлена)
   const starsOf = (r, n) => hwStars(n, r.ok.length, (r.help || []).length);
-  const KIMS = Object.keys(KIM_POINTS);
+  // номера КИМ и максимум первичного балла по экзамену ученика: ЕГЭ — 26 заданий (45 б.), ОГЭ — 22 (39 б.)
+  const KP = ex => ex === 'ОГЭ' ? OGE_POINTS : KIM_POINTS;
+  const KIMS_OF = ex => Object.keys(KP(ex));
+  const MAX_OF = ex => ex === 'ОГЭ' ? 39 : 45;
+  const forecast = (ex, p) => ex === 'ОГЭ' ? `«${ogeMark(p)}»` : `${testScore(p)} тб`;
+  // экзамен ученика: по классу из анкеты (9 — ОГЭ, как gradeExam), без класса — по тому, каких задач больше в его журнале
+  function examOf(s, log) {
+    if (/\d/.test(s.grade || '')) return gradeExam(s.grade);
+    const B = window.bankStats;
+    let oge = 0;
+    (log || []).forEach(([t]) => { const x = B && B.byId[t]; if (x && x.exam === 'ОГЭ') oge++; });
+    return oge * 2 > (log || []).length && oge ? 'ОГЭ' : 'ЕГЭ';
+  }
 
   // постоянные пробные варианты: номер варианта узнаём по составу задач
   let variantOf = {};
@@ -379,20 +391,27 @@
       <button class="btn" type="button" data-act="share">Отправить ссылку</button>${del}</div>`;
   }
 
-  // пробники ученика, новые сверху
-  function studentExams(s) {
+  // пробники ученика, новые сверху; isOgeExam — по числу заданий
+  const exVal = (e, ex) => ex === 'ОГЭ' ? e.score : testScore(e.score);
+  const examsOf = (s, ex) => data.exams.filter(e => String(e.tg_id) === String(s.tg_id) && isOgeExam(e) === (ex === 'ОГЭ'));
+  const asTrend = e => ({ ts: Math.floor(Date.parse(e.finished_at) / 1000), score: e.score, graded: e.graded, p1: e.p1, p2: e.p2 });
+  // динамика по экзамену ученика (линия баллов) и список всех его пробников (и ЕГЭ, и ОГЭ)
+  function studentExams(s, kind) {
     const es = data.exams.filter(e => String(e.tg_id) === String(s.tg_id));
     if (!es.length) return '';
     const vn = e => variantOf[(e.task_ids || []).join()];
-    return `<h4 class="t-h">Пробники</h4><ul class="t-sub">${es.map(e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
+    const mine = examsOf(s, kind), other = kind === 'ОГЭ' ? 'ЕГЭ' : 'ОГЭ', theirs = examsOf(s, other);
+    const trend = (mine.length ? examTrend(mine.map(asTrend), kind === 'ОГЭ') : '') +
+      (theirs.length ? `${mine.length ? `<p class="small">${other}:</p>` : ''}${examTrend(theirs.map(asTrend), other === 'ОГЭ')}` : '');
+    return `<h4 class="t-h">Пробники</h4>${trend}<ul class="t-sub">${es.map(e => `<li><span>${day(e.finished_at)}${vn(e) ? `, вариант ${vn(e)}` : ', случайный'}${e.graded ? '' : ' <span class="cnt">вторая часть не оценена</span>'}</span>
       <span class="cnt">${isOgeExam(e) ? `ОГЭ, отметка <b>${ogeMark(e.score)}</b> · ${e.score} из 39` : `<b>${testScore(e.score)}</b> тб · ${e.score} перв.`} (${e.p1} + ${e.p2})</span>${bar(isOgeExam(e) ? Math.round(e.score / 39 * 100) : testScore(e.score))}</li>`).join('')}</ul>
       <p class="muted small">тб — тестовые баллы, перв. — первичные (часть 1 + часть 2). Вторую часть ученик оценивает сам по решению из банка.</p>`;
   }
 
   // ---- прогресс: те же правила освоения номера, что у ученика в «Моём прогрессе» (app.js) ----
   // по журналу ответов ученика: готовность по номерам, прогноз балла и темы, где много ошибок
-  function studentStats(id) {
-    const B = window.bankStats, log = data.logs[id] || [];
+  function studentStats(s) {
+    const B = window.bankStats, log = data.logs[s.tg_id] || [], ex = examOf(s, log);
     const p = {}, tp = {};
     log.forEach(([t, ok]) => {
       const r = p[t] || (p[t] = { n: 0, ok: 0 });
@@ -402,12 +421,12 @@
       const x = tp[task.topic] || (tp[task.topic] = { n: 0, ok: 0 });
       x.n++; if (ok) x.ok++;
     });
-    const ks = B.kimStats(p, log);
-    const done = KIMS.filter(k => ks[k].state === 'done');
-    const primary = done.reduce((a, k) => a + KIM_POINTS[k], 0);
+    const ks = B.kimStats(p, log, ex);
+    const done = KIMS_OF(ex).filter(k => ks[k].state === 'done');
+    const primary = done.reduce((a, k) => a + KP(ex)[k], 0);
     const weak = Object.entries(tp).filter(([, x]) => x.n >= WEAK_MIN && x.ok / x.n < WEAK_ACC)
       .sort((a, b) => a[1].ok / a[1].n - b[1].ok / b[1].n).slice(0, 5);
-    return { log, ks, done: done.length, primary, weak, tp, solved: Object.values(p).filter(r => r.ok).length, last: log.length ? log[0][2] : 0 };
+    return { ex, log, ks, done: done.length, primary, weak, tp, solved: Object.values(p).filter(r => r.ok).length, last: log.length ? log[0][2] : 0 };
   }
   // тема «проблемная», если по ней не меньше WEAK_MIN ответов и верных меньше WEAK_ACC
   const WEAK_MIN = 3, WEAK_ACC = 0.6;
@@ -418,10 +437,10 @@
     return d <= 0 ? 'сегодня' : d === 1 ? 'вчера' : `${d} дн. назад`;
   };
 
-  function kimGrid(ks) {
+  function kimGrid(ks, ex) {
     const B = window.bankStats;
-    return `<div class="kgrid">${KIMS.map(k => {
-      const s = ks[k], need = B.KIM_NEED(k);
+    return `<div class="kgrid">${KIMS_OF(ex).map(k => {
+      const s = ks[k], need = B.KIM_NEED(k, ex);
       const hint = !s.n ? 'не начат' : `решено ${s.solved} разных задач (нужно ${need}), верных ${pc(s.acc)}%` +
         (s.state === 'stale' ? ', пора повторить' : s.state === 'done' ? ', освоен' : '');
       return `<span class="kc ${s.state}" title="№ ${k}: ${hint}"><b>${k}</b><small>${s.n ? pc(s.acc) + '%' : '—'}</small></span>`;
@@ -445,26 +464,36 @@
     if (!window.bankStats) return '<p class="status">Загружаю банк задач…</p>';
     if (!data.students.length) return '<p class="status">Учеников пока нет: они появятся, когда войдут в приложение через Телеграм.</p>';
     const g = $('t-grade').value;
-    const all = studentsShown().map(s => ({ s, st: studentStats(s.tg_id) }));
+    const all = studentsShown().map(s => ({ s, st: studentStats(s) }));
     const list = all.filter(x => !q || norm(name(x.s)).includes(q));
     if (!all.length) return emptyWho();
     const active = all.filter(x => x.st.log.length);
 
     // сводка по выбранным ученикам: по каждому номеру — сколько освоили и средняя доля верных
     // среди тех, кто его решал; номера, где верных меньше 60%, — красные
-    const cls = KIMS.map(k => {
-      const tried = active.filter(x => x.st.ks[k].n);
-      const acc = tried.length ? tried.reduce((a, x) => a + x.st.ks[k].acc, 0) / tried.length : 0;
-      return { k, tried: tried.length, done: tried.filter(x => x.st.ks[k].state === 'done').length, acc };
-    });
-    const grid = `<div class="kgrid">${cls.map(c => `<span class="kc ${!c.tried ? 'none' : c.acc < WEAK_ACC ? 'bad' : c.acc < 0.8 ? 'mid' : 'good'}"
-      title="№ ${c.k}: решали ${c.tried}, освоили ${c.done}, верных в среднем ${pc(c.acc)}%"><b>${c.k}</b><small>${c.tried ? pc(c.acc) + '%' : '—'}</small></span>`).join('')}</div>`;
-    const hard = cls.filter(c => c.tried).sort((a, b) => a.acc - b.acc).slice(0, 5).filter(c => c.acc < 0.8);
+    // у ЕГЭ и ОГЭ разные номера: сетка по каждому экзамену, который есть среди выбранных учеников
+    const kinds = ['ЕГЭ', 'ОГЭ'].filter(ex => active.some(x => x.st.ex === ex));
+    let hard = [];
+    const grid = kinds.map(ex => {
+      const act = active.filter(x => x.st.ex === ex);
+      const cls = KIMS_OF(ex).map(k => {
+        const tried = act.filter(x => x.st.ks[k].n);
+        const acc = tried.length ? tried.reduce((a, x) => a + x.st.ks[k].acc, 0) / tried.length : 0;
+        return { k, tried: tried.length, done: tried.filter(x => x.st.ks[k].state === 'done').length, acc };
+      });
+      hard = hard.concat(cls.filter(c => c.tried && c.acc < 0.8).sort((a, b) => a.acc - b.acc).slice(0, 3).map(c => (kinds.length > 1 ? ex + ' ' : '') + c.k));
+      // пробники: сколько учеников писали и средний результат последнего пробника
+      const last = all.filter(x => x.st.ex === ex).map(x => examsOf(x.s, ex)[0]).filter(Boolean);
+      const avg = last.length ? Math.round(last.reduce((a, e) => a + e.score, 0) / last.length) : 0;
+      return `${kinds.length > 1 ? `<h4 class="t-h">${ex}</h4>` : ''}<div class="kgrid">${cls.map(c => `<span class="kc ${!c.tried ? 'none' : c.acc < WEAK_ACC ? 'bad' : c.acc < 0.8 ? 'mid' : 'good'}"
+      title="№ ${c.k}: решали ${c.tried}, освоили ${c.done}, верных в среднем ${pc(c.acc)}%"><b>${c.k}</b><small>${c.tried ? pc(c.acc) + '%' : '—'}</small></span>`).join('')}</div>${last.length
+        ? `<p class="small">Пробники: писали <b>${last.length}</b>, последний в среднем <b>${ex === 'ОГЭ' ? `«${ogeMark(avg)}» · ${avg} из 39` : `${testScore(avg)} из 100`}</b></p>` : ''}`;
+    }).join('');
     const waitAll = all.reduce((a, x) => a + p2List(x.s.tg_id).filter(e => !has(e[3])).length, 0);
     const whom = g ? `Класс ${esc(g)}` : who === 'mine' && data.mine ? 'Мои ученики' : who === 'other' && data.mine ? 'Остальные' : 'Все ученики';
     const whomEx = exSel() ? `${g ? whom : whom === 'Все ученики' ? 'Ученики' : whom} ${exSel()}` : whom;
     const summary = `<details class="t-sum" id="t-sum"${sumOpen ? ' open' : ''}>
-      <summary><b>Сводка: ${whomEx}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.slice(0, 3).map(c => c.k).join(', ')}` : ''}</span></summary>
+      <summary><b>Сводка: ${whomEx}</b> <span class="cnt">решают ${active.length} из ${all.length}${waitAll ? ` · 2 часть на проверку ${waitAll}` : ''}${hard.length ? ` · хуже всего № ${hard.join(', ')}` : ''}</span></summary>
       ${active.length ? `${grid}
       <p class="legend"><span class="kc good"></span> верных 80% и больше <span class="kc mid"></span> 60–80% <span class="kc bad"></span> меньше 60% <span class="kc none"></span> не решали</p>
 `
@@ -472,17 +501,18 @@
 
     const rows = list.map(({ s, st }) => {
       const open = openId === 's' + s.tg_id;
-      const ex = data.exams.find(e => String(e.tg_id) === String(s.tg_id));
+      const es = examsOf(s, st.ex), ex = es[0];
+      const dEx = es[1] ? exVal(ex, st.ex) - exVal(es[1], st.ex) : 0;
       const wait = p2List(s.tg_id).filter(e => !has(e[3])).length;
       return `<li class="t-item${open ? ' open' : ''}" data-id="s${esc(s.tg_id)}">
         <button class="t-head" type="button" data-act="toggle" aria-expanded="${open}">
           <span class="t-title"><b>${esc(name(s))}</b> <span class="cnt">${esc(s.grade || 'класс не указан')}</span></span>
-          <span class="cnt">${st.log.length ? `освоено ${st.done} из ${KIMS.length} · прогноз ${testScore(st.primary)} тб · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${examRes(ex)}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS.length))}
-        </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks)}
+          <span class="cnt">${st.log.length ? `${st.ex === 'ОГЭ' ? 'ОГЭ · ' : ''}освоено ${st.done} из ${KIMS_OF(st.ex).length} · прогноз ${forecast(st.ex, st.primary)} · ${ago(st.last)}` : 'ещё не решал'}${ex ? ` · пробник ${examRes(ex)}${es[1] && dEx ? ` (${dEx > 0 ? '+' : '−'}${Math.abs(dEx)})` : ''}` : ''}${wait ? ` · <b class="waitc">на проверку ${wait}</b>` : ''}</span>${bar(pctOf(st.done, KIMS_OF(st.ex).length))}
+        </button>${open ? `<div class="t-detail">${st.log.length ? `${kimGrid(st.ks, st.ex)}
           <p class="legend"><span class="kc done"></span> освоен <span class="kc stale"></span> пора повторить <span class="kc work"></span> в работе <span class="kc none"></span> не начат</p>
-          <p class="small">Прогноз: <b>${st.primary} из 45 / ${testScore(st.primary)} из 100</b></p>`
+          <p class="small">Прогноз: <b>${st.primary} из ${MAX_OF(st.ex)} / ${st.ex === 'ОГЭ' ? `«${ogeMark(st.primary)}»` : `${testScore(st.primary)} из 100`}</b></p>`
           : '<p class="muted small">Задач в Телеграме ещё не решал.</p>'}
-          ${achNote(s)}${p2Note(s)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${studentExams(s)}${myBtn(s)}</div>` : ''}</li>`;
+          ${achNote(s)}${p2Note(s)}${studentExams(s, st.ex)}<h4 class="t-h">Домашние задания</h4>${studentWork(s)}${myBtn(s)}</div>` : ''}</li>`;
     }).join('');
     return summary + (list.length ? `<ul class="t-list">${rows}</ul>` : '<p class="status">Ничего не нашлось.</p>');
   }

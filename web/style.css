@@ -653,3 +653,17 @@ html[data-bg="custom"] .top { background: rgba(5, 6, 14, .55); }
 .sk-photo label { display: flex; align-items: center; gap: 6px; color: var(--muted); }
 .sk-photo input[type="range"] { width: 120px; accent-color: var(--blue); }
 .sk-pmsg { color: var(--badc); }
+
+/* пробники: сводка, линия баллов и история (прогресс ученика и кабинет учителя) */
+.ex-sum { margin: 8px 0 4px; font-size: 15px; }
+.ex-sum .okc { color: #1E8E3E; font-weight: 700; }
+.ex-sum .badc { color: #B3261E; font-weight: 700; }
+.ex-chart { display: block; width: 100%; max-width: 480px; height: auto; margin: 6px 0; }
+.ex-chart path { fill: none; stroke: var(--blue); stroke-width: 2; }
+.ex-chart circle { fill: var(--blue); }
+.ex-chart .g { stroke: var(--line); stroke-dasharray: 3 3; }
+.ex-chart text { font: 10px "PT Sans", sans-serif; fill: var(--muted); }
+.ex-chart text.v { font-weight: 700; fill: var(--text); font-size: 11px; }
+.ex-hist { list-style: none; margin: 4px 0 0; padding: 0; font-size: 14px; }
+.ex-hist li { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 5px 0; border-top: 1px solid var(--line); }
+.ex-more summary { font: inherit; font-size: 14px; color: var(--blue); margin-top: 4px; }
