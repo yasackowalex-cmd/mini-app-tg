@@ -40,9 +40,9 @@ source: Открытый банк заданий ФИПИ, ЕГЭ (задани�
   \foreach \j in {-2,-1,1,2} \node[left] at (0,\j) {$\j$};
   \node[below left] at (0,0) {$0$};
   \draw[very thick, brandPrimary, domain=0:6, samples=120] plot (\x, {2*sin(90*\x)});
-  \draw[very thick, black, dashed, domain=0:6, samples=120] plot (\x, {cos(90*(\x-0.2))});
+  \draw[very thick, black, dashed, domain=0:6, samples=120] plot (\x, {cos(90*\x)});
   \node[right] at (5.2,2) {$1$};
-  \node[above] at (4.2,1) {$2$};
+  \node[above right] at (4.4,0.9) {$2$};
 \end{tikzpicture}
 ```
 

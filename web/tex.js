@@ -121,7 +121,9 @@
         const num = /^[-−\d\s,.]{1,12}$/.test(txt) ? ' class="num"' : '';
         return `<td${span}${num}>${inline(txt).replace(/[\n\u0003]+/g, '<br>')}</td>`;
       }).join('') + '</tr>').join('');
-      s = s.slice(0, m.index) + put(`<div class="tblwrap"><table>${html}</table></div>`, true) + s.slice(m.index + m[0].length);
+      // длинная строка чисел (12+ столбцов) — мелкий шрифт, чтобы таблица уместилась в одну строку
+      const wide = Math.max(...cells.map(r => r.length)) >= 12 ? ' class="wide"' : '';
+      s = s.slice(0, m.index) + put(`<div class="tblwrap"><table${wide}>${html}</table></div>`, true) + s.slice(m.index + m[0].length);
     }
 
     // 4. списки

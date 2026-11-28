@@ -37,8 +37,8 @@ source: Открытый банк заданий ФИПИ, ЕГЭ (задани�
     \draw[-{Stealth[scale=0.8]}, black, thick] (0,0) -- (4,0) node[right] {$t$};
     \draw[ultra thick, brandPrimary, domain=0.1:3.5, samples=100] plot (\x, {1.2 + sin(120*(\x-1.5))});
     \fill[black] (0.3, 0.61) circle (1.2pt) node[left] {$A$};
-    \fill[black] (0.75, 0.2) circle (1.2pt) node[below] {$B$};
-    \fill[black] (2.25, 2.2) circle (1.2pt) node[left] {$C$};
+    \fill[black] (0.75, 0.2) circle (1.2pt) node[above=2pt] {$B$};
+    \fill[black] (2.25, 2.2) circle (1.2pt) node[above=2pt] {$C$};
     \fill[black] (2.5, 2.07) circle (1.2pt) node[right] {$D$};
     \node[below left] at (0,0) {0};
 \end{tikzpicture}
